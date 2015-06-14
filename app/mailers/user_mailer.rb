@@ -22,4 +22,18 @@ class UserMailer < ActionMailer::Base
     mail(to: ad_info[:email], reply_to: sender[:email], subject: t('mailer.reply_ad_object', ad_title: ad_info[:title], site_name: site_name))
   end
 
+  # Sends a message to an user, when they've been made admin by a super-admin
+  def notify_user_is_admin(recipient)
+    new_role = ''
+    if recipient[:role] == 'admin'
+      new_role = t('admin.profile.admin_user').downcase
+    elsif recipient[:role] == 'super_admin'
+      new_role = t('admin.profile.super_admin_user').downcase
+    end
+    @new_role = new_role
+    @site_name = site_name
+    @user = recipient
+    mail(to: recipient[:email], subject: t('mailer.you_are_admin_html', site_name: site_name, new_role: new_role))
+  end
+
 end

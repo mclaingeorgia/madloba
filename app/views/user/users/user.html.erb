@@ -97,28 +97,22 @@
                 <!--'Make admin' checkbox -->
                 <% if current_user.super_admin? && current_user != @user%>
                     <div class="form-group">
-                      <div class="checkbox">
-                        <label>
-                          <%= f.check_box :role, {}, 'admin', 'user' %>
-                          <%= t('admin.profile.make_user_admin') %>
-                        </label>
-                      </div>
                       <%= f.label :is_username_used, t('admin.profile.user_role'), class: 'control-label' %>
                       <div class="radio">
                         <label>
-                          <%= f.radio_button :role, 1, {checked: true} %>
+                          <%= f.radio_button :role, 'user', {checked: true} %>
                           <%= t('admin.profile.regular_user') %>
                         </label>
                       </div>
                       <div class="radio">
                         <label>
-                          <%= f.radio_button :role, 2 %>
+                          <%= f.radio_button :role, 'admin' %>
                           <%= t('admin.profile.admin_user') %>
                         </label>
                       </div>
                       <div class="radio">
                         <label>
-                          <%= f.radio_button :role, 3 %>
+                          <%= f.radio_button :role, 'super_admin' %>
                           <%= t('admin.profile.super_admin_user') %>
                         </label>
                       </div>
@@ -150,7 +144,7 @@
                 </div>
 
                 <!-- Current password -->
-                <% if !@is_adding && !current_user.admin? %>
+                <% if !@is_adding && !current_user.super_admin? %>
                     <div class="form-group">
                       <%= f.label :current_password, t('admin.profile.current_password')+':', class:'control-label' %>
                       <i><%= t('registration.need_current') %></i><br />

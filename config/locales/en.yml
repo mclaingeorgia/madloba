@@ -233,6 +233,7 @@ en:
     signature: The %{name} team.
     dear: "Dear %{name}"
     ad_created: You have successfully created the following ad, on %{site_name}
+    user_is_admin_html: "This message is to let you know that you are now %{new_role} of the %{site_name} website."
     ad_title: Ad title
     item: Items
     description: Description
@@ -244,6 +245,7 @@ en:
     received_message: You received a reply for your '%{ad_title}' ad on %{site_name}.
     new_ad_object: Your new ad on %{site_name} - '%{ad_title}'
     reply_ad_object: Reply to your '%{ad_title}' ad on %{site_name}
+    you_are_admin_html: "You are now %{new_role} of %{site_name}."
     account_locked: Your account has been locked due to an excessive number of unsuccessful sign in attempts.
     link_unlock: Click the link below to unlock your account
     unlock_account: Unlock my account
@@ -520,8 +522,8 @@ en:
       make_user_admin: Make this user an admin.
       user_role: User role
       regular_user: Regular user
-      admin_user: Admin user
-      super_admin_user: Super-admin user
+      admin_user: Administrator
+      super_admin_user: Super-administrator
       email: E-mail
       first_name: First name
       last_name: Last name

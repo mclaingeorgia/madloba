@@ -10,7 +10,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    @current_user == @user || (@current_user && @current_user.admin?)
+    @current_user == @user || (@current_user && @current_user.super_admin?)
   end
 
   def create?
@@ -18,7 +18,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def new?
-    @current_user && @current_user.admin?
+    @current_user && @current_user.super_admin?
   end
 
   def update?
@@ -26,12 +26,12 @@ class UserPolicy < ApplicationPolicy
   end
 
   def edit?
-    @current_user == @user || (@current_user && @current_user.admin?)
+    @current_user == @user || (@current_user && @current_user.super_admin?)
   end
 
   def destroy?
     return false if @current_user == @user
-    (@current_user && @current_user.admin?)
+    (@current_user && @current_user.super_admin?)
   end
 
 end

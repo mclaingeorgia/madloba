@@ -21,4 +21,8 @@ class User < ActiveRecord::Base
   def owns_ad (ad)
     self.ads.include?(ad)
   end
+
+  def is_admin_or_super_admin
+    self.admin? || self.super_admin?
+  end
 end
