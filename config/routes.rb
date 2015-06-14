@@ -1,5 +1,7 @@
 Madloba::Application.routes.draw do
 
+  resources :faqs
+
   devise_for :user, path: 'user', path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'new' },
              controllers: { registrations: 'user/registrations'}
 
