@@ -15,7 +15,7 @@ class User::AdminPanelController < ApplicationController
 
   def index
     @messages = []
-    if (current_user.admin?)
+    if (current_user.admin? || current_user.super_admin?)
       # To-do list creation
       empty_social = 0
 

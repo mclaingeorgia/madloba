@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-  enum role: [:user, :admin]
+  enum role: [:user, :admin, :super_admin]
   after_initialize :set_default_role, :if => :new_record?
 
   def set_default_role

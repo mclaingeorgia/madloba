@@ -6,7 +6,7 @@
 
       </div>
       <ul class="nav nav-pills nav-stacked main-menu">
-        <% if current_user.admin? %>
+        <% if current_user.admin? || current_user.super_admin? %>
             <li class="nav-header"><%= t('admin.left_menu.admin_task') %></li>
             <li><a class="ajax-link" href="/user/index"><i class="glyphicon glyphicon-home"></i><span> <%= t('admin.dashboard') %></span></a></li>
             <li><a class="ajax-link" href="/user/managerecords"><i class="glyphicon glyphicon-align-justify"></i><span> <%= t('admin.manage_records') %></span></a></li>

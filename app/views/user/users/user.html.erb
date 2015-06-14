@@ -95,12 +95,31 @@
                 </div>
 
                 <!--'Make admin' checkbox -->
-                <% if current_user.admin? && current_user != @user%>
+                <% if current_user.super_admin? && current_user != @user%>
                     <div class="form-group">
                       <div class="checkbox">
                         <label>
                           <%= f.check_box :role, {}, 'admin', 'user' %>
                           <%= t('admin.profile.make_user_admin') %>
+                        </label>
+                      </div>
+                      <%= f.label :is_username_used, t('admin.profile.user_role'), class: 'control-label' %>
+                      <div class="radio">
+                        <label>
+                          <%= f.radio_button :role, 1, {checked: true} %>
+                          <%= t('admin.profile.regular_user') %>
+                        </label>
+                      </div>
+                      <div class="radio">
+                        <label>
+                          <%= f.radio_button :role, 2 %>
+                          <%= t('admin.profile.admin_user') %>
+                        </label>
+                      </div>
+                      <div class="radio">
+                        <label>
+                          <%= f.radio_button :role, 3 %>
+                          <%= t('admin.profile.super_admin_user') %>
                         </label>
                       </div>
                     </div>

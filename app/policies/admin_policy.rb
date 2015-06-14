@@ -7,23 +7,23 @@ class AdminPolicy < ApplicationPolicy
   end
 
   def managerecords?
-    user.admin?
+    user.admin? || user.super_admin?
   end
 
   def manageusers?
-    user.admin?
+    user.admin? || user.super_admin?
   end
 
   def generalsettings?
-    user.admin?
+    user.admin? || user.super_admin?
   end
 
   def mapsettings?
-    user.admin?
+    user.admin? || user.super_admin?
   end
 
   def areasettings?
-    user.admin?
+    user.admin? || user.super_admin?
   end
 
   class Scope < Scope

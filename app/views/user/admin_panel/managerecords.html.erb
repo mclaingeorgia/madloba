@@ -67,7 +67,9 @@
                 <th><%= t('admin.ad.giving_accepting_title') %></th>
                 <th><%= t('admin.items') %></th>
                 <th><%= t('admin.created_by_user') %></th>
-                <th><%= t('admin.actions') %></th>
+                <% if current_user.super_admin? %>
+                    <th><%= t('admin.actions') %></th>
+                <% end %>
               </tr>
               </thead>
               <tbody>
@@ -78,7 +80,9 @@
                     <td class="vert-align"><%= ad.is_giving ? t('admin.ad.giving_away') : t('admin.ad.accepting') %></td>
                     <td class="vert-align"><%= ad.item_list %></td>
                     <td class="vert-align"><%= ad.email_to_display %></td>
-                    <td class="center"><a class="btn btn-info" href="/user/ads/<%= ad.id %>/edit"> <i class="glyphicon glyphicon-pencil"></i> <%= t('admin.edit_delete') %> </a>
+                    <% if current_user.super_admin? %>
+                        <td class="center"><a class="btn btn-info" href="/user/ads/<%= ad.id %>/edit"> <i class="glyphicon glyphicon-pencil"></i> <%= t('admin.edit_delete') %> </a>
+                    <% end %>
                     </td>
                   </tr>
               <% end %>

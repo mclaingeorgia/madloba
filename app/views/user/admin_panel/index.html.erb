@@ -23,9 +23,9 @@
       </ul>
     </div>
 
-    <% if current_user.admin? %>
+    <% if current_user.admin? || current_user.super_admin? %>
 
-        <!-- Admin dashboard -->
+        <!-- Admin/Super-admin dashboard -->
 
         <div class="row">
           <!-- Ad count -->
@@ -76,18 +76,31 @@
               </div>
               <div class="box-content row">
                 <div class="col-xs-12">
-                  <h3><%= t('session.hello') %> <%= current_user.first_name %>!</h3>
-                  <p><%= t('admin.you_admin') %></p>
-                  <p><%= t('admin.use_left_hand') %>:
-                  <ul>
-                    <li><%= t('admin.admin_descr1') %></li>
-                    <li><%= t('admin.admin_descr2') %></li>
-                    <li><%= t('admin.admin_descr3') %></li>
-                    <li><%= t('admin.admin_descr4') %></li>
-                    <li><%= t('admin.admin_descr5') %></li>
-                  </ul>
-                  </p>
-                  <p><%= t('admin.regular_actions') %></p>
+                  <% if current_user.super_admin? %>
+                      <h3><%= t('session.hello') %> <%= current_user.first_name %>!</h3>
+                      <p><%= t('admin.you_super_admin') %></p>
+                      <p><%= t('admin.use_left_hand') %>:
+                      <ul>
+                        <li><%= t('admin.admin_descr1') %></li>
+                        <li><%= t('admin.admin_descr2') %></li>
+                        <li><%= t('admin.admin_descr3') %></li>
+                        <li><%= t('admin.admin_descr4') %></li>
+                        <li><%= t('admin.admin_descr5') %></li>
+                      </ul>
+                      </p>
+                      <p><%= t('admin.regular_actions') %></p>
+                  <% elsif current_user.admin? %>
+                      <h3><%= t('session.hello') %> <%= current_user.first_name %>!</h3>
+                      <p><%= t('admin.you_admin') %></p>
+                      <p><%= t('admin.use_left_hand') %>:
+                      <ul>
+                        <li><%= t('admin.admin_descr3') %></li>
+                        <li><%= t('admin.admin_descr4') %></li>
+                        <li><%= t('admin.admin_descr5') %></li>
+                      </ul>
+                      </p>
+                      <p><%= t('admin.regular_actions') %></p>
+                  <% end %>
                 </div>
               </div>
             </div>
