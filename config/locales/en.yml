@@ -233,6 +233,7 @@ en:
     signature: The %{name} team.
     dear: "Dear %{name}"
     ad_created: You have successfully created the following ad, on %{site_name}
+    user_is_admin_html: "This message is to let you know that you are now %{new_role} of the %{site_name} website."
     ad_title: Ad title
     item: Items
     description: Description
@@ -244,6 +245,7 @@ en:
     received_message: You received a reply for your '%{ad_title}' ad on %{site_name}.
     new_ad_object: Your new ad on %{site_name} - '%{ad_title}'
     reply_ad_object: Reply to your '%{ad_title}' ad on %{site_name}
+    you_are_admin_html: "You are now %{new_role} of %{site_name}."
     account_locked: Your account has been locked due to an excessive number of unsuccessful sign in attempts.
     link_unlock: Click the link below to unlock your account
     unlock_account: Unlock my account
@@ -336,12 +338,14 @@ en:
     no_website_description: No website description has been written yet, in "General settings". Give the users a chance to see what your website is about, by writting one. Your description will appear the front page footer, and in the "About" page.
     no_area_type_html: <strong>No area type has been specified</strong>. Without the ability to select an area when creating an ad, the user will have to enter an exact address (which might not be wanted). In "Area settings", please indicate how an area is defined (by postal code or by district), to give the user more flexibility, when it comes to choose a location.
     you_admin: You're an administrator of this website.
+    you_super_admin: You're an super-administrator of this website.
     use_left_hand: Use the left-hand side menu to manage
     admin_descr1: the different components of this website (ads, locations, items, categories)
     admin_descr2: the registered users (admins and regulars users)
     admin_descr3: the website main settings
     admin_descr4: the settings for the map on the front page
     admin_descr5: the settings that define an area in your town (eg postal codes and/or districts)
+    admin_descr6: the statistics of this website.
     regular_actions: You can also perform regular users' actions.
     todo_list: To-do list
     welcome_user: Welcome to your %{site_name} dashboard. Use the left-hand side menu to manage
@@ -517,6 +521,10 @@ en:
       update_profile: Update profile
       new_user: New user
       make_user_admin: Make this user an admin.
+      user_role: User role
+      regular_user: Regular user
+      admin_user: Administrator
+      super_admin_user: Super-administrator
       email: E-mail
       first_name: First name
       last_name: Last name

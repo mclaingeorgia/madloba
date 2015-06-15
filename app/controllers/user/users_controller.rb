@@ -46,7 +46,7 @@ class User::UsersController < ApplicationController
   end
 
   def edit
-    if (current_user.admin? && params[:id])
+    if (current_user.is_admin_or_super_admin && params[:id])
       @user = User.find(params[:id])
       @is_managing_user = true
     else
@@ -59,20 +59,30 @@ class User::UsersController < ApplicationController
   end
 
   def update
-    if (current_user.admin?)
+    if (current_user.is_admin_or_super_admin)
       @user = User.find(params[:id])
     else
       @user = current_user
     end
     authorize @user
+
+    old_role = @user.role
+
     if params[:user][:password].blank?
       params[:user].delete(:password)
       params[:user].delete(:password_confirmation)
     end
 
-    if (current_user.admin?)
+    if (current_user.is_admin_or_super_admin)
       if @user.update(user_params)
         flash[:user] = @user.email
+
+        # if the user was promoted
+        if (old_role == 'user' && @user.role != 'user') || (old_role == 'admin' && @user.role == 'super_admin')
+          recipient_info = {email: @user.email, name: @user.first_name, role: @user.role}
+          UserMailer.delay.notify_user_is_admin(recipient_info)
+        end
+
         redirect_to edit_user_user_path
       else
         render 'user'

@@ -23,9 +23,9 @@
       </ul>
     </div>
 
-    <% if current_user.admin? %>
+    <% if current_user.super_admin? %>
 
-        <!-- Admin dashboard -->
+        <!-- Admin/Super-admin dashboard -->
 
         <div class="row">
           <!-- Ad count -->
@@ -77,7 +77,7 @@
               <div class="box-content row">
                 <div class="col-xs-12">
                   <h3><%= t('session.hello') %> <%= current_user.first_name %>!</h3>
-                  <p><%= t('admin.you_admin') %></p>
+                  <p><%= t('admin.you_super_admin') %></p>
                   <p><%= t('admin.use_left_hand') %>:
                   <ul>
                     <li><%= t('admin.admin_descr1') %></li>
@@ -122,7 +122,7 @@
 
     <% else %>
 
-        <!-- Regular user dashboard -->
+        <!-- Regular user or admin dashboard -->
 
         <!-- Main section - start -->
         <div class="row">
@@ -133,13 +133,24 @@
               </div>
               <div class="box-content row">
                 <div class="col-lg-7 col-md-12">
-                  <h3><%= t('session.hello') %> <%= current_user.first_name %>!</h3>
-                  <p><%= t('admin.welcome_user', site_name: site_name) %>:
-                  <ul>
-                    <li><%= t('admin.user_descr1') %></li>
-                    <li><%= t('admin.user_descr2') %></li>
-                  </ul>
-                  </p>
+                  <% if current_user.admin? %>
+                      <h3><%= t('session.hello') %> <%= current_user.first_name %>!</h3>
+                      <p><%= t('admin.you_admin') %></p>
+                      <p><%= t('admin.use_left_hand') %>:
+                      <ul>
+                        <li><%= t('admin.admin_descr6') %></li>
+                      </ul>
+                      </p>
+                      <p><%= t('admin.regular_actions') %></p>
+                  <% else %>
+                      <h3><%= t('session.hello') %> <%= current_user.first_name %>!</h3>
+                      <p><%= t('admin.welcome_user', site_name: site_name) %>:
+                      <ul>
+                        <li><%= t('admin.user_descr1') %></li>
+                        <li><%= t('admin.user_descr2') %></li>
+                      </ul>
+                      </p>
+                  <% end %>
                 </div>
               </div>
             </div>
