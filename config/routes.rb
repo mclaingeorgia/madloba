@@ -1,7 +1,5 @@
 Madloba::Application.routes.draw do
 
-  resources :faqs
-
   devise_for :user, path: 'user', path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'new' },
              controllers: { registrations: 'user/registrations'}
 
@@ -31,7 +29,7 @@ Madloba::Application.routes.draw do
   namespace :user do
     get '/', to: 'admin_panel#index'
 
-    resources :locations, :categories, :items, :users
+    resources :locations, :categories, :items, :users, :faqs
     resources :ads, :only => [:edit, :update, :destroy]
 
     get 'index', 'home', to: 'admin_panel#index'
