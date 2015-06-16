@@ -1,0 +1,63 @@
+<%= form_for([:user, @faq]) do |f| %>
+
+    <% if @faq && @faq.errors.any? %>
+        <div class="alert alert-danger">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <strong><%= t('admin.item.error_occurred', errors: pluralize(@faq.errors.count, 'error')) %>:</strong>
+          <ul>
+            <% @faq.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <% if action_name == 'edit' %>
+        <div class="form-group">
+          <a href="#" class="btn btn-danger btn-delete-right btn-setting"><%= t('admin.item.delete_faq') %></a>
+        </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :question, t('admin.question')+'*:', class:'control-label' %>
+      <div class="form-inline">
+        <%= f.text_field :question, class: 'form-control', maxlength:'90' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :answer, t('admin.answer')+'*:', class: 'control-label' %>
+      <div class="form-inline">
+        <%= f.text_area :answer, class: 'form-control help-message', rows: 8, cols: 50 %>
+      </div>
+    </div>
+
+    <!-- Submit button -->
+    <div class="form-actions">
+      <%= submit_tag(t('admin.save'), class: 'btn btn-success') %>
+      <a href="/user/faqs" class="btn"><%= t('admin.cancel') %></a>
+    </div>
+
+
+    <% if action_name == 'edit' %>
+        <!-- "Delete faq" modal window -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h3><%= t('admin.item.delete_faq') %>?</h3>
+              </div>
+              <div class="modal-body">
+                <p><%= t('admin.delete_sure', entity: t('admin.question').downcase) %></p>
+              </div>
+              <div class="modal-footer">
+                <a href="#" class="btn" data-dismiss="modal">Cancel</a>
+                <%= link_to t('admin.delete_confirm', entity: t('admin.question').downcase), user_faq_path(@faq), method: :delete, class: 'btn btn-danger' %>
+              </div>
+            </div>
+          </div>
+        </div>
+    <% end %>
+
+<% end %>

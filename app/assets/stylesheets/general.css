@@ -168,6 +168,9 @@ span.disabled { color:gray; }
     font-weight: bold;
 }
 
+.faq_section{
+    margin-bottom: 40px;
+}
 
 /*
  * Top navigation bar

@@ -10,6 +10,9 @@ Madloba::Application.routes.draw do
   # About page
   get 'about', to: 'home#about'
 
+  # FAQ page
+  get 'faq', to: 'home#faq'
+
   # Setup pages
   get 'setup', to: 'setup#show_welcome'
   get 'setup/general', to: 'setup#show_general'
@@ -29,7 +32,7 @@ Madloba::Application.routes.draw do
   namespace :user do
     get '/', to: 'admin_panel#index'
 
-    resources :locations, :categories, :items, :users
+    resources :locations, :categories, :items, :users, :faqs
     resources :ads, :only => [:edit, :update, :destroy]
 
     get 'index', 'home', to: 'admin_panel#index'

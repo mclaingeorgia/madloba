@@ -81,6 +81,7 @@ en:
     create_an_ad_now_html: "%{createad} to tell your community what you have to give, or what you're looking for!"
     signin_now_html: "%{signin} and create an ad to tell your community what you have to give, or what you're looking for!"
     about_page: About %{appname}
+    faq_page: FAQ
     about_description_1_html: "%{appname} is a website powered by %{madloba_link}."
     about_description_2_html: "%{madloba_link} is an open-source platform that allows you to let your community know about what you want to give away."
     about_description_3: So many (still useful!) objects go to waste all the time! Luckily, as we increasingly live in an open-data and location driven world, we now have the technological means to solve this problem. Madloba will give your community a new way to recycle, give or dispose all "this stuff" :)
@@ -299,6 +300,10 @@ en:
     item_name: item
     categories: Categories
     add_location: Add location
+    add_faq: Add question/answer
+    check_faq: See published FAQ
+    no_question: "No question/answer has been written yet."
+    edit_faq: Edit question/answer
     edit_location: Edit location
     new_location: New location
     add_item: Add item
@@ -308,6 +313,8 @@ en:
     edit_category: Edit category
     new_category: New category
     title: Title
+    question: Question
+    answer: Answer
     actions: Actions
     description: Description
     item_under_cat: Item(s) under this category
@@ -321,6 +328,7 @@ en:
     manage_your_ads: Manage your ads
     manage_records: Manage records
     records_message: From here, you can manage the ads posted on the website, as well as their locations, items, and categories.
+    faq_message: Manage the RehabLink FAQ from here.
     back_to_records: Back to the 'Manage records' page
     back_to_ads: Back to 'Manage your ads' page
     back_to_users: Back to 'Manage users' page
@@ -365,6 +373,7 @@ en:
       area_settings: Area settings
       manage_users: Manage users
       manage_profile: Manage your profile
+      manage_faq: Manage the FAQ
     ad:
       manage_ads: Manage ads
       update_ad: Update ad
@@ -431,6 +440,7 @@ en:
       update_success: The item '%{name}' has been updated.
       created_success: The item '%{name}' has been created.
       delete_item: Delete this item
+      delete_faq: Delete this question
       name: Item name
       category: Category
       ads_promoting: Ads promoting this item

@@ -115,6 +115,15 @@ class HomeController < ApplicationController
     render 'home/about'
   end
 
+
+  # -------------------------
+  # Method for the FAQ page
+  # -------------------------
+  def faq
+    render 'home/faq'
+  end
+
+
   # Ajax call to show the ads related to 1 type of item and to 1 district/area.
   # Call made when click on link, in area marker popup.
   def showSpecificAds
