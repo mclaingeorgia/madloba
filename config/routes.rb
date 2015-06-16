@@ -10,6 +10,9 @@ Madloba::Application.routes.draw do
   # About page
   get 'about', to: 'home#about'
 
+  # FAQ page
+  get 'faq', to: 'home#faq'
+
   # Setup pages
   get 'setup', to: 'setup#show_welcome'
   get 'setup/general', to: 'setup#show_general'

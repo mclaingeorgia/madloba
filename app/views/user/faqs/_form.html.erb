@@ -28,12 +28,16 @@
     <div class="form-group">
       <%= f.label :answer, t('admin.answer')+'*:', class: 'control-label' %>
       <div class="form-inline">
-        <%= f.text_area :answer, class: 'form-control help-message', rows: 6, cols: 40 %>
+        <%= f.text_area :answer, class: 'form-control help-message', rows: 8, cols: 50 %>
       </div>
     </div>
 
-    <!-- Submit button and cancel link -->
-    <%= render 'shared/submit_section' %>
+    <!-- Submit button -->
+    <div class="form-actions">
+      <%= submit_tag(t('admin.save'), class: 'btn btn-success') %>
+      <a href="/user/faqs" class="btn"><%= t('admin.cancel') %></a>
+    </div>
+
 
     <% if action_name == 'edit' %>
         <!-- "Delete faq" modal window -->

@@ -81,6 +81,7 @@ en:
     create_an_ad_now_html: "%{createad} to tell your community what you have to give, or what you're looking for!"
     signin_now_html: "%{signin} and create an ad to tell your community what you have to give, or what you're looking for!"
     about_page: About %{appname}
+    faq_page: FAQ
     about_description_1_html: "%{appname} is a website powered by %{madloba_link}."
     about_description_2_html: "%{madloba_link} is an open-source platform that allows you to let your community know about what you want to give away."
     about_description_3: So many (still useful!) objects go to waste all the time! Luckily, as we increasingly live in an open-data and location driven world, we now have the technological means to solve this problem. Madloba will give your community a new way to recycle, give or dispose all "this stuff" :)
@@ -300,6 +301,8 @@ en:
     categories: Categories
     add_location: Add location
     add_faq: Add question/answer
+    check_faq: See published FAQ
+    no_question: "No question/answer has been written yet."
     edit_faq: Edit question/answer
     edit_location: Edit location
     new_location: New location
