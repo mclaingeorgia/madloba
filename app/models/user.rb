@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-  enum role: [:user, :admin]
+  enum role: [:user, :admin, :super_admin]
   after_initialize :set_default_role, :if => :new_record?
 
   def set_default_role
@@ -20,5 +20,9 @@ class User < ActiveRecord::Base
 
   def owns_ad (ad)
     self.ads.include?(ad)
+  end
+
+  def is_admin_or_super_admin
+    self.admin? || self.super_admin?
   end
 end

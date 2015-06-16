@@ -14,12 +14,29 @@ $(document).ready(function() {
     // Initially created in 'application.html.erb' layout, this test div is now removed.
     $("#ad-block").remove();
 
+    // Setup pages - event for modal window on Map page.
+    $('#gmail_modal_link').click(function(){
+        $('#gmail_modal').modal('show');
+    });
+
     // Navigation bar: press Enter to valid form.
     $("#searchFormId input").keypress(function(event) {
         if (event.which == 13) {
             event.preventDefault();
             getLocationsPropositions();
         }
+    });
+
+    // Navigation bar: event tied to "up" arrow, to go back to the top of the page.
+    $('#navbar-up-link').click(function(){
+        $('html, body').animate({ scrollTop: 0 }, 1000);
+    });
+
+    //Checks if we need to show the arrow up, in the navigation bar, on mobile devices.
+    show_hide_up_arrow();
+    
+    $(window).on("scroll", function() {
+        show_hide_up_arrow();
     });
 
     // Navigation - Search form: Ajax call to get locations proposition, based on user input in this form.
@@ -343,7 +360,6 @@ function find_geocodes(){
             success: function(data) {
                 if (data != null){
                     // Geocodes were found: the location is shown on the map.
-
                     var myNewLat = Math.round(data.lat*100000)/100000
                     var myNewLng = Math.round(data.lon*100000)/100000
 
@@ -475,5 +491,17 @@ function getLocationsPropositions(){
     }else if (($('#item').val() != '') || ($('#user_action').val() != '')){
         // no location is being searched, but an item is. We need to submit the form with this information.
         $("#searchFormId").submit();
+    }
+}
+
+/**
+ * Checks if we need to show the arrow up, in the navigation bar, on mobile devices.
+ */
+function show_hide_up_arrow (){
+    var scrollPos = $(window).scrollTop();
+    if (scrollPos <= 0) {
+        $("#navbar-up-link").hide();
+    } else {
+        $("#navbar-up-link").show();
     }
 }

@@ -65,6 +65,7 @@ en:
     e-mail: E-mail
     password: Password
     record_not_exist: Sorry, this page does not exist!
+    got_it: Got it!
     giving: "I'm giving away:"
     giving_away: "Giving away:"
     searching: "I'm searching for:"
@@ -76,7 +77,7 @@ en:
     about_website: About %{website}
     links: Links
     your_searched_location: Your searched location
-    no_ad: There's no ad at the moment :(
+    no_ad: There's no ad at the moment.
     create_an_ad_now_html: "%{createad} to tell your community what you have to give, or what you're looking for!"
     signin_now_html: "%{signin} and create an ad to tell your community what you have to give, or what you're looking for!"
     about_page: About %{appname}
@@ -99,6 +100,7 @@ en:
     admin_panel: admin panel
     same_area: Ads related to a same area
     update: Update
+    demo_instructions_html: "(Demo) Instructions to login %{link}."
   errors:
     oops: "Oops!"
     not_found: 404 Page Not Found
@@ -231,6 +233,7 @@ en:
     signature: The %{name} team.
     dear: "Dear %{name}"
     ad_created: You have successfully created the following ad, on %{site_name}
+    user_is_admin_html: "This message is to let you know that you are now %{new_role} of the %{site_name} website."
     ad_title: Ad title
     item: Items
     description: Description
@@ -242,6 +245,7 @@ en:
     received_message: You received a reply for your '%{ad_title}' ad on %{site_name}.
     new_ad_object: Your new ad on %{site_name} - '%{ad_title}'
     reply_ad_object: Reply to your '%{ad_title}' ad on %{site_name}
+    you_are_admin_html: "You are now %{new_role} of %{site_name}."
     account_locked: Your account has been locked due to an excessive number of unsuccessful sign in attempts.
     link_unlock: Click the link below to unlock your account
     unlock_account: Unlock my account
@@ -330,16 +334,18 @@ en:
     no_mapbox_account_html: You don't have entered a Mapbox key yet, in "Map settings". You can get one by opening an account on <strong>%{href}</strong>, to get a new map style for your website.
     no_mapquest_account_html: You don't have entered a MapQuest key yet, in "Map settings". You can get one by opening an account on <strong>%{href}</strong>, to get a new map style for your website.
     no_social: You didn't enter any social network addresses (Facebook, Twitter, Pinterest), in "General settings". Specify some of them to increase your visibility.
-    no_categories_html: <strong>No category has been created yet</strong>. Please create a few categories to allow the user to refine their search by specific item categories.
+    one_category_html: <strong>Only one category is available</strong>. Please create a few categories to allow the user to refine their search by specific item categories.
     no_website_description: No website description has been written yet, in "General settings". Give the users a chance to see what your website is about, by writting one. Your description will appear the front page footer, and in the "About" page.
-    no_area_type_html: <strong>No area type has been specified</strong>. Without the ability to select an area when creating an ad, the user will have to enter an exact address (which might not be wanted). In "Area settings", please indicate how an area is defined (eg by postal code, by district), to give the user more flexibility, when it comes to choose a location.
+    no_area_type_html: <strong>No area type has been specified</strong>. Without the ability to select an area when creating an ad, the user will have to enter an exact address (which might not be wanted). In "Area settings", please indicate how an area is defined (by postal code or by district), to give the user more flexibility, when it comes to choose a location.
     you_admin: You're an administrator of this website.
+    you_super_admin: You're an super-administrator of this website.
     use_left_hand: Use the left-hand side menu to manage
     admin_descr1: the different components of this website (ads, locations, items, categories)
     admin_descr2: the registered users (admins and regulars users)
     admin_descr3: the website main settings
     admin_descr4: the settings for the map on the front page
     admin_descr5: the settings that define an area in your town (eg postal codes and/or districts)
+    admin_descr6: the statistics of this website.
     regular_actions: You can also perform regular users' actions.
     todo_list: To-do list
     welcome_user: Welcome to your %{site_name} dashboard. Use the left-hand side menu to manage
@@ -515,6 +521,10 @@ en:
       update_profile: Update profile
       new_user: New user
       make_user_admin: Make this user an admin.
+      user_role: User role
+      regular_user: Regular user
+      admin_user: Administrator
+      super_admin_user: Super-administrator
       email: E-mail
       first_name: First name
       last_name: Last name
@@ -529,6 +539,7 @@ en:
     click_next: Click on "Next" to continue.
     back: Back
     next: Next
+    step_html: "(step %{current_step}/6)"
     general_info: General information
     image_storage: Image storage
     name_description: The name of your website
@@ -557,6 +568,7 @@ en:
     gmail_note4: Once you're done, you can continue with the submission of this form.
     confirm_email: If the information entered above in this form is correct, and after you click "Next", a confirmation e-mail will be sent to you.
     check_email: Please check your inbox to confirm your account.
+    note_for_gmail: Important note on using GMail for SMTP settings
     city_country_mandatory: "'City' and 'Country' fields are mandatory."
     option_no_storage: Users won't be allowed to upload any pictures at all.
     option_s3: Images will directly uploaded to Amazon S3.

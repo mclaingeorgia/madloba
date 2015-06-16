@@ -27,7 +27,7 @@ class AdPolicy < ApplicationPolicy
   end
 
   def update?
-    owned or (user && user.admin?)
+    owned or (user && user.super_admin?)
   end
 
   def edit?
@@ -35,12 +35,12 @@ class AdPolicy < ApplicationPolicy
   end
 
   def destroy?
-    owned or (user && user.admin?)
+    owned or (user && user.super_admin?)
   end
 
   class Scope < Scope
     def resolve
-      if user && user.admin?
+      if user && user.super_admin?
         scope.all
       else
         scope.where(user_id: user.id)
