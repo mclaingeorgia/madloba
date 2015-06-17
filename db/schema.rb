@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150617133314) do
+ActiveRecord::Schema.define(version: 20150617190735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20150617133314) do
     t.string   "funding_source"
     t.string   "benef_age_group"
     t.boolean  "is_parental_support"
+    t.boolean  "is_published"
   end
 
   add_index "ads", ["location_id"], name: "index_ads_on_location_id", using: :btree

@@ -122,6 +122,7 @@ en:
     name_to_use: "Which name would you like to use?*"
     anon_publisher_name_note: "This is an ad posted by an anonymous user:"
     ad_action: "Action:*"
+    publish_service: "Publish this service?"
     ad_action_giving: I'm giving away items.
     ad_action_accepting: I'm searching for items.
     name_username: the username
@@ -236,6 +237,9 @@ en:
     funding_municipality: Municipality
     funding_government: Governmental
     funding_other: Other
+    ad_not_published_html: "This service is not published yet. Go to the %{editpage} to switch the publication on."
+    edit_page: edit page of this service
+    under_review: Your service is not published yet, as it is under review.
   mailer:
     welcome: "Welcome to %{name}!"
     confirmation_descr1: You received this message because an account, based on your e-mail address, was created on this website.

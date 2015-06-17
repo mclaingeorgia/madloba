@@ -87,6 +87,32 @@
                   <%= link_to t('ad.see_published'), ad_path(@ad.id), {target: '_blank', class: 'btn btn-info'} %>
                 </div>
 
+
+                <% if current_user.super_admin? %>
+                <!-- Have this ad published? Yes/No -->
+                <hr />
+
+                <div class="form-group">
+                  <%= f.label :is_published, t('location.publish_service'), class: 'control-label' %>
+                  <div class="radio">
+                    <label>
+                      <%= f.radio_button :is_published, true, checked: true %><%= t('home.yes') %>
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <%= f.radio_button :is_published, false %><%= t('home.no') %>
+                    </label>
+                  </div>
+                </div>
+
+                <% elsif current_user.user? && !@ad.is_published %>
+                    <hr />
+
+                    <div class="form-group">
+                      <span id="ad_not_published"><%= t('ad.under_review') %></span>
+                    </div>
+                <% end %>
                 <hr />
 
                 <!-- "Mandatory fields" note -->

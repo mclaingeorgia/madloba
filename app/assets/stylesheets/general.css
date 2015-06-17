@@ -178,6 +178,11 @@ span.disabled { color:gray; }
     margin-bottom: 10px;
 }
 
+#ad_not_published{
+    font-weight: bold;
+    color: red;
+}
+
 /*
  * Top navigation bar
  * ------------------
