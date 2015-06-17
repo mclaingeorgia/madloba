@@ -7,11 +7,11 @@ class CategoryPolicy < ApplicationPolicy
   end
 
   def index?
-    user && user.admin?
+    user && user.super_admin?
   end
 
   def show?
-    user && user.admin?
+    user && user.super_admin?
   end
 
   def create?
@@ -19,11 +19,11 @@ class CategoryPolicy < ApplicationPolicy
   end
 
   def new?
-    user && user.admin?
+    user && user.super_admin?
   end
 
   def update?
-    user && user.admin?
+    user && user.super_admin?
   end
 
   def edit?
@@ -31,7 +31,7 @@ class CategoryPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user && user.admin?
+    user && user.super_admin?
   end
 
   class Scope < Scope
