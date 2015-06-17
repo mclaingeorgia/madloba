@@ -158,7 +158,7 @@ en:
     published: "Published by:"
     expiration_date: This ad will expire on %{expire_date}.
     expires_today: This ad expires today!
-    no_favorite_yet: "You don't have any favorite services... yet"
+    no_favorite_yet: "You don't have any favorite service... yet"
     has_expired: This ad has expired on %{expire_date}, and is not visible on the website any longer.
     title: "Ad title*:"
     title_help: e.g. 'Gives away 5 shirts' or 'I want to get rid of my old laptop'...

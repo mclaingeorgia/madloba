@@ -216,14 +216,25 @@ class User::AdminPanelController < ApplicationController
 
   def add_favorite
     ad = Ad.find(params['ad_id'])
-    current_user.favorite_ads << ad
-    render json: {'status' => 'ok'}
+    message = 'ok'
+    if ad
+      current_user.favorite_ads << ad
+    else
+      message= 'error'
+    end
+
+    render json: {'status' => message}
   end
 
   def remove_favorite
     ad_user = AdUser.where(ad_id: params['ad_id'], user_id: current_user.id).first
-    ad_user.delete
-    render json: {'status' => 'ok'}
+    message = 'ok'
+    if ad_user
+      ad_user.delete
+    else
+      message= 'error'
+    end
+    render json: {'status' => message}
   end
 
   # -----------------------------------

@@ -234,6 +234,10 @@ $(document).ready(function() {
         remove_favorite($(this));
     });
 
+    // Admin favorite page: event triggered when clicking on "Remove" link
+    $('.remove_favorite').click(function(){
+        remove_favorite($(this));
+    });
 
 
 });
@@ -255,7 +259,7 @@ function add_favorite(obj){
             btn.on('click', function() {remove_favorite(obj)});
         }else{
             // Something bad happened. We're not submitting the page.
-            alert('Server error. Try again later.')
+            $('#error_remove').html('Sorry, server error occured. Try again later.');
         }
     });
 }
@@ -266,18 +270,24 @@ function add_favorite(obj){
  */
 function remove_favorite(obj){
     var btn = obj;
+    var is_in_admin = (obj.attr('class') == 'remove_favorite');
     var posting = $.post("/user/favorite/remove", { ad_id: btn.attr('id') }, function(data) {status = data.status})
     posting.done(function() {
         if (status == 'ok'){
-            // Districts were updated via
-            btn.addClass('add_to_favorite_button btn-warning').removeClass('btn-danger remove_favorite_button');
-            btn.html("<i class='glyphicon glyphicon-star'></i>&nbsp;"+gon.vars['add_to_favorites']);
-            btn.unbind();
-            $('#ad_star').hide();
-            btn.on('click', function() {add_favorite(obj)});
+            if (is_in_admin){
+                // admin favorite page : remove the whole line
+                btn.parent().remove();
+            }else{
+                // ads show page: change the button
+                btn.addClass('add_to_favorite_button btn-warning').removeClass('btn-danger remove_favorite_button');
+                btn.html("<i class='glyphicon glyphicon-star'></i>&nbsp;"+gon.vars['add_to_favorites']);
+                btn.unbind();
+                $('#ad_star').hide();
+                btn.on('click', function() {add_favorite(obj)});
+            }
         }else{
-            // Something bad happened. We're not submitting the page.
-            alert('Did not manage to save. Try again later.')
+            // Something bad happened. We're showing an error message.
+            $('#error_remove').html('Sorry, server error occured. Try again later.');
         }
     });
 }
