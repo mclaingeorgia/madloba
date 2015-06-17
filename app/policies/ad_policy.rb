@@ -23,7 +23,7 @@ class AdPolicy < ApplicationPolicy
   end
 
   def new?
-    true
+    user
   end
 
   def update?
