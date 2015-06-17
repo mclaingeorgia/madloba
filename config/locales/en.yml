@@ -49,7 +49,7 @@ en:
     home: Home
     page: Home page
     user_panel: User panel
-    create_new_ad: Create a new ad
+    create_new_ad: Register services
     reply_ad_please_html: To reply to an ad, please %{signin} or %{createaccount}.
     sign_in: sign in
     sign_up: Sign up here
@@ -72,8 +72,9 @@ en:
     giving_away: "Giving away:"
     searching: "I'm searching for:"
     searching_for: "Searching for:"
-    search_items: Type an item
-    location_example: Street name, postal code...
+    search_items: "Service name or description you're searching for"
+    search_or_signup_html: "Are you a service provider? Search to find and validate your service or %{signup} to register and better inform the community about your services"
+    location_example: Region or City
     search: Search
     about: About
     about_website: About %{website}
