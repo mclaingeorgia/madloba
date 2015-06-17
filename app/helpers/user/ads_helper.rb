@@ -54,4 +54,18 @@ module User::AdsHelper
     current_user != nil && current_user.locations.length > 0
   end
 
+  def funding_source
+    [[t('ad.funding_private'), 'private'],[t('ad.funding_municipality'),'municipality'],[t('ad.funding_government'),'governmental'],[t('ad.funding_other'),'other']]
+  end
+
+  def beneficiaries_age_group
+    [['0-6','0-6'],
+     ['0-18','0-18'],
+     ['0-29','0-29'],
+     ['12-21', '12-21'],
+     ['14-29', '14-29'],
+     ['18-29', '18-29'],
+     ['29+', '29+']]
+  end
+
 end

@@ -131,6 +131,40 @@
               </div>
             </div>
 
+            <!-- Funding source -->
+            <div class="form-group">
+              <%= f.label :funding_source, t('ad.funding_source')+'*:', class: 'col-lg-2 control-label' %>
+              <div class="col-lg-2 col-sm-6">
+                <%= f.select :funding_source, options_for_select(funding_source, f.object.funding_source), {}, {class: 'form-control'} %>
+              </div>
+            </div>
+
+            <!-- Beneficiary age group -->
+            <div class="form-group">
+              <%= f.label :benef_age_group, t('ad.beneficiaries_age_group')+'*:', class: 'col-lg-2 control-label' %>
+              <div class="col-lg-2 col-sm-6">
+                <%= f.select :benef_age_group, options_for_select(beneficiaries_age_group, f.object.benef_age_group), {}, {class: 'form-control'} %>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <%= f.label :is_parental_support, t('ad.parental_support'), class: 'col-lg-2 control-label' %>
+              <div class='col-lg-6'>
+                <div class="radio">
+                  <label>
+                    <%= f.radio_button :is_parental_support, true, checked: true, value: true %>
+                    <%= t('home.yes') %>
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <%= f.radio_button :is_parental_support, false, value: false %>
+                    <%= t('home.no') %>
+                  </label>
+                </div>
+              </div>
+            </div>
+
             <!-- Image upload - only possible when app deployed on server, for now -->
             <% if !is_on_heroku && can_upload_image %>
                 <div class="form-group">

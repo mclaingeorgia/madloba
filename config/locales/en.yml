@@ -66,6 +66,8 @@ en:
     password: Password
     record_not_exist: Sorry, this page does not exist!
     got_it: Got it!
+    yes: Yes
+    no: No
     giving: "I'm giving away:"
     giving_away: "Giving away:"
     searching: "I'm searching for:"
@@ -178,6 +180,9 @@ en:
     category: "Category*:"
     category_help: Choose the category this new item belongs to.
     description: Description
+    funding_source: Funding source
+    beneficiaries_age_group: Beneficiaries age group
+    parental_support: Parental support
     location_description: "About this place:"
     description_help: Give some details about the item(s) you're giving away/searching.
     expire_day_number_html: "Number of days for publication (Max: %{expire_max_number})"
@@ -225,6 +230,10 @@ en:
     select_category: Available categories
     captcha_not_valid: The captcha text you entered is not valid.
     create_account_first_html: "%{create_account} or %{sign_in} now before publishing your ad, if you want to be able to edit it later."
+    funding_private: Private
+    funding_municipality: Municipality
+    funding_government: Governmental
+    funding_other: Other
   mailer:
     welcome: "Welcome to %{name}!"
     confirmation_descr1: You received this message because an account, based on your e-mail address, was created on this website.

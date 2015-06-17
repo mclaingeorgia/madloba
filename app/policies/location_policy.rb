@@ -15,7 +15,7 @@ class LocationPolicy < ApplicationPolicy
   end
 
   def show?
-    user && (owned or user.admin?)
+    user && (owned or user.super_admin?)
   end
 
   def create?
@@ -23,11 +23,11 @@ class LocationPolicy < ApplicationPolicy
   end
 
   def new?
-    user && (user.user? or user.admin?)
+    user && (user.user? or user.super_admin?)
   end
 
   def update?
-    user && (owned or user.admin?)
+    user && (owned or user.super_admin?)
   end
 
   def edit?
@@ -35,12 +35,12 @@ class LocationPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user && (owned or user.admin?)
+    user && (owned or user.super_admin?)
   end
 
   class Scope < Scope
     def resolve
-      if user && user.admin?
+      if user && user.super_admin?
         scope.all
       else
         scope.where(user_id: user.id)
