@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
 
   has_many :locations, dependent: :destroy
   has_many :ads, dependent: :destroy
+  has_many :ad_users
+  has_many :favorite_ads, through: :ad_users, source: :ad
 
   def owns_ad (ad)
     self.ads.include?(ad)

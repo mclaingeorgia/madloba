@@ -18,10 +18,12 @@
             <li class="nav-header hidden-md"><%= t('admin.left_menu.user_tasks') %></li>
             <li><a class="ajax-link" href="/user/manageads"><i class="glyphicon glyphicon-pencil"></i><span> <%= t('admin.manage_your_ads') %></span></a></li>
             <li><a class="ajax-link" href="/user/manageprofile"><i class="glyphicon glyphicon-user"></i><span> <%= t('admin.left_menu.manage_profile') %></span></a></li>
+            <li><a class="ajax-link" href="/user/favorite"><i class="glyphicon glyphicon-star"></i><span> <%= t('admin.left_menu.favorite_services') %></span></a></li>
          <% else %>
             <li><a class="ajax-link" href="/user/index"><i class="glyphicon glyphicon-home"></i><span> <%= t('admin.dashboard') %></span></a></li>
             <li><a class="ajax-link" href="/user/manageads"><i class="glyphicon glyphicon-pencil"></i><span> <%= t('admin.manage_your_ads') %></span></a></li>
             <li><a class="ajax-link" href="/user/manageprofile"><i class="glyphicon glyphicon-user"></i><span> <%= t('admin.left_menu.manage_profile') %></span></a></li>
+            <li><a class="ajax-link" href="/user/favorite"><i class="glyphicon glyphicon-star"></i><span> <%= t('admin.left_menu.favorite_services') %></span></a></li>
          <% end %>
 
       </ul>

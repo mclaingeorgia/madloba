@@ -15,7 +15,7 @@ class AdPolicy < ApplicationPolicy
   end
 
   def show?
-    true
+    (user && user.super_admin?) || ad.is_published = true
   end
 
   def create?

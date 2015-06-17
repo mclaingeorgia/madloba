@@ -43,10 +43,13 @@ Madloba::Application.routes.draw do
     get 'generalsettings', to: 'admin_panel#generalsettings'
     get 'mapsettings', to: 'admin_panel#mapsettings'
     get 'areasettings', to: 'admin_panel#areasettings'
+    get 'favorite', to: 'admin_panel#favorite'
 
     post 'mapsettings/update', to: 'admin_panel#update_mapsettings'
     post 'generalsettings/update', to: 'admin_panel#update_generalsettings'
     post 'areasettings/update', to: 'admin_panel#update_areasettings'
+    post 'favorite/add', to: 'admin_panel#add_favorite'
+    post 'favorite/remove', to: 'admin_panel#remove_favorite'
     post 'areasettings/update_districts', to: 'admin_panel#update_districts'
 
     get 'getAreaSettings', to: 'admin_panel#getAreaSettings'

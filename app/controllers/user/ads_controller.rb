@@ -111,7 +111,7 @@ class User::AdsController < ApplicationController
 
   def ad_params
     params.require(:ad).permit(:title, :description, :is_username_used, :location_id, :is_giving,
-                               :image, :image_cache, :remove_image, :anon_name, :anon_email, :captcha, :captcha_key, :funding_source, :benef_age_group, :is_parental_support,
+                               :image, :image_cache, :remove_image, :anon_name, :anon_email, :captcha, :captcha_key, :funding_source, :benef_age_group, :is_parental_support, :is_published,
                                :ad_items_attributes => [:id, :item_id, :_destroy, :item_attributes => [:id, :name, :category_id, :_destroy] ],
                                :location_attributes => [:id, :user_id, :name, :street_number, :address, :postal_code, :province, :city, :district_id, :loc_type, :latitude, :longitude, :phone_number, :website, :description, :_destroy])
   end

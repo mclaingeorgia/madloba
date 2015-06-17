@@ -122,6 +122,7 @@ en:
     name_to_use: "Which name would you like to use?*"
     anon_publisher_name_note: "This is an ad posted by an anonymous user:"
     ad_action: "Action:*"
+    publish_service: "Publish this service?"
     ad_action_giving: I'm giving away items.
     ad_action_accepting: I'm searching for items.
     name_username: the username
@@ -158,6 +159,7 @@ en:
     published: "Published by:"
     expiration_date: This ad will expire on %{expire_date}.
     expires_today: This ad expires today!
+    no_favorite_yet: "You don't have any favorite service... yet"
     has_expired: This ad has expired on %{expire_date}, and is not visible on the website any longer.
     title: "Ad title*:"
     title_help: e.g. 'Gives away 5 shirts' or 'I want to get rid of my old laptop'...
@@ -235,6 +237,9 @@ en:
     funding_municipality: Municipality
     funding_government: Governmental
     funding_other: Other
+    ad_not_published_html: "This service is not published yet. Go to the %{editpage} to switch the publication on."
+    edit_page: edit page of this service
+    under_review: Your service is not published yet, as it is under review.
   mailer:
     welcome: "Welcome to %{name}!"
     confirmation_descr1: You received this message because an account, based on your e-mail address, was created on this website.
@@ -383,6 +388,7 @@ en:
       area_settings: Area settings
       manage_users: Manage users
       manage_profile: Manage your profile
+      favorite_services: Your favorite services
       manage_faq: Manage the FAQ
     ad:
       manage_ads: Manage ads
@@ -623,3 +629,5 @@ en:
     choose_location: Choose one of the following available locations, provided by OpenStreetMap
     new_image_uploading: New image is being uploaded. Please wait.
     remove: Remove
+    remove_from_favorites: Remove from your favorites
+    add_to_favorites: Add to your favorites

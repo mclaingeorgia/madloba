@@ -224,7 +224,73 @@ $(document).ready(function() {
         $("html, body").animate({ scrollTop: 0 }, 0);
     });
 
+    // Ad show page: event triggered when clicking on "Add to favorite" button
+    $('.add_to_favorite_button').click(function(){
+        add_favorite($(this));
+    });
+
+    // Ad show page: event triggered when clicking on "Remove from favorite" button
+    $('.remove_favorite_button').click(function(){
+        remove_favorite($(this));
+    });
+
+    // Admin favorite page: event triggered when clicking on "Remove" link
+    $('.remove_favorite').click(function(){
+        remove_favorite($(this));
+    });
+
+
 });
+
+/**
+ * Event triggered when clicking on "Add to favorite" button
+ * @param obj
+ */
+function add_favorite(obj){
+    var btn = obj;
+    var posting = $.post("/user/favorite/add", { ad_id: btn.attr('id') }, function(data) {status = data.status})
+    posting.done(function() {
+        if (status == 'ok'){
+            // Districts were updated via
+            btn.removeClass('add_to_favorite_button btn-warning').addClass('btn-danger remove_favorite_button');
+            btn.html("<i class='glyphicon glyphicon-star'></i>&nbsp;"+gon.vars['remove_from_favorites']);
+            $('#ad_star').show();
+            btn.unbind();
+            btn.on('click', function() {remove_favorite(obj)});
+        }else{
+            // Something bad happened. We're not submitting the page.
+            $('#error_remove').html('Sorry, server error occured. Try again later.');
+        }
+    });
+}
+
+/**
+ * Event triggered when clicking on "Remove from favorite" button
+ * @param obj
+ */
+function remove_favorite(obj){
+    var btn = obj;
+    var is_in_admin = (obj.attr('class') == 'remove_favorite');
+    var posting = $.post("/user/favorite/remove", { ad_id: btn.attr('id') }, function(data) {status = data.status})
+    posting.done(function() {
+        if (status == 'ok'){
+            if (is_in_admin){
+                // admin favorite page : remove the whole line
+                btn.parent().remove();
+            }else{
+                // ads show page: change the button
+                btn.addClass('add_to_favorite_button btn-warning').removeClass('btn-danger remove_favorite_button');
+                btn.html("<i class='glyphicon glyphicon-star'></i>&nbsp;"+gon.vars['add_to_favorites']);
+                btn.unbind();
+                $('#ad_star').hide();
+                btn.on('click', function() {add_favorite(obj)});
+            }
+        }else{
+            // Something bad happened. We're showing an error message.
+            $('#error_remove').html('Sorry, server error occured. Try again later.');
+        }
+    });
+}
 
 /**
  * This critical function initializes the location form (Location edit form, Ad forms)
@@ -378,6 +444,8 @@ function find_geocodes(){
         });
 
     });
+
+
 }
 
 /**

@@ -172,6 +172,17 @@ span.disabled { color:gray; }
     margin-bottom: 40px;
 }
 
+.favorite_button {
+    float:right;
+    margin-top: -7px;
+    margin-bottom: 10px;
+}
+
+#ad_not_published{
+    font-weight: bold;
+    color: red;
+}
+
 /*
  * Top navigation bar
  * ------------------
@@ -247,6 +258,12 @@ body {
 
     .guided-nav-category{
         margin: 10px 0px;
+    }
+
+    .favorite_button{
+        float: none;
+        margin-top: 10px;
+        margin-bottom: 0px;
     }
 }
 /*
