@@ -207,6 +207,24 @@ class User::AdminPanelController < ApplicationController
     redirect_to user_mapsettings_path
   end
 
+  # -----------------------------------
+  # Methods for 'Favorite services' screen
+  # ----------------------------------
+  def favorite
+    @favorites = current_user.favorite_ads
+  end
+
+  def add_favorite
+    ad = Ad.find(params['ad_id'])
+    current_user.favorite_ads << ad
+    render json: {'status' => 'ok'}
+  end
+
+  def remove_favorite
+    ad_user = AdUser.where(ad_id: params['ad_id'], user_id: current_user.id).first
+    ad_user.delete
+    render json: {'status' => 'ok'}
+  end
 
   # -----------------------------------
   # Methods for 'Area settings' screen

@@ -383,6 +383,7 @@ en:
       area_settings: Area settings
       manage_users: Manage users
       manage_profile: Manage your profile
+      favorite_services: Your favorite services
       manage_faq: Manage the FAQ
     ad:
       manage_ads: Manage ads
@@ -623,3 +624,5 @@ en:
     choose_location: Choose one of the following available locations, provided by OpenStreetMap
     new_image_uploading: New image is being uploaded. Please wait.
     remove: Remove
+    remove_from_favorites: Remove from your favorites
+    add_to_favorites: Add to your favorites

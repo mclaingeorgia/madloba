@@ -1,0 +1,81 @@
+<% content_for :head do %>
+    <!-- CSS file used on admin pages -->
+    <%= stylesheet_link_tag 'admin' %>
+<% end %>
+
+<div class="row">
+
+  <%= render 'shared/admin_left_menu' %>
+
+  <div id="content" class="col-lg-10 col-sm-10">
+    <!-- content starts -->
+
+    <div>
+      <ul class="breadcrumb">
+        <li>
+          <a href="/user"><%= t('admin.dashboard') %></a>
+        </li>
+        <li>
+          <%= t('admin.left_menu.favorite_services') %>
+        </li>
+      </ul>
+    </div>
+
+    <div class="row">
+      <div class="box col-md-12">
+        <div class="box-inner">
+          <div class="box-header well" data-original-title="">
+            <h2>
+              <i class="glyphicon glyphicon-star"></i> <%= t('admin.left_menu.favorite_services') %>
+            </h2>
+          </div>
+
+          <!-- Success/Error flash messages -->
+          <% if flash[:setting_success] && flash[:setting_success] == 0 %>
+              <div class="box-content alerts">
+                <div class="alert alert-danger">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <%= t('admin.general_settings.error_message') %>
+                </div>
+              </div>
+          <% end %>
+          <% if flash[:setting_success] && flash[:setting_success] == 1 %>
+              <div class="box-content alerts">
+                <div class="alert alert-success">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                  <%= t('admin.general_settings.success_message') %>
+                </div>
+              </div>
+          <% end %>
+
+          <div class="box-content row">
+            <div class="col-xs-12">
+                <p>Here is the list of services you've favorited</p>
+                <% if @favorites.count > 0 %>
+                  <ul>
+                      <% @favorites.each do |ad_favorite| %>
+                        <li><%= link_to ad_favorite.title, ad_path(ad_favorite.id) %></li>
+                      <% end %>
+                  </ul>
+                <% else %>
+                  <p><i>You don't have any favorite services... yet</i></p>
+                <% end %>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--/span-->
+
+    </div>
+
+    <!-- content ends -->
+  </div>
+  <!--/#content.span10-->
+
+</div><!--/fluid-row-->
+
+<% content_for :scripts do %>
+    <!-- Admin screen related scripts -->
+    <%= javascript_include_tag 'admin' %>
+<% end %>

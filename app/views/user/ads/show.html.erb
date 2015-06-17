@@ -20,9 +20,6 @@
 <% end %>
 
 
-
-
-
 <div class="container">
 
   <% if flash[:new_ad] %>
@@ -53,7 +50,6 @@
   <div class="row">
     <div class="col-lg-12">
       <h3><%= @ad.title %></h3>
-
       <div class="ad-title">
         <% if !is_owning(@ad) %>
             <!-- Ad publisher -->
@@ -65,6 +61,15 @@
                 <span class="ad-expiring"><%= t('ad.has_expired', expire_date: @ad.expire_date)%></span>
             <% else %>
                 <strong><%= t('ad.you_own') %></strong> <%= t('ad.you_manage')%> <a href="/user/ads/<%= @ad.id %>/edit"><%= t('ad.here')%></a>.
+            <% end %>
+        <% end %>
+
+        <!-- "Add to your favorites" button - only available when user is signed-in -->
+        <% if current_user %>
+            <% if @ad.is_a_favorite_of(current_user) %>
+                <a href="#" id="<%= @ad.id %>" class="btn btn-danger favorite_button remove_favorite_button"><i class="glyphicon glyphicon-star"></i>&nbsp;<%= t('general_js.remove_from_favorites') %></a>
+            <% else %>
+                <a href="#" id="<%= @ad.id %>" class="btn btn-warning favorite_button add_to_favorite_button"><i class="glyphicon glyphicon-star"></i>&nbsp;<%= t('general_js.add_to_favorites') %></a>
             <% end %>
         <% end %>
       </div>

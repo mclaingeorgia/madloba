@@ -3,6 +3,8 @@ class Ad < ActiveRecord::Base
   has_many :items, through: :ad_items
   belongs_to :location
   belongs_to :user
+  has_many :ad_users
+  has_many :favoriting_users, through: :ad_users, source: :user
 
   include ApplicationHelper
   after_initialize :default_values
@@ -92,6 +94,15 @@ class Ad < ActiveRecord::Base
       result << ad_item.item.capitalized_name
     end
     return result.join(', ')
+  end
+
+  def is_a_favorite_of(user)
+    result = false
+    if user && user.favorite_ads
+      favorite_ads = user.favorite_ads.pluck(:ad_id)
+      result = favorite_ads.include?(self.id)
+    end
+    return result
   end
 
   private
