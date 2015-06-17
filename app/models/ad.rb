@@ -99,7 +99,7 @@ class Ad < ActiveRecord::Base
   def is_a_favorite_of(user)
     result = false
     if user && user.favorite_ads
-      favorite_ads = user.favorite_ads.pluck(:ad_id)
+      favorite_ads = user.favorite_ads.pluck(:id)
       result = favorite_ads.include?(self.id)
     end
     return result

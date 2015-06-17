@@ -250,11 +250,12 @@ function add_favorite(obj){
             // Districts were updated via
             btn.removeClass('add_to_favorite_button btn-warning').addClass('btn-danger remove_favorite_button');
             btn.html("<i class='glyphicon glyphicon-star'></i>&nbsp;"+gon.vars['remove_from_favorites']);
+            $('#ad_star').show();
             btn.unbind();
             btn.on('click', function() {remove_favorite(obj)});
         }else{
             // Something bad happened. We're not submitting the page.
-            alert('Did not manage to save. Try again later.')
+            alert('Server error. Try again later.')
         }
     });
 }
@@ -272,6 +273,7 @@ function remove_favorite(obj){
             btn.addClass('add_to_favorite_button btn-warning').removeClass('btn-danger remove_favorite_button');
             btn.html("<i class='glyphicon glyphicon-star'></i>&nbsp;"+gon.vars['add_to_favorites']);
             btn.unbind();
+            $('#ad_star').hide();
             btn.on('click', function() {add_favorite(obj)});
         }else{
             // Something bad happened. We're not submitting the page.

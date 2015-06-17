@@ -54,11 +54,11 @@
                 <% if @favorites.count > 0 %>
                   <ul>
                       <% @favorites.each do |ad_favorite| %>
-                        <li><%= link_to ad_favorite.title, ad_path(ad_favorite.id) %></li>
+                        <li><%= link_to ad_favorite.title, ad_path(ad_favorite.id) %> (<%= ad_favorite.anon_name %>) - Remove</li>
                       <% end %>
                   </ul>
                 <% else %>
-                  <p><i>You don't have any favorite services... yet</i></p>
+                  <p><i><%= t('ad.no_favorite_yet') %></i></p>
                 <% end %>
 
             </div>
