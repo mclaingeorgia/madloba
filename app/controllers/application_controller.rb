@@ -125,14 +125,17 @@ class ApplicationController < ActionController::Base
       if response
         address_found = t('home.full_not_found_map_position', address: address)
         response['zoom_level'] = CLOSER_ZOOM_LEVEL
+        response['status'] = 'ok'
       else
         address_found = t('home.not_found_map_position')
         response = {}
         response['zoom_level'] = Setting.find_by_key('zoom_level').value
+        response['status'] = 'not_found'
       end
     else
       address_found = t('home.map_positioned_found', address: address)
       response['zoom_level'] = CLOSER_ZOOM_LEVEL
+      response['status'] = 'ok'
     end
 
     response['address_found'] = address_found

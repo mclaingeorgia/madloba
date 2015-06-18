@@ -152,8 +152,8 @@ en:
     description: "Location description:"
     description_help: Fill this optional section if you want to give additional detail about the location (eg. how to find it, what it looks like...)
     not_found: Location not found
-    not_found_descr1: Based on the entered information, the location could not be found.
-    not_found_descr2: Please select it manually on the map, in order to get its geocodes.
+    not_found_descr1: "Based on the information you've entered, the location could not be found."
+    not_found_descr2: "But that's ok! Please select it manually on the map."
     district_help: Choose the region where this location can be found.
   ad:
     new_ad: Service registration
