@@ -1,7 +1,7 @@
 class Category < ActiveRecord::Base
   include ActiveModel::Validations
 
-  has_many :items
+  has_and_belongs_to_many :ads
 
   validates :name, :marker_color, :icon, presence: true
   validates_uniqueness_of :marker_color, {scope: :icon}

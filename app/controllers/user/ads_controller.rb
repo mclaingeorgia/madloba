@@ -110,7 +110,7 @@ class User::AdsController < ApplicationController
   end
 
   def ad_params
-    params.require(:ad).permit(:title, :description, :is_username_used, :location_id, :is_giving,
+    params.require(:ad).permit(:title, :description, :is_username_used, :location_id, :is_giving, {category_ids: []},
                                :image, :image_cache, :remove_image, :anon_name, :anon_email, :captcha, :captcha_key, :funding_source, :benef_age_group, :is_parental_support, :is_published,
                                :ad_items_attributes => [:id, :item_id, :_destroy, :item_attributes => [:id, :name, :category_id, :_destroy] ],
                                :location_attributes => [:id, :user_id, :name, :street_number, :address, :postal_code, :province, :city, :district_id, :loc_type, :latitude, :longitude, :phone_number, :website, :description, :facebook, :_destroy])
@@ -163,7 +163,7 @@ class User::AdsController < ApplicationController
   # Initializes map related info (markers, clickable map...)
   def get_map_settings_for_ad
     if %w(show send_message).include?(action_name)
-      getMapSettingsWithSeveralItems(@ad.location, HAS_CENTER_MARKER, NOT_CLICKABLE_MAP, @ad.items)
+      getMapSettingsWithSeveralItems(@ad, HAS_CENTER_MARKER, NOT_CLICKABLE_MAP)
     elsif %w(create update).include?(action_name)
       getMapSettings(@ad.location, HAS_CENTER_MARKER, CLICKABLE_MAP_EXACT_MARKER)
     else

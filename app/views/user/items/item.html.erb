@@ -91,26 +91,6 @@
                   </div>
                 </div>
 
-                <!-- Category the item belongs to-->
-                <div class="form-group">
-                  <%= f.label :marker_color, t('admin.item.category')+'*:', class:'control-label' %>
-                  <div class="form-inline">
-                    <% Category.all.each_with_index do |category, index| %>
-                        <div class="radio">
-                          <label>
-                            <% if (@item.category && category.marker_color == "#{@item.category.marker_color}") || index == 0 %>
-                                <%= f.radio_button :category_id, category.id, checked: true %>
-                            <% else %>
-                                <%= f.radio_button :category_id, category.id %>
-                            <% end %>
-                            <i class="fa <%= category.icon %>" style="color: <%= "#{MARKER_COLORS[category.marker_color]}" %>;"></i>&nbsp;<%=category.name %>
-                                &nbsp;&nbsp;&nbsp;
-                          </label>
-                        </div>
-                    <% end %>
-                  </div>
-                </div>
-
                 <!-- List of locations the item can be found -->
                 <div class="form-group">
 

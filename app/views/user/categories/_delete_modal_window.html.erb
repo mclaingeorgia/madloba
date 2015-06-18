@@ -15,7 +15,7 @@
           <div class="modal-footer">
             <a href="#" class="btn" data-dismiss="modal"><%= t('admin.cancel') %></a>
           </div>
-      <% elsif @category.items && @category.items.length > 0 %>
+      <% elsif @category.ads && @category.ads.length > 0 %>
           <!-- Before deletion of this category, we need to transfer linked items to another category -->
           <%= form_tag "/user/categories/#{@category.id}", method: :destroy do %>
               <div class="modal-body">

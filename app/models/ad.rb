@@ -5,6 +5,7 @@ class Ad < ActiveRecord::Base
   belongs_to :user
   has_many :ad_users
   has_many :favoriting_users, through: :ad_users, source: :user
+  has_and_belongs_to_many :categories
 
   include ApplicationHelper
   after_initialize :default_values

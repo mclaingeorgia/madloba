@@ -153,10 +153,10 @@
 
                     <hr />
 
-                    <!-- List of items this category is attached to -->
+                    <!-- List of ads this category is attached to -->
                     <div class="form-group">
-                      <% if @category.items.length > 0 %>
-                          <%= label_tag :items, t('admin.category.item_linked')+':', class:'control-label' %>
+                      <% if @category.ads.length > 0 %>
+                          <%= label_tag :ads, t('admin.category.item_linked')+':', class:'control-label' %>
                           <table class="table table-striped table-bordered bootstrap-datatable datatable">
                             <thead>
                             <tr>
@@ -166,10 +166,10 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <% @category.items.each do |item| %>
+                            <% @category.ads.each do |ad| %>
                                 <tr>
-                                  <td><%= item.id %></td>
-                                  <td><a href="/user/items/<%=item.id%>"><%=item.name%></a></td>
+                                  <td><%= ad.id %></td>
+                                  <td><a href="/user/ads/<%=ad.id%>"><%=ad.title%></a></td>
                                 </tr>
                             <% end %>
                             </tbody>

@@ -202,6 +202,21 @@
                   </div>
                 </div>
 
+                <!-- Categories -->
+                <div class="form-group">
+                  <%= f.label :category, t('ad.service_category'), class: 'control-label' %>
+                  <div class='form-inline'>
+                    <%= hidden_field_tag('ad[category_ids][]', nil) %>
+                    <% Category.all.each do |category| %>
+                        <div class="checkbox" style="margin-right: 20px;">
+                          <label>
+                            <%= check_box_tag('ad[category_ids][]', category.id, category.id.in?(@ad.categories.collect(&:id))) %> <%= category.name %>
+                          </label>
+                        </div>
+                    <% end %>
+                  </div>
+                </div>
+
                 <% if !is_on_heroku && can_upload_image %>
                     <!-- Image upload - only possible when app deployed on server, for now -->
                     <div class="form-group">
