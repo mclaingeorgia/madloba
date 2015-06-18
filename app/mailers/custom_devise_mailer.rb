@@ -4,6 +4,7 @@ class CustomDeviseMailer < Devise::Mailer
 
   def confirmation_instructions(record, token, opts={})
     @site_name = site_name
+    @user = record
     super
   end
 end

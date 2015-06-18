@@ -82,6 +82,18 @@
                                       :placement => 'right', :toggle => 'popover', :trigger => 'hover focus'} %>
       </div>
     </div>
+
+
+    <!-- Province -->
+    <div class="form-group">
+      <%= form.label :province, t('location.province')+'*:', class: label_class %>
+      <div class='<%= col6 %>'>
+        <%= form.text_field :province, class: 'form-control help-message location_streetname', maxlength:'90',
+                            :data => {:content => t('location.street_name_help'),
+                                      :placement => 'right', :toggle => 'popover', :trigger => 'hover focus'} %>
+      </div>
+    </div>
+
   </div>
 
   <div id="postal_code_section">
@@ -142,6 +154,16 @@
     </div>
   </div>
 
+  <!-- Location description -->
+  <div class="form-group">
+    <%= form.label :description, t('location.description'), class: label_class %>
+    <div class='<%= col6 %>'>
+      <%= form.text_area :description, class: 'help-message', cols: 40, rows: 6,
+                         :data => {:content => t('location.description_help'),
+                                   :placement => 'right', :toggle => 'popover', :trigger => 'hover focus'} %>
+    </div>
+  </div>
+
   <!-- Phone number -->
   <div class="form-group">
     <%= form.label :phone_number, t('location.phone_number'), class: label_class %>
@@ -158,15 +180,14 @@
     </div>
   </div>
 
-  <!-- Description -->
+  <!-- Facebook -->
   <div class="form-group">
-    <%= form.label :description, t('location.description'), class: label_class %>
-    <div class='<%= col6 %>'>
-      <%= form.text_area :description, class: 'help-message', cols: 40, rows: 6,
-                         :data => {:content => t('location.description_help'),
-                                   :placement => 'right', :toggle => 'popover', :trigger => 'hover focus'} %>
+    <%= form.label :facebook, t('location.facebook'), class: label_class %>
+    <div class='<%= col4 %>'>
+      <%= form.text_field :facebook, class: 'form-control', maxlength:'60' %>
     </div>
   </div>
+
 
   <% if current_user %>
       <%= form.hidden_field :user_id, value: current_user.id %>
