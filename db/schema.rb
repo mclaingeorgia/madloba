@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150618064543) do
+ActiveRecord::Schema.define(version: 20150618080856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,6 +125,7 @@ ActiveRecord::Schema.define(version: 20150618064543) do
     t.integer  "user_id"
     t.integer  "district_id"
     t.string   "loc_type"
+    t.string   "facebook"
   end
 
   add_index "locations", ["district_id"], name: "index_locations_on_district_id", using: :btree

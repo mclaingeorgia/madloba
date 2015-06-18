@@ -72,7 +72,7 @@ en:
     giving_away: "Giving away:"
     searching: "I'm searching for:"
     searching_for: "Searching for:"
-    search_items: "Service name or description you're searching for"
+    search_items: "Service name or description"
     search_or_signup_html: "Are you a service provider? Search to find and validate your service or %{signup} to register and better inform the community about your services"
     location_example: Region or City
     search: Search
@@ -118,7 +118,7 @@ en:
   location:
     location: "Location:*"
     user_location: "This user's locations:*"
-    new_location: Enter a new location for this ad
+    new_location: Enter your location
     name: "Location name:"
     name_help: Give a name to your new location (eg shop name, random name you give your workshop...). It will be shown publicly. Leave blank if you don't want to assign any name.
     name_to_use: "Which name would you like to use?*"
@@ -132,7 +132,7 @@ en:
     definition: "Enter your location*:"
     definition_exact: by exact address
     definition_postal_code: by postal code
-    definition_district: by district
+    definition_district: by region
     street_number: "Street number:"
     street_name: "Street name*:"
     street_name_help: For this location, the name of the street, avenue, drive...
@@ -140,21 +140,23 @@ en:
     province: Province
     city: City
     district: "District*:"
-    define_geocode_button: Find general area on the map
+    define_geocode_button: Locate me on the map
     geocodes: Geocodes
     latitude_help: The latitude of your location (can be automatically found with the button above)
     longitude_help: The longitude of your location (can be automatically found with the button above)
     map: "Map:"
     phone_number: "Phone number:"
     website: "Website:"
+    facebook: "Facebook:"
+    link_to_facebook: Link to Facebook page
     description: "Location description:"
     description_help: Fill this optional section if you want to give additional detail about the location (eg. how to find it, what it looks like...)
     not_found: Location not found
     not_found_descr1: Based on the entered information, the location could not be found.
     not_found_descr2: Please select it manually on the map, in order to get its geocodes.
-    district_help: Choose the district where this location can be found.
+    district_help: Choose the region where this location can be found.
   ad:
-    new_ad: New ad
+    new_ad: Service registration
     once_created_expire: Once created, your ad will be published for %{max_expire_days} days.
     area: area
     error_occurred: "%{errors} occurred while saving this ad"
@@ -163,9 +165,9 @@ en:
     expires_today: This ad expires today!
     no_favorite_yet: "You don't have any favorite service... yet"
     has_expired: This ad has expired on %{expire_date}, and is not visible on the website any longer.
-    title: "Ad title*:"
+    title: "Name of service*:"
     title_help: e.g. 'Gives away 5 shirts' or 'I want to get rid of my old laptop'...
-    item: "Which item(s)?*:"
+    item: "Types of services*:"
     about_you: "About you"
     name: "Your name*:"
     name_help: Please enter your name or a nickname here. It will appear publicly as it is, in the published ad.
@@ -184,7 +186,7 @@ en:
     send_message_label: "Send a message to %{name} about this ad:"
     category: "Category*:"
     category_help: Choose the category this new item belongs to.
-    description: Description
+    description: Description of Services
     funding_source: Funding source
     beneficiaries_age_group: Beneficiaries age group
     parental_support: Parental support
@@ -197,7 +199,7 @@ en:
     new_location: Enter a new location
     choose_existing: Choose existing location instead
     submit: Submit
-    create_this_ad: Create this ad!
+    create_this_ad: Register my Service!
     cancel: Cancel
     create_success: The ad '%{title}' has been created. You will shortly receive an e-mail, with the new ad details.
     your_new: Your new ad
@@ -227,7 +229,7 @@ en:
     will_show_up: It will show up in a moment after you refresh the page.
     create_item: Create a new item
     write_new_item: Write a new item and select its category
-    add_item: Add an item
+    add_item: Add a Service
     see_published: See this published ad
     error_ad_must_have_item: Please add at least 1 item
     provide_anon_name: Please enter your name
@@ -314,7 +316,7 @@ en:
   admin:
     dashboard: Dashboard
     name: Name
-    address: Address/Postal code/District
+    address: Address/Postal code/Region
     exact_area: Location type
     ads: Ads
     ad_settings: Ad settings
@@ -370,7 +372,7 @@ en:
     no_social: You didn't enter any social network addresses (Facebook, Twitter, Pinterest), in "General settings". Specify some of them to increase your visibility.
     one_category_html: <strong>Only one category is available</strong>. Please create a few categories to allow the user to refine their search by specific item categories.
     no_website_description: No website description has been written yet, in "General settings". Give the users a chance to see what your website is about, by writting one. Your description will appear the front page footer, and in the "About" page.
-    no_area_type_html: <strong>No area type has been specified</strong>. Without the ability to select an area when creating an ad, the user will have to enter an exact address (which might not be wanted). In "Area settings", please indicate how an area is defined (by postal code or by district), to give the user more flexibility, when it comes to choose a location.
+    no_area_type_html: <strong>No area type has been specified</strong>. Without the ability to select an area when creating an ad, the user will have to enter an exact address (which might not be wanted). In "Area settings", please indicate how an area is defined (by postal code or by region), to give the user more flexibility, when it comes to choose a location.
     you_admin: You're an administrator of this website.
     you_super_admin: You're an super-administrator of this website.
     use_left_hand: Use the left-hand side menu to manage
@@ -378,7 +380,7 @@ en:
     admin_descr2: the registered users (admins and regulars users)
     admin_descr3: the website main settings
     admin_descr4: the settings for the map on the front page
-    admin_descr5: the settings that define an area in your town (eg postal codes and/or districts)
+    admin_descr5: the settings that define an area in your town (eg postal codes and/or regions)
     admin_descr6: the statistics of this website.
     regular_actions: You can also perform regular users' actions.
     todo_list: To-do list
@@ -494,15 +496,15 @@ en:
       title: Area settings
       define_area: An area can be defined
       by_postal_code: by postal code
-      by_district: by district
+      by_district: by region
       area_postal_code: Area defined by a postal code
-      area_district: Area defined by a district
-      map_description: Click on the 'Add district' link, type a name for this new district, and click on the map to define its location.
-      error_update_district: An server error occurred while updating districts. Please try again later.
-      district_name: District name
+      area_district: Area defined by a region
+      map_description: Click on the 'Add region' link, type a name for this new region, and click on the map to define its location.
+      error_update_district: An server error occurred while updating regions. Please try again later.
+      district_name: Region name
       latitude: Latitude
       longitude: Longitude
-      add_district: Add district
+      add_district: Add region
     map_settings:
       title: Map settings
       type: "Map type:"
@@ -628,11 +630,11 @@ en:
     start_typing_item: Start typing an item
     no_result_create_item: No results. Select 'Create a new item'.
     new_image_uploading: New image is being uploaded. Please wait.
-    type_district_name: Type a district name here...
+    type_district_name: Type a region name here...
     latitude: (latitude)
     longitude: (longitude)
     add: Add
-    updating_district: Updating district list...
+    updating_district: Updating region list...
     area_show_up: "This location area will show up as:"
     searching_location: Searching location...
     update: Update
