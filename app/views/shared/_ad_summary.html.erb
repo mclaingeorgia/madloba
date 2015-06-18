@@ -1,14 +1,22 @@
-<!-- Left-hand side: Items -->
+<!-- Left-hand side: Services -->
 <div>
-  <% if @ad.is_giving %>
-      <label class="ad-label"><%= t('ad.giving_away') %></label>
-  <% else %>
-      <label class="ad-label"><%= t('ad.accepting') %></label>
-  <% end %>
+  <label class="ad-label"><%= t('admin.items')+':' %></label>
   <span>
     <ul>
       <% @ad.ad_items.each do |ad_item| %>
-          <li style="list-style-type: none;"><%= ad_item.item.capitalized_name %></li>
+          <li><%= ad_item.item.capitalized_name %></li>
+      <% end %>
+    </ul>
+    </span>
+</div>
+
+<!-- Left-hand side: Categories -->
+<div>
+  <label class="ad-label"><%= t('admin.categories')+':' %></label>
+  <span>
+    <ul>
+      <% @ad.categories.each do |category| %>
+          <li><span style="color: <%= MARKER_COLORS[category.marker_color] %> "><%= category.name %></span></li>
       <% end %>
     </ul>
     </span>

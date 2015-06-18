@@ -3,7 +3,7 @@ class Location < ActiveRecord::Base
   belongs_to :user
   belongs_to :district
 
-  validates_presence_of :address, :postal_code, if: lambda { self.loc_type == 'exact'}
+  validates_presence_of :address
   validates_presence_of :latitude, :longitude
   # 'Postal code' field is not necessary only if user chooses a district name instead.
   validates_presence_of :postal_code, if: lambda { self.district == nil}

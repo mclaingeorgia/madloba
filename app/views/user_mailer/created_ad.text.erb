@@ -2,21 +2,22 @@
 
 <%= t('mailer.ad_created', site_name: @site_name) %>:
 
-- <%= t('mailer.ad_title') %>: <%= @ad.title %>
+<%= t('mailer.ad_title') %>: <%= @ad.title %>
 
-<% if @ad.is_giving %>
-    - <%= t('ad.giving_away') %>
-    <% @ad.items.each do |item| %>
-        - <%= item.name %>
-    <% end %>
-    - <%= t('mailer.where_pick_up') %>: <%= @ad.location.name_and_or_full_address %>
-<% else %>
-    - <%= t('ad.accepting') %>
-    <% @ad.items.each do |item| %>
-        - <%= item.name %>
-    <% end %>
-    - <%= t('mailer.where_to_drop') %>: <%= @ad.location.name_and_or_full_address %>
+<%= t('admin.items') %>
+<% @ad.items.each do |item| %>
+    - <%= item.name %>
 <% end %>
+
+<%= t('admin.categories') %>
+<% @ad.categories.each do |cat| %>
+    - <%= cat.name %>
+<% end %>
+
+- <%= t('mailer.where_pick_up') %>: <%= @ad.location.name_and_or_full_address %>
+- <%= t('ad.funding_source') %>: <%= @ad.funding_source.capitalize %>
+- <%= t('ad.beneficiaries_age_group') %>: <%= @ad.benef_age_group %>
+- <%= t('ad.parental_support') %>: <%= @ad.is_parental_support ? t('home.yes') : t('home.no') %>
 
 <%= t('mailer.description') %>: <%= simple_format(@ad.description) %>
 

@@ -136,8 +136,8 @@ en:
     street_number: "Street number:"
     street_name: "Street name*:"
     street_name_help: For this location, the name of the street, avenue, drive...
-    postal_code: "Postal code*:"
-    province: Province
+    postal_code: "Postal code:"
+    province: Region
     city: City
     district: "District*:"
     define_geocode_button: Locate me on the map
@@ -231,8 +231,10 @@ en:
     create_item: Create a new service
     write_new_item: Write your new service here.
     add_item: Add a Service
-    see_published: See this published ad
-    error_ad_must_have_item: Please add at least 1 service
+    see_published: See this published service
+    see_non_published: Service non-published yet
+    error_ad_must_have_item: Please add at least 1 service.
+    error_ad_must_have_category: Please select at least 1 category.
     provide_anon_name: Please enter your name
     provide_anon_email: Please enter your email address
     select_category: Available categories
@@ -243,6 +245,7 @@ en:
     funding_government: Governmental
     funding_other: Other
     ad_not_published_html: "This service is not published yet. Go to the %{editpage} to switch the publication on."
+    ad_to_be_reviewed: "This service will be published once the administrators review it (for now, only you can see it)."
     edit_page: edit page of this service
     under_review: Your service is not published yet, as it is under review.
   mailer:
@@ -256,15 +259,16 @@ en:
     need_assistance: "If you need assistance searching your required services or would like to contact us with any questions or feedback, please use the Contact Us page at http://"
     phone_number: "Alternatively you may call this number for 24 hour assistance:"
     thanks: "Thank you for registering. We hope you enjoy using %{name}."
+    thanks_short: "Thanks!"
     register: "To Register your services, all you have to do is log in to your account and follow these simple steps:"
     register_1: "Click 'Register Services' button"
     register_2: Complete the application details. Note that you are able to register as many categories of service linked to your profile as you wish.
     register_3: Submit Registration
     signature: The %{name} team.
     dear: "Dear %{name}"
-    ad_created: You have successfully created the following ad, on %{site_name}
+    ad_created: You have successfully created the following service registration, on %{site_name}
     user_is_admin_html: "This message is to let you know that you are now %{new_role} of the %{site_name} website."
-    ad_title: Ad title
+    ad_title: Name of service
     item: Services
     description: Description
     where_pick_up: Where to pick up the item
@@ -272,13 +276,17 @@ en:
     admin_panel: our admin panel.
     manage_ad_html: "To manage this ad, as well as your previously posted ads, login to %{href}"
     received_message: You received a reply for your '%{ad_title}' ad on %{site_name}.
-    new_ad_object: Your new ad on %{site_name} - '%{ad_title}'
+    new_ad_object: Your new service registration on %{site_name} - '%{ad_title}'
+    new_ad_to_review: "New service to review: '%{title}'"
     reply_ad_object: Reply to your '%{ad_title}' ad on %{site_name}
     you_are_admin_html: "You are now %{new_role} of %{site_name}."
     account_locked: Your account has been locked due to an excessive number of unsuccessful sign in attempts.
     link_unlock: Click the link below to unlock your account
     unlock_account: Unlock my account
     ad_will_expire: This ad will expire in %{day_number} days, on %{expire_date}
+    new_service_posted: "A user posted a new service on %{sitename}, titled '%{title}'."
+    review_it_html: "You can review it %{link}."
+    after_review: "After review, don't forget to publish this service so that it becomes visible to all users."
   registration:
     all_mandatory: (All fields are mandatory)
     first_name: First name
