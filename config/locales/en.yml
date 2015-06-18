@@ -111,6 +111,8 @@ en:
     server_error: 500 Internal server error
     404_sorry: "Sorry, the requested page has not been found!"
     500_sorry: "Sorry, there's been a server error. Please try again later."
+    faq_label: Frequently Asked Questions
+    have_questions_html: "Have questions? Click here to view our %{link}. For further assistance, please contact (Phone number)."
   config:
     not_authorized: You are not allowed go to that page.
   location:
@@ -241,11 +243,20 @@ en:
     edit_page: edit page of this service
     under_review: Your service is not published yet, as it is under review.
   mailer:
-    welcome: "Welcome to %{name}!"
+    hello: "Hi %{name}"
+    welcome: "Welcome to %{name}! You will soon be able to search and find details for all rehabilitation services in Georgia."
+    account_created: "An account has been created in your name. Please click on the following link to verify your email address and gain full access to all the features of %{name}:"
     confirmation_descr1: You received this message because an account, based on your e-mail address, was created on this website.
     confirmation_descr2: You can confirm your account through the link below
     confirm_account: Confirm my account
-    thanks: Thank you! :-)
+    as_soon_as: As soon as you have been verified, you can log in in to your account anytime by clicking Sign In on the www.x.ge page.
+    need_assistance: "If you need assistance searching your required services or would like to contact us with any questions or feedback, please use the Contact Us page at http://"
+    phone_number: "Alternatively you may call this number for 24 hour assistance:"
+    thanks: "Thank you for registering. We hope you enjoy using %{name}."
+    register: "To Register your services, all you have to do is log in to your account and follow these simple steps:"
+    register_1: "Click 'Register Services' button"
+    register_2: Complete the application details. Note that you are able to register as many categories of service linked to your profile as you wish.
+    register_3: Submit Registration
     signature: The %{name} team.
     dear: "Dear %{name}"
     ad_created: You have successfully created the following ad, on %{site_name}
@@ -257,7 +268,6 @@ en:
     where_to_drop: Where to drop the item
     admin_panel: our admin panel.
     manage_ad_html: "To manage this ad, as well as your previously posted ads, login to %{href}"
-    thanks: Thanks, and have a good day!
     received_message: You received a reply for your '%{ad_title}' ad on %{site_name}.
     new_ad_object: Your new ad on %{site_name} - '%{ad_title}'
     reply_ad_object: Reply to your '%{ad_title}' ad on %{site_name}
