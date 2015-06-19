@@ -42,23 +42,14 @@ class HomeController < ApplicationController
         @mapSettings['lat'] = params[:lat]
         @mapSettings['lng'] = params[:lon]
 
-        if session['locations'] && session['locations'].any?
-          # We have to find the index where the current location matches the propositions that was matched.
-          propositions = session['locations']
-          index = 0
-          while (propositions[index]['lat'] != params[:lat] || propositions[index]['lon'] != params[:lon]) && (index < propositions.length-1)
-            index += 1
-          end
-          if index == propositions.length
-            current_location = t('home.default_current_loc')
-          else
-            current_location = propositions[index]['display_name']
-          end
+        if params[:loc]
+          # A location search was just performed, with the name of the searched location (given back from Nominatim ws) in it.
+          current_location = params[:loc]
         else
           # there was no search beforehand, we need to find the address, based on the given latitude and longitude, as parameters.
           current_location = getAddressFromGeocodes(params[:lat], params[:lon])
           if !current_location
-            current_location = 'This is your current location.'
+            current_location = t('home.default_current_loc')
           end
         end
 
@@ -70,7 +61,7 @@ class HomeController < ApplicationController
     # Defining all the categories attached to an item.
     if selected_item_ids
       # We select here only the categories, based on the items found after a search.
-      @categories = Category.joins(:ads).where("items.id IN (?)", selected_item_ids).order('name asc').uniq
+      @categories = Category.joins(ads: :items).where("items.id IN (?)", selected_item_ids).order('name asc').uniq
     else
       # We select the categories related to all available items
       @categories = Category.joins(:ads).order('name asc').uniq

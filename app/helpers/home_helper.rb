@@ -15,17 +15,12 @@ module HomeHelper
 
   def user_search_action
     search_action = nil
-    user_action = params[:q]
     searched_term = params[:item]
 
-    if user_action && searched_term
+    if searched_term
       # For the user action's "delete refinement" url, we need to get rid of empty parameters, like 'item=' or 'location='.
       # That's why we have elem[-1], in the delete_if clause.
-      if user_action == 'searching'
-        search_action = "#{t('home.searching_for')} #{searched_term}"
-      elsif user_action == 'giving'
-        search_action = "#{t('home.giving_away')} #{searched_term}"
-      end
+      search_action = params[:item].capitalize
     end
 
     return search_action

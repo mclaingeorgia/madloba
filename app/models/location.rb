@@ -22,10 +22,10 @@ class Location < ActiveRecord::Base
       if cat_nav_state
         if searched_item
           # We search for ads in relation to the searched item and the current category navigation state.
-          locations = locations.where(items: {category_id: cat_nav_state, id: selected_item_ids})
+          locations = locations.where(categories: {id: cat_nav_state}, items: {id: selected_item_ids})
         else
           # We search for ads in relation to our current category navigation state.
-          locations = locations.where(items: {category_id: cat_nav_state})
+          locations = locations.where(categories: {id: cat_nav_state})
         end
       elsif searched_item
         locations = locations.where(items: {id: selected_item_ids})
@@ -33,8 +33,8 @@ class Location < ActiveRecord::Base
     end
 
     if user_action
-      # If the user is searching for items, we need to show the posted ads, which people give stuff away.
-      locations = locations.where("ads.is_giving = ?", user_action == 'searching')
+      # For the RehabLink app, ads are always on 'is_giving' mode.
+      locations = locations.where("ads.is_giving = ?", true)
     end
 
     if location_type == 'postal'

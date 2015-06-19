@@ -84,7 +84,7 @@ class ApplicationController < ActionController::Base
 
     end
 
-    country = Rails.cache.fetch(CACHE_APP_NAME) {Setting.find_by_key('country').value}
+    country = Rails.cache.fetch(CACHE_COUNTRY) {Setting.find_by_key('country').value}
 
     if country
       location_info = [address_street, params['postal_code'], params['city'], params['region'], country]
@@ -149,7 +149,7 @@ class ApplicationController < ActionController::Base
     # We append the city and the country to the searched location.
     location_value = params['location']
 
-    country = Rails.cache.fetch(CACHE_APP_NAME) {Setting.find_by_key('country').value}
+    country = Rails.cache.fetch(CACHE_COUNTRY) {Setting.find_by_key('country').value}
 
     if country
       location_value += ", #{country}"
@@ -163,7 +163,6 @@ class ApplicationController < ActionController::Base
         response.each do |response_location|
           locations_results << response_location.select {|key,value| %w(lat lon display_name).include? key}
         end
-        session['locations'] = locations_results
       else
         # The search didn't return anything.
         error_hash = {}

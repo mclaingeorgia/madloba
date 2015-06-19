@@ -53,8 +53,7 @@
             <% if @categories.select{|cat| cat.is_refinement(params)}.length > 1 %>
                 <div id="deleteAllId">
                   <a href="/" class="list-group-item smaller-no-border-no-background">
-                    <label style='width: 15px;'>&nbsp;</label>
-                    <span class="guided-nav-label"><%= t('home.delete_all') %></span>
+                    <span class="guided-nav-label" style="padding-left: 0px;"><%= t('home.delete_all') %></span>
                     <i class="glyphicon glyphicon-remove align-cross" style="float: right"></i>
                   </a>
                 </div>
@@ -62,8 +61,8 @@
 
             <% if @location_search_refinement_to_display %>
                 <a href = "/" class="list-group-item smaller-no-border-no-background">
-                  <span class="guided-nav-label"><%= t('home.your_searched_location') %></span>
-                  <i class="glyphicon glyphicon-remove align-cross" style="float: right"></i>
+                  <span class="guided-nav-label" style="padding-left: 0px;"><%= t('home.your_searched_location') %></span>
+                  <i class="glyphicon glyphicon-remove align-cross smaller-no-border-no-background" style="float: right"></i>
                 </a>
             <% end %>
             <% if user_search_action %>

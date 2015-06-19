@@ -11,7 +11,7 @@ MAPBOX_ATTRIBUTION='<a href="http://www.mapbox.com/about/maps/" target="_blank">
 MAPQUEST_TILES_URL='http://open.mapquestapi.com/sdk/leaflet/v1.s/mq-map.js?key=%{api_key}'
 
 # OpenStreetMap's Nominatim webservice end point (used to retrieve geocodes)
-OSM_NOMINATIM_URL = 'http://nominatim.openstreetmap.org/search?q=%{location}&format=json&polygon=0&addressdetails=0'
+OSM_NOMINATIM_URL = 'http://nominatim.openstreetmap.org/search?q=%{location}&format=json&polygon=0&addressdetails=0&accept-language=en'
 
 # Constants for controllers, when initializing map.
 AD_FLAG_FOR_MAP = 'ad'
