@@ -121,14 +121,14 @@ function putLocationMarkers(){
 
             var ad = location['ads'][j];
 
-            for (var k=0; k<ad['items'].length; k++){
+            for (var k=0; k<ad['categories'].length; k++){
 
-                var item = ad['items'][k];
+                var category = ad['categories'][k];
 
                 var marker_icon = L.AwesomeMarkers.icon({
                     prefix: 'fa',
-                    markerColor: item['category']['marker_color'],
-                    icon: item['category']['icon']
+                    markerColor: category['marker_color'],
+                    icon: category['icon']
                 });
 
                 // HTML snippet for the popup
@@ -225,10 +225,10 @@ function putLocationMarkers(){
 function createPopupHtml(first_sentence, ad, index){
     var second_sentence = '';
     var result = '';
-    var item = ad['items'][index];
+    var category = ad['categories'][index];
 
     var popup_ad_link = "<a href='/ads/"+ad['id']+"/'>"+ad['title']+"</a>";
-    var popup_item_name = "<span style='color:" + marker_colors[item['category']['marker_color']] + "';><strong>" + item['name'].capitalizeFirstLetter() + "</strong></span>";
+    var popup_item_name = "<span style='color:" + marker_colors[category['marker_color']] + "';><strong>" + category['name'].capitalizeFirstLetter() + "</strong></span>";
 
     if (ad['is_giving'] == true){
         second_sentence = "Item(s) being given away:<br />" + popup_item_name + ': ' + popup_ad_link + '<br />';

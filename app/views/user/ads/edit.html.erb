@@ -84,7 +84,11 @@
                 <!-- "Delete Ad" and "See published ad" buttons -->
                 <div class="form-group">
                   <a href="#" class="btn btn-danger btn-delete-right btn-setting" style="margin-right: 10px;"><%= t('admin.ad.delete') %></a>
-                  <%= link_to t('ad.see_published'), ad_path(@ad.id), {target: '_blank', class: 'btn btn-info'} %>
+                  <% if @ad.is_published %>
+                    <%= link_to t('ad.see_published'), ad_path(@ad.id), {target: '_blank', class: 'btn btn-info'} %>
+                  <% else %>
+                    <%= link_to t('ad.see_non_published'), ad_path(@ad.id), {target: '_blank', class: 'btn btn-default'} %>
+                  <% end %>
                 </div>
 
 
@@ -96,12 +100,12 @@
                   <%= f.label :is_published, t('location.publish_service'), class: 'control-label' %>
                   <div class="radio">
                     <label>
-                      <%= f.radio_button :is_published, true, checked: true %><%= t('home.yes') %>
+                      <%= f.radio_button :is_published, true, value: true, checked: true %><%= t('home.yes') %>
                     </label>
                   </div>
                   <div class="radio">
                     <label>
-                      <%= f.radio_button :is_published, false %><%= t('home.no') %>
+                      <%= f.radio_button :is_published, false, value: false %><%= t('home.no') %>
                     </label>
                   </div>
                 </div>
@@ -199,6 +203,21 @@
                       <% end %>
                       <%= link_to_add_association "<i class='glyphicon glyphicon-plus'></i> #{t('ad.add_item')}".html_safe, f, :ad_items, partial: 'shared/ad_item_fields', class: 'btn btn-success ad-add-item' %>
                     </div>
+                  </div>
+                </div>
+
+                <!-- Categories -->
+                <div class="form-group">
+                  <%= f.label :category, t('ad.service_category'), class: 'control-label' %>
+                  <div class='form-inline'>
+                    <%= hidden_field_tag('ad[category_ids][]', nil) %>
+                    <% Category.all.each do |category| %>
+                        <div class="checkbox" style="margin-right: 20px;">
+                          <label>
+                            <%= check_box_tag('ad[category_ids][]', category.id, category.id.in?(@ad.categories.collect(&:id))) %> <%= category.name %>
+                          </label>
+                        </div>
+                    <% end %>
                   </div>
                 </div>
 

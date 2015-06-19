@@ -3,7 +3,7 @@ class Location < ActiveRecord::Base
   belongs_to :user
   belongs_to :district
 
-  validates_presence_of :address, :postal_code, if: lambda { self.loc_type == 'exact'}
+  validates_presence_of :address
   validates_presence_of :latitude, :longitude
   # 'Postal code' field is not necessary only if user chooses a district name instead.
   validates_presence_of :postal_code, if: lambda { self.district == nil}
@@ -16,16 +16,16 @@ class Location < ActiveRecord::Base
   # This method returns the right query to display relevant markers, on the home page.
   def self.search(location_type, cat_nav_state, searched_item, selected_item_ids, user_action )
 
-    locations = Location.includes(ads: {items: :category}).type(location_type).references(:ads)
+    locations = Location.includes([{ads: :categories}, {ads: :items}]).type(location_type).references(:ads)
 
     if cat_nav_state || searched_item
       if cat_nav_state
         if searched_item
           # We search for ads in relation to the searched item and the current category navigation state.
-          locations = locations.where(items: {category_id: cat_nav_state, id: selected_item_ids})
+          locations = locations.where(categories: {id: cat_nav_state}, items: {id: selected_item_ids})
         else
           # We search for ads in relation to our current category navigation state.
-          locations = locations.where(items: {category_id: cat_nav_state})
+          locations = locations.where(categories: {id: cat_nav_state})
         end
       elsif searched_item
         locations = locations.where(items: {id: selected_item_ids})
@@ -33,8 +33,8 @@ class Location < ActiveRecord::Base
     end
 
     if user_action
-      # If the user is searching for items, we need to show the posted ads, which people give stuff away.
-      locations = locations.where("ads.is_giving = ?", user_action == 'searching')
+      # For the RehabLink app, ads are always on 'is_giving' mode.
+      locations = locations.where("ads.is_giving = ?", true)
     end
 
     if location_type == 'postal'

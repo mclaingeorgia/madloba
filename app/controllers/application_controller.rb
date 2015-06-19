@@ -84,15 +84,13 @@ class ApplicationController < ActionController::Base
 
     end
 
-    if params['city'].nil? || params['state'].nil? || params['country'].nil?
-      # If this inforamtion doesn't come from the page, we get it from the Settings table
-      settings = Setting.where(key: %w(city state country))
-      settings.each do |setting|
-        params[setting.key] = setting.value
-      end
-    end
+    country = Rails.cache.fetch(CACHE_COUNTRY) {Setting.find_by_key('country').value}
 
-    location_info = [address_street, params['postal_code'], params['city'], params['state'], params['country']]
+    if country
+      location_info = [address_street, params['postal_code'], params['city'], params['region'], country]
+    else
+      location_info = [address_street, params['postal_code'], params['city'], params['region']]
+    end
 
     location_info.each do |info|
       if info && info != ''
@@ -150,17 +148,11 @@ class ApplicationController < ActionController::Base
   def getNominatimLocationResponses
     # We append the city and the country to the searched location.
     location_value = params['location']
-    additional_locations = {}
 
-    settings = Setting.where(key: %w(city state country))
-    settings.each do |setting|
-      additional_locations[setting.key] = setting.value
-    end
+    country = Rails.cache.fetch(CACHE_COUNTRY) {Setting.find_by_key('country').value}
 
-    %w(city state country).each do |key|
-      if additional_locations[key] && additional_locations[key] != ''
-        location_value += ", #{additional_locations[key]}"
-      end
+    if country
+      location_value += ", #{country}"
     end
 
     locations_results = []
@@ -171,7 +163,6 @@ class ApplicationController < ActionController::Base
         response.each do |response_location|
           locations_results << response_location.select {|key,value| %w(lat lon display_name).include? key}
         end
-        session['locations'] = locations_results
       else
         # The search didn't return anything.
         error_hash = {}

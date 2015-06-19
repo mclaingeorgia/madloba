@@ -11,25 +11,28 @@
 <ul>
   <li><%= t('mailer.ad_title') %>: <%= @ad.title %></li>
 
-  <% if @ad['is_giving'] %>
-      <li><%= t('ad.giving_away') %>
-        <ul>
-          <% @ad.items.each do |item| %>
-              <li><%= item.name %></li>
-          <% end %>
-        </ul>
-      </li>
-      <li><%= t('mailer.where_pick_up') %>: <%= @ad.location.name_and_or_full_address %></li>
-  <% else %>
-      <li><%= t('ad.accepting') %>
-        <ul>
-          <% @ad.items.each do |item| %>
-              <li><%= item.name %></li>
-          <% end %>
-        </ul>
-      </li>
-      <li><%= t('mailer.where_to_drop') %>: <%= @ad.location.name_and_or_full_address %></li>
-  <% end %>
+  <li><%= t('admin.items') %>
+    <ul>
+      <% @ad.items.each do |item| %>
+          <li><%= item.name.capitalize %></li>
+      <% end %>
+    </ul>
+  </li>
+
+  <li><%= t('admin.categories') %>
+    <ul>
+      <% @ad.categories.each do |cat| %>
+          <li><%= cat.name %></li>
+      <% end %>
+    </ul>
+  </li>
+
+  <li><%= t('mailer.where_pick_up') %>: <%= @ad.location.name_and_or_full_address %></li>
+
+  <li><%= t('ad.funding_source') %>: <%= @ad.funding_source.capitalize %></li>
+  <li><%= t('ad.beneficiaries_age_group') %>: <%= @ad.benef_age_group %></li>
+  <li><%= t('ad.parental_support') %>: <%= @ad.is_parental_support ? t('home.yes') : t('home.no') %></li>
+
 </ul>
 </p>
 
@@ -38,10 +41,6 @@
 </p>
 
 <hr />
-
-<p>
-  <%= t('mailer.ad_will_expire', day_number: @max_expire_days , expire_date: @ad.expire_date ) %>
-</p>
 
 <% if !@user[:is_anon] %>
 <p>

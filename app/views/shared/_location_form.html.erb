@@ -88,7 +88,7 @@
     <div class="form-group">
       <%= form.label :province, t('location.province')+'*:', class: label_class %>
       <div class='<%= col6 %>'>
-        <%= form.text_field :province, class: 'form-control help-message location_streetname', maxlength:'90',
+        <%= form.text_field :province, class: 'form-control help-message location_region', maxlength:'90',
                             :data => {:content => t('location.street_name_help'),
                                       :placement => 'right', :toggle => 'popover', :trigger => 'hover focus'} %>
       </div>

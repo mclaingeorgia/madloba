@@ -7,10 +7,17 @@ class UserMailer < ActionMailer::Base
   def created_ad(user_info, ad, url)
     @ad = ad
     @full_admin_url = url
-    @max_expire_days = max_number_days_publish
     @user = user_info
     @site_name = site_name
     mail(to: user_info[:email], subject: t('mailer.new_ad_object', site_name: site_name, ad_title: ad.title))
+  end
+
+  def created_ad_notify_super_admins(user_info, ad, super_admins)
+    @ad = ad
+    @user = user_info
+    @site_name = site_name
+    @ad_edit_path = edit_user_ad_path(@ad.id)
+    mail(to: super_admins.join(', '), subject: t('mailer.new_ad_to_review', title: ad.title))
   end
 
   # Sends an e-mail to a user, when another user replied to their ad, to be in touch with them.

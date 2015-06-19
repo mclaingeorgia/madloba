@@ -1,7 +1,7 @@
 class Category < ActiveRecord::Base
   include ActiveModel::Validations
 
-  has_many :items
+  has_and_belongs_to_many :ads
 
   validates :name, :marker_color, :icon, presence: true
   validates_uniqueness_of :marker_color, {scope: :icon}
@@ -50,11 +50,11 @@ class Category < ActiveRecord::Base
         url += "&item=#{params[:item]}"
       end
     end
-    if params[:lat] && params[:lon]
+    if params[:lat] && params[:lon] && params[:loc]
       if url == '/'
-        url = "/search?lat=#{params[:lat]}&lon=#{params[:lon]}"
+        url = "/search?lat=#{params[:lat]}&lon=#{params[:lon]}&loc=#{params[:loc]}"
       else
-        url += "&lat=#{params[:lat]}&lon=#{params[:lon]}"
+        url += "&lat=#{params[:lat]}&lon=#{params[:lon]}&loc=#{params[:loc]}"
       end
     end
     if params[:q] # user_action represents the 'q' parameter.

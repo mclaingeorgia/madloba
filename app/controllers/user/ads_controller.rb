@@ -24,7 +24,7 @@ class User::AdsController < ApplicationController
   end
 
   def new
-    @ad = Ad.new
+    @ad = Ad.new(is_published: false)
     authorize @ad
     get_map_settings_for_ad
   end
@@ -49,7 +49,7 @@ class User::AdsController < ApplicationController
       # Sending email confirmation, about the creation of the ad.
       full_admin_url = "http://#{request.env['HTTP_HOST']}/user/manageads"
       # Reloading the now-created ad, with associated items.
-      @ad = Ad.includes(:items).where(id: @ad.id).first
+      @ad = Ad.includes([:items, :categories]).where(id: @ad.id).first
       user_info = {}
       if current_user
         user_info = {email: current_user.email, name: current_user.first_name, is_anon: false}
@@ -62,6 +62,9 @@ class User::AdsController < ApplicationController
       else
         # Queueing email sending, when not on heroku.
         UserMailer.delay.created_ad(user_info, @ad, full_admin_url)
+        super_admins = User.where(role: 2).pluck('email')
+        # Sending email to super-admin to notify them that a new ad has been posted.
+        UserMailer.delay.created_ad_notify_super_admins(user_info, @ad, super_admins)
       end
 
     else
@@ -110,9 +113,9 @@ class User::AdsController < ApplicationController
   end
 
   def ad_params
-    params.require(:ad).permit(:title, :description, :is_username_used, :location_id, :is_giving,
+    params.require(:ad).permit(:title, :description, :is_username_used, :location_id, :is_giving, {category_ids: []},
                                :image, :image_cache, :remove_image, :anon_name, :anon_email, :captcha, :captcha_key, :funding_source, :benef_age_group, :is_parental_support, :is_published,
-                               :ad_items_attributes => [:id, :item_id, :_destroy, :item_attributes => [:id, :name, :category_id, :_destroy] ],
+                               :ad_items_attributes => [:id, :item_id, :_destroy, :item_attributes => [:id, :name, :_destroy] ],
                                :location_attributes => [:id, :user_id, :name, :street_number, :address, :postal_code, :province, :city, :district_id, :loc_type, :latitude, :longitude, :phone_number, :website, :description, :facebook, :_destroy])
   end
 
@@ -163,7 +166,7 @@ class User::AdsController < ApplicationController
   # Initializes map related info (markers, clickable map...)
   def get_map_settings_for_ad
     if %w(show send_message).include?(action_name)
-      getMapSettingsWithSeveralItems(@ad.location, HAS_CENTER_MARKER, NOT_CLICKABLE_MAP, @ad.items)
+      getMapSettingsWithSeveralItems(@ad, HAS_CENTER_MARKER, NOT_CLICKABLE_MAP)
     elsif %w(create update).include?(action_name)
       getMapSettings(@ad.location, HAS_CENTER_MARKER, CLICKABLE_MAP_EXACT_MARKER)
     else

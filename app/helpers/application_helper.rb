@@ -117,25 +117,25 @@ module ApplicationHelper
   private
 
   # Info to display several markers on ads#show (1 marker per item)
-  def getMapSettingsWithSeveralItems(location, hasCenterMarker, clickableMapMarker, items)
-    getMapSettings(location, hasCenterMarker, clickableMapMarker)
+  def getMapSettingsWithSeveralItems(ad, hasCenterMarker, clickableMapMarker)
+    getMapSettings(ad.location, hasCenterMarker, clickableMapMarker)
 
     # Specific info related to ads#show
     @mapSettings['ad_show'] = []
-    if location.is_area
+    if ad.location.is_area
       @mapSettings['ad_show_is_area'] = true
-      items_to_show = []
-      items.each do |item|
-        items_to_show << item.capitalized_name
+      categories_to_show = []
+      ad.categories.each do |category|
+        categories_to_show << category.name
       end
-      @mapSettings['popup_message'] = items_to_show.join(', ')
+      @mapSettings['popup_message'] = categories_to_show.join(', ')
     else
       @mapSettings['ad_show_is_area'] = false
-      items.each_with_index do |item, index|
+      ad.categories.each_with_index do |category, index|
         @mapSettings['ad_show'][index] = {}
-        @mapSettings['ad_show'][index]['icon'] = item.category.icon
-        @mapSettings['ad_show'][index]['color'] = item.category.marker_color
-        @mapSettings['ad_show'][index]['item_name'] = item.name
+        @mapSettings['ad_show'][index]['icon'] = category.icon
+        @mapSettings['ad_show'][index]['color'] = category.marker_color
+        @mapSettings['ad_show'][index]['item_name'] = category.name
       end
       # Overriding 'zoom_level' data from the database with the max zoom level,
       # only for the ads@show page and if we're showing an exact address.

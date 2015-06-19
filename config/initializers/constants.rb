@@ -11,7 +11,7 @@ MAPBOX_ATTRIBUTION='<a href="http://www.mapbox.com/about/maps/" target="_blank">
 MAPQUEST_TILES_URL='http://open.mapquestapi.com/sdk/leaflet/v1.s/mq-map.js?key=%{api_key}'
 
 # OpenStreetMap's Nominatim webservice end point (used to retrieve geocodes)
-OSM_NOMINATIM_URL = 'http://nominatim.openstreetmap.org/search?q=%{location}&format=json&polygon=0&addressdetails=0'
+OSM_NOMINATIM_URL = 'http://nominatim.openstreetmap.org/search?q=%{location}&format=json&polygon=0&addressdetails=0&accept-language=en'
 
 # Constants for controllers, when initializing map.
 AD_FLAG_FOR_MAP = 'ad'
@@ -64,6 +64,7 @@ CACHE_IMAGE_STORAGE = 'cache_image_storage'
 CACHE_MAX_DAYS_EXPIRE = 'cache_max_days_expire'
 CACHE_AREA_TYPE = 'cache_area_type'
 CACHE_DISTRICTS = 'cache_districts'
+CACHE_COUNTRY = 'cache_country'
 
 # Image storage constants
 IMAGE_NO_STORAGE = 'nostorage'

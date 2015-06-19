@@ -80,11 +80,17 @@
   </div>
 
   <% if current_user && current_user.super_admin? && !@ad.is_published %>
-  <div class="row">
-    <div class="col-lg-12 ad-paragraph">
-      <div id="ad_not_published"><%= t('ad.ad_not_published_html', editpage: (link_to t('ad.edit_page'), edit_user_ad_path(@ad.id))) %></div>
-    </div>
-  </div>
+      <div class="row">
+        <div class="col-lg-12 ad-paragraph">
+          <div id="ad_not_published"><%= t('ad.ad_not_published_html', editpage: (link_to t('ad.edit_page'), edit_user_ad_path(@ad.id))) %></div>
+        </div>
+      </div>
+  <% elsif current_user && current_user.id == @ad.user_id %>
+      <div class="row">
+        <div class="col-lg-12 ad-paragraph">
+          <div id="ad_not_published"><%= t('ad.ad_to_be_reviewed') %></div>
+        </div>
+      </div>
   <% end %>
 
   <div class="row">
@@ -126,9 +132,9 @@
 
       <div class="row">
         <div class="col-lg-12 ad-paragraph">
-
           <%= render 'shared/ad_summary' %>
-
+        </div>
+        <div class="col-lg-12 ad-paragraph">
           <!-- Ad description -->
           <div class="ad-show-description">
             <label class="ad-label"><%= t('ad.description') %>:</label>

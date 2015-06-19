@@ -53,8 +53,7 @@
             <% if @categories.select{|cat| cat.is_refinement(params)}.length > 1 %>
                 <div id="deleteAllId">
                   <a href="/" class="list-group-item smaller-no-border-no-background">
-                    <label style='width: 15px;'>&nbsp;</label>
-                    <span class="guided-nav-label"><%= t('home.delete_all') %></span>
+                    <span class="guided-nav-label" style="padding-left: 0px;"><%= t('home.delete_all') %></span>
                     <i class="glyphicon glyphicon-remove align-cross" style="float: right"></i>
                   </a>
                 </div>
@@ -62,8 +61,8 @@
 
             <% if @location_search_refinement_to_display %>
                 <a href = "/" class="list-group-item smaller-no-border-no-background">
-                  <span class="guided-nav-label"><%= t('home.your_searched_location') %></span>
-                  <i class="glyphicon glyphicon-remove align-cross" style="float: right"></i>
+                  <span class="guided-nav-label" style="padding-left: 0px;"><%= t('home.your_searched_location') %></span>
+                  <i class="glyphicon glyphicon-remove align-cross smaller-no-border-no-background" style="float: right"></i>
                 </a>
             <% end %>
             <% if user_search_action %>
@@ -241,9 +240,9 @@ If they do, it will affect the website's ability to work well (test carried out 
     <!-- Javascript function calls, related specifically to the home page -->
     <script>
         // specific script to render map markers and initialize the sidebar.
-        var locations_exact = <%= raw @locations_exact.to_json(:include => { :ads => { :include =>  {:items => { :include => :category }}}}) %>;
-        var locations_postal = <%= raw @locations_postal.to_json(:include => { :ads => { :include =>  {:items => { :include => :category }}}}) %>;
-        var locations_district = <%= raw @locations_district.to_json(:include => { :ads => { :include =>  {:items => { :include => :category }}}}) %>;
+        var locations_exact = <%= raw @locations_exact.to_json(:include => { :ads  => { :include => [:categories, :items] }}) %>;
+        var locations_postal = <%= raw @locations_postal.to_json(:include => { :ads => { :include => [:categories, :items] }}) %>;
+        var locations_district = <%= raw @locations_district.to_json(:include => { :ads => { :include => [:categories, :items] }}) %>;
 
         var area_geocodes = <%= raw @area_geocodes.to_json %>;
         var marker_colors = <%= raw MARKER_COLORS.to_json %>;

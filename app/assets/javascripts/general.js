@@ -413,6 +413,7 @@ function find_geocodes(){
                 address: $(".location_streetname").val(),
                 city: $(".location_city").val(),
                 postal_code: $(".location_postal_code").val(),
+                region: $(".location_region").val(),
                 state: $(".location_state").val(),
                 country: $(".location_country").val(),
                 type: location_type
@@ -527,20 +528,17 @@ function getLocationsPropositions(){
 
                         // We also need to consider whether an item is being searched/given at the same time.
                         var item = $('#item').val();
-                        var search_action = $('#q').val();
 
                         for (var i = 0; i < data.length; i++) {
                             var proposed_location = data[i];
-                            var url = "/search?lat="+proposed_location['lat']+"&lon="+proposed_location['lon'];
+                            var url = "/search?lat="+proposed_location['lat']+"&lon="+proposed_location['lon']+"&loc="+proposed_location['display_name'];
                             if (item != ''){
                                 url = url + "&item=" + item;
                             }
-                            if (search_action != ''){
-                                url = url + "&q=" + search_action;
-                            }
+                            modalHtmlText = modalHtmlText + "<li><a href='"+encodeURI(url)+"'>"+proposed_location['display_name']+"</a></li>";
 
-                            modalHtmlText = modalHtmlText + "<li><a href='"+url+"'>"+proposed_location['display_name']+"</a></li>";
                         }
+
                         modalHtmlText = modalHtmlText + "</ul>";
                         $('#modal-body-id').html(modalHtmlText);
                         var options = {
