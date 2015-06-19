@@ -183,7 +183,7 @@ en:
     location_website: "Location website:"
     your_message: "Your message*:"
     send_message: Send your message
-    send_message_label: "Send a message to %{name} about this ad:"
+    send_message_label: "Send a message to %{name} about their services:"
     category: "Category*:"
     category_help: Choose the category this new ad belongs to.
     description: Description of Services
@@ -248,6 +248,7 @@ en:
     ad_to_be_reviewed: "This service will be published once the administrators review it (for now, only you can see it)."
     edit_page: edit page of this service
     under_review: Your service is not published yet, as it is under review.
+    log_in_to_send_html: Please %{login} or %{create} if you want to send a message.
   mailer:
     hello: "Hi %{name}"
     welcome: "Welcome to %{name}! You will soon be able to search and find details for all rehabilitation services in Georgia."
