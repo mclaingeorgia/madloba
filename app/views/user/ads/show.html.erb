@@ -51,16 +51,18 @@
     <div class="col-lg-12">
       <h3><%= @ad.title %>&nbsp;<span id="ad_star" style="display: <%= @ad.is_a_favorite_of(current_user) ? 'show' : 'none' %>;"><small><i class="glyphicon glyphicon-star" style="color: orange"></i></small></span></h3>
       <div class="ad-title">
-        <% if !is_owning(@ad) %>
-            <!-- Ad publisher -->
-            <label class="ad-label"><%= t('ad.published') %></label>
-            <span><%= publisher_name(@ad) %></span>
-        <% else %>
-            <% if @your_ad_has_expired %>
-                <strong><%= t('ad.you_own') %></strong><br>
-                <span class="ad-expiring"><%= t('ad.has_expired', expire_date: @ad.expire_date)%></span>
+        <% if !@ad.no_user_at_all %>
+            <% if !is_owning(@ad) %>
+                <!-- Ad publisher -->
+                <label class="ad-label"><%= t('ad.published') %></label>
+                <span><%= publisher_name(@ad) %></span>
             <% else %>
-                <strong><%= t('ad.you_own') %></strong> <%= t('ad.you_manage')%> <a href="/user/ads/<%= @ad.id %>/edit"><%= t('ad.here')%></a>.
+                <% if @your_ad_has_expired %>
+                    <strong><%= t('ad.you_own') %></strong><br>
+                    <span class="ad-expiring"><%= t('ad.has_expired', expire_date: @ad.expire_date)%></span>
+                <% else %>
+                    <strong><%= t('ad.you_own') %></strong> <%= t('ad.you_manage')%> <a href="/user/ads/<%= @ad.id %>/edit"><%= t('ad.here')%></a>.
+                <% end %>
             <% end %>
         <% end %>
 
@@ -145,10 +147,13 @@
 
   <% end %>
 
-  <div class="row">
-    <!-- 'Send message' text area -->
-    <%= render 'shared/ads_send_message', ad: @ad %>
-  </div>
+  <% if !@ad.no_user_at_all %>
+      <!-- Have the "Send a message" box, if a user is tied to this ad -->
+      <div class="row">
+        <!-- 'Send message' text area -->
+        <%= render 'shared/ads_send_message', ad: @ad %>
+      </div>
+  <% end %>
 
 
 </div>

@@ -24,14 +24,16 @@ module User::AdsHelper
 
   def publisher_name(ad)
     publisher_name = ''
-    if ad.is_anonymous
-      publisher_name = ad.anon_name
-    else
-      ad_user = ad.user
-      if ad.is_username_used
-        publisher_name = ad_user.username
+    if !ad.no_user_at_all
+      if ad.is_anonymous
+        publisher_name = ad.anon_name
       else
-        publisher_name = "#{ad_user.first_name} #{ad_user.last_name}"
+        ad_user = ad.user
+        if ad.is_username_used
+          publisher_name = ad_user.username
+        else
+          publisher_name = "#{ad_user.first_name} #{ad_user.last_name}"
+        end
       end
     end
     return publisher_name

@@ -28,4 +28,8 @@ class User < ActiveRecord::Base
   def is_admin_or_super_admin
     self.admin? || self.super_admin?
   end
+
+  def name_and_email
+    "#{self.first_name} #{self.last_name} - #{self.email}"
+  end
 end

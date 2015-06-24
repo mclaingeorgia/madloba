@@ -23,7 +23,7 @@ class Ad < ActiveRecord::Base
   validates :is_username_used, inclusion: [true, false]
   validates :is_published, inclusion: [true, false]
   validate :has_items
-  validate :has_anon_name_and_email
+  #validate :has_anon_name_and_email
   validate :must_have_one_category
   validates_size_of :image, maximum: 5.megabytes
 
@@ -52,6 +52,9 @@ class Ad < ActiveRecord::Base
     errors.add(:base, I18n.t('ad.error_ad_must_have_category')) if (self.categories.blank? || self.categories.empty?)
   end
 
+  def no_user_at_all
+    self.anon_email == nil && self.user == nil
+  end
 
 
   # The publisher of an ad might not want to have their full name publicly displayed.
@@ -69,7 +72,9 @@ class Ad < ActiveRecord::Base
   # If we deal with an anonymous ad publisher, we get the email from the ad itself (no user model created)
   # Otherwise we get the email from the user model linked to the ad.
   def email_to_display
-    if self.is_anonymous
+    if self.no_user_at_all
+      I18n.t('ad.no_user_tied_yet')
+    elsif self.is_anonymous
       self.anon_email
     else
       self.user.email
@@ -82,7 +87,7 @@ class Ad < ActiveRecord::Base
 
   # Define whether or not this ad has been created by a signed-in or an anonymous user.
   def is_anonymous
-    self.user_id == nil && self.anon_name != nil
+    (self.user_id == nil || self.user_id == 0) && self.anon_name != nil
   end
 
   def thumb_image_url

@@ -123,6 +123,8 @@ en:
     name_help: Give a name to your new location (eg shop name, random name you give your workshop...). It will be shown publicly. Leave blank if you don't want to assign any name.
     name_to_use: "Which name would you like to use?*"
     anon_publisher_name_note: "This is an ad posted by an anonymous user:"
+    no_service_provider_yet: "No service provider has been tied to this ad yet. Please enter a service provider's name and email:"
+    or_choose_user: "or choose an existing user in the list underneath:"
     ad_action: "Action:*"
     publish_service: "Publish this service?"
     ad_action_giving: I'm giving away items.
@@ -249,6 +251,8 @@ en:
     edit_page: edit page of this service
     under_review: Your service is not published yet, as it is under review.
     log_in_to_send_html: Please %{login} or %{create} if you want to send a message.
+    no_user_tied_yet: "- No service provider yet -"
+    select_user: Select a user...
   mailer:
     hello: "Hi %{name}"
     welcome: "Welcome to %{name}! You will soon be able to search and find details for all rehabilitation services in Georgia."

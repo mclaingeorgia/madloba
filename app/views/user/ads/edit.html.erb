@@ -152,7 +152,19 @@
                 </div>
 
                 <!-- Name to use -->
-                <% if @ad.is_anonymous %>
+                <% if @ad.no_user_at_all %>
+                    <div class="form-group">
+                      <%= f.label :anon_user, t('location.no_service_provider_yet'), class: 'control-label' %>
+                      <ul>
+                        <li><%= f.label :anon_name, t('admin.name'), class: 'control-label' %>: <%= f.text_field :anon_name %></li>
+                        <li><%= f.label :anon_email, t('admin.users.email'), class: 'control-label' %>: <%= f.text_field :anon_email %></li>
+                      </ul>
+                      <%= f.label :anon_user, t('location.or_choose_user'), class: 'control-label' %>
+                      <div class="form-inline">
+                        <%= f.select :user_id, content_tag(:option, t('ad.select_user'), value: nil) + options_from_collection_for_select(User.all, 'id', 'name_and_email'), {}, {class: 'form-control'} %>
+                      </div>
+                    </div>
+                <% elsif @ad.is_anonymous %>
                     <div class="form-group">
                       <%= f.label :anon_user, t('location.anon_publisher_name_note'), class: 'control-label' %>
                       <ul>
@@ -328,29 +340,17 @@
                   <% else %>
                       <!-- Case where an admin edits someone else's ad. We don't let admin create a new location for them -->
                       <div id="new_location_form">
-                        <% if @ad.is_anonymous %>
+                        <% if @ad.is_anonymous || @ad.no_user_at_all %>
                             <!-- Show this anonymous user's location -->
                             <div id="locations_from_list" class="form-group">
                               <%= f.label :location, t('location.location'), class: 'control-label' %>
                               <%= link_to(@ad.location.location_full_name, edit_user_location_path(@ad.location.id)) %> - <%= @ad.location.location_type_address %>
                             </div>
-                        <% elsif current_user != @ad.user %>
+                        <% elsif @ad.user && current_user != @ad.user %>
                             <!-- An admin is viewing another user's ad. Let's list this other user's location -->
                             <div id="locations_from_list" class="form-group">
                               <%= f.label :location, t('location.user_location'), class: 'control-label' %>
                               <% @ad.user.locations.each_with_index do |loc, index| %>
-                                  <div class='radio existing_location'>
-                                    <label>
-                                      <%= f.radio_button :location, loc.id, checked: index == 0, class: 'radio no-min-height' %><%= link_to(loc.location_full_name, edit_user_location_path(loc.id)) %> - <%= loc.location_type_address %>
-                                    </label>
-                                  </div>
-                              <% end %>
-                            </div>
-                        <% elsif user_locations_number > 0 %>
-                            <!-- List of all the different locations previously entered by the current user -->
-                            <div id="locations_from_list" class="form-group">
-                              <%= f.label :location, t('location.location'), class: 'control-label' %>
-                              <% current_user.locations.each_with_index do |loc, index| %>
                                   <div class='radio existing_location'>
                                     <label>
                                       <%= f.radio_button :location, loc.id, checked: index == 0, class: 'radio no-min-height' %><%= link_to(loc.location_full_name, edit_user_location_path(loc.id)) %> - <%= loc.location_type_address %>
