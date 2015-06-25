@@ -87,6 +87,15 @@ class User::AdsController < ApplicationController
     # Performing the update.
     if @ad.update(ad_params)
       flash[:ad_updated] = @ad.title
+
+      if !current_user.super_admin?
+        # if a service was updated by someone who's not a super-admin,
+        # send emails to super-admins.
+        user_info = {email: current_user.email, name: current_user.first_name, is_anon: false}
+        super_admins = User.where(role: 2).pluck('email')
+        UserMailer.delay.updated_ad_notify_super_admins(user_info, @ad, super_admins)
+      end
+
       redirect_to edit_user_ad_path(@ad.id)
     else
       # Saving the ad failed.

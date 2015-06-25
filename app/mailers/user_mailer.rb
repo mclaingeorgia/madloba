@@ -12,12 +12,22 @@ class UserMailer < ActionMailer::Base
     mail(to: user_info[:email], subject: t('mailer.new_ad_object', site_name: site_name, ad_title: ad.title))
   end
 
+  # Notifying the super-admins when a new ad has been created.
   def created_ad_notify_super_admins(user_info, ad, super_admins)
     @ad = ad
     @user = user_info
     @site_name = site_name
     @ad_edit_path = edit_user_ad_path(@ad.id)
     mail(to: super_admins.join(', '), subject: t('mailer.new_ad_to_review', title: ad.title))
+  end
+
+  # Notifying super-admins when ad has been updated by a non-super-admin.
+  def updated_ad_notify_super_admins (user_info, ad, super_admins)
+    @ad = ad
+    @user = user_info
+    @site_name = site_name
+    @ad_edit_path = edit_user_ad_path(@ad.id)
+    mail(to: super_admins.join(', '), subject: t('mailer.updated_service', title: ad.title))
   end
 
   # Sends an e-mail to a user, when another user replied to their ad, to be in touch with them.

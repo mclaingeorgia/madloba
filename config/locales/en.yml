@@ -283,6 +283,7 @@ en:
     received_message: You received a reply for your '%{ad_title}' ad on %{site_name}.
     new_ad_object: Your new service registration on %{site_name} - '%{ad_title}'
     new_ad_to_review: "New service to review: '%{title}'"
+    updated_service: "A service has been updated: '%{title}'"
     reply_ad_object: Reply to your '%{ad_title}' ad on %{site_name}
     you_are_admin_html: "You are now %{new_role} of %{site_name}."
     account_locked: Your account has been locked due to an excessive number of unsuccessful sign in attempts.
@@ -290,6 +291,7 @@ en:
     unlock_account: Unlock my account
     ad_will_expire: This ad will expire in %{day_number} days, on %{expire_date}
     new_service_posted: "A user posted a new service on %{sitename}, titled '%{title}'."
+    service_just_updated: "A service on %{sitename} titled '%{title}' has been updated."
     review_it_html: "You can review it %{link}."
     after_review: "After review, don't forget to publish this service so that it becomes visible to all users."
   registration:
