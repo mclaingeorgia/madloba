@@ -56,15 +56,6 @@ class User::CategoriesController < ApplicationController
     @category = Category.find(params[:id])
     authorize @category
 
-    if params['target_category']
-      # Transfer of tied items to another category, before going ahead with the deletion of this category.
-      target_category = Category.find(params['target_category'])
-      @category.items.each do |item|
-        item.category = target_category
-        item.save
-      end
-    end
-
     deleted_category_name = @category.name
     if @category.destroy
       flash[:success] = t('admin.category.success_deleted', name: deleted_category_name)

@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   before_action :check_if_setup
   before_action :load_javascript_text
   before_action :allow_iframe_requests
+  before_action :set_locale
 
   include ApplicationHelper
   include Pundit
@@ -37,6 +38,17 @@ class ApplicationController < ActionController::Base
         redirect_to setup_path
       end
     end
+  end
+
+  # Check if there is a cookie to define the locale to use.
+  def set_locale
+    if cookies[:madloba_locale] && I18n.available_locales.include?(cookies[:madloba_locale].to_sym)
+      l = cookies[:madloba_locale].to_sym
+    else
+      l = I18n.default_locale
+      cookies.permanent[:madloba_locale] = l
+    end
+    I18n.locale = l
   end
 
   # Uses the 'gon' gem to load the text that appears in javascript files.
@@ -223,7 +235,7 @@ class ApplicationController < ActionController::Base
   def render_not_found(exception)
     ExceptionNotifier.notify_exception(exception, env: request.env, :data => {:message => "was doing something wrong"})
     respond_to do |format|
-      format.html { render template: 'errors/error404', layout: 'layouts/home', status: 404 }
+      format.html { render template: 'errors/error404', status: 404 }
       format.all { render nothing: true, status: 404}
     end
   end
@@ -232,7 +244,7 @@ class ApplicationController < ActionController::Base
   def render_error(exception)
     ExceptionNotifier.notify_exception(exception, env: request.env)
     respond_to do |format|
-      format.html { render template: 'errors/error500', layout: 'layouts/home', status: 500 }
+      format.html { render template: 'errors/error500', status: 500 }
       format.all { render nothing: true, status: 500}
     end
   end
