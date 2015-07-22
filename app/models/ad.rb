@@ -23,9 +23,11 @@ class Ad < ActiveRecord::Base
   validates :is_username_used, inclusion: [true, false]
   validates :is_published, inclusion: [true, false]
   validate :has_items
-  #validate :has_anon_name_and_email
   validate :must_have_one_category
   validates_size_of :image, maximum: 5.megabytes
+
+  # Fields to be translated
+  translates :title, :description
 
   apply_simple_captcha
 

@@ -6,4 +6,7 @@ class District < ActiveRecord::Base
   validates :latitude , numericality: { greater_than:  -90, less_than:  90 }
   validates :longitude, numericality: { greater_than: -180, less_than: 180 }
 
+  # Fields to be translated
+  translates :name
+
 end

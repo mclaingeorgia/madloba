@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150618141102) do
+ActiveRecord::Schema.define(version: 20150707185014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,18 @@ ActiveRecord::Schema.define(version: 20150618141102) do
 
   add_index "ad_items", ["ad_id"], name: "index_ad_items_on_ad_id", using: :btree
   add_index "ad_items", ["item_id"], name: "index_ad_items_on_item_id", using: :btree
+
+  create_table "ad_translations", force: true do |t|
+    t.integer  "ad_id",       null: false
+    t.string   "locale",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "title"
+    t.text     "description"
+  end
+
+  add_index "ad_translations", ["ad_id"], name: "index_ad_translations_on_ad_id", using: :btree
+  add_index "ad_translations", ["locale"], name: "index_ad_translations_on_locale", using: :btree
 
   create_table "ad_users", force: true do |t|
     t.integer  "ad_id"
@@ -77,6 +89,18 @@ ActiveRecord::Schema.define(version: 20150618141102) do
     t.string   "marker_color"
   end
 
+  create_table "category_translations", force: true do |t|
+    t.integer  "category_id", null: false
+    t.string   "locale",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+    t.text     "description"
+  end
+
+  add_index "category_translations", ["category_id"], name: "index_category_translations_on_category_id", using: :btree
+  add_index "category_translations", ["locale"], name: "index_category_translations_on_locale", using: :btree
+
   create_table "delayed_jobs", force: true do |t|
     t.integer  "priority",   default: 0, null: false
     t.integer  "attempts",   default: 0, null: false
@@ -93,6 +117,17 @@ ActiveRecord::Schema.define(version: 20150618141102) do
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
+  create_table "district_translations", force: true do |t|
+    t.integer  "district_id", null: false
+    t.string   "locale",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+  end
+
+  add_index "district_translations", ["district_id"], name: "index_district_translations_on_district_id", using: :btree
+  add_index "district_translations", ["locale"], name: "index_district_translations_on_locale", using: :btree
+
   create_table "districts", force: true do |t|
     t.string   "name"
     t.decimal  "latitude",   precision: 7, scale: 5
@@ -101,12 +136,36 @@ ActiveRecord::Schema.define(version: 20150618141102) do
     t.datetime "updated_at"
   end
 
+  create_table "faq_translations", force: true do |t|
+    t.integer  "faq_id",     null: false
+    t.string   "locale",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "question"
+    t.string   "answer"
+  end
+
+  add_index "faq_translations", ["faq_id"], name: "index_faq_translations_on_faq_id", using: :btree
+  add_index "faq_translations", ["locale"], name: "index_faq_translations_on_locale", using: :btree
+
   create_table "faqs", force: true do |t|
     t.string   "question"
     t.text     "answer"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "item_translations", force: true do |t|
+    t.integer  "item_id",     null: false
+    t.string   "locale",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+    t.string   "description"
+  end
+
+  add_index "item_translations", ["item_id"], name: "index_item_translations_on_item_id", using: :btree
+  add_index "item_translations", ["locale"], name: "index_item_translations_on_locale", using: :btree
 
   create_table "items", force: true do |t|
     t.string   "name"
@@ -117,6 +176,22 @@ ActiveRecord::Schema.define(version: 20150618141102) do
   end
 
   add_index "items", ["category_id"], name: "index_items_on_category_id", using: :btree
+
+  create_table "location_translations", force: true do |t|
+    t.integer  "location_id", null: false
+    t.string   "locale",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "name"
+    t.string   "address"
+    t.string   "postal_code"
+    t.string   "province"
+    t.string   "city"
+    t.text     "description"
+  end
+
+  add_index "location_translations", ["locale"], name: "index_location_translations_on_locale", using: :btree
+  add_index "location_translations", ["location_id"], name: "index_location_translations_on_location_id", using: :btree
 
   create_table "locations", force: true do |t|
     t.string   "name"
@@ -140,6 +215,17 @@ ActiveRecord::Schema.define(version: 20150618141102) do
 
   add_index "locations", ["district_id"], name: "index_locations_on_district_id", using: :btree
   add_index "locations", ["user_id"], name: "index_locations_on_user_id", using: :btree
+
+  create_table "setting_translations", force: true do |t|
+    t.integer  "setting_id", null: false
+    t.string   "locale",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "value"
+  end
+
+  add_index "setting_translations", ["locale"], name: "index_setting_translations_on_locale", using: :btree
+  add_index "setting_translations", ["setting_id"], name: "index_setting_translations_on_setting_id", using: :btree
 
   create_table "settings", force: true do |t|
     t.string   "key"

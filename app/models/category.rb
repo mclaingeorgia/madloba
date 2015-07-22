@@ -6,6 +6,9 @@ class Category < ActiveRecord::Base
   validates :name, :marker_color, :icon, presence: true
   validates_uniqueness_of :marker_color, {scope: :icon}
 
+  # Fields to be translated
+  translates :name, :description
+
   def icon_name
     self.icon.gsub('fa-','').capitalize.gsub('-',' ')
   end

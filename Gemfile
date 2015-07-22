@@ -105,6 +105,7 @@ gem 'unicorn'
 # Tranlation
 gem 'rails-i18n', '~> 4.0.0'
 gem 'i18n-tasks', '~> 0.8.3'
+gem 'globalize', '~> 4.0.2'
 
 # To manage secrets.yml content, on Heroku
 # gem 'heroku_secrets', github: 'alexpeattie/heroku_secrets'

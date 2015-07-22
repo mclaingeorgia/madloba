@@ -200,6 +200,9 @@ GEM
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
     formatador (0.2.5)
+    globalize (4.0.3)
+      activemodel (>= 4.0.0, < 5)
+      activerecord (>= 4.0.0, < 5)
     gon (5.0.4)
       actionpack (>= 2.3.0)
       json
@@ -425,6 +428,7 @@ DEPENDENCIES
   factory_girl_rails
   faker
   fog
+  globalize (~> 4.0.2)
   gon
   guard-rspec
   httparty (~> 0.13.1)
