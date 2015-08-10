@@ -14,16 +14,15 @@ en:
             name:
               blank: The category name can't be blank
             marker_color:
-              taken: "and Icon error - the chosen pair is not available: both this icon and this marker color have already been used for another category. Please choose another marker and/or icon."
+              taken: "Marker color and icon error - the chosen pair is not available: both this icon and this marker color have already been used for another category. Please choose another marker and/or icon."
             icon:
-              blank: name can't be blank.
+              blank: The icon name can't be blank.
         ad:
           attributes:
             image:
-              too_long: must be less than 5MB.
+              too_long: The image must be less than 5MB.
             number_of_items:
               greater_than: "Please add at least 1 service."
-
   home:
     home: Home
     page: Home page
@@ -78,6 +77,13 @@ en:
     same_area: Ads related to a same area
     update: Update
     demo_instructions_html: "(Demo) Instructions to login %{link}."
+    footer_powered_by_html: Powered by %{madloba_link}
+    footer_new_powered_by_html: New website powered by %{madloba_link}
+    footer_theme_html: Theme from %{charisma}
+    log_out: Log out
+    error:
+      one: error
+      more: errors
   errors:
     oops: "Oops!"
     not_found: 404 Page Not Found
@@ -254,7 +260,6 @@ en:
     unhappy: Unhappy?
     you_sure: Are you sure?
     back: Back
-    cancel_account: Cancel my account
     resend_unlock: Resend unlock instructions
   confirmation:
     resend: Resend confirmation instructions
@@ -272,15 +277,16 @@ en:
     change_your_password: Change your password
   admin:
     dashboard: Dashboard
+    todo_list: To-do list
     name: Name
     address: Address/Postal code/Region
     exact_area: Location type
     ads: Ads
     ad_settings: Ad settings
-    location_tab: Location
     location_name: location
     expiration_date: Expiration date
     locations: Locations
+    location_tab: Location
     items: Services
     item_name: service
     categories: Categories
@@ -407,6 +413,9 @@ en:
       item_linked: Ads linked to that category
       item_name: Ad title
       no_item: There is no service linked to that category yet.
+      your_marker_icon: Your marker and icon
+      marker_icon_not_unique: Both this icon and this marker color have already been used for another category. Please choose another marker and/or icon.
+      our_selection: our selection list
     item:
       error_occurred: "%{errors} occurred while saving this service"
       update_success: The service '%{name}' has been updated.
@@ -501,6 +510,7 @@ en:
       regular_user: Regular user
       admin_user: Administrator
       super_admin_user: Super-administrator
+      make_user_admin: Make this user an admin.
       first_name: First name
       last_name: Last name
       username: Username
@@ -508,11 +518,14 @@ en:
       new_password: New password
       confirm_password: Confirm password
   setup:
+    choose_language: Please choose a language
+    madloba_setup: Madloba setup
     welcome_madloba: Welcome to Madloba!
-    about_to_setup: You're about to setup Madloba on your server.
-    process_takes: The setup process takes about 10 minutes, then you'll be ready to go!
+    about_to_setup: You're about to finalize the Madloba setup on your server.
+    process_takes: This process will take about 10 minutes, then you'll be ready to go!
     click_next: Click on "Next" to continue.
     back: Back
+    back_language_html: (You can also go back and choose another language %{here}).
     next: Next
     step_html: "(step %{current_step}/6)"
     general_info: General information
@@ -576,7 +589,24 @@ en:
     update: Update
     loading: Loading...
     choose_location: Choose one of the following available locations, provided by OpenStreetMap
-    new_image_uploading: New image is being uploaded. Please wait.
     remove: Remove
     remove_from_favorites: Remove from your favorites
     add_to_favorites: Add to your favorites
+    records_per_page: records per page
+    search: "Search:"
+    showing: Showing
+    to: to
+    of: of
+    entries: entries
+    previous: Previous
+    next: Next
+    no_data: No data available in table
+    first: First
+    last: Last
+    filtered_from: filtered from
+    in_this_district: In this district
+    ads_for: Ads for
+    items_given: "Item(s) being given away:"
+    items_searched: "Item(s) being searched for:"
+    image_not_available: Image not available yet.
+    select_item: Select an item below for more details.

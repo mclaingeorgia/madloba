@@ -277,6 +277,7 @@ class User::AdminPanelController < ApplicationController
       setting_record.update_attribute(:value, value)
     }
 
+    # Updating cache value, for area types.
     Rails.cache.write(CACHE_AREA_TYPE, area_type_param)
 
     flash[:setting_success] = t('admin.map_settings.area_update_success')

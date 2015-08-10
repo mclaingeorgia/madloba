@@ -102,7 +102,7 @@ end
 gem 'rails_12factor', group: :production
 gem 'unicorn'
 
-# Tranlation
+# Translation
 gem 'rails-i18n', '~> 4.0.0'
 gem 'i18n-tasks', '~> 0.8.3'
 gem 'globalize', '~> 4.0.2'

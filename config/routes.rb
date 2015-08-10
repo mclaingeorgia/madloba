@@ -14,6 +14,8 @@ Madloba::Application.routes.draw do
   get 'faq', to: 'home#faq'
 
   # Setup pages
+  get 'setup/language', to: 'setup#show_choose_language'
+  post 'setup/language/process', to: 'setup#process_chosen_language'
   get 'setup', to: 'setup#show_welcome'
   get 'setup/general', to: 'setup#show_general'
   post 'setup/general/process', to: 'setup#process_general'
