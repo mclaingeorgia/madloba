@@ -119,6 +119,7 @@ en:
     street_name_help: For this location, the name of the street, avenue, drive...
     postal_code: "Postal code:"
     district: "District*:"
+    province: Region
     define_geocode_button: Locate me on the map
     map: "Map:"
     phone_number: "Phone number:"
@@ -261,6 +262,7 @@ en:
     you_sure: Are you sure?
     back: Back
     resend_unlock: Resend unlock instructions
+    cancel_account: Cancel my account
   confirmation:
     resend: Resend confirmation instructions
   session:
@@ -313,6 +315,7 @@ en:
     icon: Icon
     edit_delete: Edit details / Delete
     created_by_user: Created by user
+    update_ad: Update ad
     manage_your_ads: Manage your ads
     manage_records: Manage records
     records_message: From here, you can manage the ads posted on the website, as well as their locations, services, and categories.

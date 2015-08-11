@@ -79,6 +79,13 @@ ka:
     same_area: Ads related to a same area
     update: Update
     demo_instructions_html: "(Demo) Instructions to login %{link}."
+    footer_powered_by_html: Powered by %{madloba_link}
+    footer_new_powered_by_html: New website powered by %{madloba_link}
+    footer_theme_html: Theme from %{charisma}
+    log_out: Log out
+    error:
+      one: error
+      more: errors
   errors:
     oops: "Oops!"
     not_found: 404 Page Not Found
@@ -114,6 +121,7 @@ ka:
     street_name_help: For this location, the name of the street, avenue, drive...
     postal_code: "Postal code:"
     district: "District*:"
+    province: Region
     define_geocode_button: Locate me on the map
     map: "Map:"
     phone_number: "Phone number:"
@@ -308,6 +316,7 @@ ka:
     icon: Icon
     edit_delete: Edit details / Delete
     created_by_user: Created by user
+    update_ad: Update ad
     manage_your_ads: Manage your ads
     manage_records: Manage records
     records_message: From here, you can manage the ads posted on the website, as well as their locations, services, and categories.
@@ -408,6 +417,9 @@ ka:
       item_linked: Ads linked to that category
       item_name: Ad title
       no_item: There is no service linked to that category yet.
+      your_marker_icon: Your marker and icon
+      marker_icon_not_unique: Both this icon and this marker color have already been used for another category. Please choose another marker and/or icon.
+      our_selection: our selection list
     item:
       error_occurred: "%{errors} occurred while saving this service"
       update_success: The service '%{name}' has been updated.
@@ -502,6 +514,7 @@ ka:
       regular_user: Regular user
       admin_user: Administrator
       super_admin_user: Super-administrator
+      make_user_admin: Make this user an admin.
       first_name: First name
       last_name: Last name
       username: Username
@@ -531,6 +544,24 @@ ka:
     remove: Remove
     remove_from_favorites: Remove from your favorites
     add_to_favorites: Add to your favorites
+    records_per_page: records per page
+    search: "Search:"
+    showing: Showing
+    to: to
+    of: of
+    entries: entries
+    previous: Previous
+    next: Next
+    no_data: No data available in table
+    first: First
+    last: Last
+    filtered_from: filtered from
+    in_this_district: In this district
+    ads_for: Ads for
+    items_given: "Item(s) being given away:"
+    items_searched: "Item(s) being searched for:"
+    image_not_available: Image not available yet.
+    select_item: Select an item below for more details.
 # -- Stop translating here --
   setup:
     welcome_madloba: Welcome to Madloba!
@@ -582,3 +613,6 @@ ka:
     install_guide: the installation guide
     amazon_s3_warning_html: If you're choosing Amazon S3, make sure you've set up the relevant environment variables correctly (check out %{link} - section about the set_environment_variables script - for more details).
     image_error: A problem occured while saving your settings. Please refresh this page and try again in a moment.
+    back_language_html: (You can also go back and choose another language %{here}).
+    choose_language: Please choose a language
+    madloba_setup: Madloba setup
