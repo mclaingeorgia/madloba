@@ -56,8 +56,8 @@ ka:
     about_website: About %{website}
     links: Links
     your_searched_location: Your searched location
-    no_ad: There's no ad at the moment.
-    create_an_ad_now_html: "%{createad} to tell your community what you have to give, or what you're looking for!"
+    no_ad: There are currently no services relating to your search.
+    create_an_ad_now_html: "Please try another keyword or use the categories to broaden your search."
     about_page: About %{appname}
     faq_page: FAQ
     about_description_1_html: "%{appname} is a website powered by %{madloba_link}."
@@ -250,9 +250,10 @@ ka:
     first_name: First name
     last_name: Last name
     username: Username
-    username_help: Your username will be used if you don't want to show your full name, when publishing an ad.
+    username_help: Your username will be used if you prefer to remain anonymous.
     email: E-mail
     password: Password
+    password_help: The password is case-sensitive and must be at least 8 characters long.
     password_confirm: Password confirmation
     register_service: Do you plan to register a service?
     sign_up: Sign up
@@ -434,6 +435,7 @@ ka:
     general_settings:
       name: Website name
       description: Website description
+      summary: Website summary
       contact_email: Contact e-mail address
       facebook: Facebook page URL
       twitter: Twitter handle

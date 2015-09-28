@@ -348,7 +348,7 @@ function initializeSideBar(sidebar){
     });
 
     // Navigation toggle button
-    var btn = L.functionButtons([{ content: 'Categories / Register services' }]);
+    var btn = L.functionButtons([{ content: '<strong>Categories / Register services</strong>' }]);
 
     map.addControl(sidebar);
 

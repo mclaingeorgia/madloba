@@ -98,6 +98,10 @@ body {
     z-index: 1;
 }
 
+.navbar-nav .popover{
+    width: 340px;
+}
+
 /*
  * Home page
  * ---------

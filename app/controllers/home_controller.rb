@@ -21,7 +21,7 @@ class HomeController < ApplicationController
     @mapSettings = getMapSettings(nil, HAS_NOT_CENTER_MARKER, NOT_CLICKABLE_MAP)
 
     # Getting all the needed settings to load the page
-    settings_records = Setting.where(key: %w(description area_length area_type contact_email facebook twitter pinterest
+    settings_records = Setting.where(key: %w(summary area_length area_type contact_email facebook twitter pinterest
                                      link_one_label link_one_url link_two_label link_two_url
                                      link_three_label link_three_url link_four_label link_four_url))
 
@@ -199,12 +199,12 @@ class HomeController < ApplicationController
           if setting['key'] == 'twitter'
             social['url'] = "http://twitter.com/#{setting['value']}"
           else
-            social['url'] = "http://#{setting['value']}"
+            social['url'] = setting['value']
           end
           @social_medias << social
         end
-      elsif setting['key'] == 'description'
-        # Website description
+      elsif setting['key'] == 'summary'
+        # Website summary
         @website_description_paragraph = []
         if setting['value'] && setting['value'].length > 0
           @website_description_paragraph = setting['value'].split(/[\r\n]+/)

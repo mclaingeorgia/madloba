@@ -141,8 +141,8 @@ ActiveRecord::Schema.define(version: 20150707185014) do
     t.string   "locale",     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "question"
-    t.string   "answer"
+    t.text     "question"
+    t.text     "answer"
   end
 
   add_index "faq_translations", ["faq_id"], name: "index_faq_translations_on_faq_id", using: :btree

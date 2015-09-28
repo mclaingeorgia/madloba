@@ -11,6 +11,7 @@
 setting_list = [
     %w(app_name Madloba),
     ['description', ''],
+    ['summary', ''],
     ['contact_email', ''],
     ['link_one_label', ''],
     ['link_one_url', ''],

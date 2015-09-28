@@ -59,13 +59,21 @@
                   </div>
                 </div>
 
+                <!-- Website small summary -->
+                <div class="form-group">
+                  <%= label_tag 'summary', t('admin.general_settings.summary')+':', class:'control-label' %>
+                  <div class="form-inline">
+                    <%= text_area_tag 'summary', @settings['summary'], {class: 'form-control textarea_count', size: '35x8', maxlength: 500} %>
+                  </div>
+                  <span class="remaining_characters"><%= @description_remaining %></span> remaining charaters.
+                </div>
+
                 <!-- Website description -->
                 <div class="form-group">
                   <%= label_tag 'description', t('admin.general_settings.description')+':', class:'control-label' %>
                   <div class="form-inline">
-                    <%= text_area_tag 'description', @settings['description'], {class: 'form-control textarea_count', size: '35x8', maxlength: 500} %>
+                    <%= text_area_tag 'description', @settings['description'], {class: 'form-control', size: '50x10'} %>
                   </div>
-                  <span class="remaining_characters"><%= @description_remaining %></span> remaining charaters.
                 </div>
 
                 <!-- Contact e-mail address -->

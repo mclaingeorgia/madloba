@@ -1,6 +1,6 @@
 class CreateTranslationForFaqs < ActiveRecord::Migration
   def up
-    Faq.create_translation_table!({ question: :string, answer: :string }, {migrate_data: true})
+    Faq.create_translation_table!({ question: :text, answer: :text }, {migrate_data: true})
   end
 
   def down
