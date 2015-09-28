@@ -98,8 +98,8 @@ en:
     location: "Location:*"
     user_location: "This user's locations:*"
     new_location: Enter your location
-    name: "Location name:"
-    name_help: Give a name to your new location (eg shop name, random name you give your workshop...). It will be shown publicly. Leave blank if you don't want to assign any name.
+    name: "Location description:"
+    name_help: Give a name to your location, e.g. workshop name, building name etc. This will be shown publicly. If you don’t have a name for your location you can leave this blank
     name_to_use: "Which name would you like to use?*"
     anon_publisher_name_note: "This is an ad posted by an anonymous user:"
     no_service_provider_yet: "No service provider has been tied to this ad yet. Please enter a service provider's name and email:"
@@ -133,6 +133,7 @@ en:
     not_found_descr2: "But that's ok! Please select it manually on the map."
     district_help: Choose the region where this location can be found.
   ad:
+    mandatory_field: "*denotes mandatory fields"
     new_ad: Service registration
     area: area
     error_occurred: "%{errors} occurred while saving this ad"
@@ -142,8 +143,8 @@ en:
     no_favorite_yet: "You don't have any favorite service... yet"
     has_expired: This ad has expired on %{expire_date}, and is not visible on the website any longer.
     title: "Name of service*:"
-    title_help: e.g. 'Gives away 5 shirts' or 'I want to get rid of my old laptop'...
-    item: "Types of services*:"
+    title_help: e.g. the name of your school or organisation ‘Caring for Children Association’ or ‘South West Day Care Centre’
+    item: "Which Rehabilitative services do you provide?*:"
     about_you: "About you"
     name: "Your name*:"
     name_help: Please enter your name or a nickname here. It will appear publicly as it is, in the published ad.
@@ -159,7 +160,7 @@ en:
     beneficiaries_age_group: Beneficiaries age group
     parental_support: Parental support
     location_description: "About this place:"
-    description_help: "Give some details about the service you're promoting."
+    description_help: "Add some details about your services, consider what you would like people to know about you and how you can assist them."
     new_location: Enter a new location
     choose_existing: Choose existing location instead
     service_category: "Service categories*:"
@@ -178,7 +179,7 @@ en:
     ad_has_expired: Sorry, this ad has expired and is not visible anymore.
     no_ad_created_yet: You have not created any ad yet. Click on the button above to create your first one!
     no_location_yet: "Nothing to edit here: you have not created any ad with an exact location in it yet."
-    upload_image: "Upload image:"
+    upload_image: "Upload image or logo:"
     less_than_limit: Image must be less than 5MB.
     remove_image: Remove image
     image_currently_processed: Your image is currently being processed.

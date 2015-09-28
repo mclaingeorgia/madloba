@@ -167,9 +167,10 @@
   <!-- Phone number -->
   <div class="form-group">
     <%= form.label :phone_number, t('location.phone_number'), class: label_class %>
-    <div class='<%= col3 %>'>
-      <%= form.text_field :phone_number, class: 'form-control', maxlength:'15' %>
-    </div>
+  <div class="input-group <%= col3 %>" style="padding-left: 15px;">
+    <span class="input-group-addon">+995</span>
+    <%= form.text_field :phone_number, class: 'form-control', maxlength:'15' %>
+  </div>
   </div>
 
   <!-- Website -->
