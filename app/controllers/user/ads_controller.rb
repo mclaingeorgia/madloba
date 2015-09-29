@@ -24,7 +24,7 @@ class User::AdsController < ApplicationController
   end
 
   def new
-    @ad = Ad.new(is_published: false)
+    @ad = Ad.new
     authorize @ad
     get_map_settings_for_ad
 

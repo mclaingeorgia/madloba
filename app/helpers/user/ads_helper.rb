@@ -86,4 +86,14 @@ module User::AdsHelper
     return result
   end
 
+  def contact_email_to_show(ad)
+    email = ''
+    if ad.user
+      email = ad.user.email
+    elsif ad.anon_email
+      email = ad.anon_email
+    end
+    return email
+  end
+
 end

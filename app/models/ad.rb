@@ -124,6 +124,7 @@ class Ad < ActiveRecord::Base
   # Setting default values after initialization.
   def default_values
     self.is_username_used = false
+    self.is_published = false
     self.is_giving = true
 
     # we define the date when the ad won't be published any longer (see maximum number of days, in Settings table)

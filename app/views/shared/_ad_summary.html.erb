@@ -12,7 +12,7 @@
 
 <!-- Left-hand side: Categories -->
 <div>
-  <label class="ad-label"><%= t('admin.categories')+':' %></label>
+  <label class="ad-label"><%= t('ad.type_services')+':' %></label>
   <span>
     <ul>
       <% @ad.categories.each do |category| %>
@@ -43,6 +43,14 @@
         <div>
           <label class="ad-label"><%= t('ad.location_description') %></label>
           <span><%= @ad.location.description %></span>
+        </div>
+    <% end %>
+
+    <!-- Left-hand side: Email -->
+    <% if contact_email_to_show(@ad) != '' %>
+        <div>
+          <label class="ad-label"><%= t('admin.users.email') %>: </label>
+          <span><%= contact_email_to_show(@ad) %></span>
         </div>
     <% end %>
 

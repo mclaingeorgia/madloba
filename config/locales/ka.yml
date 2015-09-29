@@ -76,7 +76,7 @@ ka:
     click_on_map_after: Once general area found, click on the map underneath to select the desired location.
     demo_sidebar_note_html: (Demo) As an administrator, you can change the colors and the icons of these categories in the %{link}.
     admin_panel: admin panel
-    same_area: Ads related to a same area
+    same_area: Services related to a same area
     update: Update
     demo_instructions_html: "(Demo) Instructions to login %{link}."
     footer_powered_by_html: Powered by %{madloba_link}
@@ -149,6 +149,7 @@ ka:
     title_help: e.g. the name of your school or organisation ‘Caring for Children Association’ or ‘South West Day Care Centre’
     item: "Types of services*:"
     about_you: "About you"
+    type_services: Categories of services
     name: "Your name*:"
     name_help: Please enter your name or a nickname here. It will appear publicly as it is, in the published ad.
     captcha: "Captcha*:"
@@ -232,7 +233,7 @@ ka:
     description: Description
     where_pick_up: Where to pick up the item
     admin_panel: our admin panel.
-    manage_ad_html: "To manage this ad, as well as your previously posted ads, login to %{href}"
+    manage_ad_html: "To manage this service, as well as your previously posted services, login to %{href}"
     received_message: You received a reply for your '%{ad_title}' ad on %{site_name}.
     new_ad_object: Your new service registration on %{site_name} - '%{ad_title}'
     new_ad_to_review: "New service to review: '%{title}'"
@@ -285,9 +286,9 @@ ka:
   admin:
     dashboard: Dashboard
     name: Name
-    address: Address/Postal code/Region
+    address: Address/Region/Postal code
     exact_area: Location type
-    ads: Ads
+    ads: Services
     ad_settings: Ad settings
     location_tab: Location
     location_name: location
@@ -320,12 +321,12 @@ ka:
     edit_delete: Edit details / Delete
     created_by_user: Created by user
     update_ad: Update ad
-    manage_your_ads: Manage your ads
+    manage_your_ads: Manage your Services
     manage_records: Manage records
-    records_message: From here, you can manage the ads posted on the website, as well as their locations, services, and categories.
+    records_message: From here, you can manage the services posted on the website, as well as their locations, services, and categories.
     faq_message: Manage the RehabLink FAQ from here.
     back_to_records: Back to the 'Manage records' page
-    back_to_ads: Back to 'Manage your ads' page
+    back_to_ads: Back to 'Manage your services' page
     back_to_users: Back to 'Manage users' page
     create_ad: Create ad
     mandatory: (* mandatory fields)
@@ -341,7 +342,7 @@ ka:
     you_admin: You're an administrator of this website.
     you_super_admin: You're an super-administrator of this website.
     use_left_hand: Use the left-hand side menu to manage
-    admin_descr1: the different components of this website (ads, locations, services, categories)
+    admin_descr1: the different components of this website (services, locations, type of services, categories)
     admin_descr2: the registered users (admins and regulars users)
     admin_descr3: the website main settings
     admin_descr4: the settings for the map on the front page
@@ -350,13 +351,13 @@ ka:
     regular_actions: You can also perform regular users' actions.
     todo_list: To-do list
     welcome_user: Welcome to your %{site_name} dashboard. Use the left-hand side menu to manage
-    user_descr1: the ads you published, as well as the locations tied to them.
+    user_descr1: the services you published, as well as the locations tied to them.
     user_descr2: your user information.
     social_media: Social media
     useful_links: Useful links
     delete_sure: Are you sure you want to delete this %{entity}?
-    warning_ads_before_delete_item: "WARNING: some ads are still tied to this service. Deleting this service will permanently remove it from these ads."
-    warning_ads_before_delete_location: "WARNING: some ads are still tied to this location. Deleting this location will permanently delete these ads."
+    warning_ads_before_delete_item: "WARNING: some services are still tied to this type. Deleting this type will permanently remove it from these services."
+    warning_ads_before_delete_location: "WARNING: some services are still tied to this location. Deleting this location will permanently delete these ads."
     delete_confirm: Yes, delete this %{entity}
     save_not_possible: "Demo - Update not possible for this page"
     left_menu:
@@ -369,13 +370,13 @@ ka:
       favorite_services: Your favorite services
       manage_faq: Manage the FAQ
     ad:
-      manage_ads: Manage ads
+      manage_ads: Manage services
       ad_edit: Ad details - Edit
       ad_updated: The ad '%{title}' has been updated.
       error_update: "%{errors} occurred while updating this ad"
       delete: Delete this ad
       delete_ad_error_html: "Error occurred when updating this ad! Back to %{href}"
-      manage_ads_page: "'Manage your ads' page"
+      manage_ads_page: "'Manage your services' page"
       giving_accepting_title: Giving away/Accepting
       giving_away: Giving away
       accepting: Accepting
@@ -562,7 +563,7 @@ ka:
     filtered_from: filtered from
     in_this_district: In this district
     ads_for: Ads for
-    items_given: "Item(s) being given away:"
+    items_given: "Type of services:"
     items_searched: "Item(s) being searched for:"
     image_not_available: Image not available yet.
     select_item: Select an item below for more details.

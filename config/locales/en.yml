@@ -148,6 +148,7 @@ en:
     item: "Which Rehabilitative services do you provide?*:"
     about_you: "About you"
     name: "Your name*:"
+    type_services: Categories of services
     name_help: Please enter your name or a nickname here. It will appear publicly as it is, in the published ad.
     captcha: "Captcha*:"
     email_help: Providing your email is not mandatory (make sure you've at least put a phone number in the ad description). If you give an email address, it won't be published publicly and users will still be able to write a message to you.
@@ -284,10 +285,10 @@ en:
     dashboard: Dashboard
     todo_list: To-do list
     name: Name
-    address: Address/Postal code/Region
+    address: Address/Region/Postal code
     exact_area: Location type
-    ads: Ads
-    ad_settings: Ad settings
+    ads: Services
+    ad_settings: Service settings
     location_name: location
     expiration_date: Expiration date
     locations: Locations
@@ -613,7 +614,7 @@ en:
     filtered_from: filtered from
     in_this_district: In this district
     ads_for: Ads for
-    items_given: "Item(s) being given away:"
+    items_given: "Type of services:"
     items_searched: "Item(s) being searched for:"
     image_not_available: Image not available yet.
     select_item: Select an item below for more details.
