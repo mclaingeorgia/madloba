@@ -53,7 +53,7 @@
             <h3 style="padding-bottom: 30px;"><%= t('ad.new_ad') %></h3>
 
             <div class="form-group">
-              <div class="col-lg-2"></div>
+              <div class="col-lg-3"></div>
               <div class="col-lg-6 madatory_fields">
                 <%= t('ad.mandatory_field') %>
               </div>
@@ -61,7 +61,7 @@
 
             <!-- Ad title -->
             <div class="form-group">
-              <%= f.label :title, t('ad.title'), class: 'col-lg-2 control-label' %>
+              <%= f.label :title, t('ad.title'), class: 'col-lg-3 control-label' %>
               <div class="col-lg-6">
                 <%= f.text_field :title, class: 'form-control help-message', autofocus: true,
                                  :data => {:content => t('ad.title_help'), :placement => 'right',
@@ -72,7 +72,7 @@
             <!-- Name to use (it user is not anonymous) -->
             <% if user_signed_in? %>
                 <div class="form-group">
-                  <%= f.label :is_username_used, t('location.name_to_use'), class: 'col-lg-2 control-label' %>
+                  <%= f.label :is_username_used, t('location.name_to_use'), class: 'col-lg-3 control-label' %>
                   <div class='col-lg-6'>
                     <div class="radio">
                       <label>
@@ -92,7 +92,7 @@
 
             <!-- Items -->
             <div class="form-group">
-              <%= f.label :ad_items, t('ad.item'), class: 'col-lg-2 control-label' %>
+              <%= f.label :ad_items, t('ad.item'), class: 'col-lg-3 control-label' %>
               <div class="col-lg-6">
                 <div id="items">
                   <%= f.fields_for :ad_items do |ad_item| %>
@@ -105,7 +105,7 @@
 
             <!-- Categories -->
             <div class="form-group">
-              <%= f.label :category, t('ad.service_category'), class: 'col-lg-2 control-label' %>
+              <%= f.label :category, t('ad.service_category'), class: 'col-lg-3 control-label' %>
               <div class='col-lg-6'>
                 <%= hidden_field_tag('ad[category_ids][]', nil) %>
                 <% Category.all.each do |category| %>
@@ -120,17 +120,18 @@
 
             <!-- Ad description -->
             <div class="form-group">
-              <%= f.label :description, t('ad.description')+'*:', class: 'col-lg-2 control-label' %>
+              <%= f.label :description, t('ad.description')+'*:', class: 'col-lg-3 control-label' %>
               <div class="col-lg-6">
-                <%= f.text_area :description, class: 'form-control help-message', rows: 6,
+                <%= f.text_area :description, class: 'form-control help-message textarea_count', rows: 6, maxlength: 2000,
                                 :data => {:content => t('ad.description_help'), :placement => 'right',
                                           :toggle => 'popover', :trigger => 'hover focus'} %>
+                <span class="remaining_characters"><%= @description_remaining %></span> remaining charaters.
               </div>
             </div>
 
             <!-- Beneficiary age group -->
             <div class="form-group">
-              <%= f.label :benef_age_group, t('ad.beneficiaries_age_group')+'*:', class: 'col-lg-2 control-label' %>
+              <%= f.label :benef_age_group, t('ad.beneficiaries_age_group')+'*:', class: 'col-lg-3 control-label' %>
               <div class="col-lg-2 col-sm-6">
                 <%= f.select :benef_age_group, options_for_select(beneficiaries_age_group, f.object.benef_age_group), {}, {class: 'form-control'} %>
               </div>
@@ -139,7 +140,7 @@
             <!-- Image upload - only possible when app deployed on server, for now -->
             <% if !is_on_heroku && can_upload_image %>
                 <div class="form-group">
-                  <%= f.label :description, t('ad.upload_image'), class: 'col-lg-2 control-label' %>
+                  <%= f.label :description, t('ad.upload_image'), class: 'col-lg-3 control-label' %>
                   <div class="col-lg-6">
                     <%= f.file_field :image, class: 'form-control', style: 'border: 0px; height: auto;' %>
                     <%= f.hidden_field :image_cache, value: params[:image_cache] %>
@@ -147,8 +148,8 @@
                   </div>
                 </div>
                 <div class="form-group">
-                  <div class="col-lg-2"></div>
-                  <div class="col-lg-10">
+                  <div class="col-lg-3"></div>
+                  <div class="col-lg-9">
                     <% if @ad.image? %>
                         <% if is_image_available(@ad) %>
                             <div id="image-section">
@@ -179,8 +180,8 @@
                 <!-- if location params already exists, we render directly the form they were created in. -->
                 <%= f.fields_for :location, :html => {:class => 'form-horizontal'} do |loc| %>
                     <%= render 'shared/location_form', form: loc, location: @ad.location,
-                               label_class: 'col-lg-2 control-label',
-                               col10: 'col-lg-10', col8: 'col-lg-8', col6: 'col-lg-6', col4: 'col-lg-4', col3: 'col-lg-3',
+                               label_class: 'col-lg-3 control-label',
+                               col10: 'col-lg-9', col8: 'col-lg-8', col6: 'col-lg-6', col4: 'col-lg-4', col3: 'col-lg-3',
                                col2: 'col-lg-2', col_radio: 'col-lg-6', can_choose_existing_location: can_choose_existing_locations(current_user) %>
                 <% end %>
             <% else %>
@@ -189,7 +190,7 @@
                   <% if user_locations_number > 0 %>
                       <!-- List of all the different locations previously entered by the current user -->
                       <div id="locations_from_list" class="form-group">
-                        <%= f.label :location, t('location.location'), class: 'col-lg-2 control-label' %>
+                        <%= f.label :location, t('location.location'), class: 'col-lg-3 control-label' %>
                         <div class="col-lg-6">
                           <% current_user.locations.each_with_index do |loc, index| %>
                               <div class='radio existing_location'>
@@ -203,12 +204,12 @@
                   <% end %>
 
                   <% if can_choose_existing_locations(current_user) %>
-                      <div class="col-lg-2" style="display: inline-block">&nbsp;</div>
+                      <div class="col-lg-3" style="display: inline-block">&nbsp;</div>
                   <% end %>
 
                   <!-- "Enter a new location" link -->
                   <%= link_to_add_association t('ad.new_location'), f, :location, partial: 'shared/location_form', class: 'btn btn-sm btn-info', style: 'margin-bottom: 30px;', form_name: 'form',
-                                              render_options: {locals: {label_class: 'col-lg-2 control-label', col10: 'col-lg-10', col8: 'col-lg-8', col6: 'col-lg-6', col4: 'col-lg-4', col3: 'col-lg-3',
+                                              render_options: {locals: {label_class: 'col-lg-3 control-label', col10: 'col-lg-10', col8: 'col-lg-8', col6: 'col-lg-6', col4: 'col-lg-4', col3: 'col-lg-3',
                                                                         col2: 'col-lg-2', col_radio: 'col-lg-6', can_choose_existing_location: (current_user != nil && current_user.locations.length > 0)}} %>
                 </div>
             <% end %>

@@ -27,6 +27,11 @@ class User::AdsController < ApplicationController
     @ad = Ad.new(is_published: false)
     authorize @ad
     get_map_settings_for_ad
+
+    @description_remaining = 2000
+    if @ad.description && @ad.description.length > 0
+      @description_remaining = 2000 - @ad.description.length
+    end
   end
 
   def create
@@ -125,7 +130,7 @@ class User::AdsController < ApplicationController
     params.require(:ad).permit(:title, :description, :is_username_used, :location_id, :is_giving, {category_ids: []}, :user_id,
                                :image, :image_cache, :remove_image, :anon_name, :anon_email, :captcha, :captcha_key, :funding_source, :benef_age_group, :is_parental_support, :is_published,
                                :ad_items_attributes => [:id, :item_id, :_destroy, :item_attributes => [:id, :name, :_destroy] ],
-                               :location_attributes => [:id, :user_id, :name, :street_number, :address, :postal_code, :province, :city, :district_id, :loc_type, :latitude, :longitude, :phone_number, :website, :description, :facebook, :_destroy])
+                               :location_attributes => [:id, :user_id, :name, :street_number, :address, :postal_code, :province, :city, :district_id, :loc_type, :latitude, :longitude, :phone_number, :website, :add_phone_number, :add_phone_number_2, :description, :facebook, :_destroy])
   end
 
   # This method is called when a user replies and sends a message to another user, who posted an ad.

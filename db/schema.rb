@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150707185014) do
+ActiveRecord::Schema.define(version: 20150929113625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,9 +61,7 @@ ActiveRecord::Schema.define(version: 20150707185014) do
     t.string   "image"
     t.string   "anon_name"
     t.string   "anon_email"
-    t.string   "funding_source"
     t.string   "benef_age_group"
-    t.boolean  "is_parental_support"
     t.boolean  "is_published"
   end
 
@@ -205,12 +203,14 @@ ActiveRecord::Schema.define(version: 20150707185014) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "street_number"
-    t.decimal  "latitude",      precision: 7, scale: 5
-    t.decimal  "longitude",     precision: 8, scale: 5
+    t.decimal  "latitude",           precision: 7, scale: 5
+    t.decimal  "longitude",          precision: 8, scale: 5
     t.integer  "user_id"
     t.integer  "district_id"
     t.string   "loc_type"
     t.string   "facebook"
+    t.string   "add_phone_number"
+    t.string   "add_phone_number_2"
   end
 
   add_index "locations", ["district_id"], name: "index_locations_on_district_id", using: :btree

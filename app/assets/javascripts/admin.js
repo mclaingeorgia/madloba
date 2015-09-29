@@ -176,20 +176,6 @@ $(document).ready(function(){
         line_to_remove.remove();
     });
 
-
-    // Character counter (class 'textarea_count'), for text area, in 'General settings'.
-    $( ".textarea_count" ).keyup(function() {
-        var maxlength = $(this).attr('maxlength');
-        var textlength = $(this).val().length;
-        $(".remaining_characters").html(maxlength - textlength);
-    });
-
-    $( ".textarea_count" ).keydown(function() {
-        var maxlength = $(this).attr('maxlength');
-        var textlength = $(this).val().length;
-        $(".remaining_characters").html(maxlength - textlength);
-    });
-
     // Category edit page: opening up the icon modal window.
     $(".btn-icon-modal").click(function (){
         $('#myModalIcon').modal('show');

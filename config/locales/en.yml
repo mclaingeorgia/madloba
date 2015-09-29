@@ -122,7 +122,8 @@ en:
     province: Region
     define_geocode_button: Locate me on the map
     map: "Map:"
-    phone_number: "Phone number:"
+    phone_number: "Main phone number:"
+    add_phone_number: "Additional phone numbers:"
     website: "Website:"
     facebook: "Facebook:"
     link_to_facebook: Link to Facebook page
@@ -291,7 +292,7 @@ en:
     expiration_date: Expiration date
     locations: Locations
     location_tab: Location
-    items: Services
+    items: Type of services offered
     item_name: service
     categories: Categories
     add_location: Add location

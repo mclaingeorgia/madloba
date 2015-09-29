@@ -27,7 +27,12 @@
     <!-- We're not displaying any Devise notification during the setup screens -->
     <div class="alert alert-dismissable alert-success no-margin-bottom">
       <button type="button" class="close" data-dismiss="alert">×</button>
-      <%= notice %>
+      <% if is_devise_message(notice) %>
+          <strong><%= notice %></strong>
+      <% else %>
+          <%= notice %>
+      <% end %>
+
     </div>
 <% elsif alert %>
     <div class="alert alert-dismissable alert-danger no-margin-bottom">

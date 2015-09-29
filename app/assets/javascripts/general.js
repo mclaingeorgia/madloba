@@ -39,6 +39,19 @@ $(document).ready(function() {
         show_hide_up_arrow();
     });
 
+    // Character counter (class 'textarea_count'), for text area, in 'General settings', and on new ad form.
+    $( ".textarea_count" ).keyup(function() {
+        var maxlength = $(this).attr('maxlength');
+        var textlength = $(this).val().length;
+        $(".remaining_characters").html(maxlength - textlength);
+    });
+
+    $( ".textarea_count" ).keydown(function() {
+        var maxlength = $(this).attr('maxlength');
+        var textlength = $(this).val().length;
+        $(".remaining_characters").html(maxlength - textlength);
+    });
+
     // Navigation - Search form: Ajax call to get locations proposition, based on user input in this form.
     $("#btn-form-search").bind("click", getLocationsPropositions);
 

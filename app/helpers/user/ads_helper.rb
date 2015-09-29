@@ -69,4 +69,21 @@ module User::AdsHelper
      ['29+', '29+']]
   end
 
+  def check_additional_phone_numbers(loc)
+    result = nil
+    array = []
+    if loc.add_phone_number
+      array << loc.add_phone_number
+    end
+    if loc.add_phone_number_2
+      array << loc.add_phone_number_2
+    end
+
+    if !array.empty?
+      result = array.join(', ')
+    end
+
+    return result
+  end
+
 end

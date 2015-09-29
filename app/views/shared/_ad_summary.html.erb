@@ -54,6 +54,22 @@
         </div>
     <% end %>
 
+    <!-- Left-hand side: Phone number -->
+    <% if @ad.location.phone_number && @ad.location.phone_number != '' %>
+        <div>
+          <label class="ad-label"><%= t('location.phone_number') %></label>
+          <span><%= @ad.location.phone_number %></a></span>
+        </div>
+    <% end %>
+
+    <!-- Left-hand side: Additional phone numbers -->
+    <% if check_additional_phone_numbers(@ad.location) %>
+        <div>
+          <label class="ad-label"><%= t('location.add_phone_number') %></label>
+          <span><%= check_additional_phone_numbers(@ad.location) %></a></span>
+        </div>
+    <% end %>
+
     <!-- Left-hand side: Facebook page -->
     <% if @ad.location.facebook && @ad.location.facebook != '' %>
         <div>
