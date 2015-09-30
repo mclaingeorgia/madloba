@@ -23,7 +23,7 @@ class HomeController < ApplicationController
     # Getting all the needed settings to load the page
     settings_records = Setting.where(key: %w(summary area_length area_type contact_email facebook twitter pinterest
                                      link_one_label link_one_url link_two_label link_two_url
-                                     link_three_label link_three_url link_four_label link_four_url))
+                                     link_three_label link_three_url link_four_label link_four_url link_five_label link_five_url link_six_label link_six_url))
 
     # Initializing links, and social media information, for the footer of the home page.
     settings = get_footer_info(settings_records)
@@ -223,6 +223,8 @@ class HomeController < ApplicationController
     @links << get_link(settings['link_two_label'], settings['link_two_url'])
     @links << get_link(settings['link_three_label'], settings['link_three_url'])
     @links << get_link(settings['link_four_label'], settings['link_four_url'])
+    @links << get_link(settings['link_five_label'], settings['link_five_url'])
+    @links << get_link(settings['link_six_label'], settings['link_six_url'])
 
     return settings
   end

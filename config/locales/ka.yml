@@ -451,6 +451,8 @@ ka:
       link_two: Second link
       link_three: Third link
       link_four: Fourth link
+      link_five: Fifth link
+      link_six: Sixth link
       link_help: Create up to 4 links in this section, to advertise relevant websites/pages, at the bottom of the front page.
     area_settings:
       title: Area settings
