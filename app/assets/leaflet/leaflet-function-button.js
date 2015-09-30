@@ -20,7 +20,7 @@ L.FunctionButtons = L.Control.extend({
 		var container = L.DomUtil.create('div', 'leaflet-bar');
 		for( var i = 0; i < this._buttons.length; i++ ) {
 			var button = this._buttons[i],
-				link = L.DomUtil.create('a', 'btn btn-xs btn-success no-color', container);
+				link = L.DomUtil.create('a', 'btn btn-md btn-success no-color', container);
 			link._buttonIndex = i; // todo: remove?
 			link.href = button.href || '#';
 			if( button.href )
@@ -28,6 +28,7 @@ L.FunctionButtons = L.Control.extend({
 			//link.style.padding = '0 0px';
 			link.style.width = 'auto';
 			link.style.minWidth = '20px';
+            link.style.height = 'auto';
 			if( button.bgColor )
 				link.style.backgroundColor = button.bgColor;
 			if( button.title )

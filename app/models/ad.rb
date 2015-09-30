@@ -23,9 +23,11 @@ class Ad < ActiveRecord::Base
   validates :is_username_used, inclusion: [true, false]
   validates :is_published, inclusion: [true, false]
   validate :has_items
-  #validate :has_anon_name_and_email
   validate :must_have_one_category
   validates_size_of :image, maximum: 5.megabytes
+
+  # Fields to be translated
+  translates :title, :description
 
   apply_simple_captcha
 
@@ -122,6 +124,7 @@ class Ad < ActiveRecord::Base
   # Setting default values after initialization.
   def default_values
     self.is_username_used = false
+    self.is_published = false
     self.is_giving = true
 
     # we define the date when the ad won't be published any longer (see maximum number of days, in Settings table)

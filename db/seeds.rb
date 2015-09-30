@@ -11,6 +11,7 @@
 setting_list = [
     %w(app_name Madloba),
     ['description', ''],
+    ['summary', ''],
     ['contact_email', ''],
     ['link_one_label', ''],
     ['link_one_url', ''],
@@ -20,6 +21,10 @@ setting_list = [
     ['link_three_url', ''],
     ['link_four_label', ''],
     ['link_four_url', ''],
+    ['link_five_label', ''],
+    ['link_five_url', ''],
+    ['link_six_label', ''],
+    ['link_six_url', ''],
     %w(chosen_map osm),
     ['map_box_api_key', ''],
     ['mapquest_api_key', ''],
@@ -36,7 +41,8 @@ setting_list = [
     ['area_type', ''],
     %w(ad_max_expire 90),
     %w(setup_step 1),
-    ['image_storage', '']
+    ['image_storage', ''],
+    ['language_chosen', 'en']
 ]
 
 setting_list.each do |setting|

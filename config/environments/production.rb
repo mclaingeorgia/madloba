@@ -92,7 +92,7 @@ Madloba::Application.configure do
 
   Madloba::Application.config.middleware.use ExceptionNotification::Rack,
                                               :email => {
-                                                  :email_prefix => "[Madloba App error] ",
+                                                  :email_prefix => "[Mclain App error] ",
                                                   :sender_address => "#{Rails.application.secrets.error_sender_email}",
                                                   :exception_recipients => "#{Rails.application.secrets.error_recipients_email}",
                                                   :delivery_method => :smtp

@@ -54,7 +54,9 @@
             <div class="form-group">
               <%= f.label :password, t('registration.password')+':', class:'col-lg-3 control-label' %>
               <div class="col-lg-9">
-                <%= f.password_field :password, class: 'form-control', autocomplete: "off" %>
+                <%= f.password_field :password, class: 'form-control', autocomplete: "off",
+                    :data => {:content => t('registration.password_help'), :placement => 'right',
+                              :toggle => 'popover', :trigger => 'hover focus'}%>
               </div>
             </div>
 

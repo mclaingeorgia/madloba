@@ -61,13 +61,39 @@ module User::AdsHelper
   end
 
   def beneficiaries_age_group
-    [['0-6','0-6'],
-     ['0-18','0-18'],
-     ['0-29','0-29'],
-     ['12-21', '12-21'],
-     ['14-29', '14-29'],
-     ['18-29', '18-29'],
+    [['0-7','0-7'],
+     ['6-18','6-18'],
+     ['18-29','18-29'],
+     ['0-18', '0-18'],
+     ['0-29', '0-29'],
      ['29+', '29+']]
+  end
+
+  def check_additional_phone_numbers(loc)
+    result = nil
+    array = []
+    if loc.add_phone_number
+      array << loc.add_phone_number
+    end
+    if loc.add_phone_number_2
+      array << loc.add_phone_number_2
+    end
+
+    if !array.empty?
+      result = array.join(', ')
+    end
+
+    return result
+  end
+
+  def contact_email_to_show(ad)
+    email = ''
+    if ad.user
+      email = ad.user.email
+    elsif ad.anon_email
+      email = ad.anon_email
+    end
+    return email
   end
 
 end

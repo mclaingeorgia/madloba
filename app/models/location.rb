@@ -10,8 +10,10 @@ class Location < ActiveRecord::Base
   validates :latitude , numericality: { greater_than:  -90, less_than:  90 }
   validates :longitude, numericality: { greater_than: -180, less_than: 180 }
 
-  scope :type, -> (location_type) { where('ads.expire_date >= ? AND loc_type = ? AND ads.is_published = ?', Date.today, location_type, true)}
+  # Fields to be translated
+  translates :name, :address, :postal_code, :province, :city, :description
 
+  scope :type, -> (location_type) { where('ads.expire_date >= ? AND loc_type = ? AND ads.is_published = ?', Date.today, location_type, true)}
 
   # This method returns the right query to display relevant markers, on the home page.
   def self.search(location_type, cat_nav_state, searched_item, selected_item_ids, user_action )

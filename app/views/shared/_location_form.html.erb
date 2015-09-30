@@ -37,7 +37,7 @@
 
   <!-- Choose between 'exact location (address)' or 'area location (postal code or district)' -->
   <div class="form-group">
-    <%= form.label :loc_type, t('location.definition'), class: "#{col2} #{label_class}" %>
+    <%= form.label :loc_type, t('location.definition'), class: label_class %>
     <div class="<%= col_radio %>">
       <div class="radio">
         <label>
@@ -146,8 +146,7 @@
 
   <!-- Canvas for the map -->
   <div class="form-group">
-    <%= form.label 'map-canvas-wrapper', t('location.map'), class: label_class %>
-    <div class='<%= col10 %>'>
+    <div class='col-lg-12'>
       <span id="map_notification_exact" class="map_notification"><i><%= t('admin.location.map_notification_exact')%></i></span>
       <span id="map_notification_postal_code_only" class="map_notification"><i><%= t('admin.location.map_notification_postal_code')%></i></span>
       <div id="map"></div>
@@ -167,8 +166,24 @@
   <!-- Phone number -->
   <div class="form-group">
     <%= form.label :phone_number, t('location.phone_number'), class: label_class %>
-    <div class='<%= col3 %>'>
-      <%= form.text_field :phone_number, class: 'form-control', maxlength:'15' %>
+      <div class="input-group <%= col3 %>" style="padding-left: 15px;">
+        <span class="input-group-addon">+995</span>
+        <%= form.text_field :phone_number, class: 'form-control', maxlength:'15' %>
+      </div>
+  </div>
+
+  <!-- Additional phone numbers -->
+  <div class="form-group">
+    <%= form.label :add_phone_number, t('location.add_phone_number'), class: label_class %>
+    <div class="<%= col6 %>" style="padding-left: 15px;">
+        <div class="input-group <%= col6 %>" style="float: left;">
+          <span class="input-group-addon">+995</span>
+          <%= form.text_field :add_phone_number, class: 'form-control', maxlength:'15' %>
+        </div>
+        <div class="input-group <%= col6 %>" style="padding: 0px 0px 0px 15px;">
+          <span class="input-group-addon">+995</span>
+          <%= form.text_field :add_phone_number_2, class: 'form-control', maxlength:'15' %>
+        </div>
     </div>
   </div>
 

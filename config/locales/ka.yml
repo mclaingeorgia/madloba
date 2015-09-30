@@ -1,4 +1,5 @@
-en:
+# -- Start translating here --
+ka:
   simple_captcha:
     placeholder: ""
     label: "Enter the text in this field"
@@ -23,6 +24,7 @@ en:
               too_long: The image must be less than 5MB.
             number_of_items:
               greater_than: "Please add at least 1 service."
+
   home:
     home: Home
     page: Home page
@@ -74,7 +76,7 @@ en:
     click_on_map_after: Once general area found, click on the map underneath to select the desired location.
     demo_sidebar_note_html: (Demo) As an administrator, you can change the colors and the icons of these categories in the %{link}.
     admin_panel: admin panel
-    same_area: Ads related to a same area
+    same_area: Services related to a same area
     update: Update
     demo_instructions_html: "(Demo) Instructions to login %{link}."
     footer_powered_by_html: Powered by %{madloba_link}
@@ -145,10 +147,10 @@ en:
     has_expired: This ad has expired on %{expire_date}, and is not visible on the website any longer.
     title: "Name of service*:"
     title_help: e.g. the name of your school or organisation ‘Caring for Children Association’ or ‘South West Day Care Centre’
-    item: "Which Rehabilitative services do you provide?*:"
+    item: "Types of services*:"
     about_you: "About you"
-    name: "Your name*:"
     type_services: Categories of services
+    name: "Your name*:"
     name_help: Please enter your name or a nickname here. It will appear publicly as it is, in the published ad.
     captcha: "Captcha*:"
     email_help: Providing your email is not mandatory (make sure you've at least put a phone number in the ad description). If you give an email address, it won't be published publicly and users will still be able to write a message to you.
@@ -162,7 +164,7 @@ en:
     beneficiaries_age_group: Beneficiaries age group
     parental_support: Parental support
     location_description: "About this place:"
-    description_help: "Add some details about your services, consider what you would like people to know about you and how you can assist them."
+    description_help: Add some details about your services, consider what you would like people to know about you and how you can assist them.
     new_location: Enter a new location
     choose_existing: Choose existing location instead
     service_category: "Service categories*:"
@@ -231,7 +233,7 @@ en:
     description: Description
     where_pick_up: Where to pick up the item
     admin_panel: our admin panel.
-    manage_ad_html: "To manage this ad, as well as your previously posted ads, login to %{href}"
+    manage_ad_html: "To manage this service, as well as your previously posted services, login to %{href}"
     received_message: You received a reply for your '%{ad_title}' ad on %{site_name}.
     new_ad_object: Your new service registration on %{site_name} - '%{ad_title}'
     new_ad_to_review: "New service to review: '%{title}'"
@@ -265,8 +267,8 @@ en:
     unhappy: Unhappy?
     you_sure: Are you sure?
     back: Back
-    resend_unlock: Resend unlock instructions
     cancel_account: Cancel my account
+    resend_unlock: Resend unlock instructions
   confirmation:
     resend: Resend confirmation instructions
   session:
@@ -283,16 +285,15 @@ en:
     change_your_password: Change your password
   admin:
     dashboard: Dashboard
-    todo_list: To-do list
     name: Name
     address: Address/Region/Postal code
     exact_area: Location type
     ads: Services
-    ad_settings: Service settings
+    ad_settings: Ad settings
+    location_tab: Location
     location_name: location
     expiration_date: Expiration date
     locations: Locations
-    location_tab: Location
     items: Type of services offered
     item_name: service
     categories: Categories
@@ -320,12 +321,12 @@ en:
     edit_delete: Edit details / Delete
     created_by_user: Created by user
     update_ad: Update ad
-    manage_your_ads: Manage your ads
+    manage_your_ads: Manage your Services
     manage_records: Manage records
-    records_message: From here, you can manage the ads posted on the website, as well as their locations, services, and categories.
+    records_message: From here, you can manage the services posted on the website, as well as their locations, services, and categories.
     faq_message: Manage the RehabLink FAQ from here.
     back_to_records: Back to the 'Manage records' page
-    back_to_ads: Back to 'Manage your ads' page
+    back_to_ads: Back to 'Manage your services' page
     back_to_users: Back to 'Manage users' page
     create_ad: Create ad
     mandatory: (* mandatory fields)
@@ -341,7 +342,7 @@ en:
     you_admin: You're an administrator of this website.
     you_super_admin: You're an super-administrator of this website.
     use_left_hand: Use the left-hand side menu to manage
-    admin_descr1: the different components of this website (ads, locations, services, categories)
+    admin_descr1: the different components of this website (services, locations, type of services, categories)
     admin_descr2: the registered users (admins and regulars users)
     admin_descr3: the website main settings
     admin_descr4: the settings for the map on the front page
@@ -350,13 +351,13 @@ en:
     regular_actions: You can also perform regular users' actions.
     todo_list: To-do list
     welcome_user: Welcome to your %{site_name} dashboard. Use the left-hand side menu to manage
-    user_descr1: the ads you published, as well as the locations tied to them.
+    user_descr1: the services you published, as well as the locations tied to them.
     user_descr2: your user information.
     social_media: Social media
     useful_links: Useful links
     delete_sure: Are you sure you want to delete this %{entity}?
-    warning_ads_before_delete_item: "WARNING: some ads are still tied to this service. Deleting this service will permanently remove it from these ads."
-    warning_ads_before_delete_location: "WARNING: some ads are still tied to this location. Deleting this location will permanently delete these ads."
+    warning_ads_before_delete_item: "WARNING: some services are still tied to this type. Deleting this type will permanently remove it from these services."
+    warning_ads_before_delete_location: "WARNING: some services are still tied to this location. Deleting this location will permanently delete these ads."
     delete_confirm: Yes, delete this %{entity}
     save_not_possible: "Demo - Update not possible for this page"
     left_menu:
@@ -369,13 +370,13 @@ en:
       favorite_services: Your favorite services
       manage_faq: Manage the FAQ
     ad:
-      manage_ads: Manage ads
+      manage_ads: Manage services
       ad_edit: Ad details - Edit
       ad_updated: The ad '%{title}' has been updated.
       error_update: "%{errors} occurred while updating this ad"
       delete: Delete this ad
       delete_ad_error_html: "Error occurred when updating this ad! Back to %{href}"
-      manage_ads_page: "'Manage your ads' page"
+      manage_ads_page: "'Manage your services' page"
       giving_accepting_title: Giving away/Accepting
       giving_away: Giving away
       accepting: Accepting
@@ -527,15 +528,54 @@ en:
       current_password: Current password
       new_password: New password
       confirm_password: Confirm password
+  general_js:
+    adblock_warning: Warning! Use of AdBlock
+    adblock_browser: Your browser is currently using AdBlock.
+    adblock_affecting: It's affecting this Madloba website's ability to work well.
+    adblock_turnoff: Turn off AdBlock for this website, and reload the page.
+    search_for_items: Search for services...
+    start_typing_item: Start typing an service
+    no_result_create_item: No results. Select 'Create a new service'.
+    new_image_uploading: New image is being uploaded. Please wait.
+    type_district_name: Type a region name here...
+    latitude: (latitude)
+    longitude: (longitude)
+    add: Add
+    updating_district: Updating region list...
+    area_show_up: "This location area will show up as:"
+    searching_location: Searching location...
+    update: Update
+    loading: Loading...
+    choose_location: Choose one of the following available locations, provided by OpenStreetMap
+    new_image_uploading: New image is being uploaded. Please wait.
+    remove: Remove
+    remove_from_favorites: Remove from your favorites
+    add_to_favorites: Add to your favorites
+    records_per_page: records per page
+    search: "Search:"
+    showing: Showing
+    to: to
+    of: of
+    entries: entries
+    previous: Previous
+    next: Next
+    no_data: No data available in table
+    first: First
+    last: Last
+    filtered_from: filtered from
+    in_this_district: In this district
+    ads_for: Ads for
+    items_given: "Type of services:"
+    items_searched: "Item(s) being searched for:"
+    image_not_available: Image not available yet.
+    select_item: Select an item below for more details.
+# -- Stop translating here --
   setup:
-    choose_language: Please choose a language
-    madloba_setup: Madloba setup
     welcome_madloba: Welcome to Madloba!
-    about_to_setup: You're about to finalize the Madloba setup on your server.
-    process_takes: This process will take about 10 minutes, then you'll be ready to go!
+    about_to_setup: You're about to setup Madloba on your server.
+    process_takes: The setup process takes about 10 minutes, then you'll be ready to go!
     click_next: Click on "Next" to continue.
     back: Back
-    back_language_html: (You can also go back and choose another language %{here}).
     next: Next
     step_html: "(step %{current_step}/6)"
     general_info: General information
@@ -552,7 +592,7 @@ en:
     add_config: There are some additional configurations to take care of.
     check_config: Make sure to check them out in your admin panel!
     enjoy: Enjoy!
-    go_to_website: Go to the home page!
+    go_to_website: Go to your website!
     name_cant_be_blank: The website name cannot be blank.
     select_geocodes: Please select a center point on the map.
     state_province: State/Province
@@ -580,43 +620,6 @@ en:
     install_guide: the installation guide
     amazon_s3_warning_html: If you're choosing Amazon S3, make sure you've set up the relevant environment variables correctly (check out %{link} - section about the set_environment_variables script - for more details).
     image_error: A problem occured while saving your settings. Please refresh this page and try again in a moment.
-  general_js:
-    adblock_warning: Warning! Use of AdBlock
-    adblock_browser: Your browser is currently using AdBlock.
-    adblock_affecting: It's affecting this Madloba website's ability to work well.
-    adblock_turnoff: Turn off AdBlock for this website, and reload the page.
-    search_for_items: Search for services...
-    start_typing_item: Start typing an service
-    no_result_create_item: No results. Select 'Create a new service'.
-    new_image_uploading: New image is being uploaded. Please wait.
-    type_district_name: Type a region name here...
-    latitude: (latitude)
-    longitude: (longitude)
-    add: Add
-    updating_district: Updating region list...
-    area_show_up: "This location area will show up as:"
-    searching_location: Searching location...
-    update: Update
-    loading: Loading...
-    choose_location: Choose one of the following available locations, provided by OpenStreetMap
-    remove: Remove
-    remove_from_favorites: Remove from your favorites
-    add_to_favorites: Add to your favorites
-    records_per_page: records per page
-    search: "Search:"
-    showing: Showing
-    to: to
-    of: of
-    entries: entries
-    previous: Previous
-    next: Next
-    no_data: No data available in table
-    first: First
-    last: Last
-    filtered_from: filtered from
-    in_this_district: In this district
-    ads_for: Ads for
-    items_given: "Type of services:"
-    items_searched: "Item(s) being searched for:"
-    image_not_available: Image not available yet.
-    select_item: Select an item below for more details.
+    back_language_html: (You can also go back and choose another language %{here}).
+    choose_language: Please choose a language
+    madloba_setup: Madloba setup

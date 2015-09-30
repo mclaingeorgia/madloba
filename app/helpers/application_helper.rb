@@ -113,6 +113,10 @@ module ApplicationHelper
     !!Float(str) rescue false
   end
 
+  def is_devise_message(msg)
+    msg == t('devise.registrations.signed_up_but_unconfirmed')
+  end
+
 
   private
 

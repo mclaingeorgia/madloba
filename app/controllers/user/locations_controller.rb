@@ -100,7 +100,7 @@ class User::LocationsController < ApplicationController
   private
 
   def location_params
-    params.require(:location).permit(:name, :street_number, :address, :postal_code, :province, :city, :latitude, :longitude, :phone_number, :website, :description, :loc_type, :district_id, :facebook)
+    params.require(:location).permit(:name, :street_number, :address, :postal_code, :province, :city, :latitude, :longitude, :phone_number, :website, :add_phone_number, :add_phone_number_2, :description, :loc_type, :district_id, :facebook)
   end
 
   # This boolean is to be used on the location form partial. We don't want the "Enter new location" header to appear,

@@ -14,6 +14,8 @@ Madloba::Application.routes.draw do
   get 'faq', to: 'home#faq'
 
   # Setup pages
+  get 'setup/language', to: 'setup#show_choose_language'
+  post 'setup/language/process', to: 'setup#process_chosen_language'
   get 'setup', to: 'setup#show_welcome'
   get 'setup/general', to: 'setup#show_general'
   post 'setup/general/process', to: 'setup#process_general'
@@ -73,6 +75,9 @@ Madloba::Application.routes.draw do
 
   # Ajax call to show the ads related to 1 type of item and to 1 district/area.
   get '/showSpecificAds', to: 'home#showSpecificAds'
+
+  # To change languages.
+  get '/change_locale/:locale', to: 'settings#change_locale', as: :change_locale
 
   # Root
   root 'home#index'
