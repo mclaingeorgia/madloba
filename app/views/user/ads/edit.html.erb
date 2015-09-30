@@ -100,12 +100,12 @@
                   <%= f.label :is_published, t('location.publish_service'), class: 'control-label' %>
                   <div class="radio">
                     <label>
-                      <%= f.radio_button :is_published, true, value: true, checked: true %><%= t('home.yes') %>
+                      <%= f.radio_button :is_published, true, checked: true %><%= t('home.yes') %>
                     </label>
                   </div>
                   <div class="radio">
                     <label>
-                      <%= f.radio_button :is_published, false, value: false %><%= t('home.no') %>
+                      <%= f.radio_button :is_published, false %><%= t('home.no') %>
                     </label>
                   </div>
                 </div>
@@ -190,21 +190,6 @@
                     </div>
                 <% end %>
 
-                <!-- Giving / Accepting items -->
-                <div class="form-group">
-                  <%= f.label :is_giving, t('location.ad_action'), class: 'control-label' %>
-                  <div class="radio">
-                    <label>
-                      <%= f.radio_button :is_giving, true, checked: true %><%= t('location.ad_action_giving') %>
-                    </label>
-                  </div>
-                  <div class="radio">
-                    <label>
-                      <%= f.radio_button :is_giving, false %><%= t('location.ad_action_accepting') %>
-                    </label>
-                  </div>
-                </div>
-
                 <!-- Items -->
                 <div class="form-group">
                   <%= f.label :item, t('ad.item'), class: 'control-label' %>
@@ -220,7 +205,7 @@
 
                 <!-- Categories -->
                 <div class="form-group">
-                  <%= f.label :category, t('ad.service_category'), class: 'control-label' %>
+                  <%= f.label :category, t('ad.service_category'), class: 'control-label' %> <%= t('ad.please_select_apply') %>:
                   <div class='form-inline'>
                     <%= hidden_field_tag('ad[category_ids][]', nil) %>
                     <% Category.all.each do |category| %>
@@ -276,14 +261,6 @@
                   </div>
                 </div>
 
-                <!-- Funding source -->
-                <div class="form-group">
-                  <%= f.label :funding_source, t('ad.funding_source')+'*:', class: 'control-label' %>
-                  <div class="form-inline">
-                    <%= f.select :funding_source, options_for_select(funding_source, f.object.funding_source), {}, {class: 'form-control'} %>
-                  </div>
-                </div>
-
                 <!-- Beneficiary age group -->
                 <div class="form-group">
                   <%= f.label :benef_age_group, t('ad.beneficiaries_age_group')+'*:', class: 'control-label' %>
@@ -292,24 +269,6 @@
                   </div>
                 </div>
 
-                <!-- Parental support -->
-                <div class="form-group">
-                  <%= f.label :is_parental_support, t('ad.parental_support')+'*:', class: 'control-label' %>
-                  <div class="form-inline">
-                    <div class="radio">
-                      <label>
-                        <%= f.radio_button :is_parental_support, true, checked: true, value: true %>
-                        <%= t('home.yes') %>
-                      </label>
-                    </div>
-                    <div class="radio">
-                      <label>
-                        <%= f.radio_button :is_parental_support, false, value: false %>
-                        <%= t('home.no') %>
-                      </label>
-                    </div>
-                  </div>
-                </div>
 
                 <!-- List of all the different locations previously entered by the current user -->
                 <div class="form-group">

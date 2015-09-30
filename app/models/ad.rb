@@ -121,19 +121,21 @@ class Ad < ActiveRecord::Base
 
   private
 
-  # Setting default values after initialization.
+  # Setting default values after initialization, on ads#new
   def default_values
-    self.is_username_used = false
-    self.is_published = false
-    self.is_giving = true
+    if self.new_record?
+      self.is_username_used = false
+      self.is_published = false
+      self.is_giving = true
 
-    # we define the date when the ad won't be published any longer (see maximum number of days, in Settings table)
-    if max_number_days_publish == '0'
-      # No limit set for ad expiration. Let's use 2100-01-01 as a default date value
-      self.expire_date = Date.new(2100,1,1)
-    else
-      d = Date.today
-      self.expire_date = d + max_number_days_publish.to_i
+      # we define the date when the ad won't be published any longer (see maximum number of days, in Settings table)
+      if max_number_days_publish == '0'
+        # No limit set for ad expiration. Let's use 2100-01-01 as a default date value
+        self.expire_date = Date.new(2100,1,1)
+      else
+        d = Date.today
+        self.expire_date = d + max_number_days_publish.to_i
+      end
     end
   end
 

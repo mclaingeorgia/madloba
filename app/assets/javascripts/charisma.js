@@ -169,6 +169,9 @@ function docReady() {
             "sLengthMenu": "_MENU_ " + gon.vars['records_per_page']
         }
     });
+
+    $('#category_name_header').click();
+
     $('.btn-close').click(function (e) {
         e.preventDefault();
         $(this).parent().parent().parent().fadeOut();
