@@ -116,7 +116,7 @@ class User::AdminPanelController < ApplicationController
           break
         end
       else
-        app_name_settings = Setting.find_by_key(key)
+        setting = Setting.find_by_key(key)
         cleaned_data = params[key]
         if %w(_url facebook pinterest).any? {|word| key.include?(word) }
           # Cleaning up the urls
@@ -126,7 +126,9 @@ class User::AdminPanelController < ApplicationController
         elsif key == 'ad_max_expire'
           Rails.cache.write(CACHE_MAX_DAYS_EXPIRE, cleaned_data)
         end
-        app_name_settings.update_attribute(:value, cleaned_data)
+        if setting
+          setting.update_attributes(value: cleaned_data)
+        end
       end
       flash[:setting_success] = 1
     end
