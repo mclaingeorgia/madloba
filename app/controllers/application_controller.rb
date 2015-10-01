@@ -243,7 +243,7 @@ class ApplicationController < ActionController::Base
 
   def user_not_authorized
     flash[:error] = t('config.not_authorized')
-    redirect_to(request.referrer || user_path)
+    redirect_to(request.referrer || root_path || user_path)
   end
 
   protected

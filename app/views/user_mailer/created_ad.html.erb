@@ -11,6 +11,8 @@
 <ul>
   <li><%= t('mailer.ad_title') %>: <%= @ad.title %></li>
 
+  <li><%= t('ad.legal_form') %>: <%= @ad.legal_form %></li>
+
   <li><%= t('admin.items') %>
     <ul>
       <% @ad.items.each do |item| %>
@@ -29,9 +31,7 @@
 
   <li><%= t('mailer.where_pick_up') %>: <%= @ad.location.name_and_or_full_address %></li>
 
-  <li><%= t('ad.funding_source') %>: <%= @ad.funding_source.capitalize %></li>
   <li><%= t('ad.beneficiaries_age_group') %>: <%= @ad.benef_age_group %></li>
-  <li><%= t('ad.parental_support') %>: <%= @ad.is_parental_support ? t('home.yes') : t('home.no') %></li>
 
 </ul>
 </p>

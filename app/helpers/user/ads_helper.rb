@@ -69,6 +69,13 @@ module User::AdsHelper
      ['29+', '29+']]
   end
 
+  def service_provider_legal_form
+    [[t('ad.municipal_type'), 'municipal'], [t('ad.government_type'), 'governmental'],
+     [t('ad.ngo_type'), 'ngo'], [t('ad.inter_ngo_type'),'inter-ngo'], [t('ad.disabled_org'),'disabled'],
+     [t('ad.local_org'),'local'], [t('ad.private_type'),'private'],
+     [t('ad.community_org'),'community'], [t('ad.other'),'other']]
+  end
+
   def check_additional_phone_numbers(loc)
     result = nil
     array = []

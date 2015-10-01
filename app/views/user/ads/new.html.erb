@@ -69,6 +69,14 @@
               </div>
             </div>
 
+            <!-- Legal form -->
+            <div class="form-group">
+              <%= f.label :legal_form, t('ad.legal_form')+'*:', class: 'col-lg-3 control-label' %>
+              <div class="col-lg-2 col-sm-6">
+                <%= f.select :legal_form, options_for_select(service_provider_legal_form, f.object.legal_form), {}, {class: 'form-control'} %>
+              </div>
+            </div>
+
             <!-- Name to use (it user is not anonymous) -->
             <% if user_signed_in? %>
                 <div class="form-group">

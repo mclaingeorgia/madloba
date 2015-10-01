@@ -81,18 +81,21 @@
     </div>
   </div>
 
-  <% if current_user && current_user.super_admin? && !@ad.is_published %>
-      <div class="row">
-        <div class="col-lg-12 ad-paragraph">
-          <div id="ad_not_published"><%= t('ad.ad_not_published_html', editpage: (link_to t('ad.edit_page'), edit_user_ad_path(@ad.id))) %></div>
-        </div>
-      </div>
-  <% elsif current_user && current_user.id == @ad.user_id %>
-      <div class="row">
-        <div class="col-lg-12 ad-paragraph">
-          <div id="ad_not_published"><%= t('ad.ad_to_be_reviewed') %></div>
-        </div>
-      </div>
+  <!-- Message to show when ad is not published yet -->
+  <% if !@ad.is_published %>
+      <% if current_user && current_user.super_admin? %>
+          <div class="row">
+            <div class="col-lg-12 ad-paragraph">
+              <div id="ad_not_published"><%= t('ad.ad_not_published_html', editpage: (link_to t('ad.edit_page'), edit_user_ad_path(@ad.id))) %></div>
+            </div>
+          </div>
+      <% elsif current_user && current_user.id == @ad.user_id %>
+          <div class="row">
+            <div class="col-lg-12 ad-paragraph">
+              <div id="ad_not_published"><%= t('ad.ad_to_be_reviewed') %></div>
+            </div>
+          </div>
+      <% end %>
   <% end %>
 
   <div class="row">

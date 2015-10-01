@@ -18,7 +18,7 @@ class Ad < ActiveRecord::Base
   accepts_nested_attributes_for :ad_items, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :items
 
-  validates_presence_of :title, :description
+  validates_presence_of :title, :description, :legal_form
   validates :is_giving, inclusion: [true, false]
   validates :is_username_used, inclusion: [true, false]
   validates :is_published, inclusion: [true, false]
