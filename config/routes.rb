@@ -53,6 +53,9 @@ Madloba::Application.routes.draw do
     post 'favorite/add', to: 'admin_panel#add_favorite'
     post 'favorite/remove', to: 'admin_panel#remove_favorite'
     post 'areasettings/update_districts', to: 'admin_panel#update_districts'
+    post 'areasettings/update_district_name', to: 'admin_panel#update_district_name'
+    post 'areasettings/save_district', to: 'admin_panel#save_district'
+    post 'areasettings/delete_districts', to: 'admin_panel#delete_districts'
 
     get 'getAreaSettings', to: 'admin_panel#getAreaSettings'
 

@@ -104,8 +104,11 @@
 
             <% if (@locations_postal && @locations_postal.length > 0) || (@locations_district && @locations_district.length > 0) %>
                 <hr />
-                <%= image_tag 'madloba_logo.png', width: '26px' %>
-                <span class="guided-nav-label"><%= t('home.same_area') %></span>
+                <div class="checkbox">
+                  <label>
+                    <%= check_box_tag 'show_area_id', 'ok', true %> <%= t('home.show_ads_districts') %>
+                  </label>
+                </div>
             <% end %>
 
         <% else %>
@@ -123,7 +126,7 @@
       <% if is_demo %>
           <hr />
           <div class="list-group">
-            <i><%= t('home.demo_sidebar_note_html', link: link_to(t('home.admin_panel'), '/user/managerecords#categories')) %></i>
+            <i><%= t('home.demo_sidebar_note_html', admin_panel: link_to(t('home.admin_panel'), '/user/managerecords#categories')) %></i>
           </div>
       <% end %>
 
@@ -154,7 +157,7 @@
     <% if @links.nil? || @links.length == 0 %>
         <!-- If there is no link to display, we span the description section over 2 columns -->
         <div class="col-lg-8">
-          <h2><%= t('home.about_website', website: site_name) %></h2>
+          <h2><%= t('home.about_website', website_name: site_name) %></h2>
             <span>
                 <% @website_description_paragraph.each do |paragraph| %>
                     <p><%= paragraph %></p>
@@ -164,7 +167,7 @@
         </div>
     <% else %>
         <div class="col-lg-4">
-          <h2><%= t('home.about_website', website: site_name) %></h2>
+          <h2><%= t('home.about_website', website_name: site_name) %></h2>
             <span>
                 <% @website_description_paragraph.each do |paragraph| %>
                     <p><%= paragraph %></p>

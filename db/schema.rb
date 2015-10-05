@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20151002064849) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "ad_items", force: true do |t|
+  create_table "ad_items", force: :cascade do |t|
     t.integer  "ad_id"
     t.integer  "item_id"
     t.datetime "created_at"
@@ -26,19 +26,19 @@ ActiveRecord::Schema.define(version: 20151002064849) do
   add_index "ad_items", ["ad_id"], name: "index_ad_items_on_ad_id", using: :btree
   add_index "ad_items", ["item_id"], name: "index_ad_items_on_item_id", using: :btree
 
-  create_table "ad_translations", force: true do |t|
-    t.integer  "ad_id",       null: false
-    t.string   "locale",      null: false
+  create_table "ad_translations", force: :cascade do |t|
+    t.integer  "ad_id",                   null: false
+    t.string   "locale",      limit: 255, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "title"
+    t.string   "title",       limit: 255
     t.text     "description"
   end
 
   add_index "ad_translations", ["ad_id"], name: "index_ad_translations_on_ad_id", using: :btree
   add_index "ad_translations", ["locale"], name: "index_ad_translations_on_locale", using: :btree
 
-  create_table "ad_users", force: true do |t|
+  create_table "ad_users", force: :cascade do |t|
     t.integer  "ad_id"
     t.integer  "user_id"
     t.datetime "created_at"
@@ -48,8 +48,8 @@ ActiveRecord::Schema.define(version: 20151002064849) do
   add_index "ad_users", ["ad_id"], name: "index_ad_users_on_ad_id", using: :btree
   add_index "ad_users", ["user_id"], name: "index_ad_users_on_user_id", using: :btree
 
-  create_table "ads", force: true do |t|
-    t.string   "title"
+  create_table "ads", force: :cascade do |t|
+    t.string   "title",            limit: 255
     t.text     "description"
     t.integer  "location_id"
     t.integer  "user_id"
@@ -58,20 +58,20 @@ ActiveRecord::Schema.define(version: 20151002064849) do
     t.boolean  "is_username_used"
     t.boolean  "is_giving"
     t.date     "expire_date"
-    t.string   "image"
-    t.string   "anon_name"
-    t.string   "anon_email"
-    t.string   "benef_age_group"
+    t.string   "image",            limit: 255
+    t.string   "anon_name",        limit: 255
+    t.string   "anon_email",       limit: 255
+    t.string   "benef_age_group",  limit: 255
     t.boolean  "is_published"
-    t.string   "legal_form"
-    t.string   "anon_email_2"
-    t.string   "anon_email_3"
+    t.string   "legal_form",       limit: 255
+    t.string   "anon_email_2",     limit: 255
+    t.string   "anon_email_3",     limit: 255
   end
 
   add_index "ads", ["location_id"], name: "index_ads_on_location_id", using: :btree
   add_index "ads", ["user_id"], name: "index_ads_on_user_id", using: :btree
 
-  create_table "ads_categories", force: true do |t|
+  create_table "ads_categories", force: :cascade do |t|
     t.integer  "ad_id"
     t.integer  "category_id"
     t.datetime "created_at"
@@ -81,65 +81,64 @@ ActiveRecord::Schema.define(version: 20151002064849) do
   add_index "ads_categories", ["ad_id"], name: "index_ads_categories_on_ad_id", using: :btree
   add_index "ads_categories", ["category_id"], name: "index_ads_categories_on_category_id", using: :btree
 
-  create_table "categories", force: true do |t|
-    t.string   "name"
+  create_table "categories", force: :cascade do |t|
+    t.string   "name",         limit: 255
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "icon"
-    t.string   "marker_color"
+    t.string   "icon",         limit: 255
+    t.string   "marker_color", limit: 255
   end
 
-  create_table "category_translations", force: true do |t|
-    t.integer  "category_id", null: false
-    t.string   "locale",      null: false
+  create_table "category_translations", force: :cascade do |t|
+    t.integer  "category_id",             null: false
+    t.string   "locale",      limit: 255, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
+    t.string   "name",        limit: 255
     t.text     "description"
   end
 
   add_index "category_translations", ["category_id"], name: "index_category_translations_on_category_id", using: :btree
   add_index "category_translations", ["locale"], name: "index_category_translations_on_locale", using: :btree
 
-  create_table "delayed_jobs", force: true do |t|
-    t.integer  "priority",   default: 0, null: false
-    t.integer  "attempts",   default: 0, null: false
-    t.text     "handler",                null: false
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",               default: 0, null: false
+    t.integer  "attempts",               default: 0, null: false
+    t.text     "handler",                            null: false
     t.text     "last_error"
     t.datetime "run_at"
     t.datetime "locked_at"
     t.datetime "failed_at"
-    t.string   "locked_by"
-    t.string   "queue"
+    t.string   "locked_by",  limit: 255
+    t.string   "queue",      limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
 
-  create_table "district_translations", force: true do |t|
-    t.integer  "district_id", null: false
-    t.string   "locale",      null: false
+  create_table "district_translations", force: :cascade do |t|
+    t.integer  "district_id",             null: false
+    t.string   "locale",      limit: 255, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
+    t.string   "name",        limit: 255
   end
 
   add_index "district_translations", ["district_id"], name: "index_district_translations_on_district_id", using: :btree
   add_index "district_translations", ["locale"], name: "index_district_translations_on_locale", using: :btree
 
-  create_table "districts", force: true do |t|
-    t.string   "name"
-    t.decimal  "latitude",   precision: 7, scale: 5
-    t.decimal  "longitude",  precision: 8, scale: 5
+  create_table "districts", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "bounds"
   end
 
-  create_table "faq_translations", force: true do |t|
-    t.integer  "faq_id",     null: false
-    t.string   "locale",     null: false
+  create_table "faq_translations", force: :cascade do |t|
+    t.integer  "faq_id",                 null: false
+    t.string   "locale",     limit: 255, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "question"
@@ -149,28 +148,28 @@ ActiveRecord::Schema.define(version: 20151002064849) do
   add_index "faq_translations", ["faq_id"], name: "index_faq_translations_on_faq_id", using: :btree
   add_index "faq_translations", ["locale"], name: "index_faq_translations_on_locale", using: :btree
 
-  create_table "faqs", force: true do |t|
-    t.string   "question"
+  create_table "faqs", force: :cascade do |t|
+    t.string   "question",   limit: 255
     t.text     "answer"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "item_translations", force: true do |t|
-    t.integer  "item_id",     null: false
-    t.string   "locale",      null: false
+  create_table "item_translations", force: :cascade do |t|
+    t.integer  "item_id",                 null: false
+    t.string   "locale",      limit: 255, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
-    t.string   "description"
+    t.string   "name",        limit: 255
+    t.string   "description", limit: 255
   end
 
   add_index "item_translations", ["item_id"], name: "index_item_translations_on_item_id", using: :btree
   add_index "item_translations", ["locale"], name: "index_item_translations_on_locale", using: :btree
 
-  create_table "items", force: true do |t|
-    t.string   "name"
-    t.string   "description"
+  create_table "items", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.string   "description", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "category_id"
@@ -178,50 +177,50 @@ ActiveRecord::Schema.define(version: 20151002064849) do
 
   add_index "items", ["category_id"], name: "index_items_on_category_id", using: :btree
 
-  create_table "location_translations", force: true do |t|
-    t.integer  "location_id", null: false
-    t.string   "locale",      null: false
+  create_table "location_translations", force: :cascade do |t|
+    t.integer  "location_id",             null: false
+    t.string   "locale",      limit: 255, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
-    t.string   "address"
-    t.string   "postal_code"
-    t.string   "province"
-    t.string   "city"
+    t.string   "name",        limit: 255
+    t.string   "address",     limit: 255
+    t.string   "postal_code", limit: 255
+    t.string   "province",    limit: 255
+    t.string   "city",        limit: 255
     t.text     "description"
   end
 
   add_index "location_translations", ["locale"], name: "index_location_translations_on_locale", using: :btree
   add_index "location_translations", ["location_id"], name: "index_location_translations_on_location_id", using: :btree
 
-  create_table "locations", force: true do |t|
-    t.string   "name"
-    t.string   "address"
-    t.string   "postal_code"
-    t.string   "province"
-    t.string   "city"
-    t.string   "phone_number"
-    t.string   "website"
+  create_table "locations", force: :cascade do |t|
+    t.string   "name",               limit: 255
+    t.string   "address",            limit: 255
+    t.string   "postal_code",        limit: 255
+    t.string   "province",           limit: 255
+    t.string   "city",               limit: 255
+    t.string   "phone_number",       limit: 255
+    t.string   "website",            limit: 255
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "street_number"
-    t.decimal  "latitude",           precision: 7, scale: 5
-    t.decimal  "longitude",          precision: 8, scale: 5
+    t.string   "street_number",      limit: 255
+    t.decimal  "latitude",                       precision: 7, scale: 5
+    t.decimal  "longitude",                      precision: 8, scale: 5
     t.integer  "user_id"
     t.integer  "district_id"
-    t.string   "loc_type"
-    t.string   "facebook"
-    t.string   "add_phone_number"
-    t.string   "add_phone_number_2"
+    t.string   "loc_type",           limit: 255
+    t.string   "facebook",           limit: 255
+    t.string   "add_phone_number",   limit: 255
+    t.string   "add_phone_number_2", limit: 255
   end
 
   add_index "locations", ["district_id"], name: "index_locations_on_district_id", using: :btree
   add_index "locations", ["user_id"], name: "index_locations_on_user_id", using: :btree
 
-  create_table "setting_translations", force: true do |t|
-    t.integer  "setting_id", null: false
-    t.string   "locale",     null: false
+  create_table "setting_translations", force: :cascade do |t|
+    t.integer  "setting_id",             null: false
+    t.string   "locale",     limit: 255, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "value"
@@ -230,14 +229,14 @@ ActiveRecord::Schema.define(version: 20151002064849) do
   add_index "setting_translations", ["locale"], name: "index_setting_translations_on_locale", using: :btree
   add_index "setting_translations", ["setting_id"], name: "index_setting_translations_on_setting_id", using: :btree
 
-  create_table "settings", force: true do |t|
-    t.string   "key"
+  create_table "settings", force: :cascade do |t|
+    t.string   "key",        limit: 255
     t.text     "value"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "simple_captcha_data", force: true do |t|
+  create_table "simple_captcha_data", force: :cascade do |t|
     t.string   "key",        limit: 40
     t.string   "value",      limit: 6
     t.datetime "created_at"
@@ -246,27 +245,27 @@ ActiveRecord::Schema.define(version: 20151002064849) do
 
   add_index "simple_captcha_data", ["key"], name: "idx_key", using: :btree
 
-  create_table "users", force: true do |t|
-    t.string   "email",                              null: false
-    t.string   "encrypted_password",                 null: false
-    t.string   "reset_password_token"
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  limit: 255,             null: false
+    t.string   "encrypted_password",     limit: 255,             null: false
+    t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0, null: false
+    t.integer  "sign_in_count",                      default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "confirmation_token"
+    t.string   "confirmation_token",     limit: 255
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
+    t.string   "unconfirmed_email",      limit: 255
     t.integer  "role"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "username"
+    t.string   "first_name",             limit: 255
+    t.string   "last_name",              limit: 255
+    t.string   "username",               limit: 255
     t.boolean  "is_service_provider"
   end
 

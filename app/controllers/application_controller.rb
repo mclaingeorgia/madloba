@@ -29,12 +29,12 @@ class ApplicationController < ActionController::Base
                 with: :user_not_authorized
   end
 
-  # If 'setup_step' key, in Settings table, is set to '1', it means that the installation process
+  # In the Settings table, if 'setup_step' is set to 1 or 'chosen_language' has no value, it means that the installation process
   # is not complete. Redirects to setup screens if it is the case.
   def check_if_setup
     current_url = request.original_url
-    language_chosen = Rails.cache.fetch(CACHE_LANGUAGE_CHOSEN) {Setting.where(key: 'language_chosen').pluck(:value).first}
-    if (language_chosen.empty? && !(current_url.include? 'setup/language'))
+    chosen_language = Rails.cache.fetch(CACHE_CHOSEN_LANGUAGE) {Setting.where(key: 'chosen_language').pluck(:value).first}
+    if (chosen_language.empty? && !(current_url.include? 'setup/language'))
       # If the locale has never been specified (even during the setup process), redirect to the setup language page.
       redirect_to setup_language_path
     elsif !((current_url.include? 'setup') || (current_url.include? 'user/register') || (current_url.include? 'getCityGeocodes'))
@@ -70,9 +70,9 @@ class ApplicationController < ActionController::Base
 
   # Choose the right locale among the ones that are available.
   def set_locale
-    language_chosen = Rails.cache.fetch(CACHE_LANGUAGE_CHOSEN) {Setting.where(key: 'language_chosen').pluck(:value).first}
-    if language_chosen && !language_chosen.empty?
-      l = language_chosen
+    chosen_language = Rails.cache.fetch(CACHE_CHOSEN_LANGUAGE) {Setting.where(key: 'chosen_language').pluck(:value).first}
+    if chosen_language && !chosen_language.empty?
+      l = chosen_language
     else
       l = I18n.default_locale
     end
@@ -241,6 +241,8 @@ class ApplicationController < ActionController::Base
 
   private
 
+  # Redirection when current user does not have the permission to go to
+  # the requested page (authorization managed by Pundit)
   def user_not_authorized
     flash[:error] = t('config.not_authorized')
     redirect_to(request.referrer || root_path || user_path)
