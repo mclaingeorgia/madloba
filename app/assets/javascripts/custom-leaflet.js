@@ -24,8 +24,17 @@ function initLeafletMap(map_settings_array){
         maptiles = MQ.mapLayer();
     }
 
-    // Map object initialization
-    map = L.map('map');
+    // Map object initialization. By default, it is not possible
+    // to zoom in/out when using the mouse wheel, unless clicking on the map (toggle).
+    map = L.map('map', {scrollWheelZoom: false});
+    map.on('click', function() {
+        if (map.scrollWheelZoom.enabled()) {
+            map.scrollWheelZoom.disable();
+        } else {
+            map.scrollWheelZoom.enable();
+        }
+    });
+
     maptiles.addTo(map);
     map.setView([mylat, mylng], map_settings_array['zoom_level']);
 

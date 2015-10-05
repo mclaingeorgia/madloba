@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151001120457) do
+ActiveRecord::Schema.define(version: 20151002064849) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,8 @@ ActiveRecord::Schema.define(version: 20151001120457) do
     t.string   "benef_age_group"
     t.boolean  "is_published"
     t.string   "legal_form"
+    t.string   "anon_email_2"
+    t.string   "anon_email_3"
   end
 
   add_index "ads", ["location_id"], name: "index_ads_on_location_id", using: :btree
