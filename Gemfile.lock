@@ -218,9 +218,11 @@ GEM
     formatador (0.2.5)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
-    globalize (4.0.3)
-      activemodel (>= 4.0.0, < 5)
-      activerecord (>= 4.0.0, < 5)
+    globalize (5.0.1)
+      activemodel (>= 4.2.0, < 4.3)
+      activerecord (>= 4.2.0, < 4.3)
+    globalize-accessors (0.2.1)
+      globalize (~> 5.0, >= 5.0.0)
     gon (6.0.1)
       actionpack (>= 3.0)
       json
@@ -450,7 +452,8 @@ DEPENDENCIES
   factory_girl_rails
   faker
   fog
-  globalize (~> 4.0.2)
+  globalize (~> 5.0.0)
+  globalize-accessors
   gon
   guard-rspec
   httparty (~> 0.13.1)

@@ -92,19 +92,35 @@
                     <div class="form-group"></div>
                 <% end %>
 
-                <!-- Category name -->
+                <!-- Category name - English -->
                 <div class="form-group">
-                  <%= label_tag :name, t('admin.category_name')+'*:', class:'control-label' %>
+                  <%= label_tag :name_en, t('admin.category_name_en')+'*:', class:'control-label' %>
                   <div class="form-inline">
-                    <%= f.text_field :name, class: 'form-control', maxlength:'90' %>
+                    <%= f.text_field :name_en, class: 'form-control', maxlength:'90' %>
                   </div>
                 </div>
 
-                <!-- Category description -->
+                <!-- Category name - Georgian-->
                 <div class="form-group">
-                  <%= label_tag :description, t('admin.description')+':', class:'control-label' %>
+                  <%= label_tag :name_ka, t('admin.category_name_ka')+'*:', class:'control-label' %>
+                  <div class="form-inline">
+                    <%= f.text_field :name_ka, class: 'form-control', maxlength:'90' %>
+                  </div>
+                </div>
+
+                <!-- Category description - English -->
+                <div class="form-group">
+                  <%= label_tag :description_en, t('admin.description_en')+':', class:'control-label' %>
                   <div class="form-group">
-                    <%= f.text_area :description, cols: 40, rows: 6 %>
+                    <%= f.text_area :description_en, cols: 40, rows: 6 %>
+                  </div>
+                </div>
+
+                <!-- Category description - Georgian -->
+                <div class="form-group">
+                  <%= label_tag :description_ka, t('admin.description_ka')+':', class:'control-label' %>
+                  <div class="form-group">
+                    <%= f.text_area :description_ka, cols: 40, rows: 6 %>
                   </div>
                 </div>
 

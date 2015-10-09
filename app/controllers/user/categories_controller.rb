@@ -70,7 +70,7 @@ class User::CategoriesController < ApplicationController
   private
 
   def category_params
-    params.require(:category).permit(:name, :description, :icon, :marker_color)
+    params.require(:category).permit(:name, :name_en, :name_ka, :description, :description_en, :description_ka, :icon, :marker_color)
   end
 
   def init_icons_to_propose

@@ -5,6 +5,7 @@ class Item < ActiveRecord::Base
 
   # Fields to be translated
   translates :name, :description
+  globalize_accessors :locales => [:en, :ka], :attributes => [:name, :description]
 
   validates :name, presence: true
 

@@ -1,7 +1,6 @@
 <% content_for :head do %>
 
-    <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.js'></script>
-    <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.2/mapbox.css' rel='stylesheet' />
+    <%= render 'shared/map_scripts_before_body', include_all_scripts: false %>
 
     <style type="text/css">
         html,body,#map {

@@ -25,12 +25,19 @@ class User::AdsController < ApplicationController
 
   def new
     @ad = Ad.new
+    @ad.translations.build locale: :en
+    @ad.translations.build locale: :ka
     authorize @ad
     get_map_settings_for_ad
 
-    @description_remaining = 2000
-    if @ad.description && @ad.description.length > 0
-      @description_remaining = 2000 - @ad.description.length
+    @description_remaining_en = 2000
+    if @ad.description_en && @ad.description_en.length > 0
+      @description_remaining = 2000 - @ad.description_en.length
+    end
+
+    @description_remaining_ka = 2000
+    if @ad.description_ka && @ad.description_ka.length > 0
+      @description_remaining_ka = 2000 - @ad.description_ka.length
     end
   end
 
@@ -81,6 +88,8 @@ class User::AdsController < ApplicationController
 
   def edit
     @ad = Ad.includes(:location => :district).where(id: params[:id]).first!
+    #@ad.translations.build locale: :en
+    #@ad.translations.build locale: :ka
     authorize @ad
     get_map_settings_for_ad
   end
@@ -127,10 +136,14 @@ class User::AdsController < ApplicationController
   end
 
   def ad_params
-    params.require(:ad).permit(:title, :description, :legal_form, :is_username_used, :location_id, :is_giving, {category_ids: []}, :user_id,
+    params.require(:ad).permit(:title, :title_en, :title_ka, :description, :description_en, :description_ka, :legal_form, :is_username_used, :location_id, :is_giving, {category_ids: []}, :user_id,
                                :image, :image_cache, :remove_image, :anon_name, :anon_email, :captcha, :captcha_key, :benef_age_group, :is_published,
-                               :ad_items_attributes => [:id, :item_id, :_destroy, :item_attributes => [:id, :name, :_destroy] ],
-                               :location_attributes => [:id, :user_id, :name, :street_number, :address, :postal_code, :province, :city, :district_id, :loc_type, :latitude, :longitude, :phone_number, :website, :add_phone_number, :add_phone_number_2, :description, :facebook, :_destroy])
+                               :ad_items_attributes => [:id, :item_id, :_destroy, :item_attributes => [:id, :name, :name_en, :name_ka, :_destroy] ],
+                               :location_attributes => [:id, :user_id, :name, :name_en, :name_ka, :street_number, :address, :address_en, :address_ka,
+                                                        :postal_code, :province, :province_en, :province_ka,
+                                                        :city, :city_en, :city_ka, :latitude, :longitude, :phone_number,
+                                                        :website, :add_phone_number, :add_phone_number_2, :description, :description_en, :description_ka,
+                                                        :loc_type, :district_id, :facebook, :_destroy])
   end
 
   # This method is called when a user replies and sends a message to another user, who posted an ad.

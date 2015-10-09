@@ -70,11 +70,11 @@ class ApplicationController < ActionController::Base
 
   # Choose the right locale among the ones that are available.
   def set_locale
-    chosen_language = Rails.cache.fetch(CACHE_CHOSEN_LANGUAGE) {Setting.where(key: 'chosen_language').pluck(:value).first}
-    if chosen_language && !chosen_language.empty?
-      l = chosen_language
+    if cookies[:madloba_locale] && I18n.available_locales.include?(cookies[:madloba_locale].to_sym)
+      l = cookies[:madloba_locale].to_sym
     else
       l = I18n.default_locale
+      cookies.permanent[:madloba_locale] = l
     end
     I18n.locale = l
   end

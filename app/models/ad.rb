@@ -28,6 +28,8 @@ class Ad < ActiveRecord::Base
 
   # Fields to be translated
   translates :title, :description
+  globalize_accessors :locales => [:en, :ka], :attributes => [:title]
+  globalize_accessors :locales => [:en, :ka], :attributes => [:description]
 
   apply_simple_captcha
 

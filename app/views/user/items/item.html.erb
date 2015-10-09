@@ -83,11 +83,19 @@
                     <div class="form-group"></div>
                 <% end %>
 
-                <!-- Item name -->
+                <!-- Item name - English -->
                 <div class="form-group">
-                  <%= f.label :name, t('admin.item.name')+'*:', class:'control-label' %>
+                  <%= f.label :name_en, t('admin.item.name_en')+'*:', class:'control-label' %>
                   <div class="form-inline">
-                    <%= f.text_field :name, class: 'form-control', maxlength:'90' %>
+                    <%= f.text_field :name_en, class: 'form-control', maxlength:'90' %>
+                  </div>
+                </div>
+
+                <!-- Item name - Georgian -->
+                <div class="form-group">
+                  <%= f.label :name_ka, t('admin.item.name_ka')+'*:', class:'control-label' %>
+                  <div class="form-inline">
+                    <%= f.text_field :name_ka, class: 'form-control', maxlength:'90' %>
                   </div>
                 </div>
 

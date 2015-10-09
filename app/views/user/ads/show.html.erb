@@ -53,7 +53,7 @@
         <% if !@ad.no_user_at_all %>
             <% if !is_owning(@ad) %>
                 <!-- Ad publisher -->
-                <label class="ad-label"><%= t('ad.published') %></label>
+                <label><%= t('ad.published') %></label>
                 <span><%= publisher_name(@ad) %></span>
             <% else %>
                 <% if @your_ad_has_expired %>

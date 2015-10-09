@@ -8,6 +8,7 @@ class Category < ActiveRecord::Base
 
   # Fields to be translated
   translates :name, :description
+  globalize_accessors :locales => [:en, :ka], :attributes => [:name, :description]
 
   def icon_name
     self.icon.gsub('fa-','').capitalize.gsub('-',' ')

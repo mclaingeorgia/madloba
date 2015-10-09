@@ -66,7 +66,7 @@ class User::ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:name)
+    params.require(:item).permit(:name, :name_en, :name_ka)
   end
 
 end

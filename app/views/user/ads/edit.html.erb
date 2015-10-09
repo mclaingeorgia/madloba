@@ -141,15 +141,26 @@
                     </div>
                 <% end %>
 
-                <!-- Ad title -->
+                <!-- Ad title - English -->
                 <div class="form-group">
-                  <%= f.label :title, t('ad.title'), class: 'control-label' %>
+                  <%= f.label :title_en, t('ad.title_en'), class: 'control-label' %>
                   <div class="form-inline">
-                    <%= f.text_field :title, class: 'form-control help-message', autofocus: true,
+                    <%= f.text_field :title_en, class: 'form-control help-message', autofocus: true,
                                      :data => {:content => t('ad.title_help'), :placement => 'right',
                                                :toggle => 'popover', :trigger => 'hover'}, maxlength:'90' %>
                   </div>
                 </div>
+
+                <!-- Ad title - Georgian -->
+                <div class="form-group">
+                  <%= f.label :title_ka, t('ad.title_ka'), class: 'control-label' %>
+                  <div class="form-inline">
+                    <%= f.text_field :title_ka, class: 'form-control help-message', autofocus: true,
+                                     :data => {:content => t('ad.title_help'), :placement => 'right',
+                                               :toggle => 'popover', :trigger => 'hover'}, maxlength:'90' %>
+                  </div>
+                </div>
+
 
                 <!-- Legal form -->
                 <div class="form-group">
@@ -259,9 +270,19 @@
                 <% end %>
 
 
-                <!-- Ad description -->
+                <!-- Ad description - English -->
                 <div class="form-group">
-                  <%= f.label :description, t('ad.description')+'*:', class: 'control-label' %>
+                  <%= f.label :description_en, t('ad.description_en')+'*:', class: 'control-label' %>
+                  <div class="form-inline">
+                    <%= f.text_area :description, class: 'form-control help-message', rows: 9, cols: 50,
+                                    :data => {:content => t('ad.description_help'), :placement => 'right',
+                                              :toggle => 'popover', :trigger => 'hover'} %>
+                  </div>
+                </div>
+
+                <!-- Ad description - Georgian-->
+                <div class="form-group">
+                  <%= f.label :description_ka, t('ad.description_ka')+'*:', class: 'control-label' %>
                   <div class="form-inline">
                     <%= f.text_area :description, class: 'form-control help-message', rows: 9, cols: 50,
                                     :data => {:content => t('ad.description_help'), :placement => 'right',

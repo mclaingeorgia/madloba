@@ -25,11 +25,21 @@
       </div>
   <% end %>
 
-  <!-- Location name -->
+  <!-- Location name - English -->
   <div class="form-group">
-    <%= form.label :name, t('location.name'), class: label_class %>
+    <%= form.label :name_en, t('location.name_en'), class: label_class %>
     <div class='<%= col6 %>'>
-      <%= form.text_field :name, class: 'form-control help-message', maxlength:'90',
+      <%= form.text_field :name_en, class: 'form-control help-message', maxlength:'90',
+                          :data => {:content => t('location.name_help'),
+                                    :placement => 'right', :toggle => 'popover', :trigger => 'hover focus'} %>
+    </div>
+  </div>
+
+  <!-- Location name - Georgia -->
+  <div class="form-group">
+    <%= form.label :name_ka, t('location.name_ka'), class: label_class %>
+    <div class='<%= col6 %>'>
+      <%= form.text_field :name_ka, class: 'form-control help-message', maxlength:'90',
                           :data => {:content => t('location.name_help'),
                                     :placement => 'right', :toggle => 'popover', :trigger => 'hover focus'} %>
     </div>
@@ -73,24 +83,58 @@
       </div>
     </div>
 
-    <!-- Street name -->
+    <!-- Street name - English -->
     <div class="form-group">
-      <%= form.label :address, t('location.street_name'), class: label_class %>
+      <%= form.label :address_en, t('location.street_name_en'), class: label_class %>
       <div class='<%= col6 %>'>
-        <%= form.text_field :address, class: 'form-control help-message location_streetname', maxlength:'90',
+        <%= form.text_field :address_en, class: 'form-control help-message location_streetname', maxlength:'90',
                             :data => {:content => t('location.street_name_help'),
                                       :placement => 'right', :toggle => 'popover', :trigger => 'hover focus'} %>
       </div>
     </div>
 
 
-    <!-- Province -->
+    <!-- Street name - Georgian -->
     <div class="form-group">
-      <%= form.label :province, t('location.province')+'*:', class: label_class %>
+      <%= form.label :address_ka, t('location.street_name_ka'), class: label_class %>
       <div class='<%= col6 %>'>
-        <%= form.text_field :province, class: 'form-control help-message location_region', maxlength:'90',
+        <%= form.text_field :address_ka, class: 'form-control help-message', maxlength:'90',
                             :data => {:content => t('location.street_name_help'),
                                       :placement => 'right', :toggle => 'popover', :trigger => 'hover focus'} %>
+      </div>
+    </div>
+
+
+    <!-- Province - English -->
+    <div class="form-group">
+      <%= form.label :province_en, t('location.province_en')+'*:', class: label_class %>
+      <div class='<%= col6 %>'>
+        <%= form.text_field :province_en, class: 'form-control help-message location_region', maxlength:'90' %>
+      </div>
+    </div>
+
+    <!-- Province - Georgian -->
+    <div class="form-group">
+      <%= form.label :province_ka, t('location.province_ka')+'*:', class: label_class %>
+      <div class='<%= col6 %>'>
+        <%= form.text_field :province_ka, class: 'form-control help-message', maxlength:'90' %>
+      </div>
+    </div>
+
+
+    <!-- City - English -->
+    <div class="form-group">
+      <%= form.label :city_en, t('location.city_en')+'*:', class: label_class %>
+      <div class='<%= col6 %>'>
+        <%= form.text_field :city_en, class: 'form-control help-message location_city', maxlength:'90' %>
+      </div>
+    </div>
+
+    <!-- City - Georgian -->
+    <div class="form-group">
+      <%= form.label :city_ka, t('location.city_ka')+'*:', class: label_class %>
+      <div class='<%= col6 %>'>
+        <%= form.text_field :city_ka, class: 'form-control help-message', maxlength:'90' %>
       </div>
     </div>
 
@@ -153,15 +197,26 @@
     </div>
   </div>
 
-  <!-- Location description -->
+  <!-- Location description - English -->
   <div class="form-group">
-    <%= form.label :description, t('location.description'), class: label_class %>
+    <%= form.label :description_en, t('location.description_en'), class: label_class, style: 'padding-top: 20px;' %>
     <div class='<%= col6 %>'>
-      <%= form.text_area :description, class: 'help-message', cols: 40, rows: 6,
+      <%= form.text_area :description_en, class: 'help-message', cols: 40, rows: 6,
                          :data => {:content => t('location.description_help'),
                                    :placement => 'right', :toggle => 'popover', :trigger => 'hover focus'} %>
     </div>
   </div>
+
+  <!-- Location description - Georgian -->
+  <div class="form-group">
+    <%= form.label :description_ka, t('location.description_ka'), class: label_class %>
+    <div class='<%= col6 %>'>
+      <%= form.text_area :description_ka, class: 'help-message', cols: 40, rows: 6,
+                         :data => {:content => t('location.description_help'),
+                                   :placement => 'right', :toggle => 'popover', :trigger => 'hover focus'} %>
+    </div>
+  </div>
+
 
   <!-- Phone number -->
   <div class="form-group">
@@ -191,7 +246,7 @@
   <div class="form-group">
     <%= form.label :website, t('location.website'), class: label_class %>
     <div class='<%= col4 %>'>
-      <%= form.text_field :website, class: 'form-control', maxlength:'60' %>
+      <%= form.text_field :website, class: 'form-control' %>
     </div>
   </div>
 
@@ -199,7 +254,7 @@
   <div class="form-group">
     <%= form.label :facebook, t('location.facebook'), class: label_class %>
     <div class='<%= col4 %>'>
-      <%= form.text_field :facebook, class: 'form-control', maxlength:'60' %>
+      <%= form.text_field :facebook, class: 'form-control' %>
     </div>
   </div>
 

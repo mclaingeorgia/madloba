@@ -52,6 +52,19 @@ $(document).ready(function() {
         $(".remaining_characters").html(maxlength - textlength);
     });
 
+    // Character counter (class 'textarea_count'), for text area, in 'General settings', and on new ad form.
+    $( ".textarea_count_ka" ).keyup(function() {
+        var maxlength = $(this).attr('maxlength');
+        var textlength = $(this).val().length;
+        $(".remaining_characters_ka").html(maxlength - textlength);
+    });
+
+    $( ".textarea_count_ka" ).keydown(function() {
+        var maxlength = $(this).attr('maxlength');
+        var textlength = $(this).val().length;
+        $(".remaining_characters_ka").html(maxlength - textlength);
+    });
+
     // Navigation - Search form: Ajax call to get locations proposition, based on user input in this form.
     $("#btn-form-search").bind("click", getLocationsPropositions);
 
@@ -390,6 +403,7 @@ function find_geocodes(){
                 city: $(".location_city").val(),
                 postal_code: $(".location_postal_code").val(),
                 region: $(".location_region").val(),
+                city: $(".location_city").val(),
                 state: $(".location_state").val(),
                 country: $(".location_country").val(),
                 type: location_type

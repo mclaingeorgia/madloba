@@ -105,7 +105,8 @@ gem 'unicorn'
 # Translation
 gem 'rails-i18n', '~> 4.0.0'
 gem 'i18n-tasks', '~> 0.8.3'
-gem 'globalize', '~> 4.0.2'
+gem 'globalize', '~> 5.0.0'
+gem 'globalize-accessors'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
