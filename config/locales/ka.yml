@@ -56,7 +56,7 @@ ka:
     your_searched_location: Your searched location
     no_ad: There are currently no services relating to your search.
     create_an_ad_now_html: "Please try another keyword or use the categories to broaden your search."
-    about_page: About %{appname}
+    about_page: About %{website_name}
     faq_page: FAQ
     about_description_1_html: "%{appname} is a website powered by %{madloba_link}."
     about_description_2_html: "%{madloba_link} is an open-source platform that allows you to let your community know about what you want to give away."
@@ -133,6 +133,7 @@ ka:
     website: "Website:"
     facebook: "Facebook:"
     link_to_facebook: Link to Facebook page
+    description: "Details about this location:"
     description_en: "Details about this location (en):"
     description_ka: "Details about this location (ge):"
     description_help: Fill this optional section if you want to give additional detail about the location (eg. how to find it, what it looks like...)
@@ -150,6 +151,7 @@ ka:
     expires_today: This service expires today!
     no_favorite_yet: "You don't have any favorite service... yet"
     has_expired: This service has expired on %{expire_date}, and is not visible on the website any longer.
+    title: "Name of service:"
     title_en: "Name of service (en)*:"
     title_ka: "Name of service (ge)*:"
     title_help: e.g. the name of your center, school or organisation ‘Caring for Children Association’ or ‘South West Day Care Centre’
@@ -165,6 +167,7 @@ ka:
     your_message: "Your message*:"
     send_message: Send your message
     send_message_label: "Send a message to %{name} about their services:"
+    description: Description of Services
     description_en: Description of Services (en)
     description_ka: Description of Services (ge)
     funding_source: Funding source
@@ -334,8 +337,10 @@ ka:
     question: Question
     answer: Answer
     actions: Actions
+    description: Description
     description_en: Description (en)
     description_ka: Description (ge)
+    category_name: Category name
     category_name_en: Category name (en)
     category_name_ka: Category name (ge)
     marker: Marker
