@@ -260,10 +260,12 @@ class User::AdminPanelController < ApplicationController
     districts = District.all.select(:id, :name, :bounds)
     @districts = []
     districts.each do |d|
-      bounds = JSON.parse(d.bounds)
-      bounds['properties']['id'] = d.id
-      bounds['properties']['name'] = d.name
-      @districts.push(bounds)
+      if d.bounds.present?
+        bounds = JSON.parse(d.bounds)
+        bounds['properties']['id'] = d.id
+        bounds['properties']['name'] = d.name
+        @districts.push(bounds)
+      end
     end  
     @area_types = @mapSettings['area_type'].split(',')
   end

@@ -58,7 +58,7 @@ ka:
     create_an_ad_now_html: "Please try another keyword or use the categories to broaden your search."
     about_page: About %{website_name}
     faq_page: FAQ
-    about_description_1_html: "%{appname} is a website powered by %{madloba_link}."
+    about_description_1_html: "%{website_name} is a website powered by %{madloba_link}."
     about_description_2_html: "%{madloba_link} is an open-source platform that allows you to let your community know about what you want to give away."
     about_description_3: So many (still useful!) objects go to waste all the time! Luckily, as we increasingly live in an open-data and location driven world, we now have the technological means to solve this problem. Madloba will give your community a new way to recycle, give or dispose all "this stuff" :)
     contact_us: Contact us
