@@ -101,7 +101,7 @@ ka:
     new_location: Enter your location
     name_en: "Location description (en):"
     name_ka: "Location description (ge):"
-    name_help: Give a name to your location, e.g. workshop name, building name etc. This will be shown publicly. If you don’t have a name for your location you can leave this blank
+    name_help: Give a name to your location, e.g. workshop name or building name. This will be shown publicly. If you don’t have a name for your location, please leave this section empty
     name_to_use: "Which name would you like to use?*"
     anon_publisher_name_note: "This is an service posted by an anonymous user:"
     no_service_provider_yet: "No service provider has been tied to this service yet. Please enter a service provider's name and email:"
@@ -469,7 +469,7 @@ ka:
       summary: Website summary
       contact_email: Contact e-mail address
       facebook: Facebook page URL
-      twitter: Twitter handle
+      instagram: Instagram page
       pinterest: Pinterest page URL
       success_message: The general settings have been updated.
       error_message: The "Website name" field cannot be empty.
@@ -516,6 +516,8 @@ ka:
       postal_code_help2: Number of characters within the postal codes, that defines an area. (eg. 3 for 'A1B')
       find_city_map: "Find a city on the map underneath:"
       city: City
+      english_map: English map
+      georgian_map: Georgian map
       state: State/Region (optional)
       country: Country
       find_city: Find this city

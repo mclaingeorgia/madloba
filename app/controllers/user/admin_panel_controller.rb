@@ -82,9 +82,10 @@ class User::AdminPanelController < ApplicationController
   # Methods for 'General settings' screens
   # --------------------------------------
   def general_settings_keys
-    return %w(app_name summary description contact_email ad_max_expire facebook twitter pinterest
+    return %w(app_name summary description contact_email ad_max_expire facebook instagram pinterest
               link_one_label link_one_url link_two_label link_two_url
-              link_three_label link_three_url link_four_label link_four_url link_five_label link_five_url link_six_label link_six_url)
+              link_three_label link_three_url link_four_label link_four_url
+              link_five_label link_five_url link_six_label link_six_url)
   end
 
   def generalsettings

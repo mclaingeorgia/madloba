@@ -21,7 +21,7 @@ class HomeController < ApplicationController
     @mapSettings = getMapSettings(nil, HAS_NOT_CENTER_MARKER, NOT_CLICKABLE_MAP)
 
     # Getting all the needed settings to load the page
-    settings_records = Setting.where(key: %w(summary area_length area_type contact_email facebook twitter pinterest
+    settings_records = Setting.where(key: %w(summary area_length area_type contact_email facebook instagram pinterest
                                      link_one_label link_one_url link_two_label link_two_url
                                      link_three_label link_three_url link_four_label link_four_url link_five_label link_five_url link_six_label link_six_url))
 
@@ -191,16 +191,12 @@ class HomeController < ApplicationController
     @social_medias = []
     settings = {}
     settings_records.each do |setting|
-      if %w(facebook twitter pinterest).include? setting['key']
+      if %w(facebook instagram pinterest).include? setting['key']
         # Website's social media
         social = {}
         if setting['value'] != ''
           social['name'] = setting['key']
-          if setting['key'] == 'twitter'
-            social['url'] = "http://twitter.com/#{setting['value']}"
-          else
-            social['url'] = setting['value']
-          end
+          social['url'] = setting['value']
           @social_medias << social
         end
       elsif setting['key'] == 'summary'

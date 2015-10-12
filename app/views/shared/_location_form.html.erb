@@ -25,26 +25,6 @@
       </div>
   <% end %>
 
-  <!-- Location name - English -->
-  <div class="form-group">
-    <%= form.label :name_en, t('location.name_en'), class: label_class %>
-    <div class='<%= col6 %>'>
-      <%= form.text_field :name_en, class: 'form-control help-message', maxlength:'90',
-                          :data => {:content => t('location.name_help'),
-                                    :placement => 'right', :toggle => 'popover', :trigger => 'hover focus'} %>
-    </div>
-  </div>
-
-  <!-- Location name - Georgia -->
-  <div class="form-group">
-    <%= form.label :name_ka, t('location.name_ka'), class: label_class %>
-    <div class='<%= col6 %>'>
-      <%= form.text_field :name_ka, class: 'form-control help-message', maxlength:'90',
-                          :data => {:content => t('location.name_help'),
-                                    :placement => 'right', :toggle => 'popover', :trigger => 'hover focus'} %>
-    </div>
-  </div>
-
   <!-- Choose between 'exact location (address)' or 'area location (postal code or district)' -->
   <div class="form-group">
     <%= form.label :loc_type, t('location.definition'), class: label_class %>

@@ -166,15 +166,15 @@
                 <div class="form-group">
                   <%= label_tag 'facebook', t('admin.general_settings.facebook')+':', class:'control-label' %>
                   <div class="form-inline">
-                    <%= text_field_tag 'facebook', @settings['facebook'], class: 'form-control' %>
+                    <%= text_field_tag 'facebook', @settings['facebook'], class: 'form-control', size: 50 %>
                   </div>
                 </div>
 
-                <!-- Twitter handle -->
+                <!-- Instagram page -->
                 <div class="form-group">
-                  <%= label_tag 'twitter', t('admin.general_settings.twitter')+':', class:'control-label' %>
+                  <%= label_tag 'instagram', t('admin.general_settings.instagram')+':', class:'control-label' %>
                   <div class="form-inline">
-                    @<%= text_field_tag 'twitter', @settings['twitter'], class: 'form-control' %>
+                    <%= text_field_tag 'instagram', @settings['instagram'], class: 'form-control', size: 50 %>
                   </div>
                 </div>
 
@@ -182,7 +182,7 @@
                 <div class="form-group">
                   <%= label_tag 'pinterest', t('admin.general_settings.pinterest')+':', class:'control-label' %>
                   <div class="form-inline">
-                    <%= text_field_tag 'pinterest', @settings['pinterest'], class: 'form-control' %>
+                    <%= text_field_tag 'pinterest', @settings['pinterest'], class: 'form-control', size: 50 %>
                   </div>
                 </div>
 
