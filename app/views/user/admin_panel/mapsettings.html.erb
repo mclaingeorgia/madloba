@@ -90,8 +90,24 @@
                 <div class="form-group">
                   <%= label_tag 'mapBoxApiKey', t('admin.map_settings.mapbox'), class:'control-label' %>
                   <div class="form-inline">
-                    <%= text_field_tag 'mapBoxApiKey', is_demo ? '********' : @mapSettings['map_box_api_key'], class: 'form-control', disabled: is_demo %>
+                    <%= text_field_tag 'mapBoxApiKey', is_demo ? '********' : @mapSettings['map_box_api_key'], class: 'form-control', disabled: is_demo, size: 60 %>
                     <a href="https://www.mapbox.com/account/apps" target="_blank"><%= t('admin.map_settings.mapbox_link') %></a>
+                  </div>
+                </div>
+
+                <!-- MapBox Georgian map ID-->
+                <div class="form-group">
+                  <%= label_tag 'georgian_map', t('admin.map_settings.georgian_map'), class:'control-label' %>
+                  <div class="form-inline">
+                    <%= text_field_tag 'georgian_map', @mapSettings['georgian_map'], class: 'form-control' %>
+                  </div>
+                </div>
+
+                <!-- MapBox English map ID-->
+                <div class="form-group">
+                  <%= label_tag 'english_map', t('admin.map_settings.english_map'), class:'control-label' %>
+                  <div class="form-inline">
+                    <%= text_field_tag 'english_map', @mapSettings['english_map'], class: 'form-control' %>
                   </div>
                 </div>
 
@@ -99,7 +115,7 @@
                 <div class="form-group">
                   <%= label_tag 'mapQuestApiKey', t('admin.map_settings.mapquest'), class:'control-label' %>
                   <div class="form-inline">
-                    <%= text_field_tag 'mapQuestApiKey', is_demo ? '********' : @mapSettings['mapquest_api_key'], class: 'form-control', disabled: is_demo %>
+                    <%= text_field_tag 'mapQuestApiKey', is_demo ? '********' : @mapSettings['mapquest_api_key'], class: 'form-control', disabled: is_demo, size: 60 %>
                     <a href="http://developer.mapquest.com/web/info/account/app-keys" target="_blank"><%= t('admin.map_settings.mapquest_link') %></a>
                   </div>
                 </div>

@@ -154,7 +154,7 @@ module ApplicationHelper
   def get_map_tiles_attribution(api_keys)
     result = {}
     result['mapbox'] = {}
-    result['mapbox']['tiles_url'] = MAPBOX_TILES_URL % {api_key: api_keys['mapbox']}
+    result['mapbox']['tiles_url'] = MAPBOX_TILES_URL % {api_key: api_keys['mapbox'], mapbox_map_id: api_keys['mapbox_map_id']}
     result['mapbox']['attribution'] = MAPBOX_ATTRIBUTION
 
     result['mapquest'] = {}
@@ -172,7 +172,7 @@ module ApplicationHelper
   # Global function to get settings to initialize a map
   # ---------------------------------------------------
   def getMapSettings(location, hasCenterMarker, clickableMapMarker)
-    settings = Setting.where(key: %w(map_box_api_key map_center_geocode mapquest_api_key
+    settings = Setting.where(key: %w(map_box_api_key map_center_geocode mapquest_api_key georgian_map english_map
                                      chosen_map area_type postal_code_length area_length zoom_level))
     @mapSettings = {}
 
@@ -233,7 +233,14 @@ module ApplicationHelper
     # Initializing specific settings for OSM and Mapbox maps.
     api_keys = {}
     api_keys['mapbox'] = @mapSettings['map_box_api_key']
+    if I18n.locale == :en
+      api_keys['mapbox_map_id'] = @mapSettings['english_map']
+    elsif I18n.locale == :ka
+      api_keys['mapbox_map_id'] = @mapSettings['georgian_map']
+    end
+
     api_keys['mapquest'] = @mapSettings['mapquest_api_key']
+
     @mapSettings.merge!(get_map_tiles_attribution(api_keys))
 
     @mapSettings['tiles_url'] = @mapSettings[@mapSettings['chosen_map']]['tiles_url']

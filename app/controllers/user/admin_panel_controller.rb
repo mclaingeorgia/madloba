@@ -191,6 +191,8 @@ class User::AdminPanelController < ApplicationController
       new_map_center = "#{lat},#{lng}"
       settings_hash = {:map_box_api_key => params['mapBoxApiKey'],
                        :mapquest_api_key => params['mapQuestApiKey'],
+                       :georgian_map => params['georgian_map'],
+                       :english_map => params['english_map'],
                        :chosen_map => params['maptype'],
                        :city => params['city'],
                        :state => params['state'],

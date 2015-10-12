@@ -516,8 +516,8 @@ ka:
       postal_code_help2: Number of characters within the postal codes, that defines an area. (eg. 3 for 'A1B')
       find_city_map: "Find a city on the map underneath:"
       city: City
-      english_map: English map
-      georgian_map: Georgian map
+      english_map: Mapbox English map ID
+      georgian_map: Mapbox Georgian map ID
       state: State/Region (optional)
       country: Country
       find_city: Find this city
