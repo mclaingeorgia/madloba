@@ -54,7 +54,7 @@
                 <div id="deleteAllId">
                   <a href="/" class="list-group-item smaller-no-border-no-background">
                     <span class="guided-nav-label" style="padding-left: 0px;"><%= t('home.delete_all') %></span>
-                    <i class="glyphicon glyphicon-remove align-cross" style="float: right"></i>
+                    <i class="glyphicon glyphicon-remove align-cross" style="float: right; color: red;"></i>
                   </a>
                 </div>
             <% end %>
@@ -62,13 +62,13 @@
             <% if @location_search_refinement_to_display %>
                 <a href = "/" class="list-group-item smaller-no-border-no-background">
                   <span class="guided-nav-label" style="padding-left: 0px;"><%= t('home.your_searched_location') %></span>
-                  <i class="glyphicon glyphicon-remove align-cross smaller-no-border-no-background" style="float: right"></i>
+                  <i class="glyphicon glyphicon-remove align-cross smaller-no-border-no-background" style="float: right; color: red;"></i>
                 </a>
             <% end %>
             <% if user_search_action %>
                 <a href = "/" class="list-group-item smaller-no-border-no-background">
                   <span class="guided-nav-label"><%= user_search_action %></span>
-                  <i class="glyphicon glyphicon-remove align-cross" style="float: right"></i>
+                  <i class="glyphicon glyphicon-remove align-cross" style="float: right; color: red;"></i>
                 </a>
             <% end %>
             <div id="refinementsId">
@@ -79,7 +79,7 @@
                           <i class="fa <%= category.icon %>" style="color: <%= category.marker_color_hexacode %>;"></i>
                         </label>
                         <span class="guided-nav-label"><%= category.name %></span>
-                        <i class="glyphicon glyphicon-remove align-cross" style="float: right"></i>
+                        <i class="glyphicon glyphicon-remove align-cross" style="float: right; color: red;"></i>
                       </a>
                   <% end %>
               <% end %>
