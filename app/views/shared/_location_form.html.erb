@@ -84,24 +84,6 @@
       </div>
     </div>
 
-
-    <!-- Province - English -->
-    <div class="form-group">
-      <%= form.label :province_en, t('location.province_en')+'*:', class: label_class %>
-      <div class='<%= col6 %>'>
-        <%= form.text_field :province_en, class: 'form-control help-message location_region', maxlength:'90' %>
-      </div>
-    </div>
-
-    <!-- Province - Georgian -->
-    <div class="form-group">
-      <%= form.label :province_ka, t('location.province_ka')+'*:', class: label_class %>
-      <div class='<%= col6 %>'>
-        <%= form.text_field :province_ka, class: 'form-control help-message', maxlength:'90' %>
-      </div>
-    </div>
-
-
     <!-- City - English -->
     <div class="form-group">
       <%= form.label :city_en, t('location.city_en')+'*:', class: label_class %>
@@ -115,6 +97,14 @@
       <%= form.label :city_ka, t('location.city_ka')+'*:', class: label_class %>
       <div class='<%= col6 %>'>
         <%= form.text_field :city_ka, class: 'form-control help-message', maxlength:'90' %>
+      </div>
+    </div>
+
+    <!-- Region drop-down box -->
+    <div class="form-group">
+      <%= form.label :province, t('location.province')+'*:', class: label_class %>
+      <div class="<%= col4 %>">
+        <%= form.select :province, options_for_select(region_list, form.object.province), {}, {class: 'form-control location_region'} %>
       </div>
     </div>
 

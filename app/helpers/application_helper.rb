@@ -182,7 +182,7 @@ module ApplicationHelper
       end
     end
 
-    # Used for text popup, tied to a map marker
+    # Used for text popup, taied to a map marker
     @mapSettings['marker_message'] = ''
 
     # Default geocode and zoom values
@@ -256,6 +256,28 @@ module ApplicationHelper
   # Define whether the app is deployed on Heroku or not.
   def is_on_heroku
     ENV['MADLOBA_IS_ON_HEROKU'].downcase == 'true'
+  end
+
+  def region_list
+    [
+        [t('region.tbilisi'), 'Tbilisi'],
+        [t('region.guria'), 'Guria'],
+        [t('region.imereti.'), 'Imereti'],
+        [t('region.kakheti'), 'Kakheti'],
+        [t('region.kvemo_kartli'), 'Kvemo Kartli'],
+        [t('region.kazbegi'), 'Kazbegi'],
+        [t('region.mtskheta_mtianeti'), 'Mtskheta Mtianeti'],
+        [t('region.racha'), 'Racha'],
+        [t('region.svaneti'), 'Svaneti'],
+        [t('region.samegrelo'), 'Samegrelo'],
+        [t('region.samtskhe_javakheti'), 'Samtskhe Javakheti'],
+        [t('region.shida_kartli'), 'Shida Kartli'],
+        [t('region.adjara'), 'Adjara'],
+        [t('region.abkhazia'), 'Abkhazia'],
+        [t('region.khevsureti'), 'Khevsureti'],
+        [t('region.tusheti'), 'Tusheti'],
+        [t('region.south_osettia'), 'South Osettia']
+    ]
   end
 
 end

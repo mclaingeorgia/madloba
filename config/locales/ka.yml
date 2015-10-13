@@ -101,7 +101,7 @@ ka:
     new_location: Enter your location
     name_en: "Location description (en):"
     name_ka: "Location description (ge):"
-    name_help: Give a name to your location, e.g. workshop name or building name. This will be shown publicly. If you don’t have a name for your location, please leave this section empty
+    name_help: Give a name to your location, e.g. workshop name or building name. This will be shown publicly. If you don’t have a name for your location, please leave this section empty.
     name_to_use: "Which name would you like to use?*"
     anon_publisher_name_note: "This is an service posted by an anonymous user:"
     no_service_provider_yet: "No service provider has been tied to this service yet. Please enter a service provider's name and email:"
@@ -119,17 +119,18 @@ ka:
     street_number: "Street number:"
     street_name_en: "Street name (en)*:"
     street_name_ka: "Street name (ge)*:"
-    street_name_help: For this location, the name of the street, avenue, drive...
+    street_name_help: The name of the road, street, avenue, drive…
     postal_code: "Postal code:"
     district: "District*:"
+    province: Region
     province_en: Region (en)
     province_ka: Region (ge)
     city_en: City (en)
     city_ka: City (ge)
     define_geocode_button: Locate me on the map
     map: "Map:"
-    phone_number: "Main phone number:"
-    add_phone_number: "Additional phone numbers:"
+    phone_number: "Main contact:"
+    add_phone_number: "Additional contact:"
     website: "Website:"
     facebook: "Facebook:"
     link_to_facebook: Link to Facebook page
@@ -158,12 +159,12 @@ ka:
     item: "Which Rehabilitative services do you provide?*:"
     about_you: "About you"
     name: "Your name*:"
-    type_services: Categories of services
+    type_services: Categories of Service
     name_help: Please enter your name or a nickname here. It will appear publicly as it is, in the published service.
     captcha: "Captcha*:"
     email_help: Providing your email is not mandatory (make sure you've at least put a phone number in the service description). If you give an email address, it won't be published publicly and users will still be able to write a message to you.
     ad_is_deleted: The service '%{deleted_ad_title}' has been deleted.
-    location_website: "Location website:"
+    location_website: "Website:"
     your_message: "Your message*:"
     send_message: Send your message
     send_message_label: "Send a message to %{name} about their services:"
@@ -182,7 +183,7 @@ ka:
     please_select_apply: "Please select all that apply"
     create_this_ad: Register my Service!
     create_success: The service '%{title}' has been created. You will shortly receive an e-mail, with the details of the new service.
-    where_to_find: "Where to find the service(s):"
+    where_to_find: "Location:"
     where_to_bring: "Where to bring the service(s):"
     you_own: You created this service.
     you_manage: You can manage it
@@ -232,6 +233,24 @@ ka:
     community_org: Community
     private_type: Private
     other: Other
+  region:
+    tbilisi: Tbilisi
+    guria: Guria
+    imereti: Imereti
+    kakheti: Kakheti
+    kvemo_kartli: Kvemo Kartli
+    kazbegi: Kazbegi
+    mtskheta_mtianeti: Mtskheta-Mtianeti
+    racha: Racha
+    svaneti: Svaneti
+    samegrelo: Samegrelo
+    samtskhe_javakheti: Samtskhe-Javakheti
+    shida_kartli: Shida Kartli
+    adjara: Adjara
+    abkhazia: Abkhazia
+    khevsureti: Khevsureti
+    tusheti: Tusheti
+    south_osettia: South Osettia
   mailer:
     hello: "Hi %{name}"
     welcome: "Welcome to %{name}! You will soon be able to search and find details for all rehabilitation services in Georgia."
@@ -317,7 +336,7 @@ ka:
     expiration_date: Expiration date
     locations: Locations
     location_tab: Location
-    items: Service types
+    items: Type(s) of Service
     item_name: service type
     categories: Categories
     add_location: Add location

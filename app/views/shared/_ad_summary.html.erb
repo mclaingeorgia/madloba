@@ -66,7 +66,7 @@
     <% if @ad.location.phone_number && @ad.location.phone_number != '' %>
         <div>
           <label class="ad-label"><%= t('location.phone_number') %></label>
-          <span><%= @ad.location.phone_number %></a></span>
+          <span>(+995) <%= @ad.location.phone_number %></a></span>
         </div>
     <% end %>
 
@@ -74,7 +74,7 @@
     <% if check_additional_phone_numbers(@ad.location) %>
         <div>
           <label class="ad-label"><%= t('location.add_phone_number') %></label>
-          <span><%= check_additional_phone_numbers(@ad.location) %></a></span>
+          <span>(+995) <%= check_additional_phone_numbers(@ad.location) %></a></span>
         </div>
     <% end %>
 

@@ -402,7 +402,7 @@ function find_geocodes(){
                 address: $(".location_streetname").val(),
                 city: $(".location_city").val(),
                 postal_code: $(".location_postal_code").val(),
-                region: $(".location_region").val(),
+                region: $('.location_region option:selected').val(),
                 city: $(".location_city").val(),
                 state: $(".location_state").val(),
                 country: $(".location_country").val(),
