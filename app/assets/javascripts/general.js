@@ -157,9 +157,13 @@ $(document).ready(function() {
     }
 
     bindTypeaheadToItemSelect($('#items .selectpicker-items'));
+
     $('.typeahead').on('typeahead:selected', function(evt, item) {
-        var ad_id = item['ad_id'];
-        window.location.href = App.host_url+"/ads/"+ad_id;
+        // When clicking on selection, if it is an ad title, redirect to this ad.
+        if (typeof item['ad_id'] != "undefined"){
+            var ad_id = item['ad_id'];
+            window.location.href = App.host_url+"/ads/"+ad_id;
+        }
     })
 
     // "Create ad" form: create message when image needs to be uploaded.
