@@ -99,7 +99,7 @@ $(document).ready(function() {
     if (typeof searched_ad_items != 'undefined') {
         $('#item').typeahead(null, {
             display: 'value',
-            source: searched_ad_items
+            source: searched_ad_items,
         });
     }
 
@@ -141,7 +141,14 @@ $(document).ready(function() {
                     // Populating the item drop-down box
                     for(var i = 0; i < len; i++){
                         var item = data[i];
-                        items.push({'value': item.id, 'text': item.value, 'disable': false});
+                        if (typeof item.ad_id != 'undefined'){
+                            // Typeahead sends back a service title
+                            items.push({'value': item.ad_id, 'text': item.value, 'disable': false});
+                        }else{
+                            // Typeahead sends back a item name
+                            items.push({'value': item.id, 'text': item.value, 'disable': false});
+                        }
+
                     }
                     return items;
                 },
@@ -150,6 +157,10 @@ $(document).ready(function() {
     }
 
     bindTypeaheadToItemSelect($('#items .selectpicker-items'));
+    $('.typeahead').on('typeahead:selected', function(evt, item) {
+        var ad_id = item['ad_id'];
+        window.location.href = App.host_url+"/ads/"+ad_id;
+    })
 
     // "Create ad" form: create message when image needs to be uploaded.
     $('#new_ad').submit(function() {

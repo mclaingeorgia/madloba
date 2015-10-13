@@ -22,6 +22,9 @@
     });
     searched_ad_items.clearPrefetchCache();
     searched_ad_items.initialize(true);
+
+    // Initialization of websoket url and object.
+    App = {host_url: "<%= "http://#{request.host}:#{request.port}" %>"};
 </script>
 
 <%= javascript_include_tag 'bootstrap.min' %>

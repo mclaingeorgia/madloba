@@ -210,29 +210,39 @@ class ApplicationController < ActionController::Base
   # Returns a list of items, to appear in popup when using autocompletion.
   def get_items
     typeahead_type = params[:type]
-
-    if typeahead_type == PREFETCH_AD_ITEMS
-      # 'prefetch_ad_items' type - prefetching data when item typed in main navigation search bar.
-      matched_items = Ad.joins(:items).pluck(:name).uniq
-    elsif typeahead_type == PREFETCH_ALL_ITEMS
-      matched_items = Item.all.pluck(:id, :name)
-    elsif typeahead_type == SEARCH_IN_AD_ITEMS
-      # 'search_ad_items' type - used on Ajax call, when item typed in main navigation search bar.
-      matched_items = Ad.joins(:items).where("name LIKE '%#{params[:item].downcase}%'").pluck(:name).uniq
-    elsif typeahead_type == SEARCH_IN_ALL_ITEMS
-      # 'search_items' type - used on Ajax call, when item typed in drop-down box, when adding items,
-      # in ads#edit and ads#new pages.
-      matched_items = Item.where("name LIKE '%#{params[:item].downcase}%'").pluck(:id, :name)
-    end
-
     result = []
-    if [PREFETCH_AD_ITEMS, SEARCH_IN_AD_ITEMS].include? (typeahead_type)
-      matched_items.each do |match|
-        result << {value: match}
+
+    if params[:item] && params[:item].length > 1
+      if typeahead_type == PREFETCH_AD_ITEMS
+        # 'prefetch_ad_items' type - prefetching data when item typed in main navigation search bar.
+        matched_items = Ad.joins(:items).pluck(:name).uniq
+      elsif typeahead_type == PREFETCH_ALL_ITEMS
+        matched_items = Item.all.pluck(:id, :name)
+      elsif typeahead_type == SEARCH_IN_AD_ITEMS
+        # 'search_ad_items' type - used on Ajax call, when item typed in main navigation search bar.
+        matched_items = Ad.joins(:items).where("name LIKE '%#{params[:item].downcase}%'").pluck(:item_id, :name).uniq
+      elsif typeahead_type == SEARCH_IN_ALL_ITEMS
+        # 'search_items' type - used on Ajax call, when item typed in drop-down box, when adding items,
+        # in ads#edit and ads#new pages.
+        matched_items = Item.where("name LIKE '%#{params[:item].downcase}%'").pluck(:item_id, :name)
       end
-    else
-      matched_items.each do |match|
-        result << {id: match[0].to_s, value: match[1]}
+
+      if [PREFETCH_AD_ITEMS, SEARCH_IN_AD_ITEMS].include? (typeahead_type)
+
+        # We also need to include the name of the services
+        matched_services = Ad.where("title LIKE '%#{params[:item]}%'").pluck(:id, :title)
+        matched_services.each do |match|
+          result << {ad_id: match[0], value: match[1]}
+        end
+
+        matched_items.each do |match|
+          result << {id: match[0], value: match[1]}
+        end
+
+      else
+        matched_items.each do |match|
+          result << {id: match[0].to_s, value: match[1]}
+        end
       end
     end
 
