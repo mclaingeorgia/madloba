@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151002064849) do
+ActiveRecord::Schema.define(version: 20151019063050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -188,6 +188,8 @@ ActiveRecord::Schema.define(version: 20151002064849) do
     t.string   "province",    limit: 255
     t.string   "city",        limit: 255
     t.text     "description"
+    t.string   "block_unit"
+    t.string   "village"
   end
 
   add_index "location_translations", ["locale"], name: "index_location_translations_on_locale", using: :btree
@@ -213,6 +215,8 @@ ActiveRecord::Schema.define(version: 20151002064849) do
     t.string   "facebook",           limit: 255
     t.string   "add_phone_number",   limit: 255
     t.string   "add_phone_number_2", limit: 255
+    t.string   "block_unit"
+    t.string   "village"
   end
 
   add_index "locations", ["district_id"], name: "index_locations_on_district_id", using: :btree

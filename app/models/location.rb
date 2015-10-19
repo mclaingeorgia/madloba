@@ -11,7 +11,7 @@ class Location < ActiveRecord::Base
   validates :longitude, numericality: { greater_than: -180, less_than: 180 }
 
   # Fields to be translated
-  translates :name, :address, :province, :city, :description
+  translates :name, :address, :province, :city, :block_unit, :village, :description
   globalize_accessors :locales => [:en, :ka], :attributes => [:name, :address, :province, :city, :description]
 
   scope :type, -> (location_type) { where('ads.expire_date >= ? AND loc_type = ? AND ads.is_published = ?', Date.today, location_type, true)}
