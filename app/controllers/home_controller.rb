@@ -32,7 +32,7 @@ class HomeController < ApplicationController
     if params[:item] && params[:item] != ''
       # An item is being searched.
       searched_item = params[:item]
-      selected_item_ids = Item.joins(:ads).where("name LIKE '%#{searched_item}%'").pluck(:id).uniq
+      selected_item_ids = Item.joins(:ads).where('name LIKE ?', "%#{searched_item}%").pluck(:id).uniq
     end
 
     if (params[:lat] && params[:lon])
@@ -126,7 +126,7 @@ class HomeController < ApplicationController
 
     result = {}
     if location_type == 'postal'
-      ads = ads.where("locations.postal_code LIKE '#{area_value}%'")
+      ads = ads.where('locations.postal_code LIKE ?', "#{area_value}%")
       result['area_name'] = area_value
     elsif location_type == 'district'
       ads = ads.where('locations.district_id = ?', area_value)

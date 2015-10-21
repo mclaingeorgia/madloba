@@ -220,17 +220,17 @@ class ApplicationController < ActionController::Base
         matched_items = Item.with_translations(I18n.locale).pluck('item_translations.item_id, item_translations.name')
       elsif typeahead_type == SEARCH_IN_AD_ITEMS
         # 'search_ad_items' type - used on Ajax call, when item typed in main navigation search bar.
-        matched_items = Ad.joins(items: :translations).where("item_translations.name LIKE '%#{params[:item].downcase}%'").pluck('item_translations.item_id, item_translations.name').uniq
+        matched_items = Ad.joins(items: :translations).where('item_translations.name LIKE ?', "%#{params[:item].downcase}%").pluck('item_translations.item_id, item_translations.name').uniq
       elsif typeahead_type == SEARCH_IN_ALL_ITEMS
         # 'search_items' type - used on Ajax call, when item typed in drop-down box, when adding items,
         # in ads#edit and ads#new pages.
-        matched_items = Item.with_translations(I18n.locale).where("item_translations.name LIKE '%#{params[:item].downcase}%'").pluck('item_translations.item_id, item_translations.name')
+        matched_items = Item.with_translations(I18n.locale).where('item_translations.name LIKE ?', "%#{params[:item].downcase}%").pluck('item_translations.item_id, item_translations.name')
       end
 
       if [PREFETCH_AD_ITEMS, SEARCH_IN_AD_ITEMS].include? (typeahead_type)
 
         # We also need to include the name of the services
-        matched_services = Ad.where("title LIKE '%#{params[:item]}%'").pluck(:id, :title)
+        matched_services = Ad.where('title LIKE ?', "%#{params[:item]}%").pluck(:id, :title)
         matched_services.each do |match|
           result << {ad_id: match[0], value: match[1]}
         end
