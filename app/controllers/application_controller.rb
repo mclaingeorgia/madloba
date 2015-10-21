@@ -215,16 +215,16 @@ class ApplicationController < ActionController::Base
     if params[:item] && params[:item].length > 1
       if typeahead_type == PREFETCH_AD_ITEMS
         # 'prefetch_ad_items' type - prefetching data when item typed in main navigation search bar.
-        matched_items = Ad.joins(:items).pluck(:name).uniq
+        matched_items = Ad.joins(items: :translations).pluck('item_translations.name').uniq
       elsif typeahead_type == PREFETCH_ALL_ITEMS
-        matched_items = Item.all.pluck(:id, :name)
+        matched_items = Item.with_translations(I18n.locale).pluck('item_translations.item_id, item_translations.name')
       elsif typeahead_type == SEARCH_IN_AD_ITEMS
         # 'search_ad_items' type - used on Ajax call, when item typed in main navigation search bar.
-        matched_items = Ad.joins(:items).where("name LIKE '%#{params[:item].downcase}%'").pluck(:item_id, :name).uniq
+        matched_items = Ad.joins(items: :translations).where("item_translations.name LIKE '%#{params[:item].downcase}%'").pluck('item_translations.item_id, item_translations.name').uniq
       elsif typeahead_type == SEARCH_IN_ALL_ITEMS
         # 'search_items' type - used on Ajax call, when item typed in drop-down box, when adding items,
         # in ads#edit and ads#new pages.
-        matched_items = Item.where("name LIKE '%#{params[:item].downcase}%'").pluck(:id, :name)
+        matched_items = Item.with_translations(I18n.locale).where("item_translations.name LIKE '%#{params[:item].downcase}%'").pluck('item_translations.item_id, item_translations.name')
       end
 
       if [PREFETCH_AD_ITEMS, SEARCH_IN_AD_ITEMS].include? (typeahead_type)
