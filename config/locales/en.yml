@@ -117,6 +117,8 @@ en:
     definition_postal_code: by postal code
     definition_district: by region
     street_number: "Street number:"
+    block_unit_en: "Block, Unit (en):"
+    block_unit_ka: "Block, Unit (ge):"
     street_name_en: "Street name (en)*:"
     street_name_ka: "Street name (ge)*:"
     street_name_help: The name of the road, street, avenue, drive…
@@ -125,6 +127,8 @@ en:
     province: Region
     province_en: Region (en)
     province_ka: Region (ge)
+    village_en: "Village (en):"
+    village_ka: "Village (ge):"
     city_en: City (en)
     city_ka: City (ge)
     define_geocode_button: Locate me on the map

@@ -224,7 +224,7 @@ class ApplicationController < ActionController::Base
       elsif typeahead_type == SEARCH_IN_ALL_ITEMS
         # 'search_items' type - used on Ajax call, when item typed in drop-down box, when adding items,
         # in ads#edit and ads#new pages.
-        matched_items = Item.where("name LIKE '%#{params[:item].downcase}%'").pluck(:item_id, :name)
+        matched_items = Item.where("name LIKE '%#{params[:item].downcase}%'").pluck(:id, :name)
       end
 
       if [PREFETCH_AD_ITEMS, SEARCH_IN_AD_ITEMS].include? (typeahead_type)

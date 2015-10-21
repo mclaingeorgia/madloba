@@ -63,6 +63,22 @@
       </div>
     </div>
 
+    <!-- Block, Unit - English -->
+    <div class="form-group">
+      <%= form.label :block_unit_en, t('location.block_unit_en'), class: label_class %>
+      <div class='<%= col6 %>'>
+        <%= form.text_field :block_unit_en, class: 'form-control help-message', maxlength:'90' %>
+      </div>
+    </div>
+
+    <!-- Block, Unit - Georgian -->
+    <div class="form-group">
+      <%= form.label :block_unit_ka, t('location.block_unit_ka'), class: label_class %>
+      <div class='<%= col6 %>'>
+        <%= form.text_field :block_unit_ka, class: 'form-control help-message', maxlength:'90' %>
+      </div>
+    </div>
+
     <!-- Street name - English -->
     <div class="form-group">
       <%= form.label :address_en, t('location.street_name_en'), class: label_class %>
@@ -81,6 +97,22 @@
         <%= form.text_field :address_ka, class: 'form-control help-message', maxlength:'90',
                             :data => {:content => t('location.street_name_help'),
                                       :placement => 'right', :toggle => 'popover', :trigger => 'hover focus'} %>
+      </div>
+    </div>
+
+    <!-- Village - English -->
+    <div class="form-group">
+      <%= form.label :village_en, t('location.village_en'), class: label_class %>
+      <div class='<%= col6 %>'>
+        <%= form.text_field :village_en, class: 'form-control help-message', maxlength:'90' %>
+      </div>
+    </div>
+
+    <!-- Village - Georgian -->
+    <div class="form-group">
+      <%= form.label :village_ka, t('location.village_ka'), class: label_class %>
+      <div class='<%= col6 %>'>
+        <%= form.text_field :village_ka, class: 'form-control help-message', maxlength:'90' %>
       </div>
     </div>
 

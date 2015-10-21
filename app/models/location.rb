@@ -12,7 +12,7 @@ class Location < ActiveRecord::Base
 
   # Fields to be translated
   translates :name, :address, :province, :city, :block_unit, :village, :description
-  globalize_accessors :locales => [:en, :ka], :attributes => [:name, :address, :province, :city, :description]
+  globalize_accessors :locales => [:en, :ka], :attributes => [:name, :address, :block_unit, :village, :province, :city, :description]
 
   scope :type, -> (location_type) { where('ads.expire_date >= ? AND loc_type = ? AND ads.is_published = ?', Date.today, location_type, true)}
 

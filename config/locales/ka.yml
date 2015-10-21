@@ -117,8 +117,12 @@ ka:
     definition_postal_code: by postal code
     definition_district: by region
     street_number: "Street number:"
+    block_unit_en: "Block, Unit (en):"
+    block_unit_ka: "Block, Unit (ge):"
     street_name_en: "Street name (en)*:"
     street_name_ka: "Street name (ge)*:"
+    village_en: "Village (en):"
+    village_ka: "Village (ge):"
     street_name_help: The name of the road, street, avenue, drive…
     postal_code: "Postal code:"
     district: "District*:"
