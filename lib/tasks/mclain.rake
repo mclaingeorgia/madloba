@@ -170,6 +170,42 @@ namespace :mclain do
 
       count += 1
     end
+  end
+
+  task update_data: :environment do
+
+    count = 1
+
+    CSV.foreach("#{Rails.root}/lib/tasks/database5.csv", headers: true) do |row|
+
+      id = 296 + count
+      loc = Location.find(id)
+
+      if loc.present?
+        I18n.locale = :en
+        loc.update_attributes(city: row[9], province: row[1], address: row[7], village: row[11], block_unit: row[5])
+
+        I18n.locale = :ka
+        loc.update_attributes(city: row[8], address: row[6], province: row[0], postal_code: '1234', village: row[10], block_unit: row[4])
+
+        puts 'loc updated'
+
+        ad = Ad.where(location: loc.id).first
+
+        if ad.present?
+          I18n.locale = :en
+          ad.update_attributes(title: row[19], description: row[17])
+
+          I18n.locale = :ka
+          ad.update_attributes(title: row[18], description: row[16])
+          puts 'ad updated'
+        end
+      end
+
+      puts count
+      count += 1
+
+    end
 
   end
 

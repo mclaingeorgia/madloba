@@ -121,14 +121,14 @@ ka:
     block_unit_ka: "Block, Unit (ge):"
     street_name_en: "Street name (en)*:"
     street_name_ka: "Street name (ge)*:"
-    village_en: "Village (en):"
-    village_ka: "Village (ge):"
     street_name_help: The name of the road, street, avenue, drive…
     postal_code: "Postal code:"
     district: "District*:"
     province: Region
     province_en: Region (en)
     province_ka: Region (ge)
+    village_en: "Village (en):"
+    village_ka: "Village (ge):"
     city_en: City (en)
     city_ka: City (ge)
     define_geocode_button: Locate me on the map
@@ -372,10 +372,10 @@ ka:
     created_by_user: Created by user
     update_ad: Update service
     manage_your_ads: Manage your services
-    manage_records: Manage records
+    manage_records: Manage data
     records_message: From here, you can manage the services posted on the website, as well as their locations, services, and categories.
     faq_message: Manage the RehabLink FAQ from here.
-    back_to_records: Back to the 'Manage records' page
+    back_to_records: Back to the 'Manage data' page
     back_to_ads: Back to 'Manage your services' page
     back_to_users: Back to 'Manage users' page
     create_ad: Create service
@@ -481,7 +481,7 @@ ka:
       delete_item: Delete this service type
       delete_faq: Delete this question
       name_en: Service type name (en)
-      name_ka: Service type name (ka)
+      name_ka: Service type name (ge)
       ads_promoting: Services promoting this service type
       ad_title: Service title
       no_ad: There is no service where this service type is currently used.
