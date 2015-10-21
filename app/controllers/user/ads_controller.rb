@@ -195,9 +195,9 @@ class User::AdsController < ApplicationController
     if %w(show send_message).include?(action_name)
       getMapSettingsWithSeveralItems(@ad, HAS_CENTER_MARKER, NOT_CLICKABLE_MAP)
     elsif %w(create update).include?(action_name)
-      getMapSettings(@ad.location, HAS_CENTER_MARKER, CLICKABLE_MAP_EXACT_MARKER)
+      getMapSettings(nil, HAS_CENTER_MARKER, CLICKABLE_MAP_EXACT_MARKER)
     else
-      getMapSettings(@ad.location, HAS_NOT_CENTER_MARKER, CLICKABLE_MAP_EXACT_MARKER)
+      getMapSettings(nil, HAS_NOT_CENTER_MARKER, CLICKABLE_MAP_EXACT_MARKER)
     end
   end
 

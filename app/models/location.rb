@@ -1,5 +1,6 @@
 class Location < ActiveRecord::Base
-  has_many :ads, dependent: :destroy
+  has_many :ad_locations
+  has_many :ads, through: :ad_locations, dependent: :destroy
   belongs_to :user
   belongs_to :district
 

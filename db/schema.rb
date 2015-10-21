@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151019063050) do
+ActiveRecord::Schema.define(version: 20151020130420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,16 @@ ActiveRecord::Schema.define(version: 20151019063050) do
 
   add_index "ad_items", ["ad_id"], name: "index_ad_items_on_ad_id", using: :btree
   add_index "ad_items", ["item_id"], name: "index_ad_items_on_item_id", using: :btree
+
+  create_table "ad_locations", force: :cascade do |t|
+    t.integer  "ad_id"
+    t.integer  "location_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ad_locations", ["ad_id"], name: "index_ad_locations_on_ad_id", using: :btree
+  add_index "ad_locations", ["location_id"], name: "index_ad_locations_on_location_id", using: :btree
 
   create_table "ad_translations", force: :cascade do |t|
     t.integer  "ad_id",                   null: false

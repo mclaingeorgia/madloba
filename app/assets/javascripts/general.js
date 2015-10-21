@@ -202,10 +202,39 @@ $(document).ready(function() {
             $('.selectpicker').selectpicker('refresh');
         });
 
+    // Events related to location nested form
+    $("#locations a.add_fields").
+        data("association-insertion-position", 'before').
+        data("association-insertion-node", 'this');
+
+    $('#locations').on('cocoon:after-insert',
+        function() {
+            $(".ad-location-fields a.add_fields").
+                data("association-insertion-position", 'before').
+                data("association-insertion-node", 'this');
+            $('.selectpicker').selectpicker('refresh');
+            //bindTypeaheadToItemSelect($('#locations'));
+
+            $('.ad-location-fields').on('cocoon:after-insert',
+                function() {
+                    $(this).children(".location_from_list").remove();
+                    $(this).children("a.add_fields").hide();
+                });
+        });
+
+    $('.ad-location-fields').bind('cocoon:after-insert',
+        function(e) {
+            e.stopPropagation();
+            $(this).find(".location_from_list").remove();
+            $(this).find("a.add_fields").hide();
+            $('.selectpicker').selectpicker('refresh');
+        });
+
+
 
     // On the "New ad" form, open automatically the new location form, if the user is anonymous,
     // or never created any location as a signed in user.
-    if (typeof current_page != "undefined" && current_page == "new_ad"
+    /*if (typeof current_page != "undefined" && current_page == "new_ad"
          && typeof can_choose_existing_locations != "undefined" && can_choose_existing_locations == false){
         setTimeout(function() {
             $("#new_location_form a.add_fields").trigger('click');
@@ -232,7 +261,7 @@ $(document).ready(function() {
     $('#new_location_form').bind("cocoon:after-remove", function() {
             $("#locations_from_list").show();
             $("#new_location_form a.add_fields").show();
-    });
+    });*/
 
 
     // Function call to initialize the location form (Location edit form, all Ad forms).

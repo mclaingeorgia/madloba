@@ -4,7 +4,7 @@
     </script>
 <% end %>
 
-<div class="nested-fields location-fields" style="padding-bottom: 10px;">
+<div class="nested-fields location-fields img-rounded" style="padding-bottom: 10px;">
 
   <% if can_choose_existing_locations(current_user) && %w(new create edit update).include?(action_name) && !@is_location_edit %>
 
@@ -15,12 +15,6 @@
       <div class="form-group">
         <div class='<%= col4 %>'>
           <h4><%= t('location.new_location') %></h4>
-        </div>
-
-        <!-- if the user is not anonymous and has created locations in the past, then give the possibility
-        to remove the whole "new location" section to choose an existing location -->
-        <div class='<%= col4 %>' style='line-height: 40px;'>
-          <%= link_to_remove_association t('ad.choose_existing'), form, class: 'btn btn-danger btn-sm', style: 'float: right;' %>
         </div>
       </div>
   <% end %>
