@@ -76,7 +76,7 @@ class User::LocationsController < ApplicationController
         @location.save
       end
 
-      flash[:name] = @location.name
+      flash[:update_ok] = true
       redirect_to edit_user_location_path
     else
       render 'location'

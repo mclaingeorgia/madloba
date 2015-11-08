@@ -319,11 +319,6 @@
                             </div>
                         <% end %>
 
-                        <!-- "Enter a new location" link -->
-                        <%= link_to_add_association t('ad.new_location'), f, :location, partial: 'shared/location_form', class: 'btn btn-sm btn-info', style: 'margin-bottom: 30px;', form_name: 'form',
-                                                    render_options: {locals: {label_class: 'control-label', col10: 'form-inline', col8: 'form-inline', col6: 'form-inline', col4: 'form-inline', col3: 'form-inline',
-                                                                              col2: 'form-inline', col_radio: '', can_choose_existing_location: (current_user != nil && current_user.locations.length > 0)}} %>
-
                       </div>
                   <% else %>
                       <!-- Case where an admin edits someone else's ad. We don't let admin create a new location for them -->
@@ -332,7 +327,7 @@
                             <!-- Show this anonymous user's location -->
                             <div id="locations_from_list" class="form-group">
                               <%= f.label :location, t('location.location'), class: 'control-label' %>
-                              <%= link_to(@ad.location.location_full_name, edit_user_location_path(@ad.location.id)) %> - <%= @ad.location.location_type_address %>
+                              <%= link_to(@ad.locations.first.location_full_name, edit_user_location_path(@ad.locations.first.id)) %> - <%= @ad.locations.first.location_type_address %>
                             </div>
                         <% elsif @ad.user && current_user != @ad.user %>
                             <!-- An admin is viewing another user's ad. Let's list this other user's location -->

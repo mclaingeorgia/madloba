@@ -27,12 +27,6 @@ namespace :mclain do
         region = row[1]
         street_number = row[3]
         street_name = row[7]
-        #if street_name
-        #if !street_name.split(' ').last == 'Avenue'
-        #street_name += ' street'
-        #end
-        #end
-
         village = row[11]
         city = row[9]
 
@@ -42,12 +36,6 @@ namespace :mclain do
         else
           address = "#{street_number} #{street_name}, #{city}, #{region}, Georgia"
         end
-
-
-        #full_address_array = row[3].split('|')
-        #if full_address_array && full_address_array.length > 1
-        #address = full_address_array[0] + ', ' + address
-        #end
 
         geocodes = getGeocodesFromAddress(address)
 
@@ -170,7 +158,60 @@ namespace :mclain do
 
       count += 1
     end
-
   end
 
+  desc 'Generates users'
+  task generate_users: :environment do
+
+    CSV.open("#{Rails.root}/lib/tasks/user_password.csv", 'w') do |csv|
+      csv << ['email','password']
+    end
+
+    anon_emails = Ad.where("anon_email != ''").pluck(:anon_email).uniq
+    count = 1
+
+    anon_emails.each do |email|
+      generated_password = Array.new(12){rand(36).to_s(36)}.join
+
+      @user = User.new(email: email, password: generated_password, password_confirmation: generated_password,
+                       first_name: 'first name', last_name: 'last name', username: "user#{count}",
+                       is_service_provider: true)
+
+      @user.confirmation_token = nil
+      @user.confirmed_at = Time.now
+      @user.save
+
+      CSV.open("#{Rails.root}/lib/tasks/user_password.csv", 'a') do |csv|
+        csv << [email,generated_password]
+      end
+
+      puts "Generated '#{email}' with password '#{generated_password}'"
+      count += 1
+    end
+
+    puts "Transfering locations to users now (#{Location.all.count})..."
+
+    count = 1
+    Location.all.each do |location|
+      loc_ad = location.ads.first
+      if loc_ad.present?
+        if loc_ad.anon_email != ''
+          user = User.find_by_email(loc_ad.anon_email)
+          if user.present?
+            user.locations << location
+            user.save
+
+            loc_ad.user = user
+            loc_ad.save
+          end
+        end
+      end
+
+      puts count
+      count += 1
+    end
+
+    puts 'All done.'
+
+  end
 end

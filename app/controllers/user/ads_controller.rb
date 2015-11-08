@@ -87,9 +87,7 @@ class User::AdsController < ApplicationController
   end
 
   def edit
-    @ad = Ad.includes(:location => :district).where(id: params[:id]).first!
-    #@ad.translations.build locale: :en
-    #@ad.translations.build locale: :ka
+    @ad = Ad.includes(locations: :district).where(id: params[:id]).first!
     authorize @ad
     get_map_settings_for_ad
   end

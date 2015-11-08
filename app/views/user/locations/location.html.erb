@@ -61,10 +61,10 @@
                 </ul>
               </div>
           <% end %>
-          <% if flash[:name] %>
+          <% if flash[:update_ok] %>
               <div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <%= t('admin.location.update_success', name: flash[:name]) %>
+                <%= t('admin.location.update_success') %>
                 <% if current_user.admin? %>
                     <a href="/user/managerecords#locations"><%= t('admin.back_to_records') %></a>
                 <% else %>
@@ -75,7 +75,7 @@
           <% if flash[:new_name] %>
               <div class="alert alert-success">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
-                <%= t('admin.location.created_success', name: flash[:new_name]) %>
+                <%= t('admin.location.created_success') %>
                 <% if current_user.admin? %>
                     <a href="/user/managerecords#locations"><%= t('admin.back_to_records') %></a>
                 <% else %>
