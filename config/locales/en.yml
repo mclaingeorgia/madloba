@@ -98,7 +98,7 @@ en:
   location:
     location: "Location:*"
     user_location: "This user's locations:*"
-    new_location: Enter your location
+    new_location: Enter your new location
     name_en: "Location description (en):"
     name_ka: "Location description (ge):"
     name_help: Give a name to your location, e.g. workshop name or building name. This will be shown publicly. If you don’t have a name for your location, please leave this section empty.
@@ -207,6 +207,7 @@ en:
     show_ad_image_processed: The image of this service is currently being processed.
     will_show_up: It will show up in a moment after you refresh the page.
     create_item: Create a new service type
+    create_location: Create a new location
     write_new_item: Write your new service type here.
     add_item: Add a Service type
     see_published: See this published service

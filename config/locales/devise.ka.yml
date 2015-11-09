@@ -1,6 +1,6 @@
 # Additional translations at https://github.com/plataformatec/devise/wiki/I18n
 
-en:
+ka:
   devise:
     confirmations:
       confirmed: "Your account was successfully confirmed. Please go to the dashboard to view and complete your Profile"

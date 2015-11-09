@@ -1,7 +1,8 @@
 class Ad < ActiveRecord::Base
+  has_many :ad_locations
+  has_many :locations, through: :ad_locations
   has_many :ad_items
   has_many :items, through: :ad_items
-  belongs_to :location
   belongs_to :user
   has_many :ad_users
   has_many :favoriting_users, through: :ad_users, source: :user
@@ -14,9 +15,10 @@ class Ad < ActiveRecord::Base
   mount_uploader :image, ImageUploader
   process_in_background :image
 
-  accepts_nested_attributes_for :location, :reject_if => :all_blank
+  accepts_nested_attributes_for :ad_locations, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :ad_items, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :items
+  accepts_nested_attributes_for :locations
 
   validates_presence_of :title, :description, :legal_form
   validates :is_giving, inclusion: [true, false]

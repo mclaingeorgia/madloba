@@ -308,21 +308,16 @@
                         <% if user_locations_number > 0 %>
                             <!-- List of all the different locations previously entered by the current user -->
                             <div id="locations_from_list" class="form-group">
-                              <%= f.label :location, t('location.location'), class: 'control-label' %>
+                              <%= f.label :locations, t('location.location'), class: 'control-label' %>
                               <% current_user.locations.each_with_index do |loc, index| %>
-                                  <div class='radio existing_location'>
+                                  <div class='checkbox existing_location'>
                                     <label>
-                                      <%= f.radio_button :location, loc.id, checked: @ad.location_id == loc.id, class: 'radio no-min-height' %><%= "#{loc.location_full_name} - #{loc.location_type_address}" %>
+                                      <%= check_box_tag("ad[location_ids][]", loc.id, loc.id.in?(@ad.locations.collect(&:id))) %> <%= "#{loc.location_type_address}" %>
                                     </label>
                                   </div>
                               <% end %>
                             </div>
                         <% end %>
-
-                        <!-- "Enter a new location" link -->
-                        <%= link_to_add_association t('ad.new_location'), f, :location, partial: 'shared/location_form', class: 'btn btn-sm btn-info', style: 'margin-bottom: 30px;', form_name: 'form',
-                                                    render_options: {locals: {label_class: 'control-label', col10: 'form-inline', col8: 'form-inline', col6: 'form-inline', col4: 'form-inline', col3: 'form-inline',
-                                                                              col2: 'form-inline', col_radio: '', can_choose_existing_location: (current_user != nil && current_user.locations.length > 0)}} %>
 
                       </div>
                   <% else %>
@@ -332,7 +327,7 @@
                             <!-- Show this anonymous user's location -->
                             <div id="locations_from_list" class="form-group">
                               <%= f.label :location, t('location.location'), class: 'control-label' %>
-                              <%= link_to(@ad.location.location_full_name, edit_user_location_path(@ad.location.id)) %> - <%= @ad.location.location_type_address %>
+                              <%= link_to(@ad.locations.first.location_full_name, edit_user_location_path(@ad.locations.first.id)) %> - <%= @ad.locations.first.location_type_address %>
                             </div>
                         <% elsif @ad.user && current_user != @ad.user %>
                             <!-- An admin is viewing another user's ad. Let's list this other user's location -->

@@ -1,5 +1,6 @@
 class Location < ActiveRecord::Base
-  has_many :ads, dependent: :destroy
+  has_many :ad_locations
+  has_many :ads, through: :ad_locations, dependent: :destroy
   belongs_to :user
   belongs_to :district
 
@@ -19,7 +20,7 @@ class Location < ActiveRecord::Base
   # This method returns the right query to display relevant markers, on the home page.
   def self.search(location_type, cat_nav_state, searched_item, selected_item_ids, user_action )
 
-    locations = Location.includes([{ads: :categories}, {ads: :items}]).type(location_type).references(:ads)
+    locations = Location.includes([:translations, {ads: :categories}, {ads: {items: :translations}}, {ads: :translations}]).type(location_type).references(:ads)
 
     if cat_nav_state || searched_item
       if cat_nav_state
@@ -64,9 +65,9 @@ class Location < ActiveRecord::Base
 
   def full_address
     if self.street_number
-      "#{self.street_number} #{self.address}"
+      "#{self.street_number} #{self.address}, #{self.city}"
     else
-      self.address
+      "#{self.address}, #{self.city}"
     end
   end
 

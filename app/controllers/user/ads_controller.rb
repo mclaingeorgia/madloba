@@ -7,7 +7,9 @@ class User::AdsController < ApplicationController
   include ApplicationHelper
 
   def show
-    @ad = Ad.includes(:location => :district).where(id: params['id']).first!
+    @ad = Ad.includes(:locations).where(id: params['id']).first!
+    @locations_exact = Location.includes(:ads).where(ads: {id: params[:id]})
+
     authorize @ad
 
     # Redirection to the home page, if this ad has expired, expect if current user owns this ad.
@@ -87,9 +89,7 @@ class User::AdsController < ApplicationController
   end
 
   def edit
-    @ad = Ad.includes(:location => :district).where(id: params[:id]).first!
-    #@ad.translations.build locale: :en
-    #@ad.translations.build locale: :ka
+    @ad = Ad.includes(locations: :district).where(id: params[:id]).first!
     authorize @ad
     get_map_settings_for_ad
   end
@@ -136,7 +136,7 @@ class User::AdsController < ApplicationController
   end
 
   def ad_params
-    params.require(:ad).permit(:title, :title_en, :title_ka, :description, :description_en, :description_ka, :legal_form, :is_username_used, :location_id, :is_giving, {category_ids: []}, :user_id,
+    params.require(:ad).permit(:title, :title_en, :title_ka, :description, :description_en, :description_ka, :legal_form, :is_username_used, {location_ids: []}, :is_giving, {category_ids: []}, :user_id,
                                :image, :image_cache, :remove_image, :anon_name, :anon_email, :captcha, :captcha_key, :benef_age_group, :is_published,
                                :ad_items_attributes => [:id, :item_id, :_destroy, :item_attributes => [:id, :name, :name_en, :name_ka, :_destroy] ],
                                :location_attributes => [:id, :user_id, :name, :name_en, :name_ka, :street_number, :address, :address_en, :address_ka,
@@ -193,11 +193,11 @@ class User::AdsController < ApplicationController
   # Initializes map related info (markers, clickable map...)
   def get_map_settings_for_ad
     if %w(show send_message).include?(action_name)
-      getMapSettingsWithSeveralItems(@ad, HAS_CENTER_MARKER, NOT_CLICKABLE_MAP)
+      getMapSettings(nil, HAS_NOT_CENTER_MARKER, NOT_CLICKABLE_MAP)
     elsif %w(create update).include?(action_name)
-      getMapSettings(@ad.location, HAS_CENTER_MARKER, CLICKABLE_MAP_EXACT_MARKER)
+      getMapSettings(nil, HAS_CENTER_MARKER, CLICKABLE_MAP_EXACT_MARKER)
     else
-      getMapSettings(@ad.location, HAS_NOT_CENTER_MARKER, CLICKABLE_MAP_EXACT_MARKER)
+      getMapSettings(nil, HAS_NOT_CENTER_MARKER, CLICKABLE_MAP_EXACT_MARKER)
     end
   end
 

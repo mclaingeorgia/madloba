@@ -357,6 +357,10 @@ body {
     font-weight: bold;
 }
 
+.ad-location-select-list{
+    width: 240px !important;
+    margin-right: 15px !important;
+}
 .ad-item-select-list{
     width: 240px !important;
     margin-right: 15px !important;
@@ -378,6 +382,10 @@ body {
 
 .ad-remove-association{
     padding-top: 4px;
+}
+
+.btn-add-location{
+    margin-top: 20px;
 }
 
 /*

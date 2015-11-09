@@ -24,65 +24,67 @@
 
 <br />
 
-<!-- Left-hand side: Location -->
-<div>
-  <label class="ad-label">
-    <% if @ad.is_giving %>
-        <%= t('ad.where_to_find') %>
-    <% else %>
-        <%= t('ad.where_to_bring') %>
-    <% end %>
-  </label>
-  <span><%= @ad.location.name_and_or_full_address %></span>
-</div>
 
+<% if @ad.locations.first.loc_type == 'exact' %>
 
-<% if @ad.location.loc_type == 'exact' %>
-    <!-- Location description -->
-    <% if @ad.location.description && @ad.location.description != '' %>
+    <% @ad.locations.each do |location| %>
+        <div style="margin-bottom: 20px;">
+
+        <!-- Where the service is -->
         <div>
-          <label class="ad-label"><%= t('ad.location_description') %></label>
-          <span><%= @ad.location.description %></span>
+          <label class="ad-label"><%= t('ad.where_to_find') %></label>
+          <span><%= location.name_and_or_full_address %></span>
+        </div>
+
+        <!-- Location description -->
+        <% if location.description && location.description != '' %>
+            <div>
+              <label class="ad-label"><%= t('ad.location_description') %></label>
+              <span><%= location.description %></span>
+            </div>
+        <% end %>
+
+        <!-- Left-hand side: Email -->
+        <% if contact_email_to_show(@ad) != '' %>
+            <div>
+              <label class="ad-label"><%= t('admin.users.email') %>: </label>
+              <span><%= contact_email_to_show(@ad) %></span>
+            </div>
+        <% end %>
+
+        <!-- Left-hand side: Website -->
+        <% if location.website && location.website != '' %>
+            <div>
+              <label class="ad-label"><%= t('ad.location_website') %></label>
+              <span><a href="<%= location.full_website_url %>" target="_blank"><%= location.website %></a></span>
+            </div>
+        <% end %>
+
+        <!-- Left-hand side: Phone number -->
+        <% if location.phone_number && location.phone_number != '' %>
+            <div>
+              <label class="ad-label"><%= t('location.phone_number') %></label>
+              <span>(+995) <%= location.phone_number %></a></span>
+            </div>
+        <% end %>
+
+        <!-- Left-hand side: Additional phone numbers -->
+        <% if check_additional_phone_numbers(location) %>
+            <div>
+              <label class="ad-label"><%= t('location.add_phone_number') %></label>
+              <span>(+995) <%= check_additional_phone_numbers(location) %></a></span>
+            </div>
+        <% end %>
+
+        <!-- Left-hand side: Facebook page -->
+        <% if location.facebook && location.facebook != '' %>
+            <div>
+              <label class="ad-label"><%= t('location.facebook') %></label>
+              <span><a href="<%= location.facebook %>" target="_blank"><%= t('location.link_to_facebook') %></a></span>
+            </div>
+        <% end %>
+
         </div>
     <% end %>
 
-    <!-- Left-hand side: Email -->
-    <% if contact_email_to_show(@ad) != '' %>
-        <div>
-          <label class="ad-label"><%= t('admin.users.email') %>: </label>
-          <span><%= contact_email_to_show(@ad) %></span>
-        </div>
-    <% end %>
-
-    <!-- Left-hand side: Website -->
-    <% if @ad.location.website && @ad.location.website != '' %>
-        <div>
-          <label class="ad-label"><%= t('ad.location_website') %></label>
-          <span><a href="<%= @ad.location.full_website_url %>" target="_blank"><%= @ad.location.website %></a></span>
-        </div>
-    <% end %>
-
-    <!-- Left-hand side: Phone number -->
-    <% if @ad.location.phone_number && @ad.location.phone_number != '' %>
-        <div>
-          <label class="ad-label"><%= t('location.phone_number') %></label>
-          <span>(+995) <%= @ad.location.phone_number %></a></span>
-        </div>
-    <% end %>
-
-    <!-- Left-hand side: Additional phone numbers -->
-    <% if check_additional_phone_numbers(@ad.location) %>
-        <div>
-          <label class="ad-label"><%= t('location.add_phone_number') %></label>
-          <span>(+995) <%= check_additional_phone_numbers(@ad.location) %></a></span>
-        </div>
-    <% end %>
-
-    <!-- Left-hand side: Facebook page -->
-    <% if @ad.location.facebook && @ad.location.facebook != '' %>
-        <div>
-          <label class="ad-label"><%= t('location.facebook') %></label>
-          <span><a href="<%= @ad.location.facebook %>" target="_blank"><%= t('location.link_to_facebook') %></a></span>
-        </div>
-    <% end %>
 <% end %>

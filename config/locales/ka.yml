@@ -435,8 +435,8 @@ ka:
       delete_this_ad: Yes, delete this service
     location:
       error_occurred: "%{errors} occurred while saving this location"
-      update_success: The location '%{name}' has been updated.
-      created_success: The location '%{name}' has been created.
+      update_success: This location has been updated.
+      created_success: This location has been created.
       delete: Delete this location
       linked_ads: Services linked to that location
       no_ad: There is no service linked to this location yet.
