@@ -65,9 +65,9 @@ class Location < ActiveRecord::Base
 
   def full_address
     if self.street_number
-      "#{self.street_number} #{self.address}"
+      "#{self.street_number} #{self.address}, #{self.city}"
     else
-      self.address
+      "#{self.address}, #{self.city}"
     end
   end
 
