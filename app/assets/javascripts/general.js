@@ -213,14 +213,22 @@ $(document).ready(function() {
                 data("association-insertion-position", 'before').
                 data("association-insertion-node", 'this');
             $('.selectpicker').selectpicker('refresh');
-            //bindTypeaheadToItemSelect($('#locations'));
+
+            // It is possible to add only one new location. We adjust the new location nested form accordingly here.
+            if ($('#map').length > 0){
+                $('.ad-create-location').remove();
+                $('.select-new-location').html(gon.vars['select_new_location_only']).removeAttr('style');
+            }
 
             $('.ad-location-fields').on('cocoon:after-insert',
                 function() {
                     $(this).children(".location_from_list").remove();
                     $(this).children("a.add_fields").hide();
+                    initLeafletMap(map_settings_array);
+                    find_geocodes();
                 });
         });
+
 
     $('.ad-location-fields').bind('cocoon:after-insert',
         function(e) {
@@ -228,8 +236,8 @@ $(document).ready(function() {
             $(this).find(".location_from_list").remove();
             $(this).find("a.add_fields").hide();
             $('.selectpicker').selectpicker('refresh');
-        });
 
+        });
 
 
     // On the "New ad" form, open automatically the new location form, if the user is anonymous,
@@ -262,7 +270,6 @@ $(document).ready(function() {
             $("#locations_from_list").show();
             $("#new_location_form a.add_fields").show();
     });*/
-
 
     // Function call to initialize the location form (Location edit form, all Ad forms).
     if (typeof districts_bounds != "undefined") {

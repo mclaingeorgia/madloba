@@ -1,7 +1,7 @@
 <!-- Item drop-down box and "Create a new item" button, in create/edit ad page -->
 <div class="nested-fields ad-location-fields" style="padding-bottom: 10px;">
   <div class="location_from_list" style="display: inline;">
-    <%= f.label :location_id, 'Select an existing location or create a new one', class: 'col-lg-3 control-label', style: 'margin-top: -10px;' %>
+    <%= f.label :location_id, t('ad.select_new_location'), class: 'col-lg-3 control-label select-new-location', style: 'margin-top: -10px;' %>
     <%= f.select :location_id, options_from_collection_for_select(Location.where(user_id: current_user.id), 'id', 'full_address'), {}, {class: 'ad-location-select-list selectpicker', data: {live_search: 'true'}} %>
   </div>
   <%= link_to_add_association t('ad.create_location'), f, :location, partial: 'shared/location_form', class: 'btn btn-md btn-info ad-create-location', form_name: 'form',

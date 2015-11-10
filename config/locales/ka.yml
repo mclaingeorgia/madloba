@@ -237,6 +237,7 @@ ka:
     community_org: Community
     private_type: Private
     other: Other
+    select_new_location: Select an existing location or create a new one
   region:
     tbilisi: Tbilisi
     guria: Guria
@@ -695,3 +696,4 @@ ka:
     delete_district: Delete district
     no_district_delete: No district to delete
     drag_handles: Drag handles to edit district boundaries. Click on the area to edit its name.
+    select_new_location_only: Select an existing location

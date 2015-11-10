@@ -139,11 +139,11 @@ class User::AdsController < ApplicationController
     params.require(:ad).permit(:title, :title_en, :title_ka, :description, :description_en, :description_ka, :legal_form, :is_username_used, {location_ids: []}, :is_giving, {category_ids: []}, :user_id,
                                :image, :image_cache, :remove_image, :anon_name, :anon_email, :captcha, :captcha_key, :benef_age_group, :is_published,
                                :ad_items_attributes => [:id, :item_id, :_destroy, :item_attributes => [:id, :name, :name_en, :name_ka, :_destroy] ],
-                               :location_attributes => [:id, :user_id, :name, :name_en, :name_ka, :street_number, :address, :address_en, :address_ka,
+                               :ad_locations_attributes => [:id, :location_id, :_destroy, :location_attributes => [:id, :user_id, :name, :name_en, :name_ka, :street_number, :address, :address_en, :address_ka,
                                                         :postal_code, :province, :province_en, :province_ka,
                                                         :city, :city_en, :city_ka, :latitude, :longitude, :phone_number,
                                                         :website, :add_phone_number, :add_phone_number_2, :description, :description_en, :description_ka,
-                                                        :loc_type, :district_id, :facebook, :_destroy])
+                                                        :loc_type, :district_id, :facebook, :_destroy]])
   end
 
   # This method is called when a user replies and sends a message to another user, who posted an ad.

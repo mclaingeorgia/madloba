@@ -238,6 +238,7 @@ en:
     community_org: Community
     private_type: Private
     other: Other
+    select_new_location: Select an existing location or create a new one
   region:
     tbilisi: Tbilisi
     guria: Guria
@@ -677,7 +678,7 @@ en:
     total_entries: total entries
     in_this_district: In this district
     ads_for: Services for
-    items_given: "Type of service types:"
+    items_given: "Service types:"
     items_searched: "Service type(s) being searched for:"
     image_not_available: Image not available yet.
     select_item: Select an service type below for more details.
@@ -696,3 +697,4 @@ en:
     delete_district: Delete district
     no_district_delete: No district to delete
     drag_handles: Drag handles to edit district boundaries. Click on the area to edit its name.
+    select_new_location_only: Select an existing location
