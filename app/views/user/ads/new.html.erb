@@ -63,7 +63,7 @@
             <div class="form-group">
               <%= f.label :title_en, t('ad.title_en'), class: 'col-lg-3 control-label' %>
               <div class="col-lg-6">
-                <%= f.text_field :title, class: 'form-control help-message', autofocus: true,
+                <%= f.text_field :title_en, class: 'form-control help-message', autofocus: true,
                                  :data => {:content => t('ad.title_help'), :placement => 'right',
                                            :toggle => 'popover', :trigger => 'hover focus'} %>
               </div>
@@ -73,7 +73,7 @@
             <div class="form-group">
               <%= f.label :title_ka, t('ad.title_ka'), class: 'col-lg-3 control-label' %>
               <div class="col-lg-6">
-                <%= f.text_field :title, class: 'form-control help-message', autofocus: true,
+                <%= f.text_field :title_ka, class: 'form-control help-message', autofocus: true,
                                  :data => {:content => t('ad.title_help'), :placement => 'right',
                                            :toggle => 'popover', :trigger => 'hover focus'} %>
               </div>
@@ -140,7 +140,7 @@
             <div class="form-group">
               <%= f.label :description_en, t('ad.description_en')+'*:', class: 'col-lg-3 control-label' %>
               <div class="col-lg-6">
-                <%= f.text_area :description, class: 'form-control help-message textarea_count', rows: 6, maxlength: 2000,
+                <%= f.text_area :description_en, class: 'form-control help-message textarea_count', rows: 6, maxlength: 2000,
                                 :data => {:content => t('ad.description_help'), :placement => 'right',
                                           :toggle => 'popover', :trigger => 'hover focus'} %>
                 <span class="remaining_characters"><%= @description_remaining_en %></span> remaining characters.
@@ -151,7 +151,7 @@
             <div class="form-group">
               <%= f.label :description_ka, t('ad.description_ka')+'*:', class: 'col-lg-3 control-label' %>
               <div class="col-lg-6">
-                <%= f.text_area :description, class: 'form-control help-message textarea_count_ka', rows: 6, maxlength: 2000,
+                <%= f.text_area :description_ka, class: 'form-control help-message textarea_count_ka', rows: 6, maxlength: 2000,
                                 :data => {:content => t('ad.description_help'), :placement => 'right',
                                           :toggle => 'popover', :trigger => 'hover focus'} %>
                 <span class="remaining_characters_ka"><%= @description_remaining_ka %></span> remaining characters.
@@ -169,7 +169,7 @@
             <!-- Image upload - only possible when app deployed on server, for now -->
             <% if !is_on_heroku && can_upload_image %>
                 <div class="form-group">
-                  <%= f.label :description, t('ad.upload_image'), class: 'col-lg-3 control-label' %>
+                  <%= f.label :image, t('ad.upload_image'), class: 'col-lg-3 control-label' %>
                   <div class="col-lg-6">
                     <%= f.file_field :image, class: 'form-control', style: 'border: 0px; height: auto;' %>
                     <%= f.hidden_field :image_cache, value: params[:image_cache] %>

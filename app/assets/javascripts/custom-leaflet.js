@@ -166,10 +166,10 @@ function putLocationMarkers(){
                 });
 
                 // HTML snippet for the popup
-                if (location['name'] != ''){
-                    popup_html_text = createPopupHtml("<b>"+location['name']+"</b><br />" +location['street_number'] + " " + location['address'], ad, k);
+                if (location['street_number'] != null && location['street_number'] != ''){
+                    popup_html_text = createPopupHtml(location['street_number'] + " " + location['address'], ad, k);
                 }else{
-                    popup_html_text = createPopupHtml("<b>" +location['street_number'] + " " + location['address'] + "</b>", ad, k);
+                    popup_html_text = createPopupHtml(location['address'], ad, k);
                 }
 
                 marker = L.marker([location['latitude'], location['longitude']], {icon: marker_icon, title: location['full_address']})
@@ -252,11 +252,11 @@ function putLocationMarkers(){
 
 /**
  * Creates the text to be shown in a marker popup, giving details about the selected exact location.
- * @param first_sentence
+ * @param location_name
  * @param location
  * @returns Popup text content.
  */
-function createPopupHtml(first_sentence, ad, index){
+function createPopupHtml(location_name, ad, index){
     var second_sentence = '';
     var result = '';
     var category = ad['categories'][index];
@@ -265,7 +265,8 @@ function createPopupHtml(first_sentence, ad, index){
     var popup_item_name = "<span style='color:" + marker_colors[category['marker_color']] + "';><strong>" + category['name'].capitalizeFirstLetter() + "</strong></span>";
 
     if (ad['is_giving'] == true){
-        second_sentence = gon.vars['items_given']+"<br />" + popup_item_name + ': ' + popup_ad_link + '<br />';
+        //second_sentence = gon.vars['items_given']+"<br />" + popup_item_name + ': ' + popup_ad_link + '<br />';
+        second_sentence = gon.vars['items_given']+"<br />" + popup_item_name +"<br />";
     }else{
         second_sentence = gon.vars['items_searched']+"<br />" + popup_item_name + ': ' + popup_ad_link + '<br />';
     }
@@ -273,10 +274,25 @@ function createPopupHtml(first_sentence, ad, index){
     if (ad['image']['thumb']['url'] != null && ad['image']['thumb']['url'] != ''){
         // Popup is created with a thumbnail image in it.
         var ad_image = "<img class='thumb_ad_image' onError=\"$('.thumb_ad_image').remove(); $('.image_notification').html('<i>"+gon.vars['image_not_available']+"</i>');\" src='"+ad['image']['thumb']['url']+"'><span class=\"image_notification\"></span>";
-        result =  "<div style='overflow: auto;'><div class='col-sm-6'>"+first_sentence+"</div><div class='col-sm-6'>"+ad_image+"</div><div class='col-sm-12'><br>"+second_sentence+"</div></div>";
+        /*result =  "<div style='overflow: auto;'>" +
+        "<div class='col-sm-6'>"+location_name+"</div>" +
+        "<div class='col-sm-6'>"+ad_image+"</div>" +
+        "<div class='col-sm-12'><br>"+second_sentence+"</div>" +
+        "</div>";*/
+        result = "<div style='overflow: auto;'>" +
+        "<div class='col-sm-12'>"+popup_ad_link+"</div>" +
+        "<div class='col-sm-6'><br>"+location_name+"</div>" +
+        "<div class='col-sm-6'>"+ad_image+"</div>" +
+        "<div class='col-sm-12'><br>"+second_sentence+"</div>" +
+        "</div>";
     }else{
         // Popup is created without any thumbnail image.
-        result =  "<div style='overflow: auto;'>"+first_sentence+"<br><br>"+second_sentence+"</div>";
+        //result =  "<div style='overflow: auto;'>"+location_name+"<br><br>"+second_sentence+"</div>";
+        result = "<div style='overflow: auto;'>" +
+        "<div class='col-sm-12'>"+popup_ad_link+"</div>" +
+        "<div class='col-sm-12'><br>"+location_name+"</div>" +
+        "<div class='col-sm-12'><br>"+second_sentence+"</div>" +
+        "</div>";
     }
 
     return result;
