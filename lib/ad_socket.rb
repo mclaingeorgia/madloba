@@ -82,9 +82,7 @@ class AdSocket
 
       rescue Exception => e
         p e
-        e.backtrace.each do |line|
-          p line
-        end
+        p e.backtrace
         response['status'] = 'error'
         response['map_info'] = I18n.t('errors.ws_error')
       end
