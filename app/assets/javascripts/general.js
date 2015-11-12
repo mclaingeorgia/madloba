@@ -309,11 +309,8 @@ $(document).ready(function() {
     events.init_new_and_edit_pages();
     events.init_navigation_bar();
     events.init_setup_pages();
+    events.init_admin_pages();
 
-    // load additional scripts when user is in the admin panel.
-    if (is_in_admin_panel()) {
-        events.init_admin_pages();
-    }
 
 
     /*

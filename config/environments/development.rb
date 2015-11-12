@@ -38,7 +38,7 @@ Madloba::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
-  config.serve_static_files = false
+  config.serve_static_files = true
 
   Madloba::Application.config.middleware.use ExceptionNotification::Rack,
                                              :email => {

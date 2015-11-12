@@ -214,8 +214,9 @@ en:
     add_item: Add a Service type
     see_published: See this published service
     see_non_published: Service non-published yet
-    error_ad_must_have_item: Please add at least 1 service type.
-    error_ad_must_have_category: Please select at least 1 category.
+    error_ad_must_have_item: Please add at least one service type.
+    error_ad_must_have_location: Please enter at least one location.
+    error_ad_must_have_category: Please select at least one category.
     image_selected: Image is selected. It will be uploaded once this ad is created.
     provide_anon_name: Please enter your name
     provide_anon_email: Please enter your email address

@@ -97,9 +97,9 @@ ka:
   config:
     not_authorized: You are not allowed go to that page.
   location:
-    location: "Location:*"
+    location: "Location"
     user_location: "This user's locations:*"
-    new_location: Enter your location
+    new_location: Enter your new location
     name_en: "Location description (en):"
     name_ka: "Location description (ge):"
     name_help: Give a name to your location, e.g. workshop name or building name. This will be shown publicly. If you don’t have a name for your location, please leave this section empty.
@@ -169,6 +169,7 @@ ka:
     captcha: "Captcha*:"
     email_help: Providing your email is not mandatory (make sure you've at least put a phone number in the service description). If you give an email address, it won't be published publicly and users will still be able to write a message to you.
     ad_is_deleted: The service '%{deleted_ad_title}' has been deleted.
+    your_email: Your email
     location_website: "Website:"
     your_message: "Your message*:"
     send_message: Send your message
@@ -208,12 +209,15 @@ ka:
     show_ad_image_processed: The image of this service is currently being processed.
     will_show_up: It will show up in a moment after you refresh the page.
     create_item: Create a new service type
+    create_location: Create a new location
     write_new_item: Write your new service type here.
     add_item: Add a Service type
     see_published: See this published service
     see_non_published: Service non-published yet
-    error_ad_must_have_item: Please add at least 1 service type.
-    error_ad_must_have_category: Please select at least 1 category.
+    error_ad_must_have_item: Please add at least one service type.
+    error_ad_must_have_location: Please enter at least one location.
+    error_ad_must_have_category: Please select at least one category.
+    image_selected: Image is selected. It will be uploaded once this ad is created.
     provide_anon_name: Please enter your name
     provide_anon_email: Please enter your email address
     captcha_not_valid: The captcha text you entered is not valid.
@@ -257,6 +261,7 @@ ka:
     khevsureti: Khevsureti
     tusheti: Tusheti
     south_osettia: South Osettia
+    create_account_first_html: "%{create_account} or %{sign_in} now before publishing your ad, if you want to be able to edit it or delete it later."
   mailer:
     hello: "Hi %{name}"
     welcome: "Welcome to %{name}! You will soon be able to search and find details for all rehabilitation services in Georgia."
@@ -437,8 +442,8 @@ ka:
       delete_this_ad: Yes, delete this service
     location:
       error_occurred: "%{errors} occurred while saving this location"
-      update_success: This location has been updated.
-      created_success: This location has been created.
+      update_success: The location '%{name}' has been updated.
+      created_success: The location '%{name}' has been created.
       delete: Delete this location
       linked_ads: Services linked to that location
       no_ad: There is no service linked to this location yet.
@@ -678,7 +683,7 @@ ka:
     total_entries: total entries
     in_this_district: In this district
     ads_for: Services for
-    items_given: "Type of service types:"
+    items_given: "Service types:"
     items_searched: "Service type(s) being searched for:"
     image_not_available: Image not available yet.
     select_item: Select an service type below for more details.

@@ -16,8 +16,13 @@
     - <%= cat.name %>
 <% end %>
 
-- <%= t('mailer.where_pick_up') %>: <%= @ad.location.name_and_or_full_address %>
 - <%= t('ad.beneficiaries_age_group') %>: <%= @ad.benef_age_group %>
+
+<%= t('location.location') %>:
+<% @ad.locations.each do |location| %>
+    - <%= location.name_and_or_full_address %>
+<% end %>
+
 
 <%= t('mailer.description') %>: <%= simple_format(@ad.description) %>
 

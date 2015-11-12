@@ -25,6 +25,7 @@ class Ad < ActiveRecord::Base
   validates :is_username_used, inclusion: [true, false]
   validates :is_published, inclusion: [true, false]
   validate :has_items
+  validate :has_locations
   validate :must_have_one_category
   validates_size_of :image, maximum: 5.megabytes
 
@@ -48,6 +49,10 @@ class Ad < ActiveRecord::Base
 
   def has_items
     errors.add(:base, I18n.t('ad.error_ad_must_have_item')) if (self.ad_items.blank? || self.ad_items.empty?)
+  end
+
+  def has_locations
+    errors.add(:base, I18n.t('ad.error_ad_must_have_location')) if (self.ad_locations.blank? || self.ad_locations.empty?)
   end
 
   def has_anon_name_and_email
