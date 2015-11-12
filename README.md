@@ -1,4 +1,6 @@
-# Madloba [![Release Version](https://img.shields.io/github/release/etiennebaque/madloba.svg)](https://github.com/etiennebaque/madloba/releases) [![Build Status](https://img.shields.io/travis/etiennebaque/madloba/master.svg)](https://travis-ci.org/etiennebaque/madloba)
+# Madloba
+
+[![Release Version](https://img.shields.io/github/release/etiennebaque/madloba.svg)](https://github.com/etiennebaque/madloba/releases) [![Build Status](https://travis-ci.org/etiennebaque/madloba.svg?branch=master)](https://travis-ci.org/etiennebaque/madloba)
 
 Madloba (beta) is a free, open-source solution that connects people who have things to exchange.
 
@@ -55,7 +57,11 @@ Feel free to give Madloba a try at [demo.madloba.org](http://demo.madloba.org). 
 
 ### Contribution
 
-(coming soon)
+1. Fork the Madloba project.
+2. Create your feature branch: `git checkout -b my-new-feature`
+3. Commit your changes: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin my-new-feature`
+5. Submit a pull request.
 
 ### License
 

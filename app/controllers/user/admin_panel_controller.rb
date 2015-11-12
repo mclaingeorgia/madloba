@@ -82,10 +82,14 @@ class User::AdminPanelController < ApplicationController
   # Methods for 'General settings' screens
   # --------------------------------------
   def general_settings_keys
-    return %w(app_name summary description contact_email ad_max_expire facebook instagram pinterest
+    %w(app_name description contact_email ad_max_expire facebook twitter pinterest
               link_one_label link_one_url link_two_label link_two_url
               link_three_label link_three_url link_four_label link_four_url
               link_five_label link_five_url link_six_label link_six_url)
+  end
+
+  def map_settings_keys
+    %w(map_box_api_key mapquest_api_key map_center_geocode chosen_map city state country zoom_level georgian_map english_map)
   end
 
   def generalsettings
@@ -145,13 +149,13 @@ class User::AdminPanelController < ApplicationController
   # ----------------------------------
   def mapsettings
     authorize :admin, :mapsettings?
-    @mapSettings = getMapSettings(nil, HAS_CENTER_MARKER, CLICKABLE_MAP_EXACT_MARKER)
+    @map_settings = getMapSettings(nil, HAS_CENTER_MARKER, CLICKABLE_MAP_EXACT_MARKER)
 
     # More settings to get, in addition to the one we already get in getMapSettings.
     settings = Setting.where(key: %w(city state country))
     if settings
       settings.each do |setting|
-        @mapSettings[setting.key] = setting.value
+        @map_settings[setting.key] = setting.value
         # Updating cache value
         if setting.key == 'city'
           Rails.cache.write(CACHE_CITY_NAME, setting.value)
@@ -161,18 +165,7 @@ class User::AdminPanelController < ApplicationController
 
     # Adding this element to the hash, in order to get the 'zoomend' event working,
     # only for the map settings page (needed to define zoom level).
-    @mapSettings['page'] = 'mapsettings'
-
-    # Initializing the map type drop down box.
-    @options_for_maptype_select = []
-    @options_for_maptype_select << ['OpenStreetMap', 'osm']
-    # If a Mapbox and a MapQuest keys has been provided, then we include them in the drop down box
-    if @mapSettings['map_box_api_key'] && @mapSettings['map_box_api_key'] != ''
-      @options_for_maptype_select << ['Mapbox', 'mapbox']
-    end
-    if @mapSettings['mapquest_api_key'] && @mapSettings['mapquest_api_key'] != ''
-      @options_for_maptype_select << ['MapQuest', 'mapquest']
-    end
+    @map_settings['page'] = 'mapsettings'
 
   end
 
@@ -183,31 +176,23 @@ class User::AdminPanelController < ApplicationController
     if is_demo
       # If this is the Madloba Demo, then we update only the chosen_map. The other parameters cannot be changed.
       setting_record = Setting.find_by_key(:chosen_map)
-      setting_record.update_attribute(:value, params['maptype'])
+      setting_record.update_attribute(:value, params['chosen_map'])
       flash[:setting_success] = t('admin.map_settings.update_success_demo')
 
     elsif ((lat.is_a? Numeric) && (lng.is_a? Numeric)) || lat != nil || lng != nil
       # All the information on the map settings page that can be saved
-      new_map_center = "#{lat},#{lng}"
-      settings_hash = {:map_box_api_key => params['mapBoxApiKey'],
-                       :mapquest_api_key => params['mapQuestApiKey'],
-                       :georgian_map => params['georgian_map'],
-                       :english_map => params['english_map'],
-                       :chosen_map => params['maptype'],
-                       :city => params['city'],
-                       :state => params['state'],
-                       :country => params['country'],
-                       :zoom_level => params['zoom_level'],
-                       :map_center_geocode => new_map_center}
-
-      settings_hash.each {|key, value|
+      map_settings_keys.each do |key|
         setting_record = Setting.find_by_key(key)
         if setting_record
-          setting_record.update_attributes(value: value)
+          if key == 'map_center_geocode'
+            setting_record.update_attributes(value: "#{lat},#{lng}")
+          else
+            setting_record.update_attributes(value: params[key])
+          end
         end
-      }
+      end
 
-      if ((params['mapBoxApiKey'] == '' && params['maptype'] == 'mapbox') || (params['mapQuestApiKey'] == '' && params['maptype'] == 'mapquest'))
+      if ((params['map_box_api_key'] == '' && params['chosen_map'] == 'mapbox') || (params['mapquest_api_key'] == '' && params['chosen_map'] == 'mapquest'))
         # if there is no longer any Mapbox or MapQuest keys, we get back to the default map type, osm.
         setting_record = Setting.find_by_key('chosen_map')
         setting_record.update_attributes(value: 'osm')
@@ -254,11 +239,11 @@ class User::AdminPanelController < ApplicationController
   def areasettings
     authorize :admin, :areasettings?
 
-    @mapSettings = getMapSettings(nil, HAS_NOT_CENTER_MARKER, NOT_CLICKABLE_MAP)
+    @map_settings = getMapSettings(nil, HAS_NOT_CENTER_MARKER, NOT_CLICKABLE_MAP)
 
     # Adding this flag to add leaflet draw tool to the map, on the "Area settings" page.
     # Drawing tool added in initLeafletMap(), in custom-leaflet.js
-    @mapSettings['page'] = 'areasettings'
+    @map_settings['page'] = 'areasettings'
 
     districts = District.all.select(:id, :name, :bounds)
     @districts = []
@@ -270,7 +255,7 @@ class User::AdminPanelController < ApplicationController
         @districts.push(bounds)
       end
     end  
-    @area_types = @mapSettings['area_type'].split(',')
+    @area_types = @map_settings['area_type'].split(',')
   end
 
   def update_areasettings
@@ -406,7 +391,7 @@ class User::AdminPanelController < ApplicationController
   private
 
   def social_networks
-    ['facebook', 'twitter', 'pinterest']
+    %w(facebook twitter pinterest)
   end
 
 

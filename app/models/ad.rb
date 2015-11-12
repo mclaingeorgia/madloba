@@ -41,6 +41,7 @@ class Ad < ActiveRecord::Base
     if current_user
       self.save
     else
+      self.is_username_used = false
       self.save_with_captcha
     end
   end

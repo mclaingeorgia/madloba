@@ -93,6 +93,7 @@ ka:
     500_sorry: "Sorry, there's been a server error. Please try again later."
     faq_label: Frequently Asked Questions
     have_questions_html: "Have questions? Click here to view our %{link}. For further assistance, please contact (Phone number)."
+    ws_error: Sorry, a server error occurred. Please refresh this page.
   config:
     not_authorized: You are not allowed go to that page.
   location:

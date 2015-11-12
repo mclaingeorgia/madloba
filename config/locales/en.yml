@@ -93,10 +93,11 @@ en:
     500_sorry: "Sorry, there's been a server error. Please try again later."
     faq_label: Frequently Asked Questions
     have_questions_html: "Have questions? Click here to view our %{link}. For further assistance, please contact (Phone number)."
+    ws_error: Sorry, a server error occurred. Please refresh this page.
   config:
     not_authorized: You are not allowed go to that page.
   location:
-    location: "Location:*"
+    location: "Location"
     user_location: "This user's locations:*"
     new_location: Enter your new location
     name_en: "Location description (en):"
@@ -168,6 +169,7 @@ en:
     captcha: "Captcha*:"
     email_help: Providing your email is not mandatory (make sure you've at least put a phone number in the service description). If you give an email address, it won't be published publicly and users will still be able to write a message to you.
     ad_is_deleted: The service '%{deleted_ad_title}' has been deleted.
+    your_email: Your email
     location_website: "Website:"
     your_message: "Your message*:"
     send_message: Send your message
@@ -214,6 +216,7 @@ en:
     see_non_published: Service non-published yet
     error_ad_must_have_item: Please add at least 1 service type.
     error_ad_must_have_category: Please select at least 1 category.
+    image_selected: Image is selected. It will be uploaded once this ad is created.
     provide_anon_name: Please enter your name
     provide_anon_email: Please enter your email address
     captcha_not_valid: The captcha text you entered is not valid.
@@ -257,6 +260,7 @@ en:
     khevsureti: Khevsureti
     tusheti: Tusheti
     south_osettia: South Osettia
+    create_account_first_html: "%{create_account} or %{sign_in} now before publishing your ad, if you want to be able to edit it or delete it later."
   mailer:
     hello: "Hi %{name}"
     welcome: "Welcome to %{name}! You will soon be able to search and find details for all rehabilitation services in Georgia."

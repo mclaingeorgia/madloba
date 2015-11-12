@@ -5,26 +5,23 @@ class HomeController < ApplicationController
   # Method for the main screen (home page)
   # --------------------------------------
   def index
-
     # Initializing the map, in relation to its center, defined in the settings table.
-    @mapSettings = getMapSettings(nil, HAS_NOT_CENTER_MARKER, NOT_CLICKABLE_MAP)
+    # Map on the home page does not focus on 1 specific marker, and is not clickable (ie no marker appears on clicl on the map)
+    @map_settings = getMapSettings(nil, HAS_NOT_CENTER_MARKER, NOT_CLICKABLE_MAP)
 
     # Initializing links, and social media information, for the footer of the home page.
-    settings = get_footer_info()
+    settings = get_footer_info
 
     # We check if the user searched for an item and/or a location
     if params[:item] && params[:item] != ''
       # An item is being searched.
-      searched_item = params[:item]
-      selected_item_ids = Item.joins(:ads).where('name LIKE ?', "%#{searched_item}%").pluck(:id).uniq
+      selected_item_ids = Item.joins(:ads).where('name LIKE ?', "%#{params[:item].downcase}%").pluck(:id).uniq
     end
 
     if (params[:lat] && params[:lon])
-        # It's a location-based search
-        @mapSettings['page'] = 'searchedLocationOnHome'
         # The center of the map is now represented by the searched location.
-        @mapSettings['lat'] = params[:lat]
-        @mapSettings['lng'] = params[:lon]
+        @map_settings['lat'] = params[:lat]
+        @map_settings['lng'] = params[:lon]
 
         if params[:loc]
           # A location search was just performed, with the name of the searched location (given back from Nominatim ws) in it.
@@ -37,7 +34,7 @@ class HomeController < ApplicationController
           end
         end
 
-        @mapSettings['searched_address'] = current_location
+        @map_settings['searched_address'] = current_location
         @location_search_refinement_to_display = current_location
 
     end
@@ -57,25 +54,30 @@ class HomeController < ApplicationController
       cat_nav_state = params[:cat].split(" ")
     end
 
+    # We need to see if we have a navigation state.
+    # If we do, that will impact what will be displayed on the map.
+    if params[:cat]
+      cat_nav_state = params[:cat].split(" ")
+    end
+
     # Queries to get ads to be displayed on the map, based on their locations
     # First, we get the ads tied to an exact location.
-    @locations_exact = Location.search('exact', cat_nav_state, searched_item, selected_item_ids, params[:q])
+    @locations_exact = Location.search('exact', cat_nav_state, params[:item], selected_item_ids, params[:q], nil)
 
     area_types = settings['area_type'].split(',')
     if area_types.include?('postal')
       # If the users have the possiblity to post ad linked to a postal code, we get here these type of ads.
-      @locations_postal = Location.search('postal', cat_nav_state, searched_item, selected_item_ids, params[:q])
+      @locations_postal = Location.search('postal', cat_nav_state, params[:item], selected_item_ids, params[:q], nil)
     end
     if area_types.include?('district')
       # If the users have the possiblity to post ad linked to a pre-defined district, we also get here these type of ads.
-      @locations_district = Location.search('district', cat_nav_state, searched_item, selected_item_ids, params[:q])
+      @locations_district = Location.search('district', cat_nav_state, params[:item], selected_item_ids, params[:q], nil)
     end
 
     # Getting a hash that matches areas to their respective latitude and longitudes.
     if area_types.include?('postal') || area_types.include?('district')
-      @area_geocodes = define_area_geocodes
+      @area_geocodes = Location.define_area_geocodes(@locations_postal, @locations_district)
     end
-
   end
 
 
@@ -147,41 +149,14 @@ class HomeController < ApplicationController
     end
   end
 
-  # This method creates the final longitudes and latitudes for each area to be displayed on the map.
-  def define_area_geocodes
-    area_geocodes = {}
-    if (@locations_postal && @locations_postal.length > 0)
-      @locations_postal.each do |area, locations|
-        total_latitude = 0.0
-        total_longitude = 0.0
-        count = 0
-        locations.each do |location|
-          total_latitude += location.latitude.to_f
-          total_longitude += location.longitude.to_f
-          count += 1
-        end
-        area_geocodes[area] = {'latitude' => total_latitude / count, 'longitude' => total_longitude / count}
-      end
-    end
-
-    if (@locations_district && @locations_district.length > 0)
-      districts = District.where(id: @locations_district.keys)
-      districts.each do |district|
-        area_geocodes[district.id] = {'name' => district.name, 'bounds' => district.bounds}
-      end
-    end
-
-    return area_geocodes
-  end
-
   # Get information ready for the footer of the home page
   # (eg. Website description, contact email, social media links... )
   # Also returns a settings hash, that will be needed for the rest of HomeController#index execution.
-  def get_footer_info()
+  def get_footer_info
     @social_medias = []
     settings = {}
     Setting.all.each do |setting|
-      if %w(facebook instagram pinterest).include? setting['key']
+      if %w(facebook twitter pinterest).include? setting['key']
         # Website's social media
         social = {}
         if setting['value'] != ''
@@ -203,14 +178,12 @@ class HomeController < ApplicationController
       end
     end
 
-    # Useful links, for the footer section
+    # Useful links, for the footer section.
+    link_numbers = %w(one two three four five six)
     @links = []
-    @links << get_link(settings['link_one_label'], settings['link_one_url'])
-    @links << get_link(settings['link_two_label'], settings['link_two_url'])
-    @links << get_link(settings['link_three_label'], settings['link_three_url'])
-    @links << get_link(settings['link_four_label'], settings['link_four_url'])
-    @links << get_link(settings['link_five_label'], settings['link_five_url'])
-    @links << get_link(settings['link_six_label'], settings['link_six_url'])
+    link_numbers.each do |number|
+      @links << get_link(settings["link_#{number}_label"], settings["link_#{number}_url"])
+    end
 
     return settings
   end

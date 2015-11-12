@@ -71,13 +71,13 @@ GEM
       carrierwave (~> 0.5)
     cocoon (1.2.6)
     coderay (1.1.0)
-    coffee-rails (4.1.0)
+    coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
     coffee-script (2.4.1)
       coffee-script-source
       execjs
-    coffee-script-source (1.9.1.1)
+    coffee-script-source (1.10.0)
     colorize (0.7.7)
     daemons (1.2.3)
     dalli (2.7.4)
@@ -113,6 +113,9 @@ GEM
       railties (>= 3.0.0)
     faker (1.5.0)
       i18n (~> 0.5)
+    faye-websocket (0.10.0)
+      eventmachine (>= 0.12.0)
+      websocket-driver (>= 0.5.1)
     ffi (1.9.10)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
@@ -420,8 +423,6 @@ GEM
     thread_safe (0.3.5)
     tilt (2.0.1)
     tins (1.6.0)
-    turbolinks (2.5.3)
-      coffee-rails
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.2)
@@ -433,6 +434,9 @@ GEM
       raindrops (~> 0.7)
     warden (1.2.3)
       rack (>= 1.0)
+    websocket-driver (0.6.2)
+      websocket-extensions (>= 0.1.0)
+    websocket-extensions (0.1.2)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -450,6 +454,7 @@ DEPENDENCIES
   carrierwave
   carrierwave_backgrounder
   cocoon
+  coffee-rails (~> 4.0.1)
   daemons
   dalli
   database_cleaner
@@ -458,6 +463,7 @@ DEPENDENCIES
   exception_notification (~> 4.1.1)
   factory_girl_rails
   faker
+  faye-websocket
   fog
   globalize (~> 5.0.0)
   globalize-accessors
@@ -480,7 +486,6 @@ DEPENDENCIES
   sdoc
   shoulda-matchers
   simple_captcha2
-  turbolinks
   uglifier (>= 1.3.0)
   unicorn
 
