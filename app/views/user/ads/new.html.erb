@@ -11,8 +11,6 @@
         }
     </style>
 
-    <%= javascript_include_tag :cocoon %>
-
     <script>
         var current_page = "new_ad";
         var location_number = <%= user_locations_number %>;
@@ -94,13 +92,13 @@
                   <div class='col-lg-6'>
                     <div class="radio">
                       <label>
-                        <%= f.radio_button :is_username_used, true, checked: true, value: true %>
+                        <%= f.radio_button :is_username_used, true, checked: true %>
                         <%= t('location.name_username') %> (<%= current_user.username %>)
                       </label>
                     </div>
                     <div class="radio">
                       <label>
-                        <%= f.radio_button :is_username_used, false, value: false %>
+                        <%= f.radio_button :is_username_used, false %>
                         <%= t('location.name_fullname') %> (<%= current_user.first_name %> <%= current_user.last_name %>)
                       </label>
                     </div>
@@ -172,7 +170,7 @@
                   <%= f.label :image, t('ad.upload_image'), class: 'col-lg-3 control-label' %>
                   <div class="col-lg-6">
                     <%= f.file_field :image, class: 'form-control', style: 'border: 0px; height: auto;' %>
-                    <%= f.hidden_field :image_cache, value: params[:image_cache] %>
+                    <%= f.hidden_field :image_cache %>
                     <span id="message"><%= t('ad.less_than_limit') %></span>
                   </div>
                 </div>
@@ -192,8 +190,7 @@
                             </div>
                         <% elsif @ad.image && (@ad.errors[:image].nil? || (@ad.errors[:image] && @ad.errors[:image].length == 0)) %>
                             <div class="ad-processing">
-                              <%= t('ad.image_currently_processed') %><br />
-                              <%= t('ad.will_show_up') %>
+                                <%= t('ad.image_selected') %>
                             </div>
                         <% end %>
                     <% else %>
@@ -216,7 +213,6 @@
             <% else %>
                 <!-- "Choose a location" section -->
                 <div id="new_location_form">
-
                   <div class="form-group">
                     <div class="col-lg-12">
                       <div id="locations">
@@ -242,17 +238,17 @@
                   <%= f.label :anon_name, t('ad.name'), class: 'col-lg-2 control-label' %>
                   <div class="col-lg-6">
                     <%= f.text_field :anon_name, class: 'form-control help-message',
-                                     :data => {:content => t('ad.name_help'), :placement => 'right',
+                                     :data => {:content => t('ad.name_help'), :placement => 'top',
                                                :toggle => 'popover', :trigger => 'hover focus'} %>
                   </div>
                 </div>
 
                 <!-- Anonymous user's email -->
                 <div class="form-group">
-                  <%= f.label :anon_email, t('admin.users.email')+'*:', class: 'col-lg-2 control-label' %>
+                  <%= f.label :anon_email, t('ad.your_email')+'*:', class: 'col-lg-2 control-label' %>
                   <div class="col-lg-6">
                     <%= f.email_field :anon_email, class: 'form-control help-message', autofocus: true,
-                                      :data => {:content => t('ad.email_help'), :placement => 'right',
+                                      :data => {:content => t('ad.email_help'), :placement => 'top',
                                                 :toggle => 'popover', :trigger => 'hover focus'} %>
                   </div>
                 </div>
@@ -313,6 +309,6 @@
 
 <!-- Loading JS scripts -->
 <% content_for :scripts do %>
-    <!-- Includes all the Javascript related to map rendering (Leaflet, MapQuest, and initialize_map partial that create the actual map -->
+    <!-- Includes all the Javascript related to map rendering (Leaflet, MapQuest, and script that creates the actual map -->
     <%= render 'shared/map_scripts_after_body', include_all_scripts: false %>
 <% end %>

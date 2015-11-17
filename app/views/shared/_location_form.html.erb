@@ -79,7 +79,7 @@
       <div class='<%= col6 %>'>
         <%= form.text_field :address_en, class: 'form-control help-message location_streetname', maxlength:'90',
                             :data => {:content => t('location.street_name_help'),
-                                      :placement => 'right', :toggle => 'popover', :trigger => 'hover focus'} %>
+                                      :placement => 'top', :toggle => 'popover', :trigger => 'hover focus'} %>
       </div>
     </div>
 
@@ -147,8 +147,8 @@
     </div>
 
     <!-- Geocode (latitude and longitude hidden fields) -->
-    <%= form.hidden_field :latitude, value: @mapSettings['lat'], class: 'latitude_hidden' %>
-    <%= form.hidden_field :longitude, value: @mapSettings['lng'], class: 'longitude_hidden' %>
+    <%= form.hidden_field :latitude, value: @map_settings['lat'], class: 'latitude_hidden' %>
+    <%= form.hidden_field :longitude, value: @map_settings['lng'], class: 'longitude_hidden' %>
 
   </div>
 

@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-</head>
+    </head>
 <body>
 <strong><%= t('mailer.dear', name: @user[:name]) %></strong>
 
@@ -29,7 +29,13 @@
     </ul>
   </li>
 
-  <li><%= t('mailer.where_pick_up') %>: <%= @ad.location.name_and_or_full_address %></li>
+  <li><%= t('admin.locations') %>:
+      <ul>
+        <% @ad.locations.each do |location| %>
+            <li><%= location.name_and_or_full_address %></li>
+        <% end %>
+      </ul>
+  </li>
 
   <li><%= t('ad.beneficiaries_age_group') %>: <%= @ad.benef_age_group %></li>
 
