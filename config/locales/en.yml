@@ -29,7 +29,7 @@ en:
     user_panel: User panel
     en_language: English
     ka_language: ქართული
-    create_new_ad: Register services
+    create_new_ad_html: Register services
     sign_in: sign in
     sign_up: Sign up here
     not_have_account_yet_html: "%{sign_up_here} if you don't have an account yet."

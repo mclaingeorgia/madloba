@@ -29,7 +29,7 @@ ka:
     user_panel: მომხმარებლის პანელია
     en_language: English
     ka_language: ქართული
-    create_new_ad: რეგისტრირებული სერვისები
+    create_new_ad_html: რეგისტრირებული <br />სერვისები
     sign_in: შესვლა
     sign_up: გასვლა
     not_have_account_yet_html: გაიარე რეგისტრაცია "%{sign_up_here} ."
