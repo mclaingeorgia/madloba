@@ -109,6 +109,10 @@ body {
     margin-bottom: 20px;
 }
 
+#sidebar{
+    border-radius: 20px;
+}
+
 /*
  * Home page
  * ---------
