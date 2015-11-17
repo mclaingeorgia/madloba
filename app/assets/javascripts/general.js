@@ -209,7 +209,7 @@ var events = {
         if(markers.group != ''){
             markers.group.on('clusterclick', function (a) {
                 var bounds = a.layer.getBounds().pad(0.5);
-                map.fitBounds(bounds);
+                leaf.map.fitBounds(bounds);
             });
         }
 

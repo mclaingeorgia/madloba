@@ -4,6 +4,7 @@ class User::LocationsController < ApplicationController
   before_action :requires_user
   before_action :is_location_controller
   after_action :verify_authorized
+  after_action :update_ad_json, only: [:update]
 
   include ApplicationHelper
 
@@ -105,6 +106,16 @@ class User::LocationsController < ApplicationController
                                      :city, :city_en, :city_ka, :latitude, :longitude, :phone_number,
                                      :website, :add_phone_number, :add_phone_number_2, :description, :description_en, :description_ka,
                                      :loc_type, :district_id, :facebook)
+  end
+
+  # Updates the relevant ads marker_info (jsonb)
+  def update_ad_json
+    location = Location.find(params[:id])
+    Ad.where(location_id: location.id).each do |ad|
+      ad.marker_info['lat'] = location.latitude
+      ad.marker_info['lng'] = location.longitude
+      ad.save
+    end
   end
 
   # This boolean is to be used on the location form partial. We don't want the "Enter new location" header to appear,

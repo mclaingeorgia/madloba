@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151020130420) do
+ActiveRecord::Schema.define(version: 20151114114337) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 20151020130420) do
     t.string   "legal_form",       limit: 255
     t.string   "anon_email_2",     limit: 255
     t.string   "anon_email_3",     limit: 255
+    t.jsonb    "marker_info",                  default: {}
   end
 
   add_index "ads", ["location_id"], name: "index_ads_on_location_id", using: :btree

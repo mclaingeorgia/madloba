@@ -62,7 +62,7 @@ class HomeController < ApplicationController
 
     # Queries to get ads to be displayed on the map, based on their locations
     # First, we get the ads tied to an exact location.
-    @locations_exact = Location.search('exact', cat_nav_state, params[:item], selected_item_ids, params[:q], nil)
+    @locations_exact = Ad.search(cat_nav_state, params[:item], selected_item_ids, params[:q], nil)
 
     area_types = settings['area_type'].split(',')
     if area_types.include?('postal')
@@ -98,7 +98,6 @@ class HomeController < ApplicationController
     render 'home/about'
   end
 
-
   # -------------------------
   # Method for the FAQ page
   # -------------------------
@@ -106,6 +105,73 @@ class HomeController < ApplicationController
     render 'home/faq'
   end
 
+  # Method called by Ajax call made when marker on the home page is clicked.
+  # Returns the HTML code that will create the popup linked to that marker.
+  def show_ad_popup
+
+    popup_html = ''
+
+    begin
+      ad_id = params['ad_id']
+      location_id = params['location_id']
+      category_id = params['category_id']
+
+      ad = Ad.joins([:translations, {locations: :translations}, {categories: :translations}]).where(id: ad_id).first
+      number_of_categories = ad.categories.count
+
+      popup_html = "<div style='overflow: auto;'>"
+
+      # Title (and image when available)
+      if ad.image?
+          popup_html += "<div class='col-xs-12 col-md-6 title_popup'>#{view_context.link_to(ad.title, ad)}</div>
+                         <div class='col-xs-12 col-md-6'>#{ActionController::Base.helpers.image_tag(ad.image.thumb.url, class: 'pull-right')}</div>"
+      else
+          popup_html += "<div class='col-xs-12 title_popup'>#{view_context.link_to(ad.title, ad)}</div>"
+      end
+
+      # Service types
+      service_type = t('admin.ads')
+      items = ad.items.pluck(:name).join(', ')
+      popup_html += "<div class='col-xs-12' style='margin-top: 15px;'>#{service_type}: #{items}</div>"
+
+      # Service categories
+      ad_action = t('admin.categories')
+      category_name = ''
+      ad.categories.each do |category|
+        if category.id == category_id.to_i
+          category_name = "<span style='color:" + MARKER_COLORS[category.marker_color] + "';><strong>" + category.name + "</strong></span>";
+          break
+        end
+      end
+      and_other_categories = ''
+      if number_of_categories > 1
+        and_other_categories = "and #{number_of_categories - 1} other categories(s)"
+      end
+      popup_html += "<div class='col-xs-12'>#{ad_action}: #{category_name} #{and_other_categories}</div>"
+
+      # Location full address
+      location = ''
+      ad.locations.each do |loc|
+        if loc.id == location_id.to_i
+          location = loc.name_and_or_full_address
+        end
+      end
+      popup_html += "<div class='col-xs-12' style='margin: 15px 0px;'>#{location}</div>"
+
+      # "Show details" button
+      popup_html += "<div class='col-xs-12' style='text-align: center'>#{view_context.link_to(t('home.show_details'), ad, class: 'btn btn-info btn-sm no-color' )}</div>"
+
+      popup_html += "</div>"
+
+    rescue Exception => e
+      p e
+      p e.backtrace
+      # An error occurred, we show a error message.
+      popup_html = "<i>#{t('home.error_get_popup_content')}</i>"
+    end
+
+    render json: popup_html
+  end
 
   # Ajax call to show the ads related to 1 type of item and to 1 district/area.
   # Call made when click on link, in area marker popup.

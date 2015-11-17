@@ -82,6 +82,8 @@ ka:
     footer_theme_html: "Theme from %{charisma}"
     log_out: "გასვლა"
     show_ads_districts: სერვისის ძიება ადგილმდებარეობის მიხედვით.
+    show_details: Show details
+    error_get_popup_content: Sorry, an error occurred. Please try again later.
     error:
       one: error
       more: errors
