@@ -4,7 +4,13 @@
   <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
 </head>
 <body>
-<strong><%= t('mailer.dear', name: @user[:name]) %></strong>
+<strong>
+  <% if @user[:name] %>
+      <%= t('mailer.dear', name: @user[:name]) %>
+  <% else %>
+      <%= t('session.hello') %>
+  <% end %>
+</strong>
 
 <p>
   <%= t('mailer.user_is_admin_html', site_name: @site_name, new_role: @new_role) %>

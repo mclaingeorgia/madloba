@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  validates :first_name, :last_name, :username, presence: true
+  validates :username, presence: true
   validates :is_service_provider, inclusion: [true, false]
   validates_uniqueness_of :username
 

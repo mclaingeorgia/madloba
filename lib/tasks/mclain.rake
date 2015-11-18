@@ -210,9 +210,10 @@ namespace :mclain do
     anon_emails.each do |email|
       generated_password = Array.new(12){rand(36).to_s(36)}.join
 
+      username = email.split('@')[0]
+
       @user = User.new(email: email, password: generated_password, password_confirmation: generated_password,
-                       first_name: 'first name', last_name: 'last name', username: "user#{count}",
-                       is_service_provider: true)
+                       username: username, is_service_provider: true)
 
       @user.confirmation_token = nil
       @user.confirmed_at = Time.now

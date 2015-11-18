@@ -1,4 +1,8 @@
-<%= t('mailer.dear', name: @ad[:first_name]) %>
+<% if @ad[:first_name] %>
+    <%= t('mailer.dear', name: @ad[:first_name]) %>
+<% else %>
+    <%= t('session.hello') %>
+<% end %>
 
 <%= t('mailer.received_message', ad_title: @ad[:title], site_name: @site_name) %>
 
