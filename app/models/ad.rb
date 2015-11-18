@@ -20,7 +20,7 @@ class Ad < ActiveRecord::Base
   accepts_nested_attributes_for :items
   accepts_nested_attributes_for :locations
 
-  validates_presence_of :title, :description, :legal_form
+  validates_presence_of :title, :description
   validates :is_giving, inclusion: [true, false]
   validates :is_username_used, inclusion: [true, false]
   validates :is_published, inclusion: [true, false]
