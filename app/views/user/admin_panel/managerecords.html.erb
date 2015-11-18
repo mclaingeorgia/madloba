@@ -105,8 +105,8 @@
               <tr>
                 <th>ID </th>
                 <th><%= t('admin.name') %></th>
-                <th><%= t('admin.exact_area') %></th>
-                <th><%= t('admin.address') %></th>
+                <th><%= t('admin.address_en') %></th>
+                <th><%= t('admin.address_ka') %></th>
                 <th><%= t('admin.created_by_user') %></th>
                 <th><%= t('admin.actions') %></th>
               </tr>
@@ -116,12 +116,19 @@
                   <tr>
                     <td class="vert-align"><%= location.id %></td>
                     <td class="vert-align"><%= location.name %></td>
-                    <td class="vert-align"><%= location.loc_type %></td>
                     <% if location.loc_type == 'exact' %>
-                        <td class="vert-align"><%= location.street_number %>&nbsp;<%= location.address %></td>
+                        <% if location.street_number && !location.street_number.empty? %>
+                            <td class="vert-align"><%= location.street_number %>&nbsp;<%= location.address_en %>, <%= location.city %></td>
+                            <td class="vert-align"><%= location.street_number %>&nbsp;<%= location.address_ka %>, <%= location.city %></td>
+                        <% else %>
+                            <td class="vert-align"><%= location.address_en %>, <%= location.city %></td>
+                            <td class="vert-align"><%= location.address_ka %>, <%= location.city %> </td>
+                        <% end %>
                     <% elsif location.loc_type == 'district' %>
                         <td class="vert-align"><%= location.district.name %></td>
+                        <td class="vert-align"><%= location.district.name %></td>
                     <% else %>
+                        <td class="vert-align"><%= location.postal_code %></td>
                         <td class="vert-align"><%= location.postal_code %></td>
                     <% end %>
                     <td class="vert-align"><%= location.user ? location.user.email : t('admin.location.anonymous_user') %></td>
@@ -151,7 +158,8 @@
               <thead>
               <tr>
                 <th>ID</th>
-                <th><%= t('admin.name') %></th>
+                <th><%= t('admin.item.name_en') %></th>
+                <th><%= t('admin.item.name_ka') %></th>
                 <th><%= t('admin.actions') %></th>
               </tr>
               </thead>
@@ -159,7 +167,8 @@
               <% Item.all.each do |item| %>
                   <tr>
                     <td class="vert-align"><%= item.id %></td>
-                    <td class="vert-align"><%= item.capitalized_name %></td>
+                    <td class="vert-align"><%= capitalized_name(item.name_en) %></td>
+                    <td class="vert-align"><%= capitalized_name(item.name_ka) %></td>
                     <td class="center"><a class="btn btn-info" href="/user/items/<%= item.id %>/edit"> <i class="glyphicon glyphicon-pencil"></i> Edit / Show details </a></td>
                   </tr>
               <% end %>
@@ -185,7 +194,8 @@
               <thead>
               <tr>
                 <th>ID </th>
-                <th id="category_name_header"><%= t('admin.category_name') %></th>
+                <th id="category_name_header"><%= t('admin.category_name_en') %></th>
+                <th><%= t('admin.category_name_ka') %></th>
                 <th><%= t('admin.marker') %></th>
                 <th><%= t('admin.icon') %></th>
                 <th><%= t('admin.description') %></th>
@@ -196,7 +206,8 @@
               <% Category.all.order('name asc').each do |category| %>
                   <tr>
                     <td class="vert-align"><%= category.id %></td>
-                    <td class="vert-align"><%= category.name %></td>
+                    <td class="vert-align"><%= category.name_en %></td>
+                    <td class="vert-align"><%= category.name_ka %></td>
                     <td style="text-align: center; vertical-align: middle;"><%= image_tag "images/marker-#{category.marker_color}.png", title: category.marker_color %></td>
                     <td style="text-align: center; vertical-align: middle;"><i class="fa <%= category.icon %>" title="<%= category.icon_name %>"> </i></td>
                     <td class="vert-align"><%= category.description %></td>

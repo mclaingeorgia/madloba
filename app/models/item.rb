@@ -11,7 +11,7 @@ class Item < ActiveRecord::Base
 
   before_save { |item| item.name.downcase! }
 
-  # Capitalized only the first letter of the item name
+  # Capitalized item name, with nil check
   def capitalized_name
     result = ''
     if self.name

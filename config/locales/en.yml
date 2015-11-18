@@ -342,6 +342,8 @@ en:
     todo_list: To-do list
     name: Name
     address: Address/Region/Postal code
+    address_en: Address (en)
+    address_ka: Address (ka)
     exact_area: Location type
     ads: Services
     ad_settings: Service settings

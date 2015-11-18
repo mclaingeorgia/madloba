@@ -65,7 +65,6 @@
                       <thead>
                       <tr>
                         <th><%= t('admin.title') %></th>
-                        <th><%= t('admin.ad.giving_accepting_title') %></th>
                         <th><%= t('admin.items') %></th>
                         <th><%= t('admin.expiration_date') %></th>
                         <th><%= t('admin.actions') %></th>
@@ -75,7 +74,6 @@
                       <% @ads.each do |ad| %>
                           <tr>
                             <td class="vert-align"><%= ad.title %></td>
-                            <td class="vert-align"><%= ad.is_giving ? t('admin.ad.giving_away') : t('admin.ad.accepting') %></td>
                             <td class="vert-align"><%= ad.item_list %></td>
                             <% if ad.expire_date.to_s != '2100-01-01' %>
                                 <td class="vert-align"><%= ad.expire_date %></td>
@@ -112,8 +110,8 @@
                       <thead>
                       <tr>
                         <th><%= t('admin.name') %></th>
-                        <th><%= t('admin.exact_area') %></th>
-                        <th><%= t('admin.address') %></th>
+                        <th><%= t('admin.address_en') %></th>
+                        <th><%= t('admin.address_ka') %></th>
                         <th><%= t('admin.ads') %></th>
                         <th><%= t('admin.actions') %></th>
                       </tr>
@@ -122,8 +120,21 @@
                       <% @locations.each do |location| %>
                           <tr>
                             <td class="vert-align"><%= location.location_full_name %></td>
-                            <td class="vert-align"><%= location.is_area ? t('admin.location.area') : t('admin.location.exact_address') %></td>
-                            <td class="vert-align"><%= location.location_type_address %></td>
+                            <% if location.loc_type == 'exact' %>
+                                <% if location.street_number && !location.street_number.empty? %>
+                                    <td class="vert-align"><%= location.street_number %>&nbsp;<%= location.address_en %>, <%= location.city %></td>
+                                    <td class="vert-align"><%= location.street_number %>&nbsp;<%= location.address_ka %>, <%= location.city %></td>
+                                <% else %>
+                                    <td class="vert-align"><%= location.address_en %>, <%= location.city %></td>
+                                    <td class="vert-align"><%= location.address_ka %>, <%= location.city %> </td>
+                                <% end %>
+                            <% elsif location.loc_type == 'district' %>
+                                <td class="vert-align"><%= location.district.name %></td>
+                                <td class="vert-align"><%= location.district.name %></td>
+                            <% else %>
+                                <td class="vert-align"><%= location.postal_code %></td>
+                                <td class="vert-align"><%= location.postal_code %></td>
+                            <% end %>
                             <td>
                               <% if location.ads.length == 0 %>
                                   <i><%= t('admin.location.no_ad_tied') %></i>
