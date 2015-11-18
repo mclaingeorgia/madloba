@@ -194,9 +194,17 @@ span.disabled { color:gray; }
     margin-bottom: 10px;
 }
 
-#ad_not_published{
+#ad_not_published {
     font-weight: bold;
     color: red;
+}
+
+#sidebar{
+    border-radius: 20px;
+}
+
+.title_popup a {
+    font-weight: bold !important;
 }
 
 /*

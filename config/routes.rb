@@ -82,6 +82,9 @@ Madloba::Application.routes.draw do
   # To change languages.
   get '/change_locale/:locale', to: 'settings#change_locale', as: :change_locale
 
+  # Ajax call to show popup content, when marker clicked on home page.
+  get '/showAdPopup', to: 'home#show_ad_popup'
+
   # Root
   root 'home#index'
 

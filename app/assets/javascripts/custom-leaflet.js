@@ -363,39 +363,56 @@ var markers = {
     // Method that creates markers representing ads tied to exact-type location.
     place_exact_locations_markers: function (locations_exact, is_bouncing_on_add) {
         for (var i=0; i<locations_exact.length; i++){
-            var location = locations_exact[i];
 
-            for (var j=0; j<location['ads'].length; j++){
-                var popup_html_text;
-                var marker;
+            var ad = locations_exact[i];
 
-                var ad = location['ads'][j];
+            for (var k=0; k<ad['locations'].length; k++){
+                var location = ad['locations'][k];
 
-                for (var k=0; k<ad['categories'].length; k++){
+                for (var j=0; j<ad['markers'].length; j++){
+                    var item = ad['markers'][j];
 
-                    var category = ad['categories'][k];
-
+                    // Creating the marker for this ad here.
                     var marker_icon = L.AwesomeMarkers.icon({
                         prefix: 'fa',
-                        markerColor: category['marker_color'],
-                        icon: category['icon']
+                        markerColor: item['color'],
+                        icon: item['icon']
                     });
 
-                    // HTML snippet for the popup
-                    if (location['street_number'] != null && location['street_number'] != ''){
-                        popup_html_text = createPopupHtml(location['street_number'] + " " + location['address'], ad, k);
-                    }else{
-                        popup_html_text = createPopupHtml(location['address'], ad, k);
-                    }
-
-                    marker = L.marker([location['latitude'], location['longitude']], {icon: marker_icon, title: location['full_address']})
-                    var popup = L.popup({minWidth: 250}).setContent(popup_html_text);
-
+                    var marker = L.marker([location['lat'], location['lng']], {icon: marker_icon, bounceOnAdd: is_bouncing_on_add});
+                    marker.ad_id = ad['ad_id'];
+                    marker.category_id = item['category_id'];
+                    marker.location_id = location['location_id'];
+                    var popup = L.popup({minWidth: 250, maxWidth: 300}).setContent('Loading...');
                     marker.bindPopup(popup);
+
+                    // When a marker is clicked, an Ajax call is made to get the content of the popup to display
+                    marker.on('click', function(e) {
+                        var popup = e.target.getPopup();
+                        $.ajax({
+                            url: "/showAdPopup",
+                            global: false,
+                            type: "GET",
+                            data: { ad_id: this.ad_id, location_id: this.location_id, category_id: this.category_id },
+                            dataType: "html",
+                            beforeSend: function(xhr) {
+                                xhr.setRequestHeader("Accept", "text/html-partial");
+                            },
+                            success: function(data) {
+                                popup.setContent(data);
+                                popup.update();
+                            },
+                            error: function(data) {
+                                popup.setContent(data);
+                                popup.update();
+                            }
+                        });
+                    });
                     markers.group.addLayer(marker);
                 }
 
             }
+
         }
     },
 
