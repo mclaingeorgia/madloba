@@ -42,6 +42,7 @@ class Ad < ActiveRecord::Base
     if ad_id.present?
       # Search by ad ids when adding ads on home page dynamically, when other user just created an ad (websocket)
       ads = Ad.find(ad_id)
+      ads = [ads.marker_info]
     else
       ads = Ad.select(:marker_info).where("expire_date >= ? and (marker_info->>'ad_id') is not null", Date.today)
 
@@ -64,9 +65,9 @@ class Ad < ActiveRecord::Base
         ads = ads.where("ads.is_giving = ?", user_action == 'searching')
       end
 
-    end
+      ads = ads.pluck(:marker_info)
 
-    ads = ads.pluck(:marker_info)
+    end
 
     ads
 

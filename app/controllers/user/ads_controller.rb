@@ -9,7 +9,7 @@ class User::AdsController < ApplicationController
 
   def show
     @ad = Ad.includes(:locations).where(id: params['id']).first!
-    @locations_exact = Location.includes(:ads).where(ads: {id: params[:id]})
+    @locations_exact = Ad.search(nil, nil, nil, nil, params['id'])
 
     authorize @ad
 
