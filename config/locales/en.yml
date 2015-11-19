@@ -592,7 +592,11 @@ en:
       super_admin_user: Super-administrator
       make_user_admin: Make this user an admin.
       first_name: First name
+      first_name_en: First name (en)
+      first_name_ka: First name (ge)
       last_name: Last name
+      last_name_en: Last name (en)
+      last_name_ka: Last name (ka)
       username: Username
       current_password: Current password
       new_password: New password

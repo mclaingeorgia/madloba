@@ -119,19 +119,35 @@
                     </div>
                 <% end %>
 
-                <!-- First name -->
+                <!-- First name - english -->
                 <div class="form-group">
-                  <%= f.label :first_name, t('admin.profile.first_name')+':', class:'control-label' %>
+                  <%= f.label :first_name_en, t('admin.profile.first_name_en')+':', class:'control-label' %>
                   <div class="form-inline">
-                    <%= f.text_field :first_name, class: 'form-control' %>
+                    <%= f.text_field :first_name_en, class: 'form-control' %>
                   </div>
                 </div>
 
-                <!-- Last name -->
+                <!-- First name - georgian -->
                 <div class="form-group">
-                  <%= f.label :last_name, t('admin.profile.last_name')+':', class:'control-label' %>
+                  <%= f.label :first_name_ka, t('admin.profile.first_name_ka')+':', class:'control-label' %>
                   <div class="form-inline">
-                    <%= f.text_field :last_name, class: 'form-control' %>
+                    <%= f.text_field :first_name_ka, class: 'form-control' %>
+                  </div>
+                </div>
+
+                <!-- Last name - english -->
+                <div class="form-group">
+                  <%= f.label :last_name_en, t('admin.profile.last_name_en')+':', class:'control-label' %>
+                  <div class="form-inline">
+                    <%= f.text_field :last_name_en, class: 'form-control' %>
+                  </div>
+                </div>
+
+                <!-- Last name - georgian -->
+                <div class="form-group">
+                  <%= f.label :last_name_ka, t('admin.profile.last_name_ka')+':', class:'control-label' %>
+                  <div class="form-inline">
+                    <%= f.text_field :last_name_ka, class: 'form-control' %>
                   </div>
                 </div>
 

@@ -592,7 +592,11 @@ ka:
       super_admin_user: სუპერ ადმინისტრატორი
       make_user_admin: "აღნიშნული მომხმარებლის ადმინისტრატორად დანიშვნა."
       first_name: სახელი
+      first_name_en: სახელი (en)
+      first_name_ka: სახელი (ge)
       last_name: გვარი
+      last_name_en: გვარი (en)
+      last_name_ka: გვარი (ge)
       username: სარეგისტრაციო სახელი
       current_password: არსებული პაროლი
       new_password: ახალი პაროლი

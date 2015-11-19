@@ -16,6 +16,10 @@ class User < ActiveRecord::Base
   validates :is_service_provider, inclusion: [true, false]
   validates_uniqueness_of :username
 
+  # Fields to be translated
+  translates :first_name, :last_name
+  globalize_accessors :locales => [:en, :ka], :attributes => [:first_name, :last_name]
+
   has_many :locations, dependent: :destroy
   has_many :ads, dependent: :destroy
   has_many :ad_users
