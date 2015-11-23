@@ -54,7 +54,7 @@
                 <% if @favorites.count > 0 %>
                   <ul>
                       <% @favorites.each do |ad_favorite| %>
-                        <li style="padding-bottom: 15px;"><%= link_to ad_favorite.title, ad_path(ad_favorite.id) %> (<%= ad_favorite.anon_name %>) - <a href="#" class="remove_favorite" id="<%= ad_favorite.id %>"><%= t('general_js.remove')%></a>
+                        <li style="padding-bottom: 15px;"><%= link_to ad_favorite.title, service_path(ad_favorite.id) %> (<%= ad_favorite.anon_name %>) - <a href="#" class="remove_favorite" id="<%= ad_favorite.id %>"><%= t('general_js.remove')%></a>
                         <ul>
                           <li style="list-style-type: none;"><i><%= ad_favorite.description[0..100] %>...</i></li>
                         </ul>

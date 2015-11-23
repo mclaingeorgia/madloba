@@ -35,7 +35,7 @@ Madloba::Application.routes.draw do
     get '/', to: 'admin_panel#index'
 
     resources :locations, :categories, :items, :users, :faqs
-    resources :ads, :only => [:edit, :update, :destroy]
+    resources :ads, :only => [:edit, :update, :destroy], path: :services, as: :services
 
     get 'index', 'home', to: 'admin_panel#index'
     get 'managerecords', to: 'admin_panel#managerecords'
@@ -66,7 +66,7 @@ Madloba::Application.routes.draw do
 
   end
 
-  resources :ads, :only => [:show, :index, :new, :create], :controller => 'user/ads'
+  resources :ads, :only => [:show, :index, :new, :create], :controller => 'user/ads', path: :services, as: :services
   post 'ads/send_message', to: 'user/ads#send_message'
 
   # Ajax calls to get details about a location (geocodes, exact address)

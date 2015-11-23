@@ -17,7 +17,7 @@ class UserMailer < ActionMailer::Base
     @ad = ad
     @user = user_info
     @site_name = site_name
-    @ad_edit_path = edit_user_ad_path(@ad.id)
+    @ad_edit_path = edit_user_service_path(@ad.id)
     mail(to: super_admins.join(', '), subject: t('mailer.new_ad_to_review', title: ad.title))
   end
 
@@ -26,7 +26,7 @@ class UserMailer < ActionMailer::Base
     @ad = ad
     @user = user_info
     @site_name = site_name
-    @ad_edit_path = edit_user_ad_path(@ad.id)
+    @ad_edit_path = edit_user_service_path(@ad.id)
     mail(to: super_admins.join(', '), subject: t('mailer.updated_service', title: ad.title))
   end
 

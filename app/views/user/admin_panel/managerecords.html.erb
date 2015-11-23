@@ -77,7 +77,7 @@
                     <td class="vert-align"><%= ad.item_list %></td>
                     <td class="vert-align"><%= ad.email_to_display %></td>
                     <% if current_user.super_admin? %>
-                        <td class="center"><a class="btn btn-info" href="/user/ads/<%= ad.id %>/edit"> <i class="glyphicon glyphicon-pencil"></i> <%= t('admin.edit_delete') %> </a>
+                        <td class="center"><a class="btn btn-info" href="/user/services/<%= ad.id %>/edit"> <i class="glyphicon glyphicon-pencil"></i> <%= t('admin.edit_delete') %> </a>
                     <% end %>
                     </td>
                   </tr>

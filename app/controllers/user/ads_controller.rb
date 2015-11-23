@@ -59,7 +59,7 @@ class User::AdsController < ApplicationController
         flash[:ad_expire] = t('ad.ad_create_expire', day_number: max_number_days_publish, expire_date: @ad.expire_date)
       end
 
-      redirect_to ad_path(@ad.id)
+      redirect_to service_path(@ad.id)
 
       # Sending email confirmation, about the creation of the ad.
       full_admin_url = "http://#{request.env['HTTP_HOST']}/user/manageads"
@@ -111,7 +111,7 @@ class User::AdsController < ApplicationController
         UserMailer.delay.updated_ad_notify_super_admins(user_info, @ad, super_admins)
       end
 
-      redirect_to edit_user_ad_path(@ad.id)
+      redirect_to edit_user_service_path(@ad.id)
     else
       # Saving the ad failed.
       flash[:error_ad] = @ad.title
@@ -185,7 +185,7 @@ class User::AdsController < ApplicationController
         flash[:error] = t('ad.error_empty_message')
       end
 
-      redirect_to ad_path(params['id'])
+      redirect_to service_path(params['id'])
     end
   end
 
@@ -193,25 +193,27 @@ class User::AdsController < ApplicationController
 
   # Create the json for the 'exact location' ad, which will be read to render markers on the home page.
   def generate_ad_json
-    #ad = Ad.find(params[:id])
     type = @ad.location.loc_type
     if type == 'exact'
-      marker_info = {ad_id: @ad.id, lat: @ad.location.latitude, lng: @ad.location.longitude}
-      marker_info[:markers] = []
-      @ad.items.each do |item|
-        item_info = {}
-        cat = item.category
-        item_info[:item_id] = item.id
-        item_info[:category_id] = cat.id
-        item_info[:color] = cat.marker_color
-        item_info[:icon] = cat.icon
-        marker_info[:markers] << item_info
+      marker_info = {ad_id: @ad.id}
+      locations = []
+      @ad.locations.each do |location|
+        locations << {location_id: location.id, lat: location.latitude, lng: location.longitude}
       end
-    else
-      marker_info = {}
+      marker_info[:locations] = locations
+
+      marker_info[:markers] = []
+      @ad.categories.each do |category|
+        category_info = {}
+        category_info[:category_id] = category.id
+        category_info[:color] = category.marker_color
+        category_info[:icon] = category.icon
+        marker_info[:markers] << category_info
+      end
+
+      @ad.marker_info = marker_info
+      @ad.save
     end
-    @ad.marker_info = marker_info
-    @ad.save
   end
 
   # Initializes map related info (markers, clickable map...)

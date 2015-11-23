@@ -123,10 +123,10 @@ class HomeController < ApplicationController
 
       # Title (and image when available)
       if ad.image?
-          popup_html += "<div class='col-xs-12 col-md-6 title_popup'>#{view_context.link_to(ad.title, ad)}</div>
+          popup_html += "<div class='col-xs-12 col-md-6 title_popup'>#{view_context.link_to(ad.title, service_path(ad.id))}</div>
                          <div class='col-xs-12 col-md-6'>#{ActionController::Base.helpers.image_tag(ad.image.thumb.url, class: 'pull-right')}</div>"
       else
-          popup_html += "<div class='col-xs-12 title_popup'>#{view_context.link_to(ad.title, ad)}</div>"
+          popup_html += "<div class='col-xs-12 title_popup'>#{view_context.link_to(ad.title, service_path(ad.id))}</div>"
       end
 
       # Service types
@@ -159,7 +159,7 @@ class HomeController < ApplicationController
       popup_html += "<div class='col-xs-12' style='margin: 15px 0px;'>#{location}</div>"
 
       # "Show details" button
-      popup_html += "<div class='col-xs-12' style='text-align: center'>#{view_context.link_to(t('home.show_details'), ad, class: 'btn btn-info btn-sm no-color' )}</div>"
+      popup_html += "<div class='col-xs-12' style='text-align: center'>#{view_context.link_to(t('home.show_details'), service_path(ad.id), class: 'btn btn-info btn-sm no-color' )}</div>"
 
       popup_html += "</div>"
 

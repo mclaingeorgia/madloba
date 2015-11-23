@@ -92,7 +92,7 @@
       <% if current_user && current_user.super_admin? %>
           <div class="row">
             <div class="col-lg-12 ad-paragraph">
-              <div id="ad_not_published"><%= t('ad.ad_not_published_html', editpage: (link_to t('ad.edit_page'), edit_user_ad_path(@ad.id))) %></div>
+              <div id="ad_not_published"><%= t('ad.ad_not_published_html', editpage: (link_to t('ad.edit_page'), edit_user_service_path(@ad.id))) %></div>
             </div>
           </div>
       <% elsif current_user && current_user.id == @ad.user_id %>

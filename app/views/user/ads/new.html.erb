@@ -46,7 +46,7 @@
 
   <div class="row">
     <div class="col-lg-12">
-      <%= form_for @ad, html: { class: 'form-horizontal', role: 'form', multipart: true } do |f| %>
+      <%= form_for @ad, url: services_path, html: { class: 'form-horizontal', role: 'form', multipart: true } do |f| %>
           <fieldset>
             <h3 style="padding-bottom: 30px;"><%= t('ad.new_ad') %></h3>
 
