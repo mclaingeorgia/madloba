@@ -425,6 +425,7 @@ en:
     warning_ads_before_delete_location: "WARNING: some services are still tied to this location. Deleting this location will permanently delete these services."
     delete_confirm: Yes, delete this %{entity}
     save_not_possible: "Demo - Update not possible for this page"
+    see_service: See service
     left_menu:
       admin_task: Admin tasks
       user_tasks: Regular user tasks

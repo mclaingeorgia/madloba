@@ -425,6 +425,7 @@ ka:
     warning_ads_before_delete_location: "გაფრთხილება: ზოგი სერვისები ჯერ კიდევ დაკავშირებულია ამ სერვისის ტიპთან. ამ სერვისის წაშლა გამოიწვევს მის მთლიან ამოღებას სერვისების ტიპებიდან."
     delete_confirm: "დიახ, %{entity} წაშლა"
     save_not_possible: "საცდელი - ამ გვერდი განახლება შეუძლებელია"
+    see_service: See service
     left_menu:
       admin_task: ადმინისტრატორი
       user_tasks: მომხმარებელი

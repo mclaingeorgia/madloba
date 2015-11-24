@@ -401,13 +401,13 @@ function add_favorite(obj){
  */
 function remove_favorite(obj){
     var btn = obj;
-    var is_in_admin = (obj.attr('class') == 'remove_favorite');
+    var is_in_admin = (obj.attr('class') == 'btn btn-danger remove_favorite');
     var posting = $.post("/user/favorite/remove", { ad_id: btn.attr('id') }, function(data) {status = data.status})
     posting.done(function() {
         if (status == 'ok'){
             if (is_in_admin){
                 // admin favorite page : remove the whole line
-                btn.parent().remove();
+                btn[0].closest('tr').remove();
             }else{
                 // ads show page: change the button
                 btn.addClass('add_to_favorite_button btn-warning').removeClass('btn-danger remove_favorite_button');
