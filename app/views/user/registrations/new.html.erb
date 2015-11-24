@@ -8,7 +8,7 @@
 
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {:class => 'form-horizontal'}) do |f| %>
           <fieldset>
-            <legend>Sign up</legend>
+            <legend><%= t('registration.sign_up') %></legend>
 
             <div class="form-group">
               <div class="col-lg-9 col-lg-offset-3">
@@ -16,19 +16,35 @@
               </div>
             </div>
 
-            <!-- First name -->
+            <!-- First name - English -->
             <div class="form-group">
-              <%= f.label :first_name, t('registration.first_name')+':', class: 'col-lg-3 control-label' %>
+              <%= f.label :first_name_en, t('registration.first_name_en')+':', class: 'col-lg-3 control-label' %>
               <div class="col-lg-9">
-                <%= f.text_field :first_name, class: 'form-control', autofocus: true %>
+                <%= f.text_field :first_name_en, class: 'form-control', autofocus: true %>
               </div>
             </div>
 
-            <!-- Last name -->
+            <!-- First name - Georgian -->
             <div class="form-group">
-              <%= f.label :last_name, t('registration.last_name')+':', class: 'col-lg-3 control-label' %>
+              <%= f.label :first_name_ka, t('registration.first_name_ka')+':', class: 'col-lg-3 control-label' %>
               <div class="col-lg-9">
-                <%= f.text_field :last_name, class: 'form-control' %>
+                <%= f.text_field :first_name_ka, class: 'form-control', autofocus: true %>
+              </div>
+            </div>
+
+            <!-- Last name - English -->
+            <div class="form-group">
+              <%= f.label :last_name_en, t('registration.last_name_en')+':', class: 'col-lg-3 control-label' %>
+              <div class="col-lg-9">
+                <%= f.text_field :last_name_en, class: 'form-control' %>
+              </div>
+            </div>
+
+            <!-- Last name - Georgian -->
+            <div class="form-group">
+              <%= f.label :last_name_ka, t('registration.last_name_ka')+':', class: 'col-lg-3 control-label' %>
+              <div class="col-lg-9">
+                <%= f.text_field :last_name_ka, class: 'form-control' %>
               </div>
             </div>
 
@@ -74,16 +90,32 @@
               <div class='col-lg-9'>
                 <div class="radio">
                   <label>
-                    <%= f.radio_button :is_service_provider, true, value: true %>
+                    <%= f.radio_button :is_service_provider, true, checked: true %>
                     <%= t('home.yes') %>
                   </label>
                 </div>
                 <div class="radio">
                   <label>
-                    <%= f.radio_button :is_service_provider, false, value: false, checked: true %>
+                    <%= f.radio_button :is_service_provider, false %>
                     <%= t('home.no') %>
                   </label>
                 </div>
+              </div>
+            </div>
+
+            <!-- Note about checking out the FAQ -->
+            <div class="form-group">
+              <div class="col-lg-9 col-lg-offset-3">
+                <i><%= t('errors.have_questions_html', link: (link_to t('errors.faq_label'), faq_path, target: '_blank')) %></i>
+              </div>
+            </div>
+
+            <!-- Terms and conditions checkbox -->
+            <div class="form-group" style="margin-bottom: 30px;">
+              <div class="col-lg-9 col-lg-offset-3 checkbox">
+                <label>
+                  <%= f.check_box :has_agreed_to_tos %> <%= t('admin.profile.i_have_accepted_html', terms_and_conditions: link_to(t('admin.profile.terms_and_conditions'), '#', class: 'terms_popup')) %>
+                </label>
               </div>
             </div>
 
@@ -93,12 +125,6 @@
               </div>
             </div>
 
-            <!-- Note about checking out the FAQ -->
-            <div class="form-group">
-              <div class="col-lg-9 col-lg-offset-3">
-                <i><%= t('errors.have_questions_html', link: (link_to t('errors.faq_label'), faq_path, target: '_blank')) %></i><br /><br />
-              </div>
-            </div>
 
           </fieldset>
 
@@ -108,6 +134,24 @@
 
   <%= render 'shared/links' %>
 
+</div>
+
+<!-- Modal popup that appears with click on Terms and Conditions -->
+<div class="modal fade" id="terms_modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel"><%= t('admin.profile.terms_and_conditions') %></h4>
+      </div>
+      <div class="modal-body" id="modal-body-id">
+        <p>Text about terms and conditions</p>
+        <p>Another paragraph about terms and conditions</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('home.got_it') %></button>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div id="push"></div>

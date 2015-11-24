@@ -98,6 +98,24 @@ class HomeController < ApplicationController
     render 'home/about'
   end
 
+  def tos
+    if current_user.nil? || (current_user && current_user.has_agreed_to_tos)
+      redirect_to root_path
+    end
+    render 'home/tos'
+  end
+
+  def update_tos
+    if params['has_agreed_to_tos'].nil? || params['has_agreed_to_tos'] == false
+      flash[:error] = t('admin.profile.please_agree')
+      redirect_to tos_path
+    else
+      current_user.has_agreed_to_tos = true
+      current_user.save
+      redirect_to user_path
+    end
+  end
+
   # -------------------------
   # Method for the FAQ page
   # -------------------------

@@ -234,6 +234,11 @@ var events = {
             remove_favorite($(this));
         });
 
+        // Sign up page - event for modal window when click on Terms and Conditions link.
+        $('.terms_popup').click(function(){
+            $('#terms_modal').modal('show');
+        });
+
     },
 
     // Scripts related to the admin pages.

@@ -306,6 +306,10 @@ ka:
     all_mandatory: (ყველა ველის შევსება სავალდებულოა)
     first_name: სახელი
     last_name: გვარი
+    first_name_en: სახელი (en)
+    last_name_en: გვარი (en)
+    first_name_ka: სახელი (ge)
+    last_name_ka: გვარი (ge)
     username: სახელი რეგისტრაციისათვის
     username_help: თქვენს მიერ შერჩეული სახელი რეგისტრაციისათვის იქნება გამოყენებული იმ შემთხვევაში თუ თქვენ გაქვს სურვილი დარჩეთ ანონიმური. 
     email: ელ.ფოსტა
@@ -601,6 +605,10 @@ ka:
       current_password: არსებული პაროლი
       new_password: ახალი პაროლი
       confirm_password: პაროლის დადასტურება
+      agree_to_tos: I have accepted the Terms and Conditions.
+      please_agree: Please agree to the Terms and Conditions before continuing.
+      i_have_accepted_html: I have accepted the %{terms_and_conditions}.
+      terms_and_conditions: Terms and Conditions
   setup:
     choose_language: Please choose a language
     madloba_setup: Madloba setup

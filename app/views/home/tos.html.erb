@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <div style="padding-bottom: 30px">
+        <h3><%= t('admin.profile.terms_and_conditions') %></h3>
+      </div>
+
+      <div class="box-content">
+        <%= form_tag '/update_tos', url: update_tos_path, method: :post, html: { role: 'form' } do %>
+
+            <div class="col-lg-12">
+              <!-- "Terms and conditions" text -->
+              <p>Terms and conditions goes here.</p>
+
+              <p>2nd paragraph - Terms and conditions goes here.</p>
+            </div>
+
+            <div class="form-group">
+              <div class="checkbox">
+                <label>
+                  <%= check_box_tag 'has_agreed_to_tos', true %> <%= t('admin.profile.agree_to_tos') %>
+                </label>
+              </div>
+            </div>
+
+            <!-- Submit form -->
+            <%= render 'shared/submit_section' %>
+
+        <% end %>
+      </div>
+
+
+    </div>
+
+  </div>
+
+</div>
+
+<div id="push"></div>

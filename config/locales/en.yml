@@ -306,6 +306,10 @@ en:
     all_mandatory: (All fields are mandatory)
     first_name: First name
     last_name: Last name
+    first_name_en: First name (en)
+    last_name_en: Last name (en)
+    first_name_ka: First name (ge)
+    last_name_ka: Last name (ge)
     username: Username
     username_help: Your username will be used if you prefer to remain anonymous.
     email: E-mail
@@ -601,6 +605,10 @@ en:
       current_password: Current password
       new_password: New password
       confirm_password: Confirm password
+      agree_to_tos: I have accepted the Terms and Conditions.
+      please_agree: Please agree to the Terms and Conditions before continuing.
+      i_have_accepted_html: I have accepted the %{terms_and_conditions}.
+      terms_and_conditions: Terms and Conditions
   setup:
     choose_language: Please choose a language
     madloba_setup: Madloba setup

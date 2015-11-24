@@ -13,6 +13,10 @@ Madloba::Application.routes.draw do
   # FAQ page
   get 'faq', to: 'home#faq'
 
+  # TOS page
+  get 'tos', to: 'home#tos'
+  post 'update_tos', to: 'home#update_tos'
+
   # Setup pages
   get 'setup/language', to: 'setup#show_choose_language'
   post 'setup/language/process', to: 'setup#process_chosen_language'
