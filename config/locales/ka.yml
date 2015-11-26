@@ -467,8 +467,8 @@ ka:
       no_ad_tied: ამ ეტაპზე აღნიშნულ ადგილი არაა დაკავშირებული რომელიმე ტიპის სერვისთან.
       anonymous_user: (ანონიმური მომხმარებელი)
     category:
-      update_success: "კატეგორიის '%{name}' რედაქტირება."
-      created_success: "კატეგორიის '%{name}' შექმნა."
+      update_success: "კატეგორიის რედაქტირება."
+      created_success: "კატეგორიის შექმნა."
       cat_error_occurred: "%{errors} ამ კატეგორიის შენახვის დროს"
       delete_category: კატეგორიის წაშლა
       choose_icon: სიმბოლოს არჩევა
