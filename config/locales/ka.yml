@@ -347,7 +347,7 @@ ka:
     name: სახელი
     address: "მისამართი/რეგიონი/საფოსტო ინდექსი"
     address_en: მისამართი (en)
-    address_ka: მისამართი (ka)
+    address_ka: მისამართი (ge)
     exact_area: ადგილმდებარეობის განსაზღვრა
     ads: სერვისები
     ad_settings: სერვისების მონაცემები 
@@ -704,7 +704,7 @@ ka:
     info_4_6: All Registered Users are expected to abide by these terms and Fair use when taking part in the Instant Messaging feature of this website. Inappropriate email exchanges from either service providers or registered service users will not be tolerated under any circumstances. In the case that inappropriate language or content is received by either user, they are responsible for informing the website administrator immediately. Contact details can be found on our About page.
     title_5: 5. Closing of Accounts
     info_5_1: The administrators of this website reserve the right to modify or discontinue your account at any time for any reason or no reason at all.
-    info_5_2: If you wish to close your account, you may do so by -???
+    info_5_2: If you wish to close your account, you may do so by sending a request email to MAC. After review of your request, your account, as well as the attached services, will be permanently deleted.
     title_6: 6. Business deletion
     info_6_1: "We reserve the right to remove any Registered Services profiles if we feel that they're infringing on any laws or if they contain objectionable material such as adult content (including images, vulgar language, content or links). Please Read the section on Prohibited Conduct for further information on acceptable content and conduct on this Website."
     title_7: 7. How we use your personal information
