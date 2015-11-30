@@ -521,3 +521,7 @@ body {
 .tt-suggestion p {
     margin: 0;
 }
+
+#terms_and_conditions_text h4{
+    margin: 20px 0px 10px 0px;
+}

@@ -138,14 +138,13 @@
 
 <!-- Modal popup that appears with click on Terms and Conditions -->
 <div class="modal fade" id="terms_modal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog" style="width: 800px;">
     <div class="modal-content">
       <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel"><%= t('admin.profile.terms_and_conditions') %></h4>
       </div>
-      <div class="modal-body" id="modal-body-id">
-        <p>Text about terms and conditions</p>
-        <p>Another paragraph about terms and conditions</p>
+      <div class="modal-body" id="modal-body-id" style="width: 100%; height: 400px; overflow: auto;">
+        <%= render 'shared/terms_and_conditions' %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal"><%= t('home.got_it') %></button>
