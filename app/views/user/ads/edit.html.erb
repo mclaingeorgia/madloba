@@ -74,7 +74,7 @@
           <% end %>
 
           <div class="box-content">
-            <%= form_for [:user, @ad], url: services_path, html: { id: 'ad-edit-form', role: 'form', multipart: true } do |f| %>
+            <%= form_for [:user, @ad], url: user_service_path, html: { id: 'ad-edit-form', role: 'form', multipart: true } do |f| %>
 
                 <!-- "Delete Ad" and "See published ad" buttons -->
                 <div class="form-group">
