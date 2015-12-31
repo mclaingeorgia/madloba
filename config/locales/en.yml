@@ -269,7 +269,7 @@ en:
     welcome: "Welcome to %{name}! You will soon be able to search and find details for all rehabilitation services in Georgia."
     account_created: "An account has been created in your name. Please click on the following link to verify your email address and gain full access to all the features of %{name}:"
     confirm_account: Confirm my account
-    as_soon_as: As soon as you have been verified, you can log in in to your account anytime by clicking Sign In on the www.x.ge page.
+    as_soon_as: As soon as you have been verified, you can log in in to your account anytime by clicking Sign In on the %{name} home page.
     need_assistance: "If you need assistance searching your required services or would like to contact us with any questions or feedback, please use the Contact Us page at http://"
     phone_number: "Alternatively you may call this number:"
     thanks: "Thank you for registering. We hope you enjoy using %{name}."
