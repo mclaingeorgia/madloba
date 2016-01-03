@@ -144,7 +144,7 @@ class User::AdsController < ApplicationController
                                                         :postal_code, :province, :province_en, :province_ka,
                                                         :city, :city_en, :city_ka, :latitude, :longitude, :phone_number,
                                                         :website, :add_phone_number, :add_phone_number_2, :description, :description_en, :description_ka,
-                                                        :loc_type, :district_id, :facebook, :_destroy]])
+                                                        :facebook, :_destroy]])
   end
 
   # This method is called when a user replies and sends a message to another user, who posted an ad.
@@ -197,9 +197,7 @@ class User::AdsController < ApplicationController
       marker_info = {ad_id: @ad.id}
       locations = []
       @ad.locations.each do |location|
-        if location.type == 'exact'
-          locations << {location_id: location.id, lat: location.latitude, lng: location.longitude}
-        end
+        locations << {location_id: location.id, lat: location.latitude, lng: location.longitude}
       end
       marker_info[:locations] = locations
 

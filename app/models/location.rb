@@ -128,6 +128,8 @@ class Location < ActiveRecord::Base
       self.postal_code
     elsif self.loc_type == 'district'
       self.district.name
+    else
+      full_address
     end
   end
 

@@ -186,6 +186,8 @@
         var marker_colors = <%= raw MARKER_COLORS.to_json %>;
         var locations_postal = null;
         var locations_district = null;
-        putLocationMarkers(locations_exact, locations_postal, locations_district, null, marker_colors);
+        // We're indicating that we are on the show ad page.
+        var page = "<%= SHOW_AD_PAGE %>";
+        putLocationMarkers(locations_exact, locations_postal, locations_district, null, marker_colors, page);
     </script>
 <% end %>

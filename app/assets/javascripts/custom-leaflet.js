@@ -361,7 +361,7 @@ var markers = {
     },
 
     // Method that creates markers representing ads tied to exact-type location.
-    place_exact_locations_markers: function (locations_exact, is_bouncing_on_add) {
+    place_exact_locations_markers: function (locations_exact, is_bouncing_on_add, page) {
         for (var i=0; i<locations_exact.length; i++){
 
             var ad = locations_exact[i];
@@ -393,7 +393,7 @@ var markers = {
                             url: "/showAdPopup",
                             global: false,
                             type: "GET",
-                            data: { ad_id: this.ad_id, location_id: this.location_id, category_id: this.category_id },
+                            data: { ad_id: this.ad_id, location_id: this.location_id, category_id: this.category_id, page: page },
                             dataType: "html",
                             beforeSend: function(xhr) {
                                 xhr.setRequestHeader("Accept", "text/html-partial");
@@ -496,7 +496,7 @@ function initLeafletMap(map_settings){
  * Populates the map with different markers (eg exact address and area-type markers, to show ads)
  * @param locations_hash - hash containing the info to create all different markers.
  */
-function putLocationMarkers(locations_exact, locations_postal, locations_district, area_geocodes, marker_colors){
+function putLocationMarkers(locations_exact, locations_postal, locations_district, area_geocodes, marker_colors, page){
 
     // The MarkerClusterGroup object will allow to aggregate location markers (both 'exact location' and 'area' markers),
     // when they get too close to one another, as the user zooms out, on the home page.
@@ -505,7 +505,7 @@ function putLocationMarkers(locations_exact, locations_postal, locations_distric
     markers.marker_colors = marker_colors;
 
     // Displaying markers on map
-    markers.place_exact_locations_markers(locations_exact, false);
+    markers.place_exact_locations_markers(locations_exact, false, page);
 
     // Displaying postal code area circles on map
     markers.draw_postal_code_areas(locations_postal);

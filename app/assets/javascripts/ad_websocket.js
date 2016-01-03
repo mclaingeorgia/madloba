@@ -20,6 +20,9 @@ var messagePrefix = {
     add_new_marker: 'new'
 }
 
+// Variable to pass to 'place_Exact_locations_markers' function.
+var homePage = "home";
+
 // Method that turns the current navigation state into a string.
 AdSocket.prototype.stringifyState = function() {
     var _this = this;
@@ -155,7 +158,7 @@ AdSocket.prototype.refresh_map = function (new_map_info, new_nav_state){
 
     // Then we place the different markers and areas.
     if (new_map_info['markers'] != ''){
-        markers.place_exact_locations_markers(new_map_info['markers'], false);
+        markers.place_exact_locations_markers(new_map_info['markers'], false, homePage);
     }
 
     if (new_map_info['postal'] != ''){
@@ -224,10 +227,10 @@ AdSocket.prototype.add_marker = function (new_map_info){
     var isSeveralItems = (exactLocationsAds[0]['markers'].length > 1);
     if (isSeveralItems){
         // There are several markers to add on the map. Let's not bounce them, as animation conflicts with MarkerClusterGroup.
-        markers.place_exact_locations_markers(exactLocationsAds, false);
+        markers.place_exact_locations_markers(exactLocationsAds, false, homePage);
     }else{
         // 1 marker to add, let's make it bounce.
-        markers.place_exact_locations_markers(exactLocationsAds, true);
+        markers.place_exact_locations_markers(exactLocationsAds, true, homePage);
     }
 
 };

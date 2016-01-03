@@ -133,6 +133,7 @@ class HomeController < ApplicationController
       ad_id = params['ad_id']
       location_id = params['location_id']
       category_id = params['category_id']
+      page = params['page']
 
       ad = Ad.joins([:translations, {locations: :translations}, {categories: :translations}]).where(id: ad_id).first
       number_of_categories = ad.categories.count
@@ -176,8 +177,10 @@ class HomeController < ApplicationController
       end
       popup_html += "<div class='col-xs-12' style='margin: 15px 0px;'>#{location}</div>"
 
-      # "Show details" button
-      popup_html += "<div class='col-xs-12' style='text-align: center'>#{view_context.link_to(t('home.show_details'), service_path(ad.id), class: 'btn btn-info btn-sm no-color' )}</div>"
+      if page == HOME_PAGE
+        # "Show details" button
+        popup_html += "<div class='col-xs-12' style='text-align: center'>#{view_context.link_to(t('home.show_details'), service_path(ad.id), class: 'btn btn-info btn-sm no-color' )}</div>"
+      end
 
       popup_html += "</div>"
 
