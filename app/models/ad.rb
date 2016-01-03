@@ -13,7 +13,9 @@ class Ad < ActiveRecord::Base
 
   # Ad image
   mount_uploader :image, ImageUploader
-  process_in_background :image
+
+  process_in_background :image if :image_storage == IMAGE_AMAZON_S3
+  store_in_background :avatar if :image_storage == IMAGE_ON_SERVER
 
   accepts_nested_attributes_for :ad_locations, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :ad_items, :reject_if => :all_blank, :allow_destroy => true
@@ -35,6 +37,10 @@ class Ad < ActiveRecord::Base
   globalize_accessors :locales => [:en, :ka], :attributes => [:description]
 
   apply_simple_captcha
+
+  def self.image_storage
+    Rails.cache.fetch(CACHE_IMAGE_STORAGE) {Setting.find_or_create_by(key: 'image_storage').value}
+  end
 
   # This method returns the right query to display relevant markers, on the home page.
   def self.search(cat_nav_state, searched_item, selected_item_ids, user_action, ad_id)
@@ -72,6 +78,8 @@ class Ad < ActiveRecord::Base
     ads
 
   end
+
+
 
   # method used to save the ads#new form. A captcha is required when the user is anonymous.
   # In that case the save method is different than the classic one.
