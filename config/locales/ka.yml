@@ -426,7 +426,7 @@ ka:
     warning_ads_before_delete_location: "გაფრთხილება: ზოგი სერვისები ჯერ კიდევ დაკავშირებულია ამ სერვისის ტიპთან. ამ სერვისის წაშლა გამოიწვევს მის მთლიან ამოღებას სერვისების ტიპებიდან."
     delete_confirm: "დიახ, %{entity} წაშლა"
     save_not_possible: "საცდელი - ამ გვერდი განახლება შეუძლებელია"
-    see_service: See service
+    see_service: სერვისის ნახვა
     left_menu:
       admin_task: ადმინისტრატორი
       user_tasks: მომხმარებელი
@@ -607,10 +607,10 @@ ka:
       current_password: არსებული პაროლი
       new_password: ახალი პაროლი
       confirm_password: პაროლის დადასტურება
-      agree_to_tos: I have accepted the Terms and Conditions.
-      please_agree: Please agree to the Terms and Conditions before continuing.
-      i_have_accepted_html: I have accepted the %{terms_and_conditions}.
-      terms_and_conditions: Terms and Conditions
+      agree_to_tos: მე ვეთანხმები საიტის გამოყენების პირობებს
+      please_agree: ვიდრე გააგრძელებთ მუშაობას,გთხოვთ დაეთანხმოთ საიტის გამოყენების პირობებს
+      i_have_accepted_html: მე ვეთანხმები %{terms_and_conditions}.
+      terms_and_conditions: საიტის გამოყენების პირობები
   setup:
     choose_language: Please choose a language
     madloba_setup: Madloba setup
