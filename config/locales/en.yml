@@ -317,6 +317,8 @@ en:
     password_help: The password is case-sensitive and must be at least 8 characters long.
     password_confirm: Password confirmation
     register_service: Do you plan to register a service?
+    is_provider: "Yes"
+    is_not_provider: "No"
     sign_up: Sign up
     not_received: Didn't receive confirmation instructions?
     waiting_confirmation: Currently waiting confirmation for

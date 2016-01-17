@@ -90,14 +90,12 @@
               <div class='col-lg-9'>
                 <div class="radio">
                   <label>
-                    <%= f.radio_button :is_service_provider, true, checked: true %>
-                    <%= t('home.yes') %>
+                    <%= f.radio_button :is_service_provider, true, checked: true %> <%= t('registration.is_provider') %>
                   </label>
                 </div>
                 <div class="radio">
                   <label>
-                    <%= f.radio_button :is_service_provider, false %>
-                    <%= t('home.no') %>
+                    <%= f.radio_button :is_service_provider, false %> <%= t('registration.is_not_provider') %>
                   </label>
                 </div>
               </div>
