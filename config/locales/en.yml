@@ -345,6 +345,7 @@ en:
     change_your_password: Change your password
   admin:
     dashboard: Dashboard
+    disclaimer: "We at Rehab GE seek to ensure that our users obtain only the best quality service. Should you at any time be unsatisfied with your experience on our site or with an interaction with one of the listed Service Providers please don't hesitate to contact us at (email) or (phone). Your feedback is important."
     todo_list: To-do list
     name: Name
     address: Address/Region/Postal code
