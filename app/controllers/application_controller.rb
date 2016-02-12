@@ -83,7 +83,7 @@ class ApplicationController < ActionController::Base
   # Check if the current user has agreed to the terms and conditions.
   def check_if_user_has_tos
     current_url = request.original_url
-    if current_user && !current_user.has_agreed_to_tos && !((current_url.include? 'tos') || (current_url.include? 'logout'))
+    if current_user && !current_user.has_agreed_to_tos && !((current_url.include? 'tos') || (current_url.include? 'logout') || (current_url.include? 'change_locale'))
       redirect_to tos_path
     end
   end

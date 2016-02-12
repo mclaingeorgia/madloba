@@ -217,13 +217,18 @@ namespace :mclain do
 
       @user.confirmation_token = nil
       @user.confirmed_at = Time.now
+      @user.has_agreed_to_tos = true
       @user.save
+
+      if @user.errors.present?
+        puts "#{email}' with password '#{generated_password}: #{@user.errors.as_json}"
+      end
 
       CSV.open("#{Rails.root}/lib/tasks/user_password.csv", 'a') do |csv|
         csv << [email,generated_password]
       end
 
-      puts "Generated '#{email}' with password '#{generated_password}'"
+      #puts "Generated '#{email}' with password '#{generated_password}'"
       count += 1
     end
 
@@ -245,7 +250,7 @@ namespace :mclain do
         end
       end
 
-      puts count
+      #puts count
       count += 1
     end
 
