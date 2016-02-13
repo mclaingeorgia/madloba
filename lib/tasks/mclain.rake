@@ -213,7 +213,7 @@ namespace :mclain do
       username = email.split('@')[0]
 
       @user = User.new(email: email, password: generated_password, password_confirmation: generated_password,
-                       username: username, is_service_provider: true)
+                       username: "#{username}#{count}", is_service_provider: true)
 
       @user.confirmation_token = nil
       @user.confirmed_at = Time.now
