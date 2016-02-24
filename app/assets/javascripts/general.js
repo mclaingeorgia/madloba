@@ -184,7 +184,7 @@ var events = {
         $('.typeahead').on('typeahead:selected', function(evt, item) {
             if (typeof item['ad_id'] != "undefined"){
                 var ad_id = item['ad_id'];
-                window.location.href = App.host_url+"/ads/"+ad_id;
+                window.location.href = App.host_url+"/services/"+ad_id;
             }
         })
     },

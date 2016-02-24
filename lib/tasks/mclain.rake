@@ -257,4 +257,22 @@ namespace :mclain do
     puts 'All done.'
 
   end
+
+
+  desc 'Send emails to user'
+  task send_emails: :environment do
+    puts "Sending emails to users now"
+
+    file = CSV.read("#{Rails.root}/lib/tasks/user_password.csv", {headers: true})
+    file.each do |line|
+      recipient = line[0]
+      password = line[1]
+      UserMailer.send_welcome_message(recipient, password).deliver
+    end
+
+    puts "All done"
+
+  end
+
+
 end
