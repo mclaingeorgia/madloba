@@ -221,6 +221,7 @@ class ApplicationController < ActionController::Base
     typeahead_type = params[:type]
     search_type = params[:q]
 
+=begin
     if typeahead_type == PREFETCH_AD_ITEMS
       # 'prefetch_ad_items' type - prefetching data when item typed in main navigation search bar.
       matched_items = Ad.joins(:items).where(is_giving: search_type=='searching').pluck(:name).uniq
@@ -234,7 +235,7 @@ class ApplicationController < ActionController::Base
       # in ads#edit and ads#new pages.
       matched_items = Item.where('name LIKE ?', "%#{params[:item].downcase}%").pluck(:id, :name)
     end
-
+=end
     result = []
 
     if params[:item] && params[:item].length > 1
@@ -252,6 +253,10 @@ class ApplicationController < ActionController::Base
         matched_items = Item.with_translations(I18n.locale).where('item_translations.name LIKE ?', "%#{params[:item].downcase}%").pluck('item_translations.item_id, item_translations.name')
       end
 
+      matched_items.each do |match|
+        result << {id: match[0].to_s, value: match[1]}
+      end
+
       if [PREFETCH_AD_ITEMS, SEARCH_IN_AD_ITEMS].include? (typeahead_type)
 
         # We also need to include the name of the services
@@ -259,14 +264,11 @@ class ApplicationController < ActionController::Base
         if matched_services.empty?
           matched_services = Ad.with_translations(I18n.locale).where('ad_translations.title LIKE ?', "%#{params[:item].downcase}%").pluck('ad_translations.ad_id, ad_translations.title')
         end
+        
         matched_services.each do |match|
           result << {ad_id: match[0], value: match[1]}
         end
 
-      else
-        matched_items.each do |match|
-          result << {id: match[0].to_s, value: match[1]}
-        end
       end
     end
 
