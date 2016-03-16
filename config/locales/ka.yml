@@ -39,7 +39,8 @@ ka:
     refine_location: ადგილმდებარეობა
     cancel: გაუქმება
     close: დახურვა
-    sign_register: შესვლა/რეგისტრაცია
+    sign_register: შესვლა
+    register_link: რეგისტრაცია
     e-mail: ელ.ფოსტა
     password: პაროლი
     record_not_exist: ბოდიშს გიხდით, ეს გვერდი არ არსებობს!

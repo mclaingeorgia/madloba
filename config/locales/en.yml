@@ -39,7 +39,8 @@ en:
     refine_location: Refine location
     cancel: Cancel
     close: Close
-    sign_register: Sign in / Create account
+    sign_register: Sign in
+    register_link: Create account
     e-mail: E-mail
     password: Password
     record_not_exist: Sorry, this page does not exist!
