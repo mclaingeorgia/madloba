@@ -80,3 +80,6 @@ PREFETCH_AD_ITEMS = 'prefetch_ad_items'
 SEARCH_IN_AD_ITEMS = 'search_ad_items'
 PREFETCH_ALL_ITEMS = 'prefetch_items'
 SEARCH_IN_ALL_ITEMS = 'search_items'
+
+HOME_PAGE = 'home'
+SHOW_AD_PAGE = 'show_ad'

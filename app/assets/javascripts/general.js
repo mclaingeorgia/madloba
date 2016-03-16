@@ -184,7 +184,7 @@ var events = {
         $('.typeahead').on('typeahead:selected', function(evt, item) {
             if (typeof item['ad_id'] != "undefined"){
                 var ad_id = item['ad_id'];
-                window.location.href = App.host_url+"/ads/"+ad_id;
+                window.location.href = App.host_url+"/services/"+ad_id;
             }
         })
     },
@@ -232,6 +232,11 @@ var events = {
         // Admin favorite page: event triggered when clicking on "Remove" link
         $('.remove_favorite').click(function(){
             remove_favorite($(this));
+        });
+
+        // Sign up page - event for modal window when click on Terms and Conditions link.
+        $('.terms_popup').click(function(){
+            $('#terms_modal').modal('show');
         });
 
     },
@@ -396,13 +401,13 @@ function add_favorite(obj){
  */
 function remove_favorite(obj){
     var btn = obj;
-    var is_in_admin = (obj.attr('class') == 'remove_favorite');
+    var is_in_admin = (obj.attr('class') == 'btn btn-danger remove_favorite');
     var posting = $.post("/user/favorite/remove", { ad_id: btn.attr('id') }, function(data) {status = data.status})
     posting.done(function() {
         if (status == 'ok'){
             if (is_in_admin){
                 // admin favorite page : remove the whole line
-                btn.parent().remove();
+                btn[0].closest('tr').remove();
             }else{
                 // ads show page: change the button
                 btn.addClass('add_to_favorite_button btn-warning').removeClass('btn-danger remove_favorite_button');

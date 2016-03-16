@@ -94,6 +94,9 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.3.3'
   gem 'shoulda-matchers', require: false
   gem 'factory_girl_rails'
+
+  gem 'awesome_print'
+
 end
 
 group :test do

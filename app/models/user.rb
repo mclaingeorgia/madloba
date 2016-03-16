@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
 
   validates :username, presence: true
   validates :is_service_provider, inclusion: [true, false]
+  validate :has_accepted_terms_and_conditions
   validates_uniqueness_of :username
 
   # Fields to be translated
@@ -35,5 +36,9 @@ class User < ActiveRecord::Base
 
   def name_and_email
     "#{self.first_name} #{self.last_name} - #{self.email}"
+  end
+
+  def has_accepted_terms_and_conditions
+    errors.add(:base, I18n.t('admin.profile.please_agree')) if (self.has_agreed_to_tos.nil? || !self.has_agreed_to_tos)
   end
 end

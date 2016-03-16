@@ -125,12 +125,14 @@
         <!-- Regular user or admin dashboard -->
 
         <!-- Main section - start -->
+
         <div class="row">
           <div class="box col-md-12">
             <div class="box-inner">
               <div class="box-header well" data-original-title="">
                 <h2><i class="glyphicon glyphicon-home"></i> <%= t('admin.dashboard') %></h2>
               </div>
+
               <div class="box-content row">
                 <div class="col-lg-7 col-md-12">
                   <% if current_user.admin? %>
@@ -148,11 +150,22 @@
                       <ul>
                         <li><%= t('admin.user_descr1') %></li>
                         <li><%= t('admin.user_descr2') %></li>
+                        <li><%= t('admin.user_descr3') %></li>
                       </ul>
                       </p>
                   <% end %>
                 </div>
               </div>
+
+              <!-- Admin disclaimer -->
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="alert alert-info" style="margin: 20px;">
+                    <%= t('admin.disclaimer') %>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>

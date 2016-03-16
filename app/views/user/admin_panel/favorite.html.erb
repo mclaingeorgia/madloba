@@ -1,8 +1,3 @@
-<% content_for :head do %>
-    <!-- CSS file used on admin pages -->
-    <%= stylesheet_link_tag 'admin' %>
-<% end %>
-
 <div class="row">
 
   <%= render 'shared/admin_left_menu' %>
@@ -52,15 +47,27 @@
             <div class="col-xs-12">
                 <span id="error_remove" style="color: red"></span>
                 <% if @favorites.count > 0 %>
-                  <ul>
-                      <% @favorites.each do |ad_favorite| %>
-                        <li style="padding-bottom: 15px;"><%= link_to ad_favorite.title, service_path(ad_favorite.id) %> (<%= ad_favorite.anon_name %>) - <a href="#" class="remove_favorite" id="<%= ad_favorite.id %>"><%= t('general_js.remove')%></a>
-                        <ul>
-                          <li style="list-style-type: none;"><i><%= ad_favorite.description[0..100] %>...</i></li>
-                        </ul>
-                        </li>
-                      <% end %>
-                  </ul>
+                  <table class="table table-striped table-bordered bootstrap-datatable datatable responsive">
+                    <thead>
+                    <tr>
+                      <th><%= t('admin.item.ad_title') %></th>
+                      <th><%= t('mailer.description') %></th>
+                      <th style="min-width: 210px;"><%= t('admin.actions') %></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% @favorites.each do |ad_favorite| %>
+                        <tr>
+                          <td class="vert-align"><%= link_to ad_favorite.title, service_path(ad_favorite.id) %></td>
+                          <td class="vert-align"><%= ad_favorite.description[0..90] %>...</td>
+                          <td class="center">
+                            <%= link_to t('admin.see_service'), service_path(ad_favorite.id), class: 'btn btn-success', style: 'margin-right: 10px;' %>
+                            <a class="btn btn-danger remove_favorite" href="#" id="<%= ad_favorite.id %>"> <%= t('general_js.remove') %> </a>
+                          </td>
+                        </tr>
+                    <% end %>
+                    </tbody>
+                  </table>
                 <% else %>
                   <p><i><%= t('ad.no_favorite_yet') %></i></p>
                 <% end %>
@@ -77,8 +84,3 @@
   <!--/#content.span10-->
 
 </div><!--/fluid-row-->
-
-<% content_for :scripts do %>
-    <!-- Admin screen related scripts -->
-    <%= javascript_include_tag 'admin' %>
-<% end %>

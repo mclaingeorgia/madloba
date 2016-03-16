@@ -104,7 +104,6 @@
               <thead>
               <tr>
                 <th>ID </th>
-                <th><%= t('admin.name') %></th>
                 <th><%= t('admin.address_en') %></th>
                 <th><%= t('admin.address_ka') %></th>
                 <th><%= t('admin.created_by_user') %></th>
@@ -115,14 +114,13 @@
               <% Location.all.each do |location| %>
                   <tr>
                     <td class="vert-align"><%= location.id %></td>
-                    <td class="vert-align"><%= location.name %></td>
                     <% if location.loc_type == 'exact' %>
                         <% if location.street_number && !location.street_number.empty? %>
-                            <td class="vert-align"><%= location.street_number %>&nbsp;<%= location.address_en %>, <%= location.city %></td>
-                            <td class="vert-align"><%= location.street_number %>&nbsp;<%= location.address_ka %>, <%= location.city %></td>
+                            <td class="vert-align"><%= location.street_number %>&nbsp;<%= location.address_en %>, <%= location.city_en %></td>
+                            <td class="vert-align"><%= location.street_number %>&nbsp;<%= location.address_ka %>, <%= location.city_ka %></td>
                         <% else %>
-                            <td class="vert-align"><%= location.address_en %>, <%= location.city %></td>
-                            <td class="vert-align"><%= location.address_ka %>, <%= location.city %> </td>
+                            <td class="vert-align"><%= location.address_en %>, <%= location.city_en %></td>
+                            <td class="vert-align"><%= location.address_ka %>, <%= location.city_ka %> </td>
                         <% end %>
                     <% elsif location.loc_type == 'district' %>
                         <td class="vert-align"><%= location.district.name %></td>

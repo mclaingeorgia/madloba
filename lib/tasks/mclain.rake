@@ -213,17 +213,22 @@ namespace :mclain do
       username = email.split('@')[0]
 
       @user = User.new(email: email, password: generated_password, password_confirmation: generated_password,
-                       username: username, is_service_provider: true)
+                       username: "#{username}#{count}", is_service_provider: true)
 
       @user.confirmation_token = nil
       @user.confirmed_at = Time.now
+      @user.has_agreed_to_tos = true
       @user.save
+
+      if @user.errors.present?
+        puts "#{email}' with password '#{generated_password}: #{@user.errors.as_json}"
+      end
 
       CSV.open("#{Rails.root}/lib/tasks/user_password.csv", 'a') do |csv|
         csv << [email,generated_password]
       end
 
-      puts "Generated '#{email}' with password '#{generated_password}'"
+      #puts "Generated '#{email}' with password '#{generated_password}'"
       count += 1
     end
 
@@ -245,11 +250,29 @@ namespace :mclain do
         end
       end
 
-      puts count
+      #puts count
       count += 1
     end
 
     puts 'All done.'
 
   end
+
+
+  desc 'Send emails to user'
+  task send_emails: :environment do
+    puts "Sending emails to users now"
+
+    file = CSV.read("#{Rails.root}/lib/tasks/user_password.csv", {headers: true})
+    file.each do |line|
+      recipient = line[0]
+      password = line[1]
+      UserMailer.send_welcome_message(recipient, password).deliver
+    end
+
+    puts "All done"
+
+  end
+
+
 end

@@ -110,18 +110,19 @@ class User::LocationsController < ApplicationController
 
   # Updates the relevant ads marker_info (jsonb)
   def update_ad_json
-    location = Location.find(params[:id])
-    ads = Ad.joins(:locations).where(locations: {id: params[:id]})
-    ads.each do |ad|
-      marker_info = ad.marker_info
-      marker_info['locations'].each do |loc|
-        if loc.id == location.id
-          loc[:lat] = location.latitude
-          loc[:lng] = location.longitude
+    if @location.errors.empty?
+      ads = Ad.joins(:locations).where(locations: {id: params[:id]})
+      ads.each do |ad|
+        marker_info = ad.marker_info
+        marker_info['locations'].each do |loc|
+          if loc.id == @location.id
+            loc[:lat] = @location.latitude
+            loc[:lng] = @location.longitude
+          end
         end
+        ad.marker_info = marker_info
+        ad.save
       end
-      ad.marker_info = marker_info
-      ad.save
     end
   end
 

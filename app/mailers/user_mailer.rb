@@ -53,4 +53,11 @@ class UserMailer < ActionMailer::Base
     mail(to: recipient[:email], subject: t('mailer.you_are_admin_html', site_name: site_name, new_role: new_role))
   end
 
+  def send_welcome_message(email, password)
+    @user_email = email
+    @password = password
+
+    mail(to: @user_email, subject: "Welcome to RehabGe")
+  end
+
 end

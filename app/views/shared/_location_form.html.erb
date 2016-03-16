@@ -19,35 +19,6 @@
       </div>
   <% end %>
 
-  <!-- Choose between 'exact location (address)' or 'area location (postal code or district)' -->
-  <div class="form-group">
-    <%= form.label :loc_type, t('location.definition'), class: label_class %>
-    <div class="<%= col_radio %>">
-      <div class="radio">
-        <label>
-          <%= form.radio_button :loc_type, 'exact', {checked: true, class: 'location_type_exact'}  %>
-          <%= t('location.definition_exact') %>
-        </label>
-      </div>
-      <% if (area_type) && (area_type.include?'postal') %>
-          <div class="radio">
-            <label>
-              <%= form.radio_button :loc_type, 'postal', {class: 'location_type_postal_code'} %>
-              <%= t('location.definition_postal_code') %>
-            </label>
-          </div>
-      <% end %>
-      <% if (area_type) && (area_type.include?'district') %>
-          <div class="radio">
-            <label>
-              <%= form.radio_button :loc_type, 'district', {class: 'location_type_district'} %>
-              <%= t('location.definition_district') %>
-            </label>
-          </div>
-      <% end %>
-    </div>
-  </div>
-
   <div class="exact_location_section">
     <!-- Street number -->
     <div class="form-group">
