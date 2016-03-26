@@ -56,17 +56,33 @@
 
                 <!-- Website small summary -->
                 <div class="form-group">
-                  <%= label_tag 'summary', t('admin.general_settings.summary')+':', class:'control-label' %>
+                  <%= label_tag 'summary_en', t('admin.general_settings.summary')+':', class:'control-label' %>
                   <div class="form-inline">
-                    <%= text_area_tag 'summary', @settings['summary'], {class: 'form-control textarea_count', size: '35x8', maxlength: 500} %>
+                    <%= text_area_tag 'summary_en', @settings['summary_en'], {class: 'form-control textarea_count', size: '35x8', maxlength: 500} %>
+                  </div>
+                </div>
+
+                <!-- Website small summary - Georgian -->
+                <div class="form-group">
+                  <%= label_tag 'summary_ka', t('admin.general_settings.summary_ka')+':', class:'control-label' %>
+                  <div class="form-inline">
+                    <%= text_area_tag 'summary_ka', @settings['summary_ka'], {class: 'form-control textarea_count', size: '35x8', maxlength: 500} %>
                   </div>
                 </div>
 
                 <!-- Website description -->
                 <div class="form-group">
-                  <%= label_tag 'description', t('admin.general_settings.description')+':', class:'control-label' %>
+                  <%= label_tag 'description_en', t('admin.general_settings.description')+':', class:'control-label' %>
                   <div class="form-inline">
-                    <%= text_area_tag 'description', @settings['description'], {class: 'form-control', size: '50x10'} %>
+                    <%= text_area_tag 'description_en', @settings['description_en'], {class: 'form-control', size: '50x10'} %>
+                  </div>
+                </div>
+
+                <!-- Website description - Georgian -->
+                <div class="form-group">
+                  <%= label_tag 'description_ka', t('admin.general_settings.description_ka')+':', class:'control-label' %>
+                  <div class="form-inline">
+                    <%= text_area_tag 'description_ka', @settings['description_ka'], {class: 'form-control', size: '50x10'} %>
                   </div>
                 </div>
 
@@ -99,59 +115,9 @@
                   <i><%= t('admin.general_settings.link_help') %></i>
                 </div>
 
-                <!-- Link 1 -->
-                <div class="form-group">
-                  <%= label_tag 'link_one', t('admin.general_settings.link_one')+':', class:'control-label' %>
-                  <div class="form-inline">
-                    <%= text_field_tag 'link_one_label', @settings['link_one_label'], class: 'form-control', placeholder: 'Label' %>&nbsp;
-                    <%= text_field_tag 'link_one_url', @settings['link_one_url'], class: 'form-control', placeholder: 'URL' %>
-                  </div>
-                </div>
-
-                <!-- Link 2 -->
-                <div class="form-group">
-                  <%= label_tag 'link_two', t('admin.general_settings.link_two')+':', class:'control-label' %>
-                  <div class="form-inline">
-                    <%= text_field_tag 'link_two_label', @settings['link_two_label'], class: 'form-control', placeholder: 'Label' %>&nbsp;
-                    <%= text_field_tag 'link_two_url', @settings['link_two_url'], class: 'form-control', placeholder: 'URL' %>
-                  </div>
-                </div>
-
-                <!-- Link 3 -->
-                <div class="form-group">
-                  <%= label_tag 'link_three', t('admin.general_settings.link_three')+':', class:'control-label' %>
-                  <div class="form-inline">
-                    <%= text_field_tag 'link_three_label', @settings['link_three_label'], class: 'form-control', placeholder: 'Label' %>&nbsp;
-                    <%= text_field_tag 'link_three_url', @settings['link_three_url'], class: 'form-control', placeholder: 'URL' %>
-                  </div>
-                </div>
-
-                <!-- Link 4 -->
-                <div class="form-group">
-                  <%= label_tag 'link_four', t('admin.general_settings.link_four')+':', class:'control-label' %>
-                  <div class="form-inline">
-                    <%= text_field_tag 'link_four_label', @settings['link_four_label'], class: 'form-control', placeholder: 'Label' %>&nbsp;
-                    <%= text_field_tag 'link_four_url', @settings['link_four_url'], class: 'form-control', placeholder: 'URL' %>
-                  </div>
-                </div>
-
-                <!-- Link 5 -->
-                <div class="form-group">
-                  <%= label_tag 'link_five', t('admin.general_settings.link_five')+':', class:'control-label' %>
-                  <div class="form-inline">
-                    <%= text_field_tag 'link_five_label', @settings['link_five_label'], class: 'form-control', placeholder: 'Label' %>&nbsp;
-                    <%= text_field_tag 'link_five_url', @settings['link_five_url'], class: 'form-control', placeholder: 'URL' %>
-                  </div>
-                </div>
-
-                <!-- Link 6 -->
-                <div class="form-group">
-                  <%= label_tag 'link_six', t('admin.general_settings.link_six')+':', class:'control-label' %>
-                  <div class="form-inline">
-                    <%= text_field_tag 'link_six_label', @settings['link_six_label'], class: 'form-control', placeholder: 'Label' %>&nbsp;
-                    <%= text_field_tag 'link_six_url', @settings['link_six_url'], class: 'form-control', placeholder: 'URL' %>
-                  </div>
-                </div>
+                <% %w(one two three four five six).each do |number| %>
+                  <%= render 'external_link', number: number %>
+                <% end %>
 
                 <hr>
 

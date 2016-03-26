@@ -4,9 +4,9 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :check_if_setup
-  before_action :load_javascript_text
   before_action :allow_iframe_requests
   before_action :set_locale
+  before_action :load_javascript_text
   before_action :check_if_user_has_tos
 
   include ApplicationHelper
@@ -264,7 +264,7 @@ class ApplicationController < ActionController::Base
         if matched_services.empty?
           matched_services = Ad.with_translations(I18n.locale).where('ad_translations.title LIKE ?', "%#{params[:item].downcase}%").pluck('ad_translations.ad_id, ad_translations.title')
         end
-        
+
         matched_services.each do |match|
           result << {ad_id: match[0], value: match[1]}
         end

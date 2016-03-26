@@ -12,7 +12,7 @@
   <%= stylesheet_link_tag 'application', media: 'all' %>
 
   <!-- Gon gem - managing text in JS files -->
-  <%= include_gon %>
+  <%= Gon::Base.render_data %>
 
   <%= csrf_meta_tags %>
 

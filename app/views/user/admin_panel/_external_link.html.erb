@@ -1,0 +1,17 @@
+<div class="form-group">
+  <div class="row">
+    <div class="col-xs-6">
+      <%= label_tag "link_#{number}", t("admin.general_settings.link_#{number}")+':', class:'control-label' %>
+      <div class="form-inline">
+        <%= text_field_tag "link_#{number}_label", @settings["link_#{number}_label"], class: 'form-control', placeholder: 'Label' %>&nbsp;
+        <%= text_field_tag "link_#{number}_url", @settings["link_#{number}_url"], class: 'form-control', placeholder: 'URL' %>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <%= label_tag "link_#{number}_ka", t("admin.general_settings.link_#{number}_ka")+':', class:'control-label' %>
+      <div class="form-inline">
+        <%= text_field_tag "link_#{number}_label_ka", @settings["link_#{number}_label_ka"], class: 'form-control', placeholder: 'Label' %>&nbsp;
+      </div>
+    </div>
+  </div>
+</div>

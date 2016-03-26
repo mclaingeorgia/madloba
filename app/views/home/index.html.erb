@@ -185,8 +185,8 @@
             <span>
               <ul>
                 <% @links.each do |link| %>
-                    <% if link && link[:label] && link[:label] != '' %>
-                        <li><a href="<%= link[:url]%>"><%= link[:label] %></a></li>
+                    <% if link && link["label_#{I18n.locale.to_s}".to_sym].present? %>
+                        <li><a href="<%= link[:url]%>"><%= link["label_#{I18n.locale.to_s}".to_sym] %></a></li>
                     <% end %>
                 <% end %>
               </ul>

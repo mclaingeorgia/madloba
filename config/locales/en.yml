@@ -509,8 +509,10 @@ en:
       item_deleted: the service type '%{deleted_item_name}' has been deleted.
     general_settings:
       name: Website name
-      description: Website description
-      summary: Website summary
+      description: Website description (en)
+      description_ka: Website description (ge)
+      summary: Website summary (en)
+      summary_ka: Website summary (ge)
       contact_email: Contact e-mail address
       facebook: Facebook page URL
       instagram: Instagram page
@@ -520,11 +522,17 @@ en:
       max_ad_expire: Service expiration - Max. number of days
       max_ad_expire_help: Set the maximum number of days a service can remain published, after its creation (Enter '0' to set no limit).
       link_one: First link
+      link_one_ka: First link - Georgian label
       link_two: Second link
+      link_two_ka: Second link - Georgian label
       link_three: Third link
+      link_three_ka: Third link - Georgian label
       link_four: Fourth link
+      link_four_ka: Fourth link - Georgian label
       link_five: Fifth link
+      link_five_ka: Fifth link - Georgian label
       link_six: Sixth link
+      link_six_ka: Sixth link - Georgian label
       link_help: Create up to 6 links in this section, to advertise relevant websites/pages, at the bottom of the front page.
     area_settings:
       title: Area settings
@@ -797,6 +805,7 @@ en:
     priv_info_6_3: "Automatic upon breach: Your right to access and use the Services offered on Rehab GE terminates automatically upon your breach of any of the Terms of Use."
   general_js:
     adblock_warning: Warning! Use of AdBlock
+    categories_create_ad: "Categories / Register service"
     adblock_browser: Your browser is currently using AdBlock.
     adblock_affecting: It's affecting this Madloba website's ability to work well.
     adblock_turnoff: Turn off AdBlock for this website, and reload the page.

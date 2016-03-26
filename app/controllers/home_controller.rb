@@ -85,9 +85,12 @@ class HomeController < ApplicationController
   # Method for the About page
   # -------------------------
   def about
-    settings = Setting.where(key: %w(contact_email description))
+    keys = %w(contact_email)
+    description_key = "description_#{I18n.locale.to_s}"
+    keys << description_key
+    settings = Setting.where(key: keys)
     settings.each do |setting|
-      if setting['key'] == 'description' && setting['value'] != ''
+      if setting['key'] == description_key && setting['value'] != ''
         @website_description_paragraph = setting['value'].split(/[\r\n]+/)
       end
       if setting['key'] == 'contact_email' && setting['value'] != ''
@@ -150,7 +153,7 @@ class HomeController < ApplicationController
 
       # Service types
       service_type = t('admin.ads')
-      items = ad.items.pluck(:name).join(', ')
+      items = ad.items.map(&:name).join(', ')
       popup_html += "<div class='col-xs-12' style='margin-top: 15px;'>#{service_type}: #{items}</div>"
 
       # Service categories
@@ -164,7 +167,7 @@ class HomeController < ApplicationController
       end
       and_other_categories = ''
       if number_of_categories > 1
-        and_other_categories = "and #{number_of_categories - 1} other categories(s)"
+        and_other_categories = "and #{number_of_categories - 1} other categorie(s)"
       end
       popup_html += "<div class='col-xs-12'>#{ad_action}: #{category_name} #{and_other_categories}</div>"
 
@@ -230,9 +233,9 @@ class HomeController < ApplicationController
 
   # Creates a hash with the link and the label of one "Useful link",
   # that appears at the center of the home page footer.
-  def get_link(label, url)
+  def get_link(label, label_ka, url)
     if label != '' && url != ''
-      return {label: label, url: url}
+      return {'label_en': label, 'label_ka': label_ka, 'url': url}
     end
   end
 
@@ -251,7 +254,7 @@ class HomeController < ApplicationController
           social['url'] = setting['value']
           @social_medias << social
         end
-      elsif setting['key'] == 'summary'
+      elsif setting['key'] == "summary_#{I18n.locale}"
         # Website summary
         @website_description_paragraph = []
         if setting['value'] && setting['value'].length > 0
@@ -269,7 +272,7 @@ class HomeController < ApplicationController
     link_numbers = %w(one two three four five six)
     @links = []
     link_numbers.each do |number|
-      @links << get_link(settings["link_#{number}_label"], settings["link_#{number}_url"])
+      @links << get_link(settings["link_#{number}_label"], settings["link_#{number}_label_ka"], settings["link_#{number}_url"])
     end
 
     return settings

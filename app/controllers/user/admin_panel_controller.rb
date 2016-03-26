@@ -81,11 +81,18 @@ class User::AdminPanelController < ApplicationController
   # --------------------------------------
   # Methods for 'General settings' screens
   # --------------------------------------
+  def link_and_label
+    a = []
+    %w(one two three four five six).each do |number|
+      a = a + ["link_#{number}_label", "link_#{number}_url", "link_#{number}_label_ka"]
+    end
+    a
+  end
+
   def general_settings_keys
-    %w(app_name summary description contact_email ad_max_expire facebook twitter pinterest
-              link_one_label link_one_url link_two_label link_two_url
-              link_three_label link_three_url link_four_label link_four_url
-              link_five_label link_five_url link_six_label link_six_url)
+    a = %w(app_name summary_en summary_ka description_en description_ka contact_email ad_max_expire facebook twitter pinterest)
+    a = a + link_and_label
+    a
   end
 
   def map_settings_keys
@@ -254,7 +261,7 @@ class User::AdminPanelController < ApplicationController
         bounds['properties']['name'] = d.name
         @districts.push(bounds)
       end
-    end  
+    end
     @area_types = @map_settings['area_type'].split(',')
   end
 
@@ -279,7 +286,7 @@ class User::AdminPanelController < ApplicationController
     redirect_to user_areasettings_path
 
   end
-  
+
   # Save/update a district after it has been drawn on a map and named, on the "Area settings" page.
   def save_district
     bounds_geojson = params[:bounds]
@@ -299,7 +306,7 @@ class User::AdminPanelController < ApplicationController
       style = STYLES[:error]
     end
 
-    render json: {'status' => status, 'id' => d.id, 'message' => message, 'style' => style, 
+    render json: {'status' => status, 'id' => d.id, 'message' => message, 'style' => style,
       'district_name' => district_name, 'district_color' => DISTRICT_COLOR}
   end
 
@@ -317,7 +324,7 @@ class User::AdminPanelController < ApplicationController
     end
 
     render json: {'message' => message, 'style' => style}
-  end   
+  end
 
   # Updating the boundaries of existing districts
   def update_districts
@@ -343,7 +350,7 @@ class User::AdminPanelController < ApplicationController
     end
 
     render json: {'message' => message, 'style' => style}
-  end 
+  end
 
   # Deletes existing districts
   def delete_districts
@@ -358,12 +365,12 @@ class User::AdminPanelController < ApplicationController
       else
         message = t('admin.area_settings.delete_error')
         style = STYLES[:error]
-      end  
-    end  
+      end
+    end
 
     render json: {'message' => message, 'style' => style}
 
-  end 
+  end
 
   def getAreaSettings
     code_and_area = Setting.where(key: %w(postal_code_length area_length)).pluck(:value)

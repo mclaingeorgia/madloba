@@ -758,7 +758,7 @@ function initializeSideBar(sidebar){
     });
 
     // Navigation toggle button
-    var btn = L.functionButtons([{ content: 'Categories / Create ad' }]);
+    var btn = L.functionButtons([{ content: gon.vars['categories_create_ad'] }]);
 
     leaf.map.addControl(sidebar);
 
