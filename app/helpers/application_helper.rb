@@ -83,7 +83,7 @@ module ApplicationHelper
   end
 
   def getNominatimWebserviceResponse(location)
-    url = OSM_NOMINATIM_URL % {location: location}
+    url = OSM_NOMINATIM_URL % {location: location, language: I18n.locale}
     safeurl = URI.parse(URI.encode(url))
     response = HTTParty.get(safeurl)
     if !response.success?

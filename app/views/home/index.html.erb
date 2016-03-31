@@ -48,8 +48,6 @@
       <!-- Sidebar - Refinements section -->
       <% if (@categories && @categories.select{|cat| cat.is_refinement(params)}.length > 0) || @location_search_refinement_to_display || user_search_action %>
           <div class="list-group">
-            <h4><%= t('home.refinements') %></h4>
-
             <% if @categories.select{|cat| cat.is_refinement(params)}.length > 1 %>
                 <div id="deleteAllId">
                   <a href="/" class="list-group-item smaller-no-border-no-background">
