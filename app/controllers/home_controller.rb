@@ -18,6 +18,10 @@ class HomeController < ApplicationController
       selected_item_ids = Item.joins(:ads).where('name LIKE ?', "%#{params[:item].downcase}%").pluck(:id).uniq
     end
 
+    if (params[:zoom])
+      @map_settings['my_zoom'] = params[:zoom]
+    end
+
     if (params[:lat] && params[:lon])
         # The center of the map is now represented by the searched location.
         @map_settings['lat'] = params[:lat]
@@ -26,16 +30,15 @@ class HomeController < ApplicationController
         if params[:loc]
           # A location search was just performed, with the name of the searched location (given back from Nominatim ws) in it.
           current_location = params[:loc]
+          @map_settings['searched_address'] = current_location
+          @location_search_refinement_to_display = current_location
         else
           # there was no search beforehand, we need to find the address, based on the given latitude and longitude, as parameters.
-          current_location = getAddressFromGeocodes(params[:lat], params[:lon])
-          if !current_location
-            current_location = t('home.default_current_loc')
-          end
+          #current_location = getAddressFromGeocodes(params[:lat], params[:lon])
+          #if !current_location
+            #current_location = t('home.default_current_loc')
+          #end
         end
-
-        @map_settings['searched_address'] = current_location
-        @location_search_refinement_to_display = current_location
 
     end
 

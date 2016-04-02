@@ -83,7 +83,7 @@ module ApplicationHelper
   end
 
   def getNominatimWebserviceResponse(location)
-    url = OSM_NOMINATIM_URL % {location: location, language: I18n.locale}
+    url = OSM_NOMINATIM_URL % {location:   location, language: I18n.locale}
     safeurl = URI.parse(URI.encode(url))
     response = HTTParty.get(safeurl)
     if !response.success?
@@ -99,9 +99,7 @@ module ApplicationHelper
     url = "http://open.mapquestapi.com/nominatim/v1/reverse.php?format=json&lat=#{latitude}&lon=#{longitude}"
     safeurl = URI.parse(URI.encode(url))
     response = HTTParty.get(safeurl)
-    if !response.success?
-      raise response.response
-    else
+    if response.success?
       address = response['display_name']
     end
     return address

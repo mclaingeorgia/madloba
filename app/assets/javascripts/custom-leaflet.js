@@ -7,6 +7,7 @@ var leaf = {
     map_tiles: null,
     my_lat: '',
     my_lng: '',
+    zoom: '',
     drawn_items: null,
     districts: null,
     searched_address: '',
@@ -26,6 +27,12 @@ var leaf = {
 
         leaf.my_lat = map_settings['lat'];
         leaf.my_lng = map_settings['lng'];
+        if (typeof map_settings['my_zoom'] != 'undefined' && map_settings['my_zoom'] != null){
+          // zoom level set by user when zooming in/out on the map, checking out a service, then coming back to the map.
+          leaf.my_zoom = map_settings['my_zoom'];
+        }else{
+          leaf.my_zoom = map_settings['zoom_level']
+        }
         leaf.searched_address = map_settings['searched_address'];
 
         if (map_settings['chosen_map'] == 'mapbox' || map_settings['chosen_map'] == 'osm'){
@@ -38,7 +45,7 @@ var leaf = {
             leaf.map_tiles = MQ.mapLayer();
         }
         leaf.map_tiles.addTo(leaf.map);
-        leaf.map.setView([leaf.my_lat, leaf.my_lng], map_settings['zoom_level']);
+        leaf.map.setView([leaf.my_lat, leaf.my_lng], leaf.my_zoom);
 
         // Load districts when available (eg. on area settings page, when all of them need to show up on a map...)
         if (typeof districts != 'undefined' && districts != null){
@@ -111,7 +118,6 @@ var leaf = {
             var center_marker = L.marker([leaf.my_lat, leaf.my_lng], {icon: markers.default_icon});
             if (map_settings['marker_message'] != ""){
                 center_marker.addTo(leaf.map).bindPopup(map_settings['marker_message']).openPopup();
-                //center_marker.bindPopup(map_settings['marker_message']).openPopup();
             }else{
                 center_marker.addTo(leaf.map);
             }
@@ -362,6 +368,9 @@ var markers = {
 
     // Method that creates markers representing ads tied to exact-type location.
     place_exact_locations_markers: function (locations_exact, is_bouncing_on_add, page) {
+        same_lat = 0
+        same_lng = 0
+        is_single_location = true
         for (var i=0; i<locations_exact.length; i++){
 
             var ad = locations_exact[i];
@@ -380,6 +389,12 @@ var markers = {
                     });
 
                     var marker = L.marker([location['lat'], location['lng']], {icon: marker_icon, bounceOnAdd: is_bouncing_on_add});
+                    if (same_lat == 0 && same_lng == 0){
+                      same_lat = location['lat']
+                      same_lng = location['lng']
+                    }else{
+                      is_single_location = (same_lat == location['lat'] && same_lng == location['lng'])
+                    }
                     marker.ad_id = ad['ad_id'];
                     marker.category_id = item['category_id'];
                     marker.location_id = location['location_id'];
@@ -414,6 +429,13 @@ var markers = {
             }
 
         }
+
+        if (is_single_location){
+          // close lookup of that one place
+          leaf.map.setView([same_lat, same_lng], 10);
+        }
+
+
     },
 
     // Method that draws circles, representing ads tied to a postal code only.

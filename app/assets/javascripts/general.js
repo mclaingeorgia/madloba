@@ -241,6 +241,26 @@ var events = {
 
     },
 
+    // Scripts that run only on the home page
+    init_home_page_only: function(){
+      // Map on home page - when moving the map, get center point coordinates and update the url with it
+      leaf.map.on('moveend', function(){
+        current_url = window.location.href
+        updated_url = addOrUpdateUrlParam("lat", leaf.map.getCenter().lat, current_url)
+        updated_url = addOrUpdateUrlParam("lon", leaf.map.getCenter().lng, updated_url)
+        history.pushState('','',updated_url)
+
+      });
+
+      // Map on home page - when zooming in/out, get zoom level and update the url with it
+      leaf.map.on('zoomend', function(){
+        console.log(leaf.map.getZoom());
+        current_url = window.location.href
+        updated_url = addOrUpdateUrlParam("zoom", leaf.map.getZoom(), current_url)
+        history.pushState('','',updated_url)
+      });
+    },
+
     // Scripts related to the admin pages.
     init_admin_pages: function(){
 
@@ -276,54 +296,16 @@ var events = {
 
 $(document).ready(function() {
 
-
-
-    // On the "New ad" form, open automatically the new location form, if the user is anonymous,
-    // or never created any location as a signed in user.
-    /*if (typeof current_page != "undefined" && current_page == "new_ad"
-         && typeof can_choose_existing_locations != "undefined" && can_choose_existing_locations == false){
-        setTimeout(function() {
-            $("#new_location_form a.add_fields").trigger('click');
-            $("#locations_from_list").hide();
-            $("#location a.add_fields").hide();
-            initLeafletMap(map_settings_array);
-            init_location_form(districts_bounds, map);
-        },20);
-    }
-
-    // Create an ad: adding the location form dynamically, via Cocoon
-    $("#new_location_form a.add_fields").
-        data("association-insertion-position", 'before').
-        data("association-insertion-node", 'this');
-
-    $('#new_location_form').bind('cocoon:after-insert',
-        function() {
-            $("#locations_from_list").hide();
-            $("#new_location_form a.add_fields").hide();
-            // Call to the JS functions that will initialize the new location form and the map.
-            initLeafletMap(map_settings_array);
-            init_location_form(districts_bounds, map);
-        });
-    $('#new_location_form').bind("cocoon:after-remove", function() {
-            $("#locations_from_list").show();
-            $("#new_location_form a.add_fields").show();
-    });*/
-
     events.init_home_page_and_others();
     events.init_new_ad_page();
     events.init_new_and_edit_pages();
     events.init_navigation_bar();
     events.init_setup_pages();
     events.init_admin_pages();
-
-
-
-    /*
-    // Function call to initialize the location form (Location edit form, all Ad forms).
-    if (typeof districts_bounds != "undefined") {
-        init_location_form(districts_bounds, map);
-    }*/
-
+    if (typeof homePage != 'undefined' && homePage == 'home'){
+      // Init events for home page only.
+      events.init_home_page_only();
+    }
 
 });
 
@@ -708,4 +690,28 @@ function show_hide_up_arrow (){
  */
 function is_in_admin_panel(){
     return window.location.href.indexOf("/user/") > -1
+}
+
+
+function addOrUpdateUrlParam(name, value, current_url)
+{
+  var href = current_url;
+  var regex = new RegExp("[&\\?]" + name + "=");
+  if(regex.test(href))
+  {
+    if (name == 'zoom'){
+      regex = new RegExp("([&\\?])" + name + "=\\d+");
+    }else{
+      regex = new RegExp("([&\\?])" + name + "=\\-?\\d+\\.\\d+");
+    }
+    current_url = href.replace(regex, "$1" + name + "=" + value);
+  }
+  else
+  {
+    if(href.indexOf("?") > -1)
+      current_url = href + "&" + name + "=" + value;
+    else
+      current_url = href + "?" + name + "=" + value;
+  }
+  return current_url
 }
