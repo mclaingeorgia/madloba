@@ -186,14 +186,35 @@ class ApplicationController < ActionController::Base
   def getNominatimLocationResponses
     # We append the city and the country to the searched location.
     location_value = params['location']
+    locations_results = []
+    adid_tracker = []
 
+    #locations = Location.where('city LIKE ?',"%#{location_value.downcase.capitalize}%")
+    locations = Location.where(city: location_value.downcase.capitalize)
+    locations.each do |loc|
+      loc.ads.each do |ad|
+        locations_results << {id: ad.id, display_name: ad.title}
+        adid_tracker << ad.id
+      end
+    end
+
+    #locations = Location.where('province LIKE ?', "%#{location_value.downcase.capitalize}%")
+    locations = Location.where(province: location_value.downcase.capitalize)
+    locations.each do |loc|
+      loc.ads.each do |ad|
+        if !adid_tracker.include?(ad.id)
+          locations_results << {id: ad.id, display_name: ad.title}
+        end
+      end
+    end
+
+=begin
     country = Rails.cache.fetch(CACHE_COUNTRY) {Setting.find_by_key('country').value}
 
     if country
       location_value += ", #{country}"
     end
 
-    locations_results = []
     response = getNominatimWebserviceResponse(location_value)
     if response
       if response.to_a.any?
@@ -213,6 +234,7 @@ class ApplicationController < ActionController::Base
       error_hash['error_key'] = t('home.server_error')
       locations_results << error_hash
     end
+=end
     render json: locations_results
   end
 

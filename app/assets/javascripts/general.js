@@ -644,7 +644,7 @@ function getLocationsPropositions(){
 
                         for (var i = 0; i < data.length; i++) {
                             var proposed_location = data[i];
-                            var url = "/search?lat="+proposed_location['lat']+"&lon="+proposed_location['lon']+"&loc="+proposed_location['display_name'];
+                            var url = "/services/"+proposed_location['id'];
                             if (item != ''){
                                 url = url + "&item=" + item;
                             }
@@ -653,6 +653,7 @@ function getLocationsPropositions(){
 
                         modalHtmlText = modalHtmlText + "</ul>";
                         $('#modal-body-id').html(modalHtmlText);
+                        $('#my_location_title').html(locationInput);
                         var options = {
                             "backdrop" : "static",
                             "show" : "true"
