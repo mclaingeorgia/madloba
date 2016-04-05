@@ -170,7 +170,7 @@ class HomeController < ApplicationController
       end
       and_other_categories = ''
       if number_of_categories > 1
-        and_other_categories = "and #{number_of_categories - 1} other categorie(s)"
+        and_other_categories = t('home.and_other_categories', number: number_of_categories - 1)
       end
       popup_html += "<div class='col-xs-12'>#{ad_action}: #{category_name} #{and_other_categories}</div>"
 

@@ -59,7 +59,7 @@
       <div class="ad-title">
         <!-- "Back to main page" link -->
         <% if url_for(:back).present? && url_for(:back).include?(request.host) %>
-          <%= link_to 'Back to home page', url_for(:back) %>
+          <%= link_to t('ad.back_to_home'), url_for(:back) %>
         <% end %>
 
         <!-- "Add to your favorites" button - only available when user is signed-in -->

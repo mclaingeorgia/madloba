@@ -26,6 +26,8 @@ en:
   home:
     home: Home
     page: Home page
+    more_about: "More about %{website}..."
+    and_other_categories: "and %{number} other categorie(s)."
     user_panel: User panel
     en_language: English
     ka_language: ქართული
@@ -151,6 +153,7 @@ en:
     not_found_descr2: "But that's ok! Please select it manually on the map."
     district_help: Choose the region where this location can be found.
   ad:
+    back_to_home: "Back to home page"
     mandatory_field: "*denotes mandatory fields"
     new_ad: Service registration
     area: area
@@ -804,6 +807,7 @@ en:
     priv_info_6_2: "By you: If you wish to terminate this agreement, you may immediately stop accessing or using the Services at any time. The procedure for closing your account is described in Terms of Use"
     priv_info_6_3: "Automatic upon breach: Your right to access and use the Services offered on Rehab GE terminates automatically upon your breach of any of the Terms of Use."
   general_js:
+    loading: "Loading..."
     adblock_warning: Warning! Use of AdBlock
     categories_create_ad: "Categories / Register service"
     adblock_browser: Your browser is currently using AdBlock.
@@ -822,12 +826,13 @@ en:
     searching_location: Searching location...
     update: Update
     loading: Loading...
-    choose_location: Choose one of the following available locations, provided by OpenStreetMap
+    choose_location: Choose one of the following available locations
     remove: Remove
     remove_from_favorites: Remove from your favorites
     add_to_favorites: Add to your favorites
     records_per_page: records per page
     search: "Search:"
+    search_button: "Search"
     showing: Showing
     to: to
     of: of

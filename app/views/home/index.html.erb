@@ -165,7 +165,7 @@
                 <% @website_description_paragraph.each do |paragraph| %>
                     <p><%= paragraph %></p>
                 <% end %>
-              <p><%= link_to "More about #{site_name}...", about_path %></p>
+              <p><%= link_to t('home.more_about', website: site_name), about_path %></p>
             </span>
         </div>
     <% else %>
@@ -175,7 +175,7 @@
                 <% @website_description_paragraph.each do |paragraph| %>
                     <p><%= paragraph %></p>
                 <% end %>
-              <p><%= link_to "More about #{site_name}...", about_path %></p>
+              <p><%= link_to t('home.more_about', website: site_name), about_path %></p>
             </span>
         </div>
         <div class="col-lg-4">

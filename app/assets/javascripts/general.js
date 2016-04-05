@@ -244,7 +244,7 @@ var events = {
     // Scripts that run only on the home page
     init_home_page_only: function(){
       // Map on home page - when moving the map, get center point coordinates and update the url with it
-      leaf.map.on('moveend', function(){
+      leaf.map.on('dragend', function(){
         current_url = window.location.href
         updated_url = addOrUpdateUrlParam("lat", leaf.map.getCenter().lat, current_url)
         updated_url = addOrUpdateUrlParam("lon", leaf.map.getCenter().lng, updated_url)
@@ -625,7 +625,7 @@ function getLocationsPropositions(){
             beforeSend: function(xhr) {
                 xhr.setRequestHeader("Accept", "application/json");
                 xhr.setRequestHeader("Content-Type", "application/json");
-                $("#btn-form-search").html("Loading...");
+                $("#btn-form-search").html(gon.vars['loading']);
             },
             success: function(data) {
                 var modalHtmlText = "";
@@ -637,7 +637,7 @@ function getLocationsPropositions(){
                     }else{
                         // Address suggestions were found.
                         // We need to create the HTML body of the modal window, based on the location proposition from OpenStreetMap.
-                        modalHtmlText = "<p>Choose one of the following available locations</p><ul></ul>";
+                        modalHtmlText = "<p>"+gon.vars['choose_location']+"</p><ul></ul>";
 
                         // We also need to consider whether an item is being searched/given at the same time.
                         var item = $('#item').val();
@@ -663,7 +663,7 @@ function getLocationsPropositions(){
                 }
 
                 // Webservice response came back - button label goes back to "Search"
-                $("#btn-form-search").html("Search");
+                $("#btn-form-search").html(gon.vars['search_button']);
 
             }
         });
