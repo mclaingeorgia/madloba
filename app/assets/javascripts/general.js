@@ -244,7 +244,7 @@ var events = {
     // Scripts that run only on the home page
     init_home_page_only: function(){
       // Map on home page - when moving the map, get center point coordinates and update the url with it
-      leaf.map.on('dragend', function(){
+      leaf.map.on('dragend zoomend', function(){
         current_url = window.location.href
         updated_url = addOrUpdateUrlParam("lat", leaf.map.getCenter().lat, current_url)
         updated_url = addOrUpdateUrlParam("lon", leaf.map.getCenter().lng, updated_url)
