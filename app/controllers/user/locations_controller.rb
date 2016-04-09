@@ -114,12 +114,15 @@ class User::LocationsController < ApplicationController
       ads = Ad.joins(:locations).where(locations: {id: params[:id]})
       ads.each do |ad|
         marker_info = ad.marker_info
+        updated_locations = []
         marker_info['locations'].each do |loc|
-          if loc.id == @location.id
-            loc[:lat] = @location.latitude
-            loc[:lng] = @location.longitude
+          if loc['location_id'] == @location.id
+            loc['lat'] = @location.latitude
+            loc['lng'] = @location.longitude
           end
+          updated_locations << loc
         end
+        marker_info['locations'] = updated_locations
         ad.marker_info = marker_info
         ad.save
       end
@@ -133,4 +136,3 @@ class User::LocationsController < ApplicationController
   end
 
 end
-

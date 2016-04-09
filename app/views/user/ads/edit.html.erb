@@ -309,6 +309,7 @@
                                     <label>
                                       <%= check_box_tag("ad[location_ids][]", loc.id, loc.id.in?(@ad.locations.collect(&:id))) %> <%= "#{loc.location_type_address}" %>
                                     </label>
+                                      <%= link_to('Edit location', edit_user_location_path(loc.id)) %>
                                   </div>
                               <% end %>
                             </div>
@@ -333,6 +334,7 @@
                                     <label>
                                       <%= check_box_tag("ad[location_ids][]", loc.id, loc.id.in?(@ad.locations.collect(&:id))) %> <%= "#{loc.location_type_address}" %>
                                     </label>
+                                    <%= link_to('Edit location', edit_user_location_path(loc.id)) %>
                                   </div>
                               <% end %>
                             </div>

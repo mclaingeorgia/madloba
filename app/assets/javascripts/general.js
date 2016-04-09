@@ -497,10 +497,10 @@ function find_geocodes(){
                 address: $(".location_streetname").val(),
                 city: $(".location_city").val(),
                 postal_code: $(".location_postal_code").val(),
-                region: $('.location_region option:selected').val(),
+                region: $('.location_province option:selected').val(),
                 city: $(".location_city").val(),
                 state: $(".location_state").val(),
-                country: $(".location_country").val(),
+                country: 'Georgia',
                 type: location_type
             },
             cache: false,
@@ -519,7 +519,7 @@ function find_geocodes(){
                     $(".longitude_hidden").val(myNewLng);
 
                     // Update the center of map, to show the general area
-                    map.setView(new L.LatLng(myNewLat, myNewLng), data.zoom_level);
+                    leaf.map.setView(new L.LatLng(myNewLat, myNewLng), data.zoom_level);
 
                 }else{
                     // The address' geocodes were not found - the user has to pinpoint the location manually on the map.
