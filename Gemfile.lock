@@ -246,7 +246,20 @@ GEM
       guard (~> 2.1)
       guard-compat (~> 1.1)
       rspec (>= 2.99.0, < 4.0)
+    haml (4.0.7)
+      tilt
+    haml-rails (0.9.0)
+      actionpack (>= 4.0.1)
+      activesupport (>= 4.0.1)
+      haml (>= 4.0.6, < 5.0)
+      html2haml (>= 1.0.1)
+      railties (>= 4.0.1)
     highline (1.7.3)
+    html2haml (2.0.0)
+      erubis (~> 2.7.0)
+      haml (~> 4.0.0)
+      nokogiri (~> 1.6.0)
+      ruby_parser (~> 3.5)
     httparty (0.13.5)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
@@ -378,6 +391,8 @@ GEM
       rspec-mocks (~> 3.3.0)
       rspec-support (~> 3.3.0)
     rspec-support (3.3.0)
+    ruby_parser (3.7.3)
+      sexp_processor (~> 4.1)
     sass (3.4.18)
     sass-rails (5.0.4)
       railties (>= 4.0.0, < 5.0)
@@ -388,6 +403,7 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    sexp_processor (4.6.1)
     shellany (0.0.1)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
@@ -471,6 +487,8 @@ DEPENDENCIES
   globalize-accessors
   gon
   guard-rspec
+  haml
+  haml-rails
   httparty (~> 0.13.1)
   i18n-tasks (~> 0.8.3)
   jquery-rails
@@ -492,4 +510,4 @@ DEPENDENCIES
   unicorn
 
 BUNDLED WITH
-   1.10.6
+   1.13.6

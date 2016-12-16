@@ -1,0 +1,13 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %strong
+      Hello
+    %p
+      = "This is a test for #{@user_email} with password #{@password}"
+    %p
+      = t('mailer.thanks')
+      %br/
+      = t('mailer.signature', name: @site_name)

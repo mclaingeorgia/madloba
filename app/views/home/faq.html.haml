@@ -1,0 +1,16 @@
+.container
+  .row
+    .col-lg-12
+      %div{:style => "padding-bottom: 30px"}
+        %h3= t('home.faq_page')
+      .col-lg-12
+        / Website FAQ - to be set in admin panel -> 'Manage FAQ'
+        - Faq.all.order('id asc').each do |faq|
+          .faq_section
+            %h4= faq.question
+            %p= simple_format(faq.answer)
+        - if Faq.all.count == 0
+          .faq_section
+            %p
+              %i= t('admin.no_question')
+#push

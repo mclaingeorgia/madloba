@@ -1,0 +1,26 @@
+.row
+  = render 'shared/admin_left_menu'
+  #content.col-lg-10.col-sm-10
+    / content starts
+    %div
+      %ul.breadcrumb
+        %li
+          %a{:href => "/user"}= t('admin.dashboard')
+        %li
+          %a{:href => "/user/managerecords"}= t('admin.left_menu.manage_faq')
+        %li= t('admin.add_faq')
+    .row
+      .box.col-md-12
+        .box-inner
+          .box-header.well{"data-original-title" => ""}
+            %h2
+              %i.glyphicon.glyphicon-plus
+              = t('admin.add_faq')
+          .box-content
+            = render 'form'
+        / /span
+      / /row
+      / content ends
+    / /#content.span10
+  / /fluid-row
+/ /.fluid-container

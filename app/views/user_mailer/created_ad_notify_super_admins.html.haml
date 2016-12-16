@@ -1,0 +1,14 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+  %body
+    %p= t('session.hello')
+    %p
+      = t('mailer.new_service_posted', sitename: @site_name, title: @ad.title )
+    %p
+      = t('mailer.review_it_html', link: (link_to t('ad.here'), @ad_edit_path))
+      %br/
+      = t('mailer.after_review')
+    %p
+      = t('mailer.thanks_short')

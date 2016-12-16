@@ -1,0 +1,53 @@
+.row
+  = render 'shared/admin_left_menu'
+  #content.col-lg-10.col-sm-10
+    / content starts
+    / Success/Error flash messages
+    - if flash[:success]
+      .box-content.alerts
+        .alert.alert-success
+          %button.close{"data-dismiss" => "alert", :type => "button"} ×
+          = flash[:success]
+    %div
+      %ul.breadcrumb
+        %li
+          %a{:href => "/user"}= t('admin.dashboard')
+        %li
+          = t('admin.left_menu.manage_faq')
+    = t('admin.faq_message')
+    .row
+      .box.col-md-12
+        .box-inner
+          .box-header.well{"data-original-title" => ""}
+            %h2
+              %i.glyphicon.glyphicon-question-sign
+              = t('admin.left_menu.manage_faq')
+          .box-content
+            %p.left
+              %a.btn.btn-success{:href => "/user/faqs/new"}
+                %i.glyphicon.glyphicon-plus.icon-white
+                = t('admin.add_faq')
+              %a.btn.btn-info{:href => "/faq"}
+                = t('admin.check_faq')
+            %table.table.table-striped.table-bordered.bootstrap-datatable.datatable.responsive
+              %thead
+                %tr
+                  %th ID
+                  %th= t('admin.question')
+                  %th= t('admin.answer')
+                  - if current_user.super_admin?
+                    %th= t('admin.actions')
+              %tbody
+                - @faqs.each do |faq|
+                  %tr
+                    %td.vert-align= faq.id
+                    %td.vert-align= faq.question
+                    %td.vert-align= faq.answer
+                    - if current_user.super_admin?
+                      %td.center
+                        %a.btn.btn-info{:href => "/user/faqs/#{faq.id}/edit"}
+                          %i.glyphicon.glyphicon-pencil
+                          = t('admin.edit_delete')
+      / content ends
+    / /#content.span10
+  / /fluid-row

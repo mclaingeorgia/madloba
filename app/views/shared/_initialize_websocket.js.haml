@@ -1,0 +1,7 @@
+$(function() {
+var adSocket = new AdSocket();
+
+$(window).on('beforeunload', function(){
+adSocket.socket.close();
+});
+});

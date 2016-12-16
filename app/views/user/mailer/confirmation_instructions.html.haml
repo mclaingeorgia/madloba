@@ -1,0 +1,17 @@
+%p= t('mailer.hello', name: @user['first_name'])
+%p= t('mailer.welcome', name: @site_name)
+%p= t('mailer.account_created', name: @site_name)
+%p= link_to t('mailer.confirm_account'), confirmation_url(@resource, confirmation_token: @token)
+%p= t('mailer.as_soon_as', name: @site_name)
+- if @user['is_service_provider']
+  %p
+    = t('mailer.register')
+  %ol
+    %li= t('mailer.register_1')
+    %li= t('mailer.register_2')
+    %li= t('mailer.register_3')
+%p
+  = t('mailer.need_assistance')
+  %br/
+  = t('mailer.phone_number')
+%p= t('mailer.thanks', name: @site_name)

@@ -1,0 +1,56 @@
+.row
+  = render 'shared/admin_left_menu'
+  #content.col-lg-10.col-sm-10
+    / content starts
+    %div
+      %ul.breadcrumb
+        %li
+          %a{:href => "/user"}= t('admin.dashboard')
+        %li
+          = t('admin.left_menu.favorite_services')
+    .row
+      .box.col-md-12
+        .box-inner
+          .box-header.well{"data-original-title" => ""}
+            %h2
+              %i.glyphicon.glyphicon-star
+              = t('admin.left_menu.favorite_services')
+          / Success/Error flash messages
+          - if flash[:setting_success] && flash[:setting_success] == 0
+            .box-content.alerts
+              .alert.alert-danger
+                %button.close{"data-dismiss" => "alert", :type => "button"} ×
+                = t('admin.general_settings.error_message')
+          - if flash[:setting_success] && flash[:setting_success] == 1
+            .box-content.alerts
+              .alert.alert-success
+                %button.close{"data-dismiss" => "alert", :type => "button"} ×
+                = t('admin.general_settings.success_message')
+          .box-content.row
+            .col-xs-12
+              %span#error_remove{:style => "color: red"}
+              - if @favorites.count > 0
+                %table.table.table-striped.table-bordered.bootstrap-datatable.datatable.responsive
+                  %thead
+                    %tr
+                      %th= t('admin.item.ad_title')
+                      %th= t('mailer.description')
+                      %th{:style => "min-width: 210px;"}= t('admin.actions')
+                  %tbody
+                    - @favorites.each do |ad_favorite|
+                      %tr
+                        %td.vert-align= link_to ad_favorite.title, service_path(ad_favorite.id)
+                        %td.vert-align
+                          = ad_favorite.description[0..90]
+                          \...
+                        %td.center
+                          = link_to t('admin.see_service'), service_path(ad_favorite.id), class: 'btn btn-success', style: 'margin-right: 10px;'
+                          %a.btn.btn-danger.remove_favorite{:href => "#", :id => "#{ad_favorite.id}"}
+                            = t('general_js.remove')
+              - else
+                %p
+                  %i= t('ad.no_favorite_yet')
+      / /span
+    / content ends
+  / /#content.span10
+/ /fluid-row

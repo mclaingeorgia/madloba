@@ -1,0 +1,19 @@
+.container
+  .row
+    .col-lg-12
+      %div{:style => "padding-bottom: 30px"}
+        %h3= t('admin.profile.terms_and_conditions')
+      .box-content
+        = form_tag '/update_tos', url: update_tos_path, method: :post, html: { role: 'form' } do
+          .col-lg-12{:style => "width: 100%; height: 400px; overflow: auto; float: none;"}
+            / "Terms and conditions" text
+            = render 'shared/terms_and_conditions'
+          .form-group
+            .checkbox
+              %label{:style => "margin: 25px 0px 20px 0px;"}
+                = check_box_tag 'has_agreed_to_tos', true
+                = t('admin.profile.agree_to_tos')
+          / Submit button
+          .form-actions
+            = submit_tag('OK', class: 'btn btn-success')
+#push

@@ -1,0 +1,100 @@
+- content_for :head do
+  = stylesheet_link_tag 'font-awesome.min'
+.row
+  = render 'shared/admin_left_menu'
+  #content.col-lg-10.col-sm-10
+    / content starts
+    %div
+      %ul.breadcrumb
+        %li
+          %a{:href => "/user"}= t('admin.dashboard')
+        %li
+          %a{:href => "/user/managerecords"}= t('admin.manage_records')
+        - if @isAdding
+          %li= t('admin.add_item')
+        - else
+          %li= t('admin.edit_item')
+    .row
+      .box.col-md-12
+        .box-inner
+          .box-header.well{"data-original-title" => ""}
+            %h2
+              - if @isAdding
+                %i.glyphicon.glyphicon-plus
+                = t('admin.new_item')
+              - else
+                %i.glyphicon.glyphicon-edit
+                = t('admin.edit_item')
+          - if @item && @item.errors.any?
+            .alert.alert-danger
+              %button.close{"data-dismiss" => "alert", :type => "button"} ×
+              %strong
+                = t('admin.item.error_occurred', errors: pluralize(@item.errors.count, t('home.error.one'), t('home.error.more')))
+                \:
+              %ul
+                - @item.errors.full_messages.each do |msg|
+                  %li= msg
+          - if flash[:name]
+            .alert.alert-success
+              %button.close{"data-dismiss" => "alert", :type => "button"} ×
+              = t('admin.item.update_success', name: flash[:name])
+              %a{:href => "/user/managerecords#items"}= t('admin.back_to_records')
+          - if flash[:new_name]
+            .alert.alert-success
+              %button.close{"data-dismiss" => "alert", :type => "button"} ×
+              = t('admin.item.created_success', name: flash[:new_name])
+              %a{:href => "/user/managerecords"}= t('admin.back_to_records')
+          .box-content
+            = form_for [:user, @item], html: { id: 'itemForm', role: 'form' } do |f|
+              / Category id
+              - if !@isAdding
+                .form-group
+                  %a.btn.btn-danger.btn-delete-right.btn-setting{:href => "#"}= t('admin.item.delete_item')
+                .form-group
+                  = label_tag 'nameId', t('admin.mandatory'), class:'control-label'
+                .form-inline
+                  = label_tag 'id', 'Id:', class:'control-label'
+                  = @item.id
+                .form-group
+              / Item name - English
+              .form-group
+                = f.label :name_en, t('admin.item.name_en')+'*:', class:'control-label'
+                .form-inline
+                  = f.text_field :name_en, class: 'form-control', maxlength:'90'
+              / Item name - Georgian
+              .form-group
+                = f.label :name_ka, t('admin.item.name_ka')+'*:', class:'control-label'
+                .form-inline
+                  = f.text_field :name_ka, class: 'form-control', maxlength:'90'
+              / List of locations the item can be found
+              .form-group
+                - if @item.ads.length > 0
+                  = f.label :ads, t('admin.item.ads_promoting')+':', class:'control-label'
+                  %table.table.table-striped.table-bordered.bootstrap-datatable.datatable
+                    %thead
+                      %tr
+                        %th ID
+                        %th= t('admin.item.ad_title')
+                        %th= t('admin.description')
+                    %tbody
+                      - @item.ads.each do |ad|
+                        %tr
+                          %td= ad.id
+                          %td
+                            %a{:href => "/user/ads/#{ad.id}/edit"}= ad.title
+                          %td= ad.description
+                - elsif !@isAdding
+                  %strong= t('admin.item.no_ad')
+              %hr/
+              / Submit button and cancel link
+              = render 'shared/submit_section'
+        / /span
+      / /row
+      / content ends
+    / /#content.span10
+  / /fluid-row
+  %hr/
+  - if !@isAdding
+    / "Delete item" modal window
+    = render 'delete_modal_window'
+/ /.fluid-container
