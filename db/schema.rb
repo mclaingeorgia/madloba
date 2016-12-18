@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151123055035) do
+ActiveRecord::Schema.define(version: 20161124151727) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,24 +59,24 @@ ActiveRecord::Schema.define(version: 20151123055035) do
   add_index "ad_users", ["user_id"], name: "index_ad_users_on_user_id", using: :btree
 
   create_table "ads", force: :cascade do |t|
-    t.string   "title",            limit: 255
+    t.string   "title",           limit: 255
     t.text     "description"
     t.integer  "location_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_username_used"
-    t.boolean  "is_giving"
+    t.boolean  "username_used"
+    t.boolean  "giving"
     t.date     "expire_date"
-    t.string   "image",            limit: 255
-    t.string   "anon_name",        limit: 255
-    t.string   "anon_email",       limit: 255
-    t.string   "benef_age_group",  limit: 255
+    t.string   "image",           limit: 255
+    t.string   "anon_name",       limit: 255
+    t.string   "anon_email",      limit: 255
+    t.string   "benef_age_group", limit: 255
     t.boolean  "is_published"
-    t.string   "legal_form",       limit: 255
-    t.string   "anon_email_2",     limit: 255
-    t.string   "anon_email_3",     limit: 255
-    t.jsonb    "marker_info",                  default: {}
+    t.string   "legal_form",      limit: 255
+    t.string   "anon_email_2",    limit: 255
+    t.string   "anon_email_3",    limit: 255
+    t.jsonb    "marker_info",                 default: {}
   end
 
   add_index "ads", ["location_id"], name: "index_ads_on_location_id", using: :btree
@@ -91,6 +91,14 @@ ActiveRecord::Schema.define(version: 20151123055035) do
 
   add_index "ads_categories", ["ad_id"], name: "index_ads_categories_on_ad_id", using: :btree
   add_index "ads_categories", ["category_id"], name: "index_ads_categories_on_category_id", using: :btree
+
+  create_table "areas", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.decimal  "latitude",               precision: 8, scale: 5
+    t.decimal  "longitude",              precision: 8, scale: 5
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",         limit: 255
@@ -139,13 +147,6 @@ ActiveRecord::Schema.define(version: 20151123055035) do
 
   add_index "district_translations", ["district_id"], name: "index_district_translations_on_district_id", using: :btree
   add_index "district_translations", ["locale"], name: "index_district_translations_on_locale", using: :btree
-
-  create_table "districts", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "bounds"
-  end
 
   create_table "faq_translations", force: :cascade do |t|
     t.integer  "faq_id",                 null: false
@@ -221,8 +222,7 @@ ActiveRecord::Schema.define(version: 20151123055035) do
     t.decimal  "latitude",                       precision: 7, scale: 5
     t.decimal  "longitude",                      precision: 8, scale: 5
     t.integer  "user_id"
-    t.integer  "district_id"
-    t.string   "loc_type",           limit: 255
+    t.integer  "area_id"
     t.string   "facebook",           limit: 255
     t.string   "add_phone_number",   limit: 255
     t.string   "add_phone_number_2", limit: 255
@@ -230,8 +230,18 @@ ActiveRecord::Schema.define(version: 20151123055035) do
     t.string   "village"
   end
 
-  add_index "locations", ["district_id"], name: "index_locations_on_district_id", using: :btree
+  add_index "locations", ["area_id"], name: "index_locations_on_area_id", using: :btree
   add_index "locations", ["user_id"], name: "index_locations_on_user_id", using: :btree
+
+  create_table "map_tiles", force: :cascade do |t|
+    t.string   "name"
+    t.string   "tile_url"
+    t.string   "attribution"
+    t.string   "api_key"
+    t.string   "map_name"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "setting_translations", force: :cascade do |t|
     t.integer  "setting_id",             null: false
@@ -259,6 +269,14 @@ ActiveRecord::Schema.define(version: 20151123055035) do
   end
 
   add_index "simple_captcha_data", ["key"], name: "idx_key", using: :btree
+
+  create_table "todos", force: :cascade do |t|
+    t.string   "description"
+    t.string   "condition"
+    t.string   "alert"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "user_translations", force: :cascade do |t|
     t.integer  "user_id",    null: false
