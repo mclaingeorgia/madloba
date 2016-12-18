@@ -8,6 +8,7 @@
         = t('mailer.dear', name: @ad[:first_name])
       - else
         = t('session.hello')
+
     %p
       = t('mailer.received_message', ad_title: @ad[:title], site_name: @site_name)
     %hr/

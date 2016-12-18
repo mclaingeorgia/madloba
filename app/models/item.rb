@@ -11,13 +11,8 @@ class Item < ActiveRecord::Base
 
   before_save { |item| item.name.downcase! }
 
-  # Capitalized item name, with nil check
   def capitalized_name
-    result = ''
-    if self.name
-      result = self.name.slice(0,1).capitalize + self.name.slice(1..-1)
-    end
-    return result
+    self.name.nil? ? '' : self.name.capitalize
   end
 
 end

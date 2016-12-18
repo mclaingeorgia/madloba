@@ -1,11 +1,11 @@
-/ Left-hand side: Services
+-# Left-hand side: Services
 %div
   %label.ad-label= t('admin.items')+':'
   %span
     %ul
       - @ad.ad_items.each do |ad_item|
         %li= ad_item.item.capitalized_name
-/ Left-hand side: Categories
+-# Left-hand side: Categories
 %div
   %label.ad-label= t('ad.type_services')+':'
   %span
@@ -16,41 +16,41 @@
 %br/
 - @ad.locations.each do |location|
   %div{:style => "margin-bottom: 20px;"}
-    / Where the service is
+    -# Where the service is
     %div
       %label.ad-label= t('ad.where_to_find')
       %span= location.name_and_or_full_address
-    / Location description
+    -# Location description
     - if location.description && location.description != ''
       %div
         %label.ad-label= t('ad.location_description')
         %span= location.description
-    / Left-hand side: Email
+    -# Left-hand side: Email
     - if contact_email_to_show(@ad) != ''
       %div
         %label.ad-label
           = t('admin.users.email')
           \:
         %span= contact_email_to_show(@ad)
-    / Left-hand side: Website
+    -# Left-hand side: Website
     - if location.website && location.website != ''
       %div
         %label.ad-label= t('ad.location_website')
         %span
           %a{:href => "#{location.full_website_url}", :target => "_blank"}= location.website
-    / Left-hand side: Phone number
+    -# Left-hand side: Phone number
     - if location.phone_number && location.phone_number != ''
       %div
         %label.ad-label= t('location.phone_number')
         %span
           (+995) #{location.phone_number}
-    / Left-hand side: Additional phone numbers
+    -# Left-hand side: Additional phone numbers
     - if check_additional_phone_numbers(location)
       %div
         %label.ad-label= t('location.add_phone_number')
         %span
           (+995) #{check_additional_phone_numbers(location)}
-    / Left-hand side: Facebook page
+    -# Left-hand side: Facebook page
     - if location.facebook && location.facebook != ''
       %div
         %label.ad-label= t('location.facebook')

@@ -3,14 +3,12 @@ class User::AdsController < ApplicationController
   before_action :authenticate_user!, except: [:new, :create, :send_message, :show]
   before_action :requires_user, except: [:new, :create, :send_message, :show]
   after_action :verify_authorized, except: [:new, :create, :send_message, :send_message]
-  after_action :generate_ad_json, only: [:create, :update]
+  after_action :serialize_ad, only: [:create, :update]
 
   include ApplicationHelper
 
   def show
     @ad = Ad.includes(:locations).where(id: params['id']).first!
-    @locations_exact = Ad.search(nil, nil, nil, nil, params['id'])
-
     authorize @ad
 
     # Redirection to the home page, if this ad has expired, expect if current user owns this ad.
@@ -45,13 +43,14 @@ class User::AdsController < ApplicationController
   end
 
   def create
-    @ad = Ad.new(ad_params)
+    @ad = Ad.new(sanitize_ad_params)
     authorize @ad
 
     # we tie now the user to the ad (if it is an anonymous user, current_user is nil)
     @ad.user = current_user
 
     if @ad.save_with_or_without_captcha(current_user)
+
       flash[:new_ad] = @ad.title
 
       # Letting the user know when their ad will expire.
@@ -72,7 +71,7 @@ class User::AdsController < ApplicationController
         user_info = {email: @ad.anon_email, name: @ad.anon_name, is_anon: true}
       end
 
-      if is_on_heroku
+      if on_heroku?
         UserMailer.created_ad(user_info, @ad, full_admin_url).deliver
       else
         # Queueing email sending, when not on heroku.
@@ -90,7 +89,7 @@ class User::AdsController < ApplicationController
   end
 
   def edit
-    @ad = Ad.includes(locations: :district).where(id: params[:id]).first!
+    @ad = Ad.includes(:location => :area).where(id: params[:id]).first!
     authorize @ad
     get_map_settings_for_ad
   end
@@ -175,7 +174,7 @@ class User::AdsController < ApplicationController
           sender_info = {full_name: params['name'], email: params['email']}
         end
 
-        if is_on_heroku
+        if on_heroku?
           UserMailer.send_message_for_ad(sender_info, message, ad_info).deliver
         else
           UserMailer.delay.send_message_for_ad(sender_info, message, ad_info)
@@ -191,38 +190,28 @@ class User::AdsController < ApplicationController
 
   private
 
+  def sanitize_ad_params
+    sanitized_params = ad_params.dup
+    if ad_params.has_key?(:location_id)
+      sanitized_params.delete(:location_attributes)
+    end
+    sanitized_params
+  end
+
   # Create the json for the 'exact location' ad, which will be read to render markers on the home page.
-  def generate_ad_json
+  def serialize_ad
     if @ad.errors.empty?
-      marker_info = {ad_id: @ad.id}
-      locations = []
-      @ad.locations.each do |location|
-        locations << {location_id: location.id, lat: location.latitude, lng: location.longitude}
-      end
-      marker_info[:locations] = locations
-
-      marker_info[:markers] = []
-      @ad.categories.each do |category|
-        category_info = {}
-        category_info[:category_id] = category.id
-        category_info[:color] = category.marker_color
-        category_info[:icon] = category.icon
-        marker_info[:markers] << category_info
-      end
-
-      @ad.marker_info = marker_info
-      @ad.save
+      @ad.serialize!
     end
   end
 
   # Initializes map related info (markers, clickable map...)
   def get_map_settings_for_ad
     if %w(show send_message).include?(action_name)
-      getMapSettings(nil, HAS_NOT_CENTER_MARKER, NOT_CLICKABLE_MAP)
-    elsif %w(create update).include?(action_name)
-      getMapSettings(nil, HAS_CENTER_MARKER, CLICKABLE_MAP_EXACT_MARKER)
+      @map_settings = MapAdInfo.new(@ad).to_hash
     else
-      getMapSettings(nil, HAS_NOT_CENTER_MARKER, CLICKABLE_MAP_EXACT_MARKER)
+      location = @ad.location
+      @map_settings = MapLocationInfo.new(location: location).to_hash
     end
   end
 

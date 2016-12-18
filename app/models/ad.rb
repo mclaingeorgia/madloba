@@ -23,8 +23,9 @@ class Ad < ActiveRecord::Base
   accepts_nested_attributes_for :locations
 
   validates_presence_of :title, :description
-  validates :is_giving, inclusion: [true, false]
-  validates :is_username_used, inclusion: [true, false]
+
+  validates :giving, inclusion: [true, false]
+  validates :username_used, inclusion: [true, false]
   validates :is_published, inclusion: [true, false]
   validate :has_items
   validate :has_locations
@@ -54,6 +55,7 @@ class Ad < ActiveRecord::Base
 
       if cat_nav_state || searched_item
         if cat_nav_state
+          puts cat_nav_state
           if searched_item
             # We search for ads in relation to the searched item and the current category navigation state.
             ads = ads.joins([:items, :categories]).where(categories: {id: cat_nav_state}, items: {id: selected_item_ids})
@@ -68,15 +70,13 @@ class Ad < ActiveRecord::Base
 
       if user_action
         # If the user is searching for items, we need to show the posted ads, which people give stuff away.
-        ads = ads.where("ads.is_giving = ?", user_action == 'searching')
+        ads = ads.where("ads.giving = ?", user_action == 'searching')
       end
 
-      ads = ads.pluck(:marker_info)
-
+      ads = ads.pluck(:marker_info).uniq
     end
 
     ads
-
   end
 
 
@@ -87,7 +87,7 @@ class Ad < ActiveRecord::Base
     if current_user
       self.save
     else
-      self.is_username_used = false
+      self.username_used = false
       self.save_with_captcha
     end
   end
@@ -113,13 +113,25 @@ class Ad < ActiveRecord::Base
     self.anon_email == nil && self.user == nil
   end
 
+  def action
+    giving? ? I18n.t('admin.ad.giving_away') : I18n.t('admin.ad.accepting')
+  end
+
+  def action_item
+    act = giving? ? I18n.t('admin.ad.giving_away') : I18n.t('admin.ad.accepting')
+    self.items.each do |item|
+
+    end
+
+    "#{act} #{self.items.map(&:name).join(', ')}"
+  end
 
   # The publisher of an ad might not want to have their full name publicly displayed.
   # This method defines whether to show the username or the full name (whether it is anonymous or registered user)
   def username_to_display
     if self.is_anonymous
       self.anon_name
-    elsif self.is_username_used
+    elsif self.username_used?
       self.user.username
     else
       "#{self.user.first_name} #{self.user.last_name}"
@@ -165,13 +177,23 @@ class Ad < ActiveRecord::Base
     return result.join(', ')
   end
 
-  def is_a_favorite_of(user)
-    result = false
-    if user && user.favorite_ads
-      favorite_ads = user.favorite_ads.pluck(:id)
-      result = favorite_ads.include?(self.id)
+
+  def serialize!
+    locations = []
+    info = {ad_id: self.id}
+    self.locations.each do |location|
+      locations << {location_id: location.id, lat: location.latitude, lng: location.longitude}
     end
-    return result
+    info[:locations] = locations
+    markers = []
+    self.items.each do |i|
+      cat = i.category
+      marker = {icon: cat.icon, color: cat.marker_color, item_id: i.id, category_id: cat.id}
+      markers << marker
+    end
+    info[:markers] = markers
+    self.marker_info = info
+    self.save
   end
 
   private

@@ -1,6 +1,7 @@
 # Madloba
 
-[![Release Version](https://img.shields.io/github/release/etiennebaque/madloba.svg)](https://github.com/etiennebaque/madloba/releases) [![Build Status](https://travis-ci.org/etiennebaque/madloba.svg?branch=master)](https://travis-ci.org/etiennebaque/madloba)
+[![Build Status](https://travis-ci.org/etiennebaque/madloba.svg?branch=master)](https://travis-ci.org/etiennebaque/madloba)
+[![Code Climate](https://codeclimate.com/github/etiennebaque/madloba/badges/gpa.svg)](https://codeclimate.com/github/etiennebaque/madloba)
 
 Madloba (beta) is a free, open-source solution that connects people who have things to exchange.
 
@@ -19,7 +20,7 @@ If you want run Madloba on your local machine, follow these steps:
   - [Git](https://github.com/etiennebaque/madloba/wiki/Install-Git-on-your-local-machine)
   - [Ruby 2.2.2](https://github.com/etiennebaque/madloba/wiki/Install-Ruby-on-your-local-machine)
   - [Bundler](http://bundler.io/)
-  - [Postgresql](http://www.postgresql.org/download/)
+  - [Postgresql 9.4](http://www.postgresql.org/download/)
 
 2. Run the following commands:
     ```
@@ -48,7 +49,7 @@ This project uses the following main gems:
 - Capistrano (deployment)
 - Delayed job (queue)
 - Carrierwave (file upload) and Carrierwave-backgrounder (file processing)
-- Fog (cloud service)
+- Fog (cloud storage on Amazon S3)
 - Dalli (cache)
 - RSpec and Factory girl (testing)
 

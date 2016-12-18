@@ -13,17 +13,17 @@
             = f.label :first_name_en, t('registration.first_name_en')+':', class: 'col-lg-3 control-label'
             .col-lg-9
               = f.text_field :first_name_en, class: 'form-control', autofocus: true
-          / First name - Georgian
+          -# First name - Georgian
           .form-group
             = f.label :first_name_ka, t('registration.first_name_ka')+':', class: 'col-lg-3 control-label'
             .col-lg-9
               = f.text_field :first_name_ka, class: 'form-control', autofocus: true
-          / Last name - English
+          -# Last name - English
           .form-group
             = f.label :last_name_en, t('registration.last_name_en')+':', class: 'col-lg-3 control-label'
             .col-lg-9
               = f.text_field :last_name_en, class: 'form-control'
-          / Last name - Georgian
+          -# Last name - Georgian
           .form-group
             = f.label :last_name_ka, t('registration.last_name_ka')+':', class: 'col-lg-3 control-label'
             .col-lg-9
@@ -35,24 +35,28 @@
               = f.text_field :username, class: 'form-control help-message',                   |
                 :data => {:content => t('registration.username_help'), :placement => 'right', |
                 :toggle => 'popover', :trigger => 'hover focus'}                              |
-          / E-mail
+
+          -# E-mail
           .form-group
             = f.label :email, t('registration.email')+':', class: 'col-lg-3 control-label'
             .col-lg-9
               = f.email_field :email, class: 'form-control'
-          / Password
+
+          -# Password
           .form-group
             = f.label :password, t('registration.password')+':', class:'col-lg-3 control-label'
             .col-lg-9
               = f.password_field :password, class: 'form-control', autocomplete: "off",       |
                 :data => {:content => t('registration.password_help'), :placement => 'right', |
                 :toggle => 'popover', :trigger => 'hover focus'}                              |
-          / Confirm password
+
+          -# Confirm password
           .form-group
             = f.label :password_confirmation, t('registration.password_confirm')+':', class: 'col-lg-3 control-label'
             .col-lg-9
               = f.password_field :password_confirmation, class: 'form-control', autocomplete: "off"
-          / Do you plan to register service? yes/no
+
+          -# Do you plan to register service? yes/no
           .form-group
             = f.label :is_service_provider, t('registration.register_service'), class: 'col-lg-3 control-label'
             .col-lg-9
@@ -64,21 +68,25 @@
                 %label
                   = f.radio_button :is_service_provider, false
                   = t('registration.is_not_provider')
-          / Note about checking out the FAQ
+
+          -# Note about checking out the FAQ
           .form-group
             .col-lg-9.col-lg-offset-3
               %i= t('errors.have_questions_html', link: (link_to t('errors.faq_label'), faq_path, target: '_blank'))
-          / Terms and conditions checkbox
+
+          -# Terms and conditions checkbox
           .form-group{:style => "margin-bottom: 30px;"}
             .col-lg-9.col-lg-offset-3.checkbox
               %label
                 = f.check_box :has_agreed_to_tos
                 = t('admin.profile.i_have_accepted_html', terms_and_conditions: link_to(t('admin.profile.terms_and_conditions'), '#', class: 'terms_popup'))
+
           .form-group
             .col-lg-9.col-lg-offset-3
               = f.submit t('registration.sign_up'), class: 'btn btn-primary'
   = render 'shared/links'
-/ Modal popup that appears with click on Terms and Conditions
+
+-# Modal popup that appears with click on Terms and Conditions
 #terms_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "basicModal", :role => "dialog", :tabindex => "-1"}
   .modal-dialog{:style => "width: 800px;"}
     .modal-content
@@ -88,5 +96,3 @@
         = render 'shared/terms_and_conditions'
       .modal-footer
         %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"}= t('home.got_it')
-#push
-/ /.container

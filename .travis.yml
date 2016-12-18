@@ -1,8 +1,13 @@
 language: ruby
 rvm:
-  - "2.2.2"
+  - "2.2.4"
+
+addons:
+  postgresql: "9.4"
 
 before_script:
   - psql -c 'create database madloba_test;' -U postgres
 
-script: bundle exec rspec spec
+script:
+  - bundle exec rspec spec
+  - xvfb-run -a bundle exec rake cucumber

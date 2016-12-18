@@ -1,134 +1,215 @@
-- content_for :head do
-  :javascript
-    var districts_bounds = #{raw districts_bounds.to_json};
-.nested-fields.location-fields.img-rounded{:style => "padding-bottom: 10px;"}
-  - if can_choose_existing_locations(current_user) && %w(new create edit update).include?(action_name) && !@is_location_edit
+.nested-fields.location-fields{:style => "padding-bottom: 10px;"}
+
+  .form-group
+    %hr/
+  .form-group
+    .col-lg-4
+      %h4= t('location.new_location')
+
+    - if current_user.present? && current_user.locations.any? && %w(new create edit update).include?(action_name) && !@is_location_edit
+      -# if the user is not anonymous and has created locations in the past, then give the possibility
+      -# to remove the whole "new location" section to choose an existing location
+      .col-lg-4{style: "line-height: 40px;"}
+        %a.btn.btn-danger.btn-sm.remove-new-location{style: 'float: right;'}
+          = t('ad.choose_existing')
+
+  -# Location name
+  .form-group
+    = form.label :name, t('location.name'), class: 'col-lg-2 control-label'
+    .col-lg-6
+      = form.text_field :name, class: 'form-control help-message', maxlength:'90', |
+        :data => {:content => t('location.name_help'),                             |
+        :placement => 'top', :toggle => 'popover', :trigger => 'hover focus'}      |
+
+  -# "Give full address" / "Choose area only" radio buttons
+  - if Area.any?
     .form-group
-      %hr/
-    .form-group
-      %div{:class => col4}
-        %h4= t('location.new_location')
+      = label_tag 'loc_type', t('location.definition'), class: 'col-lg-2 control-label'
+      .col-lg-6
+        .radio
+          %label
+            = radio_button_tag 'loc_type', 'exact', true, class: 'location_type_exact'
+            = t('location.definition_exact')
+        .radio
+          %label
+            = radio_button_tag 'loc_type', 'area', false, class: 'location_type_area'
+            = t('location.definition_area')
+
+        .why-choose-section
+          %a#why_choose_link{href: '#'}= t('location.why_choose_location_type')
+
   .exact_location_section
-    / Street number
+    -# Street number
     .form-group
-      = form.label :street_number, t('location.street_number'), class: label_class
-      %div{:class => col2}
+      = form.label :street_number, t('location.street_number'), class: 'col-lg-2 control-label'
+      .col-lg-2
         = form.text_field :street_number, class: 'form-control location_streetnumber', maxlength:'6'
-    / Block, Unit - English
+
+    -# Block, Unit - English
     .form-group
       = form.label :block_unit_en, t('location.block_unit_en'), class: label_class
-      %div{:class => col6}
+      .col-lg-6
         = form.text_field :block_unit_en, class: 'form-control help-message', maxlength:'90'
-    / Block, Unit - Georgian
+
+    -# Block, Unit - Georgian
     .form-group
       = form.label :block_unit_ka, t('location.block_unit_ka'), class: label_class
-      %div{:class => col6}
+      .col-lg-6
         = form.text_field :block_unit_ka, class: 'form-control help-message', maxlength:'90'
-    / Street name - English
+
+    -# Street name - English
     .form-group
       = form.label :address_en, t('location.street_name_en'), class: label_class
-      %div{:class => col6}
-        = form.text_field :address_en, class: 'form-control help-message location_streetname', maxlength:'90', |
-          :data => {:content => t('location.street_name_help'),                                                |
-          :placement => 'top', :toggle => 'popover', :trigger => 'hover focus'}                                |
-    / Street name - Georgian
+      .col-lg-6
+        = form.text_field :address_en, class: 'form-control help-message location_streetname', maxlength:'90',
+          :data => {:content => t('location.street_name_help'),
+          :placement => 'top', :toggle => 'popover', :trigger => 'hover focus'}
+
+    -# Street name - Georgian
     .form-group
       = form.label :address_ka, t('location.street_name_ka'), class: label_class
-      %div{:class => col6}
-        = form.text_field :address_ka, class: 'form-control help-message', maxlength:'90', |
-          :data => {:content => t('location.street_name_help'),                            |
-          :placement => 'right', :toggle => 'popover', :trigger => 'hover focus'}          |
-    / Village - English
+      .col-lg-6
+        = form.text_field :address_ka, class: 'form-control help-message', maxlength:'90',
+          :data => {:content => t('location.street_name_help'),
+          :placement => 'right', :toggle => 'popover', :trigger => 'hover focus'}
+
+    -# Village - English
     .form-group
       = form.label :village_en, t('location.village_en'), class: label_class
-      %div{:class => col6}
+      .col-lg-6
         = form.text_field :village_en, class: 'form-control help-message', maxlength:'90'
-    / Village - Georgian
+
+    -# Village - Georgian
     .form-group
       = form.label :village_ka, t('location.village_ka'), class: label_class
-      %div{:class => col6}
+      .col-lg-6
         = form.text_field :village_ka, class: 'form-control help-message', maxlength:'90'
-    / City - English
+
+    -# City - English
     .form-group
       = form.label :city_en, t('location.city_en')+'*:', class: label_class
-      %div{:class => col6}
+      .col-lg-6
         = form.text_field :city_en, class: 'form-control help-message location_city', maxlength:'90'
-    / City - Georgian
+
+    -# City - Georgian
     .form-group
       = form.label :city_ka, t('location.city_ka')+'*:', class: label_class
-      %div{:class => col6}
+      .col-lg-6
         = form.text_field :city_ka, class: 'form-control help-message', maxlength:'90'
-    / Region drop-down box
+
+    -# Region drop-down box
     .form-group
       = form.label :province, t('location.province')+'*:', class: label_class
-      %div{:class => col4}
+      .col-lg-4
         = form.select :province, options_for_select(region_list, form.object.province), {}, {class: 'form-control location_region'}
-  #postal_code_section
-    / Postal code ('area' type or 'exact' type address)
+
+    -# Postal code
     .form-group
-      = form.label :postal_code, t('location.postal_code'), class: label_class
-      %div{:class => col4}
+      = form.label :postal_code, t('location.postal_code'), class: 'col-lg-2 control-label'
+      .col-lg-3
         = form.text_field :postal_code, class: 'form-control location_postal_code', maxlength:'8'
-        %span#postal_code_notification
-    / Geocode (latitude and longitude hidden fields)
-    = form.hidden_field :latitude, value: @map_settings['lat'], class: 'latitude_hidden'
-    = form.hidden_field :longitude, value: @map_settings['lng'], class: 'longitude_hidden'
+
+  -# Geocode (latitude and longitude hidden fields)
+  = form.hidden_field :latitude, value: @map_settings[:latitude], class: 'latitude'
+  = form.hidden_field :longitude, value: @map_settings[:longitude], class: 'longitude'
+
+  -# List of area ('area' type address only)
+  - if Area.any?
+    #area_section
+      .form-group
+        = form.label :area_id, t('location.area'), class: 'col-lg-2 control-label'
+        .col-lg-3
+          - area_data = areas.map{|a| [a.name, a.id, { 'data-latitude' => a.latitude, 'data-longitude' => a.longitude }]}
+          = form.select :area_id, options_for_select(area_data, form.object.area_id), {include_blank: t('location.area_blank')}, {class: 'form-control help-message area-select',
+            :data => {:content => t('location.area_help'), :placement => 'top',
+            :toggle => 'popover', :trigger => 'hover focus'}}
+
+  -# "Locate me on the map" button
   .exact_location_section
-    / "Define geocodes & find address on the map" button
     .form-group
-      %span{:class => label_class}
-      %div{:class => col8}
-        %a#findGeocodeAddressMapBtnId.btn.btn-info{"data-content" => "#{t('home.click_on_map_after')}", "data-placement" => "right", "data-toggle" => "popover", "data-trigger" => "hover"}
+      .col-lg-2.control-label
+      .col-lg-8
+        %a#find_geocodes_from_address.btn.btn-info{"data-content" => "#{t('home.click_on_map_after')}", "data-placement" => "right", "data-toggle" => "popover", "data-trigger" => "hover"}
           = t('location.define_geocode_button')
-        %span#findGeocodeLoaderId
-        %span#geocodeErrorMessageId
-  / Canvas for the map
+        %span#find_geocode_loader
+
+
+  -# Canvas for the map
   .form-group
-    .col-lg-12
-      %span#map_notification_exact.map_notification
+    = form.label 'map-canvas-wrapper', t('location.map'), class: 'col-lg-2 control-label'
+    .col-lg-10
+      #map_notification_exact.map_notification
         %i= t('admin.location.map_notification_exact')
-      %span#map_notification_postal_code_only.map_notification
-        %i= t('admin.location.map_notification_postal_code')
-      #map
-  / Location description - English
+
+      #map.large
+
+  -# Location description - English
   .form-group
     = form.label :description_en, t('location.description_en'), class: label_class, style: 'padding-top: 20px;'
-    %div{:class => col6}
-      = form.text_area :description_en, class: 'help-message', cols: 40, rows: 6, |
-        :data => {:content => t('location.description_help'),                     |
-        :placement => 'right', :toggle => 'popover', :trigger => 'hover focus'}   |
-  / Location description - Georgian
+    .col-lg-6
+      = form.text_area :description_en, class: 'help-message', cols: 40, rows: 6,
+        :data => {:content => t('location.description_help'),
+        :placement => 'right', :toggle => 'popover', :trigger => 'hover focus'}
+
+  -# Location description - Georgian
   .form-group
     = form.label :description_ka, t('location.description_ka'), class: label_class
-    %div{:class => col6}
+    .col-lg-6
       = form.text_area :description_ka, class: 'help-message', cols: 40, rows: 6, |
         :data => {:content => t('location.description_help'),                     |
-        :placement => 'right', :toggle => 'popover', :trigger => 'hover focus'}   |
-  / Phone number
+        :placement => 'right', :toggle => 'popover', :trigger => 'hover focus'}
+
+  -# Phone number
   .form-group
-    = form.label :phone_number, t('location.phone_number'), class: label_class
-    %div{:class => "input-group #{col3}", :style => "padding-left: 15px;"}
+    = form.label :phone_number, t('location.phone_number'), class: 'col-lg-2 control-label'
+    .col-lg-3.input-group
       %span.input-group-addon +995
       = form.text_field :phone_number, class: 'form-control', maxlength:'15'
-  / Additional phone numbers
+
+  -# Additional phone numbers
   .form-group
     = form.label :add_phone_number, t('location.add_phone_number'), class: label_class
-    %div{:class => col6, :style => "padding-left: 15px;"}
-      %div{:class => "input-group #{col6}", :style => "float: left;"}
+    .col-lg-6
+      .col-lg-6.input-group
         %span.input-group-addon +995
         = form.text_field :add_phone_number, class: 'form-control', maxlength:'15'
-      %div{:class => "input-group #{col6}", :style => "padding: 0px 0px 0px 15px;"}
+
+      .col-lg-6.input-group
         %span.input-group-addon +995
         = form.text_field :add_phone_number_2, class: 'form-control', maxlength:'15'
-  / Website
-  .form-group
-    = form.label :website, t('location.website'), class: label_class
-    %div{:class => col4}
-      = form.text_field :website, class: 'form-control'
-  / Facebook
+
+  -# Facebook
   .form-group
     = form.label :facebook, t('location.facebook'), class: label_class
     %div{:class => col4}
       = form.text_field :facebook, class: 'form-control'
+
+  -# Website
+  .form-group
+    = form.label :website, t('location.website'), class: 'col-lg-2 control-label'
+    .col-lg-4
+      = form.text_field :website, class: 'form-control', maxlength:'60'
+
   - if current_user
     = form.hidden_field :user_id, value: current_user.id
+
+
+#why_choose_modal.modal.fade{'aria-hidden' => 'true', 'aria-labelledby' => 'myModalLabel', :role => 'dialog', :tabindex => '-1'}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"data-dismiss" => "modal", :type => "button"} ×
+        %h3
+          = t('location.modal_exact_area_title')
+      .modal-body
+        %p
+          = t('location.modal_exact_area_description', def_exact: t('location.definition_exact'))
+          = t('location.modal_exact_area_description2')
+
+        %p
+          = t('location.modal_exact_area_description3')
+          = t('location.modal_exact_area_description4', def_area: t('location.definition_area'))
+
+      .modal-footer
+        %a.btn.btn-default{"data-dismiss" => "modal", :href => "#"}= 'OK'
+>>>>>>> be6a3d03b28a9509a036dff0a7fe565d0d74544e

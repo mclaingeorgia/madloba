@@ -3,6 +3,7 @@ class User::ItemsController < ApplicationController
   before_action :authenticate_user!
   before_action :requires_user
   after_action :verify_authorized
+  after_action :serialize_ads, only: [:update]
 
   def show
     @item = Item.includes(:ads).where(id: params[:id]).first!
@@ -11,7 +12,7 @@ class User::ItemsController < ApplicationController
   end
 
   def new
-    @isAdding = true
+    @adding = true
     @item = Item.new
     authorize @item
     render 'item'
@@ -67,6 +68,16 @@ class User::ItemsController < ApplicationController
 
   def item_params
     params.require(:item).permit(:name, :name_en, :name_ka)
+  end
+
+  # Updates the relevant ads marker_info (jsonb) and update the category id in the 'markers' nested array.
+  def serialize_ads
+    if @item.errors.empty?
+      ads = Ad.joins(:items).where('items.id = ?', params[:id])
+      ads.each do |ad|
+        ad.serialize!
+      end
+    end
   end
 
 end

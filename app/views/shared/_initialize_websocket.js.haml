@@ -1,7 +1,10 @@
-$(function() {
-var adSocket = new AdSocket();
+\// Initialization of websocket url and object.
+App = {websocket_url: "#{"ws://#{request.host}:#{request.port}"}"};
 
-$(window).on('beforeunload', function(){
-adSocket.socket.close();
+$(function() {
+  var adSocket = new AdSocket();
+
+  $(window).on('beforeunload', function(){
+  adSocket.socket.close();
 });
 });

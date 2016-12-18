@@ -36,10 +36,12 @@
       %li
         = t('ad.beneficiaries_age_group')
         \: #{@ad.benef_age_group}
+
     %p
       = t('mailer.description')
       \: #{simple_format(@ad.description)}
     %hr/
+
     - if !@user[:is_anon]
       %p
         = t('mailer.manage_ad_html', :admin_panel => link_to(t('mailer.admin_panel'), @full_admin_url))

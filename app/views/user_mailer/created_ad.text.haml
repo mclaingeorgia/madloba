@@ -20,6 +20,7 @@
 \#{t('location.location')}:
 - @ad.locations.each do |location|
   \- #{location.name_and_or_full_address}
+
 = t('mailer.description')
 \: #{simple_format(@ad.description)}
 

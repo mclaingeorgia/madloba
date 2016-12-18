@@ -1,7 +1,7 @@
-/ 'Send message' text area
+-# 'Send message' text area
 - if !is_owning(ad)
   .col-lg-12.ad-paragraph{:xmlns => "http://www.w3.org/1999/html"}
-    / Send message to the ad publisher
+    -# Send message to the ad publisher
     = form_tag '/ads/send_message', {class:'form-horizontal'} do
       = hidden_field_tag 'id', ad.id
       %fieldset

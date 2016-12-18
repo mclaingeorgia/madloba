@@ -2,13 +2,17 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'bundler'
-gem 'rails', '4.2.4'
+gem 'rails', '4.2.7.1'
 
 # Use Postgresql as the database for Active Record
 gem 'pg'
 
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+# Use Bootstrap and SCSS for stylesheets
+gem 'bootstrap-sass', '~> 3.3.6'
+gem 'sass-rails', '>= 3.2'
+gem 'bootstrap-growl-rails'
+
+gem 'sprockets-rails', '2.3.3'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -22,8 +26,6 @@ gem 'coffee-rails', '~> 4.0.1'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
-gem 'haml'
-
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 #gem 'turbolinks'
 
@@ -33,10 +35,9 @@ gem 'haml'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 #gem 'jbuilder', '~> 2.3.1'
 
-group :doc do
-  # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'sdoc', require: false
-end
+gem 'haml'
+gem 'seed-fu', '~> 2.3'
+gem 'simple_form'
 
 # Used for API calls
 gem 'httparty', '~> 0.13.1'
@@ -80,6 +81,12 @@ gem 'simple_captcha2', require: 'simple_captcha'
 # Gem to enable use of websockets.
 gem 'faye-websocket'
 
+# Get inputs from madloba:install task
+gem 'highline'
+
+gem 'font-awesome-sass'
+gem 'will_paginate', '~> 3.1.0'
+
 group :development, :test do
 
   # Mailcatcher
@@ -98,8 +105,9 @@ group :development, :test do
   gem 'factory_girl_rails'
 
   gem 'awesome_print'
-  gem 'haml-rails'
 
+  gem 'haml-rails'
+  gem 'pry-byebug'
 end
 
 group :test do
@@ -107,7 +115,17 @@ group :test do
   gem 'capybara'
   gem 'guard-rspec'
   gem 'launchy'
+
+  gem 'cucumber-rails', :require => false
   gem 'database_cleaner'
+  gem 'selenium-webdriver'
+  gem 'capybara-screenshot'
+  gem 'capybara-webkit'
+end
+
+group :doc do
+  # bundle exec rake doc:rails generates the API under doc/api.
+  gem 'sdoc', require: false
 end
 
 # For Heroku deployments
