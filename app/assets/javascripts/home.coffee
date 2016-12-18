@@ -23,7 +23,7 @@ Home::init = ->
     $('#sidebar_category_icon').trigger('click')
 
   # After choosing an area, moves the map to where it is.
-  leaf.moveMapBasedOnArea({showAreaIcon: true, zoom: 15})
+  leaf.moveMapBasedOnArea({showAreaIcon: true, zoom: 11})
 
   @updateUrlWhenMovingMap()
 

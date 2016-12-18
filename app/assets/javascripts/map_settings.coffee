@@ -29,3 +29,6 @@ MapSettings::init = ->
         newMapboxVal = $('.mapbox-name-list').val()
         leaf.mapSettings['mapbox_tile_url'] = leaf.mapSettings['mapbox_tile_url'].replace(toReplace, newMapboxVal)
       initLeafletMap(leaf.mapSettings)
+
+  # Make map clickable
+  leaf.map.on 'click', onMapClickLocation

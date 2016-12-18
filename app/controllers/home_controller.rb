@@ -21,15 +21,15 @@ class HomeController < ApplicationController
       @map_settings['my_zoom'] = params[:zoom]
     end
 
-    if (params[:lat] && params[:lon])
-        # The center of the map is now represented by the searched location.
-        @map_settings[:latitude] = params[:lat]
-        @map_settings[:longitude] = params[:lon]
-
-        current_location, popup_html = current_location_for(params)
-        @map_settings[:searched_address] = popup_html
-        @location_search_refinement_to_display = current_location
-    end
+    # if (params[:lat] && params[:lon])
+    #     # The center of the map is now represented by the searched location.
+    #     @map_settings[:latitude] = params[:lat]
+    #     @map_settings[:longitude] = params[:lon]
+    #
+    #     current_location, popup_html = current_location_for(params)
+    #     @map_settings[:searched_address] = popup_html
+    #     @location_search_refinement_to_display = current_location
+    # end
 
     # Defining all the categories attached to an item.
     if selected_item_ids

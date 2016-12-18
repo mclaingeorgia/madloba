@@ -30,21 +30,19 @@
               %li
                 = link_to image_tag('ka.png', size: '24x18')+' '+t('home.ka_language').html_safe + '&nbsp;<i class="glyphicon glyphicon-ok" style="font-size: 9px;"></i>'.html_safe, change_locale_path(:ka)
 
-
-      .nav-form-center
-        -# Search form - start
-        %form#nav_search_form.navbar-form{:action => "/search", :method => "get", :role => "search"}
-          .form-group
-            = select_tag :q, options_for_select([[t('home.searching'),'searching'], [t('home.giving'),'giving']], params['q']), class: 'form-control selectpicker'
-          .form-group
-            = text_field_tag :item, params['item'], class:'typeahead form-control', placeholder: t('home.search_items'), autocomplete: 'off'
-          .form-group
-            = text_field_tag :location,'', class:'form-control', placeholder: t('home.location_example')
-          .form-group
-            = button_tag t('home.search'), :id => 'btn-form-search', :type => 'button',:class => 'btn btn-default'
-          .form-group
-            %span#search_error_message{:style => "color: #d9534f; margin-left: 5px;"}
-        -# Search form - end
+      -# Search form - start
+      %form#nav_search_form.navbar-form{:action => "/search", :method => "get", :role => "search"}
+        .form-group
+          = select_tag :q, options_for_select([[t('home.searching'),'searching'], [t('home.giving'),'giving']], params['q']), class: 'form-control selectpicker'
+        .form-group
+          = text_field_tag :item, params['item'], class:'typeahead form-control', placeholder: t('home.search_items'), autocomplete: 'off'
+        .form-group
+          = text_field_tag :location,'', class:'form-control', placeholder: t('home.location_example')
+        .form-group
+          = button_tag t('home.search'), :id => 'btn-form-search', :type => 'button',:class => 'btn btn-default'
+        .form-group
+          %span#search_error_message{:style => "color: #d9534f; margin-left: 5px;"}
+      -# Search form - end
 
       %ul.nav.navbar-nav.navbar-right
         -# Sign in/Register/User drop down menu - start

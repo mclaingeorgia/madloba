@@ -2,7 +2,7 @@
   #navbarCollapse.navbar-collapse.collapse.navbar-responsive-collapse.navbar-collapse-admin
     %ul.nav.navbar-nav.admin_link
       %li= link_to t('admin.dashboard'), user_index_path
-      - if current_user.admin?
+      - if current_user.super_admin?
         %li= link_to t('admin.manage_records'), user_managerecords_path
         %li= link_to t('admin.left_menu.manage_users'), user_manageusers_path
         %li.dropdown

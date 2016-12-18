@@ -83,7 +83,7 @@ module ApplicationHelper
   # Helpers for map related pages
   # -----------------------------
   def nominatim_ws_response_for(location)
-    url = OSM_NOMINATIM_URL % {location: location}
+    url = OSM_NOMINATIM_URL % {location: location, language: I18n.locale}
     safeurl = URI.parse(URI.encode(url))
     response = HTTParty.get(safeurl)
     if !response.success?

@@ -2,9 +2,9 @@
 App = {websocket_url: "#{"ws://#{request.host}:#{request.port}"}"};
 
 $(function() {
-  var adSocket = new AdSocket();
+var adSocket = new AdSocket();
 
-  $(window).on('beforeunload', function(){
-  adSocket.socket.close();
+$(window).on('beforeunload', function(){
+adSocket.socket.close();
 });
 });
