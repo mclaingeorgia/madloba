@@ -149,22 +149,23 @@ global.markers =
         j = 0
         while j < ad['markers'].length
 
-          item = ad['markers'][j]
+          category = ad['markers'][j]
 
-          if markers.canCategoryBeDisplayed(item)
+          if markers.canCategoryBeDisplayed(category.category_id)
             # Creating the marker for this ad here.
             marker_icon = L.AwesomeMarkers.icon(
               prefix: 'fa'
-              markerColor: item['color']
-              icon: item['icon'])
+              markerColor: category['color']
+              icon: category['icon'])
 
             marker = L.marker([location['lat'], location['lng']],
               icon: marker_icon
               bounceOnAdd: is_bouncing_on_add)
 
             marker.ad_id = ad['ad_id']
-            marker.category_id = location['category_id'];
-            marker.item_id = item['item_id']
+            marker.category_id = category.category_id
+            marker.location_id = location.location_id
+
             popup = L.popup(
               minWidth: 250
               maxWidth: 280).setContent('Loading...')
@@ -173,13 +174,15 @@ global.markers =
             # When a marker is clicked, an Ajax call is made to get the content of the popup to display
             marker.on 'click', (e) ->
               marker_popup = e.target.getPopup()
+
               $.ajax
                 url: '/showAdPopup'
                 global: false
                 type: 'GET'
                 data:
                   ad_id: @ad_id
-                  item_id: @item_id
+                  category_id: @category_id
+                  location_id: @location_id
                 dataType: 'html'
                 beforeSend: (xhr) ->
                   xhr.setRequestHeader 'Accept', 'text/html-partial'
@@ -238,9 +241,9 @@ global.markers =
 
   # We show on the map all the markers if there's no specific navigation state.
   # If there's one, we show only the markers which category are in the nav state.
-  canCategoryBeDisplayed: (item) ->
+  canCategoryBeDisplayed: (categoryId) ->
     markers.selected_categories.length == 0 ||
-    item.category_id.toString() in markers.selected_categories
+      categoryId.toString() in markers.selected_categories
 
 
 

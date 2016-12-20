@@ -119,17 +119,18 @@ class HomeController < ApplicationController
       ad_id = params['ad_id']
       location_id = params['location_id']
       category_id = params['category_id']
-      page = params['page']
 
       ad = Ad.joins([:translations, {locations: :translations}, {categories: :translations}]).where(id: ad_id).first
-      cats = ad.categories
-      number_of_categories = cats.count
-      item = cats.map(&:name).join(', ')
+      category = Category.find(category_id)
+      location = Location.find(location_id)
+
+      item_count = ad.items.count
+
       title = ad.title.length > 40 ? ad.title.chomp(a[-3..-1]) + '...' : ad.title
 
 
       popup_html = "<div style='overflow: auto;'>"
-      popup_html += "<div class='col-xs-12 title-popup' style='background-color: #{item.category.color_code}'>" +
+      popup_html += "<div class='col-xs-12 title-popup' style='background-color: #{category.color_code}'>" +
                     "<span>#{title.capitalize}</span></div>"
 
       if ad.image?
@@ -138,20 +139,20 @@ class HomeController < ApplicationController
       end
 
       # Title
-      popup_html += "<div class='col-xs-12' style='margin-top: 15px;'>#{view_context.link_to(ad.title, ad)}</div>"
+      popup_html += "<div class='col-xs-12' style='margin-top: 15px;'>#{view_context.link_to(ad.title, service_path(ad))}</div>"
 
       # Action (giving away or searching for) + item name
       ad_action = ad.giving ? t('ad.giving_away') : t('ad.accepting')
-      item_name = "<span style='color:" + item.category.color_code + "';><strong>" + item.name + "</strong></span>";
-      and_other_items = number_of_items > 1 ? "and #{number_of_items - 1} other item(s)" : ''
+      item_name = "<span style='color:" + category.color_code + "';><strong>" + category.name + "</strong></span>";
+      and_other_items = item_count > 1 ? "and #{item_count  - 1} other item(s)" : ''
 
       popup_html += "<div class='col-xs-12' style='margin-top: 15px;'>#{ad_action} #{item_name} #{and_other_items}</div>"
 
       # Location full address
-      popup_html += "<div class='col-xs-12' style='margin-bottom: 15px;'>#{ad.location.full_address}</div>"
+      popup_html += "<div class='col-xs-12' style='margin-bottom: 15px;'>#{location.full_address}</div>"
 
       # "Show details" button
-      button = view_context.link_to(t('home.show_details'), ad, class: 'btn btn-info btn-sm no-color' )
+      button = view_context.link_to(t('home.show_details'), service_path(ad), class: 'btn btn-info btn-sm no-color' )
       popup_html += "<div class='col-xs-12 button-popup'>#{button}</div>"
 
       popup_html += "</div>"
