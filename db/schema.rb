@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161124151727) do
+ActiveRecord::Schema.define(version: 20161220025623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -238,9 +238,10 @@ ActiveRecord::Schema.define(version: 20161124151727) do
     t.string   "tile_url"
     t.string   "attribution"
     t.string   "api_key"
-    t.string   "map_name"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "map_georgian_name"
+    t.string   "map_english_name"
   end
 
   create_table "setting_translations", force: :cascade do |t|

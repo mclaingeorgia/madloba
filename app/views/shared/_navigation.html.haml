@@ -57,7 +57,7 @@
                 %li= link_to t('home.page'), root_path
               - elsif current_user.user?
                 %li= link_to t('home.user_panel'), user_index_path
-              - elsif current_user.admin?
+              - elsif current_user.admin? || current_user.super_admin?
                 %li= link_to t('home.admin_panel').capitalize, user_index_path
               %li= link_to t('home.log_out'), destroy_user_session_path, method: :delete
         - else

@@ -26,7 +26,8 @@
                 %i= t('admin.map_settings.key_first')
 
             = f.input :mapbox_api_key, input_html: {style:'width: 400px'}, label: t('admin.map_settings.mapbox_html', account: link_to(t('admin.map_settings.account'), 'https://www.mapbox.com/studio/account/tokens/', target: '_blank')), value: demo? ? '********' : f.object.mapbox_api_key
-            = f.input :mapbox_map_name, input_html: {class:'mapbox-name-list', style:'width: 200px'}, label: t('admin.map_settings.mapbox_map_name'), collection: MapTile::MAPBOX_MAPTILES, include_blank: false
+            = f.input :mapbox_map_english_name, input_html: {style:'width: 200px'}, label: t('admin.map_settings.english_map')
+            = f.input :mapbox_map_georgian_name, input_html: {style:'width: 200px'}, label: t('admin.map_settings.georgian_map')
 
             = f.input :mapquest_api_key, input_html: {style:'width: 400px'}, label: t('admin.map_settings.mapquest_html', account: link_to(t('admin.map_settings.account'), 'http://developer.mapquest.com/web/info/account/app-keys/', target: '_blank')), value: demo? ? '********' : f.object.mapquest_api_key
 

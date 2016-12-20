@@ -21,8 +21,9 @@ class MapTile < ActiveRecord::Base
   def url_builder
     url = tile_url.dup
     if url.present?
+      map_name = I18n.locale == :en ? 'map_english_name' : 'map_georgian_name'
       url.gsub!('<api_key>', api_key) if api_key.present?
-      url.gsub!('<map_id>', map_name) if map_name.present?
+      url.gsub!('<map_id>', self.send(map_name)) if self.send(map_name).present?
     end
     url
   end

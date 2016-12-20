@@ -47,7 +47,7 @@ class User::AdminPanelController < ApplicationController
   end
 
   def general_settings_keys
-    a = %w(app_name summary_en summary_ka description_en description_ka contact_email ad_max_expire facebook twitter pinterest)
+    a = %w(app_name description_en description_ka contact_email ad_max_expire facebook twitter pinterest)
     a = a + link_and_label
     a
   end
@@ -90,9 +90,9 @@ class User::AdminPanelController < ApplicationController
       else
         setting = Setting.find_by_key(key)
         cleaned_data = params[key]
-        if %w(_url facebook pinterest).any? {|word| key.include?(word) }
+        if %w(facebook pinterest).any? {|word| key.include?(word) }
           # Cleaning up the urls
-          if (params[key] != '') && (!params[key].include? 'http')
+          if !params[key].include? 'http'
             cleaned_data = "http://#{params[key]}"
           end
         elsif key == 'ad_max_expire'

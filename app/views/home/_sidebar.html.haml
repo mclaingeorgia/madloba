@@ -125,10 +125,10 @@
             %p= descr
 
           - if @links.any?
+            - label_key = "label_#{I18n.locale}".to_sym
             %hr
             %p= 'More information:'
-            %ul
-              - @links.each do |link|
-                - if link && link[:label] && link[:label] != ''
-                  %li
-                    %a{:href => "#{link[:url]}"}= link[:label]
+            - @links.each do |link|
+              - if link && link[label_key] && link[label_key] != ''
+                .link
+                  %a{:href => "#{link[:url]}"}= link[label_key]

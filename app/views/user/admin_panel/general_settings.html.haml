@@ -8,7 +8,7 @@
               %h2
                 %i.glyphicon.glyphicon-wrench
                 = t('admin.general_settings_menu')
-            / Success/Error flash messages
+
             - if flash[:setting_success] && flash[:setting_success] == 0
               .box-content.alerts
                 .alert.alert-danger
@@ -19,21 +19,28 @@
                 .alert.alert-success
                   %button.close{"data-dismiss" => "alert", :type => "button"} ×
                   = t('admin.general_settings.success_message')
+
             .box-content
               = form_tag '/user/generalsettings/update', html: { id: 'generalSettingFormId' } do
-                / Website name
+                -# Website name
                 .form-group
                   = label_tag 'app_name', t('admin.general_settings.name')+':', class:'control-label'
                   .form-inline
                     = text_field_tag 'app_name', @settings['app_name'], class: 'form-control'
-                / Website description
+
+                -# Website description - english
                 .form-group
-                  = label_tag 'description', t('admin.general_settings.description')+':', class:'control-label'
+                  = label_tag 'description_en', t('admin.general_settings.description')+':', class:'control-label'
                   .form-inline
-                    = text_area_tag 'description', @settings['description'], {class: 'form-control textarea_count', size: '35x8', maxlength: 500}
-                  %span.remaining_characters= @description_remaining
-                  remaining charaters.
-                / Contact e-mail address
+                    = text_area_tag 'description_en', @settings['description_en'], {class: 'form-control textarea_count', size: '35x8', maxlength: 1000}
+
+                -# Website description - georgian
+                .form-group
+                  = label_tag 'description_ka', t('admin.general_settings.description_ka')+':', class:'control-label'
+                  .form-inline
+                    = text_area_tag 'description_ka', @settings['description_ka'], {class: 'form-control textarea_count', size: '35x8', maxlength: 1000}
+
+                -# Contact e-mail address
                 .form-group
                   = label_tag 'contact_email', t('admin.general_settings.contact_email')+':', class:'control-label'
                   .form-inline
@@ -42,7 +49,7 @@
                 %hr
 
                 %h4= t('admin.ad_settings')
-                / Ad settings: Max. number of days before ad expiration
+                -# Ad settings: Max. number of days before ad expiration
                 .form-group
                   = label_tag 'ad_max_expire', t('admin.general_settings.max_ad_expire')+':', class:'control-label'
                   .form-inline
@@ -55,28 +62,30 @@
                 %h4= t('admin.useful_links')
                 .form-group
                   %i= t('admin.general_settings.link_help')
-                / Link 1
+                -# Link 1
                 .form-group
                   = label_tag 'link_one', t('admin.general_settings.link_one')+':', class:'control-label'
                   .form-inline
                     = text_field_tag 'link_one_label', @settings['link_one_label'], class: 'form-control', placeholder: 'Label'
                      
                     \#{text_field_tag 'link_one_url', @settings['link_one_url'], class: 'form-control', placeholder: 'URL'}
-                / Link 2
+                -# Link 2
                 .form-group
                   = label_tag 'link_two', t('admin.general_settings.link_two')+':', class:'control-label'
                   .form-inline
                     = text_field_tag 'link_two_label', @settings['link_two_label'], class: 'form-control', placeholder: 'Label'
                      
                     \#{text_field_tag 'link_two_url', @settings['link_two_url'], class: 'form-control', placeholder: 'URL'}
-                / Link 3
+
+                -# Link 3
                 .form-group
                   = label_tag 'link_three', t('admin.general_settings.link_three')+':', class:'control-label'
                   .form-inline
                     = text_field_tag 'link_three_label', @settings['link_three_label'], class: 'form-control', placeholder: 'Label'
                      
                     \#{text_field_tag 'link_three_url', @settings['link_three_url'], class: 'form-control', placeholder: 'URL'}
-                / Link 4
+
+                -# Link 4
                 .form-group
                   = label_tag 'link_four', t('admin.general_settings.link_four')+':', class:'control-label'
                   .form-inline

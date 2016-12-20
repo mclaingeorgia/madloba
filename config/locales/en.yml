@@ -602,11 +602,11 @@ en:
     map_settings:
       title: Map
       type: "Map type:"
-      mapbox_html: "Mapbox API key (%{account}):"
-      mapbox_map_name: "Mapbox map name:"
+      mapbox_html: "Mapbox API key (%{account})"
+      mapbox_map_name: "Mapbox map name"
       account: "account"
       mapbox_link: Go to your Mapbox account...
-      mapquest_html: "MapQuest API key (%{account}):"
+      mapquest_html: "MapQuest API key (%{account})"
       mapquest_link: Go to your MapQuest developer account...
       map_api_keys: Map API keys
       key_first: After entering a new API key, save changes first. Then select the type of the map related to that new key above.
@@ -615,7 +615,7 @@ en:
       postal_code_field2: Area length
       postal_code_help1: Maximum number of characters used in your city's postal codes (eg. 6 for 'A1B2C3')
       postal_code_help2: Number of characters within the postal codes, that defines an area. (eg. 3 for 'A1B')
-      find_city_map: "Find a city on the map underneath:"
+      find_city_map: "Find a city on the map underneath"
       city: City
       english_map: Mapbox English map ID
       georgian_map: Mapbox Georgian map ID
@@ -623,7 +623,7 @@ en:
       country: Country
       find_city: Find this city
       map_description: "Click on the map to define its default center"
-      map_description_zoom: "Default zoom level:"
+      map_description_zoom: "Default zoom level"
       should_be_numeric: Latitude and longitude should be numeric values.
       cannot_be_empty: Latitude or longitude cannot be empty.
       postal_area_error: The postal code length should be greater or equals to the area code.
