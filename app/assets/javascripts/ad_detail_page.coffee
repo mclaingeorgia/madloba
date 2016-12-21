@@ -6,7 +6,7 @@ global.AdDetailPage = (adType) ->
 
 AdDetailPage::init = ->
 
-  if adType == 'area'
+  if @adType == 'area'
     # Location where full address is not given (area only).
     # Placing a area marker on the map
     area = leaf.mapSettings.area

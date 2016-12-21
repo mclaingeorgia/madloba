@@ -422,25 +422,27 @@ global.initMapClick = (e) ->
 
 global.addFavorite = (obj) ->
   btn = obj
-  posting = $.post('/user/favorite/add', { ad_id: btn.attr('id') }, (data) ->
-    status = data.status
-    return
-  )
-  posting.done ->
-    if status == 'ok'
-      # Districts were updated via
-      btn.removeClass('add_to_favorite_button btn-warning').addClass 'btn-danger remove_favorite_button'
-      btn.html '<i class=\'glyphicon glyphicon-star\'></i>&nbsp;' + gon.vars['remove_from_favorites']
-      $('#ad_star').show()
-      btn.unbind()
-      btn.on 'click', ->
-        removeFavorite obj
-        return
-    else
-      # Something bad happened. We're not submitting the page.
+  $.ajax
+    url: '/user/favorite/add'
+    global: false
+    type: 'POST'
+    data:
+      ad_id: btn.attr('id')
+    success: (data) ->
+      if data.status == 'ok'
+        btn.removeClass('add_to_favorite_button btn-warning').addClass 'btn-danger remove_favorite_button'
+        btn.html '<i class=\'glyphicon glyphicon-star\'></i>&nbsp;' + gon.vars['remove_from_favorites']
+        $('#ad_star').show()
+        btn.unbind()
+        btn.on 'click', ->
+          removeFavorite obj
+          return
+      else
+        $('#error_remove').html 'Sorry, server error occured. Try again later.'
+
+    error: (data) ->
       $('#error_remove').html 'Sorry, server error occured. Try again later.'
-    return
-  return
+
 
 
 ###*
@@ -450,29 +452,33 @@ global.addFavorite = (obj) ->
 global.removeFavorite = (obj) ->
   btn = obj
   isInAdmin = obj.attr('class') == 'btn btn-danger remove_favorite'
-  posting = $.post('/user/favorite/remove', { ad_id: btn.attr('id') }, (data) ->
-    status = data.status
-    return
-  )
-  posting.done ->
-    if status == 'ok'
-      if isInAdmin
-        # admin favorite page : remove the whole line
-        btn[0].closest('tr').remove()
+
+  $.ajax
+    url: '/user/favorite/remove'
+    global: false
+    type: 'POST'
+    data:
+      ad_id: btn.attr('id')
+    success: (data) ->
+      if data.status == 'ok'
+        if isInAdmin
+          # admin favorite page : remove the whole line
+          btn[0].closest('tr').remove()
+        else
+          # ads show page: change the button
+          btn.addClass('add_to_favorite_button btn-warning').removeClass 'btn-danger remove_favorite_button'
+          btn.html '<i class=\'glyphicon glyphicon-star\'></i>&nbsp;' + gon.vars['add_to_favorites']
+          btn.unbind()
+          $('#ad_star').hide()
+          btn.on 'click', ->
+            addFavorite obj
+            return
       else
-        # ads show page: change the button
-        btn.addClass('add_to_favorite_button btn-warning').removeClass 'btn-danger remove_favorite_button'
-        btn.html '<i class=\'glyphicon glyphicon-star\'></i>&nbsp;' + gon.vars['add_to_favorites']
-        btn.unbind()
-        $('#ad_star').hide()
-        btn.on 'click', ->
-          addFavorite obj
-          return
-    else
-      # Something bad happened. We're showing an error message.
+        $('#error_remove').html 'Sorry, server error occured. Try again later.'
+
+    error: (data) ->
       $('#error_remove').html 'Sorry, server error occured. Try again later.'
-    return
-  return
+
 
   
 ###*

@@ -140,8 +140,7 @@ class User::AdminPanelController < ApplicationController
     else
       message= 'error'
     end
-
-    render json: {'status' => message}
+    render json: {status: message}
   end
 
   def remove_favorite
@@ -152,7 +151,7 @@ class User::AdminPanelController < ApplicationController
     else
       message= 'error'
     end
-    render json: {'status' => message}
+    render json: {status: message}
   end
 
   # -----------------------------------

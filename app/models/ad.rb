@@ -163,6 +163,15 @@ class Ad < ActiveRecord::Base
     self.image_url(:thumb)
   end
 
+  def is_a_favorite_of(user)
+    result = false
+    if user && user.favorite_ads
+      favorite_ads = user.favorite_ads.pluck(:id)
+      result = favorite_ads.include?(self.id)
+    end
+    return result
+  end
+
   def recreate_delayed_versions!
     self.image.is_processing_delayed = true
     self.image.recreate_versions!

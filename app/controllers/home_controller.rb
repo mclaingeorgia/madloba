@@ -142,11 +142,10 @@ class HomeController < ApplicationController
       popup_html += "<div class='col-xs-12' style='margin-top: 15px;'>#{view_context.link_to(ad.title, service_path(ad))}</div>"
 
       # Action (giving away or searching for) + item name
-      ad_action = ad.giving ? t('ad.giving_away') : t('ad.accepting')
       item_name = "<span style='color:" + category.color_code + "';><strong>" + category.name + "</strong></span>";
       and_other_items = item_count > 1 ? "and #{item_count  - 1} other item(s)" : ''
 
-      popup_html += "<div class='col-xs-12' style='margin-top: 15px;'>#{ad_action} #{item_name} #{and_other_items}</div>"
+      popup_html += "<div class='col-xs-12' style='margin-top: 15px;'>#{item_name} #{and_other_items}</div>"
 
       # Location full address
       popup_html += "<div class='col-xs-12' style='margin-bottom: 15px;'>#{location.full_address}</div>"
