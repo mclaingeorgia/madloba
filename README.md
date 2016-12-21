@@ -18,9 +18,9 @@ If you want run Madloba on your local machine, follow these steps:
 
 1. Make sure you have these prerequisites installed:
   - [Git](https://github.com/etiennebaque/madloba/wiki/Install-Git-on-your-local-machine)
-  - [Ruby 2.2.2](https://github.com/etiennebaque/madloba/wiki/Install-Ruby-on-your-local-machine)
+  - [Ruby 2.3.3](https://github.com/etiennebaque/madloba/wiki/Install-Ruby-on-your-local-machine)
   - [Bundler](http://bundler.io/)
-  - [Postgresql 9.4](http://www.postgresql.org/download/)
+  - [Postgresql 9.6](http://www.postgresql.org/download/)
 
 2. Run the following commands:
     ```
