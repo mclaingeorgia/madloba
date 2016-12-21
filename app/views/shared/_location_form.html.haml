@@ -47,19 +47,19 @@
 
     -# Block, Unit - English
     .form-group
-      = form.label :block_unit_en, t('location.block_unit_en'), class: label_class
+      = form.label :block_unit_en, t('location.block_unit_en'), class: 'col-lg-2 control-label'
       .col-lg-6
         = form.text_field :block_unit_en, class: 'form-control help-message', maxlength:'90'
 
     -# Block, Unit - Georgian
     .form-group
-      = form.label :block_unit_ka, t('location.block_unit_ka'), class: label_class
+      = form.label :block_unit_ka, t('location.block_unit_ka'), class: 'col-lg-2 control-label'
       .col-lg-6
         = form.text_field :block_unit_ka, class: 'form-control help-message', maxlength:'90'
 
     -# Street name - English
     .form-group
-      = form.label :address_en, t('location.street_name_en'), class: label_class
+      = form.label :address_en, t('location.street_name_en'), class: 'col-lg-2 control-label'
       .col-lg-6
         = form.text_field :address_en, class: 'form-control help-message location_streetname', maxlength:'90',
           :data => {:content => t('location.street_name_help'),
@@ -67,7 +67,7 @@
 
     -# Street name - Georgian
     .form-group
-      = form.label :address_ka, t('location.street_name_ka'), class: label_class
+      = form.label :address_ka, t('location.street_name_ka'), class: 'col-lg-2 control-label'
       .col-lg-6
         = form.text_field :address_ka, class: 'form-control help-message', maxlength:'90',
           :data => {:content => t('location.street_name_help'),
@@ -75,31 +75,31 @@
 
     -# Village - English
     .form-group
-      = form.label :village_en, t('location.village_en'), class: label_class
+      = form.label :village_en, t('location.village_en'), class: 'col-lg-2 control-label'
       .col-lg-6
         = form.text_field :village_en, class: 'form-control help-message', maxlength:'90'
 
     -# Village - Georgian
     .form-group
-      = form.label :village_ka, t('location.village_ka'), class: label_class
+      = form.label :village_ka, t('location.village_ka'), class: 'col-lg-2 control-label'
       .col-lg-6
         = form.text_field :village_ka, class: 'form-control help-message', maxlength:'90'
 
     -# City - English
     .form-group
-      = form.label :city_en, t('location.city_en')+'*:', class: label_class
+      = form.label :city_en, t('location.city_en')+'*:', class: 'col-lg-2 control-label'
       .col-lg-6
         = form.text_field :city_en, class: 'form-control help-message location_city', maxlength:'90'
 
     -# City - Georgian
     .form-group
-      = form.label :city_ka, t('location.city_ka')+'*:', class: label_class
+      = form.label :city_ka, t('location.city_ka')+'*:', class: 'col-lg-2 control-label'
       .col-lg-6
         = form.text_field :city_ka, class: 'form-control help-message', maxlength:'90'
 
     -# Region drop-down box
     .form-group
-      = form.label :province, t('location.province')+'*:', class: label_class
+      = form.label :province, t('location.province')+'*:', class: 'col-lg-2 control-label'
       .col-lg-4
         = form.select :province, options_for_select(region_list, form.object.province), {}, {class: 'form-control location_region'}
 
@@ -145,7 +145,7 @@
 
   -# Location description - English
   .form-group
-    = form.label :description_en, t('location.description_en'), class: label_class, style: 'padding-top: 20px;'
+    = form.label :description_en, t('location.description_en'), class: 'col-lg-2 control-label', style: 'padding-top: 20px;'
     .col-lg-6
       = form.text_area :description_en, class: 'help-message', cols: 40, rows: 6,
         :data => {:content => t('location.description_help'),
@@ -153,10 +153,10 @@
 
   -# Location description - Georgian
   .form-group
-    = form.label :description_ka, t('location.description_ka'), class: label_class
+    = form.label :description_ka, t('location.description_ka'), class: 'col-lg-2 control-label'
     .col-lg-6
-      = form.text_area :description_ka, class: 'help-message', cols: 40, rows: 6, |
-        :data => {:content => t('location.description_help'),                     |
+      = form.text_area :description_ka, class: 'help-message', cols: 40, rows: 6,
+        :data => {:content => t('location.description_help'),
         :placement => 'right', :toggle => 'popover', :trigger => 'hover focus'}
 
   -# Phone number
@@ -168,7 +168,7 @@
 
   -# Additional phone numbers
   .form-group
-    = form.label :add_phone_number, t('location.add_phone_number'), class: label_class
+    = form.label :add_phone_number, t('location.add_phone_number'), class: 'col-lg-2 control-label'
     .col-lg-6
       .col-lg-6.input-group
         %span.input-group-addon +995
@@ -180,8 +180,8 @@
 
   -# Facebook
   .form-group
-    = form.label :facebook, t('location.facebook'), class: label_class
-    %div{:class => col4}
+    = form.label :facebook, t('location.facebook'), class: 'col-lg-2 control-label'
+    .col-lg-4
       = form.text_field :facebook, class: 'form-control'
 
   -# Website

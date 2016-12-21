@@ -32,7 +32,7 @@ module User::AdsHelper
         publisher_name = ad_user.username
       else
         ad_user = ad.user
-        if ad.is_username_used
+        if ad.username_used?
           publisher_name = ad_user.username
         else
           publisher_name = "#{ad_user.first_name} #{ad_user.last_name}"

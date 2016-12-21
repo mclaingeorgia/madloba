@@ -1,7 +1,7 @@
 - page ||= 'new'
 - form_id = "ad_#{page}_form"
 - obj ||= @ad
-= form_for obj, html: { id: form_id, class: 'form-horizontal', role: 'form', multipart: true } do |f|
+= form_for obj, url: services_path, html: { id: form_id, class: 'form-horizontal', role: 'form', multipart: true } do |f|
   - note_about_expiration_date = page == 'new' ? expire_date_for_new_ad : expire_date_for(@ad)
   %fieldset
 
@@ -122,7 +122,7 @@
     -# Location form partial
     .location-form-for-ad
       = f.fields_for :location, Location.new, html: {class: 'form-horizontal'} do |loc|
-        = render 'shared/location_form', form: loc, location: @ad.location
+        = render 'shared/location_form', form: loc, location: @ad.locations.first
 
     -# if anonymous user creates an ad, we need to ask for their name and email
     -# They need to provide a response to a captcha

@@ -136,7 +136,7 @@ class User::AdsController < ApplicationController
   end
 
   def ad_params
-    params.require(:ad).permit(:title, :title_en, :title_ka, :description, :description_en, :description_ka, :legal_form, :is_username_used, {location_ids: []}, :is_giving, {category_ids: []}, :user_id,
+    params.require(:ad).permit(:title, :title_en, :title_ka, :description, :description_en, :description_ka, :legal_form, :username_used, {location_ids: []}, :is_giving, {category_ids: []}, :user_id,
                                :image, :image_cache, :remove_image, :anon_name, :anon_email, :captcha, :captcha_key, :benef_age_group, :is_published,
                                :ad_items_attributes => [:id, :item_id, :_destroy, :item_attributes => [:id, :name, :name_en, :name_ka, :_destroy] ],
                                :ad_locations_attributes => [:id, :location_id, :_destroy, :location_attributes => [:id, :user_id, :name, :name_en, :name_ka, :street_number, :address, :address_en, :address_ka,
@@ -210,7 +210,7 @@ class User::AdsController < ApplicationController
     if %w(show send_message).include?(action_name)
       @map_settings = MapAdInfo.new(@ad).to_hash
     else
-      location = @ad.location
+      location = @ad.locations.first
       @map_settings = MapLocationInfo.new(location: location).to_hash
     end
   end

@@ -69,7 +69,7 @@
               -# 'Make admin' checkbox
               - if current_user.super_admin? && current_user != @user
                 .form-group
-                  = f.label :is_username_used, t('admin.profile.user_role'), class: 'control-label'
+                  = f.label :username_used, t('admin.profile.user_role'), class: 'control-label'
                   .radio
                     %label
                       = f.radio_button :role, 'user', {checked: true}
