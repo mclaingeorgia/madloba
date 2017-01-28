@@ -195,9 +195,9 @@ class ApplicationController < ActionController::Base
       if [PREFETCH_AD_ITEMS, SEARCH_IN_AD_ITEMS].include? (typeahead_type)
 
         # We also need to include the name of the services
-        matched_services = Ad.with_translations(I18n.locale).where('post_translations.title LIKE ?', "%#{params[:item].capitalize}%").pluck('post_translations.post_id, post_translations.title')
+        matched_services = Post.with_translations(I18n.locale).where('post_translations.title LIKE ?', "%#{params[:item].capitalize}%").pluck('post_translations.post_id, post_translations.title')
         if matched_services.empty?
-          matched_services = Ad.with_translations(I18n.locale).where('post_translations.title LIKE ?', "%#{params[:item].downcase}%").pluck('post_translations.post_id, post_translations.title')
+          matched_services = Post.with_translations(I18n.locale).where('post_translations.title LIKE ?', "%#{params[:item].downcase}%").pluck('post_translations.post_id, post_translations.title')
         end
 
         matched_services.each do |match|

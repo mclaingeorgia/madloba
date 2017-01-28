@@ -1,5 +1,5 @@
 class AdPolicy < ApplicationPolicy
-  attr_reader :user, :ad
+  attr_reader :user, :post
 
   def initialize(user, post)
     @user = user

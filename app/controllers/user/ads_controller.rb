@@ -8,7 +8,7 @@ class User::AdsController < ApplicationController
   include ApplicationHelper
 
   def show
-    @post = Ad.includes(:locations).where(id: params['id']).first!
+    @post = Post.includes(:locations).where(id: params['id']).first!
     authorize @post
 
     # Redirection to the home page, if this post has expired, expect if current user owns this post.
@@ -25,7 +25,7 @@ class User::AdsController < ApplicationController
   end
 
   def new
-    @post = Ad.new
+    @post = Post.new
     @post.translations.build locale: :en
     @post.translations.build locale: :ka
     authorize @post
@@ -43,7 +43,7 @@ class User::AdsController < ApplicationController
   end
 
   def create
-    @post = Ad.new(sanitize_post_params)
+    @post = Post.new(sanitize_post_params)
     authorize @post
 
     # we tie now the user to the post (if it is an anonymous user, current_user is nil)
@@ -63,7 +63,7 @@ class User::AdsController < ApplicationController
       # Sending email confirmation, about the creation of the post.
       full_admin_url = "http://#{request.env['HTTP_HOST']}/user/manageposts"
       # Reloading the now-created post, with associated items.
-      @post = Ad.includes([:items, :categories]).where(id: @post.id).first
+      @post = Post.includes([:items, :categories]).where(id: @post.id).first
       user_info = {}
       if current_user
         user_info = {email: current_user.email, name: current_user.first_name, is_anon: false}
@@ -89,13 +89,13 @@ class User::AdsController < ApplicationController
   end
 
   def edit
-    @post = Ad.includes(:location => :area).where(id: params[:id]).first!
+    @post = Post.includes(:location => :area).where(id: params[:id]).first!
     authorize @post
     get_map_settings_for_ad
   end
 
   def update
-    @post = Ad.find(params[:id])
+    @post = Post.find(params[:id])
     authorize @post
 
     # Performing the update.
@@ -120,7 +120,7 @@ class User::AdsController < ApplicationController
   end
 
   def destroy
-    @post = Ad.find(params[:id])
+    @post = Post.find(params[:id])
     authorize @post
     deleted_post_title = @post.title
 
@@ -136,7 +136,7 @@ class User::AdsController < ApplicationController
   end
 
   def post_params
-    params.require(:ad).permit(:title, :title_en, :title_ka, :description, :description_en, :description_ka, :legal_form, :username_used, {location_ids: []}, :is_giving, {category_ids: []}, :user_id,
+    params.require(:post).permit(:title, :title_en, :title_ka, :description, :description_en, :description_ka, :legal_form, :username_used, {location_ids: []}, :is_giving, {category_ids: []}, :user_id,
                                :image, :image_cache, :remove_image, :anon_name, :anon_email, :captcha, :captcha_key, :benef_age_group, :is_published,
                                :post_items_attributes => [:id, :item_id, :_destroy, :item_attributes => [:id, :name, :name_en, :name_ka, :_destroy] ],
                                :post_locations_attributes => [:id, :location_id, :_destroy, :location_attributes => [:id, :user_id, :name, :name_en, :name_ka, :street_number, :address, :address_en, :address_ka,
@@ -150,7 +150,7 @@ class User::AdsController < ApplicationController
   # It sends the reply to the user who published this post.
   def send_message
     message = params[:message]
-    @post = Ad.find(params['id'])
+    @post = Post.find(params['id'])
 
     if current_user == nil && !simple_captcha_valid?
       flash.now[:error_message] = t('post.captcha_not_valid')

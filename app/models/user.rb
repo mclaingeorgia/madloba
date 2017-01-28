@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   has_many :locations, dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :post_users
-  has_many :favorite_posts, through: :post_users, source: :ad
+  has_many :favorite_posts, through: :post_users, source: :post
 
   def owns_post (post)
     self.posts.include?(post)

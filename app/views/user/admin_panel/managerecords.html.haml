@@ -40,7 +40,7 @@
                     - if current_user.super_admin?
                       %th= t('admin.actions')
                 %tbody
-                  - Ad.includes(:items).all.each do |post|
+                  - Post.includes(:items).all.each do |post|
                     %tr
                       %td.vert-align= post.id
                       %td.vert-align= post.title

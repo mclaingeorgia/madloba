@@ -94,7 +94,7 @@ class HomeController < ApplicationController
   # ------------------
   def results
     id = params[:area].to_i
-    @posts = Ad.includes(:location).where(locations: {area_id: id})
+    @posts = Post.includes(:location).where(locations: {area_id: id})
                .paginate(page: params[:page] || 1, per_page: 10 )
 
     @area = Area.find(id)
@@ -110,7 +110,7 @@ class HomeController < ApplicationController
       location_id = params['location_id']
       category_id = params['category_id']
 
-      post = Ad.joins([:translations, {locations: :translations}, {categories: :translations}]).where(id: post_id).first
+      post = Post.joins([:translations, {locations: :translations}, {categories: :translations}]).where(id: post_id).first
       category = Category.find(category_id)
       location = Location.find(location_id)
 
@@ -236,7 +236,7 @@ class HomeController < ApplicationController
 
     response = {}
     response['map_info'] = {}
-    response['map_info']['markers'] = Ad.search(selected_categories, searched_item, selected_item_ids, nav_params[:q], nil)
+    response['map_info']['markers'] = Post.search(selected_categories, searched_item, selected_item_ids, nav_params[:q], nil)
 
     #response['map_info']['area'] = Location.search('area', selected_categories, searched_item, selected_item_ids, nav_params[:q])
     #response['map_info']['area'] = Area.search(selected_categories, selected_item_ids, nav_params[:q])
@@ -250,7 +250,7 @@ class HomeController < ApplicationController
     item_name = params['item']
     location_type = params['type'] # 'postal', or 'area'
     area_value = params['area'] # code postal area code, or area id
-    posts = Ad.joins(:location, :items).where('expire_date >= ? AND  items.name = ?', Date.today, location_type, item_name)
+    posts = Post.joins(:location, :items).where('expire_date >= ? AND  items.name = ?', Date.today, location_type, item_name)
     item = Item.joins(:category).where('items.name = ?', item_name).first
 
     result = {}
@@ -279,7 +279,7 @@ class HomeController < ApplicationController
 
   def location_search_result_objects(params, cat_nav_state, selected_item_ids, settings)
     # First, we get the posts tied to an exact location.
-    @locations_exact = Ad.search(cat_nav_state, params[:item], selected_item_ids, params[:q], nil)
+    @locations_exact = Post.search(cat_nav_state, params[:item], selected_item_ids, params[:q], nil)
 
     # If the users have the possiblity to post post linked to a pre-defined area, we also get here these type of posts.
     # locations_area = Location.search('area', cat_nav_state, params[:item], selected_item_ids, params[:q])

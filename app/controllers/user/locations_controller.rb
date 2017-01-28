@@ -147,7 +147,7 @@ class User::LocationsController < ApplicationController
   # Updates the relevant posts marker_info (jsonb)
   def serialize_posts
     if @location.errors.empty?
-      Ad.joins(:items).where(items: {id: @location.id}).each do |post|
+      Post.joins(:items).where(items: {id: @location.id}).each do |post|
         post.serialize!
       end
     end

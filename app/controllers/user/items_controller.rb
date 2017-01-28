@@ -73,7 +73,7 @@ class User::ItemsController < ApplicationController
   # Updates the relevant posts marker_info (jsonb) and update the category id in the 'markers' nested array.
   def serialize_posts
     if @item.errors.empty?
-      posts = Ad.joins(:items).where('items.id = ?', params[:id])
+      posts = Post.joins(:items).where('items.id = ?', params[:id])
       posts.each do |post|
         post.serialize!
       end

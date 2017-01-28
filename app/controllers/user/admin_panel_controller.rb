@@ -133,7 +133,7 @@ class User::AdminPanelController < ApplicationController
   end
 
   def add_favorite
-    post = Ad.find(params['post_id'])
+    post = Post.find(params['post_id'])
     message = 'ok'
     if post
       current_user.favorite_posts << post
@@ -262,7 +262,7 @@ class User::AdminPanelController < ApplicationController
   # Methods for regular user screens
   # --------------------------------
   def manageposts
-    @posts = Ad.includes(:items).where(user: current_user)
+    @posts = Post.includes(:items).where(user: current_user)
     @locations = Location.where(user: current_user)
   end
 

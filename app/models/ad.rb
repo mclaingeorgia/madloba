@@ -48,10 +48,10 @@ class Ad < ActiveRecord::Base
 
     if post_id.present?
       # Search by post ids when adding posts on home page dynamically, when other user just created an post (websocket)
-      posts = Ad.find(post_id)
+      posts = Post.find(post_id)
       posts = [posts.marker_info]
     else
-      posts = Ad.select(:marker_info).where("expire_date >= ? and (marker_info->>'post_id') is not null", Date.today)
+      posts = Post.select(:marker_info).where("expire_date >= ? and (marker_info->>'post_id') is not null", Date.today)
 
       if cat_nav_state || searched_item
         if cat_nav_state

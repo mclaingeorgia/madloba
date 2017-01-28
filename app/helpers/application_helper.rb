@@ -16,7 +16,7 @@ module ApplicationHelper
 
   # Regardless of what the current navigation state is, we need store all the item names into an array, in order to make the type-ahead of the item search bar work.
   def all_posts_items
-    Ad.joins(:item).pluck(:name).uniq
+    Post.joins(:item).pluck(:name).uniq
   end
 
   # Checks if we're on the Madloba demo website
