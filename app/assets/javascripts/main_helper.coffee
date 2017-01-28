@@ -142,17 +142,17 @@ global.markers =
   place_exact_locations_markers: (locations_exact, is_bouncing_on_add) ->
     i = 0
     while i < locations_exact.length
-      ad = locations_exact[i]
+      post = locations_exact[i]
       l = 0
-      while l < ad['locations'].length
-        location = ad['locations'][l];
+      while l < post['locations'].length
+        location = post['locations'][l];
         j = 0
-        while j < ad['markers'].length
+        while j < post['markers'].length
 
-          category = ad['markers'][j]
+          category = post['markers'][j]
 
           if markers.canCategoryBeDisplayed(category.category_id)
-            # Creating the marker for this ad here.
+            # Creating the marker for this post here.
             marker_icon = L.AwesomeMarkers.icon(
               prefix: 'fa'
               markerColor: category['color']
@@ -162,7 +162,7 @@ global.markers =
               icon: marker_icon
               bounceOnAdd: is_bouncing_on_add)
 
-            marker.ad_id = ad['ad_id']
+            marker.post_id = post['post_id']
             marker.category_id = category.category_id
             marker.location_id = location.location_id
 
@@ -180,7 +180,7 @@ global.markers =
                 global: false
                 type: 'GET'
                 data:
-                  ad_id: @ad_id
+                  post_id: @post_id
                   category_id: @category_id
                   location_id: @location_id
                 dataType: 'html'
@@ -248,7 +248,7 @@ global.markers =
 
 
 ###*
-# Main function that initializes the map on different screens (eg home page, map setting page, ad page...).
+# Main function that initializes the map on different screens (eg home page, map setting page, post page...).
 # @param map_settings - hash that contains all info needed to initialize the map.
 ###
 
@@ -262,7 +262,7 @@ global.initLeafletMap = (map_settings) ->
 
 
 ###*
-# This function draws areas (where at least one current ad is included)
+# This function draws areas (where at least one current post is included)
 # on the map of the home page.
 ###
 global.drawAreasOnMap = (locations_area) ->
@@ -271,7 +271,7 @@ global.drawAreasOnMap = (locations_area) ->
     area_name = markers.area_geocodes[area_id]['name']
     area_bounds = markers.area_geocodes[area_id]['bounds']
 
-    # Adding the areas (which have ads) to the home page map.
+    # Adding the areas (which have posts) to the home page map.
     areaLayer = L.geoJson JSON.parse(area_bounds), onEachFeature: (feature, layer) ->
       layer.setStyle color: markers.area_color
       markers.area_group.addLayer layer
@@ -320,7 +320,7 @@ global.onMapClickLocation = (e) ->
 
 
 # Event triggered when click on "Locate me on the map" button,
-# on the "Create ad" form, and on the Ad edit form.
+# on the "Create post" form, and on the Ad edit form.
 global.find_geocodes = ->
   $('#find_geocodes_from_address').button().click ->
     location_type = 'exact'
@@ -427,12 +427,12 @@ global.addFavorite = (obj) ->
     global: false
     type: 'POST'
     data:
-      ad_id: btn.attr('id')
+      post_id: btn.attr('id')
     success: (data) ->
       if data.status == 'ok'
         btn.removeClass('add_to_favorite_button btn-warning').addClass 'btn-danger remove_favorite_button'
         btn.html '<i class=\'glyphicon glyphicon-star\'></i>&nbsp;' + gon.vars['remove_from_favorites']
-        $('#ad_star').show()
+        $('#post_star').show()
         btn.unbind()
         btn.on 'click', ->
           removeFavorite obj
@@ -458,18 +458,18 @@ global.removeFavorite = (obj) ->
     global: false
     type: 'POST'
     data:
-      ad_id: btn.attr('id')
+      post_id: btn.attr('id')
     success: (data) ->
       if data.status == 'ok'
         if isInAdmin
           # admin favorite page : remove the whole line
           btn[0].closest('tr').remove()
         else
-          # ads show page: change the button
+          # posts show page: change the button
           btn.addClass('add_to_favorite_button btn-warning').removeClass 'btn-danger remove_favorite_button'
           btn.html '<i class=\'glyphicon glyphicon-star\'></i>&nbsp;' + gon.vars['add_to_favorites']
           btn.unbind()
-          $('#ad_star').hide()
+          $('#post_star').hide()
           btn.on 'click', ->
             addFavorite obj
             return

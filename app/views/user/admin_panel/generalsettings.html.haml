@@ -59,13 +59,13 @@
                 .form-inline
                   = email_field_tag 'contact_email', @settings['contact_email'], class: 'form-control', size: 35
               %hr/
-              %h4= t('admin.ad_settings')
-              / Ad settings: Max. number of days before ad expiration
+              %h4= t('admin.post_settings')
+              / Ad settings: Max. number of days before post expiration
               .form-group
-                = label_tag 'ad_max_expire', t('admin.general_settings.max_ad_expire')+':', class:'control-label'
+                = label_tag 'post_max_expire', t('admin.general_settings.max_post_expire')+':', class:'control-label'
                 .form-inline
-                  = number_field_tag 'ad_max_expire', @settings['ad_max_expire'], class: 'form-control', maxlength: '4', min: 0, max: 1000, |
-                    :data => {:content => t('admin.general_settings.max_ad_expire_help'), :placement => 'right',                            |
+                  = number_field_tag 'post_max_expire', @settings['post_max_expire'], class: 'form-control', maxlength: '4', min: 0, max: 1000, |
+                    :data => {:content => t('admin.general_settings.max_post_expire_help'), :placement => 'right',                            |
                     :toggle => 'popover', :trigger => 'hover focus'}                                                                        |
               %hr/
               %h4= t('admin.useful_links')

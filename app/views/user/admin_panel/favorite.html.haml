@@ -33,23 +33,23 @@
                 %table.table.table-striped.table-bordered.bootstrap-datatable.datatable.responsive
                   %thead
                     %tr
-                      %th= t('admin.item.ad_title')
+                      %th= t('admin.item.post_title')
                       %th= t('mailer.description')
                       %th{:style => "min-width: 210px;"}= t('admin.actions')
                   %tbody
-                    - @favorites.each do |ad_favorite|
+                    - @favorites.each do |post_favorite|
                       %tr
-                        %td.vert-align= link_to ad_favorite.title, service_path(ad_favorite.id)
+                        %td.vert-align= link_to post_favorite.title, service_path(post_favorite.id)
                         %td.vert-align
-                          = ad_favorite.description[0..90]
+                          = post_favorite.description[0..90]
                           \...
                         %td.center
-                          = link_to t('admin.see_service'), service_path(ad_favorite.id), class: 'btn btn-success', style: 'margin-right: 10px;'
-                          %a.btn.btn-danger.remove_favorite{:href => "#", :id => "#{ad_favorite.id}"}
+                          = link_to t('admin.see_service'), service_path(post_favorite.id), class: 'btn btn-success', style: 'margin-right: 10px;'
+                          %a.btn.btn-danger.remove_favorite{:href => "#", :id => "#{post_favorite.id}"}
                             = t('general_js.remove')
               - else
                 %p
-                  %i= t('ad.no_favorite_yet')
+                  %i= t('post.no_favorite_yet')
       / /span
     / content ends
   / /#content.span10

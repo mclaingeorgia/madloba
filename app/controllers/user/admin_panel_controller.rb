@@ -47,7 +47,7 @@ class User::AdminPanelController < ApplicationController
   end
 
   def general_settings_keys
-    a = %w(app_name description_en description_ka contact_email ad_max_expire facebook twitter pinterest)
+    a = %w(app_name description_en description_ka contact_email post_max_expire facebook twitter pinterest)
     a = a + link_and_label
     a
   end
@@ -95,7 +95,7 @@ class User::AdminPanelController < ApplicationController
           if !params[key].include? 'http'
             cleaned_data = "http://#{params[key]}"
           end
-        elsif key == 'ad_max_expire'
+        elsif key == 'post_max_expire'
           Rails.cache.write(CACHE_MAX_DAYS_EXPIRE, cleaned_data)
         end
         if setting
@@ -129,14 +129,14 @@ class User::AdminPanelController < ApplicationController
   # Methods for 'Favorite services' screen
   # ----------------------------------
   def favorite
-    @favorites = current_user.favorite_ads
+    @favorites = current_user.favorite_posts
   end
 
   def add_favorite
-    ad = Ad.find(params['ad_id'])
+    post = Ad.find(params['post_id'])
     message = 'ok'
-    if ad
-      current_user.favorite_ads << ad
+    if post
+      current_user.favorite_posts << post
     else
       message= 'error'
     end
@@ -144,10 +144,10 @@ class User::AdminPanelController < ApplicationController
   end
 
   def remove_favorite
-    ad_user = AdUser.where(ad_id: params['ad_id'], user_id: current_user.id).first
+    post_user = AdUser.where(post_id: params['post_id'], user_id: current_user.id).first
     message = 'ok'
-    if ad_user
-      ad_user.delete
+    if post_user
+      post_user.delete
     else
       message= 'error'
     end
@@ -261,8 +261,8 @@ class User::AdminPanelController < ApplicationController
   # --------------------------------
   # Methods for regular user screens
   # --------------------------------
-  def manageads
-    @ads = Ad.includes(:items).where(user: current_user)
+  def manageposts
+    @posts = Ad.includes(:items).where(user: current_user)
     @locations = Location.where(user: current_user)
   end
 

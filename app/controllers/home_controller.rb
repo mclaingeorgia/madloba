@@ -14,30 +14,20 @@ class HomeController < ApplicationController
     # We check if the user searched for an item and/or a location
     if params[:item] && params[:item] != ''
       # An item is being searched.
-      selected_item_ids = Item.joins(:ads).where('name LIKE ?', "%#{params[:item].downcase}%").pluck(:id).uniq
+      selected_item_ids = Item.joins(:posts).where('name LIKE ?', "%#{params[:item].downcase}%").pluck(:id).uniq
     end
 
     if (params[:zoom])
       @map_settings['my_zoom'] = params[:zoom]
     end
 
-    # if (params[:lat] && params[:lon])
-    #     # The center of the map is now represented by the searched location.
-    #     @map_settings[:latitude] = params[:lat]
-    #     @map_settings[:longitude] = params[:lon]
-    #
-    #     current_location, popup_html = current_location_for(params)
-    #     @map_settings[:searched_address] = popup_html
-    #     @location_search_refinement_to_display = current_location
-    # end
-
     # Defining all the categories attached to an item.
     if selected_item_ids
       # We select here only the categories, based on the items found after a search.
-      @categories = Category.joins(ads: :items).where("items.id IN (?)", selected_item_ids).order('name asc').uniq
+      @categories = Category.joins(posts: :items).where("items.id IN (?)", selected_item_ids).order('name asc').uniq
     else
       # We select the categories related to all available items
-      @categories = Category.joins(:ads).order('name asc').uniq
+      @categories = Category.joins(:posts).order('name asc').uniq
     end
 
     # We need to see if we have a navigation state.
@@ -49,7 +39,7 @@ class HomeController < ApplicationController
     # We need to see if we have a navigation state. If we do, that will impact what will be displayed on the map.
     cat_nav_state = params[:cat].split(" ") if params[:cat]
 
-    # Queries to get ads to be displayed on the map, based on their locations
+    # Queries to get posts to be displayed on the map, based on their locations
     location_search_result_objects(params, cat_nav_state, selected_item_ids, settings)
   end
 
@@ -104,7 +94,7 @@ class HomeController < ApplicationController
   # ------------------
   def results
     id = params[:area].to_i
-    @ads = Ad.includes(:location).where(locations: {area_id: id})
+    @posts = Ad.includes(:location).where(locations: {area_id: id})
                .paginate(page: params[:page] || 1, per_page: 10 )
 
     @area = Area.find(id)
@@ -113,33 +103,33 @@ class HomeController < ApplicationController
 
   # Method called by Ajax call made when marker on the home page is clicked.
   # Returns the HTML code that will create the popup linked to that marker.
-  def show_ad_popup
+  def show_post_popup
     popup_html = ''
     begin
-      ad_id = params['ad_id']
+      post_id = params['post_id']
       location_id = params['location_id']
       category_id = params['category_id']
 
-      ad = Ad.joins([:translations, {locations: :translations}, {categories: :translations}]).where(id: ad_id).first
+      post = Ad.joins([:translations, {locations: :translations}, {categories: :translations}]).where(id: post_id).first
       category = Category.find(category_id)
       location = Location.find(location_id)
 
-      item_count = ad.items.count
+      item_count = post.items.count
 
-      title = ad.title.length > 40 ? ad.title.chomp(a[-3..-1]) + '...' : ad.title
+      title = post.title.length > 40 ? post.title.chomp(a[-3..-1]) + '...' : post.title
 
 
       popup_html = "<div style='overflow: auto;'>"
       popup_html += "<div class='col-xs-12 title-popup' style='background-color: #{category.color_code}'>" +
                     "<span>#{title.capitalize}</span></div>"
 
-      if ad.image?
-        image_tag = ActionController::Base.helpers.image_tag(ad.image.normal.url)
+      if post.image?
+        image_tag = ActionController::Base.helpers.image_tag(post.image.normal.url)
         popup_html += "<div class='col-xs-12 image-popup no-padding'>#{image_tag}</div>"
       end
 
       # Title
-      popup_html += "<div class='col-xs-12' style='margin-top: 15px;'>#{view_context.link_to(ad.title, service_path(ad))}</div>"
+      popup_html += "<div class='col-xs-12' style='margin-top: 15px;'>#{view_context.link_to(post.title, service_path(post))}</div>"
 
       # Action (giving away or searching for) + item name
       item_name = "<span style='color:" + category.color_code + "';><strong>" + category.name + "</strong></span>";
@@ -151,7 +141,7 @@ class HomeController < ApplicationController
       popup_html += "<div class='col-xs-12' style='margin-bottom: 15px;'>#{location.full_address}</div>"
 
       # "Show details" button
-      button = view_context.link_to(t('home.show_details'), service_path(ad), class: 'btn btn-info btn-sm no-color' )
+      button = view_context.link_to(t('home.show_details'), service_path(post), class: 'btn btn-info btn-sm no-color' )
       popup_html += "<div class='col-xs-12 button-popup'>#{button}</div>"
 
       popup_html += "</div>"
@@ -171,16 +161,16 @@ class HomeController < ApplicationController
     begin
       area_id = params['area_id']
 
-      area = Area.includes(locations: {ads: :items}).find(area_id.to_i)
-      ad_count, item_count = 0, 0
+      area = Area.includes(locations: {posts: :items}).find(area_id.to_i)
+      post_count, item_count = 0, 0
 
-      # Counting items for all ads in this area.
+      # Counting items for all posts in this area.
       area.locations.each do |location|
-        ad_count += location.ads.count
-        location.ads.each{|ad| item_count += ad.items.count}
+        post_count += location.posts.count
+        location.posts.each{|post| item_count += post.items.count}
       end
 
-      message = I18n.t("home.area_marker_message", ad_count: ad_count, item_count: item_count)
+      message = I18n.t("home.area_marker_message", post_count: post_count, item_count: item_count)
 
       popup_html = "<div style='overflow: auto;'>"
 
@@ -221,7 +211,7 @@ class HomeController < ApplicationController
   end
 
   def refine_state
-    # From the home page, based on the selected navigation, get the relevant ads.
+    # From the home page, based on the selected navigation, get the relevant posts.
 
     state = params[:state]
 
@@ -241,7 +231,7 @@ class HomeController < ApplicationController
 
       # An item is being searched.
       searched_item = nav_params['item']
-      selected_item_ids = Item.joins(:ads).where('name LIKE ?', "%#{searched_item}%").pluck(:id).uniq
+      selected_item_ids = Item.joins(:posts).where('name LIKE ?', "%#{searched_item}%").pluck(:id).uniq
     end
 
     response = {}
@@ -251,24 +241,24 @@ class HomeController < ApplicationController
     #response['map_info']['area'] = Location.search('area', selected_categories, searched_item, selected_item_ids, nav_params[:q])
     #response['map_info']['area'] = Area.search(selected_categories, selected_item_ids, nav_params[:q])
 
-    render json: response.to_json(:include => { :ads => { :include =>  {:items => { :include => :category }}}})
+    render json: response.to_json(:include => { :posts => { :include =>  {:items => { :include => :category }}}})
   end
 
-  # Ajax call to show the ads related to 1 type of item and to 1 area
+  # Ajax call to show the posts related to 1 type of item and to 1 area
   # Call made when click on link, in area marker popup.
   def showSpecificAds
     item_name = params['item']
     location_type = params['type'] # 'postal', or 'area'
     area_value = params['area'] # code postal area code, or area id
-    ads = Ad.joins(:location, :items).where('expire_date >= ? AND  items.name = ?', Date.today, location_type, item_name)
+    posts = Ad.joins(:location, :items).where('expire_date >= ? AND  items.name = ?', Date.today, location_type, item_name)
     item = Item.joins(:category).where('items.name = ?', item_name).first
 
     result = {}
     if location_type == 'postal'
-      ads = ads.where('locations.postal_code LIKE ?', "#{area_value}%")
+      posts = posts.where('locations.postal_code LIKE ?', "#{area_value}%")
       result['area_name'] = area_value
     elsif location_type == 'area'
-      ads = ads.where('locations.area_id = ?', area_value)
+      posts = posts.where('locations.area_id = ?', area_value)
       result['area_name'] = Area.find(area_value).name
     end
 
@@ -277,9 +267,9 @@ class HomeController < ApplicationController
       result['hexa_color'] = item.category.marker_color_hexacode
     end
 
-    result['ads'] = []
-    ads.each do |ad|
-      result['ads'] << {id: ad.id, title: ad.title, giving: ad.giving}
+    result['posts'] = []
+    posts.each do |post|
+      result['posts'] << {id: post.id, title: post.title, giving: post.giving}
     end
 
     render json: result
@@ -288,10 +278,10 @@ class HomeController < ApplicationController
   private
 
   def location_search_result_objects(params, cat_nav_state, selected_item_ids, settings)
-    # First, we get the ads tied to an exact location.
+    # First, we get the posts tied to an exact location.
     @locations_exact = Ad.search(cat_nav_state, params[:item], selected_item_ids, params[:q], nil)
 
-    # If the users have the possiblity to post ad linked to a pre-defined area, we also get here these type of ads.
+    # If the users have the possiblity to post post linked to a pre-defined area, we also get here these type of posts.
     # locations_area = Location.search('area', cat_nav_state, params[:item], selected_item_ids, params[:q])
 
     # Getting a hash that matches areas to their respective latitude and longitudes.

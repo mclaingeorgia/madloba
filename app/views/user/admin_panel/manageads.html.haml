@@ -16,28 +16,28 @@
       %li
         %a{:href => "/user"}= t('admin.dashboard')
       %li
-        = t('admin.manage_your_ads')
+        = t('admin.manage_your_posts')
   .row
     .box.col-md-12
       .box-inner
         .box-header.well{"data-original-title" => ""}
           %h2
             %i.glyphicon.glyphicon-pencil
-            = t('admin.manage_your_ads')
+            = t('admin.manage_your_posts')
         %ul.nav.nav-tabs
           %li.active
-            %a{"data-toggle" => "tab", :href => "#ads"}= t('admin.ads')
+            %a{"data-toggle" => "tab", :href => "#posts"}= t('admin.posts')
           %li
             %a{"data-toggle" => "tab", :href => "#locations"}= t('admin.locations')
         .tab-content
           / Ads tab pane
-          #ads.tab-pane.active
+          #posts.tab-pane.active
             .box-content
               %p.left
                 %a.btn.btn-success{:href => "/services/new"}
                   %i.glyphicon.glyphicon-plus.icon-white
-                  = t('admin.create_ad')
-              - if @ads && @ads.length > 0
+                  = t('admin.create_post')
+              - if @posts && @posts.length > 0
                 %table.table.table-striped.table-bordered.bootstrap-datatable.datatable.responsive
                   %thead
                     %tr
@@ -46,20 +46,20 @@
                       %th= t('admin.expiration_date')
                       %th= t('admin.actions')
                   %tbody
-                    - @ads.each do |ad|
+                    - @posts.each do |post|
                       %tr
-                        %td.vert-align= ad.title
-                        %td.vert-align= ad.item_list
-                        - if ad.expire_date.to_s != '2100-01-01'
-                          %td.vert-align= ad.expire_date
+                        %td.vert-align= post.title
+                        %td.vert-align= post.item_list
+                        - if post.expire_date.to_s != '2100-01-01'
+                          %td.vert-align= post.expire_date
                         - else
                           %td.vert-align N/A
                         %td.center
-                          %a.btn.btn-info{:href => "/user/services/#{ad.id}/edit"}
+                          %a.btn.btn-info{:href => "/user/services/#{post.id}/edit"}
                             %i.glyphicon.glyphicon-pencil
                             = t('admin.edit_delete')
               - else
-                %p= t('ad.no_ad_created_yet')
+                %p= t('post.no_post_created_yet')
           -# Ads tab pane end
           -# Location tab pane
           #locations.tab-pane
@@ -75,7 +75,7 @@
                       %th= t('admin.name')
                       %th= t('admin.address_en')
                       %th= t('admin.address_ka')
-                      %th= t('admin.ads')
+                      %th= t('admin.posts')
                       %th= t('admin.actions')
                   %tbody
                     - @locations.each do |location|
@@ -103,15 +103,15 @@
                           %td.vert-align= location.postal_code
                           %td.vert-align= location.postal_code
                         %td
-                          - if location.ads.length == 0
-                            %i= t('admin.location.no_ad_tied')
+                          - if location.posts.length == 0
+                            %i= t('admin.location.no_post_tied')
                           - else
                             %ul
-                              - location.ads.each do |ad|
-                                %li= ad.title
+                              - location.posts.each do |post|
+                                %li= post.title
                         %td.center
                           %a.btn.btn-info{:href => "/user/locations/#{location.id}/edit"}
                             %i.glyphicon.glyphicon-pencil
                             = t('admin.edit_delete')
               - else
-                %p= t('ad.no_location_yet')
+                %p= t('post.no_location_yet')

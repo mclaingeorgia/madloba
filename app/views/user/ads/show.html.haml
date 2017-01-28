@@ -1,12 +1,12 @@
-.container#show_ad_page
+.container#show_post_page
   - if flash[:new_ad]
-    #new_ad_success_message.alert.alert-dismissable.alert-success{:style => "margin-top: 21px;"}
+    #new_post_success_message.alert.alert-dismissable.alert-success{:style => "margin-top: 21px;"}
       %button.close{"data-dismiss" => "alert", :type => "button"} ×
-      = t('ad.create_success', title: flash[:new_ad])
-    - if flash[:ad_expire]
+      = t('post.create_success', title: flash[:new_ad])
+    - if flash[:post_expire]
       .alert.alert-dismissable.alert-info
         %button.close{"data-dismiss" => "alert", :type => "button"} ×
-        = flash[:ad_expire]
+        = flash[:post_expire]
   - if flash[:success]
     .alert.alert-dismissable.alert-success{:style => "margin-top: 21px;"}
       %button.close{"data-dismiss" => "alert", :type => "button"} ×
@@ -18,85 +18,85 @@
   .row
     .col-lg-12
       %h3
-        = @ad.title
-        %span#ad_star{:style => "display: #{@ad.is_a_favorite_of(current_user) ? 'show' : 'none'};"}
+        = @post.title
+        %span#post_star{:style => "display: #{@post.is_a_favorite_of(current_user) ? 'show' : 'none'};"}
           %small
             %i.glyphicon.glyphicon-star{:style => "color: orange"}
 
       - if flash[:new_ad] && !@map_settings['is_area']
-        -# Ad id added just when the ad has just been created. This is to be read by ad_websocket.js, when it is an exact location
-        = hidden_field_tag 'new_ad_id', @ad.id
+        -# Ad id added just when the post has just been created. This is to be read by ad_websocket.js, when it is an exact location
+        = hidden_field_tag 'new_post_id', @post.id
 
       .ad-title
         -# "Back to main page" link
         - if url_for(:back).present? && url_for(:back).include?(request.host)
-          = link_to t('ad.back_to_home'), url_for(:back)
+          = link_to t('post.back_to_home'), url_for(:back)
 
         -# "Add to your favorites" button - only available when user is signed-in
         - if current_user
-          - if @ad.is_a_favorite_of(current_user)
-            %a.btn.btn-danger.favorite_button.remove_favorite_button.pull-right{href: "#", id: "#{@ad.id}"}
+          - if @post.is_a_favorite_of(current_user)
+            %a.btn.btn-danger.favorite_button.remove_favorite_button.pull-right{href: "#", id: "#{@post.id}"}
               %i.glyphicon.glyphicon-star>
                #{t('general_js.remove_from_favorites')}
           - else
-            %a.btn.btn-warning.favorite_button.add_to_favorite_button.pull-right{href: "#", id: "#{@ad.id}"}
+            %a.btn.btn-warning.favorite_button.add_to_favorite_button.pull-right{href: "#", id: "#{@post.id}"}
               %i.glyphicon.glyphicon-star>
                #{t('general_js.add_to_favorites')}
         #error_remove{:style => "color: red;"}
 
-  -# Message to show when ad is not published yet
-  - if !@ad.is_published
+  -# Message to show when post is not published yet
+  - if !@post.is_published
     - if current_user && current_user.super_admin?
       .row
         .col-lg-12.ad-paragraph
-          #ad_not_published= t('ad.ad_not_published_html', editpage: (link_to t('ad.edit_page'), edit_user_service_path(@ad.id)))
-    - elsif current_user && current_user.id == @ad.user_id
+          #post_not_published= t('post.post_not_published_html', editpage: (link_to t('post.edit_page'), edit_user_service_path(@post.id)))
+    - elsif current_user && current_user.id == @post.user_id
       .row
         .col-lg-12.ad-paragraph
-          #ad_not_published= t('ad.ad_to_be_reviewed')
+          #post_not_published= t('post.post_to_be_reviewed')
 
   .row
     .col-lg-12.ad-paragraph
       #map.small
 
-  - if @ad.image?
+  - if @post.image?
     .row
       .col-lg-7.col-sm-12.ad-paragraph
-        -# Partial showing info about the ad
-        = render 'shared/ad_summary'
+        -# Partial showing info about the post
+        = render 'shared/post_summary'
       -# Ad image
       .col-lg-5.col-sm-12.ad-image
-        - if is_image_available(@ad)
-          = image_tag @ad.image_url(:normal).to_s, width: '100%'
+        - if is_image_available(@post)
+          = image_tag @post.image_url(:normal).to_s, width: '100%'
         - else
           .ad-processing
-            = t('ad.show_ad_image_processed')
+            = t('post.show_post_image_processed')
             %br/
-            = t('ad.will_show_up')
+            = t('post.will_show_up')
     .row
       .col-lg-12.ad-paragraph
         -# Ad description
         .ad-show-description
           %label.ad-label
-            = t('ad.description_en')
+            = t('post.description_en')
             \:
-          %span= simple_format(@ad.description)
+          %span= simple_format(@post.description)
   - else
     .row
       .col-lg-12.ad-paragraph
-        = render 'shared/ad_summary'
+        = render 'shared/post_summary'
       .col-lg-12.ad-paragraph
         -# Ad description
         .ad-show-description
           %label.ad-label
-            = t('ad.description')
+            = t('post.description')
             \:
-          %span= simple_format(@ad.description)
-  - if !@ad.no_user_at_all
-    -# Have the "Send a message" box, if a user is tied to this ad
+          %span= simple_format(@post.description)
+  - if !@post.no_user_at_all
+    -# Have the "Send a message" box, if a user is tied to this post
     .row
       -# 'Send message' text area
-      = render 'shared/ads_send_message', ad: @ad
+      = render 'shared/posts_send_message', post: @post
 
 - content_for :scripts do
   -# Includes all the Javascript related to map rendering (Leaflet, MapQuest, and scripts that creates the actual map

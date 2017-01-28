@@ -3,21 +3,21 @@ class User::AdsController < ApplicationController
   before_action :authenticate_user!, except: [:new, :create, :send_message, :show]
   before_action :requires_user, except: [:new, :create, :send_message, :show]
   after_action :verify_authorized, except: [:new, :create, :send_message, :send_message]
-  after_action :serialize_ad, only: [:create, :update]
+  after_action :serialize_post, only: [:create, :update]
 
   include ApplicationHelper
 
   def show
-    @ad = Ad.includes(:locations).where(id: params['id']).first!
-    authorize @ad
+    @post = Ad.includes(:locations).where(id: params['id']).first!
+    authorize @post
 
-    # Redirection to the home page, if this ad has expired, expect if current user owns this ad.
-    if @ad.expire_date < Date.today
-      if @ad.user != current_user
-        flash[:error] = t('ad.ad_has_expired')
+    # Redirection to the home page, if this post has expired, expect if current user owns this post.
+    if @post.expire_date < Date.today
+      if @post.user != current_user
+        flash[:error] = t('post.post_has_expired')
         redirect_to root_path
       else
-        @your_ad_has_expired = true
+        @your_post_has_expired = true
       end
     end
 
@@ -25,145 +25,145 @@ class User::AdsController < ApplicationController
   end
 
   def new
-    @ad = Ad.new
-    @ad.translations.build locale: :en
-    @ad.translations.build locale: :ka
-    authorize @ad
+    @post = Ad.new
+    @post.translations.build locale: :en
+    @post.translations.build locale: :ka
+    authorize @post
     get_map_settings_for_ad
 
     @description_remaining_en = 2000
-    if @ad.description_en && @ad.description_en.length > 0
-      @description_remaining = 2000 - @ad.description_en.length
+    if @post.description_en && @post.description_en.length > 0
+      @description_remaining = 2000 - @post.description_en.length
     end
 
     @description_remaining_ka = 2000
-    if @ad.description_ka && @ad.description_ka.length > 0
-      @description_remaining_ka = 2000 - @ad.description_ka.length
+    if @post.description_ka && @post.description_ka.length > 0
+      @description_remaining_ka = 2000 - @post.description_ka.length
     end
   end
 
   def create
-    @ad = Ad.new(sanitize_ad_params)
-    authorize @ad
+    @post = Ad.new(sanitize_post_params)
+    authorize @post
 
-    # we tie now the user to the ad (if it is an anonymous user, current_user is nil)
-    @ad.user = current_user
+    # we tie now the user to the post (if it is an anonymous user, current_user is nil)
+    @post.user = current_user
 
-    if @ad.save_with_or_without_captcha(current_user)
+    if @post.save_with_or_without_captcha(current_user)
 
-      flash[:new_ad] = @ad.title
+      flash[:new_ad] = @post.title
 
-      # Letting the user know when their ad will expire.
+      # Letting the user know when their post will expire.
       if (max_number_days_publish.to_i > 0)
-        flash[:ad_expire] = t('ad.ad_create_expire', day_number: max_number_days_publish, expire_date: @ad.expire_date)
+        flash[:post_expire] = t('post.post_create_expire', day_number: max_number_days_publish, expire_date: @post.expire_date)
       end
 
-      redirect_to service_path(@ad.id)
+      redirect_to service_path(@post.id)
 
-      # Sending email confirmation, about the creation of the ad.
-      full_admin_url = "http://#{request.env['HTTP_HOST']}/user/manageads"
-      # Reloading the now-created ad, with associated items.
-      @ad = Ad.includes([:items, :categories]).where(id: @ad.id).first
+      # Sending email confirmation, about the creation of the post.
+      full_admin_url = "http://#{request.env['HTTP_HOST']}/user/manageposts"
+      # Reloading the now-created post, with associated items.
+      @post = Ad.includes([:items, :categories]).where(id: @post.id).first
       user_info = {}
       if current_user
         user_info = {email: current_user.email, name: current_user.first_name, is_anon: false}
       else
-        user_info = {email: @ad.anon_email, name: @ad.anon_name, is_anon: true}
+        user_info = {email: @post.anon_email, name: @post.anon_name, is_anon: true}
       end
 
       if on_heroku?
-        UserMailer.created_ad(user_info, @ad, full_admin_url).deliver
+        UserMailer.created_ad(user_info, @post, full_admin_url).deliver
       else
         # Queueing email sending, when not on heroku.
-        UserMailer.delay.created_ad(user_info, @ad, full_admin_url)
+        UserMailer.delay.created_ad(user_info, @post, full_admin_url)
         super_admins = User.where(role: 2).pluck('email')
-        # Sending email to super-admin to notify them that a new ad has been posted.
-        UserMailer.delay.created_ad_notify_super_admins(user_info, @ad, super_admins)
+        # Sending email to super-admin to notify them that a new post has been posted.
+        UserMailer.delay.created_post_notify_super_admins(user_info, @post, super_admins)
       end
 
     else
-      # Saving the ad failed.
+      # Saving the post failed.
       get_map_settings_for_ad
       render action: 'new'
     end
   end
 
   def edit
-    @ad = Ad.includes(:location => :area).where(id: params[:id]).first!
-    authorize @ad
+    @post = Ad.includes(:location => :area).where(id: params[:id]).first!
+    authorize @post
     get_map_settings_for_ad
   end
 
   def update
-    @ad = Ad.find(params[:id])
-    authorize @ad
+    @post = Ad.find(params[:id])
+    authorize @post
 
     # Performing the update.
-    if @ad.update(ad_params)
-      flash[:ad_updated] = @ad.title
+    if @post.update(post_params)
+      flash[:post_updated] = @post.title
 
       if !current_user.super_admin?
         # if a service was updated by someone who's not a super-admin,
         # send emails to super-admins.
         user_info = {email: current_user.email, name: current_user.first_name, is_anon: false}
         super_admins = User.where(role: 2).pluck('email')
-        UserMailer.delay.updated_ad_notify_super_admins(user_info, @ad, super_admins)
+        UserMailer.delay.updated_post_notify_super_admins(user_info, @post, super_admins)
       end
 
-      redirect_to edit_user_service_path(@ad.id)
+      redirect_to edit_user_service_path(@post.id)
     else
-      # Saving the ad failed.
-      flash[:error_ad] = @ad.title
+      # Saving the post failed.
+      flash[:error_ad] = @post.title
       get_map_settings_for_ad
       render action: 'edit'
     end
   end
 
   def destroy
-    @ad = Ad.find(params[:id])
-    authorize @ad
-    deleted_ad_title = @ad.title
+    @post = Ad.find(params[:id])
+    authorize @post
+    deleted_post_title = @post.title
 
-    if @ad.destroy
-      flash[:success] = t('ad.ad_is_deleted', deleted_ad_title: deleted_ad_title)
-      redirect_to user_manageads_path
+    if @post.destroy
+      flash[:success] = t('post.post_is_deleted', deleted_post_title: deleted_post_title)
+      redirect_to user_manageposts_path
     else
-      # Deleting the ad failed.
-      flash[:error_delete_ad] = @ad.title
+      # Deleting the post failed.
+      flash[:error_delete_ad] = @post.title
       get_map_settings_for_ad
       render action: 'edit'
     end
   end
 
-  def ad_params
+  def post_params
     params.require(:ad).permit(:title, :title_en, :title_ka, :description, :description_en, :description_ka, :legal_form, :username_used, {location_ids: []}, :is_giving, {category_ids: []}, :user_id,
                                :image, :image_cache, :remove_image, :anon_name, :anon_email, :captcha, :captcha_key, :benef_age_group, :is_published,
-                               :ad_items_attributes => [:id, :item_id, :_destroy, :item_attributes => [:id, :name, :name_en, :name_ka, :_destroy] ],
-                               :ad_locations_attributes => [:id, :location_id, :_destroy, :location_attributes => [:id, :user_id, :name, :name_en, :name_ka, :street_number, :address, :address_en, :address_ka,
+                               :post_items_attributes => [:id, :item_id, :_destroy, :item_attributes => [:id, :name, :name_en, :name_ka, :_destroy] ],
+                               :post_locations_attributes => [:id, :location_id, :_destroy, :location_attributes => [:id, :user_id, :name, :name_en, :name_ka, :street_number, :address, :address_en, :address_ka,
                                                         :postal_code, :province, :province_en, :province_ka,
                                                         :city, :city_en, :city_ka, :latitude, :longitude, :phone_number,
                                                         :website, :add_phone_number, :add_phone_number_2, :description, :description_en, :description_ka,
                                                         :facebook, :_destroy]])
   end
 
-  # This method is called when a user replies and sends a message to another user, who posted an ad.
-  # It sends the reply to the user who published this ad.
+  # This method is called when a user replies and sends a message to another user, who posted an post.
+  # It sends the reply to the user who published this post.
   def send_message
     message = params[:message]
-    @ad = Ad.find(params['id'])
+    @post = Ad.find(params['id'])
 
     if current_user == nil && !simple_captcha_valid?
-      flash.now[:error_message] = t('ad.captcha_not_valid')
+      flash.now[:error_message] = t('post.captcha_not_valid')
       get_map_settings_for_ad
       render action: 'show'
     else
       if message && message.gsub(/\s+/, '') != ''
-        if @ad.is_anonymous
+        if @post.is_anonymous
           # Storing info for message to send to a anonymous publisher
-          ad_info = {title: @ad.title, first_name: @ad.anon_name, email: @ad.anon_email}
+          post_info = {title: @post.title, first_name: @post.anon_name, email: @post.anon_email}
         else
           # Storing info for message to send to a registered publisher
-          ad_info = {title: @ad.title, first_name: @ad.user.first_name, email: @ad.user.email}
+          post_info = {title: @post.title, first_name: @post.user.first_name, email: @post.user.email}
         end
 
         if current_user
@@ -175,13 +175,13 @@ class User::AdsController < ApplicationController
         end
 
         if on_heroku?
-          UserMailer.send_message_for_ad(sender_info, message, ad_info).deliver
+          UserMailer.send_message_for_ad(sender_info, message, post_info).deliver
         else
-          UserMailer.delay.send_message_for_ad(sender_info, message, ad_info)
+          UserMailer.delay.send_message_for_ad(sender_info, message, post_info)
         end
-        flash[:success] = t('ad.success_sent')
+        flash[:success] = t('post.success_sent')
       else
-        flash[:error] = t('ad.error_empty_message')
+        flash[:error] = t('post.error_empty_message')
       end
 
       redirect_to service_path(params['id'])
@@ -190,27 +190,27 @@ class User::AdsController < ApplicationController
 
   private
 
-  def sanitize_ad_params
-    sanitized_params = ad_params.dup
-    if ad_params.has_key?(:location_id)
+  def sanitize_post_params
+    sanitized_params = post_params.dup
+    if post_params.has_key?(:location_id)
       sanitized_params.delete(:location_attributes)
     end
     sanitized_params
   end
 
-  # Create the json for the 'exact location' ad, which will be read to render markers on the home page.
+  # Create the json for the 'exact location' post, which will be read to render markers on the home page.
   def serialize_ad
-    if @ad.errors.empty?
-      @ad.serialize!
+    if @post.errors.empty?
+      @post.serialize!
     end
   end
 
   # Initializes map related info (markers, clickable map...)
   def get_map_settings_for_ad
     if %w(show send_message).include?(action_name)
-      @map_settings = MapAdInfo.new(@ad).to_hash
+      @map_settings = MapAdInfo.new(@post).to_hash
     else
-      location = @ad.locations.first
+      location = @post.locations.first
       @map_settings = MapLocationInfo.new(location: location).to_hash
     end
   end

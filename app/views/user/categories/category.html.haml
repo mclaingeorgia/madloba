@@ -113,21 +113,21 @@
                       :toggle => 'popover', :trigger => 'hover focus'}                                    |
                 - if !adding
                   %hr/
-                  -# List of ads this category is attached to
+                  -# List of posts this category is attached to
                   .form-group
-                    - if @category.ads.length > 0
-                      = label_tag :ads, t('admin.category.item_linked')+':', class:'control-label'
+                    - if @category.posts.length > 0
+                      = label_tag :posts, t('admin.category.item_linked')+':', class:'control-label'
                       %table.table.table-striped.table-bordered.bootstrap-datatable.datatable
                         %thead
                           %tr
                             %th ID
                             %th= t('admin.category.item_name')
                         %tbody
-                          - @category.ads.each do |ad|
+                          - @category.posts.each do |post|
                             %tr
-                              %td= ad.id
+                              %td= post.id
                               %td
-                                %a{:href => "/user/ads/#{ad.id}"}= ad.title
+                                %a{:href => "/user/posts/#{post.id}"}= post.title
                     - else
                       %strong= t('admin.category.no_item')
                 %hr/

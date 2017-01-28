@@ -3,40 +3,40 @@ class UserMailer < ActionMailer::Base
 
   include ApplicationHelper
 
-  # When an ad is created, this method sends an e-mail to the user who just created it.
-  def created_ad(user_info, ad, url)
-    @ad = ad
+  # When an post is created, this method sends an e-mail to the user who just created it.
+  def created_ad(user_info, post, url)
+    @post = post
     @full_admin_url = url
     @user = user_info
     @site_name = site_name
-    mail(to: user_info[:email], subject: t('mailer.new_ad_object', site_name: site_name, ad_title: ad.title))
+    mail(to: user_info[:email], subject: t('mailer.new_post_object', site_name: site_name, post_title: post.title))
   end
 
-  # Notifying the super-admins when a new ad has been created.
-  def created_ad_notify_super_admins(user_info, ad, super_admins)
-    @ad = ad
+  # Notifying the super-admins when a new post has been created.
+  def created_post_notify_super_admins(user_info, post, super_admins)
+    @post = post
     @user = user_info
     @site_name = site_name
-    @ad_edit_path = edit_user_service_path(@ad.id)
-    mail(to: super_admins.join(', '), subject: t('mailer.new_ad_to_review', title: ad.title))
+    @post_edit_path = edit_user_service_path(@post.id)
+    mail(to: super_admins.join(', '), subject: t('mailer.new_post_to_review', title: post.title))
   end
 
-  # Notifying super-admins when ad has been updated by a non-super-admin.
-  def updated_ad_notify_super_admins (user_info, ad, super_admins)
-    @ad = ad
+  # Notifying super-admins when post has been updated by a non-super-admin.
+  def updated_post_notify_super_admins (user_info, post, super_admins)
+    @post = post
     @user = user_info
     @site_name = site_name
-    @ad_edit_path = edit_user_service_path(@ad.id)
-    mail(to: super_admins.join(', '), subject: t('mailer.updated_service', title: ad.title))
+    @post_edit_path = edit_user_service_path(@post.id)
+    mail(to: super_admins.join(', '), subject: t('mailer.updated_service', title: post.title))
   end
 
-  # Sends an e-mail to a user, when another user replied to their ad, to be in touch with them.
-  def send_message_for_ad(sender, message, ad_info)
+  # Sends an e-mail to a user, when another user replied to their post, to be in touch with them.
+  def send_message_for_ad(sender, message, post_info)
     @sender = sender
-    @ad = ad_info
+    @post = post_info
     @site_name = site_name
     @message = message
-    mail(to: ad_info[:email], reply_to: sender[:email], subject: t('mailer.reply_ad_object', ad_title: ad_info[:title], site_name: site_name))
+    mail(to: post_info[:email], reply_to: sender[:email], subject: t('mailer.reply_post_object', post_title: post_info[:title], site_name: site_name))
   end
 
   # Sends a message to an user, when they've been made admin by a super-admin

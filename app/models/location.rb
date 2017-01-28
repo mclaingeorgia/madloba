@@ -1,6 +1,6 @@
 class Location < ActiveRecord::Base
-  has_many :ad_locations
-  has_many :ads, through: :ad_locations, dependent: :destroy
+  has_many :post_locations
+  has_many :posts, through: :post_locations, dependent: :destroy
   belongs_to :user
   belongs_to :area
 
@@ -15,7 +15,7 @@ class Location < ActiveRecord::Base
   translates :name, :address, :province, :city, :block_unit, :village, :description
   globalize_accessors :locales => [:en, :ka], :attributes => [:name, :address, :block_unit, :village, :province, :city, :description]
 
-  scope :type, -> (location_type) { where('ads.expire_date >= ? AND loc_type = ? AND ads.is_published = ?', Date.today, location_type, true)}
+  scope :type, -> (location_type) { where('posts.expire_date >= ? AND loc_type = ? AND posts.is_published = ?', Date.today, location_type, true)}
 
   attr_accessor :country
 
@@ -25,18 +25,18 @@ class Location < ActiveRecord::Base
   # This method returns the right query to display relevant markers, on the home page.
   def self.search(location_type, cat_nav_state, searched_item, selected_item_ids, user_action)
 
-    #locations = Location.includes([:translations, {ads: :categories}, {ads: {items: :translations}}, {ads: :translations}]).type(location_type).references(:ads)
+    #locations = Location.includes([:translations, {posts: :categories}, {posts: {items: :translations}}, {posts: :translations}]).type(location_type).references(:posts)
 
     if cat_nav_state || searched_item
 
-      locations = Location.includes(ads: {items: :category}).where('ads.expire_date >= ?', Date.today).references(:ads)
+      locations = Location.includes(posts: {items: :category}).where('posts.expire_date >= ?', Date.today).references(:posts)
 
       if cat_nav_state
         if searched_item
-          # We search for ads in relation to the searched item and the current category navigation state.
+          # We search for posts in relation to the searched item and the current category navigation state.
           locations = locations.where(categories: {id: cat_nav_state}, items: {id: selected_item_ids})
         else
-          # We search for ads in relation to our current category navigation state.
+          # We search for posts in relation to our current category navigation state.
           locations = locations.where(categories: {id: cat_nav_state})
         end
       elsif searched_item
@@ -44,12 +44,12 @@ class Location < ActiveRecord::Base
       end
 
     else
-      locations = Location.includes(:ads).where('ads.expire_date >= ?', Date.today).references(:ads)
+      locations = Location.includes(:posts).where('posts.expire_date >= ?', Date.today).references(:posts)
     end
 
     if user_action
-      # For the RehabLink app, ads are always on 'is_giving' mode.
-      locations = locations.where("ads.giving = ?", true)
+      # For the RehabLink app, posts are always on 'is_giving' mode.
+      locations = locations.where("posts.giving = ?", true)
     end
 
     if location_type == 'area'

@@ -1,20 +1,12 @@
 -# Sidebar
 = render 'sidebar'
 
+-# Search result sidebar
+= render 'search_result_sidebar'
+
+
 -# Map
 #map.home.sidebar-map
-
-
--# Modal popup that shows several ads promoting the same item, in a specific area/area
-#adsModal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "basicModal", :role => "dialog", :tabindex => "-1"}
-  .modal-dialog
-    .modal-content
-      .modal-header
-        %h4#adsModalTitle.modal-title
-      #ads-modal-body-id.modal-body
-      .modal-footer
-        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"}= t('home.close')
-
 
 -# This div is to check whether or not the user has AdBlock on in their browser.
 -# If they do, it will affect the website's ability to work well.

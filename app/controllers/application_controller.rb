@@ -122,18 +122,18 @@ class ApplicationController < ActionController::Base
     #locations = Location.where('city LIKE ?',"%#{location_value.downcase.capitalize}%")
     locations = Location.where(city: location_value.downcase.capitalize)
     locations.each do |loc|
-      loc.ads.each do |ad|
-        locations_results << {id: ad.id, display_name: ad.title}
-        adid_tracker << ad.id
+      loc.posts.each do |post|
+        locations_results << {id: post.id, display_name: post.title}
+        adid_tracker << post.id
       end
     end
 
     #locations = Location.where('province LIKE ?', "%#{location_value.downcase.capitalize}%")
     locations = Location.where(province: location_value.downcase.capitalize)
     locations.each do |loc|
-      loc.ads.each do |ad|
-        if !adid_tracker.include?(ad.id)
-          locations_results << {id: ad.id, display_name: ad.title}
+      loc.posts.each do |post|
+        if !adid_tracker.include?(post.id)
+          locations_results << {id: post.id, display_name: post.title}
         end
       end
     end
@@ -174,10 +174,10 @@ class ApplicationController < ActionController::Base
       matched_items = Item.all.pluck(:id, :name)
     elsif typeahead_type == SEARCH_IN_AD_ITEMS
       # 'search_ad_items' type - used on Ajax call, when item typed in main navigation search bar.
-      matched_items = Ad.joins(:items).where('items.name LIKE ? and ads.giving = ?', "%#{params[:item].downcase}%", search_type=='searching').pluck(:name).uniq
+      matched_items = Ad.joins(:items).where('items.name LIKE ? and posts.giving = ?', "%#{params[:item].downcase}%", search_type=='searching').pluck(:name).uniq
     elsif typeahead_type == SEARCH_IN_ALL_ITEMS
       # 'search_items' type - used on Ajax call, when item typed in drop-down box, when adding items,
-      # in ads#edit and ads#new pages.
+      # in posts#edit and posts#new pages.
       matched_items = Item.where('name LIKE ?', "%#{params[:item].downcase}%").pluck(:id, :name)
     end
 =end
@@ -195,13 +195,13 @@ class ApplicationController < ActionController::Base
       if [PREFETCH_AD_ITEMS, SEARCH_IN_AD_ITEMS].include? (typeahead_type)
 
         # We also need to include the name of the services
-        matched_services = Ad.with_translations(I18n.locale).where('ad_translations.title LIKE ?', "%#{params[:item].capitalize}%").pluck('ad_translations.ad_id, ad_translations.title')
+        matched_services = Ad.with_translations(I18n.locale).where('post_translations.title LIKE ?', "%#{params[:item].capitalize}%").pluck('post_translations.post_id, post_translations.title')
         if matched_services.empty?
-          matched_services = Ad.with_translations(I18n.locale).where('ad_translations.title LIKE ?', "%#{params[:item].downcase}%").pluck('ad_translations.ad_id, ad_translations.title')
+          matched_services = Ad.with_translations(I18n.locale).where('post_translations.title LIKE ?', "%#{params[:item].downcase}%").pluck('post_translations.post_id, post_translations.title')
         end
 
         matched_services.each do |match|
-          result << {ad_id: match[0], value: match[1]}
+          result << {post_id: match[0], value: match[1]}
         end
 
       end

@@ -4,22 +4,22 @@
     %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
   %body
     %strong
-      - if @ad[:first_name]
-        = t('mailer.dear', name: @ad[:first_name])
+      - if @post[:first_name]
+        = t('mailer.dear', name: @post[:first_name])
       - else
         = t('session.hello')
 
     %p
-      = t('mailer.received_message', ad_title: @ad[:title], site_name: @site_name)
+      = t('mailer.received_message', post_title: @post[:title], site_name: @site_name)
     %hr/
     %p
-      = t('ad.from')
+      = t('post.from')
       \: #{"#{@sender[:full_name]} (#{@sender[:email]})"}
     %p
       = simple_format(@message)
     %hr/
     %p
-      = t('ad.get_back_to', first_name: @sender[:full_name])
+      = t('post.get_back_to', first_name: @sender[:full_name])
     %p
       = t('mailer.thanks')
       %br/

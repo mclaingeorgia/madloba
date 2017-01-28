@@ -13,7 +13,7 @@
           %p= t('admin.category.cannot_delete')
         .modal-footer
           %a.btn{"data-dismiss" => "modal", :href => "#"}= t('home.cancel')
-      - elsif @category.ads && @category.ads.length > 0
+      - elsif @category.posts && @category.posts.length > 0
         -# Before deletion of this category, we need to transfer linked items to another category
         = form_tag "/user/categories/#{@category.id}", method: :destroy do
           .modal-body

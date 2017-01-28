@@ -22,12 +22,12 @@ class User < ActiveRecord::Base
   globalize_accessors :locales => [:en, :ka], :attributes => [:first_name, :last_name]
 
   has_many :locations, dependent: :destroy
-  has_many :ads, dependent: :destroy
-  has_many :ad_users
-  has_many :favorite_ads, through: :ad_users, source: :ad
+  has_many :posts, dependent: :destroy
+  has_many :post_users
+  has_many :favorite_posts, through: :post_users, source: :ad
 
-  def owns_ad (ad)
-    self.ads.include?(ad)
+  def owns_post (post)
+    self.posts.include?(post)
   end
 
   def is_admin_or_super_admin

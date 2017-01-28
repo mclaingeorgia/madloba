@@ -5,9 +5,9 @@
   %body
     %p= t('session.hello')
     %p
-      = t('mailer.service_just_updated', sitename: @site_name, title: @ad.title )
+      = t('mailer.service_just_updated', sitename: @site_name, title: @post.title )
     %p
-      = t('mailer.review_it_html', link: (link_to t('ad.here'), @ad_edit_path))
+      = t('mailer.review_it_html', link: (link_to t('post.here'), @post_edit_path))
       %br/
     %p
       = t('mailer.thanks_short')

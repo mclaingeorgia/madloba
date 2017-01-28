@@ -25,14 +25,14 @@ AdDetailPage::init = ->
 
   else
     # Exact address. Potentially several center markers on the map.
-    # Displays a marker for each item tied to the ad we're showing the details of.
-    # Using the Marker Cluster plugin to spiderfy this ad's item marker.
+    # Displays a marker for each item tied to the post we're showing the details of.
+    # Using the Marker Cluster plugin to spiderfy this post's item marker.
     markers.group = new (L.markerClusterGroup)(
       spiderfyDistanceMultiplier: 2)
 
     i = 0
-    while i < leaf.mapSettings['ad_show'].length
-      item_category = leaf.mapSettings['ad_show'][i]
+    while i < leaf.mapSettings['post_show'].length
+      item_category = leaf.mapSettings['post_show'][i]
       icon_to_use = L.AwesomeMarkers.icon(
         prefix: 'fa'
         markerColor: item_category['color']

@@ -17,7 +17,7 @@
         -# Tabs
         %ul#records-tabs.nav.nav-tabs
           %li.active
-            %a{"data-toggle" => "tab", :href => "#ads"}= t('admin.ads')
+            %a{"data-toggle" => "tab", :href => "#posts"}= t('admin.posts')
           %li
             %a{"data-toggle" => "tab", :href => "#locations"}= t('admin.locations')
           %li
@@ -28,7 +28,7 @@
         -# Tab panes
         .tab-content
           -# Ad tab pane
-          #ads.tab-pane.active
+          #posts.tab-pane.active
             .box-content
               %table.table.table-striped.table-bordered.bootstrap-datatable.datatable.responsive
                 %thead
@@ -40,15 +40,15 @@
                     - if current_user.super_admin?
                       %th= t('admin.actions')
                 %tbody
-                  - Ad.includes(:items).all.each do |ad|
+                  - Ad.includes(:items).all.each do |post|
                     %tr
-                      %td.vert-align= ad.id
-                      %td.vert-align= ad.title
-                      %td.vert-align= ad.item_list
-                      %td.vert-align= ad.email_to_display
+                      %td.vert-align= post.id
+                      %td.vert-align= post.title
+                      %td.vert-align= post.item_list
+                      %td.vert-align= post.email_to_display
                       - if current_user.super_admin?
                         %td.center
-                          %a.btn.btn-info{:href => "/user/services/#{ad.id}/edit"}
+                          %a.btn.btn-info{:href => "/user/services/#{post.id}/edit"}
                             %i.glyphicon.glyphicon-pencil
                             = t('admin.edit_delete')
           -# Ad tab pane end

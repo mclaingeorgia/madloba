@@ -22,12 +22,12 @@ messagePrefix =
 AdSocket::initBinds = ->
   _this = this
 
-  # Message sent to server when a new ad has just been created
-  # (ie. new ad notification message has been loaded on ads#show)
+  # Message sent to server when a new post has just been created
+  # (ie. new post notification message has been loaded on posts#show)
   $(document).ready ->
-    new_ad_id = $('#new_ad_id').val()
-    if typeof new_ad_id != 'undefined'
-      _this.sendNewAdNotification new_ad_id
+    new_post_id = $('#new_post_id').val()
+    if typeof new_post_id != 'undefined'
+      _this.sendNewAdNotification new_post_id
     return
 
   @socket.onmessage = (e) ->
@@ -41,7 +41,7 @@ AdSocket::initBinds = ->
     switch status
       when 'error'
         _this.error_map map_info
-      when 'new_ad'
+      when 'new_post'
         _this.add_marker map_info
     return
 
@@ -52,7 +52,7 @@ AdSocket::initBinds = ->
 #  @socket.send messagePrefix.refresh_map + value
 #  return
 
-# Sending a message to the server to notify other users that a new ad has been created, and to display on other users' home page map.
+# Sending a message to the server to notify other users that a new post has been created, and to display on other users' home page map.
 
 AdSocket::sendNewAdNotification = (value) ->
   @send messagePrefix.add_new_marker + value

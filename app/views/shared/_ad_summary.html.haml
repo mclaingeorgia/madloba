@@ -3,39 +3,39 @@
   %label.ad-label= t('admin.items')+':'
   %span
     %ul
-      - @ad.ad_items.each do |ad_item|
-        %li= ad_item.item.capitalized_name
+      - @post.post_items.each do |post_item|
+        %li= post_item.item.capitalized_name
 -# Left-hand side: Categories
 %div
-  %label.ad-label= t('ad.type_services')+':'
+  %label.ad-label= t('post.type_services')+':'
   %span
     %ul
-      - @ad.categories.each do |category|
+      - @post.categories.each do |category|
         %li
           %span{:style => "color: #{MARKER_COLORS[category.marker_color]}"}= category.name
 %br/
-- @ad.locations.each do |location|
+- @post.locations.each do |location|
   %div{:style => "margin-bottom: 20px;"}
     -# Where the service is
     %div
-      %label.ad-label= t('ad.where_to_find')
+      %label.ad-label= t('post.where_to_find')
       %span= location.full_address
     -# Location description
     - if location.description && location.description != ''
       %div
-        %label.ad-label= t('ad.location_description')
+        %label.ad-label= t('post.location_description')
         %span= location.description
     -# Left-hand side: Email
-    - if contact_email_to_show(@ad) != ''
+    - if contact_email_to_show(@post) != ''
       %div
         %label.ad-label
           = t('admin.users.email')
           \:
-        %span= contact_email_to_show(@ad)
+        %span= contact_email_to_show(@post)
     -# Left-hand side: Website
     - if location.website && location.website != ''
       %div
-        %label.ad-label= t('ad.location_website')
+        %label.ad-label= t('post.location_website')
         %span
           %a{:href => "#{location.full_website_url}", :target => "_blank"}= location.website
     -# Left-hand side: Phone number
