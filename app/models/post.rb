@@ -1,4 +1,4 @@
-class Ad < ActiveRecord::Base
+class Post < ActiveRecord::Base
   has_many :post_locations
   has_many :locations, through: :post_locations
   has_many :post_items

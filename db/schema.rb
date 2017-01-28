@@ -11,20 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161220025623) do
+ActiveRecord::Schema.define(version: 20170128154047) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "ad_items", force: :cascade do |t|
-    t.integer  "ad_id"
-    t.integer  "item_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "ad_items", ["ad_id"], name: "index_ad_items_on_ad_id", using: :btree
-  add_index "ad_items", ["item_id"], name: "index_ad_items_on_item_id", using: :btree
 
   create_table "ad_locations", force: :cascade do |t|
     t.integer  "ad_id"
@@ -57,30 +47,6 @@ ActiveRecord::Schema.define(version: 20161220025623) do
 
   add_index "ad_users", ["ad_id"], name: "index_ad_users_on_ad_id", using: :btree
   add_index "ad_users", ["user_id"], name: "index_ad_users_on_user_id", using: :btree
-
-  create_table "ads", force: :cascade do |t|
-    t.string   "title",           limit: 255
-    t.text     "description"
-    t.integer  "location_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "username_used"
-    t.boolean  "giving"
-    t.date     "expire_date"
-    t.string   "image",           limit: 255
-    t.string   "anon_name",       limit: 255
-    t.string   "anon_email",      limit: 255
-    t.string   "benef_age_group", limit: 255
-    t.boolean  "is_published"
-    t.string   "legal_form",      limit: 255
-    t.string   "anon_email_2",    limit: 255
-    t.string   "anon_email_3",    limit: 255
-    t.jsonb    "marker_info",                 default: {}
-  end
-
-  add_index "ads", ["location_id"], name: "index_ads_on_location_id", using: :btree
-  add_index "ads", ["user_id"], name: "index_ads_on_user_id", using: :btree
 
   create_table "ads_categories", force: :cascade do |t|
     t.integer  "ad_id"
@@ -243,6 +209,40 @@ ActiveRecord::Schema.define(version: 20161220025623) do
     t.string   "map_georgian_name"
     t.string   "map_english_name"
   end
+
+  create_table "post_items", force: :cascade do |t|
+    t.integer  "post_id"
+    t.integer  "item_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "post_items", ["item_id"], name: "index_post_items_on_item_id", using: :btree
+  add_index "post_items", ["post_id"], name: "index_post_items_on_post_id", using: :btree
+
+  create_table "posts", force: :cascade do |t|
+    t.string   "title",           limit: 255
+    t.text     "description"
+    t.integer  "location_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "username_used"
+    t.boolean  "giving"
+    t.date     "expire_date"
+    t.string   "image",           limit: 255
+    t.string   "anon_name",       limit: 255
+    t.string   "anon_email",      limit: 255
+    t.string   "benef_age_group", limit: 255
+    t.boolean  "is_published"
+    t.string   "legal_form",      limit: 255
+    t.string   "anon_email_2",    limit: 255
+    t.string   "anon_email_3",    limit: 255
+    t.jsonb    "marker_info",                 default: {}
+  end
+
+  add_index "posts", ["location_id"], name: "index_posts_on_location_id", using: :btree
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
 
   create_table "setting_translations", force: :cascade do |t|
     t.integer  "setting_id",             null: false

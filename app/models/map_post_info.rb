@@ -1,8 +1,8 @@
-class MapAdInfo < MapInfo
+class MapPostInfo < MapInfo
 
-  AD_INFO_ATTRIBUTES = [:post_show, :popup_message, :area]
+  POST_INFO_ATTRIBUTES = [:post_show, :popup_message, :area]
 
-  attr_accessor(*(MAP_INFO_ATTRIBUTES+AD_INFO_ATTRIBUTES))
+  attr_accessor(*(MAP_INFO_ATTRIBUTES+POST_INFO_ATTRIBUTES))
 
   def initialize(post)
     super()
@@ -20,6 +20,6 @@ class MapAdInfo < MapInfo
   end
 
   def attributes_to_read
-    MAP_INFO_ATTRIBUTES+AD_INFO_ATTRIBUTES
+    MAP_INFO_ATTRIBUTES+POST_INFO_ATTRIBUTES
   end
 end

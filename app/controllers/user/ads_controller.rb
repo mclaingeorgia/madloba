@@ -208,7 +208,7 @@ class User::AdsController < ApplicationController
   # Initializes map related info (markers, clickable map...)
   def get_map_settings_for_ad
     if %w(show send_message).include?(action_name)
-      @map_settings = MapAdInfo.new(@post).to_hash
+      @map_settings = MapPostInfo.new(@post).to_hash
     else
       location = @post.locations.first
       @map_settings = MapLocationInfo.new(location: location).to_hash
