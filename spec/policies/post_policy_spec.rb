@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-describe AdPolicy, type: :policy do
+describe PostPolicy, type: :policy do
 
   let(:user) { FactoryGirl.create(:user) }
   let(:ad) { FactoryGirl.create(:ad_with_items, user: user) }
   let(:admin) { FactoryGirl.create(:admin) }
   let(:unsigned_user) { nil }
 
-  subject { AdPolicy }
+  subject { PostPolicy }
 
   permissions :show? do
     it 'grants access to admin' do

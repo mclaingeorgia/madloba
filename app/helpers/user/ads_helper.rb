@@ -7,7 +7,7 @@ module User::AdsHelper
 
   # Checks if current user owns this post.
   def is_owning(post)
-    current_user && current_user.owns_ad(post)
+    current_user && current_user.owns_post?(post)
   end
 
   # Checks if anonymous user who posted an post added their email address.

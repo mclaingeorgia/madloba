@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   has_many :post_users
   has_many :favorite_posts, through: :post_users, source: :post
 
-  def owns_post (post)
+  def owns_post? (post)
     self.posts.include?(post)
   end
 

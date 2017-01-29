@@ -10,7 +10,7 @@ RSpec.describe Item, :type => :model do
 
   it 'is linked to one or several ads' do
     #expect(FactoryGirl.build(:item)).to have_many(:ads)
-    Item.reflect_on_association(:ads).macro == :has_many
+    Item.reflect_on_association(:posts).macro == :has_many
   end
 
   it 'is linked to a category' do

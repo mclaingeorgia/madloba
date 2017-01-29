@@ -11,20 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170129223046) do
+ActiveRecord::Schema.define(version: 20170129235237) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "ad_users", force: :cascade do |t|
-    t.integer  "ad_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "ad_users", ["ad_id"], name: "index_ad_users_on_ad_id", using: :btree
-  add_index "ad_users", ["user_id"], name: "index_ad_users_on_user_id", using: :btree
 
   create_table "areas", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -219,6 +209,16 @@ ActiveRecord::Schema.define(version: 20170129223046) do
 
   add_index "post_translations", ["locale"], name: "index_post_translations_on_locale", using: :btree
   add_index "post_translations", ["post_id"], name: "index_post_translations_on_post_id", using: :btree
+
+  create_table "post_users", force: :cascade do |t|
+    t.integer  "post_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "post_users", ["post_id"], name: "index_post_users_on_post_id", using: :btree
+  add_index "post_users", ["user_id"], name: "index_post_users_on_user_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.string   "title",           limit: 255

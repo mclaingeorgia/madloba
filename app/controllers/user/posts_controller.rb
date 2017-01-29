@@ -1,4 +1,4 @@
-class User::AdsController < ApplicationController
+class User::PostsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   before_action :authenticate_user!, except: [:new, :create, :send_message, :show]
   before_action :requires_user, except: [:new, :create, :send_message, :show]
@@ -21,7 +21,7 @@ class User::AdsController < ApplicationController
       end
     end
 
-    get_map_settings_for_ad
+    get_map_settings_for_post
   end
 
   def new
@@ -29,7 +29,7 @@ class User::AdsController < ApplicationController
     @post.translations.build locale: :en
     @post.translations.build locale: :ka
     authorize @post
-    get_map_settings_for_ad
+    get_map_settings_for_post
 
     @description_remaining_en = 2000
     if @post.description_en && @post.description_en.length > 0
@@ -83,7 +83,7 @@ class User::AdsController < ApplicationController
 
     else
       # Saving the post failed.
-      get_map_settings_for_ad
+      get_map_settings_for_post
       render action: 'new'
     end
   end
@@ -91,7 +91,7 @@ class User::AdsController < ApplicationController
   def edit
     @post = Post.includes(:location => :area).where(id: params[:id]).first!
     authorize @post
-    get_map_settings_for_ad
+    get_map_settings_for_post
   end
 
   def update
@@ -114,7 +114,7 @@ class User::AdsController < ApplicationController
     else
       # Saving the post failed.
       flash[:error_ad] = @post.title
-      get_map_settings_for_ad
+      get_map_settings_for_post
       render action: 'edit'
     end
   end
@@ -130,7 +130,7 @@ class User::AdsController < ApplicationController
     else
       # Deleting the post failed.
       flash[:error_delete_ad] = @post.title
-      get_map_settings_for_ad
+      get_map_settings_for_post
       render action: 'edit'
     end
   end
@@ -154,7 +154,7 @@ class User::AdsController < ApplicationController
 
     if current_user == nil && !simple_captcha_valid?
       flash.now[:error_message] = t('post.captcha_not_valid')
-      get_map_settings_for_ad
+      get_map_settings_for_post
       render action: 'show'
     else
       if message && message.gsub(/\s+/, '') != ''
@@ -206,7 +206,7 @@ class User::AdsController < ApplicationController
   end
 
   # Initializes map related info (markers, clickable map...)
-  def get_map_settings_for_ad
+  def get_map_settings_for_post
     if %w(show send_message).include?(action_name)
       @map_settings = MapPostInfo.new(@post).to_hash
     else

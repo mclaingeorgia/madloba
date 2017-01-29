@@ -10,7 +10,7 @@ RSpec.describe Location, :type => :model do
 
   it 'is linked to one or several ads' do
     #expect(FactoryGirl.build(:location)).to have_many(:ads)
-    Location.reflect_on_association(:ads).macro == :has_many
+    Location.reflect_on_association(:posts).macro == :has_many
   end
 
   it 'is linked to a user' do
