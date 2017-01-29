@@ -12,7 +12,6 @@ class User::UsersController < ApplicationController
   def new
     @user = User.new
     authorize @user
-    @is_adding = true
     @is_managing_user = true
     render 'user'
   end
@@ -46,7 +45,6 @@ class User::UsersController < ApplicationController
       flash[:new_user] = @user.email
       redirect_to edit_user_user_path(@user.id)
     else
-      @is_adding = true
       render 'user'
     end
   end

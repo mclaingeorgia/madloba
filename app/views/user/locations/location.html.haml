@@ -13,7 +13,7 @@
           - else
             %li
               %a{:href => "/user/manageposts"}= t('admin.manage_your_posts')
-          - if is_adding_new
+          - if adding_new?
             %li= t('admin.add_location')
           - else
             %li= t('admin.edit_location')
@@ -22,7 +22,7 @@
           .box-inner
             .box-header.well{"data-original-title" => ""}
               %h2
-                - if is_adding_new
+                - if adding_new?
                   %i.glyphicon.glyphicon-plus
                   = t('admin.new_location')
                 - else
@@ -59,7 +59,7 @@
             .box-content
               = form_for [:user, @location], html: { id: 'locationForm', role: 'form' } do |f|
                 %fieldset
-                  - if !is_adding_new
+                  - if !adding_new?
                     .form-group
                       .col-lg-6
                         %a.btn.btn-danger.btn-delete-right.btn-setting{:href => "#"}= t('admin.location.delete')
@@ -69,7 +69,7 @@
                   / Partial that contains the location form
                   = render 'shared/location_form', form: f, location: @location
 
-                  - if !is_adding_new
+                  - if !adding_new?
                     / List of items that can be found at this location
                     .form-group
                       .col-lg-6
@@ -95,7 +95,7 @@
                   / Submit button and cancel link
                   = render 'shared/submit_section'
 
-- if !is_adding_new
+- if !adding_new?
   / "Delete location" modal window
   = render 'delete_modal_window'
 

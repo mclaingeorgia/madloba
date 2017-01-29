@@ -1,3 +1,4 @@
+- adding = current_page?(action: 'new') || current_page?(action: 'create')
 .row
   #content.middle-col.col-xs-12.col-md-10
     - if @is_managing_user
@@ -5,7 +6,7 @@
         %ul.breadcrumb
           %li
             %a{:href => "/user/manageusers/"}= t('admin.profile.title_manage_users')
-          - if @is_adding
+          - if adding
             %li= t('admin.profile.new_user')
           - else
             %li= t('admin.profile.update_profile')
@@ -15,7 +16,7 @@
         .box-inner
           .box-header.well{"data-original-title" => ""}
             - if @is_managing_user
-              - if @is_adding
+              - if adding
                 %h2
                   %i.glyphicon.glyphicon-user
                   = t('admin.profile.new_user')
@@ -51,14 +52,14 @@
               %a{:href => "/user/manageusers"}= t('admin.back_to_users')
           .box-content
             = form_for [:user, @user], html: { role: 'form' } do |f|
-              - if current_user.admin? && !@is_adding && current_user != @user
+              - if current_user.admin? && !adding && current_user != @user
                 .form-group
                   - if demo?
                     -# User deletion not allowed on demo
                     = link_to t('admin.users.delete_not_possible'), '#', class: 'btn btn-danger disabled'
                   - else
                     = link_to t('admin.users.delete'), '#', class: 'btn btn-danger btn-delete-right btn-setting'
-              - if @is_adding
+              - if adding
                 .form-group
                   = t('registration.all_mandatory')
               -# E-mail
@@ -110,7 +111,7 @@
                   = f.text_field :username, class: 'form-control'
 
               -# Current password
-              - if !@is_adding && !current_user.super_admin?
+              - if !adding && !current_user.super_admin?
                 .form-group
                   = f.label :current_password, t('admin.profile.current_password')+':', class:'control-label'
                   %i= t('registration.need_current')
@@ -122,7 +123,7 @@
               -# New password
               .form-group
                 = f.label :password, t('admin.profile.new_password')+':', class:'control-label'
-                - if !@is_adding
+                - if !adding
                   %i= t('registration.leave_blank')
                   %br/
                 .form-inline
@@ -143,6 +144,6 @@
                 -# Submit button and cancel link
                 = render 'shared/submit_section'
 
-- if !@is_adding
+- if !adding
   -# "Delete user" - modal window
   = render 'delete_modal_window'

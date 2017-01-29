@@ -22,13 +22,14 @@ class HomeController < ApplicationController
     end
 
     # Defining all the categories attached to an item.
-    if selected_item_ids
-      # We select here only the categories, based on the items found after a search.
-      @categories = Category.joins(posts: :items).where("items.id IN (?)", selected_item_ids).order('name asc').uniq
-    else
-      # We select the categories related to all available items
-      @categories = Category.joins(:posts).order('name asc').uniq
-    end
+    # if selected_item_ids
+    #   # We select here only the categories, based on the items found after a search.
+    #   @categories = Category.joins(posts: :items).where("items.id IN (?)", selected_item_ids).order('name asc').uniq
+    # else
+    #   # We select the categories related to all available items
+    #   @categories = Category.joins(:posts).order('name asc').uniq
+    # end
+    @categories = []
 
     # We need to see if we have a navigation state.
     # If we do, that will impact what will be displayed on the map.

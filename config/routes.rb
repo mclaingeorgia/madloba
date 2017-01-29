@@ -41,12 +41,12 @@ Madloba::Application.routes.draw do
     get '/', to: 'admin_panel#index'
 
     resources :locations, :categories, :items, :users, :faqs
-    resources :ads, :only => [:edit, :update, :destroy], path: :services, as: :services
+    resources :posts, :only => [:edit, :update, :destroy], path: :services, as: :services
 
     get 'index', 'home', to: 'admin_panel#index'
     get 'managerecords', to: 'admin_panel#managerecords'
     get 'manageusers', to: 'admin_panel#manageusers'
-    get 'manageads', to: 'admin_panel#manageads'
+    get 'manageposts', to: 'admin_panel#manageposts'
     get 'manageprofile', to: 'users#edit'
     get 'generalsettings', to: 'admin_panel#general_settings'
     get 'mapsettings', to: 'admin_panel#map_settings'
@@ -65,30 +65,30 @@ Madloba::Application.routes.draw do
     post 'areasettings/delete_area', to: 'admin_panel#delete_area'
 
     get 'getAreaSettings', to: 'admin_panel#getAreaSettings'
-    get 'ads/:id/edit', to: 'ads#edit'
+    get 'posts/:id/edit', to: 'posts#edit'
 
     # This POST method is called when the deletion of a category is made through a form
     post 'categories/:id', to: 'categories#destroy'
   end
 
-  resources :ads, :only => [:show, :index, :new, :create], :controller => 'user/ads', path: :services, as: :services
-  post 'ads/send_message', to: 'user/ads#send_message'
+  resources :posts, :only => [:show, :index, :new, :create], :controller => 'user/posts', path: :services, as: :services
+  post 'posts/send_message', to: 'user/posts#send_message'
 
   # Ajax calls to get details about a location (geocodes, exact address)
   get '/getNominatimLocationResponses', to: 'application#nominatim_location_responses'
   get '/getCityGeocodes', to: 'user/locations#retrieve_geocodes'
 
-  # Ajax call to get the list of items, for autocomplete, when searching for an item, or creating/editing an ad.
+  # Ajax call to get the list of items, for autocomplete, when searching for an item, or creating/editing an post.
   get '/getItems', to: 'application#get_items'
 
-  # Ajax call to show the ads related to 1 type of item and to 1 area/area.
-  get '/showSpecificAds', to: 'home#showSpecificAds'
+  # Ajax call to show the posts related to 1 type of item and to 1 area/area.
+  get '/showSpecificAds', to: 'home#showSpecificPosts'
 
   # To change languages.
   get '/change_locale/:locale', to: 'settings#change_locale', as: :change_locale
 
   # Ajax call to show popup content, when marker clicked on home page.
-  get '/showAdPopup', to: 'home#show_ad_popup'
+  get '/showPostPopup', to: 'home#show_post_popup'
   get '/showAreaPopup', to: 'home#show_area_popup'
 
   # Root
