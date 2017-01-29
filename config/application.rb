@@ -1,5 +1,4 @@
 require File.expand_path('../boot', __FILE__)
-require File.expand_path('../../lib/ad_socket', __FILE__)
 
 require 'rails/all'
 
@@ -59,10 +58,6 @@ module Madloba
     config.exceptions_app = CustomPublicExceptions.new(Rails.public_path)
 
     config.autoload_paths << Rails.root.join('lib')
-
-    # Adding Ad websocket class as a middleware
-    config.middleware.use AdSocket
-    config.middleware.delete Rack::Lock
 
     # Variable used to debug setup mode at runtime
     config.setup_debug_mode = false

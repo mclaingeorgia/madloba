@@ -33,11 +33,6 @@
       = yield
       = render 'shared/footer'
 
-    -# Javascript files to be included in all pages.
     = javascript_include_tag 'application'
-    -# Javascript files specific to some pages, to be included here.
-    :javascript
-      // Initialization of websocket url and object.
-      App = {host_url: "#{"http://\#{request.host}:\#{request.port}"}",
-              websocket_url: "#{"ws://\#{request.host}:\#{request.port}"}"};
+
     = yield :scripts

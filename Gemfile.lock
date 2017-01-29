@@ -148,9 +148,6 @@ GEM
       railties (>= 3.0.0)
     faker (1.6.6)
       i18n (~> 0.5)
-    faye-websocket (0.10.5)
-      eventmachine (>= 0.12.0)
-      websocket-driver (>= 0.5.1)
     ffi (1.9.14)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
@@ -541,9 +538,6 @@ GEM
     warden (1.2.6)
       rack (>= 1.0)
     websocket (1.2.3)
-    websocket-driver (0.6.4)
-      websocket-extensions (>= 0.1.0)
-    websocket-extensions (0.1.2)
     will_paginate (3.1.5)
     xml-simple (1.1.5)
     xpath (2.0.0)
@@ -578,7 +572,6 @@ DEPENDENCIES
   exception_notification (~> 4.1.1)
   factory_girl_rails
   faker
-  faye-websocket
   fog
   font-awesome-sass
   globalize (~> 5.0.0)
