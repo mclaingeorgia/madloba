@@ -39,13 +39,12 @@
             - area_data = @areas.map{|a| [a.name, a.id, { 'data-latitude' => a.latitude, 'data-longitude' => a.longitude }]}
             = select_tag 'area', options_for_select(area_data), select_options
 
-        - if (@categories && @categories.select{|cat| cat.is_refinement(params)}.length > 0) || @location_search_refinement_to_display || user_search_action
+        - if (@categories && @categories.select{|cat| cat.is_refinement(params)}.length > 0) || user_search_action
           .list-group
-            - if @location_search_refinement_to_display
-              %h4= t('home.your_searched_location')
-              %a.list-group-item.smaller-no-border-no-background{:href => "/"}
-                %span= params[:loc]
-                %i.glyphicon.glyphicon-remove.align-cross{:style => "float: right"}
+            %h4= t('home.your_searched_location')
+            %a.list-group-item.smaller-no-border-no-background{:href => "/"}
+              %span= params[:loc]
+              %i.glyphicon.glyphicon-remove.align-cross{:style => "float: right"}
             - if user_search_action
               -# "You're searching for: / You're giving away:" refinement
               %h4= user_search_action

@@ -11,32 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170128154047) do
+ActiveRecord::Schema.define(version: 20170129223046) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "ad_locations", force: :cascade do |t|
-    t.integer  "ad_id"
-    t.integer  "location_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "ad_locations", ["ad_id"], name: "index_ad_locations_on_ad_id", using: :btree
-  add_index "ad_locations", ["location_id"], name: "index_ad_locations_on_location_id", using: :btree
-
-  create_table "ad_translations", force: :cascade do |t|
-    t.integer  "ad_id",                   null: false
-    t.string   "locale",      limit: 255, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "title",       limit: 255
-    t.text     "description"
-  end
-
-  add_index "ad_translations", ["ad_id"], name: "index_ad_translations_on_ad_id", using: :btree
-  add_index "ad_translations", ["locale"], name: "index_ad_translations_on_locale", using: :btree
 
   create_table "ad_users", force: :cascade do |t|
     t.integer  "ad_id"
@@ -47,16 +25,6 @@ ActiveRecord::Schema.define(version: 20170128154047) do
 
   add_index "ad_users", ["ad_id"], name: "index_ad_users_on_ad_id", using: :btree
   add_index "ad_users", ["user_id"], name: "index_ad_users_on_user_id", using: :btree
-
-  create_table "ads_categories", force: :cascade do |t|
-    t.integer  "ad_id"
-    t.integer  "category_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "ads_categories", ["ad_id"], name: "index_ads_categories_on_ad_id", using: :btree
-  add_index "ads_categories", ["category_id"], name: "index_ads_categories_on_category_id", using: :btree
 
   create_table "areas", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -74,6 +42,16 @@ ActiveRecord::Schema.define(version: 20170128154047) do
     t.string   "icon",         limit: 255
     t.string   "marker_color", limit: 255
   end
+
+  create_table "categories_posts", force: :cascade do |t|
+    t.integer  "post_id"
+    t.integer  "category_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "categories_posts", ["category_id"], name: "index_categories_posts_on_category_id", using: :btree
+  add_index "categories_posts", ["post_id"], name: "index_categories_posts_on_post_id", using: :btree
 
   create_table "category_translations", force: :cascade do |t|
     t.integer  "category_id",             null: false
@@ -219,6 +197,28 @@ ActiveRecord::Schema.define(version: 20170128154047) do
 
   add_index "post_items", ["item_id"], name: "index_post_items_on_item_id", using: :btree
   add_index "post_items", ["post_id"], name: "index_post_items_on_post_id", using: :btree
+
+  create_table "post_locations", force: :cascade do |t|
+    t.integer  "post_id"
+    t.integer  "location_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "post_locations", ["location_id"], name: "index_post_locations_on_location_id", using: :btree
+  add_index "post_locations", ["post_id"], name: "index_post_locations_on_post_id", using: :btree
+
+  create_table "post_translations", force: :cascade do |t|
+    t.integer  "post_id",                 null: false
+    t.string   "locale",      limit: 255, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "title",       limit: 255
+    t.text     "description"
+  end
+
+  add_index "post_translations", ["locale"], name: "index_post_translations_on_locale", using: :btree
+  add_index "post_translations", ["post_id"], name: "index_post_translations_on_post_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.string   "title",           limit: 255
