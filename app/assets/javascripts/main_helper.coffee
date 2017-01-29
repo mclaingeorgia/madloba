@@ -176,7 +176,7 @@ global.markers =
               marker_popup = e.target.getPopup()
 
               $.ajax
-                url: '/showAdPopup'
+                url: '/showPostPopup'
                 global: false
                 type: 'GET'
                 data:

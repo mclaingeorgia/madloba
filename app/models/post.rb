@@ -55,7 +55,6 @@ class Post < ActiveRecord::Base
 
       if cat_nav_state || searched_item
         if cat_nav_state
-          puts cat_nav_state
           if searched_item
             # We search for posts in relation to the searched item and the current category navigation state.
             posts = posts.joins([:items, :categories]).where(categories: {id: cat_nav_state}, items: {id: selected_item_ids})
@@ -195,9 +194,8 @@ class Post < ActiveRecord::Base
     end
     info[:locations] = locations
     markers = []
-    self.items.each do |i|
-      cat = i.category
-      marker = {icon: cat.icon, color: cat.marker_color, item_id: i.id, category_id: cat.id}
+    self.categories.each do |cat|
+      marker = {icon: cat.icon, color: cat.marker_color, category_id: cat.id}
       markers << marker
     end
     info[:markers] = markers
