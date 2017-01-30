@@ -17,10 +17,10 @@ en:
               taken: "Marker color and icon error - the chosen pair is not available: both this icon and this marker color have already been used for another category. Please choose another marker and/or icon."
             icon:
               blank: The icon name can't be blank.
-        ad:
+        post:
           attributes:
             title:
-              blank: 'The ad title cannot be blank'
+              blank: 'The post title cannot be blank'
             description:
               blank: 'Please write a description for this ad'
             image:
@@ -62,11 +62,11 @@ en:
     about: About
     about_website: About %{website_name}
     links: Links
-    no_ad: There are currently no services relating to your search.
+    no_post: There are currently no services relating to your search.
     your_searched_location: Searched location
-    area_marker_message: "%{ad_count} services posted in total in this area, featuring %{item_count} items."
+    area_marker_message: "%{post_count} services posted in total in this area, featuring %{item_count} items."
     show_results: "Show results for this area"
-    create_an_ad_now_html: "Please try another keyword or use the categories to broaden your search."
+    create_an_post_now_html: "Please try another keyword or use the categories to broaden your search."
     about_page: About %{website_name}
     faq_page: FAQ
     about_description_1_html: "%{website_name} is a website powered by %{madloba_link}."
@@ -92,7 +92,7 @@ en:
     footer_new_powered_by_html: New website powered by %{madloba_link}
     footer_theme_html: Theme from %{charisma}
     log_out: Log out
-    show_ads_areas: Show services by areas
+    show_posts_areas: Show services by areas
     show_details: Show details
     error_get_popup_content: Sorry, an error occurred. Please try again later.
     error:
@@ -122,10 +122,10 @@ en:
     anon_publisher_name_note: "This is an service posted by an anonymous user:"
     no_service_provider_yet: "No service provider has been tied to this service yet. Please enter a service provider's name and email:"
     or_choose_user: "or choose an existing user in the list underneath:"
-    ad_action: "Action:*"
+    post_action: "Action:*"
     publish_service: "Publish this service?"
-    ad_action_giving: I'm giving away items.
-    ad_action_accepting: I'm searching for items.
+    post_action_giving: I'm giving away items.
+    post_action_accepting: I'm searching for items.
     name_username: the username
     name_fullname: the full name
     definition: "Enter your location*:"
@@ -150,9 +150,9 @@ en:
     why_choose_location_type: "Why do I need to choose an option?"
     modal_exact_area_title: "Full address or area only?"
     modal_exact_area_description: "On one hand, by clicking on '%{def_exact}', you will be able to enter the exact address of this location and pinpoint it on the map below."
-    modal_exact_area_description2: "After your ad has been created, you will be able to visualize it on the home page map with a colored marker placed at the previously marked location."
+    modal_exact_area_description2: "After your post has been created, you will be able to visualize it on the home page map with a colored marker placed at the previously marked location."
     modal_exact_area_description3: "On the other hand, you may not want to give away that many details about the location, given any personal reasons (eg. anonymity, details about the ad...)."
-    modal_exact_area_description4: "By choosing '%{def_area}', you will just have to indicate which area does this location belong to. Once the ad is created, it won't appear as a colored marker on the home page, but it will show up in the search results page related to the selected area."
+    modal_exact_area_description4: "By choosing '%{def_area}', you will just have to indicate which area does this location belong to. Once the post is created, it won't appear as a colored marker on the home page, but it will show up in the search results page related to the selected area."
     street_number: "Street number:"
     postal_code: "Postal code:"
     area: "Area:"
@@ -174,10 +174,10 @@ en:
     area_help: Choose the region where this location can be found.
     error_location_fields: "Either an area or an address must be given"
     error_location_address_only: "An address must be given"
-  ad:
+  post:
     back_to_home: "Back to home page"
     mandatory_field: "*denotes mandatory fields"
-    new_ad: Service registration
+    new_post: Service registration
     area: area
     error_occurred: "%{errors} occurred while saving this service"
     published: "Published by:"
@@ -196,7 +196,7 @@ en:
     name_help: Please enter your name or a nickname here. It will appear publicly as it is, in the published service.
     captcha: "Captcha*:"
     email_help: Providing your email is not mandatory (make sure you've at least put a phone number in the service description). If you give an email address, it won't be published publicly and users will still be able to write a message to you.
-    ad_is_deleted: The service '%{deleted_ad_title}' has been deleted.
+    post_is_deleted: The service '%{deleted_post_title}' has been deleted.
     your_email: Your email
     location_website: "Website:"
     your_message: "Your message*:"
@@ -215,9 +215,9 @@ en:
     choose_existing: Choose existing location instead
     service_category: "Categories of Service*"
     please_select_apply: "Please select all that apply"
-    create_this_ad: Register my Service!
-    submit_ad_new: Create this service!
-    submit_ad_edit: Update this service
+    create_this_post: Register my Service!
+    submit_post_new: Create this service!
+    submit_post_edit: Update this service
     create_success: The service '%{title}' has been created. You will shortly receive an e-mail, with the details of the new service.
     where_to_find: "Location:"
     where_to_bring: "Where to bring the service(s):"
@@ -228,15 +228,15 @@ en:
     from: From
     get_back_to: You can directly get back to %{first_name} by replying to this e-mail.
     success_sent: Your message has been sent successfully.
-    ad_create_expire: Your service will expire in %{day_number} days, on %{expire_date}.
-    ad_has_expired: Sorry, this service has expired and is not visible anymore.
-    no_ad_created_yet: You have not created any service yet. Click on the button above to create your first one!
+    post_create_expire: Your service will expire in %{day_number} days, on %{expire_date}.
+    post_has_expired: Sorry, this service has expired and is not visible anymore.
+    no_post_created_yet: You have not created any service yet. Click on the button above to create your first one!
     no_location_yet: "Nothing to edit here: you have not created any service with an exact location in it yet."
     upload_image: "Upload image or logo:"
     less_than_limit: Image must be less than 5MB.
     remove_image: Remove image
     image_currently_processed: Your image is currently being processed.
-    show_ad_image_processed: The image of this service is currently being processed.
+    show_post_image_processed: The image of this service is currently being processed.
     will_show_up: It will show up in a moment after you refresh the page.
     create_item: Create a new service type
     create_location: Create a new location
@@ -244,10 +244,10 @@ en:
     add_item: Add a Service type
     see_published: See this published service
     see_non_published: Service non-published yet
-    error_ad_must_have_item: Please add at least one service type.
-    error_ad_must_have_location: Please enter at least one location.
-    error_ad_must_have_category: Please select at least one category.
-    image_selected: Image is selected. It will be uploaded once this ad is created.
+    error_post_must_have_item: Please add at least one service type.
+    error_post_must_have_location: Please enter at least one location.
+    error_post_must_have_category: Please select at least one category.
+    image_selected: Image is selected. It will be uploaded once this post is created.
     provide_anon_name: Please enter your name
     provide_anon_email: Please enter your email address
     captcha_not_valid: The captcha text you entered is not valid.
@@ -256,8 +256,8 @@ en:
     funding_municipality: Municipality
     funding_government: Governmental
     funding_other: Other
-    ad_not_published_html: "This service is not published yet. Go to the %{editpage} to switch the publication on."
-    ad_to_be_reviewed: "Your service will be published once the administrators review it (for now, only you can see it)."
+    post_not_published_html: "This service is not published yet. Go to the %{editpage} to switch the publication on."
+    post_to_be_reviewed: "Your service will be published once the administrators review it (for now, only you can see it)."
     edit_page: edit page of this service
     under_review: Your service is not published yet, as it is under review.
     log_in_to_send_html: Please %{login} or %{create} if you want to send a message.
@@ -308,24 +308,24 @@ en:
     register_3: Submit Registration
     signature: The %{name} team.
     dear: "Dear %{name}"
-    ad_created: You have successfully created the following service registration, on %{site_name}
+    post_created: You have successfully created the following service registration, on %{site_name}
     user_is_admin_html: "This message is to let you know that you are now %{new_role} of the %{site_name} website."
-    ad_title: Name of service
+    post_title: Name of service
     description: Description
     where_pick_up: Where to pick up the item
     admin_panel: our admin panel.
-    manage_ad_html: "To manage this service, as well as your previously posted services, login to %{admin_panel}"
+    manage_post_html: "To manage this service, as well as your previously posted services, login to %{admin_panel}"
     thanks: Thanks, and have a good day!
-    received_message: You received a reply for your '%{ad_title}' service on %{site_name}.
-    new_ad_object: Your new service registration on %{site_name} - '%{ad_title}'
-    new_ad_to_review: "New service to review: '%{title}'"
+    received_message: You received a reply for your '%{post_title}' service on %{site_name}.
+    new_post_object: Your new service registration on %{site_name} - '%{post_title}'
+    new_post_to_review: "New service to review: '%{title}'"
     updated_service: "A service has been updated: '%{title}'"
-    reply_ad_object: Reply to your '%{ad_title}' service on %{site_name}
+    reply_post_object: Reply to your '%{post_title}' service on %{site_name}
     you_are_admin_html: "You are now %{new_role} of %{site_name}."
     account_locked: Your account has been locked due to an excessive number of unsuccessful sign in attempts.
     link_unlock: Click the link below to unlock your account
     unlock_account: Unlock my account
-    ad_will_expire: This service will expire in %{day_number} days, on %{expire_date}
+    post_will_expire: This service will expire in %{day_number} days, on %{expire_date}
     new_service_posted: "A user posted a new service on %{sitename}, titled '%{title}'."
     service_just_updated: "A service on %{sitename} titled '%{title}' has been updated."
     review_it_html: "You can review it %{link}."
@@ -380,8 +380,8 @@ en:
     address_en: Address (en)
     address_ka: Address (ge)
     exact_area: Location type
-    ads: Services
-    ad_settings: Service settings
+    posts: Services
+    post_settings: Service settings
     location_name: location
     expiration_date: Expiration date
     locations: Locations
@@ -416,15 +416,15 @@ en:
     icon: Icon
     edit_delete: Edit details / Delete
     created_by_user: Created by user
-    update_ad: Update service
-    manage_your_ads: Manage your services
+    update_post: Update service
+    manage_your_posts: Manage your services
     manage_records: Manage data
     records_message: From here, you can manage the services posted on the website, as well as their locations, services, and categories.
     faq_message: Manage the RehabLink FAQ from here.
     back_to_records: Back to the 'Manage data' page
-    back_to_ads: Back to 'Manage your services' page
+    back_to_posts: Back to 'Manage your services' page
     back_to_users: Back to 'Manage users' page
-    create_ad: Create service
+    create_post: Create service
     mandatory: (* mandatory fields)
     general_settings_menu: General
     save: Save
@@ -454,13 +454,13 @@ en:
     social_media: Social media
     useful_links: Useful links
     delete_sure: Are you sure you want to delete this %{entity}?
-    warning_ads_before_delete_item: "WARNING: some services are still tied to this service type. Deleting this service type will permanently remove it from these services."
-    warning_ads_before_delete_location: "WARNING: some services are still tied to this location. Deleting this location will permanently delete these services."
+    warning_posts_before_delete_item: "WARNING: some services are still tied to this service type. Deleting this service type will permanently remove it from these services."
+    warning_posts_before_delete_location: "WARNING: some services are still tied to this location. Deleting this location will permanently delete these services."
     delete_confirm: Yes, delete this %{entity}
     save_not_possible: "Demo - Update not possible for this page"
     see_service: See service
     todo:
-      no_category_html: '<strong>No category available</strong>. Please create at least one category to be able to create ads.'
+      no_category_html: '<strong>No category available</strong>. Please create at least one category to be able to create posts.'
       one_category_html: '<strong>Only one category is available</strong>. Please create a few categories to allow the user to refine their search by specific item categories.'
       no_area_type_html: '<strong>No area type has been specified</strong>. Without the ability to select an area when creating an ad, the user will have to enter an exact address (which might not be wanted). In "Area (Settings)", please define areas to give users more flexibility, when they will choose a location.'
       mapbox_missing_html: You don't have entered a Mapbox key yet, in "Map (Settings)". You can get one by opening an account on <a href="https://www.mapbox.com" target="_blank">Mapbox</a>, to get a new map style for your website.
@@ -476,27 +476,27 @@ en:
       manage_profile: Your profile
       favorite_services: Your favorite services
       manage_faq: Manage the FAQ
-    ad:
-      manage_ads: Manage services
-      ad_edit: Service details - Edit
-      ad_updated: The service '%{title}' has been updated.
+    post:
+      manage_posts: Manage services
+      post_edit: Service details - Edit
+      post_updated: The service '%{title}' has been updated.
       error_update: "%{errors} occurred while updating this service"
       delete: Delete this service
-      delete_ad_error_html: "Error occurred when updating this service! Back to %{href}"
-      manage_ads_page: "'Manage your services' page"
+      delete_post_error_html: "Error occurred when updating this service! Back to %{href}"
+      manage_posts_page: "'Manage your services' page"
       giving_accepting_title: Giving away/Accepting
       giving_away: Giving away
       accepting: Accepting
-      delete_ad: Delete this service?
-      delete_ad_permanently: Are you sure you want to delete this service permanently?
-      delete_this_ad: Yes, delete this service
+      delete_post: Delete this service?
+      delete_post_permanently: Are you sure you want to delete this service permanently?
+      delete_this_post: Yes, delete this service
     location:
       error_occurred: "%{errors} occurred while saving this location"
       update_success: This location has been updated.
       created_success: The new location has been created.
       delete: Delete this location
-      linked_ads: Services linked to that location
-      no_ad: There is no service linked to this location yet.
+      linked_posts: Services linked to that location
+      no_post: There is no service linked to this location yet.
       area: Area
       exact_address: Exact address
       map_notification_postal_code: Click on the map to locate your general postal code area.
@@ -504,7 +504,7 @@ en:
       location_deleted: The location '%{deleted_location_name}' has been deleted.
       unnamed: unnamed location
       area_name: "%{area} area"
-      no_ad_tied: No services are currently tied to this location.
+      no_post_tied: No services are currently tied to this location.
       anonymous_user: (Anonymous user)
     category:
       update_success: The category '%{name}' has been updated.
@@ -539,9 +539,9 @@ en:
       delete_faq: Delete this question
       name_en: Service type name (en)
       name_ka: Service type name (ge)
-      ads_promoting: Services promoting this service type
-      ad_title: Service title
-      no_ad: There is no service where this service type is currently used.
+      posts_promoting: Services promoting this service type
+      post_title: Service title
+      no_post: There is no service where this service type is currently used.
       item_deleted: the service type '%{deleted_item_name}' has been deleted.
     general_settings:
       name: Website name
@@ -555,8 +555,8 @@ en:
       pinterest: Pinterest page URL
       success_message: The general settings have been updated.
       error_message: The "Website name" field cannot be empty.
-      max_ad_expire: Service expiration - Max. number of days
-      max_ad_expire_help: Set the maximum number of days a service can remain published, after its creation (Enter '0' to set no limit).
+      max_post_expire: Service expiration - Max. number of days
+      max_post_expire_help: Set the maximum number of days a service can remain published, after its creation (Enter '0' to set no limit).
       link_one: First link
       link_one_ka: First link - Georgian label
       link_two: Second link
@@ -582,7 +582,7 @@ en:
       latitude: Latitude
       longitude: Longitude
       map_description: "Areas broadly define neighbourhoods and districts related to your Madloba website.
-                              Once defined, users will be able to looks at ads in the chosen neighbourhood on the home page.
+                              Once defined, users will be able to looks at posts in the chosen neighbourhood on the home page.
                               Alternatively, they will choose an area when creating a new ad."
       map_description_2: "Click on the map to pinpoint and name a new area.
                                 Click on an previously defined area to either delete it or change its name."
@@ -855,7 +855,7 @@ en:
   general_js:
     loading: "Loading..."
     adblock_warning: Warning! Use of AdBlock
-    categories_create_ad: "Categories / Register service"
+    categories_create_post: "Categories / Register service"
     adblock_browser: Your browser is currently using AdBlock.
     adblock_affecting: It's affecting this Madloba website's ability to work well.
     adblock_turnoff: Turn off AdBlock for this website, and reload the page.
@@ -891,7 +891,7 @@ en:
     filtered_from: filtered from
     total_entries: total entries
     in_this_district: In this district
-    ads_for: Services for
+    posts_for: Services for
     items_given: "Service types:"
     items_searched: "Service type(s) being searched for:"
     image_not_available: Image not available yet.
