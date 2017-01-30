@@ -118,7 +118,7 @@ module User::AdsHelper
     end
   end
 
-  def expire_date_for_new_ad
+  def expire_date_for_new_post
     max_expire_days.to_i > 0 ? t('post.once_created_expire_html', max_expire_days: max_expire_days) : ''
   end
 
