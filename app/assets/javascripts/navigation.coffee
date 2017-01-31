@@ -1,31 +1,28 @@
 global = this
 
 global.NavigationBar = ->
-  @searchedAdItems = new Bloodhound(
+  @searchedPostItems = new Bloodhound(
     datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value')
     queryTokenizer: Bloodhound.tokenizers.whitespace
     remote:
       url: '/getItems?item=QUERY&type=search_post_items'
       wildcard: 'QUERY')
-  @searchedAdItems.clearPrefetchCache()
-  @searchedAdItems.initialize()
+  @searchedPostItems.clearPrefetchCache()
+  @searchedPostItems.initialize()
   @init()
 
 NavigationBar::init = ->
   _this = this
   # Press Enter to valid search form.
+  # Press Enter to valid search form.
   $('#nav_search_form input').keypress (event) ->
-    if event.which == 13
-      event.preventDefault()
-      _this.getLocationsPropositions()
-
-  # Event tied to "up" arrow, to go back to the top of the page.
-  $('#navbar-up-link').click ->
-    $('html, body').animate { scrollTop: 0 }, 1000
+    if location.pathname == "/" && event.which == 13
+      _this.processSearch()
 
   # Navigation - Search form: Ajax call to get locations proposition, based on user input in this form.
-  $('#btn-form-search').click ->
-    _this.getLocationsPropositions()
+  $('#btn_form_search').click ->
+    if location.pathname == "/"
+      _this.processSearch()
 
   # Popover when "Sign in / Register" link is clicked, in the navigation bar.
   $('#popover').popover
@@ -41,11 +38,11 @@ NavigationBar::init = ->
   $('#item').typeahead null,
     name: 'item-search'
     display: 'value'
-    source: _this.searchedAdItems
+    source: _this.searchedPostItems
 
   # Changing the typeahead query, depending of user choice between "I'm giving away" and "I'm searching for".
   $('#q').change(->
-    _this.searchedAdItems.remote.url = '/getItems?item=QUERY&type=search_post_items&q=' + $('#q').val()
+    _this.searchedPostItems.remote.url = '/getItems?item=QUERY&type=search_post_items&q=' + $('#q').val()
     # As the type of search changes, the item name field needs to be reset.
     $('#item').val ''
   ).change()
@@ -60,6 +57,48 @@ NavigationBar::init = ->
         data: post: item['post_id']
 
   @initEventsAttachedToLinks()
+
+
+
+# Processing search (item and location search)
+NavigationBar::processSearch = ->
+  event.preventDefault()
+  itemValue = $('#item').val()
+  queryValue = $('#q').val()
+  params = {q: queryValue, item: itemValue}
+
+  $.ajax
+    url: '/search'
+    global: false
+    type: 'POST'
+    data:
+      item: itemValue
+      q: queryValue
+    dataType: 'html'
+    beforeSend: (xhr) ->
+      xhr.setRequestHeader 'Accept', 'text/html-partial'
+    success: (data) ->
+      d = JSON.parse(data)
+
+      global.navState.q = queryValue
+      global.navState.item = itemValue
+
+      global.navState.populateSearchResultsSidebar(d.results)
+
+      global.navState.cat = []
+      searchItemNavState = []
+      $('.guided-nav-category').each (i, el)->
+        $(el).show()
+        if $(el).attr('id') in d.categories
+          searchItemNavState.push $(el).attr('id')
+        else
+          $(el).hide()
+
+      global.navState.updateMarkersOnMap(data)
+      global.navState.applyQueryParams(params)
+      markers.registerAreaMarkers(d.areas, true)
+      updateCategorySidebarHeight()
+
 
 
 ###

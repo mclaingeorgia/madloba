@@ -1,11 +1,11 @@
 global = this
 
-global.Home = (locations_exact, areas, marker_colors) ->
+global.Home = (locations_exact, areas, params, marker_colors) ->
   markers.locations_exact = locations_exact
   markers.areas = areas
   markers.marker_colors = marker_colors
 
-  @nav_state = {cat: [], q: '', item: '', lat: '', lon: ''}
+  @params = params
 
   @init()
   @putLocationMarkers()
@@ -17,18 +17,28 @@ Home::init = ->
   $('.leaflet-control-zoom-out, .leaflet-control-zoom-in').click ->
     $('html, body').animate { scrollTop: 0 }, 0
 
-  # Initialize the right-hand side navigation bar, on the home page. Open it on load (not on mobile)
+  # Initialize the sidebars on the home page. Open it on load (not on mobile)
   L.control.sidebar('sidebar').addTo(leaf.map)
+  L.control.sidebar('search_result', {position: 'right'}).addTo(leaf.map)
   if !$('.navbar-toggle').is(':visible')
     $('#sidebar_category_icon').trigger('click')
 
   # After choosing an area, moves the map to where it is.
   leaf.moveMapBasedOnArea({showAreaIcon: true, zoom: 11})
 
+  if @params.item
+    global.navState.populateSearchResultsSidebar(markers.locations_exact, false)
+
+  # Update left sidebar with info related to url params
+  global.navState.applyQueryParams(@params)
+
   @updateUrlWhenMovingMap()
 
   # Ajax calls made when choosing a category, in the sidebar.
   @refineMarkers()
+
+  # Update left sidebar height()
+  updateCategorySidebarHeight()
 
 
 ###*
@@ -120,16 +130,16 @@ Home::refineMarkers = ->
     # and inserting it in the "Selected categories" section.
     selectedLinkHtml = $(this).clone()
     link_id = $(this).attr('id')
-    if _this.nav_state.cat.indexOf(link_id) > -1
+    if global.navState.cat.indexOf(link_id) > -1
       # User is removing this category from the "Your selection" section.
       selectedLinkHtml.find('i.align-cross').remove()
       $('#available_categories').append selectedLinkHtml.prop('outerHTML')
       # Deleting the html of the selected category in initial list.
       $(this).remove()
-      _this.nav_state.cat = jQuery.grep(_this.nav_state.cat, (value) ->
+      global.navState.cat = jQuery.grep(global.navState.cat, (value) ->
         value != link_id
       )
-      if _this.nav_state.cat.length == 0
+      if global.navState.cat.length == 0
         $('#refinements').html ''
     else
       # User is selecting this category to refine their search.
@@ -138,10 +148,9 @@ Home::refineMarkers = ->
 
       # Deleting the html of the selected category in initial list.
       $(this).remove()
-      _this.nav_state.cat.push $(this).attr('id')
+      global.navState.cat.push $(this).attr('id')
 
-    markers.selected_categories = _this.nav_state.cat
-    _this.sendNavState(_this.stringifyState())
+    global.navState.getMarkersFromNavState()
 
 
 
@@ -165,66 +174,6 @@ Home::sendNavState = (state) ->
     @updateURL
 
     return
-
-
-# This method allows to update the URL without redirecting, when a category is selected.
-# By doing so, we give the user the possibility to reload the page on a specific category nav state.
-# (Not used for now)
-Home::updateURL = ->
-  newNavState = @nav_state
-  params = location.search
-  current_url = window.location.href
-  new_cat_params = 'cat=' + newNavState.cat.join('+')
-  new_url = ''
-  if params != ''
-    param_array = params.replace('?', '').split('&')
-    cat_param = ''
-    i = 0
-    while i < param_array.length
-      if param_array[i].indexOf('cat=') > -1
-        cat_param = param_array[i]
-        break
-      i++
-    if cat_param != ''
-      if new_cat_params == 'cat='
-        new_url = current_url.replace(cat_param, '')
-      else
-        new_url = current_url.replace(cat_param, new_cat_params)
-    else
-      new_url = current_url + '&' + new_cat_params
-  else
-    if new_cat_params == 'cat='
-      new_url = current_url
-    else
-      new_url = current_url + '?' + new_cat_params
-  if new_url.indexOf('?#') > -1
-    new_url = new_url.replace('?#', '')
-
-  history.replaceState 'data', '', new_url
-  return
-
-Home::stringifyState = ->
-  _this = this
-  fullState = ''
-  if _this.nav_state.cat.length > 0
-    fullState = 'cat='
-    fullState += _this.nav_state.cat.join('+')
-  if _this.nav_state.item != ''
-    fullState = append_to_state(fullState, 'item', _this.nav_state.item)
-  if _this.nav_state.q != ''
-    fullState = append_to_state(fullState, 'q', _this.nav_state.q)
-  if _this.nav_state.lat != ''
-    fullState = append_to_state(fullState, 'lat', _this.nav_state.lat)
-  if _this.nav_state.lon != ''
-    fullState = append_to_state(fullState, 'lon', _this.nav_state.lon)
-  fullState
-
-append_to_state = (complete_state, param, value) ->
-  if complete_state != ''
-    complete_state = complete_state + '&' + param + '=' + value
-  else
-    complete_state = param + '=' + value
-  complete_state
 
 
 addOrUpdateUrlParam = (name, value, current_url) ->

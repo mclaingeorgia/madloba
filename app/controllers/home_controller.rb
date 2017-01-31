@@ -40,7 +40,19 @@ class HomeController < ApplicationController
     cat_nav_state = params[:cat].split(" ") if params[:cat]
 
     # Queries to get posts to be displayed on the map, based on their locations
-    location_search_result_objects(params, cat_nav_state, selected_item_ids, settings)
+    search_result_objects(params, cat_nav_state, selected_item_ids, settings)
+  end
+
+
+  # Method that gets markers and search results list, after a search is made on home page
+  def render_search_results
+    results = ''
+    markers, post_results = post_markers_and_results_for(params)
+    post_results.each do |post|
+      results += Result.create(post)
+    end
+
+    render json: {markers: markers, areas: [], results: results, categories: post_results.map{|p| p.category_id.to_s}.uniq}
   end
 
 
@@ -277,7 +289,21 @@ class HomeController < ApplicationController
 
   private
 
-  def location_search_result_objects(params, cat_nav_state, selected_item_ids, settings)
+  def post_markers_and_results_for(params)
+    selected_item_ids = matching_items_for(params)
+    post_results = Post.search(params, selected_item_ids, nil)
+    markers = post_results.pluck(:marker_info).uniq
+    [markers, post_results]
+  end
+
+  def matching_items_for(params)
+    if params[:item].present?
+      selected_item_ids = Item.joins(:posts).where('name LIKE ?', "%#{params[:item].downcase}%").pluck(:id).uniq
+    end
+    selected_item_ids
+  end
+
+  def search_result_objects(params, cat_nav_state, selected_item_ids, settings)
     # First, we get the posts tied to an exact location.
     @locations_exact = Post.search(cat_nav_state, params[:item], selected_item_ids, params[:q], nil)
 
@@ -286,6 +312,10 @@ class HomeController < ApplicationController
 
     # Getting a hash that matches areas to their respective latitude and longitudes.
     @areas = Area.all.select(:id, :name, :latitude, :longitude)
+
+    @url_params = {}
+    @url_params[:q] = params[:q] if params[:q].present?
+    @url_params[:item] = params[:item] if params[:item].present?
   end
 
   def current_location_for(params)

@@ -5,7 +5,7 @@ Madloba::Application.routes.draw do
 
   # Home page
   get 'home/index'
-  get 'search', to: 'home#index'
+  post 'search', to: 'home#render_search_results'
   get 'results', to: 'home#results'
   get 'refine_state', to: 'home#refine_state'
 
@@ -73,7 +73,7 @@ Madloba::Application.routes.draw do
 
   resources :posts, :only => [:show, :index, :new, :create], :controller => 'user/posts', path: :services, as: :services
   post 'posts/send_message', to: 'user/posts#send_message'
-  get 'posts/goToService', to: 'user/posts#go_to_service'
+  post 'posts/goToService', to: 'user/posts#go_to_service'
 
   # Ajax calls to get details about a location (geocodes, exact address)
   get '/getNominatimLocationResponses', to: 'application#nominatim_location_responses'

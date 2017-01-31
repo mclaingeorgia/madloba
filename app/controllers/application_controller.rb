@@ -174,7 +174,7 @@ class ApplicationController < ActionController::Base
       matched_items = Item.all.pluck(:id, :name)
     elsif typeahead_type == SEARCH_IN_POST_ITEMS
       # 'search_post_items' type - used on Ajax call, when item typed in main navigation search bar.
-      matched_items = Post.joins(:items).where('items.name LIKE ? and posts.giving = ?', "%#{params[:item].downcase}%", search_type=='searching').pluck(:name).uniq
+      matched_items = Post.joins(:items).where('items.name LIKE ?', "%#{params[:item].downcase}%").pluck(:name).uniq
     elsif typeahead_type == SEARCH_IN_ALL_ITEMS
       # 'search_items' type - used on Ajax call, when item typed in drop-down box, when adding items,
       # in posts#edit and posts#new pages.

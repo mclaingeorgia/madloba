@@ -92,10 +92,98 @@ global.leaf =
     if markers.selected_area != ''
       leaf.map.removeLayer markers.selected_area
     latlng = ''
-
-
     latlng
-    
+
+
+
+global.navState =
+  cat: []
+  q: ''
+  item: ''
+  lat: ''
+  lon: ''
+
+  stringifyState: ->
+    fullState = ''
+    if global.navState.cat.length > 0
+      fullState = 'cat='
+      fullState += global.navState.cat.join('+')
+    if global.navState.item != ''
+      fullState = global.navState.append_to_state(fullState, 'item', global.navState.item)
+    if global.navState.q != ''
+      fullState = global.navState.append_to_state(fullState, 'q', global.navState.q)
+    if global.navState.lat != ''
+      fullState = global.navState.append_to_state(fullState, 'lat', global.navState.lat)
+    if global.navState.lon != ''
+      fullState = global.navState.append_to_state(fullState, 'lon', global.navState.lon)
+    fullState
+
+  append_to_state: (complete_state, param, value) ->
+    if complete_state != ''
+      complete_state = complete_state + '&' + param + '=' + value
+    else
+      complete_state = param + '=' + value
+    complete_state
+
+
+  getMarkersFromNavState:  ->
+    $.ajax
+      url: '/refine_state'
+      global: false
+      type: 'GET'
+      data:
+        categories: global.navState.cat
+        item: global.navState.item
+      dataType: 'html'
+      beforeSend: (xhr) ->
+        xhr.setRequestHeader 'Accept', 'text/html-partial'
+      success: (data) ->
+        # After receiving new data, we first need to clear all the current layers.
+        global.navState.updateMarkersOnMap(data)
+        return
+
+  updateMarkersOnMap: (data) ->
+    new_map_info = JSON.parse(data)
+
+    if markers.group != ''
+      markers.group.clearLayers()
+    if markers.area_group != ''
+      markers.area_group.clearLayers()
+
+    markers.locations_exact = new_map_info.markers
+
+    # Then we place the different markers .
+    markers.place_exact_locations_markers(new_map_info.markers, false)
+    global.navState.updateURL()
+
+  populateSearchResultsSidebar: (results, withContent = true) ->
+    $("#search_result").removeClass('hide')
+    if !$('.search-panes').is(':visible')
+      $('#search_result_icon').trigger('click')
+    if withContent
+      $("#result_list").html(results)
+
+  # This method allows to update the URL without redirecting, when a category is selected.
+  # By doing so, we give the user the possibility to reload the page on a specific category nav state.
+  updateURL: ->
+    params = location.search
+    port = if location.port.length > 0 then ':'+location.port else ''
+    urlBase = location.protocol+'//'+location.hostname+port
+    newUrl = urlBase+'?'+global.navState.stringifyState()
+
+    history.replaceState {}, '', newUrl
+    return
+
+  applyQueryParams:  (params)->
+    if params.q
+      $('.searching-giving h5').addClass('hide')
+      $('.searching-giving .'+params.q).removeClass('hide')
+
+    if params.item
+      $('.queried-item').removeClass('hide')
+      $('.queried-item span').html(params.item)
+
+
 
 ###*
 # Object gathering different markers and icons that are used on the Madloba maps.
@@ -480,6 +568,8 @@ global.removeFavorite = (obj) ->
       $('#error_remove').html 'Sorry, server error occured. Try again later.'
 
 
+global.updateCategorySidebarHeight = ->
+  $('.sidebar-left').height($('#category').height() + 50)
   
 ###*
 # Callback function that returns geocodes of clicked location.
