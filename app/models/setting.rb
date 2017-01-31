@@ -12,7 +12,7 @@ class Setting < ActiveRecord::Base
 
   def self.description
     description = Setting.find_by_key("description_#{I18n.locale}")
-    description.present? ? description.value.split(/[\r\n]+/) : ''
+    description.value.present? ? description.value.split(/[\r\n]+/) : ''
   end
 
   def self.contact_email

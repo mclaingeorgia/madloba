@@ -54,8 +54,10 @@ NavigationBar::init = ->
   $('.typeahead').on 'typeahead:selected', (evt, item) ->
     if typeof item['post_id'] != 'undefined'
       post_id = item['post_id']
-      window.location.href = App.host_url + '/services/' + post_id
-    return
+      $.ajax
+        url: 'posts/goToService'
+        type: 'GET'
+        data: post: item['post_id']
 
   @initEventsAttachedToLinks()
 

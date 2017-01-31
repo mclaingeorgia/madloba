@@ -1,8 +1,8 @@
 class User::PostsController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-  before_action :authenticate_user!, except: [:new, :create, :send_message, :show]
-  before_action :requires_user, except: [:new, :create, :send_message, :show]
-  after_action :verify_authorized, except: [:new, :create, :send_message, :send_message]
+  before_action :authenticate_user!, except: [:new, :create, :send_message, :show, :go_to_service]
+  before_action :requires_user, except: [:new, :create, :send_message, :show, :go_to_service]
+  after_action :verify_authorized, except: [:new, :create, :send_message, :send_message, :go_to_service]
   after_action :serialize_post, only: [:create, :update]
 
   include ApplicationHelper
@@ -133,6 +133,10 @@ class User::PostsController < ApplicationController
       get_map_settings_for_post
       render action: 'edit'
     end
+  end
+
+  def go_to_service
+    render js: "window.location = '#{service_path(params[:post])}'"
   end
 
   def post_params
