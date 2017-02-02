@@ -6,7 +6,7 @@ class Result
     result_html = "<div class='result'>"
 
     # Link to post title
-    result_html += "<div class='post-title'><a href='/posts/#{post.id}'>#{post.title}</a></div>"
+    result_html += "<div class='post-title'><a href='/services/#{post.id}'>#{post.title}</a></div>"
 
     # Address
     icon_class = Location::EXACT_ADDRESS_ICON
