@@ -233,7 +233,7 @@ global.markers =
       post = locations_exact[i]
       l = 0
       while l < post['locations'].length
-        location = post['locations'][l];
+        location = post['locations'][l]
         j = 0
         while j < post['markers'].length
 

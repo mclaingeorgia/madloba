@@ -140,7 +140,7 @@ span.disabled
 .no-color
   color: #FFFFFF !important
 
-#sidebar
+#sidebar, #search_result
   top: 60px
   background-color: white
   .inner-section
@@ -158,13 +158,33 @@ span.disabled
       padding: 20px
       a
         margin: 0px 5px
-  .create-ad
+  .create-post
     span
       font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif
       font-size: 14px
   .bootstrap-switch
     margin-left: 14px
     margin-top: 20px
+
+  .search-content
+    direction: rtl
+    text-align: left
+    .post-address i
+      float: left
+      margin-top: 3px
+    .post-description
+      direction: ltr
+
+// Styling for search result sidebar
+#search_result
+  .results
+    .result
+      padding: 15px 0px 10px 0px
+      .post-items
+        margin: 10px 0px
+      .post-address
+        i
+          margin-right: 5px
 
 // Pagination
 .madloba-pagination

@@ -56,7 +56,7 @@ class Post < ActiveRecord::Base
 
     posts
   end
-  
+
   # method used to save the posts#new form. A captcha is required when the user is anonymous.
   # In that case the save method is different than the classic one.
   def save_with_or_without_captcha(current_user)
@@ -70,6 +70,10 @@ class Post < ActiveRecord::Base
 
   def has_items
     errors.add(:base, I18n.t('post.error_post_must_have_item')) if (self.post_items.blank? || self.post_items.empty?)
+  end
+
+  def short_description
+    description.length > 100 ? "#{description[0..96]}..." : description
   end
 
   def has_locations

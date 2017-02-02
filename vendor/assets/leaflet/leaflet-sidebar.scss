@@ -14,8 +14,9 @@ $threshold-lg: 1200px !default;
 $threshold-md: 992px !default;
 $threshold-sm: 768px !default;
 
-$width-lg: 320px !default;
-$width-md: 3000px !default;
+$width-lg: 300px !default;
+$results-width-lg: 370px !default;
+$width-md: 280px !default;
 $width-sm: 260px !default;
 $width-xs: 100% !default;
 
@@ -75,6 +76,14 @@ $move-map-in-xs: true !default;
 
     @media(min-width:$threshold-lg) {
         width: $width-lg;
+
+        &.sidebar-right {
+            width: $results-width-lg;
+        }
+    }
+
+    &.collapsed {
+        width: $tab-size;
     }
 }
 
@@ -137,7 +146,8 @@ $move-map-in-xs: true !default;
         }
 
         @media(min-width:$threshold-lg) {
-            right: $width-lg + $sidebar-margins;
+            //right: $width-lg + $sidebar-margins;
+            right: $results-width-lg + $sidebar-margins;
         }
     }
 
@@ -280,6 +290,9 @@ $move-map-in-xs: true !default;
 
     @media(min-width:$threshold-lg) {
         min-width: $width-lg - $tab-size;
+        &.search-panes {
+            min-width: $results-width-lg - $tab-size - 20px;
+        }
     }
 }
 

@@ -40,7 +40,7 @@ class HomeController < ApplicationController
     cat_nav_state = params[:cat].split(" ") if params[:cat]
 
     # Queries to get posts to be displayed on the map, based on their locations
-    search_result_objects(params, cat_nav_state, selected_item_ids, settings)
+    search_result_objects(params, selected_item_ids)
   end
 
 
@@ -49,10 +49,13 @@ class HomeController < ApplicationController
     results = ''
     markers, post_results = post_markers_and_results_for(params)
     post_results.each do |post|
-      results += Result.create(post)
+      post.locations.each do |location|
+        results += Result.create(post, location)
+      end
     end
 
-    render json: {markers: markers, areas: [], results: results, categories: post_results.map{|p| p.category_id.to_s}.uniq}
+    categories = post_results.map{|p| p.category_ids}.flatten.uniq
+    render json: {markers: markers, areas: [], results: results, categories: categories.map{|c| c.to_s}}
   end
 
 
@@ -303,9 +306,10 @@ class HomeController < ApplicationController
     selected_item_ids
   end
 
-  def search_result_objects(params, cat_nav_state, selected_item_ids, settings)
+  def search_result_objects(params, selected_item_ids)
     # First, we get the posts tied to an exact location.
-    @locations_exact = Post.search(cat_nav_state, params[:item], selected_item_ids, params[:q], nil)
+    @post_results = Post.search(params, selected_item_ids, nil)
+    @locations_exact = @post_results.pluck(:marker_info).uniq
 
     # If the users have the possiblity to post post linked to a pre-defined area, we also get here these type of posts.
     # locations_area = Location.search('area', cat_nav_state, params[:item], selected_item_ids, params[:q])

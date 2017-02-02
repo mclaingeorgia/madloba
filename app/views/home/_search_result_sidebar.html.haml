@@ -20,10 +20,12 @@
         - if currently_querying
           - @post_results.each do |post|
             .result
-              .post-title= link_to post.title, post
+              .post-title= link_to post.title, service_path(post)
               .post-address
-                %i.fa{class: post.location.area? ? Location::AREA_ADDRESS_ICON : Location::EXACT_ADDRESS_ICON}
-                = post.location.full_address
+                - post.locations.each do |location|
+                  %i.fa{class: Location::EXACT_ADDRESS_ICON}
+                  = location.full_address
+                  %br
 
               .post-items= "#{post.action} #{post.item_list}".html_safe
               .post-description= post.short_description
