@@ -569,7 +569,9 @@ global.removeFavorite = (obj) ->
 
 
 global.updateCategorySidebarHeight = ->
-  $('.sidebar-left').height($('#category').height() + 50)
+  maxWindowHeight = $(document).height() - 100
+  heightToApply = Math.min(maxWindowHeight, $('#category').height() + 50)
+  $('.sidebar-left').height(heightToApply)
   
 ###*
 # Callback function that returns geocodes of clicked location.
