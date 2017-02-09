@@ -64,7 +64,7 @@
                   = t('registration.all_mandatory')
               -# E-mail
               .form-group
-                = f.label :email, t('home.e-mail')+':', class:'control-label'
+                = f.label :email, t('home.e-mail'), class:'control-label'
                 .form-inline
                   = f.email_field :email, class: 'form-control', size: '40'
               -# 'Make admin' checkbox
@@ -83,6 +83,18 @@
                     %label
                       = f.radio_button :role, 'super_admin'
                       = t('admin.profile.super_admin_user')
+              -# Service provider or not
+              .form-group
+                = f.label :is_service_provider, t('admin.is_service_provider'), class: 'control-label'
+                .radio
+                  %label
+                    = f.radio_button :is_service_provider, true, {checked: true}
+                    = t('home.yes')
+                .radio
+                  %label
+                    = f.radio_button :is_service_provider, false
+                    = t('home.no')
+
               -# First name - english
               .form-group
                 = f.label :first_name_en, t('admin.profile.first_name_en')+':', class:'control-label'

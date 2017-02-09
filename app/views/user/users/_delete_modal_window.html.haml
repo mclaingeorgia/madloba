@@ -12,4 +12,4 @@
         %p= t('admin.users.confirm_delete_2')
       .modal-footer
         %a.btn.btn-default{"data-dismiss" => "modal", :href => "#"}= t('home.cancel')
-        = link_to t('admin.users.delete_yes'), user_user_path(@user), method: :delete, class: 'btn btn-danger'
+        = link_to t('admin.users.delete_yes'), user_users_path(@user), method: :delete, class: 'btn btn-danger'

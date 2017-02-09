@@ -375,6 +375,7 @@ ka:
     add_item: სერვისის ტიპის დამატება
     edit_item: სერვისის ტიპის რედაქტირება
     new_item: სერვისის ახალი ტიპი
+    is_service_provider: "This new user is a service provider"
     add_category: კატეგორიის დამატება
     edit_category: კატეგორიის რედაქტირება
     new_category: ახალი კატეგორია

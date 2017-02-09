@@ -14,7 +14,6 @@ class User < ActiveRecord::Base
 
   validates :username, presence: true
   validates :is_service_provider, inclusion: [true, false]
-  validate :has_accepted_terms_and_conditions
   validates_uniqueness_of :username
 
   # Fields to be translated
