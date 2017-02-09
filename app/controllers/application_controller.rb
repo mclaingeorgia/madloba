@@ -51,13 +51,14 @@ class ApplicationController < ActionController::Base
 
   # Check if there is a cookie to define the locale to use.
   def set_locale
-    if cookies[:madloba_locale] && I18n.available_locales.include?(cookies[:madloba_locale].to_sym)
-      l = cookies[:madloba_locale].to_sym
-    else
-      l = I18n.default_locale
-      cookies.permanent[:madloba_locale] = l
-    end
-    I18n.locale = l
+    I18n.locale = params[:locale] || I18n.default_locale
+    # if cookies[:madloba_locale] && I18n.available_locales.include?(cookies[:madloba_locale].to_sym)
+    #   l = cookies[:madloba_locale].to_sym
+    # else
+    #   l = I18n.default_locale
+    #   cookies.permanent[:madloba_locale] = l
+    # end
+    # I18n.locale = l
   end
 
   # Uses the 'gon' gem to load the text that appears in javascript files.
@@ -72,15 +73,15 @@ class ApplicationController < ActionController::Base
   end
 
   # Choose the right locale among the ones that are available.
-  def set_locale
-    if cookies[:madloba_locale] && I18n.available_locales.include?(cookies[:madloba_locale].to_sym)
-      l = cookies[:madloba_locale].to_sym
-    else
-      l = I18n.default_locale
-      cookies.permanent[:madloba_locale] = l
-    end
-    I18n.locale = l
-  end
+  # def set_locale
+  #   if cookies[:madloba_locale] && I18n.available_locales.include?(cookies[:madloba_locale].to_sym)
+  #     l = cookies[:madloba_locale].to_sym
+  #   else
+  #     l = I18n.default_locale
+  #     cookies.permanent[:madloba_locale] = l
+  #   end
+  #   I18n.locale = l
+  # end
 
   # Check if the current user has agreed to the terms and conditions.
   def check_if_user_has_tos

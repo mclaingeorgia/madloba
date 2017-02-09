@@ -20,7 +20,7 @@ global.leaf =
   searched_address: ''
 
   init: (map_settings) ->
-    leaf.map = L.map('map', scrollWheelZoom: false)
+    leaf.map = L.map('map', { scrollWheelZoom: true, minZoom: 4 })
 
     leaf.map.on 'click', ->
       if leaf.map.scrollWheelZoom.enabled()
@@ -46,6 +46,47 @@ global.leaf =
 
     leaf.map_tiles.addTo leaf.map
     leaf.map.setView [leaf.my_lat, leaf.my_lng], map_settings['zoom_level']
+
+    leaf.map.locate({setView: true, maxZoom: 14});
+
+      #     function onLocationFound(e) {
+      #     var radius = e.accuracy / 2;
+
+      #     L.marker(e.latlng).addTo(map)
+      #         .bindPopup("You are within " + radius + " meters from this point").openPopup();
+
+      #     L.circle(e.latlng, radius).addTo(map);
+      # }
+
+      # map.on('locationfound', onLocationFound);
+      # Excellent! But it would also be nice to show an error message if the geolocation failed:
+
+      # function onLocationError(e) {
+      #     alert(e.message);
+      # }
+
+      # map.on('locationerror', onLocationError);
+
+    leaf.map.on 'move', ->
+      # Construct an empty list to fill with onscreen markers.
+      inBounds = []
+      # Get the map bounds - the top-left and bottom-right locations.
+      bounds = leaf.map.getBounds();
+
+      # For each marker, consider whether it is currently visible by comparing
+      # with the current map bounds.
+    TODO
+      leaf.map.eachLayer (marker) ->
+        if(marker instanceof L.Marker)
+          if bounds.contains(marker.getLatLng())
+            inBounds.push marker
+        return
+
+      # Display a list of markers.
+      console.log inBounds
+      return
+      # document.getElementById('coordinates').innerHTML = inBounds.join('\n');
+
 
 
   show_single_marker: (map_settings) ->
@@ -85,7 +126,7 @@ global.leaf =
           leaf.map.once 'zoomend', ->
             markers.selected_area.fireEvent('click')
     )
-    
+
 
   show_single_area: (area_name) ->
     # Before adding the selected area, we need to remove all the currently displayed areas.
@@ -324,8 +365,8 @@ global.markers =
             marker_popup.update()
 
       markers.area_markers[area.id] = marker
-      
-    return  
+
+    return
 
   # We show on the map all the markers if there's no specific navigation state.
   # If there's one, we show only the markers which category are in the nav state.
@@ -412,7 +453,7 @@ global.onMapClickLocation = (e) ->
 global.find_geocodes = ->
   $('#find_geocodes_from_address').button().click ->
     location_type = 'exact'
-      
+
     # Ajax call to get geocodes (latitude, longitude) of an exact location defined by address, postal code, city...
     # This call is triggered by "Find this city", "Find this general location" buttons,
     # on Map settings page, location edit page, map setup page...
@@ -482,7 +523,7 @@ global.adjustPopupPosition = (popup, popup_type) ->
     px.x -= 140
   leaf.map.panTo(leaf.map.unproject(px),{animate: true})
 
-# Option to attach to popup, on bindPopup event  
+# Option to attach to popup, on bindPopup event
 global.popupOptions = (otherOpts) ->
   opts = {className: 'area-popup'}
   for key, val of otherOpts
@@ -493,7 +534,7 @@ global.popupOptions = (otherOpts) ->
 global.initMapClick = (e) ->
   if markers.new_marker != ''
     leaf.map.removeLayer markers.new_marker
-    
+
   myNewLat = e.latlng.lat
   myNewLng = e.latlng.lng
   # Rounding up latitude and longitude, with 5 decimals
@@ -572,7 +613,7 @@ global.updateCategorySidebarHeight = ->
   maxWindowHeight = $(document).height() - 100
   heightToApply = Math.min(maxWindowHeight, $('#category').height() + 50)
   $('.sidebar-left').height(heightToApply)
-  
+
 ###*
 # Callback function that returns geocodes of clicked location.
 # @param e

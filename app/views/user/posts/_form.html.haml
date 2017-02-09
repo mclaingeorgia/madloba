@@ -10,7 +10,7 @@
       .form-group
         .col-lg-6
           %a.btn.btn-danger.btn-delete-right.btn-setting{:href => "#", :style => "margin-right: 10px;"}= t('admin.post.delete')
-          = link_to t('post.see_published'), post_path(@post.id), {target: '_blank', class: 'btn btn-info'}
+          = link_to t('post.see_published'), service_path(@post.id), {target: '_blank', class: 'btn btn-info'}
       %hr
 
     - if page == 'new'

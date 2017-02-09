@@ -118,7 +118,7 @@ group :test do
   gem 'database_cleaner'
   gem 'selenium-webdriver'
   gem 'capybara-screenshot'
-  gem 'capybara-webkit'
+  # gem 'capybara-webkit'
 end
 
 group :doc do

@@ -89,7 +89,8 @@ class User::PostsController < ApplicationController
   end
 
   def edit
-    @post = Post.includes(:location => :area).where(id: params[:id]).first!
+    @post = Post.includes(:locations => :area).where(id: params[:id]).first!
+    puts "--------------------------#{@post.inspect}"
     authorize @post
     get_map_settings_for_post
   end

@@ -3,96 +3,104 @@ Madloba::Application.routes.draw do
   devise_for :user, path: 'user', path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'new' },
              controllers: { registrations: 'user/registrations'}
 
-  # Home page
-  get 'home/index'
-  post 'search', to: 'home#render_search_results'
-  get 'results', to: 'home#results'
-  get 'refine_state', to: 'home#refine_state'
+  scope ':locale', locale: /#{I18n.available_locales.join("|")}/ do
 
-  # About page
-  get 'about', to: 'home#about'
+    # Home page
+    root 'home#index'
+    get 'home/index'
+    post 'search', to: 'home#render_search_results'
+    get 'results', to: 'home#results'
+    get 'refine_state', to: 'home#refine_state'
 
-  # FAQ page
-  get 'faq', to: 'home#faq'
+    # About page
+    get 'about', to: 'home#about'
 
-  # TOS page
-  get 'tos', to: 'home#tos'
-  post 'update_tos', to: 'home#update_tos'
+    # FAQ page
+    get 'faq', to: 'home#faq'
 
-  # Setup pages
-  get 'setup/language', to: 'setup#show_choose_language'
-  post 'setup/language/process', to: 'setup#process_chosen_language'
-  get 'setup', to: 'setup#show_welcome'
-  get 'setup/general', to: 'setup#show_general'
-  post 'setup/general/process', to: 'setup#process_general'
-  get 'setup/map', to: 'setup#show_map'
-  post 'setup/map/process', to: 'setup#process_map'
-  get 'setup/image', to: 'setup#show_image'
-  post 'setup/image/process', to: 'setup#process_image'
-  get 'setup/admin', to: 'setup#show_admin'
-  post 'setup/admin/process', to: 'setup#process_admin'
-  get 'setup/done', to: 'setup#show_finish'
+    # TOS page
+    get 'tos', to: 'home#tos'
+    post 'update_tos', to: 'home#update_tos'
 
-  # Redirection to custom error screens
-  match '/404' => 'errors#error404', via: [ :get, :post, :patch, :delete ]
-  match '/500' => 'errors#error500', via: [ :get, :post, :patch, :delete ]
+    # Setup pages
+    get 'setup/language', to: 'setup#show_choose_language'
+    post 'setup/language/process', to: 'setup#process_chosen_language'
+    get 'setup', to: 'setup#show_welcome'
+    get 'setup/general', to: 'setup#show_general'
+    post 'setup/general/process', to: 'setup#process_general'
+    get 'setup/map', to: 'setup#show_map'
+    post 'setup/map/process', to: 'setup#process_map'
+    get 'setup/image', to: 'setup#show_image'
+    post 'setup/image/process', to: 'setup#process_image'
+    get 'setup/admin', to: 'setup#show_admin'
+    post 'setup/admin/process', to: 'setup#process_admin'
+    get 'setup/done', to: 'setup#show_finish'
 
-  namespace :user do
-    get '/', to: 'admin_panel#index'
+    # Redirection to custom error screens
+    match '/404' => 'errors#error404', via: [ :get, :post, :patch, :delete ]
+    match '/500' => 'errors#error500', via: [ :get, :post, :patch, :delete ]
 
-    resources :locations, :categories, :items, :users, :faqs
-    resources :posts, :only => [:edit, :update, :destroy], path: :services, as: :services
+    namespace :user do
+      get '/', to: 'admin_panel#index'
 
-    get 'index', 'home', to: 'admin_panel#index'
-    get 'managerecords', to: 'admin_panel#managerecords'
-    get 'manageusers', to: 'admin_panel#manageusers'
-    get 'manageposts', to: 'admin_panel#manageposts'
-    get 'manageprofile', to: 'users#edit'
-    get 'generalsettings', to: 'admin_panel#general_settings'
-    get 'mapsettings', to: 'admin_panel#map_settings'
-    get 'areasettings', to: 'admin_panel#area_settings'
-    get 'favorite', to: 'admin_panel#favorite'
+      resources :locations, :categories, :items, :users, :faqs
+      resources :posts, :only => [:edit, :update, :destroy], path: :services, as: :services
 
-    post 'mapsettings/update', to: 'admin_panel#update_map_settings'
-    post 'generalsettings/update', to: 'admin_panel#update_general_settings'
-    post 'areasettings/update', to: 'admin_panel#update_area_settings'
+      get 'index', 'home', to: 'admin_panel#index'
+      get 'managerecords', to: 'admin_panel#managerecords'
+      get 'manageusers', to: 'admin_panel#manageusers'
+      get 'manageposts', to: 'admin_panel#manageposts'
+      get 'manageprofile', to: 'users#edit'
+      get 'generalsettings', to: 'admin_panel#general_settings'
+      get 'mapsettings', to: 'admin_panel#map_settings'
+      get 'areasettings', to: 'admin_panel#area_settings'
+      get 'favorite', to: 'admin_panel#favorite'
 
-    post 'favorite/add', to: 'admin_panel#add_favorite'
-    post 'favorite/remove', to: 'admin_panel#remove_favorite'
-    post 'areasettings/update_areas', to: 'admin_panel#update_areas'
-    post 'areasettings/update_area_name', to: 'admin_panel#update_area_name'
-    post 'areasettings/save_area', to: 'admin_panel#save_area'
-    post 'areasettings/delete_area', to: 'admin_panel#delete_area'
+      post 'mapsettings/update', to: 'admin_panel#update_map_settings'
+      post 'generalsettings/update', to: 'admin_panel#update_general_settings'
+      post 'areasettings/update', to: 'admin_panel#update_area_settings'
 
-    get 'getAreaSettings', to: 'admin_panel#getAreaSettings'
-    get 'posts/:id/edit', to: 'posts#edit'
+      post 'favorite/add', to: 'admin_panel#add_favorite'
+      post 'favorite/remove', to: 'admin_panel#remove_favorite'
+      post 'areasettings/update_areas', to: 'admin_panel#update_areas'
+      post 'areasettings/update_area_name', to: 'admin_panel#update_area_name'
+      post 'areasettings/save_area', to: 'admin_panel#save_area'
+      post 'areasettings/delete_area', to: 'admin_panel#delete_area'
 
-    # This POST method is called when the deletion of a category is made through a form
-    post 'categories/:id', to: 'categories#destroy'
+      get 'getAreaSettings', to: 'admin_panel#getAreaSettings'
+      get 'posts/:id/edit', to: 'posts#edit'
+
+      # This POST method is called when the deletion of a category is made through a form
+      post 'categories/:id', to: 'categories#destroy'
+    end
+
+    resources :posts, :only => [:show, :index, :new, :create], :controller => 'user/posts', path: :services, as: :services
+    post 'posts/send_message', to: 'user/posts#send_message'
+    get 'posts/goToService', to: 'user/posts#go_to_service'
+
+    # Ajax calls to get details about a location (geocodes, exact address)
+    get '/getNominatimLocationResponses', to: 'application#nominatim_location_responses'
+    get '/getCityGeocodes', to: 'user/locations#retrieve_geocodes'
+
+    # Ajax call to get the list of items, for autocomplete, when searching for an item, or creating/editing an post.
+    get '/getItems', to: 'application#get_items'
+
+    # Ajax call to show the posts related to 1 type of item and to 1 area/area.
+    get '/showSpecificAds', to: 'home#showSpecificPosts'
+
+    # To change languages.
+    get '/change_locale/:locale', to: 'settings#change_locale', as: :change_locale
+
+    # Ajax call to show popup content, when marker clicked on home page.
+    get '/showPostPopup', to: 'home#show_post_popup'
+    get '/showAreaPopup', to: 'home#show_area_popup'
+
   end
 
-  resources :posts, :only => [:show, :index, :new, :create], :controller => 'user/posts', path: :services, as: :services
-  post 'posts/send_message', to: 'user/posts#send_message'
-  get 'posts/goToService', to: 'user/posts#go_to_service'
+  # handles /
+  get '', to: redirect("/#{I18n.default_locale}")
 
-  # Ajax calls to get details about a location (geocodes, exact address)
-  get '/getNominatimLocationResponses', to: 'application#nominatim_location_responses'
-  get '/getCityGeocodes', to: 'user/locations#retrieve_geocodes'
-
-  # Ajax call to get the list of items, for autocomplete, when searching for an item, or creating/editing an post.
-  get '/getItems', to: 'application#get_items'
-
-  # Ajax call to show the posts related to 1 type of item and to 1 area/area.
-  get '/showSpecificAds', to: 'home#showSpecificPosts'
-
-  # To change languages.
-  get '/change_locale/:locale', to: 'settings#change_locale', as: :change_locale
-
-  # Ajax call to show popup content, when marker clicked on home page.
-  get '/showPostPopup', to: 'home#show_post_popup'
-  get '/showAreaPopup', to: 'home#show_area_popup'
-
-  # Root
-  root 'home#index'
+  # handles /not-a-locale/anything
+  get '*path', to: redirect("/#{I18n.default_locale}/%{path}")
 
 end

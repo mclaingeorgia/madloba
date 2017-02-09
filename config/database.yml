@@ -4,6 +4,8 @@ development:
   adapter: postgresql
   encoding: unicode
   pool: 5
+  host: localhost
+  port: 5433
   database: <%= ENV["MADLOBA_DEV_DATABASE"] %>
   username: <%= ENV["MADLOBA_DEV_USERNAME"] %>
   password: <%= ENV["MADLOBA_DEV_PASSWORD"] %>
@@ -12,6 +14,8 @@ test: &test
   adapter: postgresql
   encoding: unicode
   pool: 5
+  host: localhost
+  port: 5433
   database: <%= ENV["MADLOBA_TEST_DATABASE"] %>
   username: <%= ENV["MADLOBA_TEST_USERNAME"] %>
   password: <%= ENV["MADLOBA_TEST_PASSWORD"] %>
