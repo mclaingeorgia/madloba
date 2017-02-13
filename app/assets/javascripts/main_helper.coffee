@@ -75,7 +75,7 @@ global.leaf =
 
       # For each marker, consider whether it is currently visible by comparing
       # with the current map bounds.
-    TODO
+    # TODO
       leaf.map.eachLayer (marker) ->
         if(marker instanceof L.Marker)
           if bounds.contains(marker.getLatLng())

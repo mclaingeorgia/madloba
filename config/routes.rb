@@ -1,12 +1,11 @@
 Madloba::Application.routes.draw do
 
-  devise_for :user, path: 'user', path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'new' },
-             controllers: { registrations: 'user/registrations'}
 
   scope ':locale', locale: /#{I18n.available_locales.join("|")}/ do
 
+    devise_for :user, path: 'user', path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'new' }, controllers: { registrations: 'user/registrations'}
     # Home page
-    root 'home#index'
+
     get 'home/index'
     post 'search', to: 'home#render_search_results'
     get 'results', to: 'home#results'
@@ -68,7 +67,7 @@ Madloba::Application.routes.draw do
       post 'areasettings/delete_area', to: 'admin_panel#delete_area'
 
       get 'getAreaSettings', to: 'admin_panel#getAreaSettings'
-      get 'posts/:id/edit', to: 'posts#edit'
+      # get 'posts/:id/edit', to: 'posts#edit'
 
       # This POST method is called when the deletion of a category is made through a form
       post 'categories/:id', to: 'categories#destroy'
@@ -95,12 +94,11 @@ Madloba::Application.routes.draw do
     get '/showPostPopup', to: 'home#show_post_popup'
     get '/showAreaPopup', to: 'home#show_area_popup'
 
+    root 'home#index'
+    get "*path", :to => redirect("/#{I18n.default_locale}") # handles /en/fake/path/whatever
   end
 
-  # handles /
-  get '', to: redirect("/#{I18n.default_locale}")
-
-  # handles /not-a-locale/anything
-  get '*path', to: redirect("/#{I18n.default_locale}/%{path}")
+  get '', :to => redirect("/#{I18n.default_locale}") # handles /
+  get '*path', :to => redirect("/#{I18n.default_locale}/%{path}") # handles /not-a-locale/anything
 
 end
