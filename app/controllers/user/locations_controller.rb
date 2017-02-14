@@ -133,11 +133,48 @@ class User::LocationsController < ApplicationController
   end
 
   def location_params
-    params.require(:location).permit(:name, :name_en, :name_ka, :street_number, :address, :address_en, :address_ka,
-                                     :postal_code, :province, :province_en, :province_ka,
-                                     :city, :city_en, :city_ka, :latitude, :longitude, :phone_number,
-                                     :website, :add_phone_number, :add_phone_number_2, :description, :description_en, :description_ka,
-                                     :loc_type, :district_id, :facebook)
+    # params.require(:location).permit(:name, :name_en, :name_ka, :street_number, :address, :address_en, :address_ka,
+    #                                  :postal_code, :province, :province_en, :province_ka,
+    #                                  :city, :city_en, :city_ka, :latitude, :longitude, :phone_number,
+    #                                  :website, :add_phone_number, :add_phone_number_2, :description, :description_en, :description_ka,
+    #                                  :loc_type, :district_id, :facebook)
+
+    permitted = [ :street_number, :postal_code, :latitude, :longitude, :area_id,
+                    :phone_number, :add_phone_number, :add_phone_number_2,
+                    :facebook, :website, :user_id, :loc_type ] + Location.globalize_attribute_names
+
+    puts "--------------------------#{permitted.inspect}"
+    params.require(:location).permit(*permitted)
+
+    # name character varying(255),
+    # address character varying(255),
+    # postal_code character varying(255),
+    # Region province character varying(255),
+    # city character varying(255),
+    # description text,
+    # block_unit character varying,
+    # village character varying,
+
+
+    # phone_number character varying(255),
+    # website character varying(255),
+    # street_number character varying(255),
+    # latitude numeric(7,5),
+    # longitude numeric(8,5),
+    # user_id integer,
+    # area_id integer,
+    # facebook character varying(255),
+    # add_phone_number character varying(255),
+    # add_phone_number_2 character varying(255),
+
+    # name character varying(255),
+    # address character varying(255),
+    # postal_code character varying(255),
+    # province character varying(255),
+    # city character varying(255),
+    # description text,
+    # block_unit character varying,
+    # village character varying,
   end
 
   def simple_location_params

@@ -9,7 +9,7 @@ gem 'rake', '< 11.0'
 gem 'pg'
 
 # Use Bootstrap and SCSS for stylesheets
-gem 'bootstrap-sass', '~> 3.3.6'
+gem 'bootstrap-sass', '~> 3.3.7'
 gem 'sass-rails', '>= 3.2'
 gem 'bootstrap-growl-rails'
 

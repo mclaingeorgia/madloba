@@ -1,7 +1,7 @@
 .container
   .row
     = render 'shared/admin_left_menu'
-    #content.middle-col.col-xs-12.col-md-10
+    #content.col-xs-12.col-md-10
       / content starts
       %div
         %ul.breadcrumb
@@ -57,10 +57,10 @@
                   %a{:href => "/user/manageposts#locations"}= t('admin.back_to_posts')
 
             .box-content
-              = form_for [:user, @location], html: { id: 'locationForm', role: 'form' } do |f|
+              = simple_form_for [:user, @location], html: { id: 'locationForm', role: 'form' } do |f|
                 %fieldset
                   - if !adding_new?
-                    .form-group
+                    .form-group.row
                       .col-lg-6
                         %a.btn.btn-danger.btn-delete-right.btn-setting{:href => "#"}= t('admin.location.delete')
 

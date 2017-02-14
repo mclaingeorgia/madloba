@@ -27,6 +27,12 @@ en:
               too_long: "The image must be less than 5MB"
             number_of_items:
               greater_than: "Please add at least 1 service."
+  app:
+    language:
+      en: English
+      ka: ქართული
+      _ka: ქა
+      _en: en
   home:
     yes: Yes
     no: No
@@ -115,6 +121,8 @@ en:
     location: "Location"
     user_location: "This user's locations:*"
     new_location: Enter your new location
+    name: "Location description"
+    address: Address
     name_en: "Location description (en):"
     name_ka: "Location description (ge):"
     name_help: Give a name to your location, e.g. workshop name or building name. This will be shown publicly. If you don’t have a name for your location, please leave this section empty.
@@ -128,23 +136,27 @@ en:
     post_action_accepting: I'm searching for items.
     name_username: the username
     name_fullname: the full name
-    definition: "Enter your location*:"
+    definition: "Enter your location"
     definition_exact: "Giving the full address"
     definition_area: "Selecting the area only"
     definition_district: by region
-    street_number: "Street number:"
+    street_number: "Street number"
+    block_unit: "Block, Unit"
     block_unit_en: "Block, Unit (en):"
     block_unit_ka: "Block, Unit (ge):"
+    street_name: Street name
     street_name_en: "Street name (en)*:"
     street_name_ka: "Street name (ge)*:"
     street_name_help: The name of the road, street, avenue, drive…
-    postal_code: "Postal code:"
-    district: "District*:"
+    postal_code: "Postal code"
+    district: "District:"
     province: Region
     province_en: Region (en)
     province_ka: Region (ge)
+    village: Village
     village_en: "Village (en):"
     village_ka: "Village (ge):"
+    city: City
     city_en: City (en)
     city_ka: City (ge)
     why_choose_location_type: "Why do I need to choose an option?"
@@ -153,18 +165,18 @@ en:
     modal_exact_area_description2: "After your post has been created, you will be able to visualize it on the home page map with a colored marker placed at the previously marked location."
     modal_exact_area_description3: "On the other hand, you may not want to give away that many details about the location, given any personal reasons (eg. anonymity, details about the ad...)."
     modal_exact_area_description4: "By choosing '%{def_area}', you will just have to indicate which area does this location belong to. Once the post is created, it won't appear as a colored marker on the home page, but it will show up in the search results page related to the selected area."
-    street_number: "Street number:"
-    postal_code: "Postal code:"
-    area: "Area:"
+    street_number: "Street number"
+    postal_code: "Postal code"
+    area: "Area"
     area_blank: "-- Choose an area --"
     define_geocode_button: Locate me on the map
-    map: "Map:"
-    phone_number: "Main contact:"
-    add_phone_number: "Additional contact:"
-    website: "Website:"
-    facebook: "Facebook:"
+    map: "Map"
+    phone_number: "Main contact"
+    add_phone_number: "Additional contact"
+    website: "Website"
+    facebook: "Facebook"
     link_to_facebook: Link to Facebook page
-    description: "Details about this location:"
+    description: "Details about this location"
     description_en: "Details about this location (en):"
     description_ka: "Details about this location (ge):"
     description_help: Fill this optional section if you want to give additional detail about the location (eg. how to find it, what it looks like...)

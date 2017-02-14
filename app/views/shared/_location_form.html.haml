@@ -1,10 +1,6 @@
 .nested-fields.location-fields{:style => "padding-bottom: 10px;"}
-
   .form-group
-    %hr/
-  .form-group
-    .col-lg-4
-      %h4= t('location.new_location')
+    %h4= t('location.new_location')
 
     - if current_user.present? && current_user.locations.any? && %w(new create edit update).include?(action_name) && !@is_location_edit
       -# if the user is not anonymous and has created locations in the past, then give the possibility
@@ -13,185 +9,128 @@
         %a.btn.btn-danger.btn-sm.remove-new-location{style: 'float: right;'}
           = t('post.choose_existing')
 
-  -# Location name
-  .form-group
-    = form.label :name, t('location.name'), class: 'col-lg-2 control-label'
-    .col-lg-6
-      = form.text_field :name, class: 'form-control help-message', maxlength:'90', |
-        :data => {:content => t('location.name_help'),                             |
-        :placement => 'top', :toggle => 'popover', :trigger => 'hover focus'}      |
+  - locales = Location.globalize_locales
+  .row.space-bottom
+    .col-lg-11
+      .tab-content
+        - locales.each_with_index do |locale, i|
+          %div{id: "form-trans-#{locale}-tab-link", class: "tab-pane#{' active' if i == 0}", role: "tabpanel"}
+            = form.input :"name_#{locale}", label: t("location.name"), input_html: { maxlength: 90, class: "help-message", data: { :content => t('location.name_help'), :placement => 'top', :toggle => 'popover', :trigger => 'hover focus' } }
+
+    .col-lg-1.reposition
+      %ul.nav.nav-tabs.tabs-right.vertical-text{role: "tablist"}
+        - locales.each_with_index do |locale, i|
+          %li{role: "presentation", class: "#{'active' if i == 0}"}
+            %a{href: "#form-trans-#{locale}-tab-link", aria_controls: "form-trans-#{locale}-tab-link", role: "tab", "data-toggle": "tab"}= t("app.language._#{locale}")
+
+
 
   -# "Give full address" / "Choose area only" radio buttons
   - if Area.any?
     .form-group
-      = label_tag 'loc_type', t('location.definition'), class: 'col-lg-2 control-label'
-      .col-lg-6
-        .radio
-          %label
-            = radio_button_tag 'loc_type', 'exact', true, class: 'location_type_exact'
-            = t('location.definition_exact')
-        .radio
-          %label
-            = radio_button_tag 'loc_type', 'area', false, class: 'location_type_area'
-            = t('location.definition_area')
+      = label_tag 'loc_type', t('location.definition'), class: 'control-label'
+      .radio
+        %label
+          = radio_button_tag 'loc_type', 'exact', true, class: 'location_type_exact'
+          = t('location.definition_exact')
+      .radio
+        %label
+          = radio_button_tag 'loc_type', 'area', false, class: 'location_type_area'
+          = t('location.definition_area')
 
-        .why-choose-section
-          %a#why_choose_link{href: '#'}= t('location.why_choose_location_type')
+      .why-choose-section
+        %a#why_choose_link{href: '#'}= t('location.why_choose_location_type')
 
   .exact_location_section
-    -# Street number
-    .form-group
-      = form.label :street_number, t('location.street_number'), class: 'col-lg-2 control-label'
-      .col-lg-2
-        = form.text_field :street_number, class: 'form-control location_streetnumber', maxlength:'6'
+    = form.input :street_number, label: t("location.street_number"), input_html: { maxlength:'6', class: "form-control-small location_streetnumber" }
 
-    -# Block, Unit - English
-    .form-group
-      = form.label :block_unit_en, t('location.block_unit_en'), class: 'col-lg-2 control-label'
-      .col-lg-6
-        = form.text_field :block_unit_en, class: 'form-control help-message', maxlength:'90'
+    .row.space-bottom
+      .col-lg-11
+        .tab-content
+          - locales.each_with_index do |locale, i|
+            %div{id: "form-trans1-#{locale}-tab-link", class: "tab-pane#{' active' if i == 0}", role: "tabpanel"}
 
-    -# Block, Unit - Georgian
-    .form-group
-      = form.label :block_unit_ka, t('location.block_unit_ka'), class: 'col-lg-2 control-label'
-      .col-lg-6
-        = form.text_field :block_unit_ka, class: 'form-control help-message', maxlength:'90'
+              = form.input :"name_#{locale}", label: t("location.name"), input_html: { maxlength: 90, class: "help-message", data: { :content => t('location.name_help'), :placement => 'top', :toggle => 'popover', :trigger => 'hover focus' } }
 
-    -# Street name - English
-    .form-group
-      = form.label :address_en, t('location.street_name_en'), class: 'col-lg-2 control-label'
-      .col-lg-6
-        = form.text_field :address_en, class: 'form-control help-message location_streetname', maxlength:'90',
-          :data => {:content => t('location.street_name_help'),
-          :placement => 'top', :toggle => 'popover', :trigger => 'hover focus'}
+              = form.input :"block_unit_#{locale}", label: t("location.block_unit"), input_html: {maxlength: 90, class: "help-message" }
 
-    -# Street name - Georgian
-    .form-group
-      = form.label :address_ka, t('location.street_name_ka'), class: 'col-lg-2 control-label'
-      .col-lg-6
-        = form.text_field :address_ka, class: 'form-control help-message', maxlength:'90',
-          :data => {:content => t('location.street_name_help'),
-          :placement => 'right', :toggle => 'popover', :trigger => 'hover focus'}
+              = form.input :"address_#{locale}", label: t("location.address"), input_html: { maxlength: 90, class: "help-message location_streetname", data: { :content => t('location.street_name_help'), :placement => 'top', :toggle => 'popover', :trigger => 'hover focus' } }
 
-    -# Village - English
-    .form-group
-      = form.label :village_en, t('location.village_en'), class: 'col-lg-2 control-label'
-      .col-lg-6
-        = form.text_field :village_en, class: 'form-control help-message', maxlength:'90'
+              = form.input :"village_#{locale}", label: t("location.village"), input_html: { maxlength:'90', class: "help-message " }
 
-    -# Village - Georgian
-    .form-group
-      = form.label :village_ka, t('location.village_ka'), class: 'col-lg-2 control-label'
-      .col-lg-6
-        = form.text_field :village_ka, class: 'form-control help-message', maxlength:'90'
+              = form.input :"city_#{locale}", label: t("location.city"), input_html: { maxlength:'90', class: "help-message location_city" }
 
-    -# City - English
-    .form-group
-      = form.label :city_en, t('location.city_en')+'*:', class: 'col-lg-2 control-label'
-      .col-lg-6
-        = form.text_field :city_en, class: 'form-control help-message location_city', maxlength:'90'
+              = form.input :"province_#{locale}", :collection => region_list, :include_blank => false, label: t("location.province"), input_html: { class: "location_region" }
 
-    -# City - Georgian
-    .form-group
-      = form.label :city_ka, t('location.city_ka')+'*:', class: 'col-lg-2 control-label'
-      .col-lg-6
-        = form.text_field :city_ka, class: 'form-control help-message', maxlength:'90'
+      .col-lg-1.reposition
+        %ul.nav.nav-tabs.tabs-right.vertical-text{role: "tablist"}
+          - locales.each_with_index do |locale, i|
+            %li{role: "presentation", class: "#{'active' if i == 0}"}
+              %a{href: "#form-trans1-#{locale}-tab-link", aria_controls: "form-trans1-#{locale}-tab-link", role: "tab", "data-toggle": "tab"}= t("app.language._#{locale}")
 
-    -# Region drop-down box
-    .form-group
-      = form.label :province, t('location.province')+'*:', class: 'col-lg-2 control-label'
-      .col-lg-4
-        = form.select :province, options_for_select(region_list, form.object.province), {}, {class: 'form-control location_region'}
 
-    -# Postal code
-    .form-group
-      = form.label :postal_code, t('location.postal_code'), class: 'col-lg-2 control-label'
-      .col-lg-3
-        = form.text_field :postal_code, class: 'form-control location_postal_code', maxlength:'8'
+    = form.input :"postal_code", label: t("location.postal_code"), input_html: { maxlength: 8, class: "form-control-small location_postal_code" }
 
   -# Geocode (latitude and longitude hidden fields)
-  = form.hidden_field :latitude, value: @map_settings[:latitude], class: 'latitude'
-  = form.hidden_field :longitude, value: @map_settings[:longitude], class: 'longitude'
+  = form.input :latitude, as: :hidden, value: @map_settings[:latitude], input_html: { class: 'latitude' }
+  = form.input :longitude, as: :hidden, value: @map_settings[:longitude], input_html: { class: 'longitude' }
 
-  -# List of area ('area' type address only)
-  - if Area.any?
+  - if Area.any? # List of area ('area' type address only)
     #area_section
-      .form-group
-        = form.label :area_id, t('location.area'), class: 'col-lg-2 control-label'
-        .col-lg-3
-          - area_data = areas.map{|a| [a.name, a.id, { 'data-latitude' => a.latitude, 'data-longitude' => a.longitude }]}
-          = form.select :area_id, options_for_select(area_data, form.object.area_id), {include_blank: t('location.area_blank')}, {class: 'form-control help-message area-select',
-            :data => {:content => t('location.area_help'), :placement => 'top',
-            :toggle => 'popover', :trigger => 'hover focus'}}
+      - area_data = areas.map{|a| [a.name, a.id, { 'data-latitude' => a.latitude, 'data-longitude' => a.longitude }]}
+      = form.input :area_id, :collection => area_data, :include_blank => t('location.area_blank'), label: t("location.area"), input_html: { class: "area-select", data: {:content => t('location.area_help'), :placement => 'top', :toggle => 'popover', :trigger => 'hover focus'}}
 
   -# "Locate me on the map" button
   .exact_location_section
     .form-group
-      .col-lg-2.control-label
-      .col-lg-8
-        %a#find_geocodes_from_address.btn.btn-info{"data-content" => "#{t('home.click_on_map_after')}", "data-placement" => "right", "data-toggle" => "popover", "data-trigger" => "hover"}
-          = t('location.define_geocode_button')
-        %span#find_geocode_loader
+      %a#find_geocodes_from_address.btn.btn-info{"data-content" => "#{t('home.click_on_map_after')}", "data-placement" => "right", "data-toggle" => "popover", "data-trigger" => "hover"}
+        = t('location.define_geocode_button')
+      %span#find_geocode_loader
 
 
   -# Canvas for the map
   .form-group
-    = form.label 'map-canvas-wrapper', t('location.map'), class: 'col-lg-2 control-label'
-    .col-lg-10
-      #map_notification_exact.map_notification
-        %i= t('admin.location.map_notification_exact')
-
-      #map.large
+    = form.label 'map-canvas-wrapper', t('location.map'), class: 'control-label'
+    #map_notification_exact.map_notification
+      %i= t('admin.location.map_notification_exact')
+    #map.large
 
   -# Location description - English
-  .form-group
-    = form.label :description_en, t('location.description_en'), class: 'col-lg-2 control-label', style: 'padding-top: 20px;'
-    .col-lg-6
-      = form.text_area :description_en, class: 'help-message', cols: 40, rows: 6,
-        :data => {:content => t('location.description_help'),
-        :placement => 'right', :toggle => 'popover', :trigger => 'hover focus'}
-
-  -# Location description - Georgian
-  .form-group
-    = form.label :description_ka, t('location.description_ka'), class: 'col-lg-2 control-label'
-    .col-lg-6
-      = form.text_area :description_ka, class: 'help-message', cols: 40, rows: 6,
-        :data => {:content => t('location.description_help'),
-        :placement => 'right', :toggle => 'popover', :trigger => 'hover focus'}
+  .row.space-bottom
+    .col-lg-11
+      .tab-content
+        - locales.each_with_index do |locale, i|
+          %div{id: "form-trans2-#{locale}-tab-link", class: "tab-pane#{' active' if i == 0}", role: "tabpanel"}
+            = form.input :"description_#{locale}", as: :text, label: t("location.description"), input_html: { cols:40, rows: 6, class: "help-message", data: { :content => t('location.description_help'), :placement => 'right', :toggle => 'popover', :trigger => 'hover focus' } }
+    .col-lg-1.reposition
+      %ul.nav.nav-tabs.tabs-right.vertical-text{role: "tablist"}
+        - locales.each_with_index do |locale, i|
+          %li{role: "presentation", class: "#{'active' if i == 0}"}
+            %a{href: "#form-trans2-#{locale}-tab-link", aria_controls: "form-trans2-#{locale}-tab-link", role: "tab", "data-toggle": "tab"}= t("app.language._#{locale}")
 
   -# Phone number
   .form-group
-    = form.label :phone_number, t('location.phone_number'), class: 'col-lg-2 control-label'
-    .col-lg-3.input-group
+    = form.label :phone_number, t('location.phone_number'), class: 'control-label'
+    .input-group
       %span.input-group-addon +995
-      = form.text_field :phone_number, class: 'form-control', maxlength:'15'
+      = form.text_field :phone_number, class: 'form-control form-control-small', maxlength:'15'
 
   -# Additional phone numbers
   .form-group
-    = form.label :add_phone_number, t('location.add_phone_number'), class: 'col-lg-2 control-label'
-    .col-lg-6
-      .col-lg-6.input-group
-        %span.input-group-addon +995
-        = form.text_field :add_phone_number, class: 'form-control', maxlength:'15'
-
-      .col-lg-6.input-group
-        %span.input-group-addon +995
-        = form.text_field :add_phone_number_2, class: 'form-control', maxlength:'15'
-
-  -# Facebook
+    = form.label :add_phone_number, t('location.add_phone_number'), class: 'control-label'
+    .input-group
+      %span.input-group-addon +995
+      = form.text_field :add_phone_number, class: 'form-control form-control-small', maxlength:'15'
   .form-group
-    = form.label :facebook, t('location.facebook'), class: 'col-lg-2 control-label'
-    .col-lg-4
-      = form.text_field :facebook, class: 'form-control'
+    .input-group
+      %span.input-group-addon +995
+      = form.text_field :add_phone_number_2, class: 'form-control form-control-small', maxlength:'15'
 
-  -# Website
-  .form-group
-    = form.label :website, t('location.website'), class: 'col-lg-2 control-label'
-    .col-lg-4
-      = form.text_field :website, class: 'form-control', maxlength:'60'
+  = form.input :facebook, label: t("location.facebook")
+  = form.input :website, label: t("location.website"), input_html: { maxlength:'60' }
 
   - if current_user
-    = form.hidden_field :user_id, value: current_user.id
+    = form.input :user_id, as: :hidden, value: current_user.id
 
 
 #why_choose_modal.modal.fade{'aria-hidden' => 'true', 'aria-labelledby' => 'myModalLabel', :role => 'dialog', :tabindex => '-1'}

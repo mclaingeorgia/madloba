@@ -1,10 +1,16 @@
 class Location < ActiveRecord::Base
+
   has_many :post_locations
   has_many :posts, through: :post_locations, dependent: :destroy
   belongs_to :user
   belongs_to :area
 
-  validates_presence_of :address
+  # REQUIRED_FIELDS = [:address, :province] city?
+  TRANSLATED_FIELDS = [:name, :address, :block_unit, :village, :province, :city, :description]
+
+  before_create :populate_required_fields_missing_translations
+
+  validates_presence_of :address_ka, :province_ka, :city_ka
   validates_presence_of :latitude, :longitude
 
   validate :location_fields_cannot_be_blank
@@ -12,8 +18,8 @@ class Location < ActiveRecord::Base
   validates :longitude, numericality: { greater_than: -180, less_than: 180 }
 
   # Fields to be translated
-  translates :name, :address, :province, :city, :block_unit, :village, :description
-  globalize_accessors :locales => [:en, :ka], :attributes => [:name, :address, :block_unit, :village, :province, :city, :description]
+  translates *TRANSLATED_FIELDS # :name, :address, :province, :city, :block_unit, :village, :description
+  globalize_accessors :locales => I18n.available_locales, :attributes => TRANSLATED_FIELDS # postal_code
 
   scope :type, -> (location_type) { where('posts.expire_date >= ? AND loc_type = ? AND posts.is_published = ?', Date.today, location_type, true)}
 
@@ -22,6 +28,21 @@ class Location < ActiveRecord::Base
   EXACT_ADDRESS_ICON = 'fa-home'
   AREA_ADDRESS_ICON = 'fa-dot-circle-o'
 
+
+  def populate_required_fields_missing_translations
+    default_locale = I18n.default_locale
+    other_locales = I18n.without_default_locales
+
+    TRANSLATED_FIELDS.each { |item|
+      default_value = self.send("#{item}_#{default_locale}")
+      if default_value.present?
+        other_locales.each { |locale|
+          self.send("#{item}_#{locale}=", default_value) unless self.send("#{item}_#{locale}").present?
+        }
+      end
+    }
+
+  end
   # This method returns the right query to display relevant markers, on the home page.
   def self.search(location_type, cat_nav_state, searched_item, selected_item_ids, user_action)
 

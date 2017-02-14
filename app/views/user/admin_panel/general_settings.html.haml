@@ -21,7 +21,7 @@
                   = t('admin.general_settings.success_message')
 
             .box-content
-              = form_tag '/user/generalsettings/update', html: { id: 'generalSettingFormId' } do
+              = form_tag user_generalsettings_update_path, html: { id: 'generalSettingFormId' } do
                 -# Website name
                 .form-group
                   = label_tag 'app_name', t('admin.general_settings.name')+':', class:'control-label'
