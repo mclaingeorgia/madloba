@@ -5,30 +5,19 @@
       %span.icon-bar
       %span.icon-bar
     = link_to "#{image_tag madloba_logo_file_name, class: 'madloba-img'} #{navigation_madloba_title}".html_safe, navigation_madloba_icon_path, class: 'navbar-brand'
-          
+
   - if !setup_mode?
     #navbarCollapse.navbar-collapse.collapse.navbar-responsive-collapse
       %ul.nav.navbar-nav
         / Language to choose - Georgian or English
         %li.dropdown
-          - if I18n.locale == :en
-            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-              = image_tag('en.png', size: '24x18')
-              %b.caret
-            %ul.dropdown-menu
+          %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+            = image_tag("#{I18n.locale}.png", size: '24x18')
+            %b.caret
+          %ul.dropdown-menu
+            - I18n.available_locales.each do |locale|
               %li
-                = link_to image_tag('en.png', size: '24x18')+' '+t('home.en_language').html_safe + '&nbsp;<i class="glyphicon glyphicon-ok" style="font-size: 9px;"></i>'.html_safe, change_locale_path(:en)
-              %li
-                = link_to image_tag('ka.png', size: '24x18')+' '+t('home.ka_language').html_safe, change_locale_path(:ka)
-          - elsif I18n.locale == :ka
-            %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
-              = image_tag('ka.png', size: '24x18').html_safe
-              %b.caret
-            %ul.dropdown-menu
-              %li
-                = link_to image_tag('en.png', size: '24x18')+' '+t('home.en_language').html_safe, change_locale_path(:en)
-              %li
-                = link_to image_tag('ka.png', size: '24x18')+' '+t('home.ka_language').html_safe + '&nbsp;<i class="glyphicon glyphicon-ok" style="font-size: 9px;"></i>'.html_safe, change_locale_path(:ka)
+                = link_to image_tag("#{locale}.png", size: '24x18')+' '+t("home.#{locale}_language").html_safe + (I18n.locale == locale ?  '&nbsp;<i class="glyphicon glyphicon-ok" style="font-size: 9px;"></i>'.html_safe : ""), params.merge(:locale =>  locale)
 
       -# Search form - start
       %form#nav_search_form.navbar-form{:action => "/search", :method => "get", :role => "search"}

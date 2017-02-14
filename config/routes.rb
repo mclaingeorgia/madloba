@@ -88,7 +88,7 @@ Madloba::Application.routes.draw do
     get '/showSpecificAds', to: 'home#showSpecificPosts'
 
     # To change languages.
-    get '/change_locale/:locale', to: 'settings#change_locale', as: :change_locale
+    # get '/change_locale/:locale', to: 'settings#change_locale', as: :change_locale
 
     # Ajax call to show popup content, when marker clicked on home page.
     get '/showPostPopup', to: 'home#show_post_popup'

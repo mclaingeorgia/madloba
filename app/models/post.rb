@@ -11,6 +11,9 @@ class Post < ActiveRecord::Base
   include ApplicationHelper
   after_initialize :default_values
 
+  TRANSLATED_FIELDS = [:title, :description]
+  before_create :populate_required_fields_missing_translations
+
   # Ad image
   mount_uploader :image, ImageUploader
 
@@ -22,7 +25,7 @@ class Post < ActiveRecord::Base
   accepts_nested_attributes_for :items
   accepts_nested_attributes_for :locations
 
-  validates_presence_of :title, :description
+  validates_presence_of :title_ka, :description_ka
 
   validates :giving, inclusion: [true, false]
   validates :username_used, inclusion: [true, false]
@@ -33,11 +36,26 @@ class Post < ActiveRecord::Base
   validates_size_of :image, maximum: 5.megabytes
 
   # Fields to be translated
-  translates :title, :description
-  globalize_accessors :locales => [:en, :ka], :attributes => [:title]
-  globalize_accessors :locales => [:en, :ka], :attributes => [:description]
+  translates *TRANSLATED_FIELDS
+  globalize_accessors :locales => I18n.available_locales, :attributes => TRANSLATED_FIELDS
+
 
   apply_simple_captcha
+
+
+  def populate_required_fields_missing_translations
+    default_locale = I18n.default_locale
+    other_locales = I18n.without_default_locales
+
+    TRANSLATED_FIELDS.each { |item|
+      default_value = self.send("#{item}_#{default_locale}")
+      if default_value.present?
+        other_locales.each { |locale|
+          self.send("#{item}_#{locale}=", default_value) unless self.send("#{item}_#{locale}").present?
+        }
+      end
+    }
+  end
 
   def self.image_storage
     Rails.cache.fetch(CACHE_IMAGE_STORAGE) {Setting.find_or_create_by(key: 'image_storage').value}

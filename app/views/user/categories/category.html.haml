@@ -48,39 +48,27 @@
                 = flash[:icon_error]
 
             .box-content
-              = form_for [:user, @category], html: { id: 'categoryForm', role: 'form' } do |f|
+              = simple_form_for [:user, @category], html: { id: 'categoryForm', role: 'form' } do |f|
                 -# Category id
                 - if !adding
                   .form-group
                     %a.btn.btn-danger.btn-delete-right.btn-setting{:href => "#"}= t('admin.category.delete_category')
-                  .form-group
-                    = label_tag :nameId, t('admin.mandatory'), class:'control-label'
-                  .form-inline
-                    = label_tag :idId, 'Id:', class:'control-label'
-                    = @category.id
-                  .form-group
 
-                -# Category name - English
-                .form-group
-                  = label_tag :name_en, t('admin.category_name_en')+'*:', class:'control-label'
-                  .form-inline
-                    = f.text_field :name_en, class: 'form-control', maxlength:'90'
-                -# Category name - Georgian
-                .form-group
-                  = label_tag :name_ka, t('admin.category_name_ka')+'*:', class:'control-label'
-                  .form-inline
-                    = f.text_field :name_ka, class: 'form-control', maxlength:'90'
-                -# Category description - English
-                .form-group
-                  = label_tag :description_en, t('admin.description_en')+':', class:'control-label'
-                  .form-group
-                    = f.text_area :description_en, cols: 40, rows: 6
-                -# Category description - Georgian
-                .form-group
-                  = label_tag :description_ka, t('admin.description_ka')+':', class:'control-label'
-                  .form-group
-                    = f.text_area :description_ka, cols: 40, rows: 6
-                %hr/
+                - locales = Location.globalize_locales
+                .row.space-bottom
+                  .col-lg-11
+                    .tab-content
+                      - locales.each_with_index do |locale, i|
+                        %div{id: "form-trans-#{locale}-tab-link", class: "tab-pane#{' active' if i == 0}", role: "tabpanel"}
+                          = f.input :"name_#{locale}", label: t("admin.category_name"), input_html: { maxlength: 90 }
+                          = f.input :"description_#{locale}", as: :text, label: t("admin.description"), input_html: { cols: 40, rows: 6 }
+
+                  .col-lg-1.reposition
+                    %ul.nav.nav-tabs.tabs-right.vertical-text{role: "tablist"}
+                      - locales.each_with_index do |locale, i|
+                        %li{role: "presentation", class: "#{'active' if i == 0}"}
+                          %a{href: "#form-trans-#{locale}-tab-link", aria_controls: "form-trans-#{locale}-tab-link", role: "tab", "data-toggle": "tab"}= t("app.language._#{locale}")
+
                 %h4= t('admin.category.your_marker_icon')
                 / Category marker
                 .form-inline

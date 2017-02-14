@@ -41,7 +41,6 @@ class Location < ActiveRecord::Base
         }
       end
     }
-
   end
   # This method returns the right query to display relevant markers, on the home page.
   def self.search(location_type, cat_nav_state, searched_item, selected_item_ids, user_action)

@@ -1,7 +1,7 @@
 - page ||= 'new'
 - form_id = "post_#{page}_form"
 - obj ||= @post
-= form_for obj, url: services_path, html: { id: form_id, class: 'form-horizontal', role: 'form', multipart: true } do |f|
+= simple_form_for obj, url: services_path, html: { id: form_id, role: 'form', multipart: true } do |f|
   - note_about_expiration_date = page == 'new' ? expire_date_for_new_post : expire_date_for(@post)
   %fieldset
 
@@ -17,107 +17,100 @@
       %h3= t('post.new_post')
 
     .form-group
-      .col-lg-6.col-lg-offset-2
-        %i= note_about_expiration_date
+      %i= note_about_expiration_date
 
-    -# Ad title
-    .form-group
-      = f.label :title, t('post.title'), class: 'col-lg-2 control-label'
-      .col-lg-6
-        = f.text_field :title, class: 'form-control help-message', autofocus: true,
-                :data => {:content => t('post.title_help'), :placement => 'top',
-                :toggle => 'popover', :trigger => 'hover focus'}
+    - locales = Location.globalize_locales
+    .row.space-bottom
+      .col-lg-11
+        .tab-content
+          - locales.each_with_index do |locale, i|
+            %div{id: "form-trans-#{locale}-tab-link", class: "tab-pane#{' active' if i == 0}", role: "tabpanel"}
+              = f.input :"title_#{locale}", label: t("post.title"), input_html: { autofocus: true, :data => {:content => t('post.title_help'), :placement => 'top', :toggle => 'popover', :trigger => 'hover focus'}}
+              = f.input :"description_#{locale}", as: :text, label: t("post.description"), input_html: { cols: 40, rows: 6, :data => {:content => t('post.description_help'), :placement => 'top', :toggle => 'popover', :trigger => 'hover focus'} }
+
+      .col-lg-1.reposition
+        %ul.nav.nav-tabs.tabs-right.vertical-text{role: "tablist"}
+          - locales.each_with_index do |locale, i|
+            %li{role: "presentation", class: "#{'active' if i == 0}"}
+              %a{href: "#form-trans-#{locale}-tab-link", aria_controls: "form-trans-#{locale}-tab-link", role: "tab", "data-toggle": "tab"}= t("app.language._#{locale}")
+
 
     -# Name to use (it user is not anonymous)
     - if user_signed_in?
       .form-group
-        = f.label :username_used, t('location.name_to_use'), class: 'col-lg-2 control-label'
-        .col-lg-6
-          .radio
-            %label
-              = f.radio_button :username_used, true, checked: true
-              = t('location.name_username')
-              (#{current_user.username})
-          .radio
-            %label
-              = f.radio_button :username_used, false
-              = t('location.name_fullname')
-              (#{current_user.first_name} #{current_user.last_name})
+        = f.label :username_used, t('location.name_to_use'), class: 'control-label'
+        .radio
+          %label
+            = f.radio_button :username_used, true, checked: true
+            = t('location.name_username')
+            (#{current_user.username})
+        .radio
+          %label
+            = f.radio_button :username_used, false
+            = t('location.name_fullname')
+            (#{current_user.first_name} #{current_user.last_name})
 
     -# Giving / Accepting items
     .form-group
-      = f.label :giving, t('location.post_action'), class: 'col-lg-2 control-label'
-      .col-lg-6
-        .radio
-          %label
-            = f.radio_button :giving, true, checked: true
-            = t('location.post_action_giving')
-        .radio
-          %label
-            = f.radio_button :giving, false
-            = t('location.post_action_accepting')
+      = f.label :giving, t('location.post_action'), class: 'control-label'
+      .radio
+        %label
+          = f.radio_button :giving, true, checked: true
+          = t('location.post_action_giving')
+      .radio
+        %label
+          = f.radio_button :giving, false
+          = t('location.post_action_accepting')
 
     -# Items
     .form-group
-      = f.label :post_items, t('post.item'), class: 'col-lg-2 control-label'
-      .col-lg-6
-        #items
-          = f.fields_for :post_items do |post_item|
-            = render 'shared/post_item_fields', f: post_item
-          = link_to_add_association "<i class='glyphicon glyphicon-plus'></i> #{t('post.add_item')}".html_safe, f, :post_items, partial: 'shared/post_item_fields', class: 'btn btn-success postd-item-button'
+      = f.label :post_items, t('post.item'), class: 'control-label'
+      #items
+        = f.fields_for :post_items do |post_item|
+          = render 'shared/post_item_fields', f: post_item
+        = link_to_add_association "<i class='glyphicon glyphicon-plus'></i> #{t('post.add_item')}".html_safe, f, :post_items, partial: 'shared/post_item_fields', class: 'btn btn-success postd-item-button'
 
-    -# Ad description
-    .form-group
-      = f.label :description, t('post.description')+'*:', class: 'col-lg-2 control-label'
-      .col-lg-6
-        = f.text_area :description, class: 'form-control help-message', rows: 6,
-                :data => {:content => t('post.description_help'), :placement => 'top',
-                :toggle => 'popover', :trigger => 'hover focus'}
+
 
     -# Image upload - only possible when app deployed on server, for now
     - if !on_heroku? && can_upload_image
       .form-group
-        = f.label :description, t('post.upload_image'), class: 'col-lg-2 control-label'
-        .col-lg-6
-          = f.file_field :image, class: 'form-control', style: 'border: 0px; height: auto;'
-          = f.hidden_field :image_cache
-          %span#message= t('post.less_than_limit')
+        = f.label :description, t('post.upload_image'), class: 'control-label'
+        = f.file_field :image, class: 'form-control', style: 'border: 0px; height: auto;'
+        = f.hidden_field :image_cache
+        %span#message= t('post.less_than_limit')
       .form-group
-        .col-lg-2
-        .col-lg-10
-          #image-section
-          - if @post.image?
-            - if is_image_available(@post)
-              = image_tag @post.image_url(:normal).to_s
-              .checkbox
-                %label
-                  = f.check_box :remove_image
-                  = t('post.remove_image')
-            - elsif @post.image && (@post.errors[:image].nil? || (@post.errors[:image] && @post.errors[:image].length == 0))
-              .ad-processing
-                = t('post.image_selected')
+        #image-section
+        - if @post.image?
+          - if is_image_available(@post)
+            = image_tag @post.image_url(:normal).to_s
+            .checkbox
+              %label
+                = f.check_box :remove_image
+                = t('post.remove_image')
+          - elsif @post.image && (@post.errors[:image].nil? || (@post.errors[:image] && @post.errors[:image].length == 0))
+            .ad-processing
+              = t('post.image_selected')
 
     -# Ad location section
     - if current_user.present? && current_user.locations.any?
       -# List of all the different locations previously entered by the current user
       #locations_from_list
         .form-group
-          = f.label :location_id, t('location.location')+'*:', class: 'col-lg-2 control-label'
-          .col-lg-6
-            - current_user.locations.each_with_index do |loc, index|
-              .radio.existing_location
-                %label
-                  - if index == 0
-                    = f.radio_button :location_id, loc.id, checked: true
-                    = loc.full_address
-                  - else
-                    = f.radio_button :location_id, loc.id
-                    = loc.full_address
+          = f.label :location_id, t('location.location')+'*:', class: 'control-label'
+          - current_user.locations.each_with_index do |loc, index|
+            .radio.existing_location
+              %label
+                - if index == 0
+                  = f.radio_button :location_id, loc.id, checked: true
+                  = loc.full_address
+                - else
+                  = f.radio_button :location_id, loc.id
+                  = loc.full_address
 
         .form-group
-          .col-lg-6.col-lg-offset-2
-            %a.btn.btn-sm.btn-info.add-new-location
-              = t('post.new_location')
+          %a.btn.btn-sm.btn-info.add-new-location
+            = t('post.new_location')
 
     -# Location form partial
     .location-form-for-ad
@@ -130,32 +123,27 @@
       %h4= t('post.about_you')
       -# Anonymous user's name
       .form-group
-        = f.label :anon_name, t('post.name'), class: 'col-lg-2 control-label'
-        .col-lg-6
-          = f.text_field :anon_name, class: 'form-control help-message',
+        = f.label :anon_name, t('post.name'), class: 'control-label'
+        = f.text_field :anon_name, class: 'form-control help-message',
                   :data => {:content => t('post.name_help'), :placement => 'top',
                   :toggle => 'popover', :trigger => 'hover focus'}
       -# Anonymous user's email
       .form-group
-        = f.label :anon_email, t('post.your_email')+'*:', class: 'col-lg-2 control-label'
-        .col-lg-6
-          = f.email_field :anon_email, class: 'form-control help-message', autofocus: true,
+        = f.label :anon_email, t('post.your_email')+'*:', class: 'control-label'
+        = f.email_field :anon_email, class: 'form-control help-message', autofocus: true,
                   :data => {:content => t('post.email_help'), :placement => 'top',
                   :toggle => 'popover', :trigger => 'hover focus'}
       -# Captcha for anonymous user
       .form-group
-        = f.label :anon_captcha, t('post.captcha'), class: 'col-lg-2 control-label'
-        .col-lg-6
-          = f.show_simple_captcha
+        = f.label :anon_captcha, t('post.captcha'), class: 'control-label'
+        = f.show_simple_captcha
       %hr/
 
     -# Submit section
     .form-group{style: 'margin-top: 35px'}
-      .col-lg-10.col-lg-offset-2
-        = f.submit t("post.submit_post_#{page}"), id: 'submit_new_post', class: 'btn btn-success'
-        %a.btn{:href => "/"}= t('home.cancel')
+      = f.submit t("post.submit_post_#{page}"), id: 'submit_new_post', class: 'btn btn-success'
+      %a.btn{:href => "/"}= t('home.cancel')
 
     -# After submit, a notification shows up here, if a new image is being uploaded
     .form-group
-      .col-lg-10.col-lg-offset-2
-        %span#upload-in-progress
+      %span#upload-in-progress

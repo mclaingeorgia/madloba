@@ -2,7 +2,7 @@
 .container
   .row
     = render 'shared/admin_left_menu'
-    #content.middle-col.col-xs-12.col-md-10
+    #content.col-xs-12.col-md-10
       %div
         %ul.breadcrumb
           %li
@@ -40,27 +40,28 @@
                 %a{:href => "/user/managerecords"}= t('admin.back_to_records')
 
             .box-content
-              = form_for [:user, @item], html: { id: 'itemForm', role: 'form' } do |f|
+              = simple_form_for [:user, @item], html: { id: 'itemForm', role: 'form' } do |f|
                 -# Category id
                 - if !adding
                   .form-group
                     %a.btn.btn-danger.btn-delete-right.btn-setting{:href => "#"}= t('admin.item.delete_item')
-                  .form-group
-                    = label_tag 'nameId', t('admin.mandatory'), class:'control-label'
-                  .form-inline
-                    = label_tag 'id', 'Id:', class:'control-label'
-                    = @item.id
-                  .form-group
-                -# Item name - English
-                .form-group
-                  = f.label :name_en, t('admin.item.name_en')+'*:', class:'control-label'
-                  .form-inline
-                    = f.text_field :name_en, class: 'form-control', maxlength:'90'
-                -# Item name - Georgian
-                .form-group
-                  = f.label :name_ka, t('admin.item.name_ka')+'*:', class:'control-label'
-                  .form-inline
-                    = f.text_field :name_ka, class: 'form-control', maxlength:'90'
+
+                - locales = Location.globalize_locales
+                .row.space-bottom
+                  .col-lg-11
+                    .tab-content
+                      - locales.each_with_index do |locale, i|
+                        %div{id: "form-trans-#{locale}-tab-link", class: "tab-pane#{' active' if i == 0}", role: "tabpanel"}
+                          = f.input :"name_#{locale}", label: t("admin.item.name"), input_html: { maxlength: 90 }
+                          = f.input :"description_#{locale}", as: :text, label: t("admin.item.description"), input_html: { cols: 40, rows: 6 }
+
+                  .col-lg-1.reposition
+                    %ul.nav.nav-tabs.tabs-right.vertical-text{role: "tablist"}
+                      - locales.each_with_index do |locale, i|
+                        %li{role: "presentation", class: "#{'active' if i == 0}"}
+                          %a{href: "#form-trans-#{locale}-tab-link", aria_controls: "form-trans-#{locale}-tab-link", role: "tab", "data-toggle": "tab"}= t("app.language._#{locale}")
+
+
                 -# List of locations the item can be found
                 .form-group
                   - if @item.posts.length > 0

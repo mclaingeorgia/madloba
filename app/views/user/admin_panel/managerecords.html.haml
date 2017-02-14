@@ -63,8 +63,7 @@
                 %thead
                   %tr
                     %th ID
-                    %th= t('admin.address_en')
-                    %th= t('admin.address_ka')
+                    %th= t('admin.address')
                     %th= t('admin.created_by_user')
                     %th= t('admin.actions')
                 %tbody
@@ -74,17 +73,11 @@
                       - if location.street_number && !location.street_number.empty?
                         %td.vert-align
                           = location.street_number
-                           #{location.address_en}, #{location.city_en}
-                        %td.vert-align
-                          = location.street_number
-                           #{location.address_ka}, #{location.city_ka}
+                           #{location.address}, #{location.city}
                       - else
                         %td.vert-align
-                          = location.address_en
-                          , #{location.city_en}
-                        %td.vert-align
-                          = location.address_ka
-                          , #{location.city_ka}
+                          = location.address
+                          , #{location.city}
                       %td.vert-align= location.user ? location.user.email : t('admin.location.anonymous_user')
                       %td.center
                         %a.btn.btn-info{:href => "/user/locations/#{location.id}/edit"}
@@ -102,15 +95,13 @@
                 %thead
                   %tr
                     %th ID
-                    %th= t('admin.item.name_en')
-                    %th= t('admin.item.name_ka')
+                    %th= t('admin.item.name')
                     %th= t('admin.actions')
                 %tbody
                   - Item.all.each do |item|
                     %tr
                       %td.vert-align= item.id
-                      %td.vert-align= capitalized_name(item.name_en)
-                      %td.vert-align= capitalized_name(item.name_ka)
+                      %td.vert-align= capitalized_name(item.name)
                       %td.center
                         %a.btn.btn-info{:href => "/user/items/#{item.id}/edit"}
                           %i.glyphicon.glyphicon-pencil
@@ -127,8 +118,7 @@
                 %thead
                   %tr
                     %th ID
-                    %th#category_name_header= t('admin.category_name_en')
-                    %th= t('admin.category_name_ka')
+                    %th#category_name_header= t('admin.category_name')
                     %th= t('admin.marker')
                     %th= t('admin.icon')
                     %th= t('admin.description')
@@ -137,8 +127,7 @@
                   - Category.all.order('name asc').each do |category|
                     %tr
                       %td.vert-align= category.id
-                      %td.vert-align= category.name_en
-                      %td.vert-align= category.name_ka
+                      %td.vert-align= category.name
                       %td{:style => "text-align: center; vertical-align: middle;"}= image_tag "images/marker-#{category.marker_color}.png", title: category.marker_color
                       %td{:style => "text-align: center; vertical-align: middle;"}
                         %i{:class => "fa #{category.icon}", :title => "#{category.icon_name}"}
