@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe User::AdsController, :type => :controller do
+RSpec.describe User::PostsController, :type => :controller do
 
   before :each do
     # Making sure we're not redirected to the setup screens.
@@ -182,7 +182,7 @@ RSpec.describe User::AdsController, :type => :controller do
 
     it 'redirects to the record page' do
       delete :destroy, id: @ad
-      expect(response).to redirect_to user_manageads_path
+      expect(response).to redirect_to user_manageposts_path
     end
   end
 

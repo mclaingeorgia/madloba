@@ -85,7 +85,7 @@ Madloba::Application.routes.draw do
     get '/getItems', to: 'application#get_items'
 
     # Ajax call to show the posts related to 1 type of item and to 1 area/area.
-    get '/showSpecificAds', to: 'home#showSpecificPosts'
+    get '/showSpecificPosts', to: 'home#showSpecificPosts'
 
     # To change languages.
     # get '/change_locale/:locale', to: 'settings#change_locale', as: :change_locale

@@ -60,10 +60,10 @@ Home::putLocationMarkers = ->
   markers.registerAreaMarkers(markers.areas, false)
 
   # Event to trigger when click on a link in an area popup, on the home page map. Makes a modal window appear.
-  # Server side is in home_controller, method showSpecificAds.
+  # Server side is in home_controller, method showSpecificPosts.
   $('#map').on 'click', '.area_link', ->
     input = $(this).attr('id').split('|')
-    $.get '/showSpecificAds', {
+    $.get '/showSpecificPosts', {
       item: input[0]
       type: input[1]
       area: input[2]

@@ -28,7 +28,7 @@ class User::FaqsController < ApplicationController
 
     respond_to do |format|
       if @faq.save
-        format.html { redirect_to user_faqs_path, notice: 'This question/answer was successfully created.' }
+        format.html { redirect_to edit_user_category_path(@faq.id), notice: 'This question/answer was successfully created.' }
         format.json { render action: 'show', status: :created, location: @faq }
       else
         format.html { render action: 'new' }

@@ -208,7 +208,7 @@ class HomeController < ApplicationController
       # An error occurred, we show a error message.
       popup_html = "<i>#{t('home.error_get_popup_content')}</i>"
     end
-    
+
     render json: popup_html
   end
 
@@ -261,7 +261,7 @@ class HomeController < ApplicationController
 
   # Ajax call to show the posts related to 1 type of item and to 1 area
   # Call made when click on link, in area marker popup.
-  def showSpecificAds
+  def showSpecificPosts
     item_name = params['item']
     location_type = params['type'] # 'postal', or 'area'
     area_value = params['area'] # code postal area code, or area id

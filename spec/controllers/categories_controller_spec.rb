@@ -11,7 +11,7 @@ RSpec.describe User::CategoriesController, :type => :controller do
     # Creating admin user, and signing in.
     allow_message_expectations_on_nil
     @user = FactoryGirl.create(:user)
-    @user.role = 1 # admin role
+    @user.role = 2 # admin role
     @user.save
     sign_in @user
   end

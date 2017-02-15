@@ -18,14 +18,16 @@
 require "capybara/rspec"
 require "pundit/rspec"
 require "devise"
-require_relative "../spec/support/controller_helpers"
+# require_relative "../spec/support/controller_helpers"
 
 RSpec.configure do |config|
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
 
-  config.include Devise::TestHelpers, :type => :controller
-  config.include ControllerHelpers, :type => :controller
+  # config.include Devise::TestHelpers, :type => :controller
+  # config.include ControllerHelpers, :type => :controller
+
+  # config.before { ActionDispatch::Request.any_instance.stubs(cookies: {locale: :en}) }
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
@@ -34,7 +36,19 @@ RSpec.configure do |config|
     SeedFu.quiet = true
     SeedFu.seed
   end
+  config.mock_with :rspec do |mocks|
+     # Prevents you from mocking or stubbing a method that does not exist on
+     # a real object. This is generally recommended, and will default to
+     # `true` in RSpec 4.
+     mocks.verify_partial_doubles = true
+   end
 
+   # This option will default to `:apply_to_host_groups` in RSpec 4 (and will
+   # have no way to turn it off -- the option exists only for backwards
+   # compatibility in RSpec 3). It causes shared context metadata to be
+   # inherited by the metadata hash of host groups and examples, rather than
+   # triggering implicit auto-inclusion in groups with matching metadata.
+   config.shared_context_metadata_behavior = :apply_to_host_groups
 =begin
   # These two settings work together to allow you to limit a spec run
   # to individual examples or groups you care about by tagging them with
