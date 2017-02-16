@@ -11,14 +11,10 @@ Madloba::Application.routes.draw do
     get 'results', to: 'home#results'
     get 'refine_state', to: 'home#refine_state'
 
-    # About page
-    get 'about', to: 'home#about'
 
-    # FAQ page
-    get 'faq', to: 'home#faq'
-
-    # TOS page
-    get 'tos', to: 'home#tos'
+    get 'about', to: 'home#about' # About page
+    get 'faq', to: 'home#faq' # FAQ page
+    get 'tos', to: 'home#tos' # TOS page
     post 'update_tos', to: 'home#update_tos'
 
     # Setup pages

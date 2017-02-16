@@ -44,21 +44,6 @@ class HomeController < ApplicationController
   end
 
 
-  # Method that gets markers and search results list, after a search is made on home page
-  def render_search_results
-    results = ''
-    markers, post_results = post_markers_and_results_for(params)
-    post_results.each do |post|
-      post.locations.each do |location|
-        results += Result.create(post, location)
-      end
-    end
-
-    categories = post_results.map{|p| p.category_ids}.flatten.uniq
-    render json: {markers: markers, areas: [], results: results, categories: categories.map{|c| c.to_s}}
-  end
-
-
   # -------------------------
   # Method for the About page
   # -------------------------
@@ -76,14 +61,18 @@ class HomeController < ApplicationController
       end
     end
 
-    render 'home/about'
   end
 
+
+  # -------------------------
+  # Method for the FAQ page
+  # -------------------------
+  def faq
+  end
+
+
   def tos
-    if current_user.nil? || (current_user && current_user.has_agreed_to_tos)
-      redirect_to root_path
-    end
-    render 'home/tos'
+    redirect_to root_path if current_user.nil? || (current_user && current_user.has_agreed_to_tos)
   end
 
   def update_tos
@@ -97,11 +86,20 @@ class HomeController < ApplicationController
     end
   end
 
-  # -------------------------
-  # Method for the FAQ page
-  # -------------------------
-  def faq
-    render 'home/faq'
+
+
+  # Method that gets markers and search results list, after a search is made on home page
+  def render_search_results
+    results = ''
+    markers, post_results = post_markers_and_results_for(params)
+    post_results.each do |post|
+      post.locations.each do |location|
+        results += Result.create(post, location)
+      end
+    end
+
+    categories = post_results.map{|p| p.category_ids}.flatten.uniq
+    render json: {markers: markers, areas: [], results: results, categories: categories.map{|c| c.to_s}}
   end
 
   # ------------------

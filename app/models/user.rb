@@ -1,29 +1,47 @@
 class User < ActiveRecord::Base
 
-  enum role: [:user, :admin, :super_admin]
-  after_initialize :set_default_role, :if => :new_record?
-
-  def set_default_role
-    self.role ||= :user
-  end
-
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
+
+  has_many :locations, dependent: :destroy
+  has_many :posts, dependent: :destroy
+  has_many :post_users
+  has_many :favorite_posts, through: :post_users, source: :post
+
+  TRANSLATED_FIELDS = [:first_name, :last_name]
+
+  before_create :populate_required_fields_missing_translations
+
+  enum role: [:user, :admin, :super_admin]
+  after_initialize :set_default_role, :if => :new_record?
 
   validates :username, presence: true
   validates :is_service_provider, inclusion: [true, false]
   validates_uniqueness_of :username
 
   # Fields to be translated
-  translates :first_name, :last_name
-  globalize_accessors :locales => [:en, :ka], :attributes => [:first_name, :last_name]
+  translates *TRANSLATED_FIELDS
+  globalize_accessors :locales => I18n.available_locales, :attributes => TRANSLATED_FIELDS
 
-  has_many :locations, dependent: :destroy
-  has_many :posts, dependent: :destroy
-  has_many :post_users
-  has_many :favorite_posts, through: :post_users, source: :post
+  def populate_required_fields_missing_translations
+    default_locale = I18n.default_locale
+    other_locales = I18n.without_default_locales
+
+    TRANSLATED_FIELDS.each { |item|
+      default_value = self.send("#{item}_#{default_locale}")
+      if default_value.present?
+        other_locales.each { |locale|
+          self.send("#{item}_#{locale}=", default_value) unless self.send("#{item}_#{locale}").present?
+        }
+      end
+    }
+  end
+
+  def set_default_role
+    self.role ||= :user
+  end
 
   def owns_post? (post)
     self.posts.include?(post)

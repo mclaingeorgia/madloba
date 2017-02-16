@@ -73,35 +73,38 @@
                   %thead
                     %tr
                       %th= t('admin.name')
-                      %th= t('admin.address_en')
-                      %th= t('admin.address_ka')
+                      %th= t('admin.address')
                       %th= t('admin.posts')
                       %th= t('admin.actions')
                   %tbody
                     - @locations.each do |location|
                       %tr
-                        %td.vert-align= location.location_full_name
-                        - if location.loc_type == 'exact'
-                          - if location.street_number && !location.street_number.empty?
-                            %td.vert-align
-                              = location.street_number
-                               #{location.address_en}, #{location.city}
-                            %td.vert-align
-                              = location.street_number
-                               #{location.address_ka}, #{location.city}
-                          - else
-                            %td.vert-align
-                              = location.address_en
-                              , #{location.city}
-                            %td.vert-align
-                              = location.address_ka
-                              , #{location.city}
-                        - elsif location.loc_type == 'district'
-                          %td.vert-align= location.district.name
-                          %td.vert-align= location.district.name
-                        - else
-                          %td.vert-align= location.postal_code
-                          %td.vert-align= location.postal_code
+                        %td.vert-align= location.full_name
+                        %td.vert-align
+                          = location.street_number
+                          #{location.address}, #{location.city}, #{location.area.name if location.area.present?}, #{location.postal_code}
+
+                        / - if location.loc_type == 'exact'
+                        /   - if location.street_number && !location.street_number.empty?
+                        /     %td.vert-align
+                        /       = location.street_number
+                        /        #{location.address_en}, #{location.city}
+                        /     %td.vert-align
+                        /       = location.street_number
+                        /        #{location.address_ka}, #{location.city}
+                        /   - else
+                        /     %td.vert-align
+                        /       = location.address_en
+                        /       , #{location.city}
+                        /     %td.vert-align
+                        /       = location.address_ka
+                        /       , #{location.city}
+                        / - elsif location.loc_type == 'district'
+                        /   %td.vert-align= location.district.name
+                        /   %td.vert-align= location.district.name
+                        / - else
+                        /   %td.vert-align= location.postal_code
+                        /   %td.vert-align= location.postal_code
                         %td
                           - if location.posts.length == 0
                             %i= t('admin.location.no_post_tied')

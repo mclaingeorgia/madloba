@@ -51,7 +51,7 @@
               = t('admin.users.created_success', email: flash[:new_user])
               %a{:href => "/user/manageusers"}= t('admin.back_to_users')
           .box-content
-            = form_for [:user, @user], html: { role: 'form' } do |f|
+            = simple_form_for [:user, @user], html: { role: 'form' } do |f|
               - if current_user.admin? && !adding && current_user != @user
                 .form-group
                   - if demo?
@@ -95,26 +95,20 @@
                     = f.radio_button :is_service_provider, false
                     = t('home.no')
 
-              -# First name - english
-              .form-group
-                = f.label :first_name_en, t('admin.profile.first_name_en')+':', class:'control-label'
-                .form-inline
-                  = f.text_field :first_name_en, class: 'form-control'
-              -# First name - georgian
-              .form-group
-                = f.label :first_name_ka, t('admin.profile.first_name_ka')+':', class:'control-label'
-                .form-inline
-                  = f.text_field :first_name_ka, class: 'form-control'
-              -# Last name - english
-              .form-group
-                = f.label :last_name_en, t('admin.profile.last_name_en')+':', class:'control-label'
-                .form-inline
-                  = f.text_field :last_name_en, class: 'form-control'
-              -# Last name - georgian
-              .form-group
-                = f.label :last_name_ka, t('admin.profile.last_name_ka')+':', class:'control-label'
-                .form-inline
-                  = f.text_field :last_name_ka, class: 'form-control'
+              - locales = Location.globalize_locales
+              .row.space-bottom
+                .col-lg-11
+                  .tab-content
+                    - locales.each_with_index do |locale, i|
+                      %div{id: "form-trans-#{locale}-tab-link", class: "tab-pane#{' active' if i == 0}", role: "tabpanel"}
+                        = f.input :"first_name_#{locale}", label: t("admin.profile.first_name")
+                        = f.input :"last_name_#{locale}", label: t("admin.profile.last_name")
+
+                .col-lg-1.reposition
+                  %ul.nav.nav-tabs.tabs-right.vertical-text{role: "tablist"}
+                    - locales.each_with_index do |locale, i|
+                      %li{role: "presentation", class: "#{'active' if i == 0}"}
+                        %a{href: "#form-trans-#{locale}-tab-link", aria_controls: "form-trans-#{locale}-tab-link", role: "tab", "data-toggle": "tab"}= t("app.language._#{locale}")
 
               -# Username
               .form-group
