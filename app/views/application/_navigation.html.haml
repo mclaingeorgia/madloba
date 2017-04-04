@@ -1,0 +1,62 @@
+%nav
+  .nav-container
+    .nav-left
+      = link_to image_tag("/assets/svg/logo_#{I18n.locale}.svg").html_safe, root_path, class: 'nav-brand'
+      / = button 'blah'
+      = link_to image_tag("/assets/svg/hamburger.svg", alt: 'Some text').html_safe, root_path, class: 'nav-toggle', 'data-toggle': 'collapse'
+    .nav-right
+      .nav-menu
+        .about ABOUT
+        .pipe
+        .faq FAQ
+        .pipe
+        .contact CONTACT
+      .nav-social
+        .facebook F
+        .twitter T
+      .nav-user
+        .guest
+          .sign-up Register
+          .slash /
+          .sign-in Sign in
+        .user
+          .avatar FooBar
+          .username Foo Bar
+          .user-menu
+            %ul
+              %li
+                %span User Profile
+                %ul
+                  %li Manage Profile
+                  %li Favorite Places
+                  %li Rated Places
+                  %li Uploaded Photos
+              %li
+                %span Provider Profile
+                %ul
+                  %li Manage Provider
+                  %li Manage Places
+                  %li Moderate Photos
+              %li
+                %span Admin Profile
+                %ul
+                  %li
+                    %span Manage
+                    %ul
+                      %li Users
+                      %li Providers
+                      %li Places
+                      %li Categories
+                      %li Text Pages
+                      %li Settings
+                  %li
+                    %span Moderate
+                    %ul
+                      %li Reported Places
+                      %li Place Ownership
+                      %li New Provider
+                      %li Place Tags
+      .nav-lang
+        .en.active English
+        .ka ქართული
+      .nav-links
