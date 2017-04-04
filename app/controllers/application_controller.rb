@@ -66,7 +66,7 @@ class ApplicationController < ActionController::Base
   end
   # Uses the 'gon' gem to load the text that appears in javascript files.
   def load_javascript_text
-    gon.vars = t('general_js')
+    #gon.vars = t('general_js')
   end
 
 

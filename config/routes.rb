@@ -94,7 +94,7 @@ Madloba::Application.routes.draw do
     get '/showPostPopup', to: 'home#show_post_popup'
     get '/showAreaPopup', to: 'home#show_area_popup'
 
-    root 'home#index'
+    root 'root#index'
     get "*path", :to => redirect("/#{I18n.default_locale}") # handles /en/fake/path/whatever
   end
 

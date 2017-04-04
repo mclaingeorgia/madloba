@@ -1,6 +1,19 @@
 class User < ActiveRecord::Base
 
-  enum role: [:user, :admin, :super_admin]
+  # enum role: [:user, :admin, :super_admin]
+
+  enum role: [:user, :provider, :admin]
+
+  # has_many :providers#, -> (object){ where(role: [:provider, :admin]) }
+
+  has_many :provider_users
+  has_many :providers, through: :provider_users
+
+  has_many :user_places
+  has_many :favorite_places, through: :user_places, source: :place
+
+
+
   after_initialize :set_default_role, :if => :new_record?
 
   def set_default_role

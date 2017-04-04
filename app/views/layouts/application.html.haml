@@ -17,7 +17,8 @@
     = csrf_meta_tags
     = yield :head
 
-  %body{class: (admin_panel? ? 'body-admin' : 'body-normal'), data: notifications_for(notice) }
+  %body{ data: notifications_for(notice) }
+    -# class: (admin_panel? ? 'body-admin' : 'body-normal'),
     - if alert
       .alert.alert-dismissable.alert-danger.no-margin-bottom
         %button.close{"data-dismiss" => "alert", :type => "button"} ×
@@ -28,11 +29,11 @@
         = flash[:error]
 
     -# Main part of the body
-    #wrap
-      = render 'shared/navigation'
-      = yield
-      = render 'shared/footer'
+    .app
+      = render 'application/navigation'
+      %main
+        = yield
+      -# = #render 'shared/footer'
 
     = javascript_include_tag 'application'
-
-    = yield :scripts
+    -# = yield :scripts
