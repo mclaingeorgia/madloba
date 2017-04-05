@@ -27,6 +27,16 @@ en:
               too_long: "The image must be less than 5MB"
             number_of_items:
               greater_than: "Please add at least 1 service."
+  application:
+    navigation:
+      logo_alt: Sheage - Discovering Services Logo
+      about: ABOUT
+      faq: FAQ
+      contact: CONTACT
+      facebook_alt: Share on Facebook
+      twitter_alt: Share on Twitter
+      sign_up: Register
+      sign_in: Sign In
   home:
     yes: Yes
     no: No

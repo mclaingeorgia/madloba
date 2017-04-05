@@ -1,3 +1,4 @@
+/* global $ */
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
 //
@@ -10,7 +11,7 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//* require jquery.min
+//= require jquery.min
 //* require jquery_ujs
 //* require bootstrap-sprockets
 
@@ -45,3 +46,17 @@
 //* require bootstrap-switch.min
 
 //* require_tree .
+
+$(document).ready(function(){
+  $('nav .nav-toggle-button').on('click', function () {
+    const t = $(this)
+    const state = t.attr('aria-expanded')
+    const target = $('#' + t.attr('data-target'))
+
+    t.toggleClass('collapsed').attr('aria-expanded', !state)
+    target.toggleClass('flex')
+    // target.toggle()
+
+    console.log('click')
+  })
+})

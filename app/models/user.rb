@@ -33,10 +33,27 @@ class User < ActiveRecord::Base
   translates :first_name, :last_name
   globalize_accessors :locales => [:en, :ka], :attributes => [:first_name, :last_name]
 
-  has_many :locations, dependent: :destroy
-  has_many :posts, dependent: :destroy
-  has_many :post_users
-  has_many :favorite_posts, through: :post_users, source: :post
+  # has_many :locations, dependent: :destroy
+  # has_many :posts, dependent: :destroy
+  # has_many :post_users
+  # has_many :favorite_posts, through: :post_users, source: :post
+
+
+  def guest?
+    nil?
+  end
+
+  def user?
+    role == "user" || role == "provider" || role == "admin"
+  end
+
+  def provider?
+    role == "provider" || role == "admin"
+  end
+
+  def admin?
+    role == "admin"
+  end
 
   def owns_post? (post)
     self.posts.include?(post)
@@ -46,6 +63,9 @@ class User < ActiveRecord::Base
     self.admin? || self.super_admin?
   end
 
+  def name
+    "#{self.first_name} #{self.last_name}"
+  end
   def name_and_email
     "#{self.first_name} #{self.last_name} - #{self.email}"
   end

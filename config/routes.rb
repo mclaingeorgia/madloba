@@ -6,7 +6,14 @@ Madloba::Application.routes.draw do
     devise_for :user, path: 'user', path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'new' }, controllers: { registrations: 'user/registrations'}
     # Home page
 
-    get 'home/index'
+    # get 'home/index'
+    get 'about', to: 'root#about'
+    get 'faq', to: 'root#faq'
+    get 'contact', to: 'root#contact'
+    get 'privacy_policy', to: 'root#privacy_policy'
+    get 'terms_of_service', to: 'root#terms_of_service'
+
+
     post 'search', to: 'home#render_search_results'
     get 'results', to: 'home#results'
     get 'refine_state', to: 'home#refine_state'
@@ -40,7 +47,7 @@ Madloba::Application.routes.draw do
     match '/500' => 'errors#error500', via: [ :get, :post, :patch, :delete ]
 
     namespace :user do
-      get '/', to: 'admin_panel#index'
+      get '/', to: 'admin#index'
 
       resources :locations, :categories, :items, :users, :faqs
       resources :posts, :only => [:edit, :update, :destroy], path: :services, as: :services

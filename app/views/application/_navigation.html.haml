@@ -1,62 +1,73 @@
 %nav
   .nav-container
     .nav-left
-      = link_to image_tag("/assets/svg/logo_#{I18n.locale}.svg").html_safe, root_path, class: 'nav-brand'
-      / = button 'blah'
-      = link_to image_tag("/assets/svg/hamburger.svg", alt: 'Some text').html_safe, root_path, class: 'nav-toggle', 'data-toggle': 'collapse'
-    .nav-right
+      = link_to image_tag("/assets/svg/logo_#{I18n.locale}.svg", alt: t('.logo_alt'), title: t('.logo_alt')).html_safe, root_path, class: 'nav-brand'
+      .nav-toggle
+        %button{ type: 'submit', class: "nav-toggle-button collapsed", 'data-toggle': 'collapse', 'aria-expanded': false, 'data-target': 'nav-toggle-target' }
+          %span.helper Toggle navigation
+          .toggle
+    #nav-toggle-target.nav-right
       .nav-menu
-        .about ABOUT
-        .pipe
-        .faq FAQ
-        .pipe
-        .contact CONTACT
+        = link_to t('.about'), about_path, class: 'nav-menu-item border-right'
+        = link_to t('.faq'), faq_path, class: 'nav-menu-item border-both'
+        = link_to t('.contact'), contact_path, class: 'nav-menu-item border-left'
       .nav-social
-        .facebook F
-        .twitter T
+        = link_to image_tag("/assets/svg/facebook.svg", alt: t('.facebook_alt'), title: t('.facebook_alt')), root_path, class: 'facebook'
+        = link_to image_tag("/assets/svg/twitter.svg", alt: t('.twitter_alt'), title: t('.twitter_alt')).html_safe, root_path, class: 'twitter'
       .nav-user
-        .guest
-          .sign-up Register
-          .slash /
-          .sign-in Sign in
-        .user
-          .avatar FooBar
-          .username Foo Bar
-          .user-menu
-            %ul
-              %li
-                %span User Profile
-                %ul
-                  %li Manage Profile
-                  %li Favorite Places
-                  %li Rated Places
-                  %li Uploaded Photos
-              %li
-                %span Provider Profile
-                %ul
-                  %li Manage Provider
-                  %li Manage Places
-                  %li Moderate Photos
-              %li
-                %span Admin Profile
+        - if current_user.guest?
+          .guest
+            = link_to t('.sign_up'), root_path, class: 'sign-up'
+            .slash /
+            = link_to t('.sign_in'), root_path, class: 'sign-in'
+        - else
+          .user
+            = link_to '#', class: 'nav-user-menu' do
+              .user-icon
+              .user-name #{current_user.name}
+              .caret
+            .user-menu
+              - if current_user.user?
                 %ul
                   %li
-                    %span Manage
+                    %span User Profile
                     %ul
-                      %li Users
-                      %li Providers
-                      %li Places
-                      %li Categories
-                      %li Text Pages
-                      %li Settings
+                      %li Manage Profile
+                      %li Favorite Places
+                      %li Rated Places
+                      %li Uploaded Photos
                   %li
-                    %span Moderate
+                    %span Provider Profile
                     %ul
-                      %li Reported Places
-                      %li Place Ownership
-                      %li New Provider
-                      %li Place Tags
+                      %li Manage Provider
+                      %li Manage Places
+                      %li Moderate Photos
+                  %li
+                    %span Admin Profile
+                    %ul
+                      %li
+                        %span Manage
+                        %ul
+                          %li Users
+                          %li Providers
+                          %li Places
+                          %li Categories
+                          %li Text Pages
+                          %li Settings
+                      %li
+                        %span Moderate
+                        %ul
+                          %li Reported Places
+                          %li Place Ownership
+                          %li New Provider
+                          %li Place Tags
+              - if current_user.provider?
+                %span provider
+              - if current_user.admin?
+                %span admin
       .nav-lang
-        .en.active English
-        .ka ქართული
+        = link_to 'English', url_for(locale: :en), class: "#{I18n.locale == :en ? 'active' : ''}", lang: :en
+        = link_to 'ქართული', url_for(locale: :ka), class: "#{I18n.locale == :ka ? 'active' : ''}", lang: :ka
       .nav-links
+        = link_to 'Privacy Policy', privacy_policy_path
+        = link_to 'Terms of Service', terms_of_service_path
