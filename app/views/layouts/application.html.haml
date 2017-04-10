@@ -11,6 +11,9 @@
 
     -# Main CSS files to be included in all pages.
     = stylesheet_link_tag 'application', media: 'all'
+    - if @is_admin
+      = stylesheet_link_tag 'admin', media: 'all'
+
 
     -# Gon gem - managing text in JS files
     = include_gon
@@ -31,7 +34,7 @@
     -# Main part of the body
     .app
       = render 'application/navigation'
-      %main
+      %main{class: @class}
         = yield
       -# = #render 'shared/footer'
 

@@ -1,5 +1,7 @@
 class User::AdminController < ApplicationController
  before_action :authenticate_user!
+ before_action :set_admin_flag
+
   # before_filter :requires_user
 
   # include ApplicationHelper
@@ -22,6 +24,19 @@ class User::AdminController < ApplicationController
   #     end
   #   end
   # end
+  def set_admin_flag
+    @is_admin = true
+  end
+
   def index
+    redirect_to user_profile_path
+  end
+
+  def profile
+    @edit = params[:edit] == 'true'
+
+    @tab = params[:tab].present? && !['favorite-places', 'rated-places', 'moderate-photos'].index(params[:tab]).nil? ? params[:tab] : 'favorite-places'
+
+    @class = 'profile'
   end
 end

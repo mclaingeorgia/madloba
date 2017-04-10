@@ -87,7 +87,7 @@ class User::UsersController < ApplicationController
           UserMailer.delay.notify_user_is_admin(recipient_info)
         end
 
-        redirect_to edit_user_user_path
+        redirect_to user_profile_path
       else
         render 'user'
       end

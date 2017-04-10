@@ -1,0 +1,21 @@
+%section.aside
+  .fill
+    = render @edit ? 'user/users/edit' : 'user/users/show'
+%section.content
+  .tabs{'data-target': 'global'}
+    %ul
+      - ['favorite-places', 'rated-places', 'moderate-photos'].each do |item|
+        %li.tab-link{class: item == @tab ? 'active' : nil}
+          = link_to t("#{item}"), user_profile_path({tab: item}), 'data-link': item, 'aria-expanded': item == @tab
+  .tabs-content{'data-target': 'global'}
+    %ul
+      %li.active{'data-link': 'favorite-places'}
+        Favorite Places
+      %li{'data-link': 'rated-places'}
+        Rated Places
+      %li{'data-link': 'moderate-photos'}
+        Moderate Photos
+
+  .bottom
+    .js-logo JS
+    .mcclain McClain

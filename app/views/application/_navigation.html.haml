@@ -15,56 +15,75 @@
         = link_to image_tag("/assets/svg/facebook.svg", alt: t('.facebook_alt'), title: t('.facebook_alt')), root_path, class: 'facebook'
         = link_to image_tag("/assets/svg/twitter.svg", alt: t('.twitter_alt'), title: t('.twitter_alt')).html_safe, root_path, class: 'twitter'
       .nav-user
-        - if current_user.guest?
+        - if !user_signed_in?
           .guest
-            = link_to t('.sign_up'), root_path, class: 'sign-up'
+            = link_to t('.sign_up'), new_user_registration_path, class: 'sign-up'
             .slash /
-            = link_to t('.sign_in'), root_path, class: 'sign-in'
+            = link_to t('.sign_in'), new_user_session_path, class: 'sign-in'
         - else
           .user
-            = link_to '#', class: 'nav-user-menu' do
-              .user-icon
+            = link_to '#', class: 'nav-user-menu-link' do
+              = image_tag("/assets/svg/user.svg", alt: t('.logo_alt'), title: t('.logo_alt'), class: 'user-icon')
               .user-name #{current_user.name}
               .caret
             .user-menu
               - if current_user.user?
-                %ul
-                  %li
-                    %span User Profile
-                    %ul
-                      %li Manage Profile
-                      %li Favorite Places
-                      %li Rated Places
-                      %li Uploaded Photos
-                  %li
-                    %span Provider Profile
-                    %ul
-                      %li Manage Provider
-                      %li Manage Places
-                      %li Moderate Photos
-                  %li
-                    %span Admin Profile
+                %ul.first
+                  %li.sans
+                    %span.header User Profile
                     %ul
                       %li
-                        %span Manage
-                        %ul
-                          %li Users
-                          %li Providers
-                          %li Places
-                          %li Categories
-                          %li Text Pages
-                          %li Settings
+                        = link_to 'Manage Profile', user_profile_path
                       %li
-                        %span Moderate
-                        %ul
-                          %li Reported Places
-                          %li Place Ownership
-                          %li New Provider
-                          %li Place Tags
-              - if current_user.provider?
-                %span provider
-              - if current_user.admin?
-                %span admin
+                        = link_to 'Favorite Places', root_path
+                      %li
+                        = link_to 'Rated Places', root_path
+                      %li
+                        = link_to 'Uploaded Photos', root_path
+                  - if current_user.provider?
+                    %li.sans
+                      %span.header Provider Profile
+                      %ul
+                        %li
+                          = link_to 'Manage Provider', root_path
+                        %li
+                          = link_to 'Manage Places', root_path
+                        %li
+                          = link_to 'Moderate Photos', root_path
+                  - if current_user.admin?
+                    %li.sans
+                      %span.header Admin Profile
+                      %ul
+                        %li.sans
+                          %span.subheader Manage
+                          %ul
+                            %li
+                              = link_to 'Users', root_path
+                            %li
+                              = link_to 'Providers', root_path
+                            %li
+                              = link_to 'Places', root_path
+                            %li
+                              = link_to 'Categories', root_path
+                            %li
+                              = link_to 'Text Pages', root_path
+                            %li
+                              = link_to 'Settings', root_path
+                        %li.sans
+                          %span.subheader Moderate
+                          %ul
+                            %li
+                              = link_to 'Reported Places', root_path
+                            %li
+                              = link_to 'Place Ownership', root_path
+                            %li
+                              = link_to 'New Provider', root_path
+                            %li
+                              = link_to 'Place Tags', root_path
+                %hr
+                %ul.last
+                  %li.sans
+                    = link_to t('.log out'), root_path
       .nav-lang
         = link_to 'English', url_for(locale: :en), class: "#{I18n.locale == :en ? 'active' : ''}", lang: :en
         = link_to 'ქართული', url_for(locale: :ka), class: "#{I18n.locale == :ka ? 'active' : ''}", lang: :ka

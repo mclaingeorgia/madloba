@@ -59,4 +59,52 @@ $(document).ready(function(){
 
     console.log('click')
   })
+
+  // $('.tabs ul li a').on('click', function () {
+  //   const t = $(this)
+  //   const link = t.attr('data-link')
+  //   const tabs = t.closest('.tabs')
+  //   const targetAttr = tabs.attr('data-target')
+  //   const target = $('.tabs-content[data-target="' + targetAttr + '"]')
+  //   console.log(link,targetAttr, target)
+
+
+  //   tabs.find('ul li a').attr('aria-expanded', false)
+  //   tabs.find('ul li').removeClass('active')
+  //   t.parent().addClass('active')
+
+  //   target.find('ul li').removeClass('active')
+  //   target.find('ul li[data-link="' + link + '"]').addClass('active')
+
+  //   t.attr('aria-expanded', true)
+  // })
+
+  $('.tabs a').on('click', function (event) {
+    const t = $(this)
+    const link = t.attr('data-link')
+    const tabs = t.closest('.tabs')
+    const targetAttr = tabs.attr('data-target')
+    const target = $('.tabs-content[data-target="' + targetAttr + '"]')
+    // console.log(link,targetAttr, target)
+
+
+    tabs.find('a').attr('aria-expanded', false)
+    tabs.find('.tab-link').removeClass('active')
+    if (t.hasClass("tab-link")) {
+      t.addClass('active')
+    } else {
+      t.closest('.tab-link').addClass('active')
+    }
+
+    target.find('ul li').removeClass('active')
+    target.find('ul li[data-link="' + link + '"]').addClass('active')
+
+    t.attr('aria-expanded', true)
+
+    if (targetAttr === 'global' && history.pushState) {
+      var newurl =  t.attr('href');
+      window.history.pushState({ path: newurl }, '', newurl);
+    }
+    event.preventDefault()
+  })
 })

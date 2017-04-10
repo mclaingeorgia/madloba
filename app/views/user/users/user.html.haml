@@ -68,7 +68,7 @@
                 .form-inline
                   = f.email_field :email, class: 'form-control', size: '40'
               -# 'Make admin' checkbox
-              - if current_user.super_admin? && current_user != @user
+              - if current_user.admin? && current_user != @user
                 .form-group
                   = f.label :username_used, t('admin.profile.user_role'), class: 'control-label'
                   .radio
@@ -123,7 +123,7 @@
                   = f.text_field :username, class: 'form-control'
 
               -# Current password
-              - if !adding && !current_user.super_admin?
+              - if !adding && !current_user.admin?
                 .form-group
                   = f.label :current_password, t('admin.profile.current_password')+':', class:'control-label'
                   %i= t('registration.need_current')
