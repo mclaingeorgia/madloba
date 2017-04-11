@@ -12,7 +12,7 @@
 // about supported directives.
 //
 //= require jquery.min
-//* require jquery_ujs
+//= require jquery_ujs
 //* require bootstrap-sprockets
 
 //* require cocoon
@@ -107,4 +107,10 @@ $(document).ready(function(){
     }
     event.preventDefault()
   })
+
+  $('.flash .close').on('click', function (event) {
+    $(this).closest('.flash').remove()
+  })
+
+  $('.flash').delay(10000).fadeOut(2000, function () { $(this).remove(); })
 })

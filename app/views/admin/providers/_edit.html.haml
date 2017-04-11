@@ -1,0 +1,9 @@
+- if controller_name == 'admin' && action_name == 'provider_profile'
+  .breadcrumbs
+    %ul
+      %li= link_to t('admin.menu.manage_provider'), manage_provider_profile_path(type: 'manage-provider')
+      %li
+        %span.slash /
+      %li
+        %span #{t('admin.edit_object', obj: Provider)}
+= render 'admin/providers/form', page: 'edit', obj: [:provider, @item]

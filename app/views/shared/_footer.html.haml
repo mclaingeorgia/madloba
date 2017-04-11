@@ -1,12 +1,6 @@
-- footer_class = admin_panel? ? 'admin' : 'regular'
-- if !current_page?(root_url)
-  %footer#footer{class: footer_class}
-    .container-fluid
-      - if setup_mode?
-        -# Footer for setup pages
-        %p.muted.footer-message= t('home.footer_new_powered_by_html', madloba_link: (link_to 'Madloba', 'http://madloba.org', target: '_blank'))
-      - else
-        -# Footer for regular and admin pages
-        %p.muted.footer-message
-          = site_name
-          \- #{t('home.footer_powered_by_html', madloba_link: (link_to 'Madloba', 'http://madloba.org', target: '_blank'))}
+%footer
+  .mac
+    = link_to image_tag("/assets/svg/mac_grayscale.svg", alt: t('app.common.mac_alt'), title: t('app.common.mac_alt')).html_safe, "http://www.macgeorgia.org/", target: '_blank'
+  .js
+    %span #{t('app.common.created_by')}
+    = link_to image_tag("/assets/svg/js_grayscale.svg", alt: t('app.common.js_alt'), title: t('app.common.js_alt')).html_safe, "https://jumpstart.ge/#{I18n.locale}", target: '_blank'

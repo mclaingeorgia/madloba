@@ -20,18 +20,9 @@
     = csrf_meta_tags
     = yield :head
 
-  %body{ data: notifications_for(notice) }
-    -# class: (admin_panel? ? 'body-admin' : 'body-normal'),
-    - if alert
-      .alert.alert-dismissable.alert-danger.no-margin-bottom
-        %button.close{"data-dismiss" => "alert", :type => "button"} ×
-        = alert
-    - elsif flash[:error]
-      .alert.alert-dismissable.alert-danger.no-margin-bottom
-        %button.close{"data-dismiss" => "alert", :type => "button"} ×
-        = flash[:error]
+  %body
+    = render partial: 'shared/flash'
 
-    -# Main part of the body
     .app
       = render 'application/navigation'
       %main{class: @class}

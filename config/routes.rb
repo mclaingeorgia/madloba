@@ -46,9 +46,36 @@ Madloba::Application.routes.draw do
     match '/404' => 'errors#error404', via: [ :get, :post, :patch, :delete ]
     match '/500' => 'errors#error500', via: [ :get, :post, :patch, :delete ]
 
+
+    resources :providers, :only => [:show, :edit, :update, :destroy], :controller => 'admin/providers'
+    namespace :manage, :controller => :admin, :constraints => { format: :html } do
+      get '/', to: '/admin#index'
+      get 'user/(:type)', to: '/admin#user_profile', :as => :user_profile
+      get 'provider/:type/(:id)', to: '/admin#provider_profile', :as => :provider_profile
+      get 'admin', to: '/admin#admin_profile', :as => :admin_profile
+      # get :categories, :to => "/admin#category", :as => :categories
+      # resources :users do
+      #   collection do
+      #     get 'deffered'
+      #   end
+      # end
+      # resources :datasets, only: [:index, :show, :new, :create, :destroy]
+      # resources :donorsets, only: [:index, :show, :new, :create, :destroy]
+      # resources :periods, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+      # resources :parties do
+      #   collection do
+      #     get 'bulk'
+      #     post 'bulk_update'
+      #   end
+      # end
+      # resources :media
+      # resources :page_contents
+    end
+
+
     namespace :user do
-      get '/', to: 'admin#index'
-      get 'profile', to: 'admin#profile'
+
+
 
       resources :users
       # resources :locations, :categories, :items, :users, :faqs

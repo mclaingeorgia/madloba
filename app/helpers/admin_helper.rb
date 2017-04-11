@@ -16,11 +16,27 @@ module AdminHelper
     render partial: "shared/form_actions"
   end
   def create_field_input(form, field_name, field_data, translate_path)
-     # Rails.logger.debug("--------------------------------------------#{field_name} #{field_data}")
-    if field_data == nil
-      render partial: "shared/form_inputs/text_field", locals: { form: form, field: field_name, translate_path: translate_path }
-    else
-      "<span>test</span>"
+      Rails.logger.debug("--------------------------------------------#{field_name} #{field_data}")
+    type = 'text_field'
+    if field_data.present? && field_data.key?(:type)
+      type = field_data[:type]
+      field_data.delete(:type)
     end
+
+    render partial: "shared/form_inputs/#{type}", locals: { form: form, field: field_name, translate_path: translate_path, options: field_data }
+  end
+  def label_format(label, options)
+     Rails.logger.debug("--------------------------------------------#{label} #{options}")
+    lb = label
+    if options.present?
+      if options.key?(:required) && options[:required]
+        if lb.last == ':'
+          lb.gsub!(':','*:')
+        else
+          lb.concat('*')
+        end
+      end
+    end
+    return lb
   end
 end

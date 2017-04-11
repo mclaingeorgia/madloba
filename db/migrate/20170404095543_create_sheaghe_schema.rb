@@ -19,7 +19,7 @@ class CreateSheagheSchema < ActiveRecord::Migration
     create_table :providers do |t|
       t.timestamps
 
-      t.references :user, index: true
+      # t.references :user, index: true
     end
 
     create_table :places do |t|

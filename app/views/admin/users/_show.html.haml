@@ -12,4 +12,4 @@
     %label Service Provider:
     %span.value #{current_user.provider? ? 'Yes' : 'No'}
 .actions
-  = link_to 'Edit Profile Information', user_profile_path(edit: true), class: 'edit'
+  = link_to 'Edit Profile Information', manage_user_profile_path(edit: true), class: 'edit'

@@ -1,4 +1,4 @@
-class User::UsersController < ApplicationController
+class Admin::UsersController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   before_action :authenticate_user!
   before_action :requires_user
@@ -87,7 +87,7 @@ class User::UsersController < ApplicationController
           UserMailer.delay.notify_user_is_admin(recipient_info)
         end
 
-        redirect_to user_profile_path
+        redirect_to admin_profile_path
       else
         render 'user'
       end

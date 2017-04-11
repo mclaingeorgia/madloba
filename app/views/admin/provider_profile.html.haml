@@ -1,0 +1,23 @@
+%section.content
+  .tabs{'data-target': 'global'}
+    %ul
+      - ['manage-provider', 'manage-places', 'moderate-photos'].each do |item|
+        %li.tab-link{class: item == @type ? 'active' : nil}
+          = link_to t("admin.menu.#{item.gsub('-','_')}").upcase, manage_provider_profile_path(type: item), 'data-link': item, 'aria-expanded': item == @type
+  .tabs-content{'data-target': 'global'}
+    %ul
+      %li{class: @type == 'manage-provider' ? 'active' : nil, 'data-link': 'manage-provider'}
+        - if @edit_states[0]
+          = render 'admin/providers/edit'
+        - else
+          = render partial: 'admin/providers/list', locals: { items: @providers }
+      %li{class: @type == 'manage-places' ? 'active' : nil, 'data-link': 'manage-places'}
+        - if @edit_states[1]
+          %span edit
+        - else
+          - @providers.each do |provider|
+            %span #{provider.name}
+      %li{class: @type == 'moderate-photos' ? 'active' : nil, 'data-link': 'moderate-photos'}
+        Moderate Photos
+
+  = render partial: "shared/footer"
