@@ -1,0 +1,42 @@
+%dialog
+  .dialog-content
+    .dialog-close
+      = link_to image_tag("/assets/svg/close_modal.svg", alt: t('.close_modal_alt'), title: t('.close_modal_alt')), 'javascript:void(0);'
+    .dialog-page{'data-bind': 'about'}
+      .header.about ABOUT SHEAGHE
+      .text
+        %p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus ea perferendis nesciunt accusantium modi fuga error quisquam neque perspiciatis placeat, nihil, quos, et! Nobis architecto, veniam ex explicabo eveniet alias!
+        %p 2 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus ea perferendis nesciunt accusantium modi fuga error quisquam neque perspiciatis placeat, nihil, quos, et! Nobis architecto, veniam ex explicabo eveniet alias!
+      .hr-wrapper
+        .hr
+      .header.partners PARTNERS
+      .partners-list
+        = link_to image_tag("/assets/svg/mac_color.svg", alt: t('app.common.mac_alt'), title: t('app.common.mac_alt')).html_safe, "http://www.macgeorgia.org/", target: '_blank'
+        = link_to image_tag("/assets/svg/js_color.svg", alt: t('app.common.js_alt'), title: t('app.common.js_alt')).html_safe, "https://jumpstart.ge/#{I18n.locale}", target: '_blank'
+    .dialog-page{'data-bind': 'contact'}
+      .header CONTACT
+      .boxes
+        .box.info
+          .name McLain Association for Children
+          .info-item
+            %p
+              = image_tag("/assets/svg/address.svg", alt: t('.close_modal_alt'), title: t('.close_modal_alt'))
+              %span Address:
+              Kavsadze #3, Second Floor, Tbilisi Georgia
+          .info-item
+            %p
+              = image_tag("/assets/svg/phone.svg", alt: t('.close_modal_alt'), title: t('.close_modal_alt'))
+              %span Phone:
+              Free Hotline: 0 800 900 902; Office #: 2197378
+          .info-item
+            %p
+              = image_tag("/assets/svg/email.svg", alt: t('.close_modal_alt'), title: t('.close_modal_alt'))
+              %span Email:
+              mac_info@macgeorgia.org
+        .box.map-point
+          .map-box
+            #contact_map
+            .contact_map_zoom
+              #contact_map_zoom_in.in +
+              .hr
+              #contact_map_zoom_out.out −

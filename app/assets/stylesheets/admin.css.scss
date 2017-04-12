@@ -33,7 +33,7 @@
     .d {
       border-top: 1px dashed #bbbdc3;
       width: 100%;
-      &.d1 { flex: 1; }
+      &.d1 { width: 20px; }
       &.d2 { flex: 4; }
       &.d3 { flex: 2; }
       &.d4 { flex: 5; }
@@ -80,7 +80,7 @@ form.fields {
       width: 55%;
       margin-right: 10px;
     }
-    input {
+    input, textarea {
       border: 1px solid #e2e2e2; // #fff;
       border-radius: 3px;
       font: 18px 'sourcesans_pro';
@@ -221,7 +221,7 @@ main {
           a {
             position: relative;
             padding: 22px 12px 17px;
-            font: 18px 'sourcesans_pro';
+            font: 18px/18px 'sourcesans_pro';
             color: #373f51;
             text-decoration: none;
           }
@@ -250,7 +250,7 @@ main {
       }
     }
     > .tabs-content {
-      padding: 27px;
+      padding: 27px 27px 27px 0;
       height: 100%;
       > ul {
         > li {
@@ -305,7 +305,7 @@ main {
 
 .breadcrumbs {
   display: block;
-  padding: 0 8px;
+  padding: 0 0 33px 29px;
   li {
     display: inline-block;
   }
