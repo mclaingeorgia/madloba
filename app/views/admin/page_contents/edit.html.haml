@@ -1,0 +1,11 @@
+- model_class = PageContent
+- page_title t('.title')
+
+.breadcrumbs
+  %ul
+    %li= link_to t('admin.page_contents.index.title'), manage_page_contents_path
+    %li
+      %span.slash /
+    %li
+      %span #{t('.title')}
+= render partial: 'form', page: 'edit', obj: [:provider, @item]

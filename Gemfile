@@ -85,6 +85,9 @@ gem 'highline'
 gem 'font-awesome-sass'
 gem 'will_paginate', '~> 3.1.0'
 
+# jQuery DataTables plugin - provides all the basic DataTables files, and a few of the extras.
+gem 'jquery-datatables-rails', '~> 3.4.0'
+
 group :development, :test do
 
   # Mailcatcher

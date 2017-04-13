@@ -48,11 +48,15 @@ Madloba::Application.routes.draw do
 
 
     resources :providers, :only => [:show, :edit, :update, :destroy], :controller => 'admin/providers'
-    namespace :manage, :controller => :admin, :constraints => { format: :html } do
+    namespace :manage, :module => :admin, :constraints => { format: :html } do
       get '/', to: '/admin#index'
       get 'user/(:type)', to: '/admin#user_profile', :as => :user_profile
       get 'provider/:type/(:id)', to: '/admin#provider_profile', :as => :provider_profile
       get 'admin', to: '/admin#admin_profile', :as => :admin_profile
+
+      scope 'admin' do
+        resources :page_contents
+      end
       # get :categories, :to => "/admin#category", :as => :categories
       # resources :users do
       #   collection do
@@ -69,7 +73,7 @@ Madloba::Application.routes.draw do
       #   end
       # end
       # resources :media
-      # resources :page_contents
+
     end
 
 

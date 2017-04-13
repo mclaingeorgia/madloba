@@ -1,0 +1,31 @@
+- title = (content_for?(:page_title) && yield(:page_title) != t('app.common.name') ? "#{strip_tags_nbsp(yield(:page_title))} | #{t('app.common.name')}" : "#{t('app.common.name')} | #{t('app.common.slogan')}").html_safe
+- desc = t("app.common.description").html_safe
+
+%head
+  %meta{:charset => "utf-8"}
+  %meta{"http-equiv" => "X-UA-Compatible", :content => "IE=Edge,chrome=1"}
+  %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
+
+  %title= title
+
+  %meta{:content => title, :property => "og:title"}
+  %meta{:property => "description", :content => desc}
+  %meta{:property => "og:description", :content => desc}
+  %meta{:property => "og:site_name", :content => t("app.common.name")}
+  %meta{:property => "og:type", :content => "non_profit"}
+  %meta{:property => "og:url", :content => current_url}
+  %meta{:property => "og:image", :content => image_url("share_#{I18n.locale}.jpg")}
+
+  = csrf_meta_tags
+
+  = favicon_link_tag 'favicon.ico'
+  = render 'application/stylesheet'
+
+  :plain
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
+    <![endif]-->
+
+  = include_gon
+

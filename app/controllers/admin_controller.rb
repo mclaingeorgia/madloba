@@ -1,6 +1,7 @@
 class AdminController < ApplicationController
- before_action :authenticate_user!
- before_action :set_admin_flag
+
+  before_action :authenticate_user!
+  before_action :set_admin_flag
 
   # before_filter :requires_user
 
@@ -26,14 +27,17 @@ class AdminController < ApplicationController
   # end
   def set_admin_flag
     @is_admin = true
+    @is_admin_profile_page = true
+    @class = 'admin_profile'
   end
 
   def index
-    redirect_to admin_profile_path
+    redirect_to manage_user_profile_path
   end
 
   def user_profile
     @class = 'user_profile'
+    @is_admin_profile_page = false
 
     @edit = params[:edit] == 'true'
 
@@ -42,8 +46,8 @@ class AdminController < ApplicationController
   end
 
   def provider_profile
-
     @class = 'provider_profile'
+    @is_admin_profile_page = false
 
     @id = params[:id]
 
@@ -64,7 +68,4 @@ class AdminController < ApplicationController
 
   end
 
-  def admin_profile
-    @class = 'admin_profile'
-  end
 end

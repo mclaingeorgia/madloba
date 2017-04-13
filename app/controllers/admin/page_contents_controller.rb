@@ -1,11 +1,25 @@
-class Admin::ProvidersController < AdminController
-  before_filter :authenticate_user!, except: [:show]
-  # before_action :authenticate_user!
+class Admin::PageContentsController < AdminController
+  before_filter :authenticate_user!
   # authorize_resource
-  before_filter { @model = Provider; }
+  before_filter { @model = PageContent; }
+
+  # rescue_from ActionController::ParameterMissing do |e|
+  #   # You can even render a jbuilder template too!
+  #   if action_name == "create"
+  #     redirect_to new_admin_page_content_path, flash: { error: t('shared.msgs.missing_parameter') }
+  #   else
+  #      render :nothing => true, :status => 400
+  #   end
+  # end
 
   def index
+    @items = @model.sorted
+
+    respond_to do |format|
+      format.html
+    end
   end
+
   def show
     @item = @model.find(params[:id])
 
@@ -55,27 +69,9 @@ class Admin::ProvidersController < AdminController
       # format.json { head :no_content }
     end
   end
-  # flash message type test
-  # def destroy
-  #   @item = @model.find(params[:id])
-  #   #@item.destroy
-
-  #   respond_to do |format|
-  #     format.html do
-  #       redirect_to admin_provider_path(tab: 'manage-provider'), flash: {
-  #         success:  t('app.messages.success_destroyed',
-  #                     obj: t('activerecord.models.provider.one')),
-  #         notice: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim, officiis?',
-  #         error: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, voluptas, ipsa.',
-  #         alert: 'Lorem ipsum dolor.'
-  #       }
-  #     end
-  #     format.json { head :no_content }
-  #   end
-  # end
   private
-
-  def pars
-    params.require(:provider).permit(*Provider.globalize_attribute_names)
-  end
+    def pars
+      permitted = Product.globalize_attribute_names + [:name]
+      params.require(:page_content).permit(*permitted)
+    end
 end

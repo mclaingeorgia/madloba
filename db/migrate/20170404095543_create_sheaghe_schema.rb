@@ -5,7 +5,7 @@ class CreateSheagheSchema < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table :service do |t|
+    create_table :services do |t|
       t.string :icon
       t.string :color
 
@@ -19,7 +19,6 @@ class CreateSheagheSchema < ActiveRecord::Migration
     create_table :providers do |t|
       t.timestamps
 
-      # t.references :user, index: true
     end
 
     create_table :places do |t|
@@ -31,6 +30,13 @@ class CreateSheagheSchema < ActiveRecord::Migration
       t.decimal :rating
 
       t.timestamps
+    end
+
+    create_table :page_contents do |t|
+      t.string :name
+
+      t.timestamps
+      t.index [:name]
     end
 
     create_join_table :user, :places, :table_name => :user_places do |t|
@@ -61,12 +67,14 @@ class CreateSheagheSchema < ActiveRecord::Migration
         Place.create_translation_table! :name => :string, :description => :text, :address => :string, :village => :string, :city => :string
         Provider.create_translation_table! :name => :string, :description => :text
         Service.create_translation_table! :name => :string, :description => :text
+        PageContent.create_translation_table! :title => :string, :content => :text
       end
 
       dir.down do
-        Provider.drop_translation_table!
         Place.drop_translation_table!
+        Provider.drop_translation_table!
         Service.drop_translation_table!
+        PageContent.drop_translation_table!
       end
     end
   end

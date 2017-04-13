@@ -1,0 +1,7 @@
+= stylesheet_link_tag 'application', media: 'all'
+
+- if @is_admin
+  = stylesheet_link_tag 'admin', media: 'all'
+
+- if content_for? :custom_stylesheet
+  = stylesheet_link_tag yield(:custom_stylesheet), media: 'all'

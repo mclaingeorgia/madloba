@@ -11,10 +11,16 @@ en:
       provider:
         one: Provider
         other: Providers
+      page_content:
+        onee: Page Content
+        other: Page Contents
     attributes:
       provider:
         name: Provider Name
         description: Description of Provider
+      page_content:
+        title: Title
+        content: Content
     errors:
       models:
         category:
@@ -40,6 +46,9 @@ en:
       en: English
       ka: Georgian
     common:
+      name: Sheaghe
+      slogan: Discovering Services
+      description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, unde!"
       _yes: "Yes"
       _no: "No"
       mac_alt: "McLain Association for Children seeks to transform the lives of the most vulnerable around the world by providing them with the resources they need and by strengthening the systems and individuals that provide them care."
@@ -69,7 +78,7 @@ en:
       providers: Providers
       places: Places
       categories: Categories
-      text_pages: Text Pages
+      page_contents: Page Contents
       settings: Settings
       reported_places: Reported Places
       place_ownership: Place Ownership
@@ -87,6 +96,11 @@ en:
     provider:
       name: "Provider Name:"
       description: "Provider of Service:"
+    page_contents:
+      index:
+        title: Manage Page Contents
+      edit:
+        title: Edit Page Content
   application:
     navigation:
       logo_alt: Sheage - Discovering Services Logo
@@ -98,6 +112,9 @@ en:
       sign_up: Register
       sign_in: Sign In
       log_out: Log Out
+  root:
+    faq:
+      title: FAQ
   home:
     yes: Yes
     no: No

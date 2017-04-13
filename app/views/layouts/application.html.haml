@@ -1,33 +1,10 @@
 !!!
-%html{:lang => "en"}
-  %head
-    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
-    %meta{:charset => "utf-8"}/
-    %meta{:content => "IE=Edge,chrome=1", "http-equiv" => "X-UA-Compatible"}/
-    %meta{:content => "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no", :name => "viewport"}/
-    = favicon_link_tag 'favicon.ico'
-
-    %title= site_name
-
-    -# Main CSS files to be included in all pages.
-    = stylesheet_link_tag 'application', media: 'all'
-    - if @is_admin
-      = stylesheet_link_tag 'admin', media: 'all'
-
-
-    -# Gon gem - managing text in JS files
-    = include_gon
-    = csrf_meta_tags
-    = yield :head
-
+%html{:lang => I18n.locale}
+  = render partial: 'application/head'
   %body
     = render partial: 'shared/flash'
-
     .app
       = render 'application/navigation'
-      %main{class: @class}
-        = yield
+      = render "application/#{@is_admin ? 'main_admin' : 'main'}"
       = render 'application/popup'
-      -# = #render 'shared/footer'
-    = javascript_include_tag 'application'
-    -# = yield :scripts
+    = render 'application/javascript'

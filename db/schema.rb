@@ -183,6 +183,26 @@ ActiveRecord::Schema.define(version: 20170404095543) do
     t.string   "map_english_name"
   end
 
+  create_table "page_content_translations", force: :cascade do |t|
+    t.integer  "page_content_id", null: false
+    t.string   "locale",          null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.string   "title"
+    t.text     "content"
+  end
+
+  add_index "page_content_translations", ["locale"], name: "index_page_content_translations_on_locale", using: :btree
+  add_index "page_content_translations", ["page_content_id"], name: "index_page_content_translations_on_page_content_id", using: :btree
+
+  create_table "page_contents", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "page_contents", ["name"], name: "index_page_contents_on_name", using: :btree
+
   create_table "place_translations", force: :cascade do |t|
     t.integer  "place_id",    null: false
     t.string   "locale",      null: false
@@ -309,17 +329,10 @@ ActiveRecord::Schema.define(version: 20170404095543) do
     t.integer  "place_id",   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "value"
+    t.integer  "value"
   end
 
   add_index "rates", ["user_id", "place_id"], name: "index_rates_on_user_id_and_place_id", using: :btree
-
-  create_table "service", force: :cascade do |t|
-    t.string   "icon"
-    t.string   "color"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "service_translations", force: :cascade do |t|
     t.integer  "service_id",  null: false
@@ -332,6 +345,13 @@ ActiveRecord::Schema.define(version: 20170404095543) do
 
   add_index "service_translations", ["locale"], name: "index_service_translations_on_locale", using: :btree
   add_index "service_translations", ["service_id"], name: "index_service_translations_on_service_id", using: :btree
+
+  create_table "services", force: :cascade do |t|
+    t.string   "icon"
+    t.string   "color"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "setting_translations", force: :cascade do |t|
     t.integer  "setting_id",             null: false
@@ -359,6 +379,11 @@ ActiveRecord::Schema.define(version: 20170404095543) do
   end
 
   add_index "simple_captcha_data", ["key"], name: "idx_key", using: :btree
+
+  create_table "tags", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "todos", force: :cascade do |t|
     t.string   "description"

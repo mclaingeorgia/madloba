@@ -1,0 +1,21 @@
+%main{class: @class}
+  - if @is_admin_profile_page
+    %section.aside
+      %ul
+        %li
+          %span Manage
+          %ul
+            - [:users, :providers, :places, :categories, :page_contents, :settings].each do |pth|
+              %li
+                = link_to t("admin.menu.#{pth}"), pth == :page_contents ? public_send("manage_#{pth}_path") : root_path, class: controller_name?(pth) ? 'current' : nil
+        %li
+          %span Moderate
+          %ul
+            - [:reported_places, :place_ownership, :new_provider, :place_tags].each do |pth|
+              %li
+                = link_to t("admin.menu.#{pth}"), pth == :page_contents ? public_send("manage_#{pth}_path") : root_path, class: controller_name?(pth) ? 'current' : nil
+    %section.content
+      = yield
+      = render partial: "shared/footer"
+  - else
+    = yield

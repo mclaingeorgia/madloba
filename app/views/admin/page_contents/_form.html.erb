@@ -1,0 +1,18 @@
+- #
+  - translate_path = 'admin.profile.'
+
+  = form_for [:admin, @item], html: { role: 'form', class: 'fields' } do |f|
+    = render partial: 'shared/fields_to_translate', locals: { fields: { first_name: nil, last_name: nil} , form: f, translate_path: translate_path }
+
+    = render_form_field(:text_field, f, :username, translate_path)
+    = render_form_field(:email_field, f, :email, translate_path)
+
+    = render_form_field(:radio_fields, f, :is_service_provider, translate_path,
+     { items: [true, false], default: true, translate_path: "app.common.", item_translations: ['_yes', '_no'] })
+
+    %hr
+    =# render_form_field(:password_field, f, :current_password, translate_path) #, { message: t('registration.need_current') })
+    = render_form_field(:password_field, f, :password, translate_path)#, { message: t('registration.leave_blank') }) # new_password
+    = render_form_field(:password_field, f, :password_confirmation, translate_path) # confirm_password
+
+    = render_form_actions()

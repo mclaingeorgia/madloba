@@ -1,0 +1,9 @@
+= javascript_include_tag 'application'
+- if @is_admin
+  = javascript_include_tag 'admin'
+
+- if Rails.env.production? || Rails.env.staging?
+  %script{type: "text/javascript", src: "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-580f27dcfc0589c4"}
+
+- if content_for? :custom_javascript
+  = javascript_include_tag yield(:custom_javascript)
