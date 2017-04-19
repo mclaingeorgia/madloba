@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
   before_action :load_javascript_text
   before_action :check_if_user_has_tos
+  before_action :prepare_about_content
 
   include ApplicationHelper
   include Pundit
@@ -28,6 +29,10 @@ class ApplicationController < ActionController::Base
                 :with => :render_not_found
     rescue_from Pundit::NotAuthorizedError,
                 with: :user_not_authorized
+  end
+
+  def prepare_about_content
+    @about_page = PageContent.by_name('about')
   end
 
   # In the Settings table, if 'setup_step' is set to 1 or 'chosen_language' has no value, it means that the installation process

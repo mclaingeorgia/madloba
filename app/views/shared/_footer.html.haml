@@ -1,6 +1,11 @@
+- with_links ||= false
 %footer
   .mac
     = link_to image_tag("/assets/svg/mac_grayscale.svg", alt: t('app.common.mac_alt'), title: t('app.common.mac_alt')).html_safe, "http://www.macgeorgia.org/", target: '_blank'
   .js
     %span #{t('app.common.created_by')}
     = link_to image_tag("/assets/svg/js_grayscale.svg", alt: t('app.common.js_alt'), title: t('app.common.js_alt')).html_safe, "https://jumpstart.ge/#{I18n.locale}", target: '_blank'
+  - if with_links
+    .footer-links
+      = link_to t('app.common.privacy_policy'), privacy_policy_path
+      = link_to t('app.common.terms_of_use'), terms_of_use_path

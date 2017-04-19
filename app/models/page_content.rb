@@ -1,6 +1,7 @@
 class PageContent < ActiveRecord::Base
   translates :title, :content
   globalize_accessors :locales => [:en, :ka], :attributes => [:title, :content]
+  accepts_nested_attributes_for :translations
 
   #############################
   # Validations

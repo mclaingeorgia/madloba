@@ -88,5 +88,5 @@
         = link_to 'English', url_for(locale: :en), class: "#{I18n.locale == :en ? 'active' : ''}", lang: :en
         = link_to 'ქართული', url_for(locale: :ka), class: "#{I18n.locale == :ka ? 'active' : ''}", lang: :ka
       .nav-links
-        = link_to 'Privacy Policy', privacy_policy_path
-        = link_to 'Terms of Service', terms_of_service_path
+        = link_to t('app.common.privacy_policy'), privacy_policy_path
+        = link_to t('app.common.terms_of_use'), terms_of_use_path

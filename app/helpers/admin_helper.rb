@@ -19,11 +19,12 @@ module AdminHelper
       Rails.logger.debug("--------------------------------------------#{field_name} #{field_data}")
     type = 'text_field'
     if field_data.present? && field_data.key?(:type)
-      type = field_data[:type]
-      field_data.delete(:type)
+      fd = field_data.clone
+      type = fd[:type]
+      fd.delete(:type)
     end
 
-    render partial: "shared/form_inputs/#{type}", locals: { form: form, field: field_name, translate_path: translate_path, options: field_data }
+    render partial: "shared/form_inputs/#{type}", locals: { form: form, field: field_name, translate_path: translate_path, options: fd }
   end
   def label_format(label, options)
      Rails.logger.debug("--------------------------------------------#{label} #{options}")

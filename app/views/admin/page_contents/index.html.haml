@@ -1,6 +1,8 @@
 - model_class = PageContent
 - page_title t('.title')
-.page-title= t('.title')
+.page-title
+  = t('.title')
+  = link_to t('admin.add'), new_manage_page_content_path, class: 'add btn'
 .table-view
   %table.datatable.datatable-table.table-responsive{width: '100%'}
     %thead

@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   padding-bottom: 12px;
+  max-width: 768px;
   .tabs {
     display: flex;
     flex-direction: row;
@@ -33,7 +34,7 @@
     .d {
       border-top: 1px dashed #bbbdc3;
       width: 100%;
-      &.d1 { width: 20px; }
+      &.d1 { width: 18px; }
       &.d2 { flex: 4; }
       &.d3 { flex: 2; }
       &.d4 { flex: 5; }
@@ -50,14 +51,20 @@
     border-top: 0;
     margin-top: -12px;
     padding-top: 16px;
-    padding: 39px 33px; //0 0 0;// 33px;
+    padding: 33px 27px; //0 0 0;// 33px;
     li {
       display: none;
       &.active {
         display: block;
       }
     }
+    .field label {
+      padding: 0 14px 0 0;
+    }
   }
+}
+.field + .fields-to-translate {
+  padding-top: 33px;
 }
 form.fields {
   width: 100%;
@@ -69,6 +76,7 @@ form.fields {
     flex-direction: row;
     align-items: flex-start;
     padding-bottom: 12px;
+    max-width: 768px;
     label {
       width: 45%;
       font: 18px 'sourcesans_pro_b';
@@ -211,7 +219,7 @@ main {
       display: flex;
       flex-direction: column;
       background-color: #373f51;
-      height: 100%;
+      // height: 100%;
       overflow-y: auto;
       padding: 27px 35px 27px 14px;
       > ul > li:not(:last-child) {
@@ -246,6 +254,14 @@ main {
             border-bottom: 1px solid #f38d68;
             padding-bottom: 6px;
           }
+        }
+      }
+    }
+    .content {
+      form {
+        padding-left: 6px;
+        & > .field > label {
+          padding-left: 27px;
         }
       }
     }
@@ -333,7 +349,7 @@ main {
 
 .breadcrumbs {
   display: block;
-  padding: 0 0 33px 29px;
+  padding: 27px 0 33px 33px;
   li {
     display: inline-block;
   }
@@ -371,12 +387,25 @@ main {
       text-decoration: none;
       margin:0 5px;
     }
-    a.edit {
+    a.edit, a.add {
       background-color: #009b72;
     }
     a.delete {
       background-color: #f38d68;
     }
+  }
+}
+a.btn {
+  display: inline-block;
+  padding: 9px 20px;
+  border: 0;
+  border-radius: 5px;
+  font: 14px 'sourcesans_pro_i';
+  color: #fff;
+  text-decoration: none;
+  margin:0 5px;
+  &.add {
+    background-color: #009b72;
   }
 }
 .table-view {
@@ -488,4 +517,8 @@ main {
       }
     }
   }
+}
+.mce-container {
+  width: 55%;
+  margin-right: 10px;
 }

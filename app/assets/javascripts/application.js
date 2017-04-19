@@ -147,7 +147,45 @@ $(document).ready(function(){
     })
 
     /* ------------------------------- dialog -------------------------------*/
+    /* ------------------------------- toggleable-list -------------------------------*/
+      $('.toggleable-list > li > a').on('click', function (event, forceOpen) {
+        if(typeof forceOpen === 'undefined') { forceOpen = false }
 
+        const t = $(this)
+        const name = t.attr("name")
+        const li = $(this).parent()
+
+        console.log("here", forceOpen, name)
+        if(forceOpen) {
+          li.addClass('toggled')
+          window.location.hash = name
+        } else {
+          li.toggleClass('toggled')
+          t.attr("name", "")
+          window.location.hash = name
+          t.attr("name", name)
+        }
+
+        event.preventDefault()
+      })
+
+
+      $("a[href^='#']").click(function(event) {
+        const t = $(this)
+        // if(t.attr('href').replace('#','') !== t.attr('name')) {
+          // console.log('.toggleable-list > li > a[name="' + $(this).attr('href').replace('#', '') + '"]')
+        $('.toggleable-list > li > a[name="' + $(this).attr('href').replace('#', '') + '"]').trigger('click', true);
+        // } else {
+          // event.preventDefault()
+        // }
+      });
+
+      if($('.toggleable-list').length && window.location.hash.length) {
+        const hash = window.location.hash.replace('#', '')
+        window.location.hash = ''
+        $('.toggleable-list > li > a[name="' + hash + '"]').trigger('click', true);
+      }
+    /* ------------------------------- toggleable-list end -------------------------------*/
 
     contact_map = L.map('contact_map', {
       zoomControl: false

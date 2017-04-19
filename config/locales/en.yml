@@ -12,7 +12,7 @@ en:
         one: Provider
         other: Providers
       page_content:
-        onee: Page Content
+        one: Page Content
         other: Page Contents
     attributes:
       provider:
@@ -54,6 +54,8 @@ en:
       mac_alt: "McLain Association for Children seeks to transform the lives of the most vulnerable around the world by providing them with the resources they need and by strengthening the systems and individuals that provide them care."
       created_by: Created By
       js_alt: "Informing Communities with Data and Design"
+      privacy_policy: Privacy Policy
+      terms_of_use: Terms of Use
     messages:
       success_updated: "%{obj} was successfully updated."
       fail_updated: "%{obj} failed to update."

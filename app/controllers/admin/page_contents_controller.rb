@@ -29,24 +29,46 @@ class Admin::PageContentsController < AdminController
     end
   end
 
+  def new
+    @item = @model.new
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def create
+    @item = @model.new(pars)
+
+    respond_to do |format|
+      if @item.save
+        format.html do
+          redirect_to manage_page_contents_path, flash: {
+            success:  t('app.messages.success_updated', obj: @model) }
+        end
+      else
+        format.html { render action: "new" }
+      end
+    end
+  end
+
   def edit
     @item = @model.find(params[:id])
   end
 
   def update
-     Rails.logger.debug("--------------------------------------------#{pars}")
     @item = @model.find(params[:id])
     respond_to do |format|
       if @item.update_attributes(pars)
         format.html do
-          redirect_to manage_provider_profile_path(type: 'manage-provider'), flash: {
+          redirect_to manage_page_contents_path, flash: {
             success:  t('app.messages.success_updated',
                         obj: @model)
           }
         end
       else
         format.html do
-          redirect_to manage_provider_profile_path(type: 'manage-provider', id: @item.id), flash: {
+          redirect_to manage_page_content_path(id: @item.id), flash: {
             error:  t('app.messages.fail_updated',
                         obj: @model)
           }
@@ -61,7 +83,7 @@ class Admin::PageContentsController < AdminController
 
     respond_to do |format|
       format.html do
-        redirect_to admin_provider_path(tab: 'manage-provider'), flash: {
+        redirect_to manage_page_contents_path, flash: {
           success:  t('app.messages.success_destroyed',
                       obj: @model)
         }
@@ -71,7 +93,7 @@ class Admin::PageContentsController < AdminController
   end
   private
     def pars
-      permitted = Product.globalize_attribute_names + [:name]
+      permitted = PageContent.globalize_attribute_names + [:name]
       params.require(:page_content).permit(*permitted)
     end
 end

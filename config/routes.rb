@@ -3,15 +3,20 @@ Madloba::Application.routes.draw do
 
   scope ':locale', locale: /#{I18n.available_locales.join("|")}/ do
 
-    devise_for :user, path: 'user', path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'new' }, controllers: { registrations: 'user/registrations'}
+    # devise_for :user, path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'new' }, controllers: { registrations: 'user/registrations'}
+    #
     # Home page
+    # as :user do
+    #   get 'login', to: 'devise/sessions#new'
+    # end
 
+    devise_for :users, path: ''#, path_names: { sign_in: 'login'}
     # get 'home/index'
     get 'about', to: 'root#about'
     get 'faq', to: 'root#faq'
-    get 'contact', to: 'root#contact'
+    # get 'contact', to: 'root#contact'
     get 'privacy_policy', to: 'root#privacy_policy'
-    get 'terms_of_service', to: 'root#terms_of_service'
+    get 'terms_of_use', to: 'root#terms_of_use'
 
 
     # post 'search', to: 'home#render_search_results'
@@ -77,11 +82,11 @@ Madloba::Application.routes.draw do
     end
 
 
-    namespace :user do
+    # namespace :user do
 
 
 
-      resources :users
+      # resources :users
       # resources :locations, :categories, :items, :users, :faqs
       # resources :posts, :only => [:edit, :update, :destroy], path: :services, as: :services
 
@@ -111,7 +116,7 @@ Madloba::Application.routes.draw do
 
       # # This POST method is called when the deletion of a category is made through a form
       # post 'categories/:id', to: 'categories#destroy'
-    end
+    # end
 
     # resources :posts, :only => [:show, :index, :new, :create], :controller => 'user/posts', path: :services, as: :services
     # post 'posts/send_message', to: 'user/posts#send_message'
