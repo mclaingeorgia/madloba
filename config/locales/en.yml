@@ -56,6 +56,8 @@ en:
       js_alt: "Informing Communities with Data and Design"
       privacy_policy: Privacy Policy
       terms_of_use: Terms of Use
+      contact:
+
     messages:
       success_updated: "%{obj} was successfully updated."
       fail_updated: "%{obj} failed to update."
@@ -104,6 +106,21 @@ en:
       edit:
         title: Edit Page Content
   application:
+    dialog:
+      partners: PARTNERS
+      contact: CONTACT
+      org: McLain Association for Children
+      address: "Address:"
+      address_content: "Kavsadze #3, Second Floor, Tbilisi Georgia"
+      phone: "Phone:"
+      phone_content: "Free Hotline: 0 800 900 902; Office #: 2197378"
+      email: "Email:"
+      email_content: "mac_info@macgeorgia.org"
+      alt:
+        close: Close Dialog
+        address: Contact Address
+        phone: Contact Phone
+        email: Contact Email
     navigation:
       logo_alt: Sheage - Discovering Services Logo
       about: ABOUT

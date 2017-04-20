@@ -1,37 +1,37 @@
 %dialog
   .dialog-content
     .dialog-close
-      = link_to image_tag("/assets/svg/close_modal.svg", alt: t('.close_modal_alt'), title: t('.close_modal_alt')), 'javascript:void(0);'
+      = link_to image_tag("/assets/svg/close_modal.svg", alt: t('.alt.close'), title: t('.alt.close')), 'javascript:void(0);'
     .dialog-page{'data-bind': 'about' }
       .header.about= @about_page.title
       .text
         = @about_page.content.html_safe
       .hr-wrapper
         .hr
-      .header.partners PARTNERS
+      .header.partners= t('.partners')
       .partners-list
         = link_to image_tag("/assets/svg/mac_color.svg", alt: t('app.common.mac_alt'), title: t('app.common.mac_alt')).html_safe, "http://www.macgeorgia.org/", target: '_blank'
         = link_to image_tag("/assets/svg/js_color.svg", alt: t('app.common.js_alt'), title: t('app.common.js_alt')).html_safe, "https://jumpstart.ge/#{I18n.locale}", target: '_blank'
     .dialog-page{ 'data-bind': 'contact' }
-      .header CONTACT
+      .header= t('.contact')
       .boxes
         .box.info
-          .name McLain Association for Children
+          .name= t('.org')
           .info-item
             %p
-              = image_tag("/assets/svg/address.svg", alt: t('.close_modal_alt'), title: t('.close_modal_alt'))
-              %span Address:
-              Kavsadze #3, Second Floor, Tbilisi Georgia
+              = image_tag("/assets/svg/address.svg", alt: t('.alt.address'), title: t('.alt.address'))
+              %span= t('.address')
+              = t('.address_content')
           .info-item
             %p
-              = image_tag("/assets/svg/phone.svg", alt: t('.close_modal_alt'), title: t('.close_modal_alt'))
-              %span Phone:
-              Free Hotline: 0 800 900 902; Office #: 2197378
+              = image_tag("/assets/svg/phone.svg", alt: t('.alt.phone'), title: t('.alt.phone'))
+              %span= t('.phone')
+              = t('.phone_content')
           .info-item
             %p
-              = image_tag("/assets/svg/email.svg", alt: t('.close_modal_alt'), title: t('.close_modal_alt'))
-              %span Email:
-              mac_info@macgeorgia.org
+              = image_tag("/assets/svg/email.svg", alt: t('.alt.email'), title: t('.alt.email'))
+              %span= t('.email')
+              = t('.email_content')
         .box.map-point
           .map-box
             #contact_map

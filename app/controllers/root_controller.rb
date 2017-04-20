@@ -10,14 +10,13 @@ class RootController < ApplicationController
   end
 
   def contact
-    render :action => 'index', locals: { dialog_trigger_type: :about }
+    render :action => 'index', locals: { dialog_trigger_type: :contact }
   end
 
   def faq
-    gon.is_faq_page = true
     @class = "faq"
+    gon.is_faq_page = true
     @page_content = PageContent.by_name('faq')
-     Rails.logger.debug("--------------------------------------------#{@page_content}")
   end
 
   def privacy_policy
