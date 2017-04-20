@@ -5,17 +5,20 @@ class RootController < ApplicationController
   def index
   end
 
-  # def about
-  # end
+  def about
+    render :action => 'index', locals: { dialog_trigger_type: :about }
+  end
+
+  def contact
+    render :action => 'index', locals: { dialog_trigger_type: :about }
+  end
 
   def faq
+    gon.is_faq_page = true
     @class = "faq"
     @page_content = PageContent.by_name('faq')
      Rails.logger.debug("--------------------------------------------#{@page_content}")
   end
-
-  # def contact
-  # end
 
   def privacy_policy
     @class = "privacy_policy"

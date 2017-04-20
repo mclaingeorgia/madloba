@@ -51,16 +51,22 @@
 //* require_tree .
 
 $(document).ready(function(){
-  $('nav .nav-toggle-button').on('click', function () {
-    const t = $(this)
-    const state = t.attr('aria-expanded')
-    const target = $('#' + t.attr('data-target'))
-
-    t.toggleClass('collapsed').attr('aria-expanded', !state)
-    target.toggleClass('flex')
-    // target.toggle()
-
-    console.log('click')
+  const nav_toggle_button = $('nav .nav-toggle-button')
+  function toggle_nav (forceState) {
+    const target = $('#' + nav_toggle_button.attr('data-target'))
+    if(typeof forceState !== 'undefined' && forceState === true) {
+      nav_toggle_button.addClass('collapsed').attr('aria-expanded', false)
+      target.removeClass('flex')
+    }
+    else {
+      const state = nav_toggle_button.attr('aria-expanded')
+      nav_toggle_button.toggleClass('collapsed').attr('aria-expanded', !state)
+      target.toggleClass('flex')
+      //dialog_close();
+    }
+  }
+  nav_toggle_button.on('click', function () {
+    toggle_nav()
   })
 
   // $('.tabs ul li a').on('click', function () {
@@ -121,30 +127,83 @@ $(document).ready(function(){
     const dialog = $('dialog')
     const dialog_callbacks = {
       contact: function () {
-        console.log("called")
+        window.contact_map = contact_map
+        console.log("here")
         contact_map.invalidateSize()
       }
     }
-    $('dialog .dialog-close a').on('click', function (event) {
-      dialog_close();
-    })
-    function dialog_close () {
+    let dialog_state = false
+
+    function dialog_close (partial) {
+      if(!dialog_state) { return }
+      if(typeof partial === 'undefined') { partial = false }
       dialog.removeAttr('open')
       dialog.find('.dialog-page[data-showing]').removeAttr('data-showing')
+
+      if(!partial) {
+        dialog_menu_state(false)
+        dialog_state = false
+      }
+
     }
     function dialog_open (page) {
-      dialog_close();
+      dialog_close(true);
+      dialog_menu_state(true, page);
+      dialog_state = true
       dialog.find('.dialog-page[data-bind="' + page + '"]').attr('data-showing', true)
-      console.log(page, dialog_callbacks.hasOwnProperty(page))
+      // console.log(page, dialog_callbacks.hasOwnProperty(page))
       dialog.attr('open', true)
       if(dialog_callbacks.hasOwnProperty(page)) {
         dialog_callbacks[page]();
       }
+      toggle_nav(true)
     }
-    $('a[data-dialog-link]').on('click', function () {
-      const page = $(this).attr('data-dialog-link')
-      dialog_open(page)
+    function dialog_menu_state(state, page) {
+      const nav_menu = $('nav .nav-menu')
+      const link = nav_menu.find('a[data-dialog-link="' + page + '"]')
+      nav_menu.find('a').removeClass('active')
+
+      if(state) {
+        link.addClass('active')
+      } else {
+        if(typeof gon !== 'undefined' && gon.hasOwnProperty('is_faq_page') && gon.is_faq_page) {
+          nav_menu.find('a.nav-menu-item-faq').addClass('active')
+        }
+      }
+    }
+
+    $(document).on('click', function (event) {
+      const el = $(event.toElement)
+      console.log(el)
+      if(dialog_state && (event.toElement.nodeName.toLowerCase() === 'dialog' ||
+        (!el.hasClass('nav-toggle-button') &&
+        el.closest('dialog').length === 0))) {
+        dialog_close();
+      }
     })
+
+    $('dialog .dialog-close a').on('click', function (event) {
+      dialog_close();
+    })
+
+    $('a[data-dialog-link]').on('click', function (event) {
+      dialog_open($(this).attr('data-dialog-link'))
+      event.stopPropagation()
+    })
+
+//     .hover(
+//   function() {
+//     $( this ).addClass( "hover" );
+//   }, function() {
+//     $( this ).removeClass( "hover" );
+//   }
+// );
+
+
+    $(document).keydown(function(e) {
+      const code = e.keyCode || e.which;
+      if (code === 27) { dialog_close() }
+    });
 
     /* ------------------------------- dialog -------------------------------*/
     /* ------------------------------- toggleable-list -------------------------------*/
@@ -155,7 +214,7 @@ $(document).ready(function(){
         const name = t.attr("name")
         const li = $(this).parent()
 
-        console.log("here", forceOpen, name)
+        // console.log("here", forceOpen, name)
         if(forceOpen) {
           li.addClass('toggled')
           window.location.hash = name
@@ -197,6 +256,7 @@ $(document).ready(function(){
 
 
     L.marker([41.70995, 44.76134], {icon: pin}).addTo(contact_map)
+
     $('#contact_map_zoom_in').click(function(){
       contact_map.setZoom(contact_map.getZoom() + 1)
     });
@@ -222,6 +282,13 @@ $(document).ready(function(){
 //     id: 'your.mapbox.project.id',
 //     accessToken: 'your.mapbox.public.access.token'
 // })
+
+  // on page load check if about or contact page if yes open dialog
+  const active_dialog_page = $('[data-dialog-link="about"].active, [data-dialog-link="contact"].active')
+  if(active_dialog_page.length === 1) {
+    dialog_open(active_dialog_page.attr('data-dialog-link'))
+  }
+
 })
 
 let contact_map
@@ -287,3 +354,5 @@ let contact_map
 
   //       // zoom in function
   //
+
+

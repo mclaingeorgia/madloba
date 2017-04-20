@@ -21,7 +21,9 @@ module ApplicationHelper
   def controller_name?(name)
     return controller_name == name.to_s
   end
-
+  def if_path_match(pth, v1, v2 = '')
+    return "#{controller_name}/#{action_name}" == pth.to_s ? v1 : v2
+  end
 
 
 

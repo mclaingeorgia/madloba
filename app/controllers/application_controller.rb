@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   before_action :allow_iframe_requests
   before_action :set_locale
   before_action :load_javascript_text
+  # before_action :set_gon
   before_action :check_if_user_has_tos
   before_action :prepare_about_content
 
@@ -73,7 +74,10 @@ class ApplicationController < ActionController::Base
   def load_javascript_text
     #gon.vars = t('general_js')
   end
-
+  # def set_gon
+  #    Rails.logger.debug("--------------------------------------=======------#{@is_faq_page}")
+  #   gon.is_faq_page = @is_faq_page
+  # end
 
   # Allows the website to be embedded in an iframe.
   def allow_iframe_requests

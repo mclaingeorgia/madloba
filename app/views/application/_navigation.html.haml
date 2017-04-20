@@ -8,9 +8,9 @@
           .toggle
     #nav-toggle-target.nav-right
       .nav-menu
-        = link_to t('.about'), 'javascript:void(0);', class: 'nav-menu-item border-right', 'data-dialog-link': 'about'
-        = link_to t('.faq'), faq_path, class: 'nav-menu-item border-both'
-        = link_to t('.contact'), 'javascript:void(0);', class: 'nav-menu-item border-left', 'data-dialog-link': 'contact'
+        = link_to t('.about'), 'javascript:void(0);', class: "nav-menu-item border-right#{if_path_match('root/about', ' active')}", 'data-dialog-link': 'about'
+        = link_to t('.faq'), faq_path, class: "nav-menu-item nav-menu-item-faq border-both border-skip-left#{if_path_match('root/faq', ' active')}"
+        = link_to t('.contact'), 'javascript:void(0);', class: "nav-menu-item border-left#{if_path_match('root/contact', ' active')}", 'data-dialog-link': 'contact'
       .nav-social
         = link_to image_tag("/assets/svg/facebook.svg", alt: t('.facebook_alt'), title: t('.facebook_alt')), root_path, class: 'facebook'
         = link_to image_tag("/assets/svg/twitter.svg", alt: t('.twitter_alt'), title: t('.twitter_alt')).html_safe, root_path, class: 'twitter'
