@@ -1,8 +1,8 @@
-class Admin::ProvidersController < AdminController
+class Admin::PlacesController < AdminController
   before_filter :authenticate_user!, except: [:show]
   # before_action :authenticate_user!
   # authorize_resource
-  before_filter { @model = Provider; }
+  before_filter { @model = Place; }
 
   def index
   end
@@ -79,6 +79,6 @@ class Admin::ProvidersController < AdminController
   private
 
   def pars
-    params.require(:provider).permit(*Provider.globalize_attribute_names)
+    params.require(:provider).permit(*Place.globalize_attribute_names)
   end
 end

@@ -295,6 +295,15 @@ ActiveRecord::Schema.define(version: 20170404095543) do
   add_index "posts", ["location_id"], name: "index_posts_on_location_id", using: :btree
   add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
 
+  create_table "provider_places", id: false, force: :cascade do |t|
+    t.integer  "provider_id", null: false
+    t.integer  "place_id",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "provider_places", ["provider_id", "place_id"], name: "index_provider_places_on_provider_id_and_place_id", using: :btree
+
   create_table "provider_translations", force: :cascade do |t|
     t.integer  "provider_id", null: false
     t.string   "locale",      null: false
@@ -319,10 +328,7 @@ ActiveRecord::Schema.define(version: 20170404095543) do
   create_table "providers", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
   end
-
-  add_index "providers", ["user_id"], name: "index_providers_on_user_id", using: :btree
 
   create_table "rates", id: false, force: :cascade do |t|
     t.integer  "user_id",    null: false

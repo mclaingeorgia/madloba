@@ -1,3 +1,8 @@
+- model_class = Provider
+- page_title t('.title')
+.page-title
+  = t('.title')
+  = link_to t('admin.add'), new_provider_path, class: 'add btn'
 %ul.list
   - items.each do |item|
     %li

@@ -39,10 +39,7 @@ class AdminController < ApplicationController
     @class = 'user_profile'
     @is_admin_profile_page = false
 
-    @edit = params[:edit] == 'true'
-
-    @type = params[:type].present? && !['favorite-places', 'rated-places', 'uploaded-photos'].index(params[:type]).nil? ? params[:type] : 'favorite-places'
-
+    @type = params[:type].present? && !['manage-profile', 'favorite-places', 'rated-places', 'uploaded-photos'].index(params[:type]).nil? ? params[:type] : 'manage-profile'
   end
 
   def provider_profile
@@ -50,6 +47,7 @@ class AdminController < ApplicationController
     @is_admin_profile_page = false
 
     @id = params[:id]
+     Rails.logger.debug("--------------------------------------------#{@id}")
 
     @type = params[:type].present? && !['manage-provider', 'manage-places', 'moderate-photos'].index(params[:type]).nil? ? params[:type] : 'manage-provider'
 
@@ -58,8 +56,10 @@ class AdminController < ApplicationController
       if @type == 'manage-provider'
         @edit_states[0] = true
         @item = Provider.find(@id)
+      elsif @type == 'manage-places'
+        @edit_states[1] = true
+        @item = Place.find(@id)
       end
-      @edit_states[1] = true if @type == 'manage-places'
       @edit_states[2] = true if @type == 'moderate-photos'
     end
 

@@ -1,0 +1,8 @@
+%ul.list
+  - items.each do |item|
+    %li
+      %span{class: 'name'} #{item.name}
+      - item.places.each do |place|
+        .actions
+          = link_to t('admin.edit'), manage_provider_profile_path({ type: 'manage-provider', id: item.id }), class: 'edit'
+          = link_to t('admin.delete'), provider_path(item.id), method: :delete, class: 'delete', data: {confirm: t('admin.confirm_delete') }

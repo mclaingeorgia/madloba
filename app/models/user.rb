@@ -38,7 +38,6 @@ class User < ActiveRecord::Base
   # has_many :post_users
   # has_many :favorite_posts, through: :post_users, source: :post
 
-
   def guest?
     nil?
   end

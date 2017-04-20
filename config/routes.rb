@@ -52,7 +52,8 @@ Madloba::Application.routes.draw do
     match '/500' => 'errors#error500', via: [ :get, :post, :patch, :delete ]
 
 
-    resources :providers, :only => [:show, :edit, :update, :destroy], :controller => 'admin/providers'
+    resources :providers, :controller => 'admin/providers'
+    resources :places, :controller => 'admin/places'
     namespace :manage, :module => :admin, :constraints => { format: :html } do
       get '/', to: '/admin#index'
       get 'user/(:type)', to: '/admin#user_profile', :as => :user_profile
@@ -61,6 +62,8 @@ Madloba::Application.routes.draw do
 
       scope 'admin' do
         resources :page_contents
+        resources :users
+
       end
       # get :categories, :to => "/admin#category", :as => :categories
       # resources :users do

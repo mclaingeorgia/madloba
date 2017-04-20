@@ -49,6 +49,11 @@ class CreateSheagheSchema < ActiveRecord::Migration
       t.index [:provider_id, :user_id]
     end
 
+    create_join_table :provider, :places, :table_name => :provider_places do |t|
+      t.timestamps
+      t.index [:provider_id, :place_id]
+    end
+
     create_join_table :user, :place, :table_name => :rates do |t|
       t.timestamps
       t.integer :value

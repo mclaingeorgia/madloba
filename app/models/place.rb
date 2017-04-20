@@ -1,5 +1,6 @@
 class Place < ActiveRecord::Base
   translates :name, :description, :address, :village, :city
+  globalize_accessors :locales => [:en, :ka], :attributes => [ :name, :description, :address, :village, :city]
 
   belongs_to :provider
 

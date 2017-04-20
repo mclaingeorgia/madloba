@@ -1,19 +1,18 @@
-%section.aside
-  .fill
-    = render @edit ? 'admin/users/edit' : 'admin/users/show'
 %section.content
   .tabs{'data-target': 'global'}
     %ul
-      - ['favorite-places', 'rated-places', 'uploaded-photos'].each do |item|
+      - ['manage-profile', 'favorite-places', 'rated-places', 'uploaded-photos'].each do |item|
         %li.tab-link{class: item == @type ? 'active' : nil}
           = link_to t("#{item}"), manage_user_profile_path(type: item), 'data-link': item, 'aria-expanded': item == @type
   .tabs-content{'data-target': 'global'}
     %ul
-      %li.active{'data-link': 'favorite-places'}
-        Favorite Places
-      %li{'data-link': 'rated-places'}
-        Rated Places
-      %li{'data-link': 'uploaded-photos'}
-        Uploaded Photos
+      %li{class: @type == 'manage-profile' ? 'active' : nil, 'data-link': 'manage-profile'}
+        = render 'admin/users/edit'
+      %li{class: @type == 'favorite-places' ? 'active' : nil, 'data-link': 'favorite-places'}
+        %span= t("favorite_places")
+      %li{class: @type == 'favorite-places' ? 'active' : nil, 'data-link': 'rated-places'}
+        %span= t("rated_places")
+      %li{class: @type == 'favorite-places' ? 'active' : nil, 'data-link': 'uploaded-photos'}
+        %span= t("uploaded_photos")
 
   = render partial: "shared/footer"

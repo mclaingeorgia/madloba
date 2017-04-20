@@ -13,10 +13,9 @@
           = render partial: 'admin/providers/list', locals: { items: @providers }
       %li{class: @type == 'manage-places' ? 'active' : nil, 'data-link': 'manage-places'}
         - if @edit_states[1]
-          %span edit
+          = render 'admin/places/edit'
         - else
-          - @providers.each do |provider|
-            %span #{provider.name}
+          = render partial: 'admin/places/list', locals: { items: @providers }
       %li{class: @type == 'moderate-photos' ? 'active' : nil, 'data-link': 'moderate-photos'}
         Moderate Photos
 
