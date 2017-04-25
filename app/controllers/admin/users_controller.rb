@@ -117,6 +117,15 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+  def favorites
+  end
+
+  def rates
+  end
+
+  def photos
+  end
+
   private
 
   def user_params

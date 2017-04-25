@@ -93,7 +93,7 @@ $(document).ready(function(){
     const link = t.attr('data-link')
     const tabs = t.closest('.tabs')
     const targetAttr = tabs.attr('data-target')
-    const target = $('.tabs-content[data-target="' + targetAttr + '"]')
+    const target = tabs.parent().find('.tabs-content[data-target="' + targetAttr + '"]')
     // console.log(link,targetAttr, target)
 
 
@@ -111,7 +111,13 @@ $(document).ready(function(){
     t.attr('aria-expanded', true)
 
     if (targetAttr === 'global' && history.pushState) {
-      var newurl =  t.attr('href');
+      let newurl =  t.attr('href');
+      let tmp = / \|.+/g.exec(document.title)
+      let title = ''
+      if (tmp.length) {
+        title = t.text() + tmp[0]
+      }
+      document.title = title
       window.history.pushState({ path: newurl }, '', newurl);
     }
     event.preventDefault()
@@ -174,7 +180,7 @@ $(document).ready(function(){
 
     $(document).on('click', function (event) {
       const el = $(event.toElement)
-      console.log(el)
+      // console.log(el)
       if(dialog_state && (event.toElement.nodeName.toLowerCase() === 'dialog' ||
         (!el.hasClass('nav-toggle-button') &&
         el.closest('dialog').length === 0))) {

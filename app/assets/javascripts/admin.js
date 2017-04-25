@@ -37,6 +37,56 @@ $(document).ready(function(){
     plugins: [ 'autolink lists link anchor code' ],
     toolbar: 'undo redo | insert | styleselect | bold italic | link | code'
   });
-})
 
+  if($('#locator_map').length) {
+    let locator_map = L.map('locator_map', {
+      zoomControl: false
+    }).setView([41.70978, 44.76133], 13);
+
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '<a href="http://osm.org/copyright">OpenStreetMap</a>'
+    }).addTo(locator_map);
+
+
+    let locator_marker = L.marker([41.70995, 44.76134], {icon:
+      L.icon({
+        iconUrl: '/assets/svg/pin.svg',
+        iconSize: [28, 36],
+        iconAnchor: [14,36]
+      })
+    }).addTo(locator_map)
+
+    $('#map_zoom_in').click(function(){
+
+      locator_map.setZoom(locator_map.getZoom() + 1)
+    });
+
+
+    // zoom out function
+    $('#map_zoom_out').click(function(){
+      locator_map.setZoom(locator_map.getZoom() - 1)
+    });
+
+    locator_map.on('click', function(e) {
+      locate(e.latlng)
+    });
+    $('#locator-find-me').click(function () {
+      locator_map.locate({setView: true, maxZoom: 16});
+    })
+    locator_map.on('locationfound', function(e) {
+      locate(e.latlng)
+    });
+    locator_map.on('locationerror', function(e) {
+      $('#locator-find-me').addClass('disabled')
+    });
+
+    function locate(latlng) {
+      $("input[name$='[latitude]'").val(latlng.lat)
+      $("input[name$='[longitude]'").val(latlng.lng)
+      locator_marker.setLatLng(L.latLng(latlng.lat, latlng.lng));
+    }
+  }
+
+
+})
 

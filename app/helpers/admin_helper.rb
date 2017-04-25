@@ -26,6 +26,15 @@ module AdminHelper
 
     render partial: "shared/form_inputs/#{type}", locals: { form: form, field: field_name, translate_path: translate_path, options: fd }
   end
+
+  def user_profile_pages
+    [:'manage-profile', :'favorite-places', :'rated-places', :'uploaded-photos']
+  end
+
+  def provider_profile_pages
+    [:'manage-provider', :'manage-places', :'moderate-photos']
+  end
+
   def label_format(label, options)
      Rails.logger.debug("--------------------------------------------#{label} #{options}")
     lb = label

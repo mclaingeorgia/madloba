@@ -63,6 +63,48 @@
     }
   }
 }
+.fields-checkbox-list {
+
+  &.services {
+    display: flex;
+    flex-direction: row;
+    padding: 40px 0 33px;
+    > label {
+      font: 18px 'sourcesans_pro_b';
+      color: #373f51;
+      width: 45%;
+      padding: 0 18px 0 0;
+    }
+    .fields {
+      width: 55% !important;
+      padding-bottom: 12px;
+      label {
+        font: 18px 'sourcesans_pro';
+        color: #373f51;
+        width: 100%;
+        padding: 0;
+        span.icon {
+          display: inline-block;
+          width: 25px;
+          height: 19px;
+          margin: 0 6px 0 8px;
+          &.adult { background: transparent url('/assets/svg/services/adult.svg') no-repeat; }
+          &.children { background: transparent url('/assets/svg/services/children.svg') no-repeat; }
+          &.education { background: transparent url('/assets/svg/services/education.svg') no-repeat; }
+          &.health { background: transparent url('/assets/svg/services/health.svg') no-repeat; }
+          &.legal { background: transparent url('/assets/svg/services/legal.svg') no-repeat; }
+          &.other { background: transparent url('/assets/svg/services/other.svg') no-repeat; }
+          &.rehab { background: transparent url('/assets/svg/services/rehab.svg') no-repeat; }
+          &.social { background: transparent url('/assets/svg/services/social.svg') no-repeat; }
+        }
+      }
+      input {
+        padding: 0;
+        margin: 0;
+      }
+    }
+  }
+}
 .field + .fields-to-translate {
   padding-top: 33px;
 }
@@ -81,14 +123,14 @@ form.fields {
       width: 45%;
       font: 18px 'sourcesans_pro_b';
       color: #373f51; // #eaba6b;
-      padding:0 14px 0 10px;
+      padding:0 14px 0 0;//10px;
       text-align: left;
     }
     .value {
       width: 55%;
       margin-right: 10px;
     }
-    input, textarea {
+    input, textarea, select {
       border: 1px solid #e2e2e2; // #fff;
       border-radius: 3px;
       font: 18px 'sourcesans_pro';
@@ -270,12 +312,12 @@ main {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     background-color: #f4f4f4;
     > .tabs {
       width: 100%;
       border-bottom: 1px solid #d8d8d8;
-      text-align: center;
+      // text-align: center;
       ul {
         li {
           display: inline-block;
@@ -286,6 +328,7 @@ main {
             font: 18px/18px 'sourcesans_pro';
             color: #373f51;
             text-decoration: none;
+            text-transform: uppercase;
           }
           a:after {
             content: '';
@@ -330,17 +373,45 @@ main {
   }
   .list {
     max-width: 768px;
-    li {
+    padding: 23px 33px 0;
+    > li {
+      padding-bottom: 12px;
+      font: 18px 'sourcesans_pro_sb';
+      color: #373f51;
+      padding-bottom: 45px;
+      &:last-child {
+        padding-bottom: 0;
+      }
+      .subheader {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        label {
+          font: 18px 'sourcesans_pro_sb';
+          color: #373f51;
+        }
+        span {
+          width: 100%;
+          padding-left: 4px;
+        }
+      }
+    }
+    ul {
+      display: block;
+      padding: 26px 0 26px 41px;
+    }
+    ul > li {
       display: flex;
       flex-direction: row;
       align-items: center;
-      padding-bottom: 12px;
-      .name {
-        font: 18px 'sourcesans_pro_sb';
-        color: #000;
-        width: 100%;
+      padding-bottom: 13px;
+      &:last-child {
+        padding-bottom: 0;
       }
       a.name {
+        font: 18px 'sourcesans_pro_sb';
+        color: #373f51;
+        width: 100%;
         text-decoration: underline;
       }
     }
@@ -521,4 +592,29 @@ a.btn {
 .mce-container {
   width: 55%;
   margin-right: 10px;
+  .mce-ico {
+    font-size: 14px;
+  }
+  .mce-btn button {
+    padding: 2px 4px;
+  }
+}
+.column-view {
+  display: flex;
+  flex-direction: row;
+  padding: 0 70px 0;
+  .column {
+    width: 50%;
+    &:first-child {
+      padding: 0 20px 0 0;
+      border-right: 1px solid #d2d2d2;
+    }
+    &:last-child {
+      padding: 0 0 0 20px;
+    }
+  }
+}
+
+.indent {
+  padding: 0px 27px;
 }

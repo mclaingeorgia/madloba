@@ -1,0 +1,12 @@
+- if paths.length > 0
+  .breadcrumbs
+    %ul
+      - paths.each_with_index do |path, path_i|
+        %li
+          - if path.is_a? Array
+            = link_to path[0], path[1]
+          - else
+            %span path
+          - if path_i != paths.length
+            %li
+              %span.slash /

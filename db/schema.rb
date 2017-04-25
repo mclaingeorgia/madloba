@@ -203,6 +203,15 @@ ActiveRecord::Schema.define(version: 20170404095543) do
 
   add_index "page_contents", ["name"], name: "index_page_contents_on_name", using: :btree
 
+  create_table "place_services", id: false, force: :cascade do |t|
+    t.integer  "place_id",   null: false
+    t.integer  "service_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "place_services", ["place_id", "service_id"], name: "index_place_services_on_place_id_and_service_id", using: :btree
+
   create_table "place_translations", force: :cascade do |t|
     t.integer  "place_id",    null: false
     t.string   "locale",      null: false
@@ -211,7 +220,6 @@ ActiveRecord::Schema.define(version: 20170404095543) do
     t.string   "name"
     t.text     "description"
     t.string   "address"
-    t.string   "village"
     t.string   "city"
   end
 
@@ -221,13 +229,16 @@ ActiveRecord::Schema.define(version: 20170404095543) do
   create_table "places", force: :cascade do |t|
     t.string   "phone"
     t.string   "website"
-    t.integer  "region"
-    t.decimal  "latitude",   precision: 8, scale: 5
-    t.decimal  "longitude",  precision: 8, scale: 5
+    t.string   "postal_code"
+    t.decimal  "latitude",    precision: 8, scale: 5
+    t.decimal  "longitude",   precision: 8, scale: 5
     t.decimal  "rating"
+    t.integer  "region_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "places", ["region_id"], name: "index_places_on_region_id", using: :btree
 
   create_table "post_items", force: :cascade do |t|
     t.integer  "post_id"
@@ -339,6 +350,23 @@ ActiveRecord::Schema.define(version: 20170404095543) do
   end
 
   add_index "rates", ["user_id", "place_id"], name: "index_rates_on_user_id_and_place_id", using: :btree
+
+  create_table "region_translations", force: :cascade do |t|
+    t.integer  "region_id",  null: false
+    t.string   "locale",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "name"
+    t.string   "center"
+  end
+
+  add_index "region_translations", ["locale"], name: "index_region_translations_on_locale", using: :btree
+  add_index "region_translations", ["region_id"], name: "index_region_translations_on_region_id", using: :btree
+
+  create_table "regions", force: :cascade do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "service_translations", force: :cascade do |t|
     t.integer  "service_id",  null: false

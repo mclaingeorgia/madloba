@@ -69,6 +69,16 @@ en:
     edit_object: "Edit %{obj}"
     delete: Delete
     confirm_delete: "Provider will be removed with all places bind to it."
+    manage_provider:
+      index: Manage Providers
+      edit: Edit Provider
+      new: Create Provider
+    manage_places:
+      index: Manage Places
+      edit: Edit Place
+      new: Create Place
+    moderate_photos:
+      index: Moderate Photos
     general:
       fields_to_translate: Fields to translate
     menu:
@@ -78,6 +88,7 @@ en:
       manage_provider: Manage Provider
       manage_places: Manage Places
       moderate_photos: Moderate Photos
+      favorite_places: Favorite Places
       users: Users
       providers: Providers
       places: Places
@@ -105,6 +116,26 @@ en:
         title: Manage Page Contents
       edit:
         title: Edit Page Content
+    places:
+      index:
+        title: "Manage Places"
+      edit:
+        title: "Edit Places"
+      list:
+        provider: "Provider:"
+    place:
+      index:
+        title: "Manage Places"
+      name: "Name:"
+      description: "Description:"
+      services: "Which Rehabilitative services do you provide?"
+      phone: "Phone:"
+      website: "Website:"
+      address: "Address:"
+      city: "City:"
+      postal_code: "Postal Code:"
+      region: "Region:"
+      locate_me: "Locate me on map"
   application:
     dialog:
       partners: PARTNERS

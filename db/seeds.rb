@@ -108,6 +108,73 @@ page_contents.each {|page_content|
 
 }
 
+services = [
+  { icon: 'adult', name: { en: "Other Services", ka: "სხვა სერვისები" }, description: { en: "Services that are not clearly defined by already established Service Categories", ka: "ის სერვისები,რომელიც არ შეესაბამება არცერთ არსებულ სერვისის კატეგორიას." } },
+  { icon: 'children', name: { en: "Physical Rehabilitation", ka: "ფიზიკური რეაბილიტაცია" }, description: { en: "All types of physical rehabilitation and therapy services", ka: "ყველა ტიპის ფიზიკური რეაბილიტაცია და თერაპიული სერვისი" } },
+  { icon: 'education', name: { en: "Children's Services", ka: "სერვისები ბავშვებისათვის" },  description: { en: "Services offering specialized support and assistance to children with physical and/or intellectual disabilities. This may also include support for their parents and/or carers.", ka: "სერვისები მიმართულია ფიზიკური და/ან გონებრივი შეზღუდვების მქონე ბავშვებზე. ასევე ბავშვის მშობლის/მეურვის მხარდაჭერაზე." } },
+  { icon: 'health', name: { en: "Adult Services", ka: "ზრდასრულთა მომსახურება" }, description: { en: "Services offering specialized support and assistance to adults with all types of physical  and intellectual disabilities and/or mental health problems", ka: "სპეციალური სერვისები,რომელიც მიმართულია ყველა ტიპის ფიზიკური და გონებრივი შეზღუდვის მქონე ზრდასრულის მხარდასაჭერად." } },
+  { icon: 'legal', name: { en: "Medical", ka: "სამედიცინო" },  description: { en: "Services offering specialized medical care, surgery and treatment for people of all ages. This also includes funding support for all medical related services.", ka: "სერვისები,რომელიც მოიცავს სპეციალიზირებულ სამედიცინო დახმარებას, როგორიც არის ოპერაცია და მკურნალობა ნებისმიერი ასაკის ადამიანისათვის. აღნიშნულ სერვისში მოიაზრება სამედიცინო სერვისების დაფინანსებაც." } },
+  { icon: 'other', name: { en: "Social Support", ka: "სოციალური დახმარება" },  description: { en: "Inclusive social groups, activities and/or support services for children and adults", ka: "სოციალური დახმარების პროგრამები ბავშვებისა და მოზრდილებისათვის" } },
+  { icon: 'rehab', name: { en: "Inclusive Education", ka: "ინკლუზიური განათლება" },  description: { en: "Educational facilities offering inclusive education for children and/or adults with all types of disabilities", ka: "საგანმანათლებლო დაწესებულებები, რომლებიც სთავაზობენ ინკლუზიურ განათლებას სხვადასხვა შეზღუდვების მქონე ბავშვებსა და მოზარდებს." } },
+  { icon: 'social', name: { en: "Psychological", ka: "ფსიქოლოგიური" },  description: { en: "All services specialised in providing psychological support, education and programs for children and/or adults", ka: "ნებისმიერი ტიპის ფსიქოლოგიური დახმარება, განათლება და პროგრამები,რომელიც მიმართულია ბავშვებსა და მოზარდებზე. " } },
+  { icon: 'adult', name: { en: "Community Programs", ka: "სათემო პროგრამები" },  description: { en: "Community based programs and initiatives for children and adults, including all types of inclusive activities", ka: "თემზე მორგებული ინკლუზიური ტიპის პროგრამები და ინიციატივები ბავშვებისათვის და მოზრდილთათვის." } },
+  { icon: 'children', name: { en: "Projects and Initiatives", ka: "პროექტები და ინიციატივები" },  description: { en: "Short or long term projects and initiatives focusing on inclusive activities and services", ka: "მოკლე და ხანგრძლივი პროექტები და ინიციატივები, რომელიც მოიცავს ინკლუზიურ აქტივობებსა და სერვისებს." } },
+  { icon: 'education', name: { en: "Sports and Recreation", ka: "სპორტი და რეკრიაცია" }, description: { en: "Sport and recreational programs for children and adults with all types of disabilities. These include long and short term initiatives, as well as one-off events", ka: "სპორტული და რეკრიაციული პროგრამები ყველა ტიპის შეზღუდვების მქონე ბავშვებისა და მოზრდილებისათვის. აქ მოისაზრება როგორ ერთჯერადი, ასევე ხანმოკლე და ხანგრძლივი ინიციატივები." } },
+  { icon: 'health', name: { en: "Legal Services", ka: "სამართლებრივი სერვისები" },  description: { en: "All services and / or organisations dealing with legal aspects of healthcare and rehabilitation, including training and awareness raising", ka: "ორგანიზაციები, რომლებიც მუშაობენ ჯანდაცვის და რეაბილიტაციის სამართლებრივ ასპექტებზე. სერვისები მოიცავს თემისათვის ტრენინგებსა და ცნობიერების ამაღლების აქტივობების განხორციელებას." } },
+  { icon: 'legal', name: { en: "Professional Training", ka: "პროფესიული ტრენინგები" }, description: { en: "Offering training programs or courses for health professionals, teachers, parents and carers of people with disability.", ka: "ტრენინგ პროგრამები და კურსები ჯანდაცვის მუშაკთათვის, პედაგოგთათვის, მშობლებისათვის და სხვა მზრუნველი პირებისათვის რომლებიც მუშაობენ შშმ პირებთან." } },
+  { icon: 'other', name: { en: "Technical Services", ka: "ტექნიკური სერვისები" },  description: { en: "Workshops, assembly or manufacturing centers offering technical repairs and other services for medical aids, asistive devices and other medical equipment", ka: "სახელოსნოები, ამწყობი ან მწარმოებელი ცენტრები, რომელიც სთავაზობს სხვადასხვა სამედიცინო და დამხმარე ხელსაწყოების ნაწილების შეკეთებასა და განახლებას." } },
+  { icon: 'rehab', name: { en: "Youth Services", ka: "სერვისები ახალგაზრდებისათვის" }, description: { en: "Services offering specialized support and assistance to Youth with all types of physical and/or intellectual disabilities", ka: "სპეციალური სერვისები,რომელიც მიმართულია ყველა ტიპის ფიზიკური და გონებრივი შეზღუდვის მქონე ახალგაზრდის მხარდასაჭერად." } },
+  { icon: 'social', name: { en: "Sight, Speech and Hearing", ka: "მხედველობა, მეტყველება და სმენა" }, description: { en: "Services with specific resources, specialized in supporting, training and/or providing medical care for individuals with sight, speech and hearing impairments.", ka: "სპეციალური სერვისები, რომელიც უზრუნველყოფს ტრენინგებსა და სამედიცინო დახმარებას იმ პირებისათვის, ვისაც აქვს მხედველობის, მეტყველების და სმენის პრობლემები." } }
+]
+
+services.each {|service|
+  p = Service.create(icon: service[:icon])
+  I18n.available_locales.each { |locale|
+    Globalize.with_locale(locale) do
+      p.update_attributes(:name => service[:name][locale], :description => service[:description][locale])
+    end
+  }
+}
+
+regions = [
+  { name: { en: "Abkhazia", ka: "" }, center: { en: "Sukhumi", ka: "" } },
+  { name: { en: "Adjara", ka: "" }, center: { en: "Batumi", ka: "" } },
+  { name: { en: "Guria", ka: "" }, center: { en: "Ozurgeti", ka: "" } },
+  { name: { en: "Imereti", ka: "" }, center: { en: "Kutaisi", ka: "" } },
+  { name: { en: "Kakheti", ka: "" }, center: { en: "Telavi", ka: "" } },
+  { name: { en: "Kvemo Kartli", ka: "" }, center: { en: "Rustavi", ka: "" } },
+  { name: { en: "Mtskheta-Mtianeti", ka: "" }, center: { en: "Mtskheta", ka: "" } },
+  { name: { en: "Racha-Lechkhumi and Kvemo Svaneti", ka: "" }, center: { en: "Ambrolauri", ka: "" } },
+  { name: { en: "Samegrelo-Zemo Svaneti", ka: "" }, center: { en: "Zugdidi", ka: "" } },
+  { name: { en: "Samtskhe-Javakheti", ka: "" }, center: { en: "Akhaltsikhe", ka: "" } },
+  { name: { en: "Shida Kartli", ka: "" }, center: { en: "Gori", ka: "" } },
+  { name: { en: "Tbilisi", ka: "" }, center: { en: "Tbilisi", ka: "" } }
+]
+
+regions.each {|region|
+  p = Region.create()
+  I18n.available_locales.each { |locale|
+    Globalize.with_locale(locale) do
+      p.update_attributes(:name => region[:name][locale], :center => region[:center][locale])
+    end
+  }
+}
+
+
+Region.create({ name: 'Tbilisi' })
+Region.create({ name: 'Kaheti' })
+
+me = User.where(email: 'antarya@gmail.com').first
+p1 = Provider.create({ name: 'Provider 1', description: 'Description 1' })
+p1.places << Place.create(name: 'PL1', description: 'DS1', address: 'a', city: 'c', phone: '1234', website: 'www.blah.ge', region_id: 1, latitude: 1, longitude: 1, rating: 3)
+p1.places << Place.create(name: 'PL2', description: 'DS2', address: 'a2', city: 'c2', phone: '12345', website: 'www.blah1.ge', region_id: 1, latitude: 1, longitude: 1, rating: 2)
+me.providers << p1
+
+
+p1 = Provider.create({ name: 'Provider 2', description: 'Description 2' })
+p1.places << Place.create(name: 'PL21', description: 'DS1', address: 'a', city: 'c', phone: '1234', website: 'www.blah.ge', region_id: 2, latitude: 1, longitude: 1, rating: 3)
+p1.places << Place.create(name: 'PL22', description: 'DS2', address: 'a2', city: 'c2', phone: '12345', website: 'www.blah1.ge', region_id: 2, latitude: 1, longitude: 1, rating: 2)
+me.providers << p1
 
 # Provider.create(
 

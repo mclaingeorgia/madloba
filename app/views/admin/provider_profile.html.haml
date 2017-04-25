@@ -1,22 +1,26 @@
+= page_title t("admin.#{current_page.to_s.gsub('-','_')}.#{action}")
 %section.content
   .tabs{'data-target': 'global'}
     %ul
-      - ['manage-provider', 'manage-places', 'moderate-photos'].each do |item|
-        %li.tab-link{class: item == @type ? 'active' : nil}
-          = link_to t("admin.menu.#{item.gsub('-','_')}").upcase, manage_provider_profile_path(type: item), 'data-link': item, 'aria-expanded': item == @type
+      - provider_profile_pages.each do |page|
+        %li.tab-link{class: page == current_page ? 'active' : nil}
+          = link_to t("admin.menu.#{page.to_s.gsub('-','_')}"), manage_provider_profile_path(page: page), 'data-link': page, 'aria-expanded': page == current_page
   .tabs-content{'data-target': 'global'}
     %ul
-      %li{class: @type == 'manage-provider' ? 'active' : nil, 'data-link': 'manage-provider'}
-        - if @edit_states[0]
-          = render 'admin/providers/edit'
+
+      %li{class: current_page == :'manage-provider' ? 'active' : nil, 'data-link': 'manage-provider'}
+        - if current_page == :'manage-provider' && (action == :new || action == :edit) # @edit_states[0]
+          = render partial: "admin/providers/#{action}", locals: { item: item }
         - else
-          = render partial: 'admin/providers/list', locals: { items: @providers }
-      %li{class: @type == 'manage-places' ? 'active' : nil, 'data-link': 'manage-places'}
-        - if @edit_states[1]
-          = render 'admin/places/edit'
+          = render partial: 'admin/providers/list', locals: { items: providers }
+
+      %li{class: current_page == :'manage-places' ? 'active' : nil, 'data-link': 'manage-places'}
+        - if current_page == :'manage-places' && (action == :new || action == :edit)
+          = render partial: "admin/places/#{action}", locals: { item: item }
         - else
-          = render partial: 'admin/places/list', locals: { items: @providers }
-      %li{class: @type == 'moderate-photos' ? 'active' : nil, 'data-link': 'moderate-photos'}
-        Moderate Photos
+          = render partial: 'admin/places/list', locals: { items: providers }
+
+      %li{class: current_page == :'moderate-photos' ? 'active' : nil, 'data-link': 'moderate-photos'}
+        = t('admin.menu.moderate_photos')
 
   = render partial: "shared/footer"

@@ -25,14 +25,14 @@ class Admin::ProvidersController < AdminController
     respond_to do |format|
       if @item.update_attributes(pars)
         format.html do
-          redirect_to manage_provider_profile_path(type: 'manage-provider'), flash: {
+          redirect_to manage_provider_profile_path(page: 'manage-provider'), flash: {
             success:  t('app.messages.success_updated',
                         obj: @model)
           }
         end
       else
         format.html do
-          redirect_to manage_provider_profile_path(type: 'manage-provider', id: @item.id), flash: {
+          redirect_to manage_provider_profile_path(page: 'manage-provider', id: @item.id), flash: {
             error:  t('app.messages.fail_updated',
                         obj: @model)
           }
@@ -47,7 +47,7 @@ class Admin::ProvidersController < AdminController
 
     respond_to do |format|
       format.html do
-        redirect_to manage_provider_profile_path(type: 'manage-provider'), flash: {
+        redirect_to manage_provider_profile_path(page: 'manage-provider'), flash: {
           success:  t('app.messages.success_destroyed',
                       obj: @model),
           notice: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim, officiis?',

@@ -54,10 +54,11 @@ Madloba::Application.routes.draw do
 
     resources :providers, :controller => 'admin/providers'
     resources :places, :controller => 'admin/places'
+
     namespace :manage, :module => :admin, :constraints => { format: :html } do
       get '/', to: '/admin#index'
-      get 'user/(:type)', to: '/admin#user_profile', :as => :user_profile
-      get 'provider/:type/(:id)', to: '/admin#provider_profile', :as => :provider_profile
+      get 'user/(:page)', to: '/admin#user_profile', :as => :user_profile
+      get 'provider/:page/(:id)/(:edit)', to: '/admin#provider_profile', :as => :provider_profile, constraints: { id: /(new)|(\d+)/, edit: 'edit' }
       get 'admin', to: '/admin#admin_profile', :as => :admin_profile
 
       scope 'admin' do

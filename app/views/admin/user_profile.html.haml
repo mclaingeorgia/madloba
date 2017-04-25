@@ -1,18 +1,22 @@
+= page_title t("admin.#{current_page.to_s.gsub('-','_')}.#{action}")
 %section.content
   .tabs{'data-target': 'global'}
     %ul
-      - ['manage-profile', 'favorite-places', 'rated-places', 'uploaded-photos'].each do |item|
-        %li.tab-link{class: item == @type ? 'active' : nil}
-          = link_to t("#{item}"), manage_user_profile_path(type: item), 'data-link': item, 'aria-expanded': item == @type
+      - user_profile_pages.each do |page|
+        %li.tab-link{class: page == current_page ? 'active' : nil}
+          = link_to t("admin.menu.#{page.to_s.gsub('-','_')}"), manage_user_profile_path(page: page), 'data-link': page, 'aria-expanded': page == current_page
   .tabs-content{'data-target': 'global'}
     %ul
-      %li{class: @type == 'manage-profile' ? 'active' : nil, 'data-link': 'manage-profile'}
+      %li{class: current_page == :'manage-profile' ? 'active' : nil, 'data-link': 'manage-profile'}
         = render 'admin/users/edit'
-      %li{class: @type == 'favorite-places' ? 'active' : nil, 'data-link': 'favorite-places'}
+      %li{class: current_page == :'favorite-places' ? 'active' : nil, 'data-link': 'favorite-places'}
         %span= t("favorite_places")
-      %li{class: @type == 'favorite-places' ? 'active' : nil, 'data-link': 'rated-places'}
+        = render partial: 'admin/users/favorites', locals: { items: [] }
+      %li{class: current_page == :'rated-places' ? 'active' : nil, 'data-link': 'rated-places'}
         %span= t("rated_places")
-      %li{class: @type == 'favorite-places' ? 'active' : nil, 'data-link': 'uploaded-photos'}
+        = render partial: 'admin/users/rates', locals: { items: [] }
+      %li{class: current_page == :'uploaded-photos' ? 'active' : nil, 'data-link': 'uploaded-photos'}
         %span= t("uploaded_photos")
+        = render partial: 'admin/users/photos', locals: { items: [] }
 
   = render partial: "shared/footer"

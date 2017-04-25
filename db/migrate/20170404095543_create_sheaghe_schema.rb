@@ -5,6 +5,10 @@ class CreateSheagheSchema < ActiveRecord::Migration
       t.timestamps
     end
 
+    create_table :regions do |t|
+      t.timestamps
+    end
+
     create_table :services do |t|
       t.string :icon
       t.string :color
@@ -24,10 +28,11 @@ class CreateSheagheSchema < ActiveRecord::Migration
     create_table :places do |t|
       t.string :phone
       t.string :website
-      t.integer :region
+      t.string :postal_code
       t.decimal :latitude, precision: 8, scale: 5
       t.decimal :longitude, precision: 8, scale: 5
       t.decimal :rating
+      t.references :region, index: true
 
       t.timestamps
     end
@@ -54,6 +59,11 @@ class CreateSheagheSchema < ActiveRecord::Migration
       t.index [:provider_id, :place_id]
     end
 
+    create_join_table :place, :services, :table_name => :place_services do |t|
+      t.timestamps
+      t.index [:place_id, :service_id]
+    end
+
     create_join_table :user, :place, :table_name => :rates do |t|
       t.timestamps
       t.integer :value
@@ -69,10 +79,11 @@ class CreateSheagheSchema < ActiveRecord::Migration
     # end
     reversible do |dir|
       dir.up do
-        Place.create_translation_table! :name => :string, :description => :text, :address => :string, :village => :string, :city => :string
+        Place.create_translation_table! :name => :string, :description => :text, :address => :string, :city => :string
         Provider.create_translation_table! :name => :string, :description => :text
         Service.create_translation_table! :name => :string, :description => :text
         PageContent.create_translation_table! :title => :string, :content => :text
+        Region.create_translation_table! :name => :string, :center => :string
       end
 
       dir.down do
@@ -80,6 +91,7 @@ class CreateSheagheSchema < ActiveRecord::Migration
         Provider.drop_translation_table!
         Service.drop_translation_table!
         PageContent.drop_translation_table!
+        Region.drop_translation_table!
       end
     end
   end

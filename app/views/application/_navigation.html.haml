@@ -33,23 +33,23 @@
                     %span.header User Profile
                     %ul
                       %li
-                        = link_to t('admin.menu.manage_profile'), manage_user_profile_path(edit: true)
+                        = link_to t('admin.menu.manage_profile'), manage_user_profile_path(page: 'manage-profile')
                       %li
-                        = link_to t('admin.menu.favorite_places'), manage_user_profile_path(type: 'favorite-places')
+                        = link_to t('admin.menu.favorite_places'), manage_user_profile_path(page: 'favorite-places')
                       %li
-                        = link_to t('admin.menu.rated_places'), manage_user_profile_path(type: 'rated-places')
+                        = link_to t('admin.menu.rated_places'), manage_user_profile_path(page: 'rated-places')
                       %li
-                        = link_to t('admin.menu.uploaded_photos'), manage_user_profile_path(type: 'uploaded-photos')
+                        = link_to t('admin.menu.uploaded_photos'), manage_user_profile_path(page: 'uploaded-photos')
                   - if current_user.provider?
                     %li.sans
                       %span.header Provider Profile
                       %ul
                         %li
-                          = link_to t('admin.menu.manage_provider'), manage_provider_profile_path(type: 'manage-provider')
+                          = link_to t('admin.menu.manage_provider'), manage_provider_profile_path(page: 'manage-provider')
                         %li
-                          = link_to t('admin.menu.manage_places'), manage_provider_profile_path(type: 'manage-places')
+                          = link_to t('admin.menu.manage_places'), manage_provider_profile_path(page: 'manage-places')
                         %li
-                          = link_to t('admin.menu.moderate_photos'), manage_provider_profile_path(type: 'moderate-photos')
+                          = link_to t('admin.menu.moderate_photos'), manage_provider_profile_path(page: 'moderate-photos')
                   - if current_user.admin?
                     %li.sans
                       %span.header Admin Profile
