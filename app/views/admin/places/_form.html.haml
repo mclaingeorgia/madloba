@@ -1,5 +1,4 @@
 - translate_path = 'admin.place.'
-
 = form_for obj, html: { role: 'form', class: 'fields' } do |f|
   .column-view
     .column
@@ -8,7 +7,7 @@
         .fields-checkbox-list.services
           %label #{t('admin.place.services')}
           .fields
-            = f.collection_check_boxes :service_ids, Service.all, :id, :name do |b|
+            = f.collection_check_boxes(:service_ids, Service.all, :id, :name) do |b|
               .field
                 = b.check_box
                 = b.label do

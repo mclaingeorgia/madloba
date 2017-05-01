@@ -97,12 +97,12 @@ page_contents = [
     }
   }
 ]
-page_contents.each {|page_content|
-  puts "#{page_content[:name]}"
-  p = PageContent.create(name: page_content[:name])
+page_contents.each {|item|
+  puts "#{item[:name]}"
+  d = PageContent.create(name: item[:name])
   I18n.available_locales.each { |locale|
     Globalize.with_locale(locale) do
-      p.update_attributes(:title => page_content[:title][locale], :content => page_content[:content][locale])
+      d.update_attributes(:title => item[:title][locale], :content => item[:content][locale])
     end
   }
 
@@ -127,11 +127,11 @@ services = [
   { icon: 'social', name: { en: "Sight, Speech and Hearing", ka: "მხედველობა, მეტყველება და სმენა" }, description: { en: "Services with specific resources, specialized in supporting, training and/or providing medical care for individuals with sight, speech and hearing impairments.", ka: "სპეციალური სერვისები, რომელიც უზრუნველყოფს ტრენინგებსა და სამედიცინო დახმარებას იმ პირებისათვის, ვისაც აქვს მხედველობის, მეტყველების და სმენის პრობლემები." } }
 ]
 
-services.each {|service|
-  p = Service.create(icon: service[:icon])
+services.each {|item|
+  d = Service.create(icon: item[:icon])
   I18n.available_locales.each { |locale|
     Globalize.with_locale(locale) do
-      p.update_attributes(:name => service[:name][locale], :description => service[:description][locale])
+      d.update_attributes(:name => item[:name][locale], :description => item[:description][locale])
     end
   }
 }
@@ -151,29 +151,45 @@ regions = [
   { name: { en: "Tbilisi", ka: "" }, center: { en: "Tbilisi", ka: "" } }
 ]
 
-regions.each {|region|
-  p = Region.create()
+regions.each {|item|
+  d = Region.create()
   I18n.available_locales.each { |locale|
     Globalize.with_locale(locale) do
-      p.update_attributes(:name => region[:name][locale], :center => region[:center][locale])
+      d.update_attributes(:name => item[:name][locale], :center => item[:center][locale])
     end
   }
 }
 
+tags = [
+  { name: { en: "Physical Rehabilitation", ka: "Physical Rehabilitation" } },
+  { name: { en: "Blind guide", ka: "Blind guide" } },
+  { name: { en: "Massage therapy", ka: "Massage therapy" } },
+  { name: { en: "Physical assessment", ka: "Physical assessment" } },
+  { name: { en: "Psychological assessment", ka: "Psychological assessment" } },
+  { name: { en: "Small grants", ka: "Small grants" } }
+]
 
-Region.create({ name: 'Tbilisi' })
-Region.create({ name: 'Kaheti' })
+tags.each {|item|
+  d = Tag.create()
+  I18n.available_locales.each { |locale|
+    Globalize.with_locale(locale) do
+      d.update_attributes(:name => item[:name][locale])
+    end
+  }
+}
+
+descr = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
 me = User.where(email: 'antarya@gmail.com').first
-p1 = Provider.create({ name: 'Provider 1', description: 'Description 1' })
-p1.places << Place.create(name: 'PL1', description: 'DS1', address: 'a', city: 'c', phone: '1234', website: 'www.blah.ge', region_id: 1, latitude: 1, longitude: 1, rating: 3)
-p1.places << Place.create(name: 'PL2', description: 'DS2', address: 'a2', city: 'c2', phone: '12345', website: 'www.blah1.ge', region_id: 1, latitude: 1, longitude: 1, rating: 2)
+p1 = Provider.create({ name: 'Provider 1', description: descr })
+p1.places << Place.create(name: 'Place 1', description: descr, address: 'Rustaveli Avenue 13a', city: 'Tbilisi', phone: '558798789', website: 'www.place1.ge', region_id: 1, latitude: 41.65957525538758, longitude: 44.86507415771485, rating: 3, service_ids: [2,3], tag_ids: [1,2,3])
+p1.places << Place.create(name: 'Place 2', description: descr, address: 'Rustaveli Avenue 14a', city: 'Tbilisi', phone: '558798789', website: 'www.place2.ge', region_id: 2, latitude: 41.748775021355044, longitude: 44.93785858154297, rating: 2, service_ids: [1,3], tag_ids: [2,3,4])
 me.providers << p1
 
 
 p1 = Provider.create({ name: 'Provider 2', description: 'Description 2' })
-p1.places << Place.create(name: 'PL21', description: 'DS1', address: 'a', city: 'c', phone: '1234', website: 'www.blah.ge', region_id: 2, latitude: 1, longitude: 1, rating: 3)
-p1.places << Place.create(name: 'PL22', description: 'DS2', address: 'a2', city: 'c2', phone: '12345', website: 'www.blah1.ge', region_id: 2, latitude: 1, longitude: 1, rating: 2)
+p1.places << Place.create(name: 'Place 3', description: descr, address: 'Rustaveli Avenue 1', city: 'Tbilisi', phone: '558798789', website: 'www.place2.ge', region_id: 3, latitude: 41.66752623198858, longitude: 41.66752623198858, rating: 3, service_ids: [2,5], tag_ids: [2,3])
+p1.places << Place.create(name: 'Place 4', description: descr, address: 'Rustaveli Avenue 81', city: 'Tbilisi', phone: '558798789', website: 'www.place3.ge', region_id: 4, latitude: 41.6993844050109, longitude: 44.75379467010498, rating: 2, service_ids: [1,4], tag_ids: [3])
 me.providers << p1
 
 # Provider.create(

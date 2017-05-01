@@ -10,14 +10,14 @@ Madloba::Application.routes.draw do
     #   get 'login', to: 'devise/sessions#new'
     # end
 
-    devise_for :users, path: ''#, path_names: { sign_in: 'login'}
+    devise_for :users, path: '', controllers: { sessions: 'users/sessions' } #, path_names: { sign_in: 'login'}
     # get 'home/index'
     get 'about', to: 'root#about'
     get 'faq', to: 'root#faq'
     get 'contact', to: 'root#contact'
     get 'privacy_policy', to: 'root#privacy_policy'
     get 'terms_of_use', to: 'root#terms_of_use'
-
+    get 'place/:id', to: 'root#place', as: 'place'
 
     # post 'search', to: 'home#render_search_results'
     # get 'results', to: 'home#results'

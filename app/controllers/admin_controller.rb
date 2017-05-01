@@ -30,6 +30,7 @@ class AdminController < ApplicationController
     @is_admin = true
     @is_admin_profile_page = true
     @class = 'admin_profile'
+    gon.default_point = [41.74288345375358, 44.74130630493165]
   end
 
   def index

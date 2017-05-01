@@ -2,6 +2,7 @@ class CreateSheagheSchema < ActiveRecord::Migration
   def change
 
     create_table :tags do |t|
+      t.boolean :permit, null: false, default: false
       t.timestamps
     end
 
@@ -64,6 +65,11 @@ class CreateSheagheSchema < ActiveRecord::Migration
       t.index [:place_id, :service_id]
     end
 
+    create_join_table :place, :tags, :table_name => :place_tags do |t|
+      t.timestamps
+      t.index [:place_id, :tag_id]
+    end
+
     create_join_table :user, :place, :table_name => :rates do |t|
       t.timestamps
       t.integer :value
@@ -84,6 +90,7 @@ class CreateSheagheSchema < ActiveRecord::Migration
         Service.create_translation_table! :name => :string, :description => :text
         PageContent.create_translation_table! :title => :string, :content => :text
         Region.create_translation_table! :name => :string, :center => :string
+        Tag.create_translation_table! :name => :string
       end
 
       dir.down do
@@ -92,6 +99,7 @@ class CreateSheagheSchema < ActiveRecord::Migration
         Service.drop_translation_table!
         PageContent.drop_translation_table!
         Region.drop_translation_table!
+        Tag.drop_translation_table!
       end
     end
   end

@@ -6,7 +6,7 @@
           - if path.is_a? Array
             = link_to path[0], path[1]
           - else
-            %span path
-          - if path_i != paths.length
+            %span #{path}
+          - if path_i != paths.length - 1
             %li
               %span.slash /

@@ -69,6 +69,7 @@ en:
     edit_object: "Edit %{obj}"
     delete: Delete
     confirm_delete: "Provider will be removed with all places bind to it."
+    or: or
     manage_provider:
       index: Manage Providers
       edit: Edit Provider
@@ -136,6 +137,15 @@ en:
       postal_code: "Postal Code:"
       region: "Region:"
       locate_me: "Locate me on map"
+    user:
+      email: Email
+      password_field: Password
+      sign_in: Sign In
+      sign_up: Create an account
+      remember_me: Remember Me
+      forgot: Forgot password?
+      sign_up_prompt: " if you don't have yet."
+      reset_password: Reset Password
   application:
     dialog:
       partners: PARTNERS

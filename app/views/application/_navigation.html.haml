@@ -19,14 +19,15 @@
           .guest
             = link_to t('.sign_up'), new_user_registration_path, class: 'sign-up'
             .slash /
-            = link_to t('.sign_in'), new_user_session_path, class: 'sign-in'
+            = link_to t('.sign_in'), new_user_session_path, class: 'sign-in', 'data-reattach': 'sign_in'
+            .form-placeholder
         - else
           .user
             = link_to '#', class: 'nav-user-menu-link' do
               = image_tag("/assets/svg/user.svg", alt: t('.logo_alt'), title: t('.logo_alt'), class: 'user-icon')
               .user-name #{current_user.name}
               .caret
-            .user-menu
+            .user-menu{ 'data-set-max-height': true }
               - if current_user.user?
                 %ul.first
                   %li.sans

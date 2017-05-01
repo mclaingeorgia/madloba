@@ -48,14 +48,14 @@ class Admin::PlacesController < AdminController
     respond_to do |format|
       if @item.update_attributes(pars)
         format.html do
-          redirect_to manage_provider_profile_path(page: 'manage-provider'), flash: {
+          redirect_to manage_provider_profile_path(page: 'manage-places'), flash: {
             success:  t('app.messages.success_updated',
                         obj: @model)
           }
         end
       else
         format.html do
-          redirect_to manage_provider_profile_path(page: 'manage-provider', id: @item.id), flash: {
+          redirect_to manage_provider_profile_path(page: 'manage-places', id: @item.id), flash: {
             error:  t('app.messages.fail_updated',
                         obj: @model)
           }
@@ -70,7 +70,7 @@ class Admin::PlacesController < AdminController
 
     respond_to do |format|
       format.html do
-        redirect_to manage_provider_profile_path(page: 'manage-provider'), flash: {
+        redirect_to manage_provider_profile_path(page: 'manage-places'), flash: {
           success:  t('app.messages.success_destroyed',
                       obj: @model),
           notice: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim, officiis?',
@@ -88,7 +88,7 @@ class Admin::PlacesController < AdminController
 
   #   respond_to do |format|
   #     format.html do
-  #       redirect_to admin_provider_path(tab: 'manage-provider'), flash: {
+  #       redirect_to admin_provider_path(tab: 'manage-places'), flash: {
   #         success:  t('app.messages.success_destroyed',
   #                     obj: t('activerecord.models.provider.one')),
   #         notice: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim, officiis?',
@@ -102,6 +102,7 @@ class Admin::PlacesController < AdminController
   private
 
   def pars
-    params.require(:provider).permit(*Place.globalize_attribute_names)
+    permitted = Place.globalize_attribute_names + [:phone, :website, :postal_code, :region_id, :latitude, :longitude, service_ids: []]
+    params.require(:place).permit(*permitted)
   end
 end

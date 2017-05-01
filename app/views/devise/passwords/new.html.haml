@@ -1,15 +1,28 @@
-.container.devise-section
-  .row
-    .col-lg-6
-      = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, :class => 'form-horizontal' }) do |f|
-        %fieldset
-          %legend= t('session.forgot')
-          = devise_error_messages!
-          .form-group
-            = f.label :email, class: 'col-lg-2 control-label'
-            .col-lg-10
-              = f.email_field :email, class: 'form-control', autofocus: true
-          .form-group
-            .col-lg-10.col-lg-offset-2
-              = f.submit t('session.reset_password'), class: 'btn btn-primary'
-  = render 'shared/links'
+- translate_path = 'admin.user.'
+.nav-sign-in-form
+  = form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :post, role: 'form', class: 'fields' } do |f|
+    = devise_error_messages!
+    .header Enter your email address and we will send you a link to reset your password.
+    = render_form_field(:email_field, f, :email, translate_path, { autofocus: true }, { class: 'email' })
+    .actions
+      .action-group
+        = submit_tag(t("#{translate_path}.reset_password"), { :type => "submit" })
+        = submit_tag(t('admin.cancel'), { :type => "reset" })
+
+-#
+  .container.devise-section
+    .row
+      .col-lg-6
+        = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, :class => 'form-horizontal' }) do |f|
+          %fieldset
+            %legend= t('session.forgot')
+            = devise_error_messages!
+            .form-group
+              = f.label :email, class: 'col-lg-2 control-label'
+              .col-lg-10
+                = f.email_field :email, class: 'form-control', autofocus: true
+            .form-group
+              .col-lg-10.col-lg-offset-2
+                = f.submit t('session.reset_password'), class: 'btn btn-primary'
+    = render 'shared/links'
+

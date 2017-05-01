@@ -88,6 +88,8 @@ gem 'will_paginate', '~> 3.1.0'
 # jQuery DataTables plugin - provides all the basic DataTables files, and a few of the extras.
 gem 'jquery-datatables-rails', '~> 3.4.0'
 
+gem 'active_model_serializers'
+
 group :development, :test do
 
   # Mailcatcher

@@ -39,16 +39,25 @@ $(document).ready(function(){
   });
 
   if($('#locator_map').length) {
+
+    let center_point = gon.default_point
+    const lat = $("input[name$='[latitude]'")
+    const lon = $("input[name$='[longitude]'")
+
+    if (lat.length && lon.length) {
+      center_point = [lat.first().val(), lon.first().val()]
+    }
+
     let locator_map = L.map('locator_map', {
       zoomControl: false
-    }).setView([41.70978, 44.76133], 13);
+    }).setView(center_point, 13);
 
     L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '<a href="http://osm.org/copyright">OpenStreetMap</a>'
     }).addTo(locator_map);
 
 
-    let locator_marker = L.marker([41.70995, 44.76134], {icon:
+    let locator_marker = L.marker(center_point, {icon:
       L.icon({
         iconUrl: '/assets/svg/pin.svg',
         iconSize: [28, 36],

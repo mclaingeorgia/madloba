@@ -1,0 +1,90 @@
+= content_for :custom_stylesheet, 'place'
+= content_for :custom_javascript, 'place'
+
+%article.content
+  %section.summary-wrapper
+    .summary
+      .name
+        = item.name
+      .provider-name
+        %span #{"by "}
+        = item.provider.name
+      %ul.services
+        = item.services.map { |s| "<li><span class='icon #{s.icon}'></span>#{s.name}</li>" }.join("").html_safe
+      %ul.contact
+        %li
+          %span.icon.address
+          = item.address
+        %li
+          %span.icon.phone
+          = item.phone
+        %li
+          %span.icon.website
+          = item.website
+    .place-map.map-container
+      .corner
+        %img{src: "/assets/svg/corner2.svg"}
+      .rating
+        %span.icon.heart
+        %span.value=item.rating
+        %span /5
+      #place_map_container{ 'data-latitude': item.latitude, 'data-longitude': item.longitude }
+      .map_zoom
+        #map_zoom_in.in +
+        .hr
+        #map_zoom_out.out −
+  %section.details-wrapper
+    %section.details
+      %section.action-bar
+        %a.favoritize{ href: 'favoritize' , 'data-trigger': user_signed_in? ? nil : 'sign_in', remote: user_signed_in? ? true : nil }
+          =t('add_to_favorite')
+        %a.rating
+          =t('rating')
+          .value
+            =item.rating
+            %span /5
+        %a.rate
+          =t('rate')
+          .rator{"data-r": 3}
+            .heart{"data-r": 1}
+              %i
+              .heart{"data-r": 2}
+                %i
+                .heart{"data-r": 3}
+                  %i
+                  .heart{"data-r": 4}
+                    %i
+                    .heart{"data-r": 5}
+                      %i
+            .close
+        %a.report
+          =t('report')
+        %a.take-ownership
+          =t('take_ownership')
+        .share
+          =t('share')
+          %a.facebook
+          %a.twitter
+      %section.info
+        .description
+          = item.description
+        .tags
+          %span =t('service_tags')
+          = item.tags.map { |s| "<a>#{s.name}</a>" }.join(", ").html_safe
+        .hr
+        .photos
+          photos
+        .contact
+          =t('contact_service_provider')
+          Contact Service Provider
+        .hr
+        .comment
+          Comments
+    %section.photos
+      .upload
+        %img{src: '/assets/svg/upload.svg'}
+        Upload your image
+      .picture
+      .picture
+      .picture
+= render partial: "shared/footer", locals: { with_links: true }

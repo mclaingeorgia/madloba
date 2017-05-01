@@ -1,4 +1,6 @@
 %section.content
-  content
+  - Place.all.each do |p|
+    = link_to p.name, place_path(p.id)
 %section.map
   map
+

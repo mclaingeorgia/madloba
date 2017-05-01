@@ -1,21 +1,30 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception
 
-  before_action :check_if_setup
-  before_action :allow_iframe_requests
+
+  protect_from_forgery
+
+  PER_PAGE_COUNT = 6
+
+  DEVISE_CONTROLLERS = ['users/sessions', 'users/registrations', 'users/passwords']
+
+
+  before_filter :store_location
+
+  # before_action :check_if_setup
+  # before_action :allow_iframe_requests
   before_action :set_locale
-  before_action :load_javascript_text
+  # before_action :load_javascript_text
   # before_action :set_gon
-  before_action :check_if_user_has_tos
+  # before_action :check_if_user_has_tos
   before_action :prepare_about_content
 
   include ApplicationHelper
-  include Pundit
-  include SimpleCaptcha::ControllerHelpers
+  # include Pundit
+  # include SimpleCaptcha::ControllerHelpers
 
-  helper :'user/location_form'
+  # helper :'user/location_form'
+
+  layout :layout_by_resource
 
   unless Rails.application.config.consider_all_requests_local
     rescue_from Exception,
@@ -31,6 +40,11 @@ class ApplicationController < ActionController::Base
     rescue_from Pundit::NotAuthorizedError,
                 with: :user_not_authorized
   end
+
+  # tell active-model-serializers gem to not include root name in json output
+  # def default_serializer_options
+  #   { root: false }
+  # end
 
   def prepare_about_content
     @about_page = PageContent.by_name('about')
@@ -104,23 +118,23 @@ class ApplicationController < ActionController::Base
   end
 
   # Redirects after signing in.
-  def after_sign_in_path_for(resource)
-    sign_in_url = new_user_session_url
-    if request.referer == sign_in_url
-      super
-    else
-      if stored_location_for(resource)
-        stored_location_for(resource)
-      elsif user_signed_in?
-        user_index_path
-      end
-    end
-  end
+  # def after_sign_in_path_for(resource)
+  #   sign_in_url = new_user_session_url
+  #   if request.referer == sign_in_url
+  #     super
+  #   else
+  #     if stored_location_for(resource)
+  #       stored_location_for(resource)
+  #     elsif user_signed_in?
+  #       user_index_path
+  #     end
+  #   end
+  # end
 
   # Redirect after signing out.
-  def after_sign_out_path_for(resource)
-    return '/'
-  end
+  # def after_sign_out_path_for(resource)
+  #   return '/'
+  # end
 
   # Method used by the Ajax call, when onclick on the home page "Search" button, when
   # the location field is not empty
@@ -230,6 +244,61 @@ class ApplicationController < ActionController::Base
   def user_not_authorized
     flash[:error] = t('config.not_authorized')
     redirect_to(request.referrer || root_path || user_path)
+  end
+
+  def layout_by_resource
+    if !DEVISE_CONTROLLERS.index(params[:controller]).nil? && request.xhr?
+      false
+    else
+      'application'
+    end
+  end
+
+
+  def after_sign_in_path_for(resource)
+     Rails.logger.debug("--------------------------------------------after_sign_in_path_for")
+    stored_location_for(resource) ||
+    if resource.is_a?(User) && !resource.valid?
+      settings_path(resource)
+    else
+      session[:previous_urls].last || root_path(:locale => I18n.locale)
+    end
+  end
+
+  def store_location
+    session[:previous_urls] ||= []
+
+    # if session[:download_url].present? && !user_signed_in? && !params[:d].present? &&
+    #  !(params[:controller] == 'users/registrations' && params[:action] == 'create' ) &&
+    #  !(params[:controller] == 'omniauth_callbacks' && params[:action] == 'facebook') &&
+    #   !(params[:controller] == 'settigns' && params[:action] == 'refill')
+    #   session[:download_url] = nil
+    #      # Rails.logger.info "--------------------------- remove"
+    # end
+
+    # if params[:action] == 'download_request' && request.xhr? && (!user_signed_in? || !current_user.valid?)
+    #   session[:download_url] = request.fullpath
+    #   # Rails.logger.info "--------------------------- added"
+    # end
+
+    # if request.fullpath.index("/download/").nil?
+    #   if session[:previous_urls].first != request.fullpath &&
+    #       params[:format] != 'js' && params[:format] != 'json' && !request.xhr? &&
+    #       request.fullpath.index("/users/").nil? &&
+    #       request.fullpath.index("/embed/").nil?
+
+    #     session[:previous_urls].unshift request.fullpath
+    #   elsif session[:previous_urls].first != request.fullpath &&
+    #      request.xhr? && !request.fullpath.index("/users/").nil?  &&
+    #       !request.fullpath.index("/embed/").nil?&&
+    #      params[:return_url].present?
+
+    #     session[:previous_urls].unshift params[:return_url]
+    #   end
+    # end
+
+    session[:previous_urls].pop if session[:previous_urls].count > 1
+    #Rails.logger.debug "****************** prev urls session = #{session[:previous_urls]}"
   end
 
   protected

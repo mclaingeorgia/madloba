@@ -51,6 +51,25 @@
 //* require_tree .
 
 $(document).ready(function(){
+
+  $( window ).resize(function() {
+    resize()
+  });
+
+  function resize() {
+    $("[data-set-max-height]").css('max-height', $(window).height() - 75 )
+  }
+  resize()
+
+  let click_callbacks = []
+
+  $(document).on('click', function (event) {
+    const t = this
+    click_callbacks.forEach(function(f) {
+      f.call(event.toElement, event)
+    })
+  })
+
   const nav_toggle_button = $('nav .nav-toggle-button')
   function toggle_nav (forceState) {
     const target = $('#' + nav_toggle_button.attr('data-target'))
@@ -178,7 +197,8 @@ $(document).ready(function(){
       }
     }
 
-    $(document).on('click', function (event) {
+
+    click_callbacks.push(function(event) {
       const el = $(event.toElement)
       // console.log(el)
       if(dialog_state && (event.toElement.nodeName.toLowerCase() === 'dialog' ||
@@ -294,6 +314,88 @@ $(document).ready(function(){
   if(active_dialog_page.length === 1) {
     dialog_open(active_dialog_page.attr('data-dialog-link'))
   }
+
+  /* ------------------------------- popupable links -------------------------------*/
+    let user_popup_is_open = false
+
+    $(document).on("click", "[data-reattach]", function (e, post_url) {
+      console.log(post_url)
+      // navbarToggle();
+      const t = $(this)
+      //   data = {};
+      // if (downloading) {
+      //   data = { d: 1 };
+      // }
+      $.ajax({
+        url: t.attr("href"),
+        data: {
+          post: post_url
+        }
+      }).success(function (d) {
+        $(".form-placeholder").html(d)
+        // console.log(d)
+        user_popup_is_open = true
+        // modal(d);
+      }).error(function (e) {
+        // console.log("error")
+      });
+
+      e.preventDefault();
+      e.stopPropagation();
+    });
+
+    click_callbacks.push(function(event) {
+      if(user_popup_is_open) {
+        const t = $(this)
+        // console.log("here", this)
+        if (!t.closest(".form-placeholder").length) {
+          user_popup_is_open = false
+          $(".form-placeholder").html("")
+        }
+      }
+    })
+
+
+    $(document).on("click", "a[data-trigger]", function (event) {
+      const t = $(this)
+      const to_trigger = t.attr("data-trigger")
+      console.log($("[data-reattach='" + to_trigger + "']"))
+      $("[data-reattach='" + to_trigger + "']").trigger("click", t.attr('href'))
+      event.preventDefault()
+      event.stopPropagation()
+    })
+
+    $(document).on('ajax:success', 'form', function(e, data, status, xhr){
+      console.log('ajax:success', e, data, status, xhr)
+    });
+    $(document).on('ajax:error', 'form', function(e, data, status, xhr){
+      console.log('ajax:error', e, data, status, xhr)
+    });
+    // $("body").on("submit", ".nav-sign-in-form form", function (e) {
+    //   console.log("form submit")
+    //   var form = $(this);
+    //   // if(form.attr("data-form-id").length) {
+    //     $.ajax({
+    //       type: "POST",
+    //       url: form.attr("action"),
+    //       data: form.serialize(),
+    //       dataType: "json",
+    //       success: function (data) {
+    //          console.log("form back",data);
+    //         // if (data.url) {
+    //         //   js_modal_off();
+    //         //   window.location.href = data.url;
+    //         // } else {
+    //         //   window.location.reload();
+    //         // }
+    //       },
+    //       error: function (data) {
+    //         console.log("error", data)
+    //       }
+    //     })
+    //   // }
+    // })
+/* ------------------------------- popupable links end -------------------------------*/
 
 })
 

@@ -4,6 +4,11 @@ class Place < ActiveRecord::Base
 
   belongs_to :provider
 
+
+  has_one :provider_place
+  has_one :provider, through: :provider_place, source: :provider
+
+
   has_one :region
 
   has_many :user_places
@@ -14,6 +19,11 @@ class Place < ActiveRecord::Base
 
   has_many :assets
 
-  has_many :tags
+  has_many :place_tags
+  has_many :tags, through: :place_tags, source: :tag
 
+
+  def self.authorized_by_id(id)
+    all.find(id)
+  end
 end

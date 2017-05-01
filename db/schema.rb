@@ -212,6 +212,15 @@ ActiveRecord::Schema.define(version: 20170404095543) do
 
   add_index "place_services", ["place_id", "service_id"], name: "index_place_services_on_place_id_and_service_id", using: :btree
 
+  create_table "place_tags", id: false, force: :cascade do |t|
+    t.integer  "place_id",   null: false
+    t.integer  "tag_id",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "place_tags", ["place_id", "tag_id"], name: "index_place_tags_on_place_id_and_tag_id", using: :btree
+
   create_table "place_translations", force: :cascade do |t|
     t.integer  "place_id",    null: false
     t.string   "locale",      null: false
@@ -414,7 +423,19 @@ ActiveRecord::Schema.define(version: 20170404095543) do
 
   add_index "simple_captcha_data", ["key"], name: "idx_key", using: :btree
 
+  create_table "tag_translations", force: :cascade do |t|
+    t.integer  "tag_id",     null: false
+    t.string   "locale",     null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string   "name"
+  end
+
+  add_index "tag_translations", ["locale"], name: "index_tag_translations_on_locale", using: :btree
+  add_index "tag_translations", ["tag_id"], name: "index_tag_translations_on_tag_id", using: :btree
+
   create_table "tags", force: :cascade do |t|
+    t.boolean  "permit",     default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

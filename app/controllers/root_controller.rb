@@ -29,7 +29,24 @@ class RootController < ApplicationController
     @page_content = PageContent.by_name('terms_of_use')
   end
 
+  def place
+    id = params[:id]
+    item = Place.authorized_by_id(id)
+
+    if item.present?
+      locals({
+        item: item
+      })
+    else
+      redirect_to root_path, flash: { error:  t('app.messages.not_found', obj: Place) }
+    end
+  end
+
   private
+
+    def locals(values)
+      render locals: values
+    end
 
   # def set_page_content
   #   @about_page_content = PageContent.by_name('about')
