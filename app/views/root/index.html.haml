@@ -1,6 +1,72 @@
+= content_for :custom_stylesheet, 'root'
 %section.content
-  - Place.all.each do |p|
-    = link_to p.name, place_path(p.id)
+  .search
+    #what.filter-input
+      %label=t('.what')
+      %input{type: 'text', placeholder: 'Type Service Name or Description'}
+    .bar
+    #where.filter-input
+      %label=t('.where')
+      %input{type: 'text', placeholder: 'Type Region or City'}
+    %input{type: 'submit', value: 'Search'}
+  .filters
+    %ul
+      %li.prompt
+        %label=t('.filters')
+        = image_tag("/assets/svg/filter.svg", alt: t('.alt.filter'), title: t('.alt.filter'))
+      %li.by-service.filter-input.collapsed
+        .toggle
+          %label=t('.services')
+          .filter-caret
+        %ul.list
+          - filtered_services = filter[:services]
+          - filtered_services.each do |service_id|
+            - service = Service.find(service_id)
+            - if service.present?
+              %li.service{ 'data-id': service_id }
+                %i{ class: service.icon }
+                %span=service.name
+                .close
+        .input-group{'data-set-max-height': 'parent' }
+          %ul.services
+            - Service.all.each do |service|
+              %li.service{ class: (filtered_services.index(service.id).present? ? 'hidden' : nil), 'data-id': service.id }
+                %i{ class: service.icon }
+                %span=service.name
+          .button-group
+            %button.reset=t('.cancel')
+            %button.apply=t('.apply')
+      %li.by-rate
+        %label=t('.rate')
+        .rator{"data-r": 0}
+          .heart{"data-r": 1}
+            %i
+            .heart{"data-r": 2}
+              %i
+              .heart{"data-r": 3}
+                %i
+                .heart{"data-r": 4}
+                  %i
+                  .heart{"data-r": 5}
+                    %i
+          .close
+      %li.by-favorite
+        %label=t('.favorites')
+        .favoritor
+  .results
+    .map-view
+    .records
+      - ln = 6 #recods.length
+      = ln
+      %span= t('.result', count: ln)
+  .place-cards
+    - Place.all.in_groups_of(2).each do |place_group|
+      .row
+        - if place_group[0].present?
+          = render partial: 'shared/place', locals: { place: place_group[0] }
+          - if place_group[1].present?
+            = render partial: 'shared/place', locals: { place: place_group[1] }
+    = render partial: "shared/footer", locals: { with_links: true }
 %section.map
   map
 

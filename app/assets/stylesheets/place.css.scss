@@ -26,45 +26,7 @@
 
           }
         }
-        .services {
-          padding-bottom: 22px;
-          flex-grow: 1;
-          li {
-            font: 18px/18px 'sourcesans_pro';
-            padding:0 16px 12px 0;
-            display: inline-block;
-            span.icon {
-              display: inline-block;
-              width: 25px;
-              height: 19px;
-              margin: 0 8px 0 0;
-              vertical-align: top;
-              &.adult { background: transparent url('/assets/svg/services/adult.svg') no-repeat; }
-              &.children { background: transparent url('/assets/svg/services/children.svg') no-repeat; }
-              &.education { background: transparent url('/assets/svg/services/education.svg') no-repeat; }
-              &.health { background: transparent url('/assets/svg/services/health.svg') no-repeat; }
-              &.legal { background: transparent url('/assets/svg/services/legal.svg') no-repeat; }
-              &.other { background: transparent url('/assets/svg/services/other.svg') no-repeat; }
-              &.rehab { background: transparent url('/assets/svg/services/rehab.svg') no-repeat; }
-              &.social { background: transparent url('/assets/svg/services/social.svg') no-repeat; }
-            }
-          }
-        }
-        .contact {
-          font: 16px 'sourcesans_pro';
-          li {
-            padding-bottom: 2px;
-          }
-          span.icon {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            margin: 0 8px 0 0;
-            &.address { background: transparent url('/assets/svg/address.svg') no-repeat; }
-            &.phone { background: transparent url('/assets/svg/phone.svg') no-repeat; }
-            &.website { background: transparent url('/assets/svg/website.svg') no-repeat; }
-          }
-        }
+
       }
       .place-map {
         position: relative;
@@ -161,25 +123,7 @@
             }
           }
 
-          .rating {
-            .value {
-              display: inline-block;
-              font: 22px 'sourcesans_pro_b';
-              color: #f38d68;
-              &:before {
-                display: inline-block;
-                content: "";
-                width: 20px;
-                height: 17px;
-                background: transparent url(/assets/svg/heart.svg) no-repeat;
-                margin: 0 6px 0 4px;
-              }
-            }
-            span {
-              font: 16px 'sourcesans_pro';
-              color: #373f51;
-            }
-          }
+
           .rate {
             display: flex;
             flex-direction: row;

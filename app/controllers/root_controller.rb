@@ -3,6 +3,11 @@ class RootController < ApplicationController
   # before_action :set_page_content, only: [:index, :faq, :privacy_policy, :terms_of_use]
 
   def index
+    locals({
+      filter: {
+        services: [2, 5]
+      }
+    })
   end
 
   def about

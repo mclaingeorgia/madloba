@@ -56,8 +56,9 @@ en:
       js_alt: "Informing Communities with Data and Design"
       privacy_policy: Privacy Policy
       terms_of_use: Terms of Use
-      contact:
-
+      contact: -----
+      rate: Rate
+      missing: Missing
     messages:
       success_updated: "%{obj} was successfully updated."
       fail_updated: "%{obj} failed to update."
@@ -173,6 +174,18 @@ en:
       sign_in: Sign In
       log_out: Log Out
   root:
+    index:
+      what: What are you looking for
+      where: Where
+      filters: "Filters"
+      services: "Services:"
+      cancel: Cancel
+      apply: Apply
+      rate: "Rate:"
+      favorites: "Favorites:"
+      result:
+        one: "Result"
+        other: "Results"
     faq:
       title: FAQ
   home:

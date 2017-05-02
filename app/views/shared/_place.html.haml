@@ -1,0 +1,57 @@
+.place-card
+  .card-border
+    .card
+      .front
+        .poster
+          = link_to image_tag("/assets/png/missing.png", alt: t('app.common.missing'), title: t('app.common.missing'), class: 'image'), place_path(place.id)
+          - if true # place.favorized
+            =link_to "", root_path, remote: true, class: 'favorite', 'data-favoritize': true
+          %a.rating
+            .value
+              =place.rating
+              %span /5
+        .info
+          = link_to place.name, place_path(place.id), class: 'name'
+          .provider
+            %span #{"by "}
+            = link_to place.provider.name, root_path, 'data-filter': "provider=#{place.provider.id}"
+          - ss = place.services
+          - if ss.length >= 1
+            - s = ss.first
+            .first-service.service
+              %i{ class: s.icon }
+              %strong=s.name
+              - if ss.length > 1
+                .ellipsis
+          %ul.contact
+            %li
+              %span.icon.address
+              = place.address
+            %li
+              %span.icon.phone
+              = place.phone
+      - if place.services.length > 1
+        .back.hidden
+          .close
+          %ul.services
+            = place.services.map { |s| "<li class='service'><i class='#{s.icon}'></i><span>#{s.name}</span></li>" }.join("").html_safe
+            = place.services.map { |s| "<li class='service'><i class='#{s.icon}'></i><span>#{s.name}</span></li>" }.join("").html_safe
+            = place.services.map { |s| "<li class='service'><i class='#{s.icon}'></i><span>#{s.name}</span></li>" }.join("").html_safe
+            = place.services.map { |s| "<li class='service'><i class='#{s.icon}'></i><span>#{s.name}</span></li>" }.join("").html_safe
+            = place.services.map { |s| "<li class='service'><i class='#{s.icon}'></i><span>#{s.name}</span></li>" }.join("").html_safe
+            = place.services.map { |s| "<li class='service'><i class='#{s.icon}'></i><span>#{s.name}</span></li>" }.join("").html_safe
+  - if false
+    .rate
+      %label=t('app.common.rate')
+      .rator{"data-r": 3}
+        .heart{"data-r": 1}
+          %i
+          .heart{"data-r": 2}
+            %i
+            .heart{"data-r": 3}
+              %i
+              .heart{"data-r": 4}
+                %i
+                .heart{"data-r": 5}
+                  %i
+        .close

@@ -57,7 +57,19 @@ $(document).ready(function(){
   });
 
   function resize() {
-    $("[data-set-max-height]").css('max-height', $(window).height() - 75 )
+    $('[data-set-max-height]').each(function() {
+      const t = $(this)
+      const v = t.attr('data-set-max-height')
+      if(v === 'parent') {
+        const height = t.parent().outerHeight() + t.parent().position().top + 1
+        console.log(t.parent().outerHeight(),t.parent().position().top , $(window).height(), height)
+        t.css('max-height', $(window).height() - height )
+      }
+      else {
+        t.css('max-height', $(window).height() - 75 )
+      }
+
+    })
   }
   resize()
 
@@ -396,6 +408,52 @@ $(document).ready(function(){
     //   // }
     // })
 /* ------------------------------- popupable links end -------------------------------*/
+
+
+  $('.place-card .ellipsis').on('click mouseenter', function () {
+    const t = $(this).closest('.card-border')
+    t.find('.front').addClass('invisible')
+    t.find('.back').removeClass('hidden')
+  })
+
+  $('.card-border').on('mouseleave', function () {
+    const t = $(this)
+    t.find('.front').removeClass('invisible')
+    t.find('.back').addClass('hidden')
+  })
+  $('.card-border .close').on('click', function () {
+    const t = $(this).closest('.card-border')
+    t.find('.front').removeClass('invisible')
+    t.find('.back').addClass('hidden')
+  })
+
+
+
+
+  $('.filter-input .toggle').on('click', function () {
+    const t = $(this)
+    const p = t.closest('.filter-input')
+    p.toggleClass('collapsed')
+  })
+  $('.filter-input .list .service .close').on('click', function () {
+    const t = $(this)
+    const service = t.parent()
+    const service_id = service.attr('data-id')
+    service.remove();
+    const filter_input = p.closest('.filter-input')
+    filter_input.find(".input-group service[data-id='" + service_id + "']").removeClass('hidden')
+    // p.toggleClass('collapsed')
+  })
+  $('.filter-input .input-group .service').on('click', function () {
+    const service = $(this)
+    const service_id = service.attr('data-id')
+
+    const filter_input = service.closest('.filter-input')
+    filter_input.find('.list').append(service.clone().append('<div class="close"></div>'))
+    service.addClass('hidden')
+
+    // p.toggleClass('collapsed')
+  })
 
 })
 
