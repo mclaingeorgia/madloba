@@ -40,15 +40,15 @@ $(document).ready(function(){
 
   if($('#locator_map').length) {
 
-    let center_point = gon.default_point
-    const lat = $("input[name$='[latitude]'")
-    const lon = $("input[name$='[longitude]'")
+    var center_point = gon.default_point
+    var lat = $("input[name$='[latitude]'")
+    var lon = $("input[name$='[longitude]'")
 
     if (lat.length && lon.length) {
       center_point = [lat.first().val(), lon.first().val()]
     }
 
-    let locator_map = L.map('locator_map', {
+    var locator_map = L.map('locator_map', {
       zoomControl: false
     }).setView(center_point, 13);
 
@@ -57,7 +57,7 @@ $(document).ready(function(){
     }).addTo(locator_map);
 
 
-    let locator_marker = L.marker(center_point, {icon:
+    var locator_marker = L.marker(center_point, {icon:
       L.icon({
         iconUrl: '/assets/svg/pin.svg',
         iconSize: [28, 36],

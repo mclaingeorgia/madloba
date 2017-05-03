@@ -186,6 +186,8 @@ en:
       result:
         one: "Result"
         other: "Results"
+    place:
+      contact_service_provider: Contact Service Provider
     faq:
       title: FAQ
   home:

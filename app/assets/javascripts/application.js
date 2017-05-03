@@ -58,10 +58,10 @@ $(document).ready(function(){
 
   function resize() {
     $('[data-set-max-height]').each(function() {
-      const t = $(this)
-      const v = t.attr('data-set-max-height')
+      var t = $(this)
+      var v = t.attr('data-set-max-height')
       if(v === 'parent') {
-        const height = t.parent().outerHeight() + t.parent().position().top + 1
+        var height = t.parent().outerHeight() + t.parent().position().top + 1
         console.log(t.parent().outerHeight(),t.parent().position().top , $(window).height(), height)
         t.css('max-height', $(window).height() - height )
       }
@@ -73,24 +73,24 @@ $(document).ready(function(){
   }
   resize()
 
-  let click_callbacks = []
+  var click_callbacks = []
 
   $(document).on('click', function (event) {
-    const t = this
+    var t = this
     click_callbacks.forEach(function(f) {
       f.call(event.toElement, event)
     })
   })
 
-  const nav_toggle_button = $('nav .nav-toggle-button')
+  var nav_toggle_button = $('nav .nav-toggle-button')
   function toggle_nav (forceState) {
-    const target = $('#' + nav_toggle_button.attr('data-target'))
+    var target = $('#' + nav_toggle_button.attr('data-target'))
     if(typeof forceState !== 'undefined' && forceState === true) {
       nav_toggle_button.addClass('collapsed').attr('aria-expanded', false)
       target.removeClass('flex')
     }
     else {
-      const state = nav_toggle_button.attr('aria-expanded')
+      var state = nav_toggle_button.attr('aria-expanded')
       nav_toggle_button.toggleClass('collapsed').attr('aria-expanded', !state)
       target.toggleClass('flex')
       //dialog_close();
@@ -101,11 +101,11 @@ $(document).ready(function(){
   })
 
   // $('.tabs ul li a').on('click', function () {
-  //   const t = $(this)
-  //   const link = t.attr('data-link')
-  //   const tabs = t.closest('.tabs')
-  //   const targetAttr = tabs.attr('data-target')
-  //   const target = $('.tabs-content[data-target="' + targetAttr + '"]')
+  //   var t = $(this)
+  //   var link = t.attr('data-link')
+  //   var tabs = t.closest('.tabs')
+  //   var targetAttr = tabs.attr('data-target')
+  //   var target = $('.tabs-content[data-target="' + targetAttr + '"]')
   //   console.log(link,targetAttr, target)
 
 
@@ -120,11 +120,11 @@ $(document).ready(function(){
   // })
 
   $('.tabs a').on('click', function (event) {
-    const t = $(this)
-    const link = t.attr('data-link')
-    const tabs = t.closest('.tabs')
-    const targetAttr = tabs.attr('data-target')
-    const target = tabs.parent().find('.tabs-content[data-target="' + targetAttr + '"]')
+    var t = $(this)
+    var link = t.attr('data-link')
+    var tabs = t.closest('.tabs')
+    var targetAttr = tabs.attr('data-target')
+    var target = tabs.parent().find('.tabs-content[data-target="' + targetAttr + '"]')
     // console.log(link,targetAttr, target)
 
 
@@ -142,9 +142,9 @@ $(document).ready(function(){
     t.attr('aria-expanded', true)
 
     if (targetAttr === 'global' && history.pushState) {
-      let newurl =  t.attr('href');
-      let tmp = / \|.+/g.exec(document.title)
-      let title = ''
+      var newurl =  t.attr('href');
+      var tmp = / \|.+/g.exec(document.title)
+      var title = ''
       if (tmp.length) {
         title = t.text() + tmp[0]
       }
@@ -161,15 +161,15 @@ $(document).ready(function(){
   $('.flash').delay(10000).fadeOut(2000, function () { $(this).remove(); })
 
   /* ------------------------------- dialog -------------------------------*/
-    const dialog = $('dialog')
-    const dialog_callbacks = {
+    var dialog = $('dialog')
+    var dialog_callbacks = {
       contact: function () {
         window.contact_map = contact_map
         console.log("here")
         contact_map.invalidateSize()
       }
     }
-    let dialog_state = false
+    var dialog_state = false
 
     function dialog_close (partial) {
       if(!dialog_state) { return }
@@ -196,8 +196,8 @@ $(document).ready(function(){
       toggle_nav(true)
     }
     function dialog_menu_state(state, page) {
-      const nav_menu = $('nav .nav-menu')
-      const link = nav_menu.find('a[data-dialog-link="' + page + '"]')
+      var nav_menu = $('nav .nav-menu')
+      var link = nav_menu.find('a[data-dialog-link="' + page + '"]')
       nav_menu.find('a').removeClass('active')
 
       if(state) {
@@ -211,7 +211,7 @@ $(document).ready(function(){
 
 
     click_callbacks.push(function(event) {
-      const el = $(event.toElement)
+      var el = $(event.toElement)
       // console.log(el)
       if(dialog_state && (event.toElement.nodeName.toLowerCase() === 'dialog' ||
         (!el.hasClass('nav-toggle-button') &&
@@ -239,7 +239,7 @@ $(document).ready(function(){
 
 
     $(document).keydown(function(e) {
-      const code = e.keyCode || e.which;
+      var code = e.keyCode || e.which;
       if (code === 27) { dialog_close() }
     });
 
@@ -248,9 +248,9 @@ $(document).ready(function(){
       $('.toggleable-list > li > a').on('click', function (event, forceOpen) {
         if(typeof forceOpen === 'undefined') { forceOpen = false }
 
-        const t = $(this)
-        const name = t.attr("name")
-        const li = $(this).parent()
+        var t = $(this)
+        var name = t.attr("name")
+        var li = $(this).parent()
 
         // console.log("here", forceOpen, name)
         if(forceOpen) {
@@ -268,7 +268,7 @@ $(document).ready(function(){
 
 
       $("a[href^='#']").click(function(event) {
-        const t = $(this)
+        var t = $(this)
         // if(t.attr('href').replace('#','') !== t.attr('name')) {
           // console.log('.toggleable-list > li > a[name="' + $(this).attr('href').replace('#', '') + '"]')
         $('.toggleable-list > li > a[name="' + $(this).attr('href').replace('#', '') + '"]').trigger('click', true);
@@ -278,7 +278,7 @@ $(document).ready(function(){
       });
 
       if($('.toggleable-list').length && window.location.hash.length) {
-        const hash = window.location.hash.replace('#', '')
+        var hash = window.location.hash.replace('#', '')
         window.location.hash = ''
         $('.toggleable-list > li > a[name="' + hash + '"]').trigger('click', true);
       }
@@ -322,18 +322,18 @@ $(document).ready(function(){
 // })
 
   // on page load check if about or contact page if yes open dialog
-  const active_dialog_page = $('[data-dialog-link="about"].active, [data-dialog-link="contact"].active')
+  var active_dialog_page = $('[data-dialog-link="about"].active, [data-dialog-link="contact"].active')
   if(active_dialog_page.length === 1) {
     dialog_open(active_dialog_page.attr('data-dialog-link'))
   }
 
   /* ------------------------------- popupable links -------------------------------*/
-    let user_popup_is_open = false
+    var user_popup_is_open = false
 
     $(document).on("click", "[data-reattach]", function (e, post_url) {
       console.log(post_url)
       // navbarToggle();
-      const t = $(this)
+      var t = $(this)
       //   data = {};
       // if (downloading) {
       //   data = { d: 1 };
@@ -358,7 +358,7 @@ $(document).ready(function(){
 
     click_callbacks.push(function(event) {
       if(user_popup_is_open) {
-        const t = $(this)
+        var t = $(this)
         // console.log("here", this)
         if (!t.closest(".form-placeholder").length) {
           user_popup_is_open = false
@@ -369,8 +369,8 @@ $(document).ready(function(){
 
 
     $(document).on("click", "a[data-trigger]", function (event) {
-      const t = $(this)
-      const to_trigger = t.attr("data-trigger")
+      var t = $(this)
+      var to_trigger = t.attr("data-trigger")
       console.log($("[data-reattach='" + to_trigger + "']"))
       $("[data-reattach='" + to_trigger + "']").trigger("click", t.attr('href'))
       event.preventDefault()
@@ -411,18 +411,18 @@ $(document).ready(function(){
 
 
   $('.place-card .ellipsis').on('click mouseenter', function () {
-    const t = $(this).closest('.card-border')
+    var t = $(this).closest('.card-border')
     t.find('.front').addClass('invisible')
     t.find('.back').removeClass('hidden')
   })
 
   $('.card-border').on('mouseleave', function () {
-    const t = $(this)
+    var t = $(this)
     t.find('.front').removeClass('invisible')
     t.find('.back').addClass('hidden')
   })
   $('.card-border .close').on('click', function () {
-    const t = $(this).closest('.card-border')
+    var t = $(this).closest('.card-border')
     t.find('.front').removeClass('invisible')
     t.find('.back').addClass('hidden')
   })
@@ -431,24 +431,24 @@ $(document).ready(function(){
 
 
   $('.filter-input .toggle').on('click', function () {
-    const t = $(this)
-    const p = t.closest('.filter-input')
+    var t = $(this)
+    var p = t.closest('.filter-input')
     p.toggleClass('collapsed')
   })
   $('.filter-input .list .service .close').on('click', function () {
-    const t = $(this)
-    const service = t.parent()
-    const service_id = service.attr('data-id')
+    var t = $(this)
+    var service = t.parent()
+    var service_id = service.attr('data-id')
     service.remove();
-    const filter_input = p.closest('.filter-input')
+    var filter_input = p.closest('.filter-input')
     filter_input.find(".input-group service[data-id='" + service_id + "']").removeClass('hidden')
     // p.toggleClass('collapsed')
   })
   $('.filter-input .input-group .service').on('click', function () {
-    const service = $(this)
-    const service_id = service.attr('data-id')
+    var service = $(this)
+    var service_id = service.attr('data-id')
 
-    const filter_input = service.closest('.filter-input')
+    var filter_input = service.closest('.filter-input')
     filter_input.find('.list').append(service.clone().append('<div class="close"></div>'))
     service.addClass('hidden')
 
@@ -457,7 +457,7 @@ $(document).ready(function(){
 
 })
 
-let contact_map
+var contact_map
     var pin = L.icon({
         iconUrl: '/assets/svg/pin.svg',
         //iconRetinaUrl: 'my-icon@2x.png',

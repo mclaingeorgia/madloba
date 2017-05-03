@@ -15,6 +15,7 @@
         %label=t('.filters')
         = image_tag("/assets/svg/filter.svg", alt: t('.alt.filter'), title: t('.alt.filter'))
       %li.by-service.filter-input.collapsed
+        .inner-left-border
         .toggle
           %label=t('.services')
           .filter-caret
@@ -36,6 +37,7 @@
           .button-group
             %button.reset=t('.cancel')
             %button.apply=t('.apply')
+        .inner-right-border
       %li.by-rate
         %label=t('.rate')
         .rator{"data-r": 0}

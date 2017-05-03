@@ -75,8 +75,24 @@
         .photos
           photos
         .contact
-          =t('contact_service_provider')
-          Contact Service Provider
+          .subheader=t('.contact_service_provider')
+          .group
+            .field
+              %label
+                =t('.your_name')
+                %span.required *
+              %input{type: 'text'}
+            .field
+              %label
+                =t('.your_email')
+                %span.required *
+              %input{type: 'text'}
+          .field
+            %label
+              =t('.your_message')
+              %span.required *
+            %textarea
+          %button Send
         .hr
         .comment
           Comments

@@ -1,11 +1,11 @@
 /* global $ */
 
 $(document).ready(function(){
-  const $mp = $('#place_map_container')
+  var $mp = $('#place_map_container')
   if($mp.length) {
-    const coordinate = [$mp.attr("data-latitude"), $mp.attr("data-longitude")]
+    var coordinate = [$mp.attr("data-latitude"), $mp.attr("data-longitude")]
 
-    const mp = L.map('place_map_container', {
+    var mp = L.map('place_map_container', {
       zoomControl: false
     }).setView(coordinate, 16);
 
@@ -22,7 +22,7 @@ $(document).ready(function(){
       })
     }).addTo(mp)
 
-    const map_container = $mp.parent()
+    var map_container = $mp.parent()
 
     map_container.find('#map_zoom_in').click(function(){
       mp.setZoom(mp.getZoom() + 1)
@@ -34,8 +34,8 @@ $(document).ready(function(){
   }
 
   $(".rator .heart").click(function(event) {
-    const $r = $(this)
-    const $rator = $r.closest('.rator')
+    var $r = $(this)
+    var $rator = $r.closest('.rator')
     r = $r.attr("data-r")
     console.log("Do something with r", r)
     $rator.attr('data-r', r)

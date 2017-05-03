@@ -81,9 +81,13 @@
         text-decoration: underline;
       }
       .provider {
-        font: 18px 'sourcesans_pro_sb';
-        color: #009b72;
+
         padding-bottom: 12px;
+        a {
+          font: 18px 'sourcesans_pro_sb';
+          color: #009b72;
+          text-decoration: underline;
+        }
         span {
           font: 12px 'sourcesans_pro';
           color: #373f51;

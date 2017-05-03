@@ -1186,8 +1186,10 @@ ul.services {
 }
 
 .service {
-  display: flex;
-  flex-direction: row;
+  display: inline-block;
+  white-space: nowrap;
+  // display: flex;
+  // flex-direction: row;
   padding:0 16px 12px 0;
   cursor: pointer;
   i {
