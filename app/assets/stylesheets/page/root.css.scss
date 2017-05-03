@@ -1,4 +1,18 @@
-@import 'place_card';
+@import 'component/place_card';
+
+/****************************** main ******************************/
+main
+    &.root {
+      .content {
+        width: 50%;
+        border-right: 1px solid #d8d8d8;
+        padding: 0 0 0 16px;
+      }
+      .map {
+        width: 50%;
+      }
+    }
+  }
 
 main {
   display: flex;
@@ -154,7 +168,7 @@ main {
               left: 0;
               width: 8px;
               height: 20px;
-              background: transparent url('/assets/svg/filter_arrow.svg') no-repeat left center;
+              background: transparent url(svg('filter_arrow')) no-repeat left center;
               background-position: -1px center;
             }
 
@@ -180,7 +194,7 @@ main {
             .filter-caret {
               width: 25px;
               height: 9px;
-              background: transparent url(/assets/svg/updownarrows.svg) no-repeat;
+              background: transparent url(svg('updownarrows')) no-repeat;
               background-position: -26px 0;
               margin: 0 auto;
             }

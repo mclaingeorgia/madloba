@@ -1,0 +1,39 @@
+ul.services {
+  flex-grow: 1;
+  overflow: hidden;
+  display: inline-block;
+}
+.service {
+  display: inline-block;
+  white-space: nowrap;
+  padding:0 16px 12px 0;
+  cursor: pointer;
+  i {
+    display: inline-block;
+    width: 25px;
+    height: 19px;
+    margin: 0 8px 0 0;
+    vertical-align: top;
+    &.adult { background: transparent url(svg('services/adult')) no-repeat; }
+    &.children { background: transparent url(svg('services/children')) no-repeat; }
+    &.education { background: transparent url(svg('services/education')) no-repeat; }
+    &.health { background: transparent url(svg('services/health')) no-repeat; }
+    &.legal { background: transparent url(svg('services/legal')) no-repeat; }
+    &.other { background: transparent url(svg('services/other')) no-repeat; }
+    &.rehab { background: transparent url(svg('services/rehab')) no-repeat; }
+    &.social { background: transparent url(svg('services/social')) no-repeat; }
+  }
+  span {
+    font: 18px/18px 'sourcesans_pro';
+    color: #373f51;
+    white-space: nowrap;
+    text-overflow: clip;
+  }
+  .close {
+    width: 18px;
+    height: 16px;
+    background: transparent url(svg('close')) no-repeat center;
+    cursor: pointer;
+  }
+}
+

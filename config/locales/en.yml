@@ -188,6 +188,10 @@ en:
         other: "Results"
     place:
       contact_service_provider: Contact Service Provider
+      your_name: Your Name
+      your_email: Your Email
+      your_message: Your Message
+      send: Send
     faq:
       title: FAQ
   home:

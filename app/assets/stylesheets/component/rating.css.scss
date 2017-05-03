@@ -1,0 +1,33 @@
+.rating {
+  background-color: #fff;
+  padding: 12px 8px 8px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  .value {
+    display: inline-block;
+    font: 24px/18px 'sourcesans_pro_b';
+    color: #f38d68;
+    &:before {
+      display: inline-block;
+      content: "";
+      width: 20px;
+      height: 17px;
+      background: transparent url(svg('heart')) no-repeat;
+      margin: 0 6px 0 4px;
+    }
+  }
+  span {
+    font: 16px 'sourcesans_pro';
+    color: #373f51;
+  }
+}
+
+.rate {
+  // display: flex;
+  // flex-direction: row;
+  // align-items: center;
+  label {
+    font: 18px 'sourcesans_pro_b';
+    color: #373f51;
+  }
+}

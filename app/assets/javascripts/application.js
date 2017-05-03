@@ -49,8 +49,16 @@
 //* require bootstrap-switch.min
 
 //* require_tree .
-
+  var submitInvisibleRecaptchaForm = function () {
+    console.log("here")
+    document.getElementById("invisible-recaptcha-form").submit();
+  };
 $(document).ready(function(){
+
+  var submitInvisibleRecaptchaForm = function () {
+    console.log("here")
+    document.getElementById("invisible-recaptcha-form").submit();
+  };
 
   $( window ).resize(function() {
     resize()

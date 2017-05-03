@@ -1,0 +1,27 @@
+.map-container {
+  .map_zoom {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border:1px solid #d8d8d8;
+    border-radius: 3px;
+    position: absolute;
+    top: 15px;
+    right: 16px;
+    text-align: center;
+    z-index: 9000;
+    .in, .out {
+      font: 18px/10px 'sourcesans_pro_b';
+      color: #444d5e;
+      cursor:pointer;
+      padding: 9px;
+    }
+    .hr {
+      display: block;
+      width: 18px;
+      height: 1px;
+      background-color: #d8d8d8;
+      margin: 0 auto;
+    }
+  }
+}

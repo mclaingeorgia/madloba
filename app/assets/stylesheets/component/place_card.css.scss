@@ -44,7 +44,7 @@
         position: absolute;
         top: 16px;
         right: 10px;
-        background: transparent url(/assets/svg/close.svg) no-repeat;
+        background: transparent url(svg('close')) no-repeat;
         width: 10px;
         height: 10px;
         cursor: pointer;
@@ -110,7 +110,7 @@
           margin-right: 13px;
           width: 30px;
           height: 10px;
-          background: transparent url('/assets/svg/ellipsis.svg') no-repeat center;
+          background: transparent url(svg('ellipsis')) no-repeat center;
           cursor: pointer;
           &:hover {
             cursor: pointer;

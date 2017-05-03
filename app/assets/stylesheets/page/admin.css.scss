@@ -88,14 +88,14 @@
           width: 25px;
           height: 19px;
           margin: 0 6px 0 8px;
-          &.adult { background: transparent url('/assets/svg/services/adult.svg') no-repeat; }
-          &.children { background: transparent url('/assets/svg/services/children.svg') no-repeat; }
-          &.education { background: transparent url('/assets/svg/services/education.svg') no-repeat; }
-          &.health { background: transparent url('/assets/svg/services/health.svg') no-repeat; }
-          &.legal { background: transparent url('/assets/svg/services/legal.svg') no-repeat; }
-          &.other { background: transparent url('/assets/svg/services/other.svg') no-repeat; }
-          &.rehab { background: transparent url('/assets/svg/services/rehab.svg') no-repeat; }
-          &.social { background: transparent url('/assets/svg/services/social.svg') no-repeat; }
+          &.adult { background: transparent url(svg('services/adult')) no-repeat; }
+          &.children { background: transparent url(svg('services/children')) no-repeat; }
+          &.education { background: transparent url(svg('services/education')) no-repeat; }
+          &.health { background: transparent url(svg('services/health')) no-repeat; }
+          &.legal { background: transparent url(svg('services/legal')) no-repeat; }
+          &.other { background: transparent url(svg('services/other')) no-repeat; }
+          &.rehab { background: transparent url(svg('services/rehab')) no-repeat; }
+          &.social { background: transparent url(svg('services/social')) no-repeat; }
         }
       }
       input {
@@ -509,7 +509,7 @@ a.btn {
           border: 1px solid #e2e2e2;
           border-radius: 3px;
           margin-right: 12px;
-          background:#fff url('/assets/svg/select_arrow.svg') no-repeat 36px;
+          background:#fff url(svg('select_arrow')) no-repeat 36px;
           -webkit-appearance: none;
           appearance: none;
         }

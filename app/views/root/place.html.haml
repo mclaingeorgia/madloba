@@ -1,4 +1,4 @@
-= content_for :custom_stylesheet, 'place'
+= content_for :custom_stylesheet, 'page/place'
 = content_for :custom_javascript, 'place'
 
 %article.content
@@ -76,23 +76,29 @@
           photos
         .contact
           .subheader=t('.contact_service_provider')
-          .group
-            .field
-              %label
-                =t('.your_name')
-                %span.required *
-              %input{type: 'text'}
-            .field
-              %label
-                =t('.your_email')
-                %span.required *
-              %input{type: 'text'}
-          .field
-            %label
-              =t('.your_message')
-              %span.required *
-            %textarea
-          %button Send
+          %form{action: send_message_path, method: :post, 'data-remote': true, id: 'invisible-recaptcha-form'}
+            = hidden_field_tag :authenticity_token, form_authenticity_token
+            .row
+              .column
+                .group
+                  .field
+                    %label
+                      =t('.your_name')
+                      %span.required *
+                    %input{type: 'text', name: 'message[sender]', id: 'message_sender'}
+                  .field
+                    %label
+                      =t('.your_email')
+                      %span.required *
+                    %input{type: 'email', name: 'message[email]', id: 'message_email'}
+              .column
+                .field
+                  %label
+                    =t('.your_message')
+                    %span.required *
+                  %textarea{rows: 10, name: 'message[text]', id: 'message_text'}
+              .column.bottom
+                = invisible_recaptcha_tags callback: 'submitInvisibleRecaptchaForm', text: t('.send'), badge: 'inline', hl: I18n.locale
         .hr
         .comment
           Comments

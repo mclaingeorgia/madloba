@@ -1,0 +1,10 @@
+.favoritor {
+  width: 26px;
+  height: 25px;
+  margin: 0 auto;
+  background: transparent url(svg('favorite')) no-repeat;
+  background-position: -27px 0;
+  &[data-favoritize=true], &:hover {
+    background-position: -54px 0;
+  }
+}

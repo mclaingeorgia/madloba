@@ -1,5 +1,5 @@
 class Admin::ProvidersController < AdminController
-  before_filter :authenticate_user!, except: [:show]
+  before_filter :authenticate_user!, except: [:show, :send_message]
   # before_action :authenticate_user!
   # authorize_resource
   before_filter { @model = Provider; }
@@ -56,6 +56,26 @@ class Admin::ProvidersController < AdminController
         }
       end
       # format.json { head :no_content }
+    end
+  end
+
+  def send_message
+    # @user = User.new(params[:user].permit(:name))
+    # if verify_recaptcha(model: @user) && @user.save
+    #   redirect_to @user
+    # else
+    #   render 'new'
+    # end
+     if verify_recaptcha
+      Rails.logger.debug("--------------------------------------------send_message valid")
+     else
+      Rails.logger.debug("--------------------------------------------send_message unvalid")
+     end
+    flash = { message: 'test message' }
+    respond_to do |format|
+      format.html do
+          redirect_to :back
+      end
     end
   end
   # flash message type test

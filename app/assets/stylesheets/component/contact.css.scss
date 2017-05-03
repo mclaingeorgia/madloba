@@ -1,0 +1,19 @@
+ul.contact {
+  font: 16px 'sourcesans_pro';
+  color: #373f51;
+  li {
+    padding-bottom: 2px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  span.icon {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin: 0 8px 0 0;
+    &.address { background: transparent url(svg('address')) no-repeat; }
+    &.phone { background: transparent url(svg('phone')) no-repeat; }
+    &.website { background: transparent url(svg('website')) no-repeat; }
+  }
+}
+
