@@ -75,10 +75,12 @@ class User::PostsController < ApplicationController
         UserMailer.created_ad(user_info, @post, full_admin_url).deliver
       else
         # Queueing email sending, when not on heroku.
-        UserMailer.delay.created_ad(user_info, @post, full_admin_url)
+        UserMailer.created_ad(user_info, @post, full_admin_url)
+        # UserMailer.delay.created_ad(user_info, @post, full_admin_url)
         super_admins = User.where(role: 2).pluck('email')
         # Sending email to super-admin to notify them that a new post has been posted.
-        UserMailer.delay.created_post_notify_super_admins(user_info, @post, super_admins)
+        UserMailer.created_post_notify_super_admins(user_info, @post, super_admins)
+        # UserMailer.delay.created_post_notify_super_admins(user_info, @post, super_admins)
       end
 
     else
@@ -108,7 +110,8 @@ class User::PostsController < ApplicationController
         # send emails to super-admins.
         user_info = {email: current_user.email, name: current_user.first_name, is_anon: false}
         super_admins = User.where(role: 2).pluck('email')
-        UserMailer.delay.updated_post_notify_super_admins(user_info, @post, super_admins)
+        UserMailer.updated_post_notify_super_admins(user_info, @post, super_admins)
+        # UserMailer.delay.updated_post_notify_super_admins(user_info, @post, super_admins)
       end
 
       redirect_to edit_user_service_path(@post.id)
@@ -182,7 +185,8 @@ class User::PostsController < ApplicationController
         if on_heroku?
           UserMailer.send_message_for_ad(sender_info, message, post_info).deliver
         else
-          UserMailer.delay.send_message_for_ad(sender_info, message, post_info)
+          UserMailer.send_message_for_ad(sender_info, message, post_info)
+          # UserMailer.delay.send_message_for_ad(sender_info, message, post_info)
         end
         flash[:success] = t('post.success_sent')
       else

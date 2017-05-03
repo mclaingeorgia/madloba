@@ -84,7 +84,8 @@ class Admin::UsersController < ApplicationController
         # if the user was promoted
         if (old_role == 'user' && @user.role != 'user') || (old_role == 'admin' && @user.role == 'super_admin')
           recipient_info = {email: @user.email, name: @user.first_name, role: @user.role}
-          UserMailer.delay.notify_user_is_admin(recipient_info)
+          UserMailer.notify_user_is_admin(recipient_info)
+          # UserMailer.delay.notify_user_is_admin(recipient_info)
         end
 
         redirect_to admin_profile_path

@@ -60,7 +60,7 @@ gem 'mini_magick'
 # For AWS cloud storage
 gem 'fog'
 # Delayed job
-gem 'delayed_job_active_record'
+# gem 'delayed_job_active_record'
 # Processes/Uploads image in the background
 gem 'carrierwave_backgrounder'
 # Daemons gem to activate Delayed job via Capistrano
@@ -96,7 +96,7 @@ group :development, :test do
   gem 'mailcatcher'
 
   # Capistrano
-  gem 'capistrano3-delayed-job', '~> 1.0'
+  # gem 'capistrano3-delayed-job', '~> 1.0'
   gem 'capistrano', '~> 3.4.0'
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rails', '~> 1.1.1'
