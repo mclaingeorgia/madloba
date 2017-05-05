@@ -7,6 +7,7 @@ require 'capistrano/deploy'
 require 'capistrano/bundler'
 require 'capistrano/rbenv'
 require 'capistrano/rails'
+require 'capistrano/unicorn_nginx'
 #require 'whenever/capistrano'
 
 # require 'capistrano/delayed_job'

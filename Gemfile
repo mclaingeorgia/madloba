@@ -101,6 +101,7 @@ group :development, :test do
   gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano-rails', '~> 1.1.1'
   gem 'capistrano-rbenv', '~> 2.0.3'
+  gem 'capistrano-unicorn-nginx', '~> 4.0'
 
   # RSpec
   gem 'rspec-rails', '~> 3.3.3'
@@ -132,8 +133,8 @@ group :doc do
 end
 
 # For Heroku deployments
-gem 'rails_12factor', group: :production
-gem 'unicorn'
+# gem 'rails_12factor', group: :production
+# gem 'unicorn'
 
 # Translation
 gem 'rails-i18n', '~> 4.0.0'
@@ -145,7 +146,7 @@ gem 'globalize-accessors'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
