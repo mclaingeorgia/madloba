@@ -113,17 +113,17 @@
             &.favoritize:after {
               width: 26px;
               height: 25px;
-              background: transparent url(svg('favorite.svg')) no-repeat;
+              background: transparent url(svg('favorite')) no-repeat;
             }
             &.report:after {
               width: 24px;
               height: 24px;
-              background: transparent url(svg('report.svg')) no-repeat;
+              background: transparent url(svg('report')) no-repeat;
             }
             &.take-ownership:after {
               width: 20px;
               height: 22px;
-              background: transparent url(svg('ownership.svg')) no-repeat;
+              background: transparent url(svg('ownership')) no-repeat;
             }
           }
 
@@ -133,7 +133,7 @@
               content: "";
               width: 26px;
               height: 26px;
-              background: transparent url(svg('facebook.svg')) no-repeat;
+              background: transparent url(svg('facebook')) no-repeat;
               vertical-align: top;
               margin: 0 0 0 4px;
             }
@@ -264,7 +264,7 @@
           margin-bottom: 20px;
           img {
             display: block;
-            margin: 0px auto;
+            margin: 0 auto;
             padding: 56px 0 32px;
           }
         }

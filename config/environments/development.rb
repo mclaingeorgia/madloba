@@ -51,4 +51,9 @@ Madloba::Application.configure do
   # Variable used to debug setup mode at runtime
   config.setup_debug_mode = false
 
+  config.after_initialize do
+    ActiveRecord::Base.logger = Rails.logger.clone
+    ActiveRecord::Base.logger.level = Logger::INFO
+  end
+
 end

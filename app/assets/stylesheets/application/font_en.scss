@@ -1,0 +1,69 @@
+/************************ language specific ***********************/
+
+  @font-face {
+     font-family: "ka";
+     src: url(font_path('fonts/ka/dejavusans_book.ttf')) format("truetype");
+     font-style: normal;
+     font-weight: 200;
+  }
+
+  @font-face {
+     font-family: "en";
+     src: url(font_path('fonts/en/myriad_pro.otf')) format("opentype");
+     font-style: normal;
+     font-weight: 200;
+  }
+
+/******************************* main *****************************/
+
+  @font-face {
+      font-family: "regular";
+      src: url(font_path('fonts/en/sourcesans_pro.otf')) format("opentype");
+      font-style: normal;
+      font-weight: 200;
+  }
+  @font-face {
+      font-family: "light";
+      src: url(font_path('fonts/en/sourcesans_pro_l.otf')) format("opentype");
+      font-style: normal;
+      font-weight: 200;
+  }
+  @font-face {
+      font-family: "italic";
+      src: url(font_path('fonts/en/sourcesans_pro_i.otf')) format("opentype");
+      font-style: normal;
+      font-weight: 200;
+  }
+  @font-face {
+      font-family: "lightitalic";
+      src: url(font_path('fonts/en/sourcesans_pro_li.otf')) format("opentype");
+      font-style: normal;
+      font-weight: 200;
+  }
+  @font-face {
+      font-family: "bold";
+      src: url(font_path('fonts/en/sourcesans_pro_b.otf')) format("opentype");
+      font-style: normal;
+      font-weight: 200;
+  }
+  @font-face {
+      font-family: "semibold";
+      src: url(font_path('fonts/en/sourcesans_pro_sb.otf')) format("opentype");
+      font-style: normal;
+      font-weight: 200;
+  }
+
+/************************ main upppercase ***********************/
+
+  @font-face {
+      font-family: "bold_uppercase";
+      src: url(font_path('fonts/en/sourcesans_pro_b.otf')) format("opentype");
+      font-style: normal;
+      font-weight: 200;
+  }
+  @font-face {
+      font-family: "regular_uppercase";
+      src: url(font_path('fonts/en/sourcesans_pro.otf')) format("opentype");
+      font-style: normal;
+      font-weight: 200;
+  }

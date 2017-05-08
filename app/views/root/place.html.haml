@@ -23,7 +23,7 @@
           = item.website
     .place-map.map-container
       .corner
-        %img{src: "/assets/svg/corner2.svg"}
+        %img{src: asset_path("svg/corner2.svg")}
       .rating
         %span.icon.heart
         %span.value=item.rating
@@ -37,14 +37,14 @@
     %section.details
       %section.action-bar
         %a.favoritize{ href: 'favoritize' , 'data-trigger': user_signed_in? ? nil : 'sign_in', remote: user_signed_in? ? true : nil }
-          =t('add_to_favorite')
+          =t('.add_to_favorite')
         %a.rating
-          =t('rating')
+          =t('.rating')
           .value
             =item.rating
             %span /5
         %a.rate
-          =t('rate')
+          =t('.rate')
           .rator{"data-r": 3}
             .heart{"data-r": 1}
               %i
@@ -58,18 +58,18 @@
                       %i
             .close
         %a.report
-          =t('report')
+          =t('.report')
         %a.take-ownership
-          =t('take_ownership')
+          =t('.take_ownership')
         .share
-          =t('share')
+          =t('.share')
           %a.facebook
           %a.twitter
       %section.info
         .description
           = item.description
         .tags
-          %span =t('service_tags')
+          %span= t('.service_tags')
           = item.tags.map { |s| "<a>#{s.name}</a>" }.join(", ").html_safe
         .hr
         .photos
@@ -104,7 +104,7 @@
           Comments
     %section.photos
       .upload
-        %img{src: '/assets/svg/upload.svg'}
+        %img{src: asset_path("svg/upload.svg") }
         Upload your image
       .picture
       .picture

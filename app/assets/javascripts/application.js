@@ -51,14 +51,10 @@
 //* require_tree .
   var submitInvisibleRecaptchaForm = function () {
     console.log("here")
-    document.getElementById("invisible-recaptcha-form").submit();
+    // document.getElementById("invisible-recaptcha-form").submit();
+    $("invisible-recaptcha-form").trigger('submit.rails');
   };
 $(document).ready(function(){
-
-  var submitInvisibleRecaptchaForm = function () {
-    console.log("here")
-    document.getElementById("invisible-recaptcha-form").submit();
-  };
 
   $( window ).resize(function() {
     resize()
@@ -467,7 +463,7 @@ $(document).ready(function(){
 
 var contact_map
     var pin = L.icon({
-        iconUrl: '/assets/svg/pin.svg',
+        iconUrl: gon.pin_path,
         //iconRetinaUrl: 'my-icon@2x.png',
         iconSize: [28, 36],
         // iconAnchor: [-14, -18],

@@ -1,22 +1,26 @@
+@import 'var';
 @import 'component/place_card';
+@import 'component/favoritor';
+@import 'component/rating';
+@import 'component/rator';
+@import 'component/service';
 
 /****************************** main ******************************/
-main
-    &.root {
-      .content {
-        width: 50%;
-        border-right: 1px solid #d8d8d8;
-        padding: 0 0 0 16px;
-      }
-      .map {
-        width: 50%;
-      }
-    }
-  }
 
 main {
   display: flex;
   flex-direction: row;
+  &.root {
+    .content {
+      width: 50%;
+      border-right: 1px solid #d8d8d8;
+      padding: 0 0 0 16px;
+    }
+    .map {
+      width: 50%;
+    }
+  }
+
   section.content {
     display: flex;
     flex-direction: column;

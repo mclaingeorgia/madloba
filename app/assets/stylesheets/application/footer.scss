@@ -1,6 +1,6 @@
 /****************************** footer ******************************/
   footer {
-    background-color: #f4f4f4;
+    background-color: $bg;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,7 +20,7 @@
       top: 3px;
     }
     span {
-      font: 14px 'sourcesans_pro';
+      @include font(14);
       color: #7a7a7a;
     }
     .footer-links {
@@ -29,8 +29,8 @@
       padding-right: 33px;
       text-align: right;
       a {
-        font: 14px 'sourcesans_pro';
-        color: #444d5e;
+        @include font(14);
+        @include color; // #444d5e
         margin-right: 20px;
         &:last-child {
           margin-right: 0;

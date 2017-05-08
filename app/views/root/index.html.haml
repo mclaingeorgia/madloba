@@ -1,4 +1,4 @@
-= content_for :custom_stylesheet, 'root'
+= content_for :custom_stylesheet, 'page/root'
 %section.content
   .search
     #what.filter-input
@@ -13,7 +13,7 @@
     %ul
       %li.prompt
         %label=t('.filters')
-        = image_tag("/assets/svg/filter.svg", alt: t('.alt.filter'), title: t('.alt.filter'))
+        = image_tag(asset_path("svg/filter.svg"), alt: t('.alt.filter'), title: t('.alt.filter'))
       %li.by-service.filter-input.collapsed
         .inner-left-border
         .toggle

@@ -66,17 +66,30 @@ class Admin::ProvidersController < AdminController
     # else
     #   render 'new'
     # end
-     if verify_recaptcha
-      Rails.logger.debug("--------------------------------------------send_message valid")
-     else
-      Rails.logger.debug("--------------------------------------------send_message unvalid")
-     end
-    flash = { message: 'test message' }
+    pars = params.permit(:authenticity_token, :locale, :'g-recaptcha-response', {:message => [:sender, :email, :text]})
+    message = pars[:message]
+    verification = verify_message(message)
+
+    # flash = { message: 'test message' }
     respond_to do |format|
       format.html do
           redirect_to :back
       end
     end
+  end
+
+  def verify_message(message)
+    errors = []
+    if verify_recaptcha
+      errors << { type: :error, text: t('.sender_missing') } if message[:sender].nil?
+      errors << { type: :error, text: t('.improper_email_') } if /\A[^@]+@[^@]+\z/.match(message[:email]).present?
+      errors << { type: :error, text: t('.text_missing') } if message[:text].nil?
+    else
+      errors << { type: :error, text: t('.skynet_detected') } if message[:sender].nil?
+    end
+
+    errors.present? ? errors : true
+
   end
   # flash message type test
   # def destroy

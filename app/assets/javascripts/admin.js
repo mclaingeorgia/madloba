@@ -59,7 +59,7 @@ $(document).ready(function(){
 
     var locator_marker = L.marker(center_point, {icon:
       L.icon({
-        iconUrl: '/assets/svg/pin.svg',
+        iconUrl: gon.pin_path,
         iconSize: [28, 36],
         iconAnchor: [14,36]
       })

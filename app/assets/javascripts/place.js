@@ -16,7 +16,7 @@ $(document).ready(function(){
 
     L.marker(coordinate, {icon:
       L.icon({
-        iconUrl: '/assets/svg/pin.svg',
+        iconUrl: gon.pin_path,
         iconSize: [28, 36],
         iconAnchor: [14,36]
       })

@@ -1,3 +1,5 @@
+@import 'var';
+
 .fields-to-translate {
   display: flex;
   flex-direction: column;
@@ -616,5 +618,5 @@ a.btn {
 }
 
 .indent {
-  padding: 0px 27px;
+  padding: 0 27px;
 }

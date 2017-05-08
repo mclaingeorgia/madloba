@@ -192,6 +192,13 @@ en:
       your_email: Your Email
       your_message: Your Message
       send: Send
+      add_to_favorite: Add To Favorite
+      rating: Rating
+      rate: Rate
+      report: Report
+      take_ownership: Take Ownership
+      share: Share
+      service_tags: Service Tags
     faq:
       title: FAQ
   home:
