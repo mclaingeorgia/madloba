@@ -57,3 +57,7 @@
 @mixin color($color: $text) {
   color: $color;
 }
+
+@function background($image_path) {
+  @return 'transparent url(' + svg($image_path) + ') no-repeat;';
+}
