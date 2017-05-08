@@ -54,6 +54,8 @@ module Madloba
       html_tag
     }
 
+    config.assets.precompile += %w( application/* component/* page/* )
+
     # Require needed in order for the custom 404 page to trigger
     require Rails.root.join('lib/custom_public_exceptions')
     config.exceptions_app = CustomPublicExceptions.new(Rails.public_path)
