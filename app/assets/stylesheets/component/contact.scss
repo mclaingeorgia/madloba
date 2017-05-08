@@ -1,3 +1,5 @@
+@import 'var';
+
 ul.contact {
   @include font(16);
   color: $text;
