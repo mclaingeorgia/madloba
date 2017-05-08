@@ -292,7 +292,7 @@ $(document).ready(function(){
       zoomControl: false
     }).setView([41.70978, 44.76133], 17);
 
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '<a href="http://osm.org/copyright">OpenStreetMap</a>'
     }).addTo(contact_map);
 
