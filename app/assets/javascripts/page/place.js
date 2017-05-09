@@ -1,4 +1,6 @@
 /* global $ */
+//= require component/recaptcha
+
 
 $(document).ready(function(){
   var $mp = $('#place_map_container')
@@ -9,8 +11,8 @@ $(document).ready(function(){
       zoomControl: false
     }).setView(coordinate, 16);
 
-    L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '<a href="http://osm.org/copyright">OpenStreetMap</a>'
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '<a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(mp);
 
 

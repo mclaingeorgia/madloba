@@ -9,8 +9,8 @@ Madloba::Application.routes.draw do
     # as :user do
     #   get 'login', to: 'devise/sessions#new'
     # end
-
-    devise_for :users, path: '', controllers: { sessions: 'users/sessions' } #, path_names: { sign_in: 'login'}
+    # devise_for :users, :controllers => {sessions: 'sessions', registrations: 'registrations'}
+    devise_for :users, path: '', controllers: { sessions: 'sessions', registrations: 'registrations' } #, path_names: { sign_in: 'login'}
     # get 'home/index'
     get 'about', to: 'root#about'
     get 'faq', to: 'root#faq'
@@ -55,6 +55,7 @@ Madloba::Application.routes.draw do
     resources :providers, :controller => 'admin/providers'
     post 'send_message', as: 'send_message', :controller => 'admin/providers'
     resources :places, :controller => 'admin/places'
+    resources :users
 
     namespace :manage, :module => :admin, :constraints => { format: :html } do
       get '/', to: '/admin#index'
@@ -64,7 +65,7 @@ Madloba::Application.routes.draw do
 
       scope 'admin' do
         resources :page_contents
-        resources :users
+
 
       end
       # get :categories, :to => "/admin#category", :as => :categories

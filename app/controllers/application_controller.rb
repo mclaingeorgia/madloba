@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
   before_action :set_locale
   # before_action :load_javascript_text
   before_action :set_gon
+  before_action :set_flash
   # before_action :check_if_user_has_tos
   before_action :prepare_about_content
 
@@ -90,8 +91,22 @@ class ApplicationController < ActionController::Base
   end
   def set_gon
     gon.pin_path = ActionController::Base.helpers.asset_path('svg/pin.svg')
+    gon.osm = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+    gon.osm_attribution = '<a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
+
   #    Rails.logger.debug("--------------------------------------=======------#{@is_faq_page}")
   #   gon.is_faq_page = @is_faq_page
+  end
+  def set_flash
+    if params[:flash].present?
+      flashes = params[:flash].map{|k,v| v}
+      # params.delete(:flash)
+      request.original_url.split('?').first
+      flashes.each{ |f|
+        flash[f[:type]] = f[:text] if f[:type].present? && f[:text].present?
+      }
+    end
+     # Rails.logger.debug("--------------------------------------------#{params[:flash]}")
   end
 
   # Allows the website to be embedded in an iframe.
@@ -256,15 +271,15 @@ class ApplicationController < ActionController::Base
   end
 
 
-  def after_sign_in_path_for(resource)
-     Rails.logger.debug("--------------------------------------------after_sign_in_path_for")
-    stored_location_for(resource) ||
-    if resource.is_a?(User) && !resource.valid?
-      settings_path(resource)
-    else
-      session[:previous_urls].last || root_path(:locale => I18n.locale)
-    end
-  end
+  # def after_sign_in_path_for(resource)
+  #    Rails.logger.debug("--------------------------------------------after_sign_in_path_for")
+  #   stored_location_for(resource) ||
+  #   if resource.is_a?(User) && !resource.valid?
+  #     settings_path(resource)
+  #   else
+  #     session[:previous_urls].last || root_path(:locale => I18n.locale)
+  #   end
+  # end
 
   def store_location
     session[:previous_urls] ||= []

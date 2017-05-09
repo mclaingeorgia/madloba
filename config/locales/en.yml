@@ -201,6 +201,11 @@ en:
       service_tags: Service Tags
     faq:
       title: FAQ
+  sessions:
+    create:
+      success: Blah
+    failure:
+      unauthorized: Incorrect username or password.
   home:
     yes: Yes
     no: No

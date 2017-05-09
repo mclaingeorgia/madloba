@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
   validates :username, presence: true
-  validates :is_service_provider, inclusion: [true, false]
+  #validates :is_service_provider, inclusion: [true, false]
   validates_uniqueness_of :username
 
   # Fields to be translated

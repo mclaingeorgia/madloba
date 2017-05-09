@@ -1,24 +1,9 @@
--#{ data: notifications_for(notice) }
-- if !flash.empty?
-  .flash
-    .button
-      %button.close{:type => "button"} ×
-    %ul.messages
+#flash.flash
+  .button
+    %button.close{:type => "button"} ×
+  %ul.messages
+    - if !flash.empty?
       - flash.each do |key, value|
         %li.message
           .flag{class: key}
           .text #{value}
-
-
-
-
-
--# class: (admin_panel? ? 'body-admin' : 'body-normal'),
-  - if alert
-    .alert.alert-dismissable.alert-danger.no-margin-bottom
-      %button.close{"data-dismiss" => "alert", :type => "button"} ×
-      = alert
-  - elsif flash[:error]
-    .alert.alert-dismissable.alert-danger.no-margin-bottom
-      %button.close{"data-dismiss" => "alert", :type => "button"} ×
-      = flash[:error]

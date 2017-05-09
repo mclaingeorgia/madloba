@@ -2,6 +2,7 @@
 
 /****************************** flash ******************************/
   .flash {
+    display: none;
     position: fixed;
     z-index: 91;
     right: 0;
@@ -12,6 +13,9 @@
     border-right: 0;
     border-bottom: 0;
     max-width: 400px;
+    &[open] {
+      display: block;
+    }
     .button {
       width: 100%;
       text-align: right;
