@@ -1,11 +1,19 @@
 @import 'var';
 
 .map-container {
+  width: 100%;
+  height: 100%;
+  min-height: 270px;
+  .map {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
   .map_zoom {
     display: flex;
     flex-direction: column;
-    background-color: #fff;
-    border:1px solid #d8d8d8;
+    background-color: $bg2;
+    border:1px solid $border;
     border-radius: 3px;
     position: absolute;
     top: 15px;
@@ -13,8 +21,8 @@
     text-align: center;
     z-index: 9000;
     .in, .out {
-      font: 18px/10px 'sourcesans_pro_b';
-      color: #444d5e;
+      @include font(18, 'b', 10);
+      color: $text;
       cursor:pointer;
       padding: 9px;
     }
@@ -22,8 +30,22 @@
       display: block;
       width: 18px;
       height: 1px;
-      background-color: #d8d8d8;
+      background-color: $border;
       margin: 0 auto;
     }
+  }
+}
+
+.map-locator {
+  @include font;
+  color: $bg;
+  background-color: $control;
+  padding: 12px 28px;
+  border-radius: 3px;
+  cursor: pointer;
+  margin: 30px 0;
+  &.disabled {
+    background-color: #8c8c8c;
+    cursor: not-allowed;
   }
 }

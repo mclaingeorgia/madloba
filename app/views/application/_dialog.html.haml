@@ -33,9 +33,9 @@
               %span= t('.email')
               = t('.email_content')
         .box.map-point
-          .map-box
+          .map-box.map-container
             #contact_map
-            .contact_map_zoom
-              .map_zoom_in.in{'data-map': 'contact_map'} +
+            .map-zoomer
+              .in{'data-map': 'contact_map'} +
               .hr
-              .map_zoom_out.out{'data-map': 'contact_map'} −
+              .out{'data-map': 'contact_map'} −

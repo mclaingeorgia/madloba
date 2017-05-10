@@ -22,3 +22,4 @@
 //= require component/flash
 //= require component/map
 //= require component/dialog
+//= require component/tabs

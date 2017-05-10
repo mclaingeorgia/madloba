@@ -93,19 +93,21 @@ class ApplicationController < ActionController::Base
     gon.pin_path = ActionController::Base.helpers.asset_path('svg/pin.svg')
     gon.osm = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
     gon.osm_attribution = '<a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
-
   #    Rails.logger.debug("--------------------------------------=======------#{@is_faq_page}")
   #   gon.is_faq_page = @is_faq_page
   end
   def set_flash
-    if params[:flash].present?
-      flashes = params[:flash].map{|k,v| v}
-      # params.delete(:flash)
-      request.original_url.split('?').first
-      flashes.each{ |f|
-        flash[f[:type]] = f[:text] if f[:type].present? && f[:text].present?
-      }
-    end
+    # if session[:flash].present?
+    #   flashes = session[:flash].clone
+    #    Rails.logger.debug("----------------------------------#{session}----------#{flashes}")
+    #   session[:flash] = nil
+    #    Rails.logger.debug("--------------------------------------------#{flashes}")
+    #   # params.delete(:flash)
+
+    #   flashes.each{ |f|
+    #     flash[f[:type]] = f[:text] if f[:type].present? && f[:text].present?
+    #   }
+    # end
      # Rails.logger.debug("--------------------------------------------#{params[:flash]}")
   end
 

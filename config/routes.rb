@@ -10,7 +10,12 @@ Madloba::Application.routes.draw do
     #   get 'login', to: 'devise/sessions#new'
     # end
     # devise_for :users, :controllers => {sessions: 'sessions', registrations: 'registrations'}
-    devise_for :users, path: '', controllers: { sessions: 'sessions', registrations: 'registrations' } #, path_names: { sign_in: 'login'}
+    devise_scope :user do
+      get "/password_reset", to: "users/passwords#new", as: "new_user_password"
+      get "/password_reset/edit", to: "users/passwords#edit", as: "edit_user_password"
+    end
+    devise_for :users, path: '', controllers: { sessions: 'users/sessions', passwords: 'users/passwords', confirmations: 'users/confirmations', registrations: 'users/registrations' }
+
     # get 'home/index'
     get 'about', to: 'root#about'
     get 'faq', to: 'root#faq'

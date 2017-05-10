@@ -1,0 +1,70 @@
+@import 'var';
+
+.fields-to-translate {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 12px;
+  max-width: 768px;
+  .tabs {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    label {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      white-space: nowrap;
+      padding: 0 9px;
+      font: 18px 'sourcesans_pro';
+      color: #fff;
+      color: #373f51;
+      width: auto;
+    }
+    a {
+      padding: 2px 7px;
+      border: 0;
+      font: 18px 'sourcesans_pro_b';
+      color: #a8acb3;
+      text-decoration: none;
+
+      &.active {
+        border: 1px dashed #bbbdc3;
+        color: #f38d68;
+      }
+    }
+    .d {
+      border-top: 1px dashed #bbbdc3;
+      width: 100%;
+      &.d1 { width: 18px; }
+      &.d2 { flex: 4; }
+      &.d3 { flex: 2; }
+      &.d4 { flex: 5; }
+    }
+    .tabs {
+      span {
+
+      }
+    }
+  }
+  .tabs-content {
+    height: 100%;
+    border: 1px dashed #bbbdc3;
+    border-top: 0;
+    margin-top: -12px;
+    padding-top: 16px;
+    padding: 33px 27px; //0 0 0;// 33px;
+    li {
+      display: none;
+      &.active {
+        display: block;
+      }
+    }
+    .field label {
+      padding: 0 14px 0 0;
+    }
+  }
+}
+.field + .fields-to-translate {
+  padding-top: 33px;
+}

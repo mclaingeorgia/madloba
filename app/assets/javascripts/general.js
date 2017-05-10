@@ -16,7 +16,7 @@ var pollution = {
   },
   elements: {
     contact_map: undefined,
-    pin: L.icon({ iconUrl: gon.pin_path, iconSize: [28, 36] })
+    pin: L.icon({ iconUrl: gon.pin_path, iconSize: [28, 36], iconAnchor: [14,36] })
   }
 }
 

@@ -24,14 +24,14 @@
         .field
           %label #{t('admin.place.region')}
           = f.collection_select :region_id, Region.all, :id, :name, {}, { class: 'value' }
-        %a#locator-find-me Locate Me on the Map
+        %a.map-locator{'data-map': 'locator_map'} Locate Me on the Map
 
-        .locator
+        .locator.map-container
           #locator_map
-          .map_zoom
-            #map_zoom_in.in +
+          .map-zoomer
+            .in{'data-map': 'locator_map'} +
             .hr
-            #map_zoom_out.out −
+            .out{'data-map': 'locator_map'} −
 
         = f.hidden_field(:latitude)
         = f.hidden_field(:longitude)

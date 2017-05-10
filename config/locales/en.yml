@@ -59,6 +59,8 @@ en:
       contact: -----
       rate: Rate
       missing: Missing
+      or: or
+      cancel: Cancel
     messages:
       success_updated: "%{obj} was successfully updated."
       fail_updated: "%{obj} failed to update."
@@ -140,13 +142,8 @@ en:
       locate_me: "Locate me on map"
     user:
       email: Email
-      password_field: Password
-      sign_in: Sign In
-      sign_up: Create an account
-      remember_me: Remember Me
-      forgot: Forgot password?
-      sign_up_prompt: " if you don't have yet."
-      reset_password: Reset Password
+      password: Password
+      password_confirmation: Password Confirmation
   application:
     dialog:
       partners: PARTNERS
@@ -186,6 +183,8 @@ en:
       result:
         one: "Result"
         other: "Results"
+      alt:
+        filter: Filter Image
     place:
       contact_service_provider: Contact Service Provider
       your_name: Your Name
@@ -201,11 +200,6 @@ en:
       service_tags: Service Tags
     faq:
       title: FAQ
-  sessions:
-    create:
-      success: Blah
-    failure:
-      unauthorized: Incorrect username or password.
   home:
     yes: Yes
     no: No
@@ -471,85 +465,6 @@ en:
     tusheti: Tusheti
     south_osettia: South Osettia
     create_account_first_html: "%{create_account} or %{sign_in} now before publishing your ad, if you want to be able to edit it or delete it later."
-  mailer:
-    hello: "Hi %{name}"
-    welcome: "Welcome to %{name}! You will soon be able to search and find details for all rehabilitation services in Georgia."
-    account_created: "An account has been created in your name. Please click on the following link to verify your email address and gain full access to all the features of %{name}:"
-    confirm_account: Confirm my account
-    as_soon_as: As soon as you have been verified, you can log in in to your account anytime by clicking Sign In on the %{name} home page.
-    need_assistance: "If you need assistance searching your required services or would like to contact us with any questions or feedback, please use the Contact Us page at http://"
-    phone_number: "Alternatively you may call this number:"
-    thanks: "Thank you for registering. We hope you enjoy using %{name}."
-    thanks_short: "Thanks!"
-    register: "To Register your services, all you have to do is log in to your account and follow these simple steps:"
-    register_1: "Click 'Register Services' button"
-    register_2: Complete the application details. Note that you are able to register as many categories of service linked to your profile as you wish.
-    register_3: Submit Registration
-    signature: The %{name} team.
-    dear: "Dear %{name}"
-    post_created: You have successfully created the following service registration, on %{site_name}
-    user_is_admin_html: "This message is to let you know that you are now %{new_role} of the %{site_name} website."
-    post_title: Name of service
-    description: Description
-    where_pick_up: Where to pick up the item
-    admin_panel: our admin panel.
-    manage_post_html: "To manage this service, as well as your previously posted services, login to %{admin_panel}"
-    thanks: Thanks, and have a good day!
-    received_message: You received a reply for your '%{post_title}' service on %{site_name}.
-    new_post_object: Your new service registration on %{site_name} - '%{post_title}'
-    new_post_to_review: "New service to review: '%{title}'"
-    updated_service: "A service has been updated: '%{title}'"
-    reply_post_object: Reply to your '%{post_title}' service on %{site_name}
-    you_are_admin_html: "You are now %{new_role} of %{site_name}."
-    account_locked: Your account has been locked due to an excessive number of unsuccessful sign in attempts.
-    link_unlock: Click the link below to unlock your account
-    unlock_account: Unlock my account
-    post_will_expire: This service will expire in %{day_number} days, on %{expire_date}
-    new_service_posted: "A user posted a new service on %{sitename}, titled '%{title}'."
-    service_just_updated: "A service on %{sitename} titled '%{title}' has been updated."
-    review_it_html: "You can review it %{link}."
-    after_review: "After review, don't forget to publish this service so that it becomes visible to all users."
-  registration:
-    all_mandatory: (All fields are mandatory)
-    first_name: First name
-    last_name: Last name
-    first_name_en: First name (en)
-    last_name_en: Last name (en)
-    first_name_ka: First name (ge)
-    last_name_ka: Last name (ge)
-    username: Username
-    username_help: Your username will be used if you prefer to remain anonymous.
-    email: E-mail
-    password: Password
-    password_help: The password is case-sensitive and must be at least 8 characters long.
-    password_confirm: Password confirmation
-    register_service: Do you plan to register a service?
-    is_provider: "Yes"
-    is_not_provider: "No"
-    sign_up: Sign up
-    not_received: Didn't receive confirmation instructions?
-    waiting_confirmation: Currently waiting confirmation for
-    leave_blank: (leave blank if you don't want to change it)
-    need_current: (we need your current password to confirm your changes)
-    unhappy: Unhappy?
-    you_sure: Are you sure?
-    back: Back
-    resend_unlock: Resend unlock instructions
-    cancel_account: Cancel my account
-  confirmation:
-    resend: Resend confirmation instructions
-  session:
-    hello: Hello
-    sign_in: Sign in
-    someone_requested: Someone has requested a link to change your password. You can do this through the link below.
-    please_ignore: If you didn't request this, please ignore this email.
-    password_not_changing: Your password won't change until you access the link above and create a new one.
-    forgot: Forgot your password?
-    not_received_unlock: Didn't receive unlock instructions?
-    sign_in_with: Sign in with %{name}
-    change_password: Change my password
-    reset_password: Send me reset password instructions
-    change_your_password: Change your password
   _admin:
     dashboard: Dashboard
     disclaimer: "We at Rehab GE seek to ensure that our users obtain only the best quality service. Should you at any time be unsatisfied with your experience on our site or with an interaction with one of the listed Service Providers please don't hesitate to contact us at info.rehabge@gmail.com or 0 800 900 902. Your feedback is important."

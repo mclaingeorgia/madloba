@@ -1,15 +1,11 @@
-.container.devise-section
-  .row
-    .col-lg-6
-      = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, :class => 'form-horizontal' }) do |f|
-        %fieldset
-          %legend= t('confirmation.resend')
-          = devise_error_messages!
-          .form-group
-            = f.label :email, class: 'col-lg-2 control-label'
-            .col-lg-10
-              = f.email_field :email, class: 'form-control', autofocus: true
-          .form-group
-            .col-lg-10.col-lg-offset-2
-              = f.submit t('confirmation.resend'), class: 'btn btn-primary'
-  = render 'shared/links'
+- translate_path = 'admin.user.'
+.devise-form{ class: @page_type }
+  = form_for resource, as: resource_name, url: confirmation_path(resource_name), remote: true, html: { method: :post, role: 'form', class: 'fields', :'data-type' => 'json' } do |f|
+    .header= t('confirmation.resend')
+    = devise_error_messages!
+    = render_form_field(:email_field, f, :email, translate_path, { autofocus: true }, { class: 'email' })
+    .actions
+      .action-group
+        = submit_tag(t("confirmation.resend"), { :type => "submit" })
+        = submit_tag(t('admin.cancel'), { :type => "reset" })
+

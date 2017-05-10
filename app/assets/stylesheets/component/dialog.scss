@@ -52,25 +52,25 @@
           text-align: center;
           padding:20px 0 31px;
           &.about {
-            font: 22px/18px 'sourcesans_pro_sb';
-            color: #009b72;
+            @include font(22, 'sb', 18);
+            color: $link;
             text-transform: uppercase;
           }
           &.partners {
-            font: 24px/18px 'sourcesans_pro_sb';
-            color: #f38d68;
+            @include font(24, 'sb', 18);
+            color: $control;
             text-transform: uppercase;
           }
         }
         .text {
           padding: 0 16px;
           p {
-            font: 18px 'sourcesans_pro';
-            color: #373f51;
+            @include font;
+            color: $text;
             padding-bottom: 25px;
           }
           a {
-            color: #009b72;
+            color: $link;
             text-decoration: underline;
           }
         }
@@ -79,7 +79,7 @@
           padding: 0 16px;
           .hr {
             height: 1px;
-            background-color: #f38d68;
+            background-color: $control;
           }
         }
         .partners-list {
@@ -92,8 +92,8 @@
       }
       &[data-bind='contact'] {
         .header {
-          font: 22px 'sourcesans_pro_sb';
-          color: #009b72;
+          @include font(22, 'sb', 18);
+          color: $link;
           padding: 20px 0 31px;
           text-align: center;
         }
@@ -106,64 +106,17 @@
             background-color: #e8c26b;
             padding: 27px 0 33px 0;
             .name {
-              font: 26px/18px 'sourcesans_pro_sb';
-              color: #373f51;
+              @include font(26, 'sb', 18);
+              color: $text;
               padding: 0 0 29px 20px;
             }
             .info-item {
-              font: 19px/19px 'sourcesans_pro';
-              color: #373f51;
+              @include font(19, 'r', 19);
+              color: $text;
               padding: 4px 12px;
               img {
                 padding-right: 12px;
               }
-            }
-          }
-          .box.map-point {
-            width: 100%;
-            min-height: 270px;
-            .map-box {
-              position: relative;
-              width: 100%;
-              height: 270px;
-              #contact_map {
-                width: 100%;
-                height: 100%;
-
-              }
-              .contact_map_zoom {
-                display: flex;
-                flex-direction: column;
-                background-color: #fff;
-                border:1px solid #d8d8d8;
-                border-radius: 3px;
-                position: absolute;
-                top: 11px;
-                right: 16px;
-                text-align: center;
-                z-index: 9000;
-                .in, .out {
-                  font: 18px/10px 'sourcesans_pro_b';
-                  color: #444d5e;
-                  cursor:pointer;
-                  padding: 9px;
-                }
-                .hr {
-                  display: block;
-                  width: 18px;
-                  height: 1px;
-                  background-color: #d8d8d8;
-                  margin: 0 auto;
-                }
-                .in:after {
-
-
-                }
-                .out{
-                }
-              }
-
-              // max-height: 270px;
             }
           }
         }

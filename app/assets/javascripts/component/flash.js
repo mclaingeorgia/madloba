@@ -18,12 +18,10 @@
       t.el.stop()
       t.close()
       var html = ""
-
-      if(messages.length) {
-        messages.forEach(function(message) {
-          html += "<li class='message'><div class='flag " +  message.type + "'></div><div class='text'>" +t.urldecode(message.text) + "</div></li>"
+      types = Object.keys(messages)
+      types.forEach(function(type) {
+          html += "<li class='message'><div class='flag " + type + "'></div><div class='text'>" +t.urldecode(messages[type]) + "</div></li>"
         })
-      }
       t.content_el.html(html)
       return t
     },

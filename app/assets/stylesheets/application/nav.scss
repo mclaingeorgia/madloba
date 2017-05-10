@@ -134,89 +134,7 @@
               @include font(16);
               color: $text; // #444d5e;
             }
-            .nav-sign-in-form {
-              position: absolute;
-              top: 100%;
-              right: -1px;
-              padding: 42px 36px 36px;
-              border: 1px solid $border;
-              border-top: 0;
-              margin-top: 1px;
-              background-color: $bg2;
-              max-height: 500px;
-              .header {
-                @include font;
-                color: $text;
-                text-align: left;
-                padding-bottom: 30px;
-              }
-              .field {
-                &.email, &.remember-me {
-                  padding-bottom: 30px;
-                }
-                &.password {
-                 padding-bottom: 8px;
-                 .forgot {
-                  float: right;
-                  @include font;
-                  color: $control;
-                  text-decoration: underline;
-                 }
-                }
-                label {
-                  display: block;
-                  @include font;
-                  color: $link;
-                  text-align: left;
-                  padding: 0 0 8px 2px;
-                }
-                input {
-                  @include font;
-                  color: $text;
-                  background-color: $bg;
-                  border-radius: 3px;
-                  border: 0;
-                  padding: 10px 6px;
-                  min-width: 300px;
-                }
-              }
-              .actions {
-                .action-group {
-                  display: flex;
-                  flex-direction: row;
-                }
-                input {
-                  cursor: pointer;
-                }
-                input[type='submit'] {
-                  @include font;
-                  color: #ffffff;
-                  background-color: $link;
-                  padding: 14px 28px;
-                  border: 0;
-                  border-radius: 3px;
-                  margin-right: 16px;
-                }
-                input[type='reset'] {
-                  @include font;
-                  color: #878787;
-                  background-color: transparent;
-                  text-decoration: underline;
-                  border: 0;
-                }
-                .sign_up {
-                  text-align: left;
-                  @include font;
-                  color: $control;
-                  text-decoration: underline;
-                  padding-top: 30px;
-                }
-                span {
-                  @include font;
-                  color: #878787;
-                }
-              }
-            }
+
           }
           .user {
             height: 100%;
@@ -337,7 +255,6 @@
       }
     }
   }
-
   @media (min-width: 992px) {
     nav {
       .nav-container {
@@ -396,3 +313,4 @@
       }
     }
   }
+

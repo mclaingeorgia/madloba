@@ -21,18 +21,19 @@
         %li
           %span.icon.website
           = item.website
-    .place-map.map-container
+    .place-map
       .corner
         %img{src: asset_path("svg/corner2.svg")}
       .rating
         %span.icon.heart
         %span.value=item.rating
         %span /5
-      #place_map_container{ 'data-latitude': item.latitude, 'data-longitude': item.longitude }
-      .map_zoom
-        #map_zoom_in.in +
-        .hr
-        #map_zoom_out.out −
+      .map-container
+        #place_map.map{ 'data-latitude': item.latitude, 'data-longitude': item.longitude }
+        .map-zoomer
+          .in{'data-map': 'place_map'} +
+          .hr
+          .out{'data-map': 'place_map'} −
   %section.details-wrapper
     %section.details
       %section.action-bar

@@ -1,12 +1,12 @@
-- translate_path = 'admin.user.'
-.nav-sign-in-form
+- translate_path = 'devise.sessions.new.'
+.devise-form{ class: @page_type }
   = form_for resource, as: resource_name, url: session_path(resource_name, :post_url => @post_url), remote: true, html: { role: 'form', class: 'fields', :'data-type' => 'json' } do |f|
     = render_form_field(:email_field, f, :email, translate_path, { autofocus: true, tabindex: 2 }, { class: 'email' })
 
     .field.password
       = f.label :password do
-        = t("#{translate_path}.password_field")
-        = link_to t("#{translate_path}.forgot"), new_password_path(resource_name), class: 'forgot reattach', tabindex: 7
+        = t(".password")
+        = link_to t(".forgot"), new_password_path(resource_name), { class: 'forgot', tabindex: 7 }.merge(@page_type == :autonomous ? { 'data-reattach': 'forgot' } : {})
       = f.password_field :password, class: 'value', autocomplete: 'off', tabindex: 3
 
 
@@ -15,12 +15,12 @@
         = f.check_box :remember_me
         = f.label :remember_me, tabindex: 4, role: 'button' do
           %i
-          = t("#{translate_path}.remember_me")
+          = t(".remember_me")
     .actions
       .action-group
-        = submit_tag(t("#{translate_path}.sign_in"), { :type => "submit", tabindex: 5 })
-        = submit_tag(t('admin.cancel'), { :type => "reset", tabindex: 6 })
+        = submit_tag(t(".sign_in"), { :type => "submit", tabindex: 5 })
+        = submit_tag(t('app.common.cancel'), { :type => "reset", tabindex: 6 })
       %p
-        %span=t('admin.or')
-        = link_to t("#{translate_path}.sign_up"), new_registration_path(resource_name), class: 'sign_up', tabindex: 8
-        %span=t("#{translate_path}.sign_up_prompt")
+        %span=t('app.common.or')
+        = link_to t(".sign_up"), new_registration_path(resource_name), class: 'sign_up', tabindex: 8
+        %span=t(".sign_up_prompt")

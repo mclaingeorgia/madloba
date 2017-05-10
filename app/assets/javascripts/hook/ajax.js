@@ -14,13 +14,13 @@
         console.log()
 
         if(request.responseJSON.hasOwnProperty('location')) {
-          var flash = ""
-          if(request.responseJSON.hasOwnProperty('flash')) {
-            console.log(JSON.stringify(request.responseJSON.flash))
-            flash = $.param({ flash: request.responseJSON.flash })
-            console.log(flash, request.responseJSON.location + "?" + flash)
-          }
-          location.replace(request.responseJSON.location + "?" + flash)
+          // var flash = ""
+          // if(request.responseJSON.hasOwnProperty('flash')) {
+          //   console.log(JSON.stringify(request.responseJSON.flash))
+          //   flash = $.param({ flash: request.responseJSON.flash })
+          //   console.log(flash, request.responseJSON.location + "?" + flash)
+          // }
+          location.replace(request.responseJSON.location)// + "?" + flash)
         }
         else {
           location.reload()

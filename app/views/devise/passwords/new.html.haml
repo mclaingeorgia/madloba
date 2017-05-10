@@ -1,28 +1,11 @@
-- translate_path = 'admin.user.'
-.nav-sign-in-form
-  = form_for resource, as: resource_name, url: password_path(resource_name), html: { method: :post, role: 'form', class: 'fields' } do |f|
+- translate_path = 'devise.passwords.new.'
+.devise-form{ class: @page_type }
+  = form_for resource, as: resource_name, url: password_path(resource_name), remote: true, html: { role: 'form', class: 'fields', :'data-type' => 'json' } do |f|
+    .header= t('.forgot')
     = devise_error_messages!
-    .header Enter your email address and we will send you a link to reset your password.
     = render_form_field(:email_field, f, :email, translate_path, { autofocus: true }, { class: 'email' })
     .actions
       .action-group
-        = submit_tag(t("#{translate_path}.reset_password"), { :type => "submit" })
-        = submit_tag(t('admin.cancel'), { :type => "reset" })
-
--#
-  .container.devise-section
-    .row
-      .col-lg-6
-        = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, :class => 'form-horizontal' }) do |f|
-          %fieldset
-            %legend= t('session.forgot')
-            = devise_error_messages!
-            .form-group
-              = f.label :email, class: 'col-lg-2 control-label'
-              .col-lg-10
-                = f.email_field :email, class: 'form-control', autofocus: true
-            .form-group
-              .col-lg-10.col-lg-offset-2
-                = f.submit t('session.reset_password'), class: 'btn btn-primary'
-    = render 'shared/links'
+        = submit_tag(t(".reset_password"), { :type => "submit" })
+        = submit_tag(t('app.common.cancel'), { :type => "reset" })
 

@@ -16,6 +16,8 @@
 
     $border: #d8d8d8;
 
+    $border2: #e2e2e2;
+
 @function svg($file_name) {
   @return asset_path('svg/' + $file_name + '.svg');
 }
@@ -29,7 +31,7 @@
 }
 
 
-@mixin font($size: 18, $font: 'r') {
+@mixin font($size: 18, $font: 'r', $line_height: 18) {
   $font_name: 'regular';
   @if ($font == 'b') {
     $font_name: 'bold'
@@ -51,7 +53,7 @@
     $font_name: 'ka';
   }
 
-  font: $size + px $font_name;
+  font: $size + px + '/' + $line_height + px $font_name;
 }
 
 @mixin color($color: $text) {
