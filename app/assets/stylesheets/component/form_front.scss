@@ -1,0 +1,14 @@
+.radio_buttons {
+  display: flex;
+  flex-direction: row;
+  > label {
+    padding-right: 20px;
+  }
+  .radio {
+    padding-right: 30px;
+    &:last-child {
+      padding-right: 0;
+    }
+  }
+}
+

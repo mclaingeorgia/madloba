@@ -13,19 +13,17 @@ main {
   &.root {
     .content {
       width: 50%;
-      border-right: 1px solid #d8d8d8;
+      border-right: 1px solid $border;
       padding: 0 0 0 16px;
     }
     .map {
       width: 50%;
     }
   }
-
   section.content {
     display: flex;
     flex-direction: column;
-    border-right: 1px solid #d8d8d8;
-    // height: 100%;
+    border-right: 1px solid $border;
     .search {
       padding: 30px 30px 20px;
       display: flex;
@@ -34,7 +32,7 @@ main {
       .filter-input {
         label {
           display: inline-block;
-          font: 16px 'sourcesans_pro';
+          @include font(16);
           color: #000000;
           padding: 0 0 7px 15px;
         }
@@ -43,31 +41,30 @@ main {
           border-bottom-left-radius: 3px;
         }
         input[type='text'] {
-          font: 18px/18px 'sourcesans_pro';
-          color: #009b72;
+          @include font;
+          color: $link;
           padding: 12px 15px;
           border: 1px solid #e2e2e2;
-          background-color: #fff;
+          background-color: $bg2;
           width: 100%;
         }
 
       }
       .bar {
         width: 3px;
-        background-color: #f4f4f4;
+        background-color: $bg;
       }
       input[type='submit'] {
-        font: 18px 'sourcesans_pro';
-        color: #ffffff;
+        @include font;
+        color: $bg2;
         padding: 15px 30px;
-        background-color: #009b72;
+        background-color: $link;
         border-top-right-radius: 3px;
         border-bottom-right-radius: 3px;
         border: 0;
         height: 49px;
         cursor: pointer;
       }
-
     }
     .filters {
         padding:0 20px 0;
@@ -75,13 +72,13 @@ main {
         display: flex;
         flex-direction: row;
         padding-bottom: 12px;
-        border-bottom: 1px solid #d8d8d8;
+        border-bottom: 1px solid $border;
         > li {
           padding: 16px 14px 14px 14px;
           label {
             display: block;
             padding-bottom: 10px;
-            font: 16px 'sourcesans_pro';
+            @include font(16);
             color: #000000;
           }
         }
@@ -97,12 +94,11 @@ main {
           }
           .input-group {
             position: absolute;
-            // right: -1px;
             top: 100%;
             left: 0;
             width: 100%;
-            background-color: #f4f4f4;
-            border: 1px solid #d8d8d8;
+            background-color: $bg;
+            border: 1px solid $border;
             border-top: 0;
             z-index: 45;
             overflow-y: auto;
@@ -114,9 +110,9 @@ main {
                 display: inline-block;
                 margin-right: 9px;
                 padding: 12px 30px;
-                font: 18px 'sourcesans_pro';
-                color: #373f51;
-                background-color: #fff;
+                @include font;
+                color: $text;
+                background-color: $bg2;
                 min-width: 110px;
                 cursor: pointer;
                 &:first-child {
@@ -130,38 +126,34 @@ main {
                 }
                 &.reset {
                   border: 1px solid #c9c9c9;
-                  font: 18px 'sourcesans_pro';
+                  @include font;
                 }
                 &.apply {
-                  border: 1px solid #e8c26b;
-                  background-color: #e8c26b;
+                  border: 1px solid $highlighted_bg;
+                  background-color: $highlighted_bg;
                 }
               }
-
             }
           }
         }
         li.prompt {
-          font: 18px/18px 'sourcesans_pro_sb';
-          color: #373f51;
+          @include font(18, 'sb');
+          color: $text;
           text-transform: uppercase;
           text-align: center;
         }
-
         li.by-service {
           position: relative;
           flex: 1;
           display: flex;
           flex-direction: row;
-          // border-right: 1px solid #d8d8d8;
-          // border-left: 1px solid #d8d8d8;
           .inner-left-border {
             &:before {
               content: "";
               position: absolute;
               top: 0;
               left: 0;
-              border-left: 1px solid #d8d8d8;
+              border-left: 1px solid $border;
               height: 100%;
             }
             &:after {
@@ -175,15 +167,13 @@ main {
               background: transparent url(svg('filter_arrow')) no-repeat left center;
               background-position: -1px center;
             }
-
           }
-
           &:after {
             content: "";
             position: absolute;
             top: 0;
             right: 0;
-            border-right: 1px solid #d8d8d8;
+            border-right: 1px solid $border;
             height: 100%;
           }
           // background-size: contain;
@@ -198,7 +188,7 @@ main {
             .filter-caret {
               width: 25px;
               height: 9px;
-              background: transparent url(svg('updownarrows')) no-repeat;
+              background: background('updownarrows');
               background-position: -26px 0;
               margin: 0 auto;
             }
@@ -215,19 +205,16 @@ main {
               display: none;
             }
           }
-
-
-
         }
         li.by-rate {
-          border-right: 1px solid #d8d8d8;
+          border-right: 1px solid $border;
         }
       }
     }
     .results {
       padding: 16px 40px 14px;
-      font: 16px 'sourcesans_pro';
-      color: #373f51;
+      @include font(16);
+      color: $text;
       text-align: right;
       .map-view {
 
@@ -238,7 +225,6 @@ main {
         }
       }
     }
-
     .place-cards {
       padding: 0 19px;
       overflow-y: auto;
@@ -250,14 +236,10 @@ main {
         // flex-wrap: wrap;
       }
       .place-card {
-        // display: inline-block;
         width: 50%;
-        // flex-grow: 1;
       }
     }
-
   }
-
   section.map {
     width: 100%;
   }

@@ -1,6 +1,6 @@
 @import 'var';
 
-.rate { // test this
+.rate {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -16,7 +16,7 @@
       display: inline-block;
       width: 20px;
       height: 17px;
-      background: transparent url(svg('heart')) no-repeat;
+      background: background('heart');
       background-position: -21px 0;
       margin: 0 6px 0 4px;
       cursor: pointer;

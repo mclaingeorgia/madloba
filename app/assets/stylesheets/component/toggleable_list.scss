@@ -5,20 +5,20 @@
     padding: 16px 0 0;
     .header {
       padding: 0 16px 16px;
-      font: 24px/18px 'sourcesans_pro_sb';
-      color: #009b72;
+      @include font(24, 'sb');
+      color: $link;
       text-transform: uppercase;
       max-width: 992px;
     }
     p {
-      font: 18px 'sourcesans_pro';
-      color: #373f51;
+      @include font;
+      color: $text;
       padding: 0 16px 27px;
       max-width: 992px;
     }
   }
   .toggleable-list-prefix + .toggleable-list > li:first-child {
-    border-top: 1px solid #f38d68;
+    border-top: 1px solid $control;
   }
   .toggleable-list-prefix + .toggleable-list {
     padding-top: 0;
@@ -27,13 +27,10 @@
     padding: 0 0 5px;
     > li {
       padding: 0 0;
-      border-bottom: 1px solid #f38d68;
-      // &:last-child {
-      //   border-bottom: 0;
-      // }
+      border-bottom: 1px solid $control;
       &.toggled {
         a {
-          color: #009b72;
+          color: $link;
           .caret {
             background-position: -13px 0;
           }
@@ -50,17 +47,16 @@
           display: inline-block;
           width: 12px;
           height: 8px;
-          background: transparent url(svg('arrows')) no-repeat;
+          background: background('arrows');
           position: absolute;
           top: 30px;
           right: 8px;
-          // margin-left: 6px;
         }
       }
     }
     a {
-      font: 18px 'sourcesans_pro_sb';
-      color: #373f51;
+      @include font(18, 'sb');
+      color: $text;
       text-decoration: none;
       cursor: pointer;
       max-width: 992px;
@@ -70,19 +66,19 @@
       padding:0 16px 20px;
       max-width: 992px;
       p, a {
-        font: 18px 'sourcesans_pro';
-        color: #373f51;
+        @include font(18);
+        color: $text;
         padding-bottom: 27px;
         &:last-child {
           padding-bottom: 0;
         }
         b {
-          font: 18px 'sourcesans_pro_b';
+          @include font(18, 'b');
         }
       }
       ul {
         list-style-type: square;
-        color: #373f51;
+        color: $text;
         padding-bottom: 27px;
         &.numbered {
           list-style-type: none;
@@ -113,7 +109,7 @@
             display: inline-block;
             width: 12px;
             height: 8px;
-            background: transparent url(svg('arrows')) no-repeat;
+            background: background('arrows');
             position: static;
             margin-left: 6px;
           }

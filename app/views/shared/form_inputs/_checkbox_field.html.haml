@@ -1,0 +1,5 @@
+.field{{}.merge(container_options)}
+  = form.check_box field, {class: 'value'}.merge( options.class == Hash ? options : {} )
+  = form.label field do
+    %i
+    =t("#{translate_path}")

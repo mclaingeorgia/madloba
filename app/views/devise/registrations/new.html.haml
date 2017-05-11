@@ -1,130 +1,39 @@
-- translate_path = 'devise.registrations.new.'
+- page_title(t('.title'))
+= content_for :custom_stylesheet, 'page/registration'
+= content_for :custom_javascript, 'page/registration'
 .devise-form.wide{ class: @page_type }
-  = form_for resource, as: resource_name, url: password_path(resource_name), remote: true, html: { role: 'form', class: 'fields', :'data-type' => 'json' } do |f|
+  = simple_form_for resource, as: resource_name, url: password_path(resource_name), remote: true, html: { role: 'form', class: 'fields', :'data-type' => 'json' } do |f|
     -# .header= t('.sign_up')
     = devise_error_messages!
-    = render partial: 'shared/fields_to_translate', locals: { fields: { first_name: nil, last_name: nil } , form: f, translate_path: translate_path }
-    = render_form_field(:text_field, f, :username, translate_path)
-    = render_form_field(:email_field, f, :email, translate_path)
-    = render_form_field(:password_field, f, :password, translate_path, { autocomplete: 'off' })
-    = render_form_field(:password_field, f, :password_confirmation, translate_path, { autocomplete: 'off' })
-    %hr
-    = render_form_field(:radio_fields, f, :is_service_provider, translate_path,
-     { items: [true, false], default: true, translate_path: "app.common.", item_translations: ['_yes', '_no'] })
-    .form-group
-      .col-lg-9.col-lg-offset-3
-        %i= t('errors.have_questions_html', link: (link_to t('errors.faq_label'), faq_path, target: '_blank'))
-    = f.fields_for :providers do |provider|
-      = render partial: 'shared/fields_to_translate', locals: { fields: { name: nil, description: { type: 'text_area', required: true } } , form: provider, translate_path: translate_path }
-    .form-group{:style => "margin-bottom: 30px;"}
-      .col-lg-9.col-lg-offset-3.checkbox
-        %label
-          = f.check_box :has_agreed_to_tos
-          = t('admin.profile.i_have_accepted_html', terms_and_conditions: link_to(t('admin.profile.terms_and_conditions'), '#', class: 'terms_popup'))
+    = render partial: 'shared/fields_to_translate', locals: { fields: { first_name: nil, last_name: nil } , form: f }
+    .group
+      = f.input :username
+      = f.input :email
+      = f.input :password, input_html: { autocomplete: 'off' }
+      = f.input :password_confirmation, input_html: { autocomplete: 'off' }
 
-    .actions
-      .action-group
-        = submit_tag(t(".sign_up"), { :type => "submit" })
-        = submit_tag(t('app.common.cancel'), { :type => "reset" })
+    .group
+      = f.input :is_service_provider, as: :radio_buttons
 
-    = "Already registered? Sign In"
-    = "Didn't receive confirmation instructions? Click Here"
--#
-  .container.devise-section
-    .row
-      .col-lg-8
-        = devise_error_messages!
-        = form_for(resource, as: resource_name, url: registration_path(resource_name), :html => {:class => 'form-horizontal'}) do |f|
-          %fieldset
-            %legend= t('registration.sign_up')
-            .form-group
-              .col-lg-9.col-lg-offset-3
-                = t('registration.all_mandatory')
-            / First name - English
-            .form-group
-              = f.label :first_name_en, t('registration.first_name_en')+':', class: 'col-lg-3 control-label'
-              .col-lg-9
-                = f.text_field :first_name_en, class: 'form-control', autofocus: true
-            -# First name - Georgian
-            .form-group
-              = f.label :first_name_ka, t('registration.first_name_ka')+':', class: 'col-lg-3 control-label'
-              .col-lg-9
-                = f.text_field :first_name_ka, class: 'form-control', autofocus: true
-            -# Last name - English
-            .form-group
-              = f.label :last_name_en, t('registration.last_name_en')+':', class: 'col-lg-3 control-label'
-              .col-lg-9
-                = f.text_field :last_name_en, class: 'form-control'
-            -# Last name - Georgian
-            .form-group
-              = f.label :last_name_ka, t('registration.last_name_ka')+':', class: 'col-lg-3 control-label'
-              .col-lg-9
-                = f.text_field :last_name_ka, class: 'form-control'
-            / Username
-            .form-group
-              = f.label :username,t('registration.username')+':', class: 'col-lg-3 control-label'
-              .col-lg-9
-                = f.text_field :username, class: 'form-control help-message',                   |
-                  :data => {:content => t('registration.username_help'), :placement => 'right', |
-                  :toggle => 'popover', :trigger => 'hover focus'}                              |
+      =# render_form_field(:radio_fields, f, :is_service_provider, translate_path,
+      { items: [true, false], default: false, translate_path: "app.common.", item_translations: ['_yes', '_no'] }, { class: 'one-line radio-group'})
 
-            -# E-mail
-            .form-group
-              = f.label :email, t('registration.email')+':', class: 'col-lg-3 control-label'
-              .col-lg-9
-                = f.email_field :email, class: 'form-control'
 
-            -# Password
-            .form-group
-              = f.label :password, t('registration.password')+':', class:'col-lg-3 control-label'
-              .col-lg-9
-                = f.password_field :password, class: 'form-control', autocomplete: "off",       |
-                  :data => {:content => t('registration.password_help'), :placement => 'right', |
-                  :toggle => 'popover', :trigger => 'hover focus'}                              |
+      = f.fields_for :providers do |provider|
+        = render partial: 'shared/fields_to_translate', locals: { fields: { name: nil, description: { type: 'text_area', required: true, class: 'tinymce' } } , form: provider, container_options: { style: 'display:none;', id: 'user_providers' } }
 
-            -# Confirm password
-            .form-group
-              = f.label :password_confirmation, t('registration.password_confirm')+':', class: 'col-lg-3 control-label'
-              .col-lg-9
-                = f.password_field :password_confirmation, class: 'form-control', autocomplete: "off"
+    .group
+      = f.input :has_agreed, label: t(".has_agreed_html", link: link_to(t('app.common.terms_of_use'), terms_of_use_path))
+      .actions
+        .action-group
+          = submit_tag(t("app.common.register"), { :type => "submit", :disabled => true })
+          = submit_tag(t('app.common.cancel'), { :type => "reset" })
 
-            -# Do you plan to register service? yes/no
-            .form-group
-              = f.label :is_service_provider, t('registration.register_service'), class: 'col-lg-3 control-label'
-              .col-lg-9
-                .radio
-                  %label
-                    = f.radio_button :is_service_provider, true, checked: true
-                    = t('registration.is_provider')
-                .radio
-                  %label
-                    = f.radio_button :is_service_provider, false
-                    = t('registration.is_not_provider')
+    .group
+      .text= t(".already_registered_html", link: link_to(t('app.common.sign_in'), new_user_session_path))
+      .text= t(".no_confirmation_html", link: link_to(t('app.common.click_here'), new_user_confirmation_path))
 
-            -# Note about checking out the FAQ
-            .form-group
-              .col-lg-9.col-lg-offset-3
-                %i= t('errors.have_questions_html', link: (link_to t('errors.faq_label'), faq_path, target: '_blank'))
+    .text.help= t('.have_questions_html', link: (link_to t('app.common.click_here'), faq_path, target: '_blank'))
 
-            -# Terms and conditions checkbox
-            .form-group{:style => "margin-bottom: 30px;"}
-              .col-lg-9.col-lg-offset-3.checkbox
-                %label
-                  = f.check_box :has_agreed_to_tos
-                  = t('admin.profile.i_have_accepted_html', terms_and_conditions: link_to(t('admin.profile.terms_and_conditions'), '#', class: 'terms_popup'))
-
-            .form-group
-              .col-lg-9.col-lg-offset-3
-                = f.submit t('registration.sign_up'), class: 'btn btn-primary'
-    = render 'shared/links'
-
-  -# Modal popup that appears with click on Terms and Conditions
-  #terms_modal.modal.fade{"aria-hidden" => "true", "aria-labelledby" => "basicModal", :role => "dialog", :tabindex => "-1"}
-    .modal-dialog{:style => "width: 800px;"}
-      .modal-content
-        .modal-header
-          %h4#myModalLabel.modal-title= t('admin.profile.terms_and_conditions')
-        #modal-body-id.modal-body{:style => "width: 100%; height: 400px; overflow: auto;"}
-          = render 'shared/terms_and_conditions'
-        .modal-footer
-          %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"}= t('home.got_it')
+- if @page_type == :'non-autonomous'
+  = render partial: "shared/footer", locals: { with_links: true }

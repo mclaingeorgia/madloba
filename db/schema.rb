@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170404095543) do
+ActiveRecord::Schema.define(version: 20170511132944) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -490,8 +490,8 @@ ActiveRecord::Schema.define(version: 20170404095543) do
     t.string   "first_name",             limit: 255
     t.string   "last_name",              limit: 255
     t.string   "username",               limit: 255
-    t.boolean  "is_service_provider"
-    t.boolean  "has_agreed_to_tos",                  default: false
+    t.boolean  "is_service_provider",                default: false
+    t.boolean  "has_agreed",                         default: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

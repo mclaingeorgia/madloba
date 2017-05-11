@@ -9,28 +9,26 @@
       display: flex;
       flex-direction: row;
       min-height: 340px;
-      border-bottom: 1px solid #d8d8d8;
+      border-bottom: 1px solid $border;
       .summary {
         width: 40%;
         max-width: 300px;
         padding: 27px 0 31px 31px;
-        background-color: #e8c26b;
-        color: #373f51;
+        background-color: $highlighted_bg;
+        color: $text;
         display: flex;
         flex-direction: column;
         .name {
-          font: 26px/18px 'sourcesans_pro_sb';
+          @include font(26, 'sb');
           padding-bottom: 8px;
         }
         .provider-name {
-          font: 26px/18px 'sourcesans_pro_sb';
+          @include font(26, 'sb');
           padding-bottom: 17px;
           span {
-            font: 16px 'sourcesans_pro';
-
+            @include font(16);
           }
         }
-
       }
       .place-map {
         position: relative;
@@ -44,36 +42,6 @@
             height: 100%;
           }
         }
-        .rating {
-          padding: 9px 16px;
-          border-radius: 3px;
-          background-color: #fff;
-          display: inline-block;
-          position: absolute;
-          top: 50%;
-          z-index: 2;
-          width: 13%;
-          min-width: 200px;
-          text-align: right;
-          pointer-events: none;
-          .icon.heart {
-            display: inline-block;
-            width: 20px;
-            height: 17px;
-            margin: 0 6px 0 0;
-            background: transparent url(svg('heart')) no-repeat;
-          }
-          .value {
-            font: 22px 'sourcesans_pro_b';
-            color: #f38d68;
-          }
-          span {
-            font: 16px 'sourcesans_pro';
-            color: #373f51;
-          }
-        }
-
-
       }
     }
     &.details-wrapper {
@@ -89,9 +57,9 @@
           justify-content: center;
           align-items: center;
           padding: 18px 12px 21px 52px;
-          font: 18px 'sourcesans_pro_b';
-          color: #373f51;
-          background-color: #fff;
+          @include font(18, 'b');
+          color: $text;
+          background-color: $bg2;
           > a {
             display: inline-block;
             margin-right: 80px;
@@ -109,17 +77,17 @@
             &.favoritize:after {
               width: 26px;
               height: 25px;
-              background: transparent url(svg('favorite')) no-repeat;
+              background: background('favorite');
             }
             &.report:after {
               width: 24px;
               height: 24px;
-              background: transparent url(svg('report')) no-repeat;
+              background: background('report');
             }
             &.take-ownership:after {
               width: 20px;
               height: 22px;
-              background: transparent url(svg('ownership')) no-repeat;
+              background: background('ownership');
             }
           }
 
@@ -129,7 +97,7 @@
               content: "";
               width: 26px;
               height: 26px;
-              background: transparent url(svg('facebook')) no-repeat;
+              background: background('facebook');
               vertical-align: top;
               margin: 0 0 0 4px;
             }
@@ -138,7 +106,7 @@
               content: "";
               width: 26px;
               height: 26px;
-              background: transparent url(svg('twitter')) no-repeat;
+              background: background('twitter');
               vertical-align: top;
               margin: 0 0 0 4px;
             }
@@ -147,20 +115,20 @@
         .info {
           padding: 35px 52px;
           .description {
-            font: 18px 'sourcesans_pro';
-            color: #373f51;
+            @include font;
+            color: $text;
             max-width: 992px;
             padding-bottom: 38px;
           }
           .tags {
-            font: 18px 'sourcesans_pro';
-            color: #373f51;
+            @include font;
+            color: $text;
             max-width: 992px;
             span {
-              font: 18px 'sourcesans_pro_b';
+              @include font(18, 'b');
             }
             a {
-              color: #009b72;
+              color: $link;
             }
 
           }
@@ -169,8 +137,8 @@
           }
           .contact {
             .subheader {
-              font: 18px/18px 'sourcesans_pro_b';
-              color: #373f51;
+              @include font(18, 'b');
+              color: $text;
               padding-bottom: 10px;
             }
             .row {
@@ -195,42 +163,35 @@
             .field {
               display: inline-block;
               padding-top: 26px;
-              // &:first-child {
-              //   padding-top: 0;
-              // }
               label {
                 display: block;
-                font: 18px/18px 'sourcesans_pro';
-                color: #009b72;
+                @include font;
+                color: $link;
                 padding-bottom: 7px;
-                .required {
-                  content: "*";
-                  color: #f38d68;
-                }
               }
               input {
                 height: 46px;
                 border: 1px solid #e2e2e2;
                 border-radius: 3px;
-                background-color: #fff;
+                background-color: $bg2;
                 min-width: 400px;
-                font: 18px/18px 'sourcesans_pro';
-                color: #009b72;
+                @include font;
+                color: $link;
               }
               textarea {
                 border: 1px solid #e2e2e2;
                 border-radius: 3px;
-                background-color: #fff;
+                background-color: $bg2;
                 min-width: 400px;
-                font: 18px/18px 'sourcesans_pro';
-                color: #009b72;
+                @include font;
+                color: $link;
                 padding: 0;
               }
             }
             button {
-              font: 18px/18px 'sourcesans_pro';
-              color: #fff;
-              background-color: #009b72;
+              @include font;
+              color: $bg2;
+              background-color: $link;
               border: 0;
               padding: 17px 34px;
               border-radius: 3px;
@@ -241,21 +202,21 @@
           .hr {
             width: 100%;
             height: 1px;
-            background-color: #d8d8d8;
+            background-color: $border;
             margin: 52px 0 27px;
           }
         }
       }
       > .photos {
-        background-color: #fff;
+        background-color: $bg2;
         min-width: 370px;
         padding: 0 30px;
         .upload {
           background-color: rgba(0, 155, 114, .7);
           height: 206px;
           width: 100%;
-          font: 18px 'sourcesans_pro';
-          color: #fff;
+          @include font;
+          color: $bg2;
           text-align: center;
           margin-bottom: 20px;
           img {
@@ -275,12 +236,10 @@
 
   }
 }
-
-
 @media (min-width: 992px) {
     .box.map-point {
       width: 45%;
-      background: transparent url(svg('corner')) no-repeat;
+      background: background('corner');
       padding: 30px 0 40px;
     }
   }

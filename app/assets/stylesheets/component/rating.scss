@@ -1,35 +1,63 @@
 @import 'var';
 
+.rate {
+  label {
+    @include font(18, 'b');
+    color: $text;
+  }
+}
 .rating {
-  background-color: #fff;
+  background-color: $bg2;
   padding: 12px 8px 8px;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
   .value {
     display: inline-block;
-    font: 24px/18px 'sourcesans_pro_b';
-    color: #f38d68;
+    @include font(24, 'b');
+    color: $control;
     &:before {
       display: inline-block;
       content: "";
       width: 20px;
       height: 17px;
-      background: transparent url(svg('heart')) no-repeat;
+      background: background('heart');
       margin: 0 6px 0 4px;
     }
   }
   span {
-    font: 16px 'sourcesans_pro';
-    color: #373f51;
+    @include font(16);
+    color: $text;
   }
 }
 
-.rate {
-  // display: flex;
-  // flex-direction: row;
-  // align-items: center;
-  label {
-    font: 18px 'sourcesans_pro_b';
-    color: #373f51;
-  }
-}
+
+
+// from place
+      .rating {
+          padding: 9px 16px;
+          border-radius: 3px;
+          background-color: $bg2;
+          display: inline-block;
+          position: absolute;
+          top: 50%;
+          z-index: 2;
+          width: 13%;
+          min-width: 200px;
+          text-align: right;
+          pointer-events: none;
+          .icon.heart {
+            display: inline-block;
+            width: 20px;
+            height: 17px;
+            margin: 0 6px 0 0;
+            background: background('heart');
+          }
+          .value {
+            @include font(22, 'b');
+            color: $control;
+          }
+          span {
+            @include font(16);
+            color: $text;
+          }
+        }

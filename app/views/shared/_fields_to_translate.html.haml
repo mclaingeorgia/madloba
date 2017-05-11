@@ -1,8 +1,8 @@
 - locales = I18n.available_locales
-.fields-to-translate
+.fields-to-translate{{}.merge(defined?(container_options) ? container_options : {})}
   .tabs{'data-target': '123'}
     .d.d1
-    %label #{t('app.admin.general.fields_to_translate')}
+    %label=t('shared.fields_to_translate')
     .d.d2
     - locales.each_with_index do |locale, locale_i|
       = link_to t("app.languages.#{locale}"), 'javascript:void(0);', class: "tab-link#{locale_i == 0 ? ' active' : ''}", 'data-link': locale
@@ -14,4 +14,4 @@
       - locales.each_with_index do |locale, locale_i|
         %li{class: locale_i == 0 ? 'active' : nil, 'data-link': locale}
           - fields.each do |field|
-            = create_field_input(form, "#{field[0]}_#{locale}", field[1], "#{translate_path}#{field[0]}")
+            = form.input :"#{field[0]}_#{locale}", label: t("activerecord.attributes.#{form.object.class.name.downcase}.#{field[0]}")

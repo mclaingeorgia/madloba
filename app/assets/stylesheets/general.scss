@@ -47,7 +47,6 @@
   .grecaptcha-badge { // hide invisible recaptcha badge https://developers.google.com/recaptcha/docs/versions
     display: none;
   }
-
 /****************************** scroll bar ******************************/
   *::-webkit-scrollbar-track {
     background-color: $bg;
@@ -71,11 +70,16 @@
   }
   input[type="radio"] + label {
     @include font;
-    @include color('#FFFFFF');
+    color: $bg2;
     cursor:pointer;
+    white-space: nowrap;
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
   }
-  input[type="radio"] + label span {
+  input[type="radio"] + label:before {
       display:inline-block;
+      content: "";
       width:17px;
       height:18px;
       vertical-align:middle;
@@ -83,13 +87,18 @@
       cursor:pointer;
       margin-right:6px;
   }
-  input[type="radio"]:checked + label span {
+  input[type="radio"]:checked + label:before {
     background:url(svg('radio')) no-repeat -18px top;
   }
 
   input[type="radio"] + label {
-    margin-right:30px;
+    // margin-right:30px;
     vertical-align: top;
+  }
+  .radio {
+    label {
+      input {}
+    }
   }
 
 /****************************** input checkbox ******************************/
@@ -98,20 +107,33 @@
   }
   input[type="checkbox"] + label {
     @include font;
-    @include color($control);
+    color: $control;
     cursor:pointer;
+    display: flex !important;
+    flex-direction: row;
+    align-items: center;
   }
-  input[type="checkbox"] + label i {
+  input[type="checkbox"] + label:before {
       display:inline-block;
+      content: "";
       width:23px;
       height:23px;
       background:url(svg('checkbox')) no-repeat 0 top;
       cursor:pointer;
-      vertical-align: top;
+      margin-right: 7px;
+      // vertical-align: top;
   }
-  input[type="checkbox"]:checked + label i {
-    background:url(svg('checkbox')) no-repeat -24px top;
+  input[type="checkbox"]:checked + label:before {
+    background:url(svg('checkbox')) no-repeat -23px top;
   }
 
+abbr[title='required'] {
+  @include font(16);
+  color: $control;
+}
+// .required:after {
+//   content: "*";
+//   color: $control;
+// }
 
 

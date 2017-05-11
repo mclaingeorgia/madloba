@@ -6,6 +6,13 @@ en:
     message:
       default: "code did not match with the image"
       user: "The secret Image and code were different"
+  simple_form:
+    required:
+      text: 'required'
+      mark: '*'
+      # You can uncomment the line below if you need to overwrite the whole required html.
+      # When using html, text and mark won't be used.
+      html: '<i class="fa fa-check-square"></i>'
   activerecord:
     models:
       provider:
@@ -17,10 +24,18 @@ en:
     attributes:
       provider:
         name: Provider Name
-        description: Description of Provider
+        description: Provider Description
       page_content:
         title: Title
         content: Content
+      user:
+        first_name: First Name
+        last_name: Last Name
+        password: Password
+        username: Username
+        email: Email
+        password_confirmation: Password Confirmation
+        is_service_provider: Do you plan to provide service?
     errors:
       models:
         category:
@@ -60,11 +75,16 @@ en:
       rate: Rate
       missing: Missing
       or: or
+      register: Register
+      sign_in: Sign In
       cancel: Cancel
+      click_here: Click Here
     messages:
       success_updated: "%{obj} was successfully updated."
       fail_updated: "%{obj} failed to update."
       success_destroyed: "%{obj} was successfully deleted."
+  shared:
+    fields_to_translate: Fields to translate
   admin:
     save: Save
     cancel: Cancel
@@ -83,8 +103,6 @@ en:
       new: Create Place
     moderate_photos:
       index: Moderate Photos
-    general:
-      fields_to_translate: Fields to translate
     menu:
       manage_profile: Manage Profile
       rated_places: Rated Places

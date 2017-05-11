@@ -16,21 +16,20 @@
       align-items: flex-start;
       white-space: nowrap;
       padding: 0 9px;
-      font: 18px 'sourcesans_pro';
-      color: #fff;
-      color: #373f51;
+      @include font;
+      color: $text;
       width: auto;
     }
     a {
       padding: 2px 7px;
       border: 0;
-      font: 18px 'sourcesans_pro_b';
+      @include font(18, 'b');
       color: #a8acb3;
       text-decoration: none;
 
       &.active {
         border: 1px dashed #bbbdc3;
-        color: #f38d68;
+        color: $control;
       }
     }
     .d {
@@ -59,12 +58,19 @@
       &.active {
         display: block;
       }
+      .field {
+        padding-bottom: 22px;
+        &:last-child {
+          padding-bottom: 0;
+        }
+      }
+
     }
-    .field label {
-      padding: 0 14px 0 0;
-    }
+    // .field label {
+    //   padding: 0 14px 0 0;
+    // }
   }
 }
-.field + .fields-to-translate {
-  padding-top: 33px;
-}
+// .field + .fields-to-translate {
+//   padding-top: 33px;
+// }

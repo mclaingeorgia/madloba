@@ -8,8 +8,8 @@
     right: 0;
     bottom: 0;
     padding: 0 16px;
-    border: 1px solid #d8d8d8;
-    background-color: #f4f4f4;
+    border: 1px solid $border;
+    background-color: $bg;
     border-right: 0;
     border-bottom: 0;
     max-width: 400px;
@@ -21,8 +21,8 @@
       text-align: right;
       .close {
         background-color: transparent;
-        color: #a2a2a2;
-        border: 1px solid #d8d8d8;
+        color: $text;
+        border: 1px solid $border;
         border-top: 0;
         cursor: pointer;
       }
@@ -33,7 +33,7 @@
 
       .message {
         padding-bottom: 6px;
-        border-bottom: 1px solid #d8d8d8;
+        border-bottom: 1px solid $border;
         margin-bottom: 8px;
         display: flex;
         flex-direction: row;
@@ -41,22 +41,22 @@
           border-bottom: 0;
         }
         .text {
-          font: 16px 'sourcesans_pro_l';
-          color: #373f51;
+          @include font(16, 'l');
+          color: $text;
         }
         .flag {
           display: inline-block;
           min-width: 3px;
-          background-color: #d8d8d8;
+          background-color: $border;
           margin-right: 6px;
           &.success {
-            background-color: #009b72;
+            background-color: $link;
           }
           &.notice {
-            background-color: #eaba6b;
+            background-color: $highlighted_bg;
           }
           &.error, &.alert {
-            background-color: #f38d68;
+            background-color: $control;
           }
         }
       }

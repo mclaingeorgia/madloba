@@ -1,0 +1,83 @@
+@import 'var';
+
+form.fields {
+  width: 100%;
+  .field {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding-bottom: 12px;
+    max-width: 768px;
+    label {
+      width: 45%;
+      @include font(18, 'b');
+      color: $text;
+      padding:0 14px 0 0;
+      text-align: left;
+    }
+    .value {
+      width: 55%;
+      margin-right: 10px;
+    }
+    input, textarea, select {
+      border: 1px solid #e2e2e2;
+      border-radius: 3px;
+      @include font;
+      color: $text;
+      background-color: $bg2;
+      padding: 6px 8px;
+    }
+  }
+
+}
+
+form .actions {
+  padding: 0;
+  text-align: center;
+  a {
+    padding: 13px 21px;
+    border: 0;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+  a.edit {
+    background-color: $control;
+    @include font;
+    color: $bg;
+  }
+  .action-group {
+    input {
+      display: inline-block;
+      @include font;
+      color: $text;
+      background-color: $bg2;
+      padding: 12px 36px;
+      border: 1px solid #e2e2e2;
+      min-width: 130px;
+      cursor: pointer;
+    }
+    input:first-child {
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      margin-right: 5px;
+    }
+    input:last-child {
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      margin-left: 5px;
+    }
+    input[type='submit'] {
+      background-color: $link;
+      color: $bg2;
+      border: 1px solid transparent;
+    }
+  }
+}
+form .actions {
+  padding-top: 85px;
+  padding-bottom: 27px;
+}
+

@@ -2,13 +2,9 @@
 
 .place-card {
   padding: 0 19px;
-
   .card-border {
-
-    border: 1px solid #eaba6b;
-    // border: 3px solid transparent;
+    border: 1px solid $highlighted_bg;
     position: relative;
-
     &:after {
       content: "";
       position:absolute;
@@ -20,7 +16,7 @@
       pointer-events: none;
     }
     &:hover:after {
-       border: 3px solid #eaba6b;
+       border: 3px solid $highlighted_bg;
     }
   }
   .card {
@@ -29,9 +25,6 @@
     max-width: 327px;
     display: inline-block;
     position: relative;
-    .front {
-
-    }
     .back {
       position: absolute;
       top: 0;
@@ -46,20 +39,17 @@
         position: absolute;
         top: 16px;
         right: 10px;
-        background: transparent url(svg('close')) no-repeat;
+        background: background('close');
         width: 10px;
         height: 10px;
         cursor: pointer;
       }
     }
-
     .poster {
       position: relative;
       padding-bottom: 12px;
       .image {
         width: 100%;
-        // max-width: 309px;
-        // max-height: 206px;
       }
       .favorite {
         position: absolute;
@@ -78,28 +68,27 @@
       flex-direction: column;
       padding: 0 0 4px 1px;
       .name {
-        font: 18px 'sourcesans_pro_sb';
-        color: #009b72;
+        @include font(18, 'sb');
+        color: $link;
         text-decoration: underline;
       }
       .provider {
-
         padding-bottom: 12px;
         a {
-          font: 18px 'sourcesans_pro_sb';
-          color: #009b72;
+          @include font(18, 'sb');
+          color: $link;
           text-decoration: underline;
         }
         span {
-          font: 12px 'sourcesans_pro';
-          color: #373f51;
+          @include font(12);
+          color: $text;
         }
       }
       .first-service {
         display: flex;
         flex-direction: row;
-        font: 18px/18px 'sourcesans_pro';
-        color: #373f51;
+        @include font;
+        color: $text;
         align-items: center;
         padding-bottom: 17px;
         strong {
@@ -121,21 +110,10 @@
           }
         }
       }
-      .services {
-
-      }
       .contact {
-        // height: 100%;
         justify-content: flex-end;
-        .address {
-
-        }
-        .phone {
-
-        }
       }
     }
-
   }
   .rate {
     padding-top: 11px;

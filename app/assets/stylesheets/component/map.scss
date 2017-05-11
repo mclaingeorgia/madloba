@@ -49,3 +49,17 @@
     cursor: not-allowed;
   }
 }
+
+.locator {
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+  width: 565px;
+  height: 441px;
+  #locator_map {
+    width: 100%;
+    height: 100%;
+    cursor: crosshair;
+
+  }
+}
