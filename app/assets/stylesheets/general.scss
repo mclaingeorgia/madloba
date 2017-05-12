@@ -9,9 +9,11 @@
   main {
     overflow: auto;
     z-index: 11;
-    .content {
-      background-color: $bg;
-    }
+    text-align: center;
+    background-color: $bg;
+    // .content {
+    //   background-color: $bg;
+    // }
   }
   * { box-sizing: border-box; }
 
@@ -70,7 +72,7 @@
   }
   input[type="radio"] + label {
     @include font;
-    color: $bg2;
+    color: $text;
     cursor:pointer;
     white-space: nowrap;
     display: flex !important;
@@ -95,11 +97,6 @@
     // margin-right:30px;
     vertical-align: top;
   }
-  .radio {
-    label {
-      input {}
-    }
-  }
 
 /****************************** input checkbox ******************************/
   input[type="checkbox"] {
@@ -107,7 +104,7 @@
   }
   input[type="checkbox"] + label {
     @include font;
-    color: $control;
+    color: $text;
     cursor:pointer;
     display: flex !important;
     flex-direction: row;

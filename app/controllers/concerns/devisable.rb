@@ -17,7 +17,9 @@ module Devisable
       %w(new).include?(action_name) && request.xhr? ? false : 'application'
     end
     def determine_page_type
-      @page_type = request.xhr? ? :autonomous : :'non-autonomous'
-      @class = "devise"
+      @form_container_class = ['pad']
+      @form_container_class << :'autonomous' if request.xhr?
+      @form_class = :'light'
+      # @class = "devise"
     end
 end

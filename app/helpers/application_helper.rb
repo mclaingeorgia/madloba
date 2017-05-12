@@ -24,7 +24,13 @@ module ApplicationHelper
   def if_path_match(pth, v1, v2 = '')
     return "#{controller_name}/#{action_name}" == pth.to_s ? v1 : v2
   end
-
+  def format_messages(resource)
+    order_list = resource.class.validation_order_list
+    order_list.each {}
+    resource.errors.messages
+     Rails.logger.debug("-----------------------------------#{resource.class.validation_order_list}---------#{}")
+    resource.errors.full_messages.join('.<br/>')
+  end
 
   # def resource_name
   #   :user

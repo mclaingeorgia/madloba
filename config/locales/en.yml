@@ -84,7 +84,7 @@ en:
       fail_updated: "%{obj} failed to update."
       success_destroyed: "%{obj} was successfully deleted."
   shared:
-    fields_to_translate: Fields to translate
+    fields_localization: Fields to translate
   admin:
     save: Save
     cancel: Cancel

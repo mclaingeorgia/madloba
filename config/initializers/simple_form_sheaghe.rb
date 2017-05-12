@@ -4,9 +4,10 @@ SimpleForm.setup do |config|
   config.button_class = 'btn btn-default'
   config.boolean_style = :inline
   config.boolean_label_class = nil
+  config.default_form_class = nil#'form-container'
   # config.collection_label_methods = [  ]
-
-  config.wrappers :vertical_form, tag: 'div', class: 'field', error_class: 'has-error' do |b|
+  # config.i18n_scope = 'form'
+  config.wrappers :vertical_form, tag: 'div', class: 'field-wrapper', error_class: 'has-error' do |b|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
@@ -14,42 +15,49 @@ SimpleForm.setup do |config|
     b.optional :min_max
     b.optional :readonly
     b.use :label, class: 'field-label'
-    b.use :input, class: 'field-value'
+    b.use :input, class: 'field-input'
     b.use :error, wrap_with: { tag: 'span', class: 'help-block' }
     b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
   end
 
-  config.wrappers :vertical_file_input, tag: 'div', class: 'field', error_class: 'has-error' do |b|
+  config.wrappers :vertical_file_input, tag: 'div', class: 'field-wrapper', error_class: 'has-error' do |b|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
     b.optional :readonly
 
     b.use :label, class: 'field-label'
-    b.use :input, class: 'field-value'
+    b.use :input, class: 'field-input'
     b.use :error, wrap_with: { tag: 'span', class: 'help-block' }
     b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
   end
 
-  config.wrappers :vertical_boolean, tag: 'div', class: 'field', error_class: 'has-error' do |b|
+  config.wrappers :vertical_boolean, tag: 'div', class: 'field-wrapper', error_class: 'has-error' do |b|
     b.use :html5
     b.optional :readonly
 
-    b.use :input, class: 'field-value'
+    b.use :input, class: 'field-input'
     b.use :label, class: 'field-label'
     b.use :error, wrap_with: { tag: 'span', class: 'help-block' }
     b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
   end
 
-  config.wrappers :vertical_radio_and_checkboxes, tag: 'div', class: 'field', error_class: 'has-error' do |b|
+  config.wrappers :vertical_checkboxes, tag: 'div', class: 'field-wrapper checkboxes', error_class: 'has-error' do |b|
     b.use :html5
     b.optional :readonly
     b.use :label, class: 'field-label'
-    b.use :input, class: 'field-value'
+    b.use :input, class: 'field-input'
     b.use :error, wrap_with: { tag: 'span', class: 'help-block' }
     b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
   end
-
+  config.wrappers :vertical_radios, tag: 'div', class: 'field-wrapper radios', error_class: 'has-error' do |b|
+    b.use :html5
+    b.optional :readonly
+    b.use :label, class: 'field-label'
+    b.use :input, class: 'field-input'
+    b.use :error, wrap_with: { tag: 'span', class: 'help-block' }
+    b.use :hint,  wrap_with: { tag: 'p', class: 'help-block' }
+  end
   # config.wrappers :horizontal_form, tag: 'div', class: 'form-group', error_class: 'has-error' do |b|
   #   b.use :html5
   #   b.use :placeholder
@@ -141,8 +149,8 @@ SimpleForm.setup do |config|
   # buttons and other elements.
   config.default_wrapper = :vertical_form
   config.wrapper_mappings = {
-    check_boxes: :vertical_radio_and_checkboxes,
-    radio_buttons: :vertical_radio_and_checkboxes,
+    check_boxes: :vertical_checkboxes,
+    radio_buttons: :vertical_radios,
     file: :vertical_file_input,
     boolean: :vertical_boolean,
     datetime: :multi_select,

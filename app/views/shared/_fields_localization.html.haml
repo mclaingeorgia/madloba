@@ -1,8 +1,8 @@
 - locales = I18n.available_locales
-.fields-to-translate{{}.merge(defined?(container_options) ? container_options : {})}
+.fields-localization{{}.merge(defined?(container_options) ? container_options : {})}
   .tabs{'data-target': '123'}
     .d.d1
-    %label=t('shared.fields_to_translate')
+    %label=t('shared.fields_localization')
     .d.d2
     - locales.each_with_index do |locale, locale_i|
       = link_to t("app.languages.#{locale}"), 'javascript:void(0);', class: "tab-link#{locale_i == 0 ? ' active' : ''}", 'data-link': locale

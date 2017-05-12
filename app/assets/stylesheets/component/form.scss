@@ -1,83 +1,328 @@
 @import 'var';
+@import 'component/fields_localization';
 
-form.fields {
-  width: 100%;
-  .field {
-    display: flex;
-    flex-direction: row;
-    padding-bottom: 8px;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    padding-bottom: 12px;
-    max-width: 768px;
-    label {
-      width: 45%;
-      @include font(18, 'b');
-      color: $text;
-      padding:0 14px 0 0;
+.form-container {
+  display: inline-block;
+  max-width: 600px;
+  &.pad {
+    padding-top: 42px;
+  }
+  &.border {
+    border: 1px solid $border;
+  }
+  &.autonomous {
+    padding: 42px 36px 36px;
+    position: absolute;
+    top: 100%;
+    right: -1px;
+    border-top: 0;
+    margin-top: 1px;
+    max-width: 400px;
+  }
+  // &.non-autonomous {
+
+  //   padding-bottom: 42px;
+  //   form > .field {
+  //     padding: 0 27px 22px;
+  //   }
+  //   hr {
+  //     margin: 30px -36px 34px;
+  //   }
+  // }
+  // .header {
+  //   @include font;
+  //   color: $text;
+  //   text-align: left;
+  //   padding-bottom: 30px;
+  // }
+  form {
+    text-align: left;
+    // display: inline-block;
+    // width: 100%;
+    .field-wrapper {
+      display: block;
+      // display: flex;
+      // flex-direction: column;
+      // align-items: flex-start;
+      // padding-bottom: 8px;
+      // padding-bottom: 12px;
+      max-width: 768px;
+      .field-label {
+        display: block;
+        @include font(18, 'b');
+        color: $text;
+        // padding: 0 0 8px 2px;
+        padding-bottom: 8px;
+        padding-left: 2px;
+        // padding:0 14px 0 0;
+        // text-align: left;
+        // width: 45%;
+      }
+      .field-input {
+        // width: 55%;
+        // margin-right: 10px;
+      }
+      input, textarea, select {
+        height: 46px;
+        border: 1px solid #e2e2e2;
+        border-radius: 3px;
+        @include font;
+        color: $text;
+        background-color: $bg2;
+        padding: 6px 8px;
+        min-width: 400px;
+      }
+      button {
+        @include font;
+        color: $bg2;
+        background-color: $link;
+        border: 0;
+        padding: 17px 34px;
+        border-radius: 3px;
+        min-width: 110px;
+      }
+      &.radios {
+        display: flex;
+        flex-direction: row;
+        .field-label {
+          padding-right: 20px;
+        }
+        .radio {
+          padding-right: 30px;
+          &:last-child {
+            padding-right: 0;
+          }
+        }
+      }
+    }
+    .actions {
+      padding: 0;
+      text-align: center;
+      padding-top: 85px;
+      padding-bottom: 27px;
+      padding: 14px 0 0;
+      input {
+        cursor: pointer;
+        &[disabled] {
+          opacity: .2;
+        }
+      }
+      input[type='submit'] {
+        @include font;
+        color: #ffffff;
+        background-color: $link;
+        padding: 14px 28px;
+        border: 0;
+        border-radius: 3px;
+        margin-right: 16px;
+      }
+      input[type='reset'] {
+        @include font;
+        color: #878787;
+        background-color: transparent;
+        text-decoration: underline;
+        border: 0;
+      }
+      // span {
+      //   @include font;
+      //   color: #878787;
+      // }
+      // a {
+      //   padding: 13px 21px;
+      //   border: 0;
+      //   border-radius: 5px;
+      //   text-decoration: none;
+      // }
+      // a.edit {
+      //   background-color: $control;
+      //   @include font;
+      //   color: $bg;
+      // }
+      // .sign_up {
+      //   text-align: left;
+      //   @include font;
+      //   color: $control;
+      //   text-decoration: underline;
+      //   padding-top: 30px;
+      // }
+      .action-group {
+        // display: flex;
+        // flex-direction: row;
+        // justify-content: center;
+        input {
+          display: inline-block;
+          @include font;
+          color: $text;
+          background-color: $bg2;
+          padding: 12px 36px;
+          border: 1px solid #e2e2e2;
+          min-width: 130px;
+        }
+        input:first-child {
+          border-top-left-radius: 5px;
+          border-bottom-left-radius: 5px;
+          margin-right: 5px;
+        }
+        input:last-child {
+          border-top-right-radius: 5px;
+          border-bottom-right-radius: 5px;
+          margin-left: 5px;
+        }
+        input[type='submit'] {
+          background-color: $link;
+          color: $bg2;
+          border: 1px solid transparent;
+        }
+      }
+    }
+    .text {
+      @include font(18);
+      color: #3a3a3a;
       text-align: left;
+      &.help {
+        padding: 10px 27px;
+        @include font(16, 'r', 22);
+        span {
+          @include font(16, 'b');
+          color: #3a3a3a;
+        }
+        a {
+          @include font(16);
+          color: $link;
+        }
+      }
+      a {
+        @include font(18);
+        color: $control;
+      }
+      & + .text {
+        padding-top: 12px;
+      }
     }
-    .value {
-      width: 55%;
-      margin-right: 10px;
+    &.light {
+      .field-wrapper {
+        .field-label {
+          @include font;
+          color: $link;
+
+        }
+      }
     }
-    input, textarea, select {
-      border: 1px solid #e2e2e2;
-      border-radius: 3px;
-      @include font;
-      color: $text;
-      background-color: $bg2;
-      padding: 6px 8px;
+    .fields-group {
+      border-bottom: 1px solid $border;
+      padding: 0 27px 30px;
+      // margin-bottom: 4px;// 30px -36px 34px;
+      .field-wrapper {
+        padding-bottom: 22px;
+        &:last-child {
+          padding-bottom: 0;
+        }
+      }
+      .fields-localization {
+        margin: 0 -27px;
+      }
+      & + .fields-group {
+        padding-top: 34px;
+      }
     }
   }
-
 }
 
-form .actions {
-  padding: 0;
-  text-align: center;
-  a {
-    padding: 13px 21px;
-    border: 0;
-    border-radius: 5px;
-    text-decoration: none;
+// simple_form type-non-autonomous style-light style-wide
+
+/* .field-item {
+  display: inline-block;
+  padding-top: 26px;
+  &:last-child {
+    padding-bottom: 0;
   }
-  a.edit {
-    background-color: $control;
+  .field-label {
     @include font;
-    color: $bg;
+    color: $link;
+    padding-bottom: 7px;
   }
-  .action-group {
-    input {
-      display: inline-block;
-      @include font;
-      color: $text;
-      background-color: $bg2;
-      padding: 12px 36px;
-      border: 1px solid #e2e2e2;
-      min-width: 130px;
-      cursor: pointer;
-    }
-    input:first-child {
-      border-top-left-radius: 5px;
-      border-bottom-left-radius: 5px;
-      margin-right: 5px;
-    }
-    input:last-child {
-      border-top-right-radius: 5px;
-      border-bottom-right-radius: 5px;
-      margin-left: 5px;
-    }
-    input[type='submit'] {
-      background-color: $link;
-      color: $bg2;
-      border: 1px solid transparent;
-    }
-  }
-}
-form .actions {
-  padding-top: 85px;
-  padding-bottom: 27px;
-}
+  .field-input {
 
+    &input {
+      @include font;
+      color: $link;
+    }
+    &textarea {
+      @include font;
+      color: $link;
+      padding: 0;
+    }
+  }
+} */
+
+// from admin.scss
+/* .content {
+  form {
+    padding-left: 6px;
+    & > .field > label {
+      padding-left: 27px;
+    }
+  }
+} */
+
+
+
+// place
+/* .row {
+  display: flex;
+  flex-direction: row;
+  .column {
+    padding-right: 30px;
+    &.bottom {
+      align-self: flex-end;
+    }
+  }
+}
+.group {
+  display: inline-block;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+.devise-form {
+
+
+
+
+  .field {
+    text-align: left;
+    &.email, &.remember-me {
+      padding-bottom: 30px;
+    }
+    &.user_has_agreed {
+      @include font;
+      color: #3a3a3a;
+      a {
+        @include font(18);
+        color: $control;
+      }
+    }
+    &.password {
+     padding-bottom: 8px;
+     .forgot {
+      float: right;
+      @include font;
+      color: $control;
+      text-decoration: underline;
+     }
+    }
+
+  }
+
+
+}

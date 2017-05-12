@@ -1,39 +1,34 @@
 - page_title(t('.title'))
 = content_for :custom_stylesheet, 'page/registration'
 = content_for :custom_javascript, 'page/registration'
-.devise-form.wide{ class: @page_type }
-  = simple_form_for resource, as: resource_name, url: password_path(resource_name), remote: true, html: { role: 'form', class: 'fields', :'data-type' => 'json' } do |f|
+.form-container{class: @form_container_class}
+  = simple_form_for resource, as: resource_name, url: registration_path(resource_name), remote: true, html: { :'data-type' => 'json', class: @form_class } do |f|
     -# .header= t('.sign_up')
     = devise_error_messages!
-    = render partial: 'shared/fields_to_translate', locals: { fields: { first_name: nil, last_name: nil } , form: f }
-    .group
+    = render partial: 'shared/fields_localization', locals: { fields: { first_name: nil, last_name: nil } , form: f }
+    .fields-group
       = f.input :username
       = f.input :email
       = f.input :password, input_html: { autocomplete: 'off' }
       = f.input :password_confirmation, input_html: { autocomplete: 'off' }
 
-    .group
+    .fields-group
       = f.input :is_service_provider, as: :radio_buttons
+      = f.simple_fields_for :providers do |provider|
+        = render partial: 'shared/fields_localization', locals: { fields: { name: nil, description: { type: 'text_area', required: true, class: 'tinymce' } } , form: provider, container_options: { style: 'display:none;', id: 'user_providers' } }
 
-      =# render_form_field(:radio_fields, f, :is_service_provider, translate_path,
-      { items: [true, false], default: false, translate_path: "app.common.", item_translations: ['_yes', '_no'] }, { class: 'one-line radio-group'})
-
-
-      = f.fields_for :providers do |provider|
-        = render partial: 'shared/fields_to_translate', locals: { fields: { name: nil, description: { type: 'text_area', required: true, class: 'tinymce' } } , form: provider, container_options: { style: 'display:none;', id: 'user_providers' } }
-
-    .group
-      = f.input :has_agreed, label: t(".has_agreed_html", link: link_to(t('app.common.terms_of_use'), terms_of_use_path))
+    .fields-group
+      = f.input :has_agreed, as: :boolean, label: t(".has_agreed_html", link: link_to(t('app.common.terms_of_use'), terms_of_use_path)), checked_value: true, unchecked_value: false
       .actions
         .action-group
-          = submit_tag(t("app.common.register"), { :type => "submit", :disabled => true })
-          = submit_tag(t('app.common.cancel'), { :type => "reset" })
+          = f.submit t("app.common.register"), :disabled => true
+          = f.submit t("app.common.cancel"), type: :reset
 
-    .group
+    .fields-group
       .text= t(".already_registered_html", link: link_to(t('app.common.sign_in'), new_user_session_path))
       .text= t(".no_confirmation_html", link: link_to(t('app.common.click_here'), new_user_confirmation_path))
 
     .text.help= t('.have_questions_html', link: (link_to t('app.common.click_here'), faq_path, target: '_blank'))
 
-- if @page_type == :'non-autonomous'
+- if @form_container_class != :'autonomous'
   = render partial: "shared/footer", locals: { with_links: true }

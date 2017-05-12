@@ -141,62 +141,7 @@
               color: $text;
               padding-bottom: 10px;
             }
-            .row {
-              display: flex;
-              flex-direction: row;
-              .column {
-                padding-right: 30px;
-                &.bottom {
-                  align-self: flex-end;
-                }
-              }
-            }
-            .group {
-              display: inline-block;
-              .field {
-                display: block;
-              }
-              .field:last-child {
-                padding-bottom: 0;
-              }
-            }
-            .field {
-              display: inline-block;
-              padding-top: 26px;
-              label {
-                display: block;
-                @include font;
-                color: $link;
-                padding-bottom: 7px;
-              }
-              input {
-                height: 46px;
-                border: 1px solid #e2e2e2;
-                border-radius: 3px;
-                background-color: $bg2;
-                min-width: 400px;
-                @include font;
-                color: $link;
-              }
-              textarea {
-                border: 1px solid #e2e2e2;
-                border-radius: 3px;
-                background-color: $bg2;
-                min-width: 400px;
-                @include font;
-                color: $link;
-                padding: 0;
-              }
-            }
-            button {
-              @include font;
-              color: $bg2;
-              background-color: $link;
-              border: 0;
-              padding: 17px 34px;
-              border-radius: 3px;
-              min-width: 110px;
-            }
+
           }
           .comment {}
           .hr {

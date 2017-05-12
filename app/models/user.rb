@@ -1,5 +1,10 @@
 class User < ActiveRecord::Base
+  # Fields to be translated
+  translates :first_name, :last_name
+  globalize_accessors :locales => [:en, :ka], :attributes => [:first_name, :last_name]
 
+
+  PROVIDERS_COUNT_MIN = 1
   # enum role: [:user, :admin, :super_admin]
 
   enum role: [:user, :provider, :admin]
@@ -13,6 +18,7 @@ class User < ActiveRecord::Base
   has_many :favorite_places, through: :user_places, source: :place
 
 
+  accepts_nested_attributes_for :providers
 
   after_initialize :set_default_role, :if => :new_record?
 
@@ -26,22 +32,34 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
 
+ [:ka].each do |locale|
+   validates :"first_name_#{locale}", presence: true
+   validates :"last_name_#{locale}", presence: true
+ end
   validates :username, presence: true
   validates_uniqueness_of :username
-  validates :email, presence: true
-  validates_uniqueness_of :email
+  # validates :email, presence: true
+  # validates_uniqueness_of :email
+
   validates :is_service_provider, inclusion: [true, false]
-  validates :has_agreed, inclusion: [true]
+  # validates :providers, presence: true, if
+  validates :has_agreed, inclusion: [true], on: :create
+
+  # validates :password, presence: true, on: :create
+  # validates :password_confirmation, presence: true, on: :create
+
+  validate :check_providers_number, on: :create
 
 
-  # Fields to be translated
-  translates :first_name, :last_name
-  globalize_accessors :locales => [:en, :ka], :attributes => [:first_name, :last_name]
+  # validates_presence_of :first_name_ka, :unless => lambda { self.first_name_en.blank? }
 
-  [:ka].each do |locale|
-    validates :"first_name_#{locale}", presence: true
-    validates :"last_name_#{locale}", presence: true
-  end
+
+
+  # validates :email, presence: true, if: :should_validate?
+
+  # def should_validate?
+  #   new_record? || email.present?
+  # end
 
   # has_many :locations, dependent: :destroy
   # has_many :posts, dependent: :destroy
@@ -82,6 +100,20 @@ class User < ActiveRecord::Base
   def has_accepted_terms_and_conditions
     errors.add(:base, I18n.t('admin.profile.please_agree')) if (self.has_agreed.nil? || !self.has_agreed)
   end
+
+  def self.validation_order_list
+    [:first_name, :last_name, :username, :email, :password]
+  end
+  private
+    def providers_count_valid?
+      providers.count >= PROVIDERS_COUNT_MIN
+    end
+
+    def check_providers_number
+      if self.is_service_provider && !providers_count_valid?
+        errors.add(:base, :providers_too_short, :count => PROVIDERS_COUNT_MIN)
+      end
+    end
 end
 
 
