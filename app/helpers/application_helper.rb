@@ -25,11 +25,22 @@ module ApplicationHelper
     return "#{controller_name}/#{action_name}" == pth.to_s ? v1 : v2
   end
   def format_messages(resource)
+     # Rails.logger.debug("--------------------format_messages------------------------#{resource.providers.inspect}")
     order_list = resource.class.validation_order_list
-    order_list.each {}
-    resource.errors.messages
-     Rails.logger.debug("-----------------------------------#{resource.class.validation_order_list}---------#{}")
-    resource.errors.full_messages.join('.<br/>')
+    ordered_messages = []
+    messages = resource.errors.messages.dup
+    joiner = '.<br/>'
+
+    order_list.each {|item|
+      if messages.include?(item)
+        ordered_messages << resource.errors.full_messages_for(item).join(joiner)
+        messages.delete(item)
+      end
+    }
+    messages.keys.sort.each{|item|
+      ordered_messages << resource.errors.full_messages_for(item).join(joiner)
+    }
+    ordered_messages.join(joiner)
   end
 
   # def resource_name

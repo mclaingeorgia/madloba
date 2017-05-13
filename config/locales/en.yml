@@ -1,11 +1,4 @@
 en:
-  simple_captcha:
-    placeholder: ""
-    label: "Enter the text in this field"
-    refresh_button_text: "Can't see? Refresh!"
-    message:
-      default: "code did not match with the image"
-      user: "The secret Image and code were different"
   simple_form:
     required:
       text: 'required'
@@ -15,16 +8,21 @@ en:
       html: '<i class="fa fa-check-square"></i>'
   activerecord:
     models:
-      provider:
+      provider: &provider_model
         one: Provider
         other: Providers
       page_content:
         one: Page Content
         other: Page Contents
+      providers:
+        one: Test
+        other: Many
     attributes:
-      provider:
+      provider: &provider
         name: Provider Name
         description: Provider Description
+      providers:
+        <<: *provider
       page_content:
         title: Title
         content: Content
@@ -36,8 +34,14 @@ en:
         email: Email
         password_confirmation: Password Confirmation
         is_service_provider: Do you plan to provide service?
+        providers:
+          <<: *provider_model
     errors:
       models:
+        user:
+          attributes:
+            providers:
+              not_filled: " data is not filled"
         category:
           attributes:
             name:
@@ -77,7 +81,11 @@ en:
       or: or
       register: Register
       sign_in: Sign In
+      sign_up: Sign Up
       cancel: Cancel
+      reset_password: Reset Password
+      change_password: Change Password
+      resend: Resend
       click_here: Click Here
     messages:
       success_updated: "%{obj} was successfully updated."
@@ -130,9 +138,9 @@ en:
       current_password: "Current password:"
       password: "New password:"
       password_confirmation: "Confirm password:"
-    provider:
-      name: "Provider Name:"
-      description: "Provider of Service:"
+#    provider:
+#      name: "Provider Name:"
+#      description: "Provider of Service:"
     page_contents:
       index:
         title: Manage Page Contents
@@ -218,79 +226,28 @@ en:
       service_tags: Service Tags
     faq:
       title: FAQ
-  home:
-    yes: Yes
-    no: No
-    home: Home
-    page: Home page
-    more_about: "More about %{website}..."
-    and_other_categories: "and %{number} other categorie(s)."
-    user_panel: User panel
-    en_language: English
-    ka_language: ქართული
-    register_services_html: Register services
-    sign_in: sign in
-    sign_up: Sign up here
-    not_have_account_yet_html: "%{sign_up_here} if you don't have an account yet."
-    create_account: create an account
-    refinements: Your selection
-    delete_all: Delete all
-    refine_location: Move to a specific location
-    cancel: Cancel
-    close: Close
-    register_link: Create account
-    sign_register: Sign in / Create account
-    e-mail: "Email:"
-    password: "Password:"
-    record_not_exist: Sorry, this page does not exist!
-    got_it: Got it!
-    yes: Yes
-    no: No
-    search_items: "Service name or description"
-    search_or_signup_html: "Are you a service provider? Search to find and validate your service or %{signup} to register and better inform the community about your services"
-    location_example: Region or City
-    search: Search
-    about: About
-    about_website: About %{website_name}
-    links: Links
-    no_post: There are currently no services relating to your search.
-    your_searched_location: Searched location
-    area_marker_message: "%{post_count} services posted in total in this area, featuring %{item_count} items."
-    show_results: "Show results for this area"
-    create_an_post_now_html: "Please try another keyword or use the categories to broaden your search."
-    about_page: About %{website_name}
-    faq_page: FAQ
-    about_description_1_html: "%{website_name} is a website powered by %{madloba_link}."
-    about_description_2_html: "%{madloba_link} is an open-source platform that allows you to let your community know about what you want to give away."
-    about_description_3: So many (still useful!) objects go to waste all the time! Luckily, as we increasingly live in an open-data and location driven world, we now have the technological means to solve this problem. Madloba will give your community a new way to recycle, give or dispose all "this stuff" :)
-    contact_us: Contact us
-    send_us_message: "Send us a message at:"
-    about_send_message_html: If you want to contact us, feel free to send us a message at %{email}.
-    loc_not_found: Sorry, this location was not found.
-    server_error: Sorry, there was a server error. Please try again later.
-    default_current_loc: This is your current location.
-    title_guided_nav: Categories
-    map_positioned_found: "Map positioned on: %{address}"
-    full_not_found_map_position: "Full address not found, map positioned on: %{address}"
-    not_found_map_position: Sorry, address not found.
-    click_on_map_after: Once general area found, click on the map underneath to select the desired location.
-    demo_sidebar_note_html: (Demo) As an administrator, you can change the colors and the icons of these categories in the %{admin_panel}.
-    admin_panel: admin panel
-    same_area: Services related to a same area
-    update: Update
-    demo_instructions_html: "(Demo) Instructions to login %{here}."
-    footer_powered_by_html: Powered by %{madloba_link}
-    footer_new_powered_by_html: New website powered by %{madloba_link}
-    footer_theme_html: Theme from %{charisma}
-    log_out: Log out
-    show_posts_areas: Show services by areas
-    show_details: Show details
-    error_get_popup_content: Sorry, an error occurred. Please try again later.
-    error:
-      one: error
-      more: errors
-  results:
-    title: "Ads for \"%{area}\" (%{num} results)"
+  mailer:
+    hello: "Hello %{name}!"
+    hi: "Hi %{name}"
+    welcome: "Welcome to %{name}! You will soon be able to search and find details for all rehabilitation services in Georgia."
+    account_created: "An account has been created in your name. Please click on the following link to verify your email address and gain full access to all the features of %{name}:"
+    confirm_account: Confirm my account
+    as_soon_as: As soon as you have been verified, you can log in in to your account anytime by clicking Sign In on the %{name} home page.
+    need_assistance: "If you need assistance searching your required services or would like to contact us with any questions or feedback, please use the Contact Us page at http://"
+    phone_number: "Alternatively you may call this number:"
+    thanks: "Thank you for registering. We hope you enjoy using %{name}."
+    thanks_short: "Thanks!"
+    register: "To Register your services, all you have to do is log in to your account and follow these simple steps:"
+    register_1: "Click 'Register Services' button"
+    register_2: Complete the application details. Note that you are able to register as many categories of service linked to your profile as you wish.
+    register_3: Submit Registration
+    someone_requested: Someone has requested a link to change your password. You can do this through the link below.
+    please_ignore: If you didn't request this, please ignore this email.
+    password_not_changing: Your password won't change until you access the link above and create a new one.
+    change_my_password: Change my password
+    account_locked: Your account has been locked due to an excessive number of unsuccessful sign in attempts.
+    link_unlock: Click the link below to unlock your account
+    unlock_account: Unlock my account
   errors:
     oops: "Oops!"
     not_found: 404 Page Not Found
@@ -1025,3 +982,76 @@ en:
     no_district_delete: No district to delete
     drag_handles: Drag handles to edit district boundaries. Click on the area to edit its name.
     select_new_location_only: Select an existing location
+  home:
+    yes: Yes
+    no: No
+    home: Home
+    page: Home page
+    more_about: "More about %{website}..."
+    and_other_categories: "and %{number} other categorie(s)."
+    user_panel: User panel
+    en_language: English
+    ka_language: ქართული
+    register_services_html: Register services
+    sign_in: sign in
+    sign_up: Sign up here
+    not_have_account_yet_html: "%{sign_up_here} if you don't have an account yet."
+    create_account: create an account
+    refinements: Your selection
+    delete_all: Delete all
+    refine_location: Move to a specific location
+    cancel: Cancel
+    close: Close
+    register_link: Create account
+    sign_register: Sign in / Create account
+    e-mail: "Email:"
+    password: "Password:"
+    record_not_exist: Sorry, this page does not exist!
+    got_it: Got it!
+    yes: Yes
+    no: No
+    search_items: "Service name or description"
+    search_or_signup_html: "Are you a service provider? Search to find and validate your service or %{signup} to register and better inform the community about your services"
+    location_example: Region or City
+    search: Search
+    about: About
+    about_website: About %{website_name}
+    links: Links
+    no_post: There are currently no services relating to your search.
+    your_searched_location: Searched location
+    area_marker_message: "%{post_count} services posted in total in this area, featuring %{item_count} items."
+    show_results: "Show results for this area"
+    create_an_post_now_html: "Please try another keyword or use the categories to broaden your search."
+    about_page: About %{website_name}
+    faq_page: FAQ
+    about_description_1_html: "%{website_name} is a website powered by %{madloba_link}."
+    about_description_2_html: "%{madloba_link} is an open-source platform that allows you to let your community know about what you want to give away."
+    about_description_3: So many (still useful!) objects go to waste all the time! Luckily, as we increasingly live in an open-data and location driven world, we now have the technological means to solve this problem. Madloba will give your community a new way to recycle, give or dispose all "this stuff" :)
+    contact_us: Contact us
+    send_us_message: "Send us a message at:"
+    about_send_message_html: If you want to contact us, feel free to send us a message at %{email}.
+    loc_not_found: Sorry, this location was not found.
+    server_error: Sorry, there was a server error. Please try again later.
+    default_current_loc: This is your current location.
+    title_guided_nav: Categories
+    map_positioned_found: "Map positioned on: %{address}"
+    full_not_found_map_position: "Full address not found, map positioned on: %{address}"
+    not_found_map_position: Sorry, address not found.
+    click_on_map_after: Once general area found, click on the map underneath to select the desired location.
+    demo_sidebar_note_html: (Demo) As an administrator, you can change the colors and the icons of these categories in the %{admin_panel}.
+    admin_panel: admin panel
+    same_area: Services related to a same area
+    update: Update
+    demo_instructions_html: "(Demo) Instructions to login %{here}."
+    footer_powered_by_html: Powered by %{madloba_link}
+    footer_new_powered_by_html: New website powered by %{madloba_link}
+    footer_theme_html: Theme from %{charisma}
+    log_out: Log out
+    show_posts_areas: Show services by areas
+    show_details: Show details
+    error_get_popup_content: Sorry, an error occurred. Please try again later.
+    error:
+      one: error
+      more: errors
+  results:
+    title: "Ads for \"%{area}\" (%{num} results)"

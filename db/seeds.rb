@@ -180,7 +180,17 @@ tags.each {|item|
 
 descr = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
-me = User.where(email: 'antarya@gmail.com').first
+
+email = 'application@mail.com'
+if User.where(email: email).count == 0
+  puts 'Creating app user and api key'
+  #User.where(email: email).destroy
+  u = User.new(email: email, password: Devise.friendly_token[0,30], role_id: 0)
+  u.save(validate: false)
+end
+
+
+me = User.find_by_email(email)
 p1 = Provider.create({ name: 'Provider 1', description: descr })
 p1.places << Place.create(name: 'Place 1', description: descr, address: 'Rustaveli Avenue 13a', city: 'Tbilisi', phone: '558798789', website: 'www.place1.ge', region_id: 1, latitude: 41.65957525538758, longitude: 44.86507415771485, rating: 3, service_ids: [2,3], tag_ids: [1,2,3])
 p1.places << Place.create(name: 'Place 2', description: descr, address: 'Rustaveli Avenue 14a', city: 'Tbilisi', phone: '558798789', website: 'www.place2.ge', region_id: 2, latitude: 41.748775021355044, longitude: 44.93785858154297, rating: 2, service_ids: [1,3], tag_ids: [2,3,4])

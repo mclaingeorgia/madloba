@@ -1,13 +1,13 @@
-- translate_path = 'devise.passwords.new.'
-.devise-form{ class: @page_type }
-  = form_for resource, as: resource_name, url: password_path(resource_name), remote: true, html: { role: 'form', class: 'fields', :'data-type' => 'json' } do |f|
+- page_title(t('.title'))
+.form-container{class: @form_container_class}
+  = simple_form_for resource, as: resource_name, url: password_path(resource_name), remote: true, html: { :'data-type' => 'json', class: @form_class } do |f|
     .header= t('.forgot')
     = devise_error_messages!
-    = render_form_field(:email_field, f, :email, translate_path, { autofocus: true }, { class: 'email' })
-    .actions
-      .action-group
-        = submit_tag(t(".reset_password"), { :type => "submit" })
-        = submit_tag(t('app.common.cancel'), { :type => "reset" })
+    = f.input :email, input_html: { autofocus: true }
 
-- if @page_type == :'non-autonomous'
+    .actions.left
+      = f.submit t("app.common.reset_password")
+      = f.submit t("app.common.cancel"), type: :reset
+
+- if !@form_container_class.include?(:'autonomous')
   = render partial: "shared/footer", locals: { with_links: true }

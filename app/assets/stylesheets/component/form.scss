@@ -4,20 +4,27 @@
 .form-container {
   display: inline-block;
   max-width: 600px;
+  flex: 1;
+  align-self: center;
   &.pad {
     padding-top: 42px;
   }
   &.border {
-    border: 1px solid $border;
+    form {
+      padding: 42px 36px 36px;
+      border: 1px solid $border;
+    }
   }
   &.autonomous {
-    padding: 42px 36px 36px;
+    // padding: 42px 36px 36px;
     position: absolute;
     top: 100%;
     right: -1px;
-    border-top: 0;
-    margin-top: 1px;
-    max-width: 400px;
+    form {
+      margin-top: 1px;
+      border-top: 0;
+    }
+    // max-width: 400px;
   }
   // &.non-autonomous {
 
@@ -29,18 +36,14 @@
   //     margin: 30px -36px 34px;
   //   }
   // }
-  // .header {
-  //   @include font;
-  //   color: $text;
-  //   text-align: left;
-  //   padding-bottom: 30px;
-  // }
+
   form {
     text-align: left;
     // display: inline-block;
     // width: 100%;
     .field-wrapper {
       display: block;
+      padding-bottom: 22px;
       // display: flex;
       // flex-direction: column;
       // align-items: flex-start;
@@ -70,7 +73,7 @@
         color: $text;
         background-color: $bg2;
         padding: 6px 8px;
-        min-width: 400px;
+        min-width: 300px;
       }
       button {
         @include font;
@@ -80,6 +83,9 @@
         padding: 17px 34px;
         border-radius: 3px;
         min-width: 110px;
+      }
+      &.user_password {
+        padding-bottom: 8px;
       }
       &.radios {
         display: flex;
@@ -94,13 +100,19 @@
           }
         }
       }
+      .forgot {
+        float: right;
+        @include font(18);
+        color: $control;
+      }
     }
     .actions {
-      padding: 0;
       text-align: center;
-      padding-top: 85px;
-      padding-bottom: 27px;
-      padding: 14px 0 0;
+      // padding: 0;
+      // padding-top: 85px;
+      // padding-bottom: 27px;
+      padding-top: 14px;
+      padding-bottom: 30px;
       input {
         cursor: pointer;
         &[disabled] {
@@ -109,7 +121,7 @@
       }
       input[type='submit'] {
         @include font;
-        color: #ffffff;
+        color: $text_white;
         background-color: $link;
         padding: 14px 28px;
         border: 0;
@@ -118,10 +130,13 @@
       }
       input[type='reset'] {
         @include font;
-        color: #878787;
+        color: $text_gray;
         background-color: transparent;
         text-decoration: underline;
         border: 0;
+      }
+      &.left {
+        text-align: left;
       }
       // span {
       //   @include font;
@@ -161,11 +176,15 @@
         input:first-child {
           border-top-left-radius: 5px;
           border-bottom-left-radius: 5px;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
           margin-right: 5px;
         }
         input:last-child {
           border-top-right-radius: 5px;
           border-bottom-right-radius: 5px;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
           margin-left: 5px;
         }
         input[type='submit'] {
@@ -174,6 +193,16 @@
           border: 1px solid transparent;
         }
       }
+    }
+    .fields-group {
+      .actions {
+        padding-bottom: 0;
+      }
+    }
+    .header {
+      @include font(20, 'b', 22);
+      color: $text;
+      padding-bottom: 30px;
     }
     .text {
       @include font(18);

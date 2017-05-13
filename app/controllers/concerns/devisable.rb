@@ -17,8 +17,14 @@ module Devisable
       %w(new).include?(action_name) && request.xhr? ? false : 'application'
     end
     def determine_page_type
-      @form_container_class = ['pad']
-      @form_container_class << :'autonomous' if request.xhr?
+      @form_container_class = []
+      if request.xhr?
+        @form_container_class << :'autonomous'
+      else
+        @form_container_class << 'pad'
+      end
+      @form_container_class << :'border' if ["registrations/new", "registrations/create"].index("#{controller_name}/#{action_name}").nil?
+
       @form_class = :'light'
       # @class = "devise"
     end

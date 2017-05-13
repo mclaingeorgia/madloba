@@ -82,9 +82,12 @@ class ApplicationController < ActionController::Base
     # I18n.locale = l
   end
 
-  def default_url_options
+  def default_url_options(options = {})
     { locale: I18n.locale }
   end
+  #  def default_url_options(options={})
+  #   { :locale => I18n.locale == I18n.default_locale ? nil : I18n.locale  }
+  # end
   # Uses the 'gon' gem to load the text that appears in javascript files.
   def load_javascript_text
     #gon.vars = t('general_js')

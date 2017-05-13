@@ -60,7 +60,6 @@ Madloba::Application.routes.draw do
     resources :providers, :controller => 'admin/providers'
     post 'send_message', as: 'send_message', :controller => 'admin/providers'
     resources :places, :controller => 'admin/places'
-    resources :users
 
     namespace :manage, :module => :admin, :constraints => { format: :html } do
       get '/', to: '/admin#index'

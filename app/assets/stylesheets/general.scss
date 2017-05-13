@@ -11,6 +11,9 @@
     z-index: 11;
     text-align: center;
     background-color: $bg;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     // .content {
     //   background-color: $bg;
     // }

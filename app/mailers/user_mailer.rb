@@ -1,4 +1,4 @@
-class UserMailer < ActionMailer::Base
+class UserMailer < ApplicationMailer
   default from: Rails.application.secrets.notification_email
 
   include ApplicationHelper

@@ -3,13 +3,21 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def new
     build_resource({})
-    yield resource if block_given?
     resource.providers.build
+    yield resource if block_given?
     respond_with resource
   end
   def create
-    build_resource(sign_up_params)
+    pars = sign_up_params
+    build_resource(pars)
+    # resource.providers.build
+    #resource.providers.build({name_ka: "ab", description_ka: 'asdf'})
+     # Rails.logger.debug("--------------------------------------------#{resource.providers.inspect}")
+    # resource.build_provider
 
+    # resource.providers.build
+     # Rails.logger.debug("--------------------------------------------#{pars[:providers_attributes]}")
+    # resource.providers.build({ providers_attributes: pars[:providers_attributes] })
     resource.save
     yield resource if block_given?
     if resource.persisted?
@@ -53,10 +61,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def sign_up_params
     permitted = User.globalize_attribute_names + [:username, :email, :password, :password_confirmation, :is_service_provider, :has_agreed, providers_attributes: Provider.globalize_attribute_names ]
-    params.require(:user).permit(*permitted)
-    # params.require(:user)#.permit(:first_name, :first_name_en, :first_name_ka,
-                               #  :last_name, :last_name_en, :last_name_ka, :username, :email,
-                             #    :password, :password_confirmation, :role, :is_service_provider, :has_agreed_to_tos)
+    p = params.require(:user).permit(*permitted)
+    p["providers_attributes"].reject! { |attr| attr.empty? }
+    p
   end
 
   # def account_update_params

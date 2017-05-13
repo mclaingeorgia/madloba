@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   translates :first_name, :last_name
   globalize_accessors :locales => [:en, :ka], :attributes => [:first_name, :last_name]
 
+  include HumanTranslatable
 
   PROVIDERS_COUNT_MIN = 1
   # enum role: [:user, :admin, :super_admin]
@@ -12,12 +13,13 @@ class User < ActiveRecord::Base
   # has_many :providers#, -> (object){ where(role: [:provider, :admin]) }
 
   has_many :provider_users
-  has_many :providers, through: :provider_users
+  has_many :providers, through: :provider_users#, :inverse_of => :user, :autosave => true
 
   has_many :user_places
   has_many :favorite_places, through: :user_places, source: :place
 
 
+  # accepts_nested_attributes_for :provider_users
   accepts_nested_attributes_for :providers
 
   after_initialize :set_default_role, :if => :new_record?
@@ -66,52 +68,59 @@ class User < ActiveRecord::Base
   # has_many :post_users
   # has_many :favorite_posts, through: :post_users, source: :post
 
-  def guest?
-    nil?
-  end
+  # def guest?
+  #   nil?
+  # end
 
-  def user?
-    role == "user" || role == "provider" || role == "admin"
-  end
+  # def user?
+  #   role == "user" || role == "provider" || role == "admin"
+  # end
 
-  def provider?
-    role == "provider" || role == "admin"
-  end
+  # def provider?
+  #   role == "provider" || role == "admin"
+  # end
 
-  def admin?
-    role == "admin"
-  end
+  # def admin?
+  #   role == "admin"
+  # end
 
-  def owns_post? (post)
-    self.posts.include?(post)
-  end
+  # def owns_post? (post)
+  #   self.posts.include?(post)
+  # end
 
-  def is_admin_or_super_admin
-    self.admin? || self.super_admin?
-  end
+  # def is_admin_or_super_admin
+  #   self.admin? || self.super_admin?
+  # end
 
   def name
     "#{self.first_name} #{self.last_name}"
   end
-  def name_and_email
-    "#{self.first_name} #{self.last_name} - #{self.email}"
-  end
 
-  def has_accepted_terms_and_conditions
-    errors.add(:base, I18n.t('admin.profile.please_agree')) if (self.has_agreed.nil? || !self.has_agreed)
-  end
+  # def name_and_email
+  #   "#{self.first_name} #{self.last_name} - #{self.email}"
+  # end
 
+  # def has_accepted_terms_and_conditions
+  #   errors.add(:base, I18n.t('admin.profile.please_agree')) if (self.has_agreed.nil? || !self.has_agreed)
+  # end
+
+  # used to order flash messages
   def self.validation_order_list
-    [:first_name, :last_name, :username, :email, :password]
+    [User.globalize_attribute_names, :username, :email, :password, :password_confirmation].flatten
   end
+
+
+
   private
     def providers_count_valid?
-      providers.count >= PROVIDERS_COUNT_MIN
+       Rails.logger.debug("--------------------------------------------#{self.providers.inspect}")
+      providers.length >= PROVIDERS_COUNT_MIN
     end
 
     def check_providers_number
+       # Rails.logger.debug("--------------------------------------------#{self.is_service_provider}#{providers_count_valid?}")
       if self.is_service_provider && !providers_count_valid?
-        errors.add(:base, :providers_too_short, :count => PROVIDERS_COUNT_MIN)
+        errors.add(:providers, :not_filled, count: 1)
       end
     end
 end
