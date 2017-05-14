@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170513180206) do
+ActiveRecord::Schema.define(version: 20170514144450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -236,7 +236,6 @@ ActiveRecord::Schema.define(version: 20170513180206) do
   add_index "place_translations", ["place_id"], name: "index_place_translations_on_place_id", using: :btree
 
   create_table "places", force: :cascade do |t|
-    t.string   "phone"
     t.string   "website"
     t.string   "postal_code"
     t.decimal  "latitude",    precision: 8, scale: 5
@@ -245,6 +244,8 @@ ActiveRecord::Schema.define(version: 20170513180206) do
     t.integer  "region_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "emails",                              default: [], null: false, array: true
+    t.string   "phones",                              default: [], null: false, array: true
   end
 
   add_index "places", ["region_id"], name: "index_places_on_region_id", using: :btree

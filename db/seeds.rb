@@ -108,6 +108,7 @@ page_contents.each {|item|
 
 }
 
+Service.destroy_all
 services = [
   { icon: 'adult', name: { en: "Other Services", ka: "სხვა სერვისები" }, description: { en: "Services that are not clearly defined by already established Service Categories", ka: "ის სერვისები,რომელიც არ შეესაბამება არცერთ არსებულ სერვისის კატეგორიას." } },
   { icon: 'children', name: { en: "Physical Rehabilitation", ka: "ფიზიკური რეაბილიტაცია" }, description: { en: "All types of physical rehabilitation and therapy services", ka: "ყველა ტიპის ფიზიკური რეაბილიტაცია და თერაპიული სერვისი" } },
@@ -135,21 +136,26 @@ services.each {|item|
     end
   }
 }
-
+Region.destroy_all
 regions = [
-  { name: { en: "Abkhazia", ka: "" }, center: { en: "Sukhumi", ka: "" } },
-  { name: { en: "Adjara", ka: "" }, center: { en: "Batumi", ka: "" } },
-  { name: { en: "Guria", ka: "" }, center: { en: "Ozurgeti", ka: "" } },
-  { name: { en: "Imereti", ka: "" }, center: { en: "Kutaisi", ka: "" } },
-  { name: { en: "Kakheti", ka: "" }, center: { en: "Telavi", ka: "" } },
-  { name: { en: "Kvemo Kartli", ka: "" }, center: { en: "Rustavi", ka: "" } },
-  { name: { en: "Mtskheta-Mtianeti", ka: "" }, center: { en: "Mtskheta", ka: "" } },
-  { name: { en: "Racha-Lechkhumi and Kvemo Svaneti", ka: "" }, center: { en: "Ambrolauri", ka: "" } },
-  { name: { en: "Samegrelo-Zemo Svaneti", ka: "" }, center: { en: "Zugdidi", ka: "" } },
-  { name: { en: "Samtskhe-Javakheti", ka: "" }, center: { en: "Akhaltsikhe", ka: "" } },
-  { name: { en: "Shida Kartli", ka: "" }, center: { en: "Gori", ka: "" } },
-  { name: { en: "Tbilisi", ka: "" }, center: { en: "Tbilisi", ka: "" } }
+  { name: { en: "Abkhazia", ka: "აფხაზეთი" }, center: { en: "Sukhumi", ka: "" } },
+  { name: { en: "Adjara", ka: "აჭარა" }, center: { en: "Batumi", ka: "" } },
+  { name: { en: "Guria", ka: "გურია" }, center: { en: "Ozurgeti", ka: "" } },
+  { name: { en: "Imereti", ka: "იმერეთი" }, center: { en: "Kutaisi", ka: "" } },
+  { name: { en: "Kakheti", ka: "კახეთი" }, center: { en: "Telavi", ka: "" } },
+  { name: { en: "Kvemo Kartli", ka: "ქვემო ქართლი" }, center: { en: "Rustavi", ka: "" } },
+  { name: { en: "Mtskheta-Mtianeti", ka: "მცხეთა-მთიანეთი" }, center: { en: "Mtskheta", ka: "" } },
+  { name: { en: "Racha-Lechkhumi and Kvemo Svaneti", ka: "რაჭა-ლეჩხუმი და ქვემო სვანეთი" }, center: { en: "Ambrolauri", ka: "" } },
+  { name: { en: "Samegrelo-Zemo Svaneti", ka: "სამეგრელო-ზემო სვანეთი" }, center: { en: "Zugdidi", ka: "" } },
+  { name: { en: "Samtskhe-Javakheti", ka: "სამცხე-ჯავახეთი" }, center: { en: "Akhaltsikhe", ka: "" } },
+  { name: { en: "Shida Kartli", ka: "შიდა ქართლი" }, center: { en: "Gori", ka: "" } },
+  { name: { en: "Tbilisi", ka: "თბილისი" }, center: { en: "Tbilisi", ka: "თბილისი" } }
 ]
+
+
+
+
+
 
 regions.each {|item|
   d = Region.create()
@@ -168,7 +174,7 @@ tags = [
   { name: { en: "Psychological assessment", ka: "Psychological assessment" } },
   { name: { en: "Small grants", ka: "Small grants" } }
 ]
-
+Tag.destroy_all
 tags.each {|item|
   d = Tag.create()
   I18n.available_locales.each { |locale|
@@ -181,26 +187,26 @@ tags.each {|item|
 descr = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
 
-email = 'application@mail.com'
+email = 'application@sheaghe.ge'
 if User.where(email: email).count == 0
   puts 'Creating app user and api key'
   #User.where(email: email).destroy
-  u = User.new(email: email, password: Devise.friendly_token[0,30], role_id: 0)
+  u = User.new(email: email, password: Devise.friendly_token[0,30], role: 1)
   u.save(validate: false)
 end
 
 
-me = User.find_by_email(email)
-p1 = Provider.create({ name: 'Provider 1', description: descr })
-p1.places << Place.create(name: 'Place 1', description: descr, address: 'Rustaveli Avenue 13a', city: 'Tbilisi', phone: '558798789', website: 'www.place1.ge', region_id: 1, latitude: 41.65957525538758, longitude: 44.86507415771485, rating: 3, service_ids: [2,3], tag_ids: [1,2,3])
-p1.places << Place.create(name: 'Place 2', description: descr, address: 'Rustaveli Avenue 14a', city: 'Tbilisi', phone: '558798789', website: 'www.place2.ge', region_id: 2, latitude: 41.748775021355044, longitude: 44.93785858154297, rating: 2, service_ids: [1,3], tag_ids: [2,3,4])
-me.providers << p1
+# me = User.find_by_email(email)
+# p1 = Provider.create({ name: 'Provider 1', description: descr })
+# p1.places << Place.create(name: 'Place 1', description: descr, address: 'Rustaveli Avenue 13a', city: 'Tbilisi', phone: '558798789', website: 'www.place1.ge', region_id: 1, latitude: 41.65957525538758, longitude: 44.86507415771485, rating: 3, service_ids: [2,3], tag_ids: [1,2,3])
+# p1.places << Place.create(name: 'Place 2', description: descr, address: 'Rustaveli Avenue 14a', city: 'Tbilisi', phone: '558798789', website: 'www.place2.ge', region_id: 2, latitude: 41.748775021355044, longitude: 44.93785858154297, rating: 2, service_ids: [1,3], tag_ids: [2,3,4])
+# me.providers << p1
 
 
-p1 = Provider.create({ name: 'Provider 2', description: 'Description 2' })
-p1.places << Place.create(name: 'Place 3', description: descr, address: 'Rustaveli Avenue 1', city: 'Tbilisi', phone: '558798789', website: 'www.place2.ge', region_id: 3, latitude: 41.66752623198858, longitude: 41.66752623198858, rating: 3, service_ids: [2,5], tag_ids: [2,3])
-p1.places << Place.create(name: 'Place 4', description: descr, address: 'Rustaveli Avenue 81', city: 'Tbilisi', phone: '558798789', website: 'www.place3.ge', region_id: 4, latitude: 41.6993844050109, longitude: 44.75379467010498, rating: 2, service_ids: [1,4], tag_ids: [3])
-me.providers << p1
+# p1 = Provider.create({ name: 'Provider 2', description: 'Description 2' })
+# p1.places << Place.create(name: 'Place 3', description: descr, address: 'Rustaveli Avenue 1', city: 'Tbilisi', phone: '558798789', website: 'www.place2.ge', region_id: 3, latitude: 41.66752623198858, longitude: 41.66752623198858, rating: 3, service_ids: [2,5], tag_ids: [2,3])
+# p1.places << Place.create(name: 'Place 4', description: descr, address: 'Rustaveli Avenue 81', city: 'Tbilisi', phone: '558798789', website: 'www.place3.ge', region_id: 4, latitude: 41.6993844050109, longitude: 44.75379467010498, rating: 2, service_ids: [1,4], tag_ids: [3])
+# me.providers << p1
 
 # Provider.create(
 
