@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
 
   PER_PAGE_COUNT = 6
 
+
   DEVISE_CONTROLLERS = ['users/sessions', 'users/registrations', 'users/passwords']
 
 
@@ -46,6 +47,7 @@ class ApplicationController < ActionController::Base
   # def default_serializer_options
   #   { root: false }
   # end
+
 
   def prepare_about_content
     @about_page = PageContent.by_name('about')

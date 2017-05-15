@@ -3,7 +3,9 @@
     default_options: {
       zoom: 16,
       coordinates: [41.74288345375358, 44.74130630493165],
-      type: 'coordinate'
+      type: 'coordinate' // locator uses inputs, data uses data attributes,
+      // coordinate uses options coordinates, coordinates - multiple markers from gon.coordinates
+
     },
     init: function(id, options) { // id without #
       var t = map
@@ -15,7 +17,6 @@
       var type = options.type
       var coordinates = options.coordinates
       if($mp.length) {
-
 
         if(type === 'locator') {
           lat = +$("input[name$='[latitude]'").val()
@@ -38,16 +39,39 @@
         L.tileLayer(gon.osm, { attribution: gon.osm_attribution })
           .addTo(mp)
 
-        var marker = L.marker(coordinates, {icon: pollution.elements.pin })
-          .addTo(mp)
+        if(type === 'coordinates') {
+          console.log(gon.d)
+          gon.d.results.forEach(function(result) {
+            var mrk = L.marker([parseFloat(result.latitude), parseFloat(result.longitude)], {icon: pollution.elements.pin }).addTo(mp)
+            if(!device.desktop()) {
+              mrk.bindPopup("<div class='header'>" + result.name + "</div>");
+            }
+            else {
+              mrk.on('click', function() {
+                var place_cards = $('.place-cards').get(0)
+                var place_card = $(place_cards).find('.place-card[data-place-id="' + result.id + '"]').get(0)
+
+                if(typeof place_card.scrollIntoView === 'function') {
+                  place_card.scrollIntoView({block: "end", behavior: "smooth"});
+                }
+                else {
+                  place_cards.scrollTop = place_card.offsetTop - place_cards.offsetTop
+                }
+              })
+            }
+          })
+        } else {
+          var marker = L.marker(coordinates, {icon: pollution.elements.pin })
+            .addTo(mp)
+        }
 
         var map_container = $mp.parent()
 
-        map_container.find('.map_zoomer .in').click(function(){
+        map_container.find('.map-zoomer .in').click(function(){
           mp.setZoom(mp.getZoom() + 1)
         });
 
-        map_container.find('.map_zoomer .out').click(function(){
+        map_container.find('.map-zoomer .out').click(function(){
           mp.setZoom(mp.getZoom() - 1)
         });
 

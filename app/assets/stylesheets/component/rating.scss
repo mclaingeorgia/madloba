@@ -1,11 +1,5 @@
 @import 'var';
 
-.rate {
-  label {
-    @include font(18, 'b');
-    color: $text;
-  }
-}
 .rating {
   background-color: $bg2;
   padding: 12px 8px 8px;
@@ -25,39 +19,40 @@
     }
   }
   span {
-    @include font(16);
+    @include font(18);
     color: $text;
   }
 }
 
 
 
+
+
 // from place
-      .rating {
-          padding: 9px 16px;
-          border-radius: 3px;
-          background-color: $bg2;
-          display: inline-block;
-          position: absolute;
-          top: 50%;
-          z-index: 2;
-          width: 13%;
-          min-width: 200px;
-          text-align: right;
-          pointer-events: none;
-          .icon.heart {
-            display: inline-block;
-            width: 20px;
-            height: 17px;
-            margin: 0 6px 0 0;
-            background: background('heart');
-          }
-          .value {
-            @include font(22, 'b');
-            color: $control;
-          }
-          span {
-            @include font(16);
-            color: $text;
-          }
-        }
+// .rating {
+//     padding: 9px 16px;
+//     border-radius: 3px;
+//     display: inline-block;
+//     position: absolute;
+//     top: 50%;
+//     z-index: 2;
+//     width: 13%;
+//     min-width: 200px;
+//     text-align: right;
+//     pointer-events: none;
+//     .icon.heart {
+//       display: inline-block;
+//       width: 20px;
+//       height: 17px;
+//       margin: 0 6px 0 0;
+//       background: background('heart');
+//     }
+//     .value {
+//       @include font(22, 'b');
+//       color: $control;
+//     }
+//     span {
+//       @include font(16);
+//       color: $text;
+//     }
+//   }

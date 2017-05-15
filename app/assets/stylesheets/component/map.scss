@@ -1,6 +1,7 @@
 @import 'var';
 
 .map-container {
+  position: relative;
   width: 100%;
   height: 100%;
   min-height: 270px;
@@ -8,8 +9,28 @@
     width: 100%;
     height: 100%;
     z-index: 1;
+    .leaflet-popup {
+      .leaflet-popup-content-wrapper {
+        border: 1px solid #eaba6b;
+        background-color: $bg2;
+        color: $text;
+        padding: 12px 20px;
+        border-radius: 0;
+        .leaflet-popup-content {
+          max-width: 200px;
+        }
+      }
+      .leaflet-popup-tip-container {
+        margin-top: -1px;
+        .leaflet-popup-tip {
+          border: 1px solid #eaba6b;
+          background-color: $bg2;
+          color: $text;
+        }
+      }
+    }
   }
-  .map_zoom {
+  .map-zoomer {
     display: flex;
     flex-direction: column;
     background-color: $bg2;
@@ -19,7 +40,7 @@
     top: 15px;
     right: 16px;
     text-align: center;
-    z-index: 9000;
+    z-index: 2;
     .in, .out {
       @include font(18, 'b', 10);
       color: $text;
@@ -32,6 +53,27 @@
       height: 1px;
       background-color: $border;
       margin: 0 auto;
+    }
+  }
+  .map-filter {
+    position: absolute;
+    top: 15px;
+    left: 16px;
+    z-index: 2;
+    padding: 7px 16px 7px 10px;
+    border: 1px solid $border;
+    border-radius: 3px;
+    background-color: $bg2;
+    input[type="checkbox"] + label {
+      @include font(14, 'r', 14);
+    }
+    input[type="checkbox"] + label:before {
+      width:14px;
+      height:14px;
+      background:url(svg('map_checkbox')) no-repeat 0 top;
+    }
+    input[type="checkbox"]:checked + label:before {
+      background:url(svg('map_checkbox')) no-repeat -15px top;
     }
   }
 }

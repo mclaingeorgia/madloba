@@ -14,6 +14,7 @@
 //= require jquery.min
 //= require jquery_ujs
 //= require leaflet
+//= require device.min
 //
 //= require general
 //

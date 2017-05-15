@@ -87,12 +87,16 @@ en:
       change_password: Change Password
       resend: Resend
       click_here: Click Here
+      alt: "%{alt} Image"
     messages:
       success_updated: "%{obj} was successfully updated."
       fail_updated: "%{obj} failed to update."
       success_destroyed: "%{obj} was successfully deleted."
   shared:
     fields_localization: Fields to translate
+    picked_as_favorite: Picked as favorite
+    overall_rating: "Overall place rating %{rating}/5"
+    rating_threshold: "/%{n}"
   admin:
     save: Save
     cancel: Cancel
@@ -138,9 +142,6 @@ en:
       current_password: "Current password:"
       password: "New password:"
       password_confirmation: "Confirm password:"
-#    provider:
-#      name: "Provider Name:"
-#      description: "Provider of Service:"
     page_contents:
       index:
         title: Manage Page Contents
@@ -211,6 +212,8 @@ en:
         other: "Results"
       alt:
         filter: Filter Image
+      filter:
+        by_map: Search as I move the map
     place:
       contact_service_provider: Contact Service Provider
       your_name: Your Name
@@ -224,6 +227,7 @@ en:
       take_ownership: Take Ownership
       share: Share
       service_tags: Service Tags
+      comments: Comments
     faq:
       title: FAQ
   mailer:

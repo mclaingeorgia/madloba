@@ -26,4 +26,12 @@ class Place < ActiveRecord::Base
   def self.authorized_by_id(id)
     all.find(id)
   end
+
+  def phone
+    phones.join(", ")
+  end
+
+  def email
+    emails.join(", ")
+  end
 end

@@ -1,0 +1,11 @@
+@import 'var';
+
+.favorite {
+  position: absolute;
+  top: 7px;
+  right: 4px;
+  width: 26px;
+  height: 25px;
+  background: background('favorite');
+  background-position: -54px 0;
+}

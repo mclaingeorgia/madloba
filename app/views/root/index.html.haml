@@ -40,36 +40,31 @@
             %button.apply=t('.apply')
         .inner-right-border
       %li.by-rate
-        %label=t('.rate')
-        .rator{"data-r": 0}
-          .heart{"data-r": 1}
-            %i
-            .heart{"data-r": 2}
-              %i
-              .heart{"data-r": 3}
-                %i
-                .heart{"data-r": 4}
-                  %i
-                  .heart{"data-r": 5}
-                    %i
-          .close
+        = render partial: 'shared/rator'
       %li.by-favorite
         %label=t('.favorites')
         .favoritor
   .results
     .map-view
     .records
-      - ln = 6 #recods.length
+      - ln = results.length #recods.length
       = ln
       %span= t('.result', count: ln)
   .place-cards
-    - Place.all.in_groups_of(2).each do |place_group|
+    - results.in_groups_of(2).each do |place_group|
       .row
         - if place_group[0].present?
           = render partial: 'shared/place', locals: { place: place_group[0] }
           - if place_group[1].present?
             = render partial: 'shared/place', locals: { place: place_group[1] }
     = render partial: "shared/footer", locals: { with_links: true }
-%section.map
-  map
-
+%section.mapper
+  .map-container
+    #places_map.map
+    .map-filter
+      %input{type: :checkbox, name: 'filter_by_map', 'data-filter': :map, id: 'filter_by_map' }
+      %label{for: 'filter_by_map'}= t('.filter.by_map')
+    .map-zoomer
+      .in{'data-map': 'locator_map'} +
+      .hr
+      .out{'data-map': 'locator_map'} −

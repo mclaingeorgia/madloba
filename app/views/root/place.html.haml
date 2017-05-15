@@ -1,8 +1,7 @@
 = content_for :custom_stylesheet, 'page/place'
 = content_for :custom_javascript, 'page/place'
-
-%article.content
-  %section.summary-wrapper
+%section.content
+  .summary-wrapper
     .summary
       .name
         = item.name
@@ -12,15 +11,18 @@
       %ul.services
         = item.services.map { |s| "<li><span class='icon #{s.icon}'></span>#{s.name}</li>" }.join("").html_safe
       %ul.contact
-        %li
-          %span.icon.address
-          = item.address
-        %li
-          %span.icon.phone
-          = item.phone
-        %li
-          %span.icon.website
-          = item.website
+        - if item.address.present?
+          %li
+            %span.icon.address
+            = item.address
+        - if item.phone.present?
+          %li
+            %span.icon.phone
+            = item.phone
+        - if item.website.present?
+          %li
+            %span.icon.website
+            = item.website
     .place-map
       .corner
         %img{src: asset_path("svg/corner2.svg")}
@@ -34,7 +36,7 @@
           .in{'data-map': 'place_map'} +
           .hr
           .out{'data-map': 'place_map'} −
-  %section.details-wrapper
+  .details-wrapper
     %section.details
       %section.action-bar
         %a.favoritize{ href: 'favoritize' , 'data-trigger': user_signed_in? ? nil : 'sign_in', remote: user_signed_in? ? true : nil }
@@ -44,20 +46,7 @@
           .value
             =item.rating
             %span /5
-        %a.rate
-          =t('.rate')
-          .rator{"data-r": 3}
-            .heart{"data-r": 1}
-              %i
-              .heart{"data-r": 2}
-                %i
-                .heart{"data-r": 3}
-                  %i
-                  .heart{"data-r": 4}
-                    %i
-                    .heart{"data-r": 5}
-                      %i
-            .close
+        = render partial: 'shared/rator'
         %a.report
           =t('.report')
         %a.take-ownership
@@ -70,39 +59,39 @@
         .description
           = item.description
         .tags
-          %span= t('.service_tags')
+          .header= t('.service_tags')
           = item.tags.map { |s| "<a>#{s.name}</a>" }.join(", ").html_safe
         .hr
         .photos
           photos
         .contact
-          .subheader=t('.contact_service_provider')
-          %form{action: send_message_path, method: :post, 'data-remote': true, id: 'invisible-recaptcha-form'}
-            = hidden_field_tag :authenticity_token, form_authenticity_token
-            .row
-              .column
-                .group
-                  .field
-                    %label
-                      =t('.your_name')
-                      %span.required *
-                    %input{type: 'text', name: 'message[sender]', id: 'message_sender'}
-                  .field
-                    %label
-                      =t('.your_email')
-                      %span.required *
-                    %input{type: 'email', name: 'message[email]', id: 'message_email'}
-              .column
-                .field
-                  %label
+          .header=t('.contact_service_provider')
+          .form-container.wide
+            %form{action: send_message_path, method: :post, 'data-remote': true, id: 'invisible-recaptcha-form', class: 'simple_form light column'}
+              = hidden_field_tag :authenticity_token, form_authenticity_token
+              .fields-column
+                .field-wrapper
+                  %label.field-label{for: 'message_sender'}
+                    =t('.your_name')
+                    %abbr{title: 'required'} *
+                  %input.field-input{type: 'text', name: 'message[sender]', id: 'message_sender'}
+                .field-wrapper
+                  %label.field-label{for: 'message_email'}
+                    =t('.your_email')
+                    %abbr{title: 'required'} *
+                  %input.field-input{type: 'email', name: 'message[email]', id: 'message_email'}
+              .fields-column.fill
+                .field-wrapper
+                  %label.field-label{for: 'message_text'}
                     =t('.your_message')
-                    %span.required *
-                  %textarea{rows: 10, name: 'message[text]', id: 'message_text'}
-              .column.bottom
-                = invisible_recaptcha_tags callback: 'submitInvisibleRecaptchaForm', text: t('.send'), badge: 'inline', hl: I18n.locale
+                    %abbr{title: 'required'} *
+                  %textarea.field-input{rows: 8, name: 'message[text]', id: 'message_text'}
+              .fields-column.bottom
+                .actions
+                  = invisible_recaptcha_tags callback: 'submitInvisibleRecaptchaForm', text: t('.send'), badge: 'inline', hl: I18n.locale
         .hr
         .comment
-          Comments
+          .header=t('.comments')
     %section.photos
       .upload
         %img{src: asset_path("svg/upload.svg") }
@@ -111,3 +100,21 @@
       .picture
       .picture
 = render partial: "shared/footer", locals: { with_links: true }
+
+
+
+
+
+
+/ <div class="autonomous border form-container">
+/   <form data-type="json" class="simple_form light" novalidate="novalidate" id="new_user" action="/en/sign_in" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓">
+/     <div class="field-wrapper email optional user_email"><label class="field-label email optional" for="user_email">Email</label><input class="field-input string email optional" autofocus="autofocus" tabindex="2" type="email" name="user[email]" id="user_email"></div>
+/     <div class="field-wrapper password optional user_password"><label class="field-label password optional" for="user_password">Password <a class="forgot" tabindex="7" data-reattach="forgot" href="/en/password_reset">Forgot password?</a></label><input class="field-input password optional" autocomplete="off" tabindex="3" type="password" name="user[password]" id="user_password"></div>
+/     <div class="field-wrapper boolean optional user_remember_me"><input name="user[remember_me]" type="hidden" value="0"><input class="field-input boolean optional" type="checkbox" value="1" name="user[remember_me]" id="user_remember_me"><label class="field-label boolean optional" tabindex="4" for="user_remember_me">Remember me</label></div>
+/     <div class="actions left">
+/       <input type="submit" name="commit" value="Sign In" tabindex="5">
+/       <input type="reset" name="commit" value="Cancel" tabindex="6">
+/     </div>
+/     <div class="text">or <a tabindex="8" href="/en/sign_up">Sign Up</a> if you don't have yet.</div>
+/   </form>
+/ </div>

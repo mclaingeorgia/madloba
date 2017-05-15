@@ -3,12 +3,16 @@ class RootController < ApplicationController
   # before_action :set_page_content, only: [:index, :faq, :privacy_policy, :terms_of_use]
 
   def index
-     Rails.logger.debug("--------------------------------------------index")
-    locals({
+    Rails.logger.debug("--------------------------------------------index")
+
+    d = {
       filter: {
-        services: [2, 5]
-      }
-    })
+        services: [Service.first, Service.last]
+      },
+      results: Place.limit(10)
+    }
+    gon.d = d
+    locals(d)
   end
 
   def about

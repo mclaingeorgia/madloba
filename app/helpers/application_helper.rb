@@ -1,5 +1,5 @@
 module ApplicationHelper
-
+  RATING_THRESHOLD = 5
   def page_title(page_title)
     content_for(:page_title) { page_title.html_safe }
   end
@@ -189,6 +189,9 @@ module ApplicationHelper
   #       [t('region.south_osettia'), 'South Osettia']
   #   ]
   # end
+  def rating_threshold
+    return RATING_THRESHOLD
+  end
   def clean_string(str)
     str.nil? ? '' : str.squeeze(' ').strip.chomp(',')
   end

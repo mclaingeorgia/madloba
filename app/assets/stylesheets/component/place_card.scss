@@ -2,6 +2,7 @@
 
 .place-card {
   padding: 0 19px;
+  text-align: left;
   .card-border {
     border: 1px solid $highlighted_bg;
     position: relative;
@@ -51,11 +52,6 @@
       .image {
         width: 100%;
       }
-      .favorite {
-        position: absolute;
-        top: 7px;
-        right: 4px;
-      }
       .rating {
         position: absolute;
         top: 50%;
@@ -69,8 +65,9 @@
       padding: 0 0 4px 1px;
       .name {
         @include font(18, 'sb');
-        color: $link;
+        color: #000;
         text-decoration: underline;
+        padding-bottom: 4px;
       }
       .provider {
         padding-bottom: 12px;
@@ -114,8 +111,5 @@
         justify-content: flex-end;
       }
     }
-  }
-  .rate {
-    padding-top: 11px;
   }
 }

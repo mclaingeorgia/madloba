@@ -1,15 +1,14 @@
-.place-card
+- with_rator ||= false
+.place-card{'data-place-id': place.id}
   .card-border
     .card
       .front
         .poster
-          = link_to image_tag(asset_path("png/missing.png"), alt: t('app.common.missing'), title: t('app.common.missing'), class: 'image'), place_path(place.id)
+          - title = t('app.common.alt', alt: place.name)
+          = link_to image_tag(asset_path("png/missing.png"), alt: title, title: title, class: 'image'), place_path(place.id)
           - if true # place.favorized
-            =link_to "", root_path, remote: true, class: 'favorite', 'data-favoritize': true
-          %a.rating
-            .value
-              =place.rating
-              %span /5
+            = render partial: "shared/favorite"
+          = render partial: "shared/rating", locals: { rating: place.rating }
         .info
           = link_to place.name, place_path(place.id), class: 'name'
           .provider
@@ -40,18 +39,5 @@
             = place.services.map { |s| "<li class='service'><i class='#{s.icon}'></i><span>#{s.name}</span></li>" }.join("").html_safe
             = place.services.map { |s| "<li class='service'><i class='#{s.icon}'></i><span>#{s.name}</span></li>" }.join("").html_safe
             = place.services.map { |s| "<li class='service'><i class='#{s.icon}'></i><span>#{s.name}</span></li>" }.join("").html_safe
-  - if false
-    .rate
-      %label=t('app.common.rate')
-      .rator{"data-r": 3}
-        .heart{"data-r": 1}
-          %i
-          .heart{"data-r": 2}
-            %i
-            .heart{"data-r": 3}
-              %i
-              .heart{"data-r": 4}
-                %i
-                .heart{"data-r": 5}
-                  %i
-        .close
+  - if with_rator
+    = render partial: 'shared/rator'

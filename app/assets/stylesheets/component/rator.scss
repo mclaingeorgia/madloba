@@ -1,77 +1,77 @@
 @import 'var';
 
-.rate {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.rator {
-  display: flex;
-  flex-direction: row;
-  padding-top: 2px;
-  .heart {
+.rator-container {
+  label {
+    @include font(18, 'b');
+    color: $text;
+  }
+  .rator {
     display: flex;
     flex-direction: row;
-    i {
-      display: inline-block;
-      width: 20px;
-      height: 17px;
-      background: background('heart');
-      background-position: -21px 0;
-      margin: 0 6px 0 4px;
+    padding-top: 2px;
+    .heart {
+      display: flex;
+      flex-direction: row;
+      i {
+        display: inline-block;
+        width: 20px;
+        height: 17px;
+        background: background('heart');
+        background-position: -21px 0;
+        margin: 0 6px 0 4px;
+        cursor: pointer;
+      }
+      &:hover > i {
+        background-position: 0 0;
+      }
+    }
+    .close {
+      visibility: hidden;
+      background: transparent url(svg('close')) no-repeat center;
+      width: 18px;
+      height: 16px;
       cursor: pointer;
     }
-    &:hover > i {
-      background-position: 0 0;
-    }
-  }
-  .close {
-    visibility: hidden;
-    background: transparent url(svg('close')) no-repeat center;
-    width: 18px;
-    height: 16px;
-    cursor: pointer;
-  }
-  &[data-r='1'] {
-    .heart[data-r='1'] {
-      > i {
-        background-position: 0 0;
+    &[data-r='1'] {
+      .heart[data-r='1'] {
+        > i {
+          background-position: 0 0;
+        }
       }
+      .close { visibility: visible; }
     }
-    .close { visibility: visible; }
-  }
-  &[data-r='2'] {
-    .heart[data-r='1'], .heart[data-r='2'] {
-      > i {
-        background-position: 0 0;
+    &[data-r='2'] {
+      .heart[data-r='1'], .heart[data-r='2'] {
+        > i {
+          background-position: 0 0;
+        }
       }
+      .close { visibility: visible; }
     }
-    .close { visibility: visible; }
-  }
-  &[data-r='3'] {
-    .heart[data-r='1'], .heart[data-r='2'], .heart[data-r='3'] {
-      > i {
-        background-position: 0 0;
+    &[data-r='3'] {
+      .heart[data-r='1'], .heart[data-r='2'], .heart[data-r='3'] {
+        > i {
+          background-position: 0 0;
+        }
       }
+      .close { visibility: visible; }
     }
-    .close { visibility: visible; }
-  }
-  &[data-r='4'] {
-    .heart[data-r='1'], .heart[data-r='2'], .heart[data-r='3'], .heart[data-r='4'] {
-      > i {
-        background-position: 0 0;
+    &[data-r='4'] {
+      .heart[data-r='1'], .heart[data-r='2'], .heart[data-r='3'], .heart[data-r='4'] {
+        > i {
+          background-position: 0 0;
+        }
       }
+      .close { visibility: visible; }
     }
-    .close { visibility: visible; }
-  }
-  &[data-r='5'] {
-    .heart[data-r='1'], .heart[data-r='2'], .heart[data-r='3'], .heart[data-r='4'], .heart[data-r='5'] {
-      > i {
-        background-position: 0 0;
+    &[data-r='5'] {
+      .heart[data-r='1'], .heart[data-r='2'], .heart[data-r='3'], .heart[data-r='4'], .heart[data-r='5'] {
+        > i {
+          background-position: 0 0;
+        }
       }
+      .close { visibility: visible; }
     }
-    .close { visibility: visible; }
-  }
 
+  }
 }
-

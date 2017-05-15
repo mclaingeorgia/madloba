@@ -1,6 +1,7 @@
 @import 'var';
 @import 'component/place_card';
 @import 'component/favoritor';
+@import 'component/favorite';
 @import 'component/rating';
 @import 'component/rator';
 @import 'component/service';
@@ -10,20 +11,11 @@
 main {
   display: flex;
   flex-direction: row;
-  &.root {
-    .content {
-      width: 50%;
-      border-right: 1px solid $border;
-      padding: 0 0 0 16px;
-    }
-    .map {
-      width: 50%;
-    }
-  }
   section.content {
     display: flex;
     flex-direction: column;
     border-right: 1px solid $border;
+    padding: 0 0 0 16px;
     .search {
       padding: 30px 30px 20px;
       display: flex;
@@ -240,7 +232,7 @@ main {
       }
     }
   }
-  section.map {
+  section.mapper {
     width: 100%;
   }
 }
