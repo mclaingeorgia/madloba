@@ -97,6 +97,7 @@ en:
     picked_as_favorite: Picked as favorite
     overall_rating: "Overall place rating %{rating}/5"
     rating_threshold: "/%{n}"
+    rating: Rating
   admin:
     save: Save
     cancel: Cancel

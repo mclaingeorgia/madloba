@@ -68,21 +68,21 @@ class User < ActiveRecord::Base
   # has_many :post_users
   # has_many :favorite_posts, through: :post_users, source: :post
 
-  # def guest?
-  #   nil?
-  # end
+  def guest?
+    nil?
+  end
 
-  # def user?
-  #   role == "user" || role == "provider" || role == "admin"
-  # end
+  def user?
+    role == "user" || role == "provider" || role == "admin"
+  end
 
-  # def provider?
-  #   role == "provider" || role == "admin"
-  # end
+  def provider?
+    role == "provider" || role == "admin"
+  end
 
-  # def admin?
-  #   role == "admin"
-  # end
+  def admin?
+    role == "admin"
+  end
 
   # def owns_post? (post)
   #   self.posts.include?(post)

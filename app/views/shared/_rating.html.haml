@@ -1,5 +1,8 @@
 - rating ||= 0
+- with_label ||= false
 .rating
+  - if with_label
+    %label= t('shared.rating')
   .value{title: t('shared.overall_rating', rating: rating)}
     =rating
     %span= t('shared.rating_threshold', n: rating_threshold)

@@ -43,6 +43,10 @@ module ApplicationHelper
     ordered_messages.join(joiner)
   end
 
+  # def is_favoritized
+  #   true
+  # end
+
   # def resource_name
   #   :user
   # end

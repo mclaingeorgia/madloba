@@ -7,7 +7,7 @@ class RootController < ApplicationController
 
     d = {
       filter: {
-        services: [Service.first, Service.last]
+        services: [Service.first.id, Service.last.id]
       },
       results: Place.limit(10)
     }

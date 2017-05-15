@@ -10,25 +10,25 @@
     // }
     console.log(request)
     if(request.hasOwnProperty('responseJSON')) {
-      if(request.responseJSON.hasOwnProperty('reload') && request.responseJSON.reload === true) {
+      var json = request.responseJSON
+      if(json.hasOwnProperty('reload') && json.reload === true) {
         console.log()
 
-        if(request.responseJSON.hasOwnProperty('location')) {
-          // var flash = ""
-          // if(request.responseJSON.hasOwnProperty('flash')) {
-          //   console.log(JSON.stringify(request.responseJSON.flash))
-          //   flash = $.param({ flash: request.responseJSON.flash })
-          //   console.log(flash, request.responseJSON.location + "?" + flash)
-          // }
-          location.replace(request.responseJSON.location)// + "?" + flash)
+        if(json.hasOwnProperty('location')) {
+          console.log(json.location)
+          location.replace(json.location)// + "?" + flash)
         }
         else {
+          console.log('reloaded')
           location.reload()
         }
       }
       else {
-        if(request.responseJSON.hasOwnProperty('flash')) {
-          pollution.components.flash.set(request.responseJSON.flash).open()
+        if(json.hasOwnProperty('trigger')) {
+          $('[data-reattach="' + json.trigger + '"]').trigger('click')
+        }
+        if(json.hasOwnProperty('flash')) {
+          pollution.components.flash.set(json.flash).open()
         }
       }
     }

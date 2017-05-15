@@ -34,4 +34,5 @@ class Place < ActiveRecord::Base
   def email
     emails.join(", ")
   end
+
 end
