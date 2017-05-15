@@ -1,7 +1,7 @@
 - translate_path = 'admin.profile.'
 
 = form_for [:manage, current_user], html: { role: 'form', class: 'fields' } do |f|
-  = render partial: 'shared/fields_to_translate', locals: { fields: { first_name: nil, last_name: nil} , form: f, translate_path: translate_path }
+  = render partial: 'shared/fields_localization', locals: { fields: { first_name: nil, last_name: nil} , form: f, translate_path: translate_path }
 
   = render_form_field(:text_field, f, :username, translate_path)
   = render_form_field(:email_field, f, :email, translate_path)

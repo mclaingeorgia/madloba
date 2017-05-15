@@ -1,0 +1,357 @@
+@import 'var';
+@import 'component/fields_localization';
+
+.form-container {
+  display: inline-block;
+  max-width: 600px;
+  flex: 1;
+  align-self: center;
+  &.pad {
+    padding-top: 42px;
+  }
+  &.border {
+    form {
+      padding: 42px 36px 36px;
+      border: 1px solid $border;
+    }
+  }
+  &.autonomous {
+    // padding: 42px 36px 36px;
+    position: absolute;
+    top: 100%;
+    right: -1px;
+    form {
+      margin-top: 1px;
+      border-top: 0;
+    }
+    // max-width: 400px;
+  }
+  // &.non-autonomous {
+
+  //   padding-bottom: 42px;
+  //   form > .field {
+  //     padding: 0 27px 22px;
+  //   }
+  //   hr {
+  //     margin: 30px -36px 34px;
+  //   }
+  // }
+
+  form {
+    text-align: left;
+    // display: inline-block;
+    // width: 100%;
+    .field-wrapper {
+      display: block;
+      padding-bottom: 22px;
+      // display: flex;
+      // flex-direction: column;
+      // align-items: flex-start;
+      // padding-bottom: 8px;
+      // padding-bottom: 12px;
+      max-width: 768px;
+      .field-label {
+        display: block;
+        @include font(18, 'b');
+        color: $text;
+        // padding: 0 0 8px 2px;
+        padding-bottom: 8px;
+        padding-left: 2px;
+        // padding:0 14px 0 0;
+        // text-align: left;
+        // width: 45%;
+      }
+      .field-input {
+        // width: 55%;
+        // margin-right: 10px;
+      }
+      input, textarea, select {
+        height: 46px;
+        border: 1px solid #e2e2e2;
+        border-radius: 3px;
+        @include font;
+        color: $text;
+        background-color: $bg2;
+        padding: 6px 8px;
+        min-width: 300px;
+      }
+      button {
+        @include font;
+        color: $bg2;
+        background-color: $link;
+        border: 0;
+        padding: 17px 34px;
+        border-radius: 3px;
+        min-width: 110px;
+      }
+      &.user_password {
+        padding-bottom: 8px;
+      }
+      &.radios {
+        display: flex;
+        flex-direction: row;
+        .field-label {
+          padding-right: 20px;
+        }
+        .radio {
+          padding-right: 30px;
+          &:last-child {
+            padding-right: 0;
+          }
+        }
+      }
+      .forgot {
+        float: right;
+        @include font(18);
+        color: $control;
+      }
+    }
+    .actions {
+      text-align: center;
+      // padding: 0;
+      // padding-top: 85px;
+      // padding-bottom: 27px;
+      padding-top: 14px;
+      padding-bottom: 30px;
+      input {
+        cursor: pointer;
+        &[disabled] {
+          opacity: .2;
+        }
+      }
+      input[type='submit'] {
+        @include font;
+        color: $text_white;
+        background-color: $link;
+        padding: 14px 28px;
+        border: 0;
+        border-radius: 3px;
+        margin-right: 16px;
+      }
+      input[type='reset'] {
+        @include font;
+        color: $text_gray;
+        background-color: transparent;
+        text-decoration: underline;
+        border: 0;
+      }
+      &.left {
+        text-align: left;
+      }
+      // span {
+      //   @include font;
+      //   color: #878787;
+      // }
+      // a {
+      //   padding: 13px 21px;
+      //   border: 0;
+      //   border-radius: 5px;
+      //   text-decoration: none;
+      // }
+      // a.edit {
+      //   background-color: $control;
+      //   @include font;
+      //   color: $bg;
+      // }
+      // .sign_up {
+      //   text-align: left;
+      //   @include font;
+      //   color: $control;
+      //   text-decoration: underline;
+      //   padding-top: 30px;
+      // }
+      .action-group {
+        // display: flex;
+        // flex-direction: row;
+        // justify-content: center;
+        input {
+          display: inline-block;
+          @include font;
+          color: $text;
+          background-color: $bg2;
+          padding: 12px 36px;
+          border: 1px solid #e2e2e2;
+          min-width: 130px;
+        }
+        input:first-child {
+          border-top-left-radius: 5px;
+          border-bottom-left-radius: 5px;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+          margin-right: 5px;
+        }
+        input:last-child {
+          border-top-right-radius: 5px;
+          border-bottom-right-radius: 5px;
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+          margin-left: 5px;
+        }
+        input[type='submit'] {
+          background-color: $link;
+          color: $bg2;
+          border: 1px solid transparent;
+        }
+      }
+    }
+    .fields-group {
+      .actions {
+        padding-bottom: 0;
+      }
+    }
+    .header {
+      @include font(20, 'b', 22);
+      color: $text;
+      padding-bottom: 30px;
+    }
+    .text {
+      @include font(18);
+      color: #3a3a3a;
+      text-align: left;
+      &.help {
+        padding: 10px 27px;
+        @include font(16, 'r', 22);
+        span {
+          @include font(16, 'b');
+          color: #3a3a3a;
+        }
+        a {
+          @include font(16);
+          color: $link;
+        }
+      }
+      a {
+        @include font(18);
+        color: $control;
+      }
+      & + .text {
+        padding-top: 12px;
+      }
+    }
+    &.light {
+      .field-wrapper {
+        .field-label {
+          @include font;
+          color: $link;
+
+        }
+      }
+    }
+    .fields-group {
+      border-bottom: 1px solid $border;
+      padding: 0 27px 30px;
+      // margin-bottom: 4px;// 30px -36px 34px;
+      .field-wrapper {
+        padding-bottom: 22px;
+        &:last-child {
+          padding-bottom: 0;
+        }
+      }
+      .fields-localization {
+        margin: 0 -27px;
+      }
+      & + .fields-group {
+        padding-top: 34px;
+      }
+    }
+  }
+}
+
+// simple_form type-non-autonomous style-light style-wide
+
+/* .field-item {
+  display: inline-block;
+  padding-top: 26px;
+  &:last-child {
+    padding-bottom: 0;
+  }
+  .field-label {
+    @include font;
+    color: $link;
+    padding-bottom: 7px;
+  }
+  .field-input {
+
+    &input {
+      @include font;
+      color: $link;
+    }
+    &textarea {
+      @include font;
+      color: $link;
+      padding: 0;
+    }
+  }
+} */
+
+// from admin.scss
+/* .content {
+  form {
+    padding-left: 6px;
+    & > .field > label {
+      padding-left: 27px;
+    }
+  }
+} */
+
+
+
+// place
+/* .row {
+  display: flex;
+  flex-direction: row;
+  .column {
+    padding-right: 30px;
+    &.bottom {
+      align-self: flex-end;
+    }
+  }
+}
+.group {
+  display: inline-block;
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+.devise-form {
+
+
+
+
+  .field {
+    text-align: left;
+    &.email, &.remember-me {
+      padding-bottom: 30px;
+    }
+    &.user_has_agreed {
+      @include font;
+      color: #3a3a3a;
+      a {
+        @include font(18);
+        color: $control;
+      }
+    }
+    &.password {
+     padding-bottom: 8px;
+     .forgot {
+      float: right;
+      @include font;
+      color: $control;
+      text-decoration: underline;
+     }
+    }
+
+  }
+
+
+}

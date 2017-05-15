@@ -3,7 +3,7 @@
 = form_for @item, html: { role: 'form', class: 'fields' } do |f|
   .panels
     .panel
-      = render partial: 'shared/fields_to_translate', locals: { fields: { name: nil, description: { type: 'text_area', required: true } } , form: f, translate_path: translate_path }
+      = render partial: 'shared/fields_localization', locals: { fields: { name: nil, description: { type: 'text_area', required: true } } , form: f, translate_path: translate_path }
     .panel
 
   = render_form_actions()

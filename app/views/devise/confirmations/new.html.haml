@@ -1,15 +1,13 @@
-.container.devise-section
-  .row
-    .col-lg-6
-      = form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post, :class => 'form-horizontal' }) do |f|
-        %fieldset
-          %legend= t('confirmation.resend')
-          = devise_error_messages!
-          .form-group
-            = f.label :email, class: 'col-lg-2 control-label'
-            .col-lg-10
-              = f.email_field :email, class: 'form-control', autofocus: true
-          .form-group
-            .col-lg-10.col-lg-offset-2
-              = f.submit t('confirmation.resend'), class: 'btn btn-primary'
-  = render 'shared/links'
+- page_title(t('.title'))
+.form-container{class: @form_container_class}
+  = simple_form_for resource, as: resource_name, url: confirmation_path(resource_name), remote: true, html: { method: :post, :'data-type' => 'json', class: @form_class } do |f|
+    .header= t('.resend_confirmation')
+    = devise_error_messages!
+    = f.input :email, input_html: { autofocus: true }
+
+    .actions.left
+      = f.submit t("app.common.resend")
+      = f.submit t("app.common.cancel"), type: :reset
+
+- if !@form_container_class.include?(:'autonomous')
+  = render partial: "shared/footer", locals: { with_links: true }

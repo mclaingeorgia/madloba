@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170404095543) do
+ActiveRecord::Schema.define(version: 20170514144450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -236,7 +236,6 @@ ActiveRecord::Schema.define(version: 20170404095543) do
   add_index "place_translations", ["place_id"], name: "index_place_translations_on_place_id", using: :btree
 
   create_table "places", force: :cascade do |t|
-    t.string   "phone"
     t.string   "website"
     t.string   "postal_code"
     t.decimal  "latitude",    precision: 8, scale: 5
@@ -245,6 +244,8 @@ ActiveRecord::Schema.define(version: 20170404095543) do
     t.integer  "region_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "emails",                              default: [], null: false, array: true
+    t.string   "phones",                              default: [], null: false, array: true
   end
 
   add_index "places", ["region_id"], name: "index_places_on_region_id", using: :btree
@@ -490,8 +491,8 @@ ActiveRecord::Schema.define(version: 20170404095543) do
     t.string   "first_name",             limit: 255
     t.string   "last_name",              limit: 255
     t.string   "username",               limit: 255
-    t.boolean  "is_service_provider"
-    t.boolean  "has_agreed_to_tos",                  default: false
+    t.boolean  "is_service_provider",                default: false
+    t.boolean  "has_agreed",                         default: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

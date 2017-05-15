@@ -14,7 +14,8 @@ class ApplicationController < ActionController::Base
   # before_action :allow_iframe_requests
   before_action :set_locale
   # before_action :load_javascript_text
-  # before_action :set_gon
+  before_action :set_gon
+  before_action :set_flash
   # before_action :check_if_user_has_tos
   before_action :prepare_about_content
 
@@ -81,17 +82,37 @@ class ApplicationController < ActionController::Base
     # I18n.locale = l
   end
 
-  def default_url_options
+  def default_url_options(options = {})
     { locale: I18n.locale }
   end
+  #  def default_url_options(options={})
+  #   { :locale => I18n.locale == I18n.default_locale ? nil : I18n.locale  }
+  # end
   # Uses the 'gon' gem to load the text that appears in javascript files.
   def load_javascript_text
     #gon.vars = t('general_js')
   end
-  # def set_gon
+  def set_gon
+    gon.pin_path = ActionController::Base.helpers.asset_path('svg/pin.svg')
+    gon.osm = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+    gon.osm_attribution = '<a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
   #    Rails.logger.debug("--------------------------------------=======------#{@is_faq_page}")
   #   gon.is_faq_page = @is_faq_page
-  # end
+  end
+  def set_flash
+    # if session[:flash].present?
+    #   flashes = session[:flash].clone
+    #    Rails.logger.debug("----------------------------------#{session}----------#{flashes}")
+    #   session[:flash] = nil
+    #    Rails.logger.debug("--------------------------------------------#{flashes}")
+    #   # params.delete(:flash)
+
+    #   flashes.each{ |f|
+    #     flash[f[:type]] = f[:text] if f[:type].present? && f[:text].present?
+    #   }
+    # end
+     # Rails.logger.debug("--------------------------------------------#{params[:flash]}")
+  end
 
   # Allows the website to be embedded in an iframe.
   def allow_iframe_requests
@@ -110,12 +131,12 @@ class ApplicationController < ActionController::Base
   # end
 
   # Check if the current user has agreed to the terms and conditions.
-  def check_if_user_has_tos
-    current_url = request.original_url
-    if current_user && !current_user.has_agreed_to_tos && !((current_url.include? 'tos') || (current_url.include? 'logout') || (current_url.include? 'change_locale'))
-      redirect_to tos_path
-    end
-  end
+  # def check_if_user_has_tos
+  #   current_url = request.original_url
+  #   if current_user && !current_user.has_agreed_to_tos && !((current_url.include? 'tos') || (current_url.include? 'logout') || (current_url.include? 'change_locale'))
+  #     redirect_to tos_path
+  #   end
+  # end
 
   # Redirects after signing in.
   # def after_sign_in_path_for(resource)
@@ -255,15 +276,15 @@ class ApplicationController < ActionController::Base
   end
 
 
-  def after_sign_in_path_for(resource)
-     Rails.logger.debug("--------------------------------------------after_sign_in_path_for")
-    stored_location_for(resource) ||
-    if resource.is_a?(User) && !resource.valid?
-      settings_path(resource)
-    else
-      session[:previous_urls].last || root_path(:locale => I18n.locale)
-    end
-  end
+  # def after_sign_in_path_for(resource)
+  #    Rails.logger.debug("--------------------------------------------after_sign_in_path_for")
+  #   stored_location_for(resource) ||
+  #   if resource.is_a?(User) && !resource.valid?
+  #     settings_path(resource)
+  #   else
+  #     session[:previous_urls].last || root_path(:locale => I18n.locale)
+  #   end
+  # end
 
   def store_location
     session[:previous_urls] ||= []

@@ -76,9 +76,6 @@ gem 'cocoon'
 # Text in Javascript file
 gem 'gon'
 
-# Simple captcha - used when anonymous users create new ads, or reply to existing ones.
-gem 'simple_captcha2', require: 'simple_captcha'
-
 # Get inputs from madloba:install task
 gem 'highline'
 
@@ -88,7 +85,12 @@ gem 'will_paginate', '~> 3.1.0'
 # jQuery DataTables plugin - provides all the basic DataTables files, and a few of the extras.
 gem 'jquery-datatables-rails', '~> 3.4.0'
 
-gem 'active_model_serializers'
+# gem 'active_model_serializers'
+
+gem 'dotenv-rails'
+
+gem "recaptcha", require: "recaptcha/rails"
+
 
 group :development, :test do
 

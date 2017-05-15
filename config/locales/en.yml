@@ -1,28 +1,47 @@
 en:
-  simple_captcha:
-    placeholder: ""
-    label: "Enter the text in this field"
-    refresh_button_text: "Can't see? Refresh!"
-    message:
-      default: "code did not match with the image"
-      user: "The secret Image and code were different"
+  simple_form:
+    required:
+      text: 'required'
+      mark: '*'
+      # You can uncomment the line below if you need to overwrite the whole required html.
+      # When using html, text and mark won't be used.
+      html: '<i class="fa fa-check-square"></i>'
   activerecord:
     models:
-      provider:
+      provider: &provider_model
         one: Provider
         other: Providers
       page_content:
         one: Page Content
         other: Page Contents
+      providers:
+        one: Test
+        other: Many
     attributes:
-      provider:
+      provider: &provider
         name: Provider Name
-        description: Description of Provider
+        description: Provider Description
+      providers:
+        <<: *provider
       page_content:
         title: Title
         content: Content
+      user:
+        first_name: First Name
+        last_name: Last Name
+        password: Password
+        username: Username
+        email: Email
+        password_confirmation: Password Confirmation
+        is_service_provider: Do you plan to provide service?
+        providers:
+          <<: *provider_model
     errors:
       models:
+        user:
+          attributes:
+            providers:
+              not_filled: " data is not filled"
         category:
           attributes:
             name:
@@ -59,10 +78,21 @@ en:
       contact: -----
       rate: Rate
       missing: Missing
+      or: or
+      register: Register
+      sign_in: Sign In
+      sign_up: Sign Up
+      cancel: Cancel
+      reset_password: Reset Password
+      change_password: Change Password
+      resend: Resend
+      click_here: Click Here
     messages:
       success_updated: "%{obj} was successfully updated."
       fail_updated: "%{obj} failed to update."
       success_destroyed: "%{obj} was successfully deleted."
+  shared:
+    fields_localization: Fields to translate
   admin:
     save: Save
     cancel: Cancel
@@ -81,8 +111,6 @@ en:
       new: Create Place
     moderate_photos:
       index: Moderate Photos
-    general:
-      fields_to_translate: Fields to translate
     menu:
       manage_profile: Manage Profile
       rated_places: Rated Places
@@ -110,9 +138,9 @@ en:
       current_password: "Current password:"
       password: "New password:"
       password_confirmation: "Confirm password:"
-    provider:
-      name: "Provider Name:"
-      description: "Provider of Service:"
+#    provider:
+#      name: "Provider Name:"
+#      description: "Provider of Service:"
     page_contents:
       index:
         title: Manage Page Contents
@@ -140,13 +168,8 @@ en:
       locate_me: "Locate me on map"
     user:
       email: Email
-      password_field: Password
-      sign_in: Sign In
-      sign_up: Create an account
-      remember_me: Remember Me
-      forgot: Forgot password?
-      sign_up_prompt: " if you don't have yet."
-      reset_password: Reset Password
+      password: Password
+      password_confirmation: Password Confirmation
   application:
     dialog:
       partners: PARTNERS
@@ -186,83 +209,45 @@ en:
       result:
         one: "Result"
         other: "Results"
+      alt:
+        filter: Filter Image
     place:
       contact_service_provider: Contact Service Provider
+      your_name: Your Name
+      your_email: Your Email
+      your_message: Your Message
+      send: Send
+      add_to_favorite: Add To Favorite
+      rating: Rating
+      rate: Rate
+      report: Report
+      take_ownership: Take Ownership
+      share: Share
+      service_tags: Service Tags
     faq:
       title: FAQ
-  home:
-    yes: Yes
-    no: No
-    home: Home
-    page: Home page
-    more_about: "More about %{website}..."
-    and_other_categories: "and %{number} other categorie(s)."
-    user_panel: User panel
-    en_language: English
-    ka_language: ქართული
-    register_services_html: Register services
-    sign_in: sign in
-    sign_up: Sign up here
-    not_have_account_yet_html: "%{sign_up_here} if you don't have an account yet."
-    create_account: create an account
-    refinements: Your selection
-    delete_all: Delete all
-    refine_location: Move to a specific location
-    cancel: Cancel
-    close: Close
-    register_link: Create account
-    sign_register: Sign in / Create account
-    e-mail: "Email:"
-    password: "Password:"
-    record_not_exist: Sorry, this page does not exist!
-    got_it: Got it!
-    yes: Yes
-    no: No
-    search_items: "Service name or description"
-    search_or_signup_html: "Are you a service provider? Search to find and validate your service or %{signup} to register and better inform the community about your services"
-    location_example: Region or City
-    search: Search
-    about: About
-    about_website: About %{website_name}
-    links: Links
-    no_post: There are currently no services relating to your search.
-    your_searched_location: Searched location
-    area_marker_message: "%{post_count} services posted in total in this area, featuring %{item_count} items."
-    show_results: "Show results for this area"
-    create_an_post_now_html: "Please try another keyword or use the categories to broaden your search."
-    about_page: About %{website_name}
-    faq_page: FAQ
-    about_description_1_html: "%{website_name} is a website powered by %{madloba_link}."
-    about_description_2_html: "%{madloba_link} is an open-source platform that allows you to let your community know about what you want to give away."
-    about_description_3: So many (still useful!) objects go to waste all the time! Luckily, as we increasingly live in an open-data and location driven world, we now have the technological means to solve this problem. Madloba will give your community a new way to recycle, give or dispose all "this stuff" :)
-    contact_us: Contact us
-    send_us_message: "Send us a message at:"
-    about_send_message_html: If you want to contact us, feel free to send us a message at %{email}.
-    loc_not_found: Sorry, this location was not found.
-    server_error: Sorry, there was a server error. Please try again later.
-    default_current_loc: This is your current location.
-    title_guided_nav: Categories
-    map_positioned_found: "Map positioned on: %{address}"
-    full_not_found_map_position: "Full address not found, map positioned on: %{address}"
-    not_found_map_position: Sorry, address not found.
-    click_on_map_after: Once general area found, click on the map underneath to select the desired location.
-    demo_sidebar_note_html: (Demo) As an administrator, you can change the colors and the icons of these categories in the %{admin_panel}.
-    admin_panel: admin panel
-    same_area: Services related to a same area
-    update: Update
-    demo_instructions_html: "(Demo) Instructions to login %{here}."
-    footer_powered_by_html: Powered by %{madloba_link}
-    footer_new_powered_by_html: New website powered by %{madloba_link}
-    footer_theme_html: Theme from %{charisma}
-    log_out: Log out
-    show_posts_areas: Show services by areas
-    show_details: Show details
-    error_get_popup_content: Sorry, an error occurred. Please try again later.
-    error:
-      one: error
-      more: errors
-  results:
-    title: "Ads for \"%{area}\" (%{num} results)"
+  mailer:
+    hello: "Hello %{name}!"
+    hi: "Hi %{name}"
+    welcome: "Welcome to %{name}! You will soon be able to search and find details for all rehabilitation services in Georgia."
+    account_created: "An account has been created in your name. Please click on the following link to verify your email address and gain full access to all the features of %{name}:"
+    confirm_account: Confirm my account
+    as_soon_as: As soon as you have been verified, you can log in in to your account anytime by clicking Sign In on the %{name} home page.
+    need_assistance: "If you need assistance searching your required services or would like to contact us with any questions or feedback, please use the Contact Us page at http://"
+    phone_number: "Alternatively you may call this number:"
+    thanks: "Thank you for registering. We hope you enjoy using %{name}."
+    thanks_short: "Thanks!"
+    register: "To Register your services, all you have to do is log in to your account and follow these simple steps:"
+    register_1: "Click 'Register Services' button"
+    register_2: Complete the application details. Note that you are able to register as many categories of service linked to your profile as you wish.
+    register_3: Submit Registration
+    someone_requested: Someone has requested a link to change your password. You can do this through the link below.
+    please_ignore: If you didn't request this, please ignore this email.
+    password_not_changing: Your password won't change until you access the link above and create a new one.
+    change_my_password: Change my password
+    account_locked: Your account has been locked due to an excessive number of unsuccessful sign in attempts.
+    link_unlock: Click the link below to unlock your account
+    unlock_account: Unlock my account
   errors:
     oops: "Oops!"
     not_found: 404 Page Not Found
@@ -455,85 +440,6 @@ en:
     tusheti: Tusheti
     south_osettia: South Osettia
     create_account_first_html: "%{create_account} or %{sign_in} now before publishing your ad, if you want to be able to edit it or delete it later."
-  mailer:
-    hello: "Hi %{name}"
-    welcome: "Welcome to %{name}! You will soon be able to search and find details for all rehabilitation services in Georgia."
-    account_created: "An account has been created in your name. Please click on the following link to verify your email address and gain full access to all the features of %{name}:"
-    confirm_account: Confirm my account
-    as_soon_as: As soon as you have been verified, you can log in in to your account anytime by clicking Sign In on the %{name} home page.
-    need_assistance: "If you need assistance searching your required services or would like to contact us with any questions or feedback, please use the Contact Us page at http://"
-    phone_number: "Alternatively you may call this number:"
-    thanks: "Thank you for registering. We hope you enjoy using %{name}."
-    thanks_short: "Thanks!"
-    register: "To Register your services, all you have to do is log in to your account and follow these simple steps:"
-    register_1: "Click 'Register Services' button"
-    register_2: Complete the application details. Note that you are able to register as many categories of service linked to your profile as you wish.
-    register_3: Submit Registration
-    signature: The %{name} team.
-    dear: "Dear %{name}"
-    post_created: You have successfully created the following service registration, on %{site_name}
-    user_is_admin_html: "This message is to let you know that you are now %{new_role} of the %{site_name} website."
-    post_title: Name of service
-    description: Description
-    where_pick_up: Where to pick up the item
-    admin_panel: our admin panel.
-    manage_post_html: "To manage this service, as well as your previously posted services, login to %{admin_panel}"
-    thanks: Thanks, and have a good day!
-    received_message: You received a reply for your '%{post_title}' service on %{site_name}.
-    new_post_object: Your new service registration on %{site_name} - '%{post_title}'
-    new_post_to_review: "New service to review: '%{title}'"
-    updated_service: "A service has been updated: '%{title}'"
-    reply_post_object: Reply to your '%{post_title}' service on %{site_name}
-    you_are_admin_html: "You are now %{new_role} of %{site_name}."
-    account_locked: Your account has been locked due to an excessive number of unsuccessful sign in attempts.
-    link_unlock: Click the link below to unlock your account
-    unlock_account: Unlock my account
-    post_will_expire: This service will expire in %{day_number} days, on %{expire_date}
-    new_service_posted: "A user posted a new service on %{sitename}, titled '%{title}'."
-    service_just_updated: "A service on %{sitename} titled '%{title}' has been updated."
-    review_it_html: "You can review it %{link}."
-    after_review: "After review, don't forget to publish this service so that it becomes visible to all users."
-  registration:
-    all_mandatory: (All fields are mandatory)
-    first_name: First name
-    last_name: Last name
-    first_name_en: First name (en)
-    last_name_en: Last name (en)
-    first_name_ka: First name (ge)
-    last_name_ka: Last name (ge)
-    username: Username
-    username_help: Your username will be used if you prefer to remain anonymous.
-    email: E-mail
-    password: Password
-    password_help: The password is case-sensitive and must be at least 8 characters long.
-    password_confirm: Password confirmation
-    register_service: Do you plan to register a service?
-    is_provider: "Yes"
-    is_not_provider: "No"
-    sign_up: Sign up
-    not_received: Didn't receive confirmation instructions?
-    waiting_confirmation: Currently waiting confirmation for
-    leave_blank: (leave blank if you don't want to change it)
-    need_current: (we need your current password to confirm your changes)
-    unhappy: Unhappy?
-    you_sure: Are you sure?
-    back: Back
-    resend_unlock: Resend unlock instructions
-    cancel_account: Cancel my account
-  confirmation:
-    resend: Resend confirmation instructions
-  session:
-    hello: Hello
-    sign_in: Sign in
-    someone_requested: Someone has requested a link to change your password. You can do this through the link below.
-    please_ignore: If you didn't request this, please ignore this email.
-    password_not_changing: Your password won't change until you access the link above and create a new one.
-    forgot: Forgot your password?
-    not_received_unlock: Didn't receive unlock instructions?
-    sign_in_with: Sign in with %{name}
-    change_password: Change my password
-    reset_password: Send me reset password instructions
-    change_your_password: Change your password
   _admin:
     dashboard: Dashboard
     disclaimer: "We at Rehab GE seek to ensure that our users obtain only the best quality service. Should you at any time be unsatisfied with your experience on our site or with an interaction with one of the listed Service Providers please don't hesitate to contact us at info.rehabge@gmail.com or 0 800 900 902. Your feedback is important."
@@ -1076,3 +982,76 @@ en:
     no_district_delete: No district to delete
     drag_handles: Drag handles to edit district boundaries. Click on the area to edit its name.
     select_new_location_only: Select an existing location
+  home:
+    yes: Yes
+    no: No
+    home: Home
+    page: Home page
+    more_about: "More about %{website}..."
+    and_other_categories: "and %{number} other categorie(s)."
+    user_panel: User panel
+    en_language: English
+    ka_language: ქართული
+    register_services_html: Register services
+    sign_in: sign in
+    sign_up: Sign up here
+    not_have_account_yet_html: "%{sign_up_here} if you don't have an account yet."
+    create_account: create an account
+    refinements: Your selection
+    delete_all: Delete all
+    refine_location: Move to a specific location
+    cancel: Cancel
+    close: Close
+    register_link: Create account
+    sign_register: Sign in / Create account
+    e-mail: "Email:"
+    password: "Password:"
+    record_not_exist: Sorry, this page does not exist!
+    got_it: Got it!
+    yes: Yes
+    no: No
+    search_items: "Service name or description"
+    search_or_signup_html: "Are you a service provider? Search to find and validate your service or %{signup} to register and better inform the community about your services"
+    location_example: Region or City
+    search: Search
+    about: About
+    about_website: About %{website_name}
+    links: Links
+    no_post: There are currently no services relating to your search.
+    your_searched_location: Searched location
+    area_marker_message: "%{post_count} services posted in total in this area, featuring %{item_count} items."
+    show_results: "Show results for this area"
+    create_an_post_now_html: "Please try another keyword or use the categories to broaden your search."
+    about_page: About %{website_name}
+    faq_page: FAQ
+    about_description_1_html: "%{website_name} is a website powered by %{madloba_link}."
+    about_description_2_html: "%{madloba_link} is an open-source platform that allows you to let your community know about what you want to give away."
+    about_description_3: So many (still useful!) objects go to waste all the time! Luckily, as we increasingly live in an open-data and location driven world, we now have the technological means to solve this problem. Madloba will give your community a new way to recycle, give or dispose all "this stuff" :)
+    contact_us: Contact us
+    send_us_message: "Send us a message at:"
+    about_send_message_html: If you want to contact us, feel free to send us a message at %{email}.
+    loc_not_found: Sorry, this location was not found.
+    server_error: Sorry, there was a server error. Please try again later.
+    default_current_loc: This is your current location.
+    title_guided_nav: Categories
+    map_positioned_found: "Map positioned on: %{address}"
+    full_not_found_map_position: "Full address not found, map positioned on: %{address}"
+    not_found_map_position: Sorry, address not found.
+    click_on_map_after: Once general area found, click on the map underneath to select the desired location.
+    demo_sidebar_note_html: (Demo) As an administrator, you can change the colors and the icons of these categories in the %{admin_panel}.
+    admin_panel: admin panel
+    same_area: Services related to a same area
+    update: Update
+    demo_instructions_html: "(Demo) Instructions to login %{here}."
+    footer_powered_by_html: Powered by %{madloba_link}
+    footer_new_powered_by_html: New website powered by %{madloba_link}
+    footer_theme_html: Theme from %{charisma}
+    log_out: Log out
+    show_posts_areas: Show services by areas
+    show_details: Show details
+    error_get_popup_content: Sorry, an error occurred. Please try again later.
+    error:
+      one: error
+      more: errors
+  results:
+    title: "Ads for \"%{area}\" (%{num} results)"

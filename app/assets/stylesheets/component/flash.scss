@@ -1,0 +1,67 @@
+@import 'var';
+
+/****************************** flash ******************************/
+  .flash {
+    display: none;
+    position: fixed;
+    z-index: 91;
+    right: 0;
+    bottom: 0;
+    border: 1px solid $border;
+    background-color: $bg;
+    border-right: 0;
+    border-bottom: 0;
+    &[open] {
+      display: block;
+    }
+    .button {
+      width: 100%;
+      text-align: right;
+      .close {
+        background-color: transparent;
+        color: $text;
+        border: 1px solid $border;
+        border-top: 0;
+        cursor: pointer;
+      }
+    }
+    .messages {
+      list-style: none;
+      // padding: 6px 0;
+      padding: 6px 16px;
+      // width: 100%;
+      max-width: 400px;
+      .message {
+        padding-bottom: 6px;
+        border-bottom: 1px solid $border;
+        margin-bottom: 8px;
+        display: flex;
+        flex-direction: row;
+        &:last-child {
+          border-bottom: 0;
+        }
+        .text {
+          @include font(16, 'l');
+          color: $text;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+        .flag {
+          display: inline-block;
+          min-width: 3px;
+          background-color: $border;
+          margin-right: 6px;
+          &.success {
+            background-color: $link;
+          }
+          &.notice {
+            background-color: $highlighted_bg;
+          }
+          &.error, &.alert {
+            background-color: $control;
+          }
+        }
+      }
+
+    }
+  }

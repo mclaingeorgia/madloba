@@ -1,0 +1,69 @@
+@import 'var';
+/************************ language specific ***********************/
+
+  @font-face {
+     font-family: "ka";
+     src: url(font_path('fonts/ka/dejavusans_book.ttf')) format("truetype");
+     font-style: normal;
+     font-weight: 200;
+  }
+  @font-face {
+     font-family: "en";
+     src: url(font_path('fonts/en/myriad_pro.otf')) format("opentype");
+     font-style: normal;
+     font-weight: 200;
+  }
+
+/******************************* main *****************************/
+
+  @font-face {
+      font-family: "regular";
+      src: url(font_path('fonts/ka/dejavusans_book.ttf')) format("truetype");
+      font-style: normal;
+      font-weight: 200;
+  }
+  @font-face {
+      font-family: "light";
+      src: url(font_path('fonts/ka/dejavusans_extralight.ttf')) format("truetype");
+      font-style: normal;
+      font-weight: 200;
+  }
+  @font-face {
+      font-family: "italic";
+      src: url(font_path('fonts/ka/dejavusans_oblique.ttf')) format("truetype");
+      font-style: normal;
+      font-weight: 200;
+  }
+  @font-face {
+      font-family: "lightitalic";
+      src: url(font_path('fonts/ka/dejavusans_oblique.ttf')) format("truetype");
+      font-style: normal;
+      font-weight: 200;
+  }
+  @font-face {
+      font-family: "bold";
+      src: url(font_path('fonts/ka/dejavusans_bold.ttf')) format("truetype");
+      font-style: normal;
+      font-weight: 200;
+  }
+  @font-face {
+      font-family: "semibold";
+      src: url(font_path('fonts/ka/dejavusans_bold_condensed.ttf')) format("truetype");
+      font-style: normal;
+      font-weight: 200;
+  }
+
+/************************ main upppercase ***********************/
+
+  @font-face {
+      font-family: "regular_uppercase";
+      src: url(font_path('fonts/ka/bpg_nino_mtavruli.otf')) format("opentype");
+      font-style: normal;
+      font-weight: 200;
+  }
+  @font-face {
+      font-family: "bold_uppercase";
+      src: url(font_path('fonts/ka/bpg_nino_mtavruli_bold.ttf')) format("truetype");
+      font-style: normal;
+      font-weight: 200;
+  }

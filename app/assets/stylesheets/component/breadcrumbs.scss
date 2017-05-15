@@ -1,0 +1,19 @@
+.breadcrumbs {
+  display: block;
+  padding: 0 0 40px 33px;
+  li {
+    display: inline-block;
+  }
+  span {
+    @include font(18, 'sb');
+    color: $text;
+  }
+  span.slash {
+    color: #9599a2;
+  }
+  a {
+    @include font(18, 'sb');
+    color: #9599a2;
+    text-decoration: none;
+  }
+}

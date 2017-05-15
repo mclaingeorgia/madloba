@@ -24,7 +24,7 @@ module AdminHelper
       fd.delete(:type)
     end
 
-    render partial: "shared/form_inputs/#{type}", locals: { form: form, field: field_name, translate_path: translate_path, options: fd }
+    render partial: "shared/form_inputs/#{type}", locals: { form: form, field: field_name, translate_path: translate_path, options: fd, container_options: {} }
   end
 
   def user_profile_pages

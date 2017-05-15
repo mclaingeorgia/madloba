@@ -1,0 +1,121 @@
+@import 'var';
+
+.place-card {
+  padding: 0 19px;
+  .card-border {
+    border: 1px solid $highlighted_bg;
+    position: relative;
+    &:after {
+      content: "";
+      position:absolute;
+      top:0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      border: 3px solid transparent;
+      pointer-events: none;
+    }
+    &:hover:after {
+       border: 3px solid $highlighted_bg;
+    }
+  }
+  .card {
+    padding: 9px;
+    min-width: 327px;
+    max-width: 327px;
+    display: inline-block;
+    position: relative;
+    .back {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow-y: auto;
+      .services {
+        padding: 20px 22px;
+      }
+      .close {
+        position: absolute;
+        top: 16px;
+        right: 10px;
+        background: background('close');
+        width: 10px;
+        height: 10px;
+        cursor: pointer;
+      }
+    }
+    .poster {
+      position: relative;
+      padding-bottom: 12px;
+      .image {
+        width: 100%;
+      }
+      .favorite {
+        position: absolute;
+        top: 7px;
+        right: 4px;
+      }
+      .rating {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translateY(-50%);
+      }
+    }
+    .info {
+      display: flex;
+      flex-direction: column;
+      padding: 0 0 4px 1px;
+      .name {
+        @include font(18, 'sb');
+        color: $link;
+        text-decoration: underline;
+      }
+      .provider {
+        padding-bottom: 12px;
+        a {
+          @include font(18, 'sb');
+          color: $link;
+          text-decoration: underline;
+        }
+        span {
+          @include font(12);
+          color: $text;
+        }
+      }
+      .first-service {
+        display: flex;
+        flex-direction: row;
+        @include font;
+        color: $text;
+        align-items: center;
+        padding-bottom: 17px;
+        strong {
+          flex: 1;
+          display: inline-block;
+          white-space: nowrap;
+          text-overflow: clip;
+        }
+        .ellipsis {
+          margin-right: 13px;
+          width: 30px;
+          height: 10px;
+          background: transparent url(svg('ellipsis')) no-repeat center;
+          cursor: pointer;
+          &:hover {
+            cursor: pointer;
+            border: 1px solid gray;
+            border-radius: 2px;
+          }
+        }
+      }
+      .contact {
+        justify-content: flex-end;
+      }
+    }
+  }
+  .rate {
+    padding-top: 11px;
+  }
+}

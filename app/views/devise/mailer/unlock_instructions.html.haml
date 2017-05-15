@@ -1,7 +1,4 @@
-%p
-  = t('session.hello')
-  = @resource.email
-  \!
+%p= t('mailer.hello', name:  @resource.email)
 %p= t('mailer.account_locked')
 %p
   = t('mailer.link_unlock')

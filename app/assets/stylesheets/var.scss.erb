@@ -1,0 +1,69 @@
+/****************************** vars ******************************/
+
+  /* colors */
+
+    $bg: #f4f4f4;
+
+    $bg2: #ffffff;
+
+    $highlighted_bg: #e8c26b;
+
+    $text: #373f51;
+
+    $text_white: #ffffff;
+
+    $text_gray: #878787;
+
+    $control: #f38d68;
+
+    $link: #009b72;
+
+    $border: #d8d8d8;
+
+    $border2: #e2e2e2;
+
+@function svg($file_name) {
+  @return asset_path('svg/' + $file_name + '.svg');
+}
+
+@function png($file_name) {
+  @return asset_path('png/' + $file_name + '.png');
+}
+
+@function font_path($font_path) {
+  @return asset_path($font_path);
+}
+
+
+@mixin font($size: 18, $font: 'r', $line_height: 18) {
+  $font_name: 'regular';
+  @if ($font == 'b') {
+    $font_name: 'bold'
+  } @else if ($font == 'sb'){
+    $font_name: 'semibold';
+  } @else if ($font == 'l'){
+    $font_name: 'light';
+  } @else if ($font == 'i'){
+    $font_name: 'italic';
+  } @else if ($font == 'li'){
+    $font_name: 'lightitalic';
+  } @else if ($font == 'ru'){
+    $font_name: 'regular_uppercase';
+  } @else if ($font == 'bu'){
+    $font_name: 'bold_uppercase';
+  } @else if ($font == 'en'){
+    $font_name: 'en';
+  } @else if ($font == 'ka'){
+    $font_name: 'ka';
+  }
+
+  font: $size + px + '/' + $line_height + px $font_name;
+}
+
+@mixin color($color: $text) {
+  color: $color;
+}
+
+@function background($image_path) {
+  @return 'transparent url(' + svg($image_path) + ') no-repeat;';
+}

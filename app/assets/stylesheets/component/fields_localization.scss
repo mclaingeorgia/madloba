@@ -1,0 +1,76 @@
+@import 'var';
+
+.fields-localization {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 12px;
+  max-width: 768px;
+  .tabs {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    label {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: flex-start;
+      white-space: nowrap;
+      padding: 0 9px;
+      @include font;
+      color: $text;
+      width: auto;
+    }
+    a {
+      padding: 2px 7px;
+      border: 0;
+      @include font(18, 'b');
+      color: #a8acb3;
+      text-decoration: none;
+
+      &.active {
+        border: 1px dashed #bbbdc3;
+        color: $control;
+      }
+    }
+    .d {
+      border-top: 1px dashed #bbbdc3;
+      width: 100%;
+      &.d1 { width: 18px; }
+      &.d2 { flex: 4; }
+      &.d3 { flex: 2; }
+      &.d4 { flex: 5; }
+    }
+    .tabs {
+      span {
+
+      }
+    }
+  }
+  .tabs-content {
+    height: 100%;
+    border: 1px dashed #bbbdc3;
+    border-top: 0;
+    margin-top: -12px;
+    padding-top: 16px;
+    padding: 33px 27px; //0 0 0;// 33px;
+    li {
+      display: none;
+      &.active {
+        display: block;
+      }
+      .field {
+        padding-bottom: 22px;
+        &:last-child {
+          padding-bottom: 0;
+        }
+      }
+
+    }
+    // .field label {
+    //   padding: 0 14px 0 0;
+    // }
+  }
+}
+// .field + .fields-localization {
+//   padding-top: 33px;
+// }

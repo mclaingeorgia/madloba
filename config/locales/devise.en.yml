@@ -6,6 +6,9 @@ en:
       confirmed: "Your account was successfully confirmed. Please go to the dashboard to view and complete your Profile"
       send_instructions: "You will receive an email with instructions about how to confirm your account in a few minutes."
       send_paranoid_instructions: "If your email address exists in our database, you will receive an email with instructions about how to confirm your account in a few minutes."
+      new:
+        title: Resend confirmation instructions
+        resend_confirmation: Resend confirmation instructions
     failure:
       already_authenticated: "You are already signed in."
       inactive: "Your account is not activated yet."
@@ -32,6 +35,12 @@ en:
       send_paranoid_instructions: "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."
       updated: "Your password was changed successfully. You are now signed in."
       updated_not_active: "Your password was changed successfully."
+      new:
+        title: Forgot your password?
+        forgot: Enter your email address and we will send you a link to reset your password.
+      edit:
+        title: Change your password
+        change_your_password: Change your password
     registrations:
       destroyed: "Bye! Your account was successfully cancelled. We hope to see you again soon."
       signed_up: "Welcome! You have signed up successfully."
@@ -40,9 +49,23 @@ en:
       signed_up_but_unconfirmed: "A message has been sent to your email address. Please follow the instructions to confirm your email address and activate your account."
       update_needs_confirmation: "You updated your account successfully, but we need to verify your new email address. Please check your email and click on the confirm link to finalize confirming your new email address."
       updated: "You updated your account successfully."
+      new:
+        title: Create an Account
+        have_questions_html: "<span>Have questions?</span> %{link} to view our Frequently Asked Questions. For further assistance, please contact 0 800 900 902."
+        has_agreed_html: "I have accepted the %{link}"
+        already_registered_html: "Already registered? %{link}"
+        no_confirmation_html: "Didn't receive confirmation instructions? %{link}"
     sessions:
       signed_in: "Signed in successfully."
       signed_out: "Signed out successfully."
+      new:
+        title: Sign in
+        email: "Email"
+        password: "Password"
+        forgot: "Forgot password?"
+        remember_me: "Remember Me"
+        sign_up_prompt_html: "or %{link} if you don't have yet."
+        password_and_forgot_html: "Password %{link}"
     unlocks:
       send_instructions: "You will receive an email with instructions about how to unlock your account in a few minutes."
       send_paranoid_instructions: "If your account exists, you will receive an email with instructions about how to unlock it in a few minutes."
@@ -57,3 +80,13 @@ en:
       not_saved:
         one: "1 error occurred. Please correct it and try to save your %{resource} profile again:"
         other: "%{count} errors occurred. Please correct them and try to save your %{resource} profile again:"
+
+
+
+
+
+
+
+
+
+

@@ -24,7 +24,24 @@ module ApplicationHelper
   def if_path_match(pth, v1, v2 = '')
     return "#{controller_name}/#{action_name}" == pth.to_s ? v1 : v2
   end
+  def format_messages(resource)
+     # Rails.logger.debug("--------------------format_messages------------------------#{resource.providers.inspect}")
+    order_list = resource.class.validation_order_list
+    ordered_messages = []
+    messages = resource.errors.messages.dup
+    joiner = '.<br/>'
 
+    order_list.each {|item|
+      if messages.include?(item)
+        ordered_messages << resource.errors.full_messages_for(item).join(joiner)
+        messages.delete(item)
+      end
+    }
+    messages.keys.sort.each{|item|
+      ordered_messages << resource.errors.full_messages_for(item).join(joiner)
+    }
+    ordered_messages.join(joiner)
+  end
 
   # def resource_name
   #   :user
@@ -122,27 +139,10 @@ module ApplicationHelper
   # end
 
 
-  # # Helpers for map related pages
-  # # -----------------------------
-  # def nominatim_ws_response_for(location)
-  #   url = OSM_NOMINATIM_URL % {location: location, language: I18n.locale}
-  #   safeurl = URI.parse(URI.encode(url))
-  #   response = HTTParty.get(safeurl)
-  #   if !response.success?
-  #     response = nil
-  #   end
-
-  #   return response
-  # end
 
 
-  # def address_from_geocodes(latitude,longitude)
-  #   url = "http://open.mapquestapi.com/nominatim/v1/reverse.php?format=json&lat=#{latitude}&lon=#{longitude}"
-  #   safeurl = URI.parse(URI.encode(url))
-  #   response = HTTParty.get(safeurl)
-  #   raise response.response unless response.success?
-  #   response['display_name']
-  # end
+
+
 
   # def valid_float?(str)
   #   # The double negation turns this into an actual boolean true - if you're
@@ -189,5 +189,51 @@ module ApplicationHelper
   #       [t('region.south_osettia'), 'South Osettia']
   #   ]
   # end
+  def clean_string(str)
+    str.nil? ? '' : str.squeeze(' ').strip.chomp(',')
+  end
+  def clean_string_from_spaces(str)
+    str.nil? ? '' : str.squeeze(' ').strip
+  end
+  # creates full address string from street_number, street_name, village, city,
+  # region with Georgia at the end. Two versions returned with and without street_number
+  # with village if provided
+  def assemble_address(parts)
+    lookup = []
+    [:street_name, :village, :city, :region].each{ |part|
+      next if part == :village && !parts[:village].present?
+      lookup.push(clean_string(parts[part]))
+    }
+    lookup = lookup.push('Georgia').join(', ')
+    ["#{clean_string(parts[:street_number])} #{lookup}", lookup]
 
+  end
+
+  def geocodes_from_address(address)
+    # puts "------------------------address--#{address}"
+    response = nominatim_ws_response_for(address)
+    if response && response[0]
+        rsp = response[0]
+        if (rsp['lat'] && rsp['lon'])
+          return [rsp['lat'], rsp['lon']]
+        end
+    end
+    return nil
+  end
+  # # Helpers for map related pages
+  # # -----------------------------
+  def nominatim_ws_response_for(location)
+    url = ENV['OSM_NOMINATIM_URL'] % {location: location, language: I18n.locale}
+    safeurl = URI.parse(URI.encode(url))
+    response = HTTParty.get(safeurl)
+    # puts "---------#{response.inspect}"
+    response.success? ? response : nil
+  end
+  # def address_from_geocodes(latitude,longitude)
+  #   url = "http://open.mapquestapi.com/nominatim/v1/reverse.php?format=json&lat=#{latitude}&lon=#{longitude}"
+  #   safeurl = URI.parse(URI.encode(url))
+  #   response = HTTParty.get(safeurl)
+  #   raise response.response unless response.success?
+  #   response['display_name']
+  # end
 end

@@ -1,0 +1,12 @@
+@import 'var';
+
+.favoritor {
+  width: 26px;
+  height: 25px;
+  margin: 0 auto;
+  background: background('favorite');
+  background-position: -27px 0;
+  &[data-favoritize=true], &:hover {
+    background-position: -54px 0;
+  }
+}

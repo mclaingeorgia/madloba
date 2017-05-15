@@ -1,26 +1,16 @@
-- translate_path = 'admin.user.'
-.nav-sign-in-form
-  = form_for resource, as: resource_name, url: session_path(resource_name, :post_url => @post_url), remote: true, html: { role: 'form', class: 'fields' } do |f|
-    = render_form_field(:email_field, f, :email, translate_path, { autofocus: true }, { class: 'email' })
+- page_title(t('.title'))
+.form-container{class: @form_container_class}
+  = simple_form_for resource, as: resource_name, url: session_path(resource_name), remote: true, html: { :'data-type' => 'json', class: @form_class } do |f|
+    = devise_error_messages!
+    = f.input :email, input_html: { autofocus: true, tabindex: 2 }
+    = f.input :password, input_html: { autocomplete: 'off', tabindex: 3 }, label: t(".password_and_forgot_html", link: link_to(t(".forgot"), new_password_path(resource_name), { class: 'forgot', tabindex: 7 }.merge(@form_container_class.include?(:'autonomous') ? { 'data-reattach': 'forgot' } : {})))
+    = f.input :remember_me, as: :boolean, label_html: { tabindex: 4 }
 
-    .field.password
-      = f.label :password do
-        = t("#{translate_path}.password_field")
-        = link_to t("#{translate_path}.forgot"), new_password_path(resource_name), class: 'forgot reattach'
-      = f.password_field :password, class: 'value', autocomplete: 'off'
+    .actions.left
+      = f.submit t("app.common.sign_in"), tabindex: 5
+      = f.submit t("app.common.cancel"), type: :reset, tabindex: 6
 
+    .text= t(".sign_up_prompt_html", link: link_to(t("app.common.sign_up"), new_registration_path(resource_name), tabindex: 8))
 
-    .field.remember-me
-      %label
-        = f.check_box :remember_me
-        = f.label :remember_me do
-          %i
-          = t("#{translate_path}.remember_me")
-    .actions
-      .action-group
-        = submit_tag(t("#{translate_path}.sign_in"), { :type => "submit" })
-        = submit_tag(t('admin.cancel'), { :type => "reset" })
-      %p
-        %span=t('admin.or')
-        = link_to t("#{translate_path}.sign_up"), new_registration_path(resource_name), class: 'sign_up'
-        %span=t("#{translate_path}.sign_up_prompt")
+- if !@form_container_class.include?(:'autonomous')
+  = render partial: "shared/footer", locals: { with_links: true }

@@ -3,6 +3,7 @@ class RootController < ApplicationController
   # before_action :set_page_content, only: [:index, :faq, :privacy_policy, :terms_of_use]
 
   def index
+     Rails.logger.debug("--------------------------------------------index")
     locals({
       filter: {
         services: [2, 5]
@@ -43,6 +44,7 @@ class RootController < ApplicationController
         item: item
       })
     else
+       Rails.logger.debug("--------------------------------------------should not be here")
       redirect_to root_path, flash: { error:  t('app.messages.not_found', obj: Place) }
     end
   end
