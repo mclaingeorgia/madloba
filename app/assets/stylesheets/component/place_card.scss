@@ -6,6 +6,7 @@
   .card-border {
     border: 1px solid $highlighted_bg;
     position: relative;
+    height: 100%;
     &:after {
       content: "";
       position:absolute;
@@ -26,6 +27,14 @@
     max-width: 327px;
     display: inline-block;
     position: relative;
+    height: 100%;
+    .front, .back {
+      height: 100%;
+    }
+    .front {
+      display: flex;
+      flex-direction: column;
+    }
     .back {
       position: absolute;
       top: 0;
@@ -59,10 +68,11 @@
         transform: translateY(-50%);
       }
     }
-    .info {
+    .place-info {
       display: flex;
       flex-direction: column;
       padding: 0 0 4px 1px;
+      flex: 1;
       .name {
         @include font(18, 'sb');
         color: #000;
@@ -84,9 +94,10 @@
       .first-service {
         display: flex;
         flex-direction: row;
+        align-items: flex-start;
+        flex: 1;
         @include font;
         color: $text;
-        align-items: center;
         padding-bottom: 17px;
         strong {
           flex: 1;

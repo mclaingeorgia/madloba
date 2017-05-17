@@ -55,11 +55,11 @@ class ApplicationController < ActionController::Base
     gon.pin_path = ActionController::Base.helpers.asset_path('svg/pin.svg')
     gon.osm = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
     gon.osm_attribution = '<a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
-  #    Rails.logger.debug("--------------------------------------=======------#{@is_faq_page}")
-  #   gon.is_faq_page = @is_faq_page
+
+    gon.labels = {}
   end
   def set_session
-     Rails.logger.debug("--------------------------------------------#{session.to_hash}")
+     # Rails.logger.debug("--------------------------------------------#{session.to_hash}")
     if session[:user_return_to].present? && DEVISE_CONTROLLERS.index(params[:controller]).nil?
       # @post_action = session[:post_action]
       # Rails.logger.debug("--------------------------------------------post_action #{@post_action}")
@@ -112,7 +112,7 @@ class ApplicationController < ActionController::Base
   end
 
   def place_favoritize(place)
-       Rails.logger.debug("------------------------------------------favoritize--#{current_user.inspect}")
+       # Rails.logger.debug("------------------------------------------favoritize--#{current_user.inspect}")
        true
   end
 

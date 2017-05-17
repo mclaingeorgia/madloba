@@ -1,69 +1,61 @@
 = content_for :custom_stylesheet, 'page/root'
 = content_for :custom_javascript, 'page/root'
-%section.content
+%section.content#filter
   .search
-    #what.filter-input
+    #by_what.filter-input
       %label=t('.what')
-      %input{type: 'text', placeholder: 'Type Service Name or Description'}
+      %input{type: 'text', placeholder: t('.placeholder.what'), 'data-filter': 'what', value: filter[:what] }
     .bar
-    #where.filter-input
-      %label=t('.where')
-      %input{type: 'text', placeholder: 'Type Region or City'}
-    %input{type: 'submit', value: 'Search'}
-  .filters
+    #by_where.filter-input
+      %label= t('.where')
+      %input{type: 'text', placeholder: t('.placeholder.where'), 'data-filter': 'where', value: filter[:where] }
+    %input{type: 'submit', value: t('shared.search')}
+  .filter
     %ul
       %li.prompt
-        %label=t('.filters')
+        %label= t('.filters')
         = image_tag(asset_path("svg/filter.svg"), alt: t('.alt.filter'), title: t('.alt.filter'))
-      %li.by-service.filter-input.collapsed
+      %li#by_services.filter-input.collapsed{'data-filter': 'services'}
         .inner-left-border
         .toggle
-          %label=t('.services')
+          %label= t('.services')
           .filter-caret
-        %ul.list
-          - filtered_services = filter[:services]
-          - filtered_services.each do |service_id|
-            - service = Service.find(service_id)
-            - if service.present?
-              %li.service{ 'data-id': service_id }
-                %i{ class: service.icon }
-                %span=service.name
-                .close
+        - filtered_services = @services.select{|s| s[4] }
+        %ul.list{'data-order': filtered_services.map{|m| m[3]}}
+          - filtered_services.each do |service|
+            %li.service{'data-id': service[0], 'data-order': service[3]}
+              %i{class: service[2]}
+              %span= service[1]
+              .close
         .input-group{'data-set-max-height': 'parent' }
           %ul.services
-            - Service.all.each do |service|
-              %li.service{ class: (filtered_services.index(service.id).present? ? 'hidden' : nil), 'data-id': service.id }
-                %i{ class: service.icon }
-                %span=service.name
+            - @services.each do |service|
+              %li.service{ class: (service[4] ? 'hidden' : nil), 'data-id': service[0], 'data-order': service[3] }
+                %i{ class: service[2] }
+                %span= service[1]
           .button-group
             %button.reset=t('.cancel')
             %button.apply=t('.apply')
         .inner-right-border
-      %li.by-rate
-        = render partial: 'shared/rator'
-      %li.by-favorite
+      %li#by_rate
+        = render partial: 'shared/rator', locals: { rate: filter[:rate], rator: {'data-filter': 'rate'}, label: t('.rating'), is_filter: true }
+      %li#by_favorite
         %label=t('.favorites')
-        .favoritor
-  .results
+        .favoritor{'data-filter': 'favorite', 'data-f': filter[:favorite].to_s, title: filter[:favorite] ? t('.alt.show_all') : t('.alt.show_favorite')}
+  .info
     .map-view
-    .records
-      - ln = results.length #recods.length
-      = ln
-      %span= t('.result', count: ln)
-  .place-cards
-    - results.in_groups_of(2).each do |place_group|
-      .row
-        - if place_group[0].present?
-          = render partial: 'shared/place', locals: { place: place_group[0] }
-          - if place_group[1].present?
-            = render partial: 'shared/place', locals: { place: place_group[1] }
+    .count
+      = 0
+      %span= t('.result', count: 1)
+  .result-container
+    .result
     = render partial: "shared/footer", locals: { with_links: true }
 %section.mapper
   .map-container
     #places_map.map
     .map-filter
-      %input{type: :checkbox, name: 'filter_by_map', 'data-filter': :map, id: 'filter_by_map' }
-      %label{for: 'filter_by_map'}= t('.filter.by_map')
+      %input{type: :checkbox, name: 'filter_by_map', 'data-filter': 'map', id: 'by_map', checked: (filter[:map].present? ? 'checked' : nil) }
+      %label{for: 'by_map'}= t('.filter.by_map')
     .map-zoomer
       .in{'data-map': 'locator_map'} +
       .hr

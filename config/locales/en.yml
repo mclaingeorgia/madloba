@@ -98,6 +98,8 @@ en:
     overall_rating: "Overall place rating %{rating}/5"
     rating_threshold: "/%{n}"
     rating: Rating
+    search: Search
+    and_up: " & Up"
   admin:
     save: Save
     cancel: Cancel
@@ -208,13 +210,19 @@ en:
       apply: Apply
       rate: "Rate:"
       favorites: "Favorites:"
+      rating: "Rating:"
       result:
         one: "Result"
         other: "Results"
       alt:
         filter: Filter Image
+        show_all: Show all
+        show_favorite: Show favorite places
       filter:
         by_map: Search as I move the map
+      placeholder:
+        what: Type Place or Provider Name
+        where: Type Region or City
     place:
       contact_service_provider: Contact Service Provider
       your_name: Your Name

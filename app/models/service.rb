@@ -3,6 +3,10 @@ class Service < ActiveRecord::Base
   globalize_accessors :locales => [:en, :ka], :attributes => [ :name, :description]
 
   belongs_to :place
+
+  def self.sorted
+    with_translations(I18n.locale).order(name: :asc)
+  end
   # has_many :place_services
   # has_many :services, through: :place_services, source: :place
   # has_and_belongs_to_many :places

@@ -3,16 +3,75 @@ class RootController < ApplicationController
   # before_action :set_page_content, only: [:index, :faq, :privacy_policy, :terms_of_use]
 
   def index
-    Rails.logger.debug("--------------------------------------------index")
+    @class = 'loader'
 
-    d = {
-      filter: {
-        services: [Service.first.id, Service.last.id]
-      },
-      results: Place.limit(10)
+    pars = index_params.inject({}) { |memo, (k, v)|
+      key = k.to_sym
+      v = true if v == 'true'
+      v = false if v == 'false'
+      memo[key] = v if key != :locale
+      memo
     }
-    gon.d = d
-    locals(d)
+
+    tmp = pars[:services]
+    pars[:services] = (tmp.present? && tmp.kind_of?(Array) && tmp.length >= 1) ? tmp.map(&:to_i) : []
+
+    tmp = pars[:rate]
+    tmp = tmp.to_i if tmp.present? && tmp.is_number?
+    pars[:rate] = (tmp.present? && !(tmp > 0 && tmp < 5) ? 0 : tmp)
+
+    tmp = pars[:favorite]
+    pars[:favorite] = false if tmp.present? && tmp != true && tmp != false
+
+    tmp = pars[:map]
+    pars[:map] = (tmp.present? && tmp.kind_of?(Array) && tmp.length == 4) ? tmp.map(&:to_f) : nil
+
+    filter = {
+      what: nil,
+      where: nil,
+      services: nil, # []
+      rate: nil,
+      favorite: nil,
+      map: nil
+    }.merge(pars)
+
+    @services = Service.sorted.pluck(:id, :name, :icon)
+      .each_with_index.map{|m,i| m.push(i+1, (filter[:services].index(m[0]).nil? ? false : true)) }
+    # Rails.logger.debug("--------------------------------------------#{filter} #{@services}")
+
+    places = Place.by_filter(filter).limit(10)
+     Rails.logger.debug("--------------------------------------------#{places.length}")
+
+    # gon.filter = filter
+    gon.labels.merge!({
+      result: t('.result', count: 1),
+      results: t('.result', count: 2),
+      show_all: t('.alt.show_all'),
+      show_favorite: t('.alt.show_favorite')
+    })
+
+    result = []
+    places.each {|place|
+      result << {
+        html: (render_to_string partial: 'shared/place', locals: { place: place }),
+        location: {
+          id: place.id,
+          name: place.name,
+          coordinates: [place.latitude, place.longitude]
+        }
+      }
+    }
+
+
+
+    respond_to do |format|
+      format.html { render locals: { filter: filter } }
+      format.json { render json: { result: result } }
+    end
+
+
+
+
   end
 
   def about
@@ -59,6 +118,9 @@ class RootController < ApplicationController
       render locals: values
     end
 
+  def index_params
+    params.permit(:what, :where, :rate, :favorite, :locale, services: [], map: [])
+  end
   # def set_page_content
   #   @about_page_content = PageContent.by_name('about')
   # end

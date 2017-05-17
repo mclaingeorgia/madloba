@@ -35,4 +35,33 @@ class Place < ActiveRecord::Base
     emails.join(", ")
   end
 
+  def self.by_filter(filter)
+    places = nil
+    # Rails.logger.debug("--------------------------------------------#{with_translations(I18n.locale).where("place_translations.name like ?", "%#{filter[:what]}%").to_sql}")
+    places = with_translations(I18n.locale)
+    sql = []
+    pars = {}
+    if filter[:what].present?
+      places = places.where('name like ?', "%#{filter[:what]}%")
+    end
+    if filter[:where].present?
+      sql << 'address like :address'
+      pars[:address] = "%#{filter[:where]}%"
+      sql << 'city like :city'
+      pars[:city] = "%#{filter[:where]}%"
+    end
+
+    if filter[:services].present?
+      places = places.includes(:services).where(:services => { id: filter[:services] })
+    end
+
+    if filter[:rate].present?
+      places = places.where('rating > ?', filter[:rate])
+    end
+
+     Rails.logger.debug("--------------------------------------------#{places.where(sql.join(" OR "), pars).to_sql}")
+    # what=blah&where=32s&favorite=true&map[]=1&map[]=2&map[]=3&services[]=67&services[]=68
+    places.where(sql.join(" OR "), pars)
+  end
+
 end

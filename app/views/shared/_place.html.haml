@@ -9,7 +9,7 @@
           - if true # place.favorized
             = render partial: "shared/favorite"
           = render partial: "shared/rating", locals: { rating: place.rating }
-        .info
+        .place-info
           = link_to place.name, place_path(place.id), class: 'name'
           .provider
             %span #{"by "}

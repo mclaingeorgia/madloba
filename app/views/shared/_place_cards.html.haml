@@ -1,0 +1,6 @@
+- results.in_groups_of(2).each do |place_group|
+  .row
+    - if place_group[0].present?
+      = render partial: 'shared/place', locals: { place: place_group[0] }
+      - if place_group[1].present?
+        = render partial: 'shared/place', locals: { place: place_group[1] }

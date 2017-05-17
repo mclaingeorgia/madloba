@@ -6,7 +6,11 @@
   margin: 0 auto;
   background: background('favorite');
   background-position: -27px 0;
-  &[data-favoritize=true], &:hover {
-    background-position: -54px 0;
+  cursor: pointer;
+  &[data-f=true], &:hover {
+    background-position: 0 0;
+  }
+  &[data-f=true]:hover {
+    background-position: -27px 0;
   }
 }

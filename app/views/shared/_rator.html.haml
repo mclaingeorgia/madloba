@@ -1,6 +1,9 @@
+- rate ||= 0
+- label ||= t('app.common.rate')
+- is_filter ||= false
 .rator-container
-  %label=t('app.common.rate')
-  .rator{"data-r": 3}
+  %label=label
+  .rator{{"data-r": rate}.merge(rator||={})}
     .heart{"data-r": 1}
       %i
       .heart{"data-r": 2}
@@ -9,6 +12,8 @@
           %i
           .heart{"data-r": 4}
             %i
-            .heart{"data-r": 5}
+            .heart-dummy
               %i
-    .close
+    - if is_filter
+      .up= t('shared.and_up')
+    .reset

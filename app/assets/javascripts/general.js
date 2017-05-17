@@ -46,7 +46,7 @@ pollution.hooks.resize.push(function(windowWidth, windowHeight) {
     var v = t.attr('data-set-max-height')
     if(v === 'parent') {
       var tmpHeight = t.parent().outerHeight() + t.parent().position().top + 1
-      t.css('max-height', windowWidth - tmpHeight )
+      t.css('max-height', windowHeight - tmpHeight )
     }
     else {
       t.css('max-height', windowHeight - 75 )
