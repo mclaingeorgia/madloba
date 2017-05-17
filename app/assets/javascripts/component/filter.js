@@ -3,9 +3,10 @@
 (function() {
   var filter = {
     el: undefined,
-    names: ['what', 'where', 'services', 'rate', 'favorite', 'map'],
+    names: ['what', 'where', 'services', 'rate', 'favorite'], // plus map
     data: {},
     els: {},
+    result: [],
     init: function () {
       var t = filter
       t.el = $('#filter')
@@ -13,6 +14,7 @@
       t.names.forEach(function(name) {
         t.els[name] = t.el.find('[data-filter="' + name + '"]')
       })
+      t.els['map'] = $('#by_map')
       t.els['search'] = t.el.find('.search input[type="submit"]')
       t.els['result'] = t.el.find('.result')
       t.els['count'] = t.el.find('.info .count')
@@ -46,13 +48,34 @@
       t.set_data('favorite', (value === 'true' ? true : undefined))
 
 
-      t.set_data('map', undefined)
+      var mp = pollution.elements['places_map']
+      var map = JSON.parse(t.els['map'].attr('data-m'))
+
+      if(map.length === 4) {
+        mp.on('moveend', function () {
+          var bounds = mp.getBounds()
+          var tmp = [bounds._northEast.lat, bounds._northEast.lng, bounds._southWest.lat, bounds._southWest.lng, mp.getZoom()]
+          var url = window.location.pathname + '?' + (jQuery.param(t.data) + (tmp.length ? '&' + jQuery.param({map: tmp}) : ''))
+          window.history.pushState({ }, null, url)
+
+          pollution.elements['places_map_marker_group'].eachLayer(function (layer) {
+            t.els['result'].find('.place-card[data-place-id="' + layer.options._place_id + '"]').toggleClass('hidden', !bounds.contains(layer.getLatLng()))
+          });
+        })
+        // mp.setZoom(zoom)
+        mp.fitBounds([[map[0], map[1]],[map[2],map[3]]])
+        // var bounds = mp.getBounds()
+        // var tmp = [bounds._northEast.lat, bounds._northEast.lng, bounds._southWest.lat, bounds._southWest.lng, mp.getZoom()]
+        // pollution.elements['places_map_marker_group'].eachLayer(function (layer) {
+        //   t.els['result'].find('.place-card[data-place-id="' + layer.options._place_id + '"]').toggleClass('hidden', !bounds.contains(layer.getLatLng()))
+        // });
+      }
 
       console.log('data to process_all', t.data)
     },
     process: function (type, value) {
       var t = filter
-
+      var map = []
       switch(type) {
         case 'search':
           t.set_data('what', t.els['what'].val())
@@ -74,11 +97,44 @@
           t.set_data('services', (value.length > 0 ? value : undefined))
 
           break
+        case 'map':
+          var mp = pollution.elements['places_map']
+          if(value === true) {
+            mp.on('moveend', function () {
+              var bounds = mp.getBounds()
+              var tmp = [bounds._northEast.lat, bounds._northEast.lng, bounds._southWest.lat, bounds._southWest.lng]
+              var url = window.location.pathname + '?' + (jQuery.param(t.data) + (tmp.length ? '&' + jQuery.param({map: tmp}) : ''))
+              window.history.pushState({ }, null, url)
+
+              pollution.elements['places_map_marker_group'].eachLayer(function (layer) {
+                t.els['result'].find('.place-card[data-place-id="' + layer.options._place_id + '"]').toggleClass('hidden', !bounds.contains(layer.getLatLng()))
+              });
+              t.render_count(t.els['result'].find('.place-card:not(.hidden)').length)
+            })
+            var bounds = mp.getBounds()
+            map = [bounds._northEast.lat, bounds._northEast.lng, bounds._southWest.lat, bounds._southWest.lng]
+            pollution.elements['places_map_marker_group'].eachLayer(function (layer) {
+              t.els['result'].find('.place-card[data-place-id="' + layer.options._place_id + '"]').toggleClass('hidden', !bounds.contains(layer.getLatLng()))
+            });
+            t.render_count(t.els['result'].find('.place-card:not(.hidden)').length)
+          }
+          else {
+            map = []
+            t.els['result'].find('.place-card.hidden').removeClass('hidden')
+            mp.off('moveend')
+            t.render_count(t.els['result'].find('.place-card:not(.hidden)').length)
+
+          }
+
+          // t.set_data('map', value)
+          break
       }
       console.log('data to process', t.data)
-      var url = window.location.pathname + '?' + jQuery.param(t.data)
-      window.history.pushState({ }, null, url);
-      t.process_send()
+      var url = window.location.pathname + '?' + (jQuery.param(t.data) + (map.length ? '&' + jQuery.param({map: map}) : ''))
+      window.history.pushState({ }, null, url)
+      if(type !== 'map') {
+        t.process_send()
+      }
     },
     process_send: function () {
       var t = filter
@@ -92,6 +148,7 @@
       }
 
       $.getJSON(location.pathname, t.data, function(json) {
+        t.result = json.result
         t.process_callback('success', json)
       }).fail(function() {
         t.process_callback('error', json)
@@ -101,11 +158,12 @@
       var t = filter
       if(type === 'success') {
 
-        console.log( "success", data )
+        // console.log( "success", data )
         t.render_result(data.result)
       }
       else {
-        console.log( "fail" )
+        t.render_result([])
+        // console.log( "fail message" )
       }
       pollution.components.loader.stop()
     },
@@ -128,6 +186,9 @@
       pollution.components.services.bind(t.els['services'], function(v) {
         t.process('services', v)
       })
+      t.els['map'].change(function () {
+        t.process('map', $(this).is(":checked"))
+      })
     },
     set_data: function (key, value) {
       var t = filter
@@ -143,11 +204,15 @@
 
       t.render_count(data.length)
 
+      if(data.length === 0) {
+        t.els['result'].html('<span>' + gon.labels.not_found + '</span>')
+        return
+      }
       var groups = data.map( function(e,i) { return i%2===0 ? data.slice(i,i+2) : null; })
                     .filter(function(e){ return e; })
 
       groups.forEach(function (d) {
-        t.els['result'].append('<div class="row">' + d[0].html + (d.length === 2 ? d[1].html : '') + '</div>')
+        t.els['result'].append(d[0].html + (d.length === 2 ? d[1].html : ''))// '<div class="row">' ++ '</div>'
         // <div class="place-card"><div class="card-border"><div class="card"></div></div></div>
         var locations = [d[0].location]
         if(d.length === 2) { locations.push(d[1].location) }

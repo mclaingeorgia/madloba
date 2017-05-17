@@ -54,7 +54,7 @@
   .map-container
     #places_map.map
     .map-filter
-      %input{type: :checkbox, name: 'filter_by_map', 'data-filter': 'map', id: 'by_map', checked: (filter[:map].present? ? 'checked' : nil) }
+      %input{type: :checkbox, name: 'filter_by_map', 'data-filter': 'map', id: 'by_map', checked: (filter[:map].present? ? 'checked' : nil), 'data-m': filter[:map].to_s }
       %label{for: 'by_map'}= t('.filter.by_map')
     .map-zoomer
       .in{'data-map': 'locator_map'} +

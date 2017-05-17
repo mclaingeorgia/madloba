@@ -207,7 +207,7 @@ main {
     }
     .info {
       padding: 16px 40px 14px;
-      min-width: 780px;
+      min-width: 783px;
       @include font(16);
       color: $text;
       text-align: right;
@@ -215,9 +215,8 @@ main {
 
       }
       .count {
-        span {
-
-        }
+        @include font(16);
+        color: $text;
       }
     }
     .result-container {
@@ -225,9 +224,17 @@ main {
       flex: 1;
       display: flex;
       flex-direction: column;
+      max-width: 783px;
       .result {
         padding: 0 19px;
         flex: 1;
+        // display: flex;
+        // flex-direction: row;
+        // flex-wrap: wrap;
+        span {
+          @include font(16);
+          color: $text;
+        }
       }
       .row {
         display: flex;

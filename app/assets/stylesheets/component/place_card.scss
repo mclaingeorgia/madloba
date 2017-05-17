@@ -1,7 +1,8 @@
 @import 'var';
 
 .place-card {
-  padding: 0 19px;
+  display: inline-block;
+  padding: 0 19px 50px;
   text-align: left;
   .card-border {
     border: 1px solid $highlighted_bg;

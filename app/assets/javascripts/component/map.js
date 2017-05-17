@@ -8,15 +8,6 @@
 
     },
     maps: [],
-    config: function () {
-      L.Map.include({
-        'clearLayers': function () {
-          this.eachLayer(function (layer) {
-            this.removeLayer(layer);
-          }, this);
-        }
-      });
-    },
     init: function(id, options) { // id without #
       var t = map
       var $mp = $('#' + id)
@@ -43,16 +34,23 @@
         if(lat > 0) { coordinates[0] = lat }
         if(lon > 0) { coordinates[1] = lon }
 
-        var mp = L.map(id, {zoomControl: false}).setView(coordinates, options.zoom);
+        var mp = L.map(id, {zoomControl: false, maxBounds: [ // only georgia can be selected
+          [43.784728, 39.891357],
+          [40.919480, 46.845703]
+        ]}).setView(coordinates, options.zoom);
+
+        // mp.fitBounds();
+
+
         pollution.elements[id] = mp
 
         L.tileLayer(gon.osm, { attribution: gon.osm_attribution })
           .addTo(mp)
 
-        if(type !== 'coordinates') {
-          var markerGroup = L.layerGroup().addTo(mp)
-          pollution.elements[id + '_marker_group'] = markerGroup
+        var markerGroup = L.layerGroup().addTo(mp)
+        pollution.elements[id + '_marker_group'] = markerGroup
 
+        if(type !== 'coordinates') {
           var marker = L.marker(coordinates, {icon: pollution.elements.pin })
             .addTo(markerGroup)
         }
@@ -94,10 +92,9 @@
     },
     render_markers: function (id, locations) {
       if(pollution.elements.hasOwnProperty(id)) {
-        var markerGroup = L.layerGroup().addTo(pollution.elements[id])
-        pollution.elements[id + '_marker_group'] = markerGroup
+        var markerGroup = pollution.elements[id + '_marker_group']
         locations.forEach(function(location) {
-          var mrk = L.marker(location.coordinates, {icon: pollution.elements.pin }).addTo(markerGroup)
+          var mrk = L.marker(location.coordinates, {icon: pollution.elements.pin, _place_id: location.id }).addTo(markerGroup)
 
           if(!device.desktop()) {
             mrk.bindPopup("<div class='header'>" + location.name + "</div>");
@@ -118,17 +115,10 @@
         })
       }
     }
-    // ,
-    // clear_markers: function (id) {
-    //   if(pollution.elements.hasOwnProperty(id)) {
-    //     pollution.elements[id]
-    //   }
-    // }
   }
 
 
   // map.init('contact_map', { zoom: 17, coordinates: [41.70978, 44.76133], type: 'coordinate' })
   // map.init('locator_map', { zoom: 13, type: 'locator' })
-  map.config()
   pollution.components.map = map
 }())

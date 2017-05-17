@@ -223,6 +223,7 @@ en:
       placeholder:
         what: Type Place or Provider Name
         where: Type Region or City
+      not_found: There is no data found with provided filters
     place:
       contact_service_provider: Contact Service Provider
       your_name: Your Name

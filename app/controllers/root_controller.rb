@@ -24,7 +24,7 @@ class RootController < ApplicationController
     pars[:favorite] = false if tmp.present? && tmp != true && tmp != false
 
     tmp = pars[:map]
-    pars[:map] = (tmp.present? && tmp.kind_of?(Array) && tmp.length == 4) ? tmp.map(&:to_f) : nil
+    pars[:map] = (tmp.present? && tmp.kind_of?(Array) && tmp.length == 4) ? tmp.map(&:to_f) : []
 
     filter = {
       what: nil,
@@ -39,7 +39,7 @@ class RootController < ApplicationController
       .each_with_index.map{|m,i| m.push(i+1, (filter[:services].index(m[0]).nil? ? false : true)) }
     # Rails.logger.debug("--------------------------------------------#{filter} #{@services}")
 
-    places = Place.by_filter(filter).limit(10)
+    places = Place.by_filter(filter)#.limit(10)
      Rails.logger.debug("--------------------------------------------#{places.length}")
 
     # gon.filter = filter
@@ -47,7 +47,8 @@ class RootController < ApplicationController
       result: t('.result', count: 1),
       results: t('.result', count: 2),
       show_all: t('.alt.show_all'),
-      show_favorite: t('.alt.show_favorite')
+      show_favorite: t('.alt.show_favorite'),
+      not_found: t('.not_found')
     })
 
     result = []
