@@ -35,11 +35,12 @@ class RootController < ApplicationController
       map: nil
     }.merge(pars)
 
-    @services = Service.sorted.pluck(:id, :name, :icon)
+    services_clean = Service.sorted.pluck(:id, :name, :icon)
+    @services = services_clean
       .each_with_index.map{|m,i| m.push(i+1, (filter[:services].index(m[0]).nil? ? false : true)) }
     # Rails.logger.debug("--------------------------------------------#{filter} #{@services}")
 
-    places = Place.by_filter(filter)#.limit(10)
+    places = Place.by_filter(filter).limit(10)
      Rails.logger.debug("--------------------------------------------#{places.length}")
 
     # gon.filter = filter
@@ -48,18 +49,35 @@ class RootController < ApplicationController
       results: t('.result', count: 2),
       show_all: t('.alt.show_all'),
       show_favorite: t('.alt.show_favorite'),
-      not_found: t('.not_found')
+      not_found: t('.not_found'),
+      alt: t('app.common.alt', alt: '%alt'),
+      by: t('app.common.by'),
+      picked_as_favorite: t('shared.picked_as_favorite'),
+      overall_rating: t('shared.overall_rating_js'),
+      services: services_clean
     })
-
+    missing_path = ActionController::Base.helpers.asset_path("png/missing.png")
     result = []
     places.each {|place|
       result << {
-        html: (render_to_string partial: 'shared/place', locals: { place: place }),
-        location: {
-          id: place.id,
-          name: place.name,
-          coordinates: [place.latitude, place.longitude]
-        }
+        id: place.id,
+        name: place.name,
+        image: missing_path,
+        path: place_path(id: place.id),
+        rating: place.rating || 0,
+        provider: {
+          name: place.provider.name
+          },
+        address: place.address,
+        phone: place.phone,
+        coordinates: [place.latitude, place.longitude],
+        services: place.service_ids
+        #html: (render_to_string partial: 'shared/place', locals: { place: place }),
+        # location: {
+        #   id: place.id,
+        #   name: place.name,
+        #   coordinates: [place.latitude, place.longitude]
+        # }
       }
     }
 

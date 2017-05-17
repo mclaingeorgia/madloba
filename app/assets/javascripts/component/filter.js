@@ -159,6 +159,7 @@
       if(type === 'success') {
 
         // console.log( "success", data )
+        // place_cards_builder(data.result)
         t.render_result(data.result)
       }
       else {
@@ -208,16 +209,15 @@
         t.els['result'].html('<span>' + gon.labels.not_found + '</span>')
         return
       }
-      var groups = data.map( function(e,i) { return i%2===0 ? data.slice(i,i+2) : null; })
-                    .filter(function(e){ return e; })
+      // var groups = data.map( function(e,i) { return i%2===0 ? data.slice(i,i+2) : null; })
+      //               .filter(function(e){ return e; })
 
-      groups.forEach(function (d) {
-        t.els['result'].append(d[0].html + (d.length === 2 ? d[1].html : ''))// '<div class="row">' ++ '</div>'
+      data.forEach(function (d) {
+        t.els['result'].append(place_card_builder(d)) // + (d.length === 2 ? d[1].html : ''))// '<div class="row">' ++ '</div>'
         // <div class="place-card"><div class="card-border"><div class="card"></div></div></div>
-        var locations = [d[0].location]
-        if(d.length === 2) { locations.push(d[1].location) }
-        pollution.components.map.render_markers('places_map', locations)
+        // if(d.length === 2) { locations.push(d[1].location) }
       })
+      pollution.components.map.render_markers('places_map', data)
     },
     render_count: function (n) {
       var t = filter

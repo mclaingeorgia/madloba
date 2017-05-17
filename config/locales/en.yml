@@ -88,6 +88,7 @@ en:
       resend: Resend
       click_here: Click Here
       alt: "%{alt} Image"
+      by: by
     messages:
       success_updated: "%{obj} was successfully updated."
       fail_updated: "%{obj} failed to update."
@@ -96,6 +97,7 @@ en:
     fields_localization: Fields to translate
     picked_as_favorite: Picked as favorite
     overall_rating: "Overall place rating %{rating}/5"
+    overall_rating_js: "Overall place rating"
     rating_threshold: "/%{n}"
     rating: Rating
     search: Search

@@ -93,8 +93,10 @@
     render_markers: function (id, locations) {
       if(pollution.elements.hasOwnProperty(id)) {
         var markerGroup = pollution.elements[id + '_marker_group']
+        console.log("-----------------------------",locations)
         locations.forEach(function(location) {
-          var mrk = L.marker(location.coordinates, {icon: pollution.elements.pin, _place_id: location.id }).addTo(markerGroup)
+          // console.log(location.coordinates)
+          var mrk = L.marker(location.coordinates.map(function(m) { return +m }), {icon: pollution.elements.pin, _place_id: location.id }).addTo(markerGroup)
 
           if(!device.desktop()) {
             mrk.bindPopup("<div class='header'>" + location.name + "</div>");
