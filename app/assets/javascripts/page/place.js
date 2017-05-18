@@ -10,8 +10,9 @@ pollution.components.map.init('place_map', { zoom: 16, type: 'data' })
 
 
 $(document).on("click", "[data-action]", function (event) {
-  console.log('clci')
+  // console.log('clci')
   var tt = $(this)
+
   $.ajax({
     url: tt.attr("href"),
     dataType: 'json'

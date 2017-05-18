@@ -9,7 +9,7 @@
         %span #{"by "}
         = item.provider.name
       %ul.services
-        = item.services.map { |s| "<li><span class='icon #{s.icon}'></span>#{s.name}</li>" }.join("").html_safe
+        = item.services.map { |s| "<li class='service'><i class='#{s.icon}'></i><span>#{s.name}</span></li>" }.join("").html_safe
       %ul.contact
         - if item.address.present?
           %li
@@ -35,31 +35,40 @@
           .out{'data-map': 'place_map'} −
   .details-wrapper
     %section.details
-      %section.action-bar
-        %a.favoritize{ href: place_favoritize_path(place_id: item.id), 'data-action': 'place_favoritize', 'data-action-id': item.id }
-          -# , 'data-trigger': user_signed_in? ? nil : 'sign_in', remote: user_signed_in? ? true : nil }
-          =t('.add_to_favorite')
-        = render partial: "shared/rating", locals: { rating: item.rating, with_label: true }
-        = render partial: 'shared/rator'
-        %a.report
-          =t('.report')
-        %a.take-ownership
-          =t('.take_ownership')
-        .share
-          =t('.share')
-          %a.facebook
-          %a.twitter
-      %section.info
-        .description
-          = @post_action
-          = item.description
-        .tags
-          .header= t('.service_tags')
-          = item.tags.map { |s| "<a>#{s.name}</a>" }.join(", ").html_safe
-        .hr
-        .photos
-          photos
-        .contact
+      %ul.action-bar
+        %li
+          = render partial: 'shared/favoritor', locals: { is_favorite: is_favorite_place, href: place_path(id: item.id, a: 'favorite', v: !is_favorite_place), label: is_favorite_place ? t('.remove_from_favorite') : t('.add_to_favorite') }
+        %li
+          = render partial: "shared/rating", locals: { rating: item.rating, with_label: true, klass: 'mobile' }
+        %li
+          = render partial: 'shared/rator'
+        %li
+          %a.report{'data-action': 'report'}
+            =t('.report')
+        %li
+          %a.take-ownership{'data-action': 'ownership'}
+            =t('.take_ownership')
+        %li
+          .share
+            %label=t('.share')
+            %a.facebook{target: '_blank', href: "https://www.facebook.com/sharer/sharer.php?u=#{current_url}", onclick: "javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" }
+            %a.twitter{target: '_blank', href: "https://twitter.com/share?url=#{current_url}&text=#{item.name}#{item.description}", onclick: "javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" }
+      %ul.info
+        %li
+          .description
+            = @post_action
+            = item.description
+        %li
+          .tags
+            .header= t('.service_tags')
+            = item.tags.map { |s| "<a>#{s.name}</a>" }.join(", ").html_safe
+        %li
+          .hr
+        %li
+          .photos
+            photos
+        %li
+          .contact
           .header=t('.contact_service_provider')
           .form-container.wide
             %form{action: send_message_path, method: :post, 'data-remote': true, id: 'invisible-recaptcha-form', class: 'simple_form light column'}
@@ -84,9 +93,11 @@
               .fields-column.bottom
                 .actions
                   = invisible_recaptcha_tags callback: 'submitInvisibleRecaptchaForm', text: t('.send'), badge: 'inline', hl: I18n.locale
-        .hr
-        .comment
-          .header=t('.comments')
+        %li
+          .hr
+        %li
+          .comment
+            .header=t('.comments')
     %section.photos
       .upload
         %img{src: asset_path("svg/upload.svg") }
@@ -95,21 +106,3 @@
       .picture
       .picture
 = render partial: "shared/footer", locals: { with_links: true }
-
-
-
-
-
-
-/ <div class="autonomous border form-container">
-/   <form data-type="json" class="simple_form light" novalidate="novalidate" id="new_user" action="/en/sign_in" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓">
-/     <div class="field-wrapper email optional user_email"><label class="field-label email optional" for="user_email">Email</label><input class="field-input string email optional" autofocus="autofocus" tabindex="2" type="email" name="user[email]" id="user_email"></div>
-/     <div class="field-wrapper password optional user_password"><label class="field-label password optional" for="user_password">Password <a class="forgot" tabindex="7" data-reattach="forgot" href="/en/password_reset">Forgot password?</a></label><input class="field-input password optional" autocomplete="off" tabindex="3" type="password" name="user[password]" id="user_password"></div>
-/     <div class="field-wrapper boolean optional user_remember_me"><input name="user[remember_me]" type="hidden" value="0"><input class="field-input boolean optional" type="checkbox" value="1" name="user[remember_me]" id="user_remember_me"><label class="field-label boolean optional" tabindex="4" for="user_remember_me">Remember me</label></div>
-/     <div class="actions left">
-/       <input type="submit" name="commit" value="Sign In" tabindex="5">
-/       <input type="reset" name="commit" value="Cancel" tabindex="6">
-/     </div>
-/     <div class="text">or <a tabindex="8" href="/en/sign_up">Sign Up</a> if you don't have yet.</div>
-/   </form>
-/ </div>

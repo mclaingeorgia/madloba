@@ -60,7 +60,7 @@ Madloba::Application.routes.draw do
     resources :providers, :controller => 'admin/providers'
     post 'send_message', as: 'send_message', :controller => 'admin/providers'
     resources :places, :controller => 'admin/places' do
-      get 'favoritize', to: 'admin/places#favoritize', as: "favoritize"
+      #get 'favoritize', to: 'admin/places#favoritize', as: "favoritize"
     end
 
 

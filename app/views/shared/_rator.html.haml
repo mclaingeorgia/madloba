@@ -12,8 +12,12 @@
           %i
           .heart{"data-r": 4}
             %i
-            .heart-dummy
-              %i
+            - if is_filter
+              .heart-dummy
+                %i
+            - else
+              .heart{"data-r": 5}
+                %i
     - if is_filter
       .up= t('shared.and_up')
     .reset

@@ -111,10 +111,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def place_favoritize(place)
-       # Rails.logger.debug("------------------------------------------favoritize--#{current_user.inspect}")
-       true
-  end
 
 
   #  def default_url_options(options={})

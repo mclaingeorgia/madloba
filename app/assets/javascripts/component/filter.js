@@ -45,7 +45,7 @@
 
       // favorite
       value = pollution.components.favoritor.get(t.els['favorite'])
-      console.log('favorite value', value)
+      // console.log('favorite value', value)
       t.set_data('favorite', (value === true ? true : undefined))
 
 

@@ -1,5 +1,5 @@
 class Admin::PlacesController < AdminController
-  before_filter :authenticate_user!, except: [:show, :favoritize]
+  before_filter :authenticate_user!, except: [:show]
   # before_action :authenticate_user!
   # authorize_resource
   before_filter { @model = Place; }
@@ -81,27 +81,6 @@ class Admin::PlacesController < AdminController
       # format.json { head :no_content }
     end
   end
-  def favoritize
-    params = favoritize_params
-    if request.xhr?
-      if user_signed_in?
-        render html: 'Action allowed'
-      else
-        #session[:post_action] = 'favoritize' #{ type: 'favoritize', id: params[:place_id] }
-        store_location_for(:user, place_favoritize_path)#(id: params[:place_id]))
-        render json: { trigger: 'sign_in', flash: { notice: t('devise.failure.unauthenticated') } }, status: :unauthorized
-      end
-    else
-      if user_signed_in?
-        place_favoritize(params[:place_id])
-        flash[:success] = 'Place was favoritized'
-      else
-        flash[:error] = 'Unathorized'
-      end
-
-      redirect_to place_path(id: params[:place_id])
-    end
-  end
   # flash message type test
   # def destroy
   #   @item = @model.find(params[:id])
@@ -125,8 +104,5 @@ class Admin::PlacesController < AdminController
   def pars
     permitted = Place.globalize_attribute_names + [:phone, :website, :postal_code, :region_id, :latitude, :longitude, service_ids: []]
     params.require(:place).permit(*permitted)
-  end
-  def favoritize_params
-    params.permit(:place_id, :locale)
   end
 end

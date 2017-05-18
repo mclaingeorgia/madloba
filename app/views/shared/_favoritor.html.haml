@@ -1,0 +1,15 @@
+- is_filter ||= false
+- is_favorite ||= false
+- href ||= ''
+.favoritor-container
+  - if is_filter
+    %label=label
+    .favoritor{'data-filter': 'favorite', 'data-f': is_favorite.to_s, title: title}
+      %i
+  - else
+    %a.favoritor{'data-f': is_favorite.to_s, 'data-action': href, href: href }
+      %span= label
+      %i
+      -#
+        / = is_favorite_place ? t('.remove_from_favorite') : t('.add_to_favorite')
+        / %a.favoritor{'data-f': is_favorite_place.to_s, href: place_path(id: item.id, a: 'favorite', v: is_favorite_place ) }

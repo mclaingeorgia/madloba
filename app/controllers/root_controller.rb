@@ -38,24 +38,19 @@ class RootController < ApplicationController
     services_clean = Service.sorted.pluck(:id, :name, :icon)
     @services = services_clean
       .each_with_index.map{|m,i| m.push(i+1, (filter[:services].index(m[0]).nil? ? false : true)) }
-    # Rails.logger.debug("--------------------------------------------#{filter} #{@services}")
+
     if filter[:favorite] && !user_signed_in?
-       # Rails.logger.debug("--------------------------------------------favorite block")
       respond_to do |format|
         set_user_return_to
         format.html { redirect_to new_user_session_path, status: :unauthorized }
         format.json { render json: { trigger: 'sign_in' }, status: :unauthorized }
       end
-       # Rails.logger.debug("--------------------------------------------end favorite block")
       return
     end
-    # Rails.logger.debug("--------------------------------------------after favorite block")
 
 
     places = Place.by_filter(filter, current_user)#.limit(10)
-     Rails.logger.debug("-------------------------------current_user--------#{current_user.inspect}-----#{places.length}")
 
-    # gon.filter = filter
     gon.labels.merge!({
       result: t('.result', count: 1),
       results: t('.result', count: 2),
@@ -68,6 +63,7 @@ class RootController < ApplicationController
       overall_rating: t('shared.overall_rating_js'),
       services: services_clean
     })
+
     missing_path = ActionController::Base.helpers.asset_path("png/missing.png")
     result = []
     places.each {|place|
@@ -84,16 +80,8 @@ class RootController < ApplicationController
         phone: place.phone,
         coordinates: [place.latitude, place.longitude],
         services: place.service_ids
-        #html: (render_to_string partial: 'shared/place', locals: { place: place }),
-        # location: {
-        #   id: place.id,
-        #   name: place.name,
-        #   coordinates: [place.latitude, place.longitude]
-        # }
       }
     }
-
-
 
     respond_to do |format|
       format.html { render locals: { filter: filter } }
@@ -126,17 +114,121 @@ class RootController < ApplicationController
   end
 
   def place
-    id = params[:id]
-    item = Place.authorized_by_id(id)
+     Rails.logger.debug("--------------------------------------------#{current_user.inspect}")
+    pars = place_params.inject({}) { |memo, (k, v)|
+      key = k.to_sym
+      v = true if v == 'true'
+      v = false if v == 'false'
+      memo[key] = v if key != :locale
+      memo
+    }
 
-    if item.present?
-      locals({
-        item: item
-      })
-    else
-       Rails.logger.debug("--------------------------------------------should not be here")
+    id = pars[:id]
+    item = Place.find_by(id: id)
+
+    if item.nil?
       redirect_to root_path, flash: { error:  t('app.messages.not_found', obj: Place) }
+      return
     end
+
+    is_favorite_place = user_signed_in? ? current_user.is_favorite_place(id) : false
+
+    # tmp = pars[:services]
+    # pars[:services] = (tmp.present? && tmp.kind_of?(Array) && tmp.length >= 1) ? tmp.map(&:to_i) : []
+
+    # tmp = pars[:rate]
+    # tmp = tmp.to_i if tmp.present? && tmp.is_number?
+    # pars[:rate] = (tmp.present? && !(tmp > 0 && tmp < 5) ? 0 : tmp)
+
+    # tmp = pars[:favorite]
+    # pars[:favorite] = false if tmp.present? && tmp != true && tmp != false
+
+    # tmp = pars[:map]
+    # pars[:map] = (tmp.present? && tmp.kind_of?(Array) && tmp.length == 4) ? tmp.map(&:to_f) : []
+
+    # filter = {
+    #   what: nil,
+    #   where: nil,
+    #   services: nil, # []
+    #   rate: nil,
+    #   favorite: nil,
+    #   map: nil
+    # }.merge(pars)
+
+
+
+
+    action = pars[:a]
+    value = pars[:v]
+    if ['favorite', 'rate', 'report', 'ownership'].index(action)
+      if !user_signed_in?
+        respond_to do |format|
+          set_user_return_to
+          format.html { redirect_to new_user_session_path, status: :unauthorized }
+          format.json { render json: { trigger: 'sign_in' }, status: :unauthorized }
+        end
+        return
+      end
+      message = 'test'
+       Rails.logger.debug("-----------------------------------action--#{action}---value #{value}")
+      if action == 'favorite'
+        if value == true || value == false
+          cnts = current_user.favorites.where(id: item.id).count
+           Rails.logger.debug("--------------------------------------------#{cnts}")
+
+          if value
+            message = 'favorite saved'
+            current_user.favorites << item
+          else
+            message = 'favorite saved'
+            current_user.favorites.destroy(item.id)
+          end
+           Rails.logger.debug("--------------------------------------------favorite saved")
+         # else
+          # message = 'favorite not saved'
+           # Rails.logger.debug("--------------------------------------------favorite was not saved")
+         # end
+        end
+      elsif action == 'rate'
+        if value == false || (value >= 1 && value <= 5)
+          Rails.logger.debug("--------------------------------------------rate")
+        end
+      elsif action == 'report'
+        if value.present?
+          Rails.logger.debug("--------------------------------------------report")
+        end
+      elsif action == 'ownership'
+        Rails.logger.debug("--------------------------------------------ownership")
+      end
+    end
+    # if filter[:favorite] && !user_signed_in?
+    #
+    # end
+
+    # params = favoritize_params
+    # if request.xhr?
+    #   if user_signed_in?
+    #     render html: 'Action allowed'
+    #   else
+    #     #session[:post_action] = 'favoritize' #{ type: 'favoritize', id: params[:place_id] }
+    #     store_location_for(:user, place_favoritize_path)#(id: params[:place_id]))
+    #     render json: { trigger: 'sign_in', flash: { notice: t('devise.failure.unauthenticated') } }, status: :unauthorized
+    #   end
+    # else
+    #   if user_signed_in?
+    #     place_favoritize(params[:place_id])
+    #     flash[:success] = 'Place was favoritized'
+    #   else
+    #     flash[:error] = 'Unathorized'
+    #   end
+
+    #   redirect_to place_path(id: params[:place_id])
+    # end
+    respond_to do |format|
+      format.html { render locals: { item: item, is_favorite_place: is_favorite_place } }
+      format.json { render json: { flash: { success: 'place end' } } }
+    end
+
   end
 
   private
@@ -147,6 +239,9 @@ class RootController < ApplicationController
 
   def index_params
     params.permit(:what, :where, :rate, :favorite, :locale, services: [], map: [])
+  end
+  def place_params
+    params.permit(:id, :a, :v, :locale)
   end
   # def set_page_content
   #   @about_page_content = PageContent.by_name('about')

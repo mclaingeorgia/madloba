@@ -73,6 +73,9 @@
   .grecaptcha-badge { // hide invisible recaptcha badge https://developers.google.com/recaptcha/docs/versions
     display: none;
   }
+  html.desktop {
+    .mobile { display: none; }
+  }
 /****************************** scroll bar ******************************/
   *::-webkit-scrollbar-track {
     background-color: $bg;

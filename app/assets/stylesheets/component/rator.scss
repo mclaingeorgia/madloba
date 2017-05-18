@@ -1,9 +1,14 @@
 @import 'var';
 
 .rator-container {
+  display: flex;
+  flex-direction: row;
   label {
     @include font(18, 'b');
     color: $text;
+    margin-right: 4px;
+    position: relative;
+    top: -3px;
   }
   .rator {
     display: flex;

@@ -1,16 +1,27 @@
 @import 'var';
 
-.favoritor {
-  width: 26px;
-  height: 25px;
-  margin: 0 auto;
-  background: background('favorite');
-  background-position: -27px 0;
-  cursor: pointer;
-  &[data-f=true], &:hover {
-    background-position: 0 0;
-  }
-  &[data-f=true]:hover {
-    background-position: -27px 0;
+.favoritor-container {
+  .favoritor {
+
+    cursor: pointer;
+    span {
+      display: inline-block;
+      padding-top: 2px;
+      vertical-align: top;
+    }
+    i {
+      display: inline-block;
+      width: 26px;
+      height: 25px;
+      margin: 0 auto;
+      background: background('favorite');
+      background-position: -27px 0;
+    }
+    &[data-f=true] i, &:hover i{
+      background-position: 0 0;
+    }
+    &[data-f=true]:hover i{
+      background-position: -27px 0;
+    }
   }
 }

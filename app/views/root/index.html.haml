@@ -40,8 +40,7 @@
       %li#by_rate
         = render partial: 'shared/rator', locals: { rate: filter[:rate], rator: {'data-filter': 'rate'}, label: t('.rating'), is_filter: true }
       %li#by_favorite
-        %label=t('.favorites')
-        .favoritor{'data-filter': 'favorite', 'data-f': filter[:favorite].to_s, title: filter[:favorite] ? t('.alt.show_all') : t('.alt.show_favorite')}
+        = render partial: 'shared/favoritor', locals: { is_filter: true, is_favorite: filter[:favorite], label: t('.favorites'), title: filter[:favorite] ? t('.alt.show_all') : t('.alt.show_favorite') }
   .info
     .map-view
     .count

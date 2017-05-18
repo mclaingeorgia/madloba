@@ -170,6 +170,9 @@ main {
             border-right: 1px solid $border;
             height: 100%;
           }
+          .service {
+            cursor: pointer;
+          }
           // background-size: contain;
           .toggle {
             padding-right: 17px;

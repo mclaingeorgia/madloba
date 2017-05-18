@@ -109,7 +109,9 @@ class User < ActiveRecord::Base
     [User.globalize_attribute_names, :username, :email, :password, :password_confirmation].flatten
   end
 
-
+  def is_favorite_place(place_id)
+    favorites.where(id: place_id).count == 1
+  end
 
   private
     def providers_count_valid?

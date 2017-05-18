@@ -47,7 +47,7 @@
                   '</div>' +
                   '<div class="first-service service">' +
                     '<i class="%service_icon"></i>' +
-                    '<strong>%service_name</strong>' +
+                    '<span>%service_name</span>' +
                     '%ellipsis' +
                   '</div>' +
                   '<ul class="contact">' +

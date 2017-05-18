@@ -47,9 +47,6 @@ module ApplicationHelper
     # Rails.logger.debug("--------------------------------------------#{current_url}")
      # # user_return_to
   end
-  # def is_favoritized
-  #   true
-  # end
 
   # def resource_name
   #   :user
