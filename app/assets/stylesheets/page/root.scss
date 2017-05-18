@@ -183,7 +183,7 @@ main {
               width: 25px;
               height: 9px;
               background: background('updownarrows');
-              background-position: -26px 0;
+              background-position: 0 0;
               margin: 0 auto;
             }
           }
@@ -193,7 +193,7 @@ main {
           &.collapsed
           {
             .filter-caret {
-              background-position: 0 0;
+              background-position: -26px 0;
             }
             .input-group {
               display: none;

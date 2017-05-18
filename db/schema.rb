@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170517094916) do
+ActiveRecord::Schema.define(version: 20170518075508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,6 +105,15 @@ ActiveRecord::Schema.define(version: 20170517094916) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "favorite_places", id: false, force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "place_id",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "favorite_places", ["place_id", "user_id"], name: "favorite_places_unique", unique: true, using: :btree
 
   create_table "item_translations", force: :cascade do |t|
     t.integer  "item_id",                 null: false
@@ -210,7 +219,7 @@ ActiveRecord::Schema.define(version: 20170517094916) do
     t.datetime "updated_at"
   end
 
-  add_index "place_services", ["place_id", "service_id"], name: "index_place_services_on_place_id_and_service_id", using: :btree
+  add_index "place_services", ["place_id", "service_id"], name: "place_services_unique", unique: true, using: :btree
 
   create_table "place_tags", id: false, force: :cascade do |t|
     t.integer  "place_id",   null: false
@@ -219,7 +228,7 @@ ActiveRecord::Schema.define(version: 20170517094916) do
     t.datetime "updated_at"
   end
 
-  add_index "place_tags", ["place_id", "tag_id"], name: "index_place_tags_on_place_id_and_tag_id", using: :btree
+  add_index "place_tags", ["place_id", "tag_id"], name: "place_tags_unique", unique: true, using: :btree
 
   create_table "place_translations", force: :cascade do |t|
     t.integer  "place_id",    null: false
@@ -323,7 +332,7 @@ ActiveRecord::Schema.define(version: 20170517094916) do
     t.datetime "updated_at"
   end
 
-  add_index "provider_places", ["provider_id", "place_id"], name: "index_provider_places_on_provider_id_and_place_id", using: :btree
+  add_index "provider_places", ["provider_id", "place_id"], name: "provider_places_unique", unique: true, using: :btree
 
   create_table "provider_translations", force: :cascade do |t|
     t.integer  "provider_id", null: false
@@ -344,7 +353,7 @@ ActiveRecord::Schema.define(version: 20170517094916) do
     t.datetime "updated_at"
   end
 
-  add_index "provider_users", ["provider_id", "user_id"], name: "index_provider_users_on_provider_id_and_user_id", using: :btree
+  add_index "provider_users", ["provider_id", "user_id"], name: "provider_users_unique", unique: true, using: :btree
 
   create_table "providers", force: :cascade do |t|
     t.datetime "created_at"
@@ -359,7 +368,7 @@ ActiveRecord::Schema.define(version: 20170517094916) do
     t.integer  "value"
   end
 
-  add_index "rates", ["user_id", "place_id"], name: "index_rates_on_user_id_and_place_id", using: :btree
+  add_index "rates", ["user_id", "place_id"], name: "rates_unique", unique: true, using: :btree
 
   create_table "region_translations", force: :cascade do |t|
     t.integer  "region_id",  null: false
@@ -448,15 +457,6 @@ ActiveRecord::Schema.define(version: 20170517094916) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
-
-  create_table "user_places", id: false, force: :cascade do |t|
-    t.integer  "user_id",    null: false
-    t.integer  "place_id",   null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "user_places", ["place_id", "user_id"], name: "index_user_places_on_place_id_and_user_id", using: :btree
 
   create_table "user_translations", force: :cascade do |t|
     t.integer  "user_id",    null: false

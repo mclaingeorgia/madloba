@@ -45,7 +45,8 @@
 
       // favorite
       value = pollution.components.favoritor.get(t.els['favorite'])
-      t.set_data('favorite', (value === 'true' ? true : undefined))
+      console.log('favorite value', value)
+      t.set_data('favorite', (value === true ? true : undefined))
 
 
       var mp = pollution.elements['places_map']
@@ -142,7 +143,7 @@
       pollution.components.loader.start()
       t.els['result'].html('')
       t.render_count(0)
-      console.log(pollution.elements)
+      // console.log(pollution.elements)
       if(pollution.elements.hasOwnProperty('places_map_marker_group')) {
         pollution.elements['places_map_marker_group'].clearLayers()
       }
@@ -151,7 +152,7 @@
         t.result = json.result
         t.process_callback('success', json)
       }).fail(function() {
-        t.process_callback('error', json)
+        t.process_callback('error')
       })
     },
     process_callback: function (type, data) {
@@ -171,6 +172,15 @@
     // private
     bind: function () {
       var t = filter
+      var search_keydown = function (event) {
+        var code = event.keyCode || event.which
+        if(code === 13) {
+          t.process('search')
+        }
+      }
+
+      t.els['what'].keydown(search_keydown)
+      t.els['where'].keydown(search_keydown)
 
       t.els['search'].click(function () {
         t.process('search')
@@ -213,7 +223,7 @@
       //               .filter(function(e){ return e; })
 
       data.forEach(function (d) {
-        t.els['result'].append(place_card_builder(d)) // + (d.length === 2 ? d[1].html : ''))// '<div class="row">' ++ '</div>'
+        t.els['result'].append(pollution.components.place_card.builder(d)) // + (d.length === 2 ? d[1].html : ''))// '<div class="row">' ++ '</div>'
         // <div class="place-card"><div class="card-border"><div class="card"></div></div></div>
         // if(d.length === 2) { locations.push(d[1].location) }
       })

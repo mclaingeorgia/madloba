@@ -39,9 +39,21 @@ class RootController < ApplicationController
     @services = services_clean
       .each_with_index.map{|m,i| m.push(i+1, (filter[:services].index(m[0]).nil? ? false : true)) }
     # Rails.logger.debug("--------------------------------------------#{filter} #{@services}")
+    if filter[:favorite] && !user_signed_in?
+       # Rails.logger.debug("--------------------------------------------favorite block")
+      respond_to do |format|
+        set_user_return_to
+        format.html { redirect_to new_user_session_path, status: :unauthorized }
+        format.json { render json: { trigger: 'sign_in' }, status: :unauthorized }
+      end
+       # Rails.logger.debug("--------------------------------------------end favorite block")
+      return
+    end
+    # Rails.logger.debug("--------------------------------------------after favorite block")
 
-    places = Place.by_filter(filter).limit(10)
-     Rails.logger.debug("--------------------------------------------#{places.length}")
+
+    places = Place.by_filter(filter, current_user).limit(10)
+     Rails.logger.debug("-------------------------------current_user--------#{current_user.inspect}-----#{places.length}")
 
     # gon.filter = filter
     gon.labels.merge!({
@@ -87,10 +99,6 @@ class RootController < ApplicationController
       format.html { render locals: { filter: filter } }
       format.json { render json: { result: result } }
     end
-
-
-
-
   end
 
   def about

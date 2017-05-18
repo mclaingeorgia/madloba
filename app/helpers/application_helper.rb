@@ -42,7 +42,11 @@ module ApplicationHelper
     }
     ordered_messages.join(joiner)
   end
-
+  def set_user_return_to
+    session[:user_return_to] = current_url
+    # Rails.logger.debug("--------------------------------------------#{current_url}")
+     # # user_return_to
+  end
   # def is_favoritized
   #   true
   # end

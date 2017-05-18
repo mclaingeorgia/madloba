@@ -14,7 +14,7 @@
       })
     },
     get: function ($element) {
-      return $element.attr("data-f") === 'true' ? false : true
+      return $element.attr("data-f") === 'true' ? true : false
     }
   }
   pollution.components.favoritor = favoritor

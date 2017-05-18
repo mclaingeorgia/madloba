@@ -8,7 +8,7 @@
     // if(request.getResponseHeader('X-Message') !== null) {
     //   request.getResponseHeader("X-Message-Type");
     // }
-    // console.log(request)
+    console.log(request)
     if(request.hasOwnProperty('responseJSON')) {
       var json = request.responseJSON
       if(json.hasOwnProperty('reload') && json.reload === true) {

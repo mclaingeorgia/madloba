@@ -15,8 +15,8 @@ class User < ActiveRecord::Base
   has_many :provider_users
   has_many :providers, through: :provider_users#, :inverse_of => :user, :autosave => true
 
-  has_many :user_places
-  has_many :favorite_places, through: :user_places, source: :place
+  has_many :favorite_places
+  has_many :favorites, through: :favorite_places, source: :place
 
 
   # accepts_nested_attributes_for :provider_users
