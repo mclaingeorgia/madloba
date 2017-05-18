@@ -52,7 +52,7 @@ class RootController < ApplicationController
     # Rails.logger.debug("--------------------------------------------after favorite block")
 
 
-    places = Place.by_filter(filter, current_user).limit(10)
+    places = Place.by_filter(filter, current_user)#.limit(10)
      Rails.logger.debug("-------------------------------current_user--------#{current_user.inspect}-----#{places.length}")
 
     # gon.filter = filter
