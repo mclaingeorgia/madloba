@@ -120,7 +120,7 @@
   }
 
 
-  // map.init('contact_map', { zoom: 17, coordinates: [41.70978, 44.76133], type: 'coordinate' })
+  map.init('contact_map', { zoom: 17, coordinates: [41.70978, 44.76133], type: 'coordinate' })
   // map.init('locator_map', { zoom: 13, type: 'locator' })
   pollution.components.map = map
 }())
