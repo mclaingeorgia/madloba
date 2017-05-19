@@ -7,7 +7,7 @@
           - title = t('app.common.alt', alt: place.name)
           = link_to image_tag(asset_path("png/missing.png"), alt: title, title: title, class: 'image'), place_path(place.id)
           .favorite{title: t('shared.picked_as_favorite')}
-          = render partial: "shared/rating", locals: { rating: place.rating }
+          = render partial: "shared/rating", locals: { rating: place.get_rating }
         .place-info
           = link_to place.name, place_path(place.id), class: 'name'
           .provider

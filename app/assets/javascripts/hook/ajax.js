@@ -24,10 +24,13 @@
       }
       else {
         if(json.hasOwnProperty('trigger')) {
-          $('[data-reattach="' + json.trigger + '"]').trigger('click')
+          $('[data-xhr="' + json.trigger + '"]').trigger('click')
         }
         if(json.hasOwnProperty('flash')) {
           pollution.components.flash.set(json.flash).open()
+        }
+        if(json.hasOwnProperty('refresh_rating')) {
+          $('.rating .value span').text(json.refresh_rating)
         }
       }
     }

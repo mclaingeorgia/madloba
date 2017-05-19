@@ -13,22 +13,6 @@
     bind: function () {
       var t = popup
 
-      $(document).on("click", "[data-reattach]", function (e, post_url) {
-        var tt = $(this)
-        $.ajax({
-          url: tt.attr("href"),
-          dataType: 'html'//,
-        }).success(function (d) {
-          $(".form-placeholder").html(d)
-          t.is_open = true
-        }).error(function (e) {
-        }).complete(function (e,b) {
-        });
-
-        e.preventDefault();
-        e.stopPropagation();
-      });
-
       pollution.hooks.click.push(function(event) {
         if(t.is_open) {
           var tt = $(event.toElement)
@@ -38,18 +22,13 @@
           }
         }
       })
-
-      $(document).on("click", "a[data-trigger]", function (event) {
-        var tt = $(this)
-        var to_trigger = tt.attr("data-trigger")
-        console.log($("[data-reattach='" + to_trigger + "']"))
-        $("[data-reattach='" + to_trigger + "']").trigger("click", tt.attr('href'))
-        event.preventDefault()
-        event.stopPropagation()
-      })
+    },
+    set_state: function (state) {
+      var t = popup
+      t.is_open = state
     }
   }
 
   popup.init()
-  // pollution.components.nav = nav
+  pollution.components.popup = popup
 }())

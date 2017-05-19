@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170518075508) do
+ActiveRecord::Schema.define(version: 20170519114548) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -212,6 +212,24 @@ ActiveRecord::Schema.define(version: 20170518075508) do
 
   add_index "page_contents", ["name"], name: "index_page_contents_on_name", using: :btree
 
+  create_table "place_ownerships", force: :cascade do |t|
+    t.integer  "place_id",                 null: false
+    t.integer  "user_id",                  null: false
+    t.integer  "processed",    default: 0
+    t.integer  "processed_by"
+    t.datetime "processed_at"
+  end
+
+  create_table "place_rates", force: :cascade do |t|
+    t.integer  "user_id",    null: false
+    t.integer  "place_id",   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "value"
+  end
+
+  add_index "place_rates", ["user_id", "place_id"], name: "place_rates_unique", unique: true, using: :btree
+
   create_table "place_services", id: false, force: :cascade do |t|
     t.integer  "place_id",   null: false
     t.integer  "service_id", null: false
@@ -359,16 +377,6 @@ ActiveRecord::Schema.define(version: 20170518075508) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "rates", id: false, force: :cascade do |t|
-    t.integer  "user_id",    null: false
-    t.integer  "place_id",   null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "value"
-  end
-
-  add_index "rates", ["user_id", "place_id"], name: "rates_unique", unique: true, using: :btree
 
   create_table "region_translations", force: :cascade do |t|
     t.integer  "region_id",  null: false

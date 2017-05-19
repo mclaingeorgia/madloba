@@ -6,13 +6,17 @@
     bind: function ($element, callback) {// element should be .rator
       $element.find(".heart").click(function(event) {
         var d = $(this).attr("data-r")
-        $element.attr('data-r', d)
-        callback(+d)
+        var cur_d = $element.attr('data-r')
+
+        if(d !== cur_d) {
+          $element.attr('data-r', d)
+          callback(+d, $element)
+        }
         event.stopPropagation()
       })
       $element.find(".reset").click(function(event) {
         $element.attr("data-r", 0)
-        callback(0)
+        callback(0, $element)
       })
     },
     get: function ($element) {

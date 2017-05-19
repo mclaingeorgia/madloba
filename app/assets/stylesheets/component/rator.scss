@@ -78,14 +78,14 @@
       }
       .reset { visibility: visible; }
     }
-    // &[data-r='5'] {
-    //   .heart[data-r='1'], .heart[data-r='2'], .heart[data-r='3'], .heart[data-r='4'], .heart[data-r='5'] {
-    //     > i {
-    //       background-position: 0 0;
-    //     }
-    //   }
-    //   .reset { visibility: visible; }
-    // }
+    &[data-r='5'] {
+      .heart[data-r='1'], .heart[data-r='2'], .heart[data-r='3'], .heart[data-r='4'], .heart[data-r='5'] {
+        > i {
+          background-position: 0 0;
+        }
+      }
+      .reset { visibility: visible; }
+    }
 
   }
 }

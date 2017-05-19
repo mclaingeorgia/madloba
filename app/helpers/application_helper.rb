@@ -48,6 +48,15 @@ module ApplicationHelper
      # # user_return_to
   end
 
+  def set_flash(response)
+    type = response[:type]
+    text = response[:text]
+    if [:success, :notice, :error, :alert].index(type).present?
+      flash[type] = text
+      Rails.logger.debug("------------------------------------------set_flash-#{type} #{text}")
+    end
+    response[:forward]
+  end
   # def resource_name
   #   :user
   # end

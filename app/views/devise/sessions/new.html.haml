@@ -3,7 +3,7 @@
   = simple_form_for resource, as: resource_name, url: session_path(resource_name), remote: true, html: { :'data-type' => 'json', class: @form_class } do |f|
     = devise_error_messages!
     = f.input :email, input_html: { autofocus: true, tabindex: 2 }
-    = f.input :password, input_html: { autocomplete: 'off', tabindex: 3 }, label: t(".password_and_forgot_html", link: link_to(t(".forgot"), new_password_path(resource_name), { class: 'forgot', tabindex: 7 }.merge(@form_container_class.include?(:'autonomous') ? { 'data-reattach': 'forgot' } : {})))
+    = f.input :password, input_html: { autocomplete: 'off', tabindex: 3 }, label: t(".password_and_forgot_html", link: link_to(t(".forgot"), new_password_path(resource_name), { class: 'forgot', tabindex: 7 }.merge(@form_container_class.include?(:'autonomous') ? { 'data-xhr': 'forgot' } : {})))
     = f.input :remember_me, as: :boolean, label_html: { tabindex: 4 }
 
     .actions.left

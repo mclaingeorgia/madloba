@@ -7,7 +7,7 @@
     .favoritor{'data-filter': 'favorite', 'data-f': is_favorite.to_s, title: title}
       %i
   - else
-    %a.favoritor{'data-f': is_favorite.to_s, 'data-action': href, href: href }
+    %a.favoritor{'data-f': is_favorite.to_s, 'data-xhr': 'favoritor', 'data-xhr-format': 'json', href: href }
       %span= label
       %i
       -#

@@ -21,6 +21,39 @@ var pollution = {
 }
 
 
+ $(document).on("click", "[data-xhr]", function (event) {
+    xhr($(this))
+
+    event.preventDefault();
+    event.stopPropagation();
+  })
+
+function xhr($element) {
+  var t = $element
+  var caller = t.attr('data-xhr') || t.attr('data-xhr-redirected')
+  var format = t.attr('data-xhr-format')
+  if(typeof format === 'undefined') { format = 'html' }
+  var url = t.attr('href')
+
+  // console.log('data-xhr', caller, format, url)
+  $.ajax({
+    url: url,
+    dataType: format
+  })
+    .success(function (data) {
+      if(format === 'html') {
+        if(['sign_in', 'forgot' ].indexOf(caller) !== -1) {
+          $(".form-placeholder").html(data)
+          pollution.components.popup.set_state(1)
+        }
+      }
+    })
+    .error(function (e) {
+      console.log('data-xhr error', e)
+    })
+ }
+
+
 /*
   On Enter and Space keydown for label that have role='button',
   click event fired to mimic default behavior ex: checkbox label

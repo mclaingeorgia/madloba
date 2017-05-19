@@ -23,9 +23,16 @@ class Place < ActiveRecord::Base
   has_many :tags, through: :place_tags, source: :tag
 
 
-  def self.authorized_by_id(id)
-    all.find(id)
-  end
+  has_many :place_rates
+  has_many :rates, through: :place_rates, source: :user
+
+  has_many :place_ownerships
+  has_many :ownership_requests, through: :place_ownerships, source: :user
+
+
+  # def self.authorized_by_id(id)
+  #   all.find(id)
+  # end
 
   def phone
     phones.join(", ")
@@ -35,6 +42,9 @@ class Place < ActiveRecord::Base
     emails.join(", ")
   end
 
+  def get_rating
+    rating.to_s.format_number
+  end
   def self.by_filter(filter, current_user)
     places = with_translations(I18n.locale)
     sql = []
@@ -70,5 +80,6 @@ class Place < ActiveRecord::Base
 
     places.where(sql.join(" OR "), pars)
   end
+
 
 end
