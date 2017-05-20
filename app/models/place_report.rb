@@ -1,32 +1,24 @@
-class PlaceOwnership < ActiveRecord::Base
+class PlaceReport < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :place
 
   default_scope { where(:processed => 0) }
 
-  validates :user_id, :place_id, presence: true
+  validates :user_id, :place_id, :reason, presence: true
 
   def self.requested?(user_id, place_id)
     find_by(user_id: user_id, place_id: place_id).present?
   end
 
-  # def self.is_ownership_requested_for?(place_id)
-  #   where(place_id: place_id).count() > 0
-  # end
-
-  # def self.is_ownership_requested_by?(user_id)
-  #   where(user_id: user_id).count() > 0
-  # end
-
-  def self.request_ownership(user_id, place_id)
+  def self.request_report(user_id, place_id, reason)
     response = nil
     class_name = self.model_name.param_key
 
     r = find_by(user_id: user_id, place_id: place_id)
 
-    if r.present? || PlaceOwnership.create(user_id: user_id, place_id: place_id)
-      response = {type: :success, text: :succeed_to_process, action: class_name, forward: { refresh: { type: 'ownership' } }}
+    if r.present? || PlaceReport.create(user_id: user_id, place_id: place_id, reason: reason)
+      response = {type: :success, text: :succeed_to_process, action: class_name, forward: { refresh: { type: 'report' } }}
     end
 
   rescue Exception => e

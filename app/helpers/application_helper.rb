@@ -52,7 +52,8 @@ module ApplicationHelper
     type = response[:type]
     text = response[:text]
     if [:success, :notice, :error, :alert].index(type).present?
-      flash[type] = text
+
+      flash.now[type] = t("messages.#{text}", response[:action].present? ? {action: t("messages.#{response[:action]}")} : {})
       Rails.logger.debug("------------------------------------------set_flash-#{type} #{text}")
     end
     response[:forward]

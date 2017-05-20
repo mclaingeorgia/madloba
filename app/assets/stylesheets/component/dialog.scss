@@ -47,13 +47,15 @@
       &[data-showing] {
         display: block;
       }
+      .header {
+        @include font(22, 'sb', 18);
+        color: $link;
+        text-align: center;
+        padding:20px 0 31px;
+      }
       &[data-bind='about'] {
         .header {
-          text-align: center;
-          padding:20px 0 31px;
           &.about {
-            @include font(22, 'sb', 18);
-            color: $link;
             text-transform: uppercase;
           }
           &.partners {
@@ -91,12 +93,6 @@
         }
       }
       &[data-bind='contact'] {
-        .header {
-          @include font(22, 'sb', 18);
-          color: $link;
-          padding: 20px 0 31px;
-          text-align: center;
-        }
         .boxes {
           display: flex;
           flex-direction: column;
@@ -121,7 +117,33 @@
           }
         }
       }
+      &[data-bind='place_report'] {
+        .form {
+          padding: 0 40px;
+          text-align: center;
+          textarea {
+            border: 1px solid #e2e2e2;
+            border-radius: 3px;
+            @include font;
+            color: $text;
+            background-color: $bg2;
+            padding: 6px 8px;
+            min-width: 300px;
+            width: 100%;
+          }
+          button {
+            @include font;
+            color: $bg2;
+            background-color: $link;
+            border: 0;
+            padding: 17px 34px;
+            border-radius: 3px;
+            min-width: 110px;
+            margin: 20px 0 40px;
+          }
+        }
 
+      }
     }
   }
 

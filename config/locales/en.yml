@@ -17,6 +17,8 @@ en:
       providers:
         one: Test
         other: Many
+      place_rates:
+        one: rate class
     attributes:
       provider: &provider
         name: Provider Name
@@ -102,7 +104,19 @@ en:
     rating: Rating
     search: Search
     and_up: " & Up"
-
+    rate1: Rate 1
+    rate2: Rate 2
+    rate3: Rate 3
+    rate4: Rate 4
+    rate5: Rate 5
+  messages:
+    succeed_to_process: Request to %{action} processed successfully.
+    succeed_to_process_reject: Request to reject %{action} processed successfully.
+    failed_to_process: Request to #{action} failed.
+    place_rate: rate place
+    favorite_place: favorite place
+    place_ownership: take place ownership
+    place_report: report place
   admin:
     save: Save
     cancel: Cancel
@@ -188,6 +202,9 @@ en:
       phone_content: "Free Hotline: 0 800 900 902; Office #: 2197378"
       email: "Email:"
       email_content: "mac_info@macgeorgia.org"
+      report: REPORT
+      report_button: Send Report
+      report_placeholder: Type report text
       alt:
         close: Close Dialog
         address: Contact Address
@@ -238,6 +255,7 @@ en:
       rating: Rating
       rate: Rate
       report: Report
+      report_underway: Report Under Consideration
       take_ownership: Take Ownership
       take_ownership_underway: Ownership Under Consideration
       share: Share

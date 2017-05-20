@@ -24,3 +24,4 @@
 //= require component/map
 //= require component/dialog
 //= require component/tabs
+//= require component/toggleable_list

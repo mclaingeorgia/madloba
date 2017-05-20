@@ -37,21 +37,26 @@
     %section.details
       %ul.action-bar
         %li
-          = render partial: 'shared/favoritor', locals: { is_favorite: is_favorite_place, href: place_path(id: item.id, a: 'favorite', v: !is_favorite_place), label: is_favorite_place ? t('.remove_from_favorite') : t('.add_to_favorite') }
+          = render partial: 'shared/favoritor', locals: { is_favorite: is_favorite_place, href: place_path(id: item.id, a: 'favorite', v: !is_favorite_place), href_template: place_path(id: item.id, a: 'favorite', v: '_v_'), label: is_favorite_place ? t('.remove_from_favorite') : t('.add_to_favorite') }
         %li
           = render partial: "shared/rating", locals: { rating: item.get_rating, with_label: true, klass: 'mobile' }
         %li
           = render partial: 'shared/rator', locals: {rator: {'data-href-template': place_path(id: item.id, a: 'rate', v: '_v_'), 'data-xhr-redirected': 'rator', 'data-xhr-format': 'json', 'data-r': user_rate }}
         %li
-          %a.report{href: place_path(id: item.id, a: 'report'), 'data-xhr': 'report', 'data-xhr-format': 'json'}
-            =t('.report')
+          - if is_report_requested
+            .report
+              %label=t('.report_underway')
+          - else
+            %a.report{'data-dialog-link': 'place_report', href:"javascript:void(0);"}
+              -#@href: place_path(id: item.id, a: 'report'), 'data-xhr': 'report', 'data-xhr-format': 'json'}
+              =t('.report')
         %li
           - if is_ownership_requested
-            %a.take-ownership{href: place_path(id: item.id, a: 'ownership'), 'data-xhr': 'ownership', 'data-xhr-format': 'json'}
-              =t('.take_ownership')
-          - else
             .take-ownership
               %label=t('.take_ownership_underway')
+          - else
+            %a.take-ownership{href: place_path(id: item.id, a: 'ownership'), 'data-xhr': 'ownership', 'data-xhr-format': 'json'}
+              =t('.take_ownership')
         %li
           .share
             %label=t('.share')

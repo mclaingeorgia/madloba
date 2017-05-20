@@ -107,7 +107,7 @@ namespace :uploader do
           city: row[8].squeeze(' ').strip
         }
 
-        tmp = Region.with_translations(:ka).find_by(name: region)
+        # tmp = Region.with_translations(:ka).find_by(name: region)
 
         pl = nil
         Globalize.with_locale(:ka) do

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170519114548) do
+ActiveRecord::Schema.define(version: 20170520105741) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -229,6 +229,15 @@ ActiveRecord::Schema.define(version: 20170519114548) do
   end
 
   add_index "place_rates", ["user_id", "place_id"], name: "place_rates_unique", unique: true, using: :btree
+
+  create_table "place_reports", force: :cascade do |t|
+    t.integer  "place_id",                 null: false
+    t.integer  "user_id",                  null: false
+    t.text     "reason"
+    t.integer  "processed",    default: 0
+    t.integer  "processed_by"
+    t.datetime "processed_at"
+  end
 
   create_table "place_services", id: false, force: :cascade do |t|
     t.integer  "place_id",   null: false

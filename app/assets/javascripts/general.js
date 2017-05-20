@@ -38,7 +38,8 @@ function xhr($element) {
   // console.log('data-xhr', caller, format, url)
   $.ajax({
     url: url,
-    dataType: format
+    dataType: format,
+    cache: false
   })
     .success(function (data) {
       if(format === 'html') {
@@ -53,7 +54,11 @@ function xhr($element) {
     })
  }
 
-
+if(gon.hasOwnProperty('history')) {
+  if(gon.history === 'replace') {
+    history.replaceState({}, null,  window.location.pathname)
+  }
+}
 /*
   On Enter and Space keydown for label that have role='button',
   click event fired to mimic default behavior ex: checkbox label

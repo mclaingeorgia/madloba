@@ -100,4 +100,5 @@
   }
 
   dialog.init()
+  pollution.components.dialog = dialog
 }())

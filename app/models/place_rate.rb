@@ -9,22 +9,29 @@ class PlaceRate < ActiveRecord::Base
   def calculate_place_rating
     r = PlaceRate.where(place_id: self.place_id)
     p = Place.find_by(id: self.place_id)
-    p.update({rating: (r.sum(:value)+0.0)/r.count()})
+
+    p.update({rating: (r.sum(:value)+0.0)/r.count()}) if r.present? && p.present?
   end
 
   def self.rate(user_id, place_id, value)
-    r = find_by(user_id: user_id, place_id: place_id)
+    response = nil
+    class_name = self.model_name.param_key
 
+    r = find_by(user_id: user_id, place_id: place_id)
     if value > 0 && value <= 5
       if r.present? ? r.update({value: value}) : PlaceRate.create(user_id: user_id, place_id: place_id, value: value)
-        return {type: :success, text: :place_rate_succeed, forward: { refresh_rating: Place.find_by(id: place_id).get_rating }}
-      else
-        return {type: :error, text: :place_rate_failed}
+        response = {type: :success, text: :succeed_to_process, action: class_name,
+          forward: { refresh: { type: 'rate', to: [value, Place.find_by(id: place_id).get_rating] } }}
       end
     elsif value == 0
       r.destroy if r.present?
-      return {type: :success, text: :favorite_place_false_succeed, forward: { refresh_rating: Place.find_by(id: place_id).get_rating }}
+      response = {type: :success, text: :succeed_to_process, action: class_name,
+        forward: { refresh: { type: 'rate', to: [value, Place.find_by(id: place_id).get_rating] } }}
     end
+  rescue Exception => e
+     Rails.logger.debug("-------------------------------------------#{class_name}-#{e}") # only dev
+  ensure
+    return response.present? ? response : {type: :error, text: :failed_to_process, action: class_name}
   end
 
 

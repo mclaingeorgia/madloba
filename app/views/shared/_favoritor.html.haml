@@ -1,13 +1,14 @@
 - is_filter ||= false
 - is_favorite ||= false
 - href ||= ''
+- href_template ||= nil
 .favoritor-container
   - if is_filter
     %label=label
     .favoritor{'data-filter': 'favorite', 'data-f': is_favorite.to_s, title: title}
       %i
   - else
-    %a.favoritor{'data-f': is_favorite.to_s, 'data-xhr': 'favoritor', 'data-xhr-format': 'json', href: href }
+    %a.favoritor{'data-f': is_favorite.to_s, 'data-xhr': 'favoritor', 'data-xhr-format': 'json', href: href, 'data-href-template': href_template }
       %span= label
       %i
       -#

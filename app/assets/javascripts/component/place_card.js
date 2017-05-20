@@ -22,10 +22,10 @@
         t.find('.back').addClass('hidden')
       })
     },
-    builder: function (place) {
+    builder: function (place, region_id) {
       // console.log(place)
       var template =
-        '<div class="place-card" data-place-id="%id">' +
+        '<div class="place-card hidden" data-place-id="%id" data-region-id="%regiond_id">' +
           '<div class="card-border">' +
             '<div class="card">' +
               '<div class="front">' +
@@ -88,7 +88,7 @@
         + '</ul></div>'
         back_ellipsis_template = '<div class="ellipsis"></div>'
       }
-
+      console.log(place.rating)
       var html = template
         .replace(/%id/g, place.id)
         .replace(/%name/g, place.name)
@@ -100,6 +100,7 @@
         .replace(/%image/g, place.image)
         .replace(/%alt/g, gon.labels.alt.replace('%alt', place.name))
         .replace(/%rating/g, place.rating)
+        .replace(/%regiond_id/g, region_id)
         .replace(/%overall_rating/g, gon.labels.overall_rating)
         .replace(/%favorite/g , favorite_template)
         .replace(/%service_icon/g, service_first[2])

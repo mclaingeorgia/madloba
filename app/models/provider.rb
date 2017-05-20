@@ -23,7 +23,7 @@ class Provider < ActiveRecord::Base
   has_many :provider_places
   has_many :places, through: :provider_places, source: :place
 
-  has_many :favoriting_users
+  # has_many :favoriting_users
 
 
   [:ka].each do |locale|

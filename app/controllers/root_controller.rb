@@ -63,11 +63,18 @@ class RootController < ApplicationController
       overall_rating: t('shared.overall_rating_js'),
       services: services_clean
     })
+    gon.regions = Region.sorted.pluck(:id, :name)
+    # gon.regions = {}
+    # Region.sorted.pluck(:id, :name).each{|e|
+    #   gon.regions[e[0]] = e[1]\
+    # }
 
     missing_path = ActionController::Base.helpers.asset_path("png/missing.png")
-    result = []
+    result = {}
     places.each {|place|
-      result << {
+      region_id = place.region_id
+      result[region_id] = [] unless result[region_id].present?
+      result[region_id] << {
         id: place.id,
         name: place.name,
         image: missing_path,
@@ -85,7 +92,7 @@ class RootController < ApplicationController
 
     respond_to do |format|
       format.html { render locals: { filter: filter } }
-      format.json { render json: { result: result } }
+      format.json { render json: { result: result, result_count: places.count() } }
     end
   end
 
@@ -114,7 +121,6 @@ class RootController < ApplicationController
   end
 
   def place
-     Rails.logger.debug("--------------------------------------------#{current_user.inspect}")
     pars = place_params.inject({}) { |memo, (k, v)|
       key = k.to_sym
       v = true if v == 'true'
@@ -137,35 +143,17 @@ class RootController < ApplicationController
 
       is_favorite_place = FavoritePlace.is_favorite_place?(user_id, place_id)
       user_rate = PlaceRate.get_rate(user_id, place_id)
-      is_ownership_requested = PlaceOwnership.is_ownership_requested?(user_id, place_id)
+      is_ownership_requested = PlaceOwnership.requested?(user_id, place_id)
+      is_report_requested = PlaceReport.requested?(user_id, place_id)
+      @has_place_report_dialog = !is_report_requested
+      @place_report_href = place_path(id: item.id, a: 'report', v: '_v_')
     end
-    # tmp = pars[:services]
-    # pars[:services] = (tmp.present? && tmp.kind_of?(Array) && tmp.length >= 1) ? tmp.map(&:to_i) : []
-
-    # tmp = pars[:rate]
-    # tmp = tmp.to_i if tmp.present? && tmp.is_number?
-    # pars[:rate] = (tmp.present? && !(tmp > 0 && tmp < 5) ? 0 : tmp)
-
-    # tmp = pars[:favorite]
-    # pars[:favorite] = false if tmp.present? && tmp != true && tmp != false
-
-    # tmp = pars[:map]
-    # pars[:map] = (tmp.present? && tmp.kind_of?(Array) && tmp.length == 4) ? tmp.map(&:to_f) : []
-
-    # filter = {
-    #   what: nil,
-    #   where: nil,
-    #   services: nil, # []
-    #   rate: nil,
-    #   favorite: nil,
-    #   map: nil
-    # }.merge(pars)
-
-
 
 
     action = pars[:a]
     value = pars[:v]
+    has_action = false
+
     if ['favorite', 'rate', 'report', 'ownership'].index(action)
       if !user_signed_in?
         respond_to do |format|
@@ -174,51 +162,48 @@ class RootController < ApplicationController
           format.json { render json: { trigger: 'sign_in' }, status: :unauthorized }
         end
         return
+      else
+        has_action = true
       end
-      message = 'test'
-       Rails.logger.debug("-----------------------------------action--#{action}---value #{value}")
+     Rails.logger.debug("-----------------------------------action--#{action}---value #{value}")
 
       if action == 'favorite'
-        set_flash(FavoritePlace.favorite(user_id, place_id, value))
+        forward = set_flash(FavoritePlace.favorite(user_id, place_id, value))
       elsif action == 'rate'
         value = value.to_i if value.present? && value.is_number?
         if value >= 0 && value <= 5
           forward = set_flash(PlaceRate.rate(user_id, place_id, value))
         end
-      elsif action == 'report'
+      elsif action == 'report' && !is_report_requested
         if value.present?
-          Rails.logger.debug("--------------------------------------------report")
+          forward = set_flash(PlaceReport.request_report(user_id, place_id, value))
         end
       elsif action == 'ownership' && !is_ownership_requested
-        set_flash(PlaceOwnership.request_ownership(user_id, place_id))
+        forward = set_flash(PlaceOwnership.request_ownership(user_id, place_id))
       end
     end
+
     forward = {} unless forward.present?
-    # if filter[:favorite] && !user_signed_in?
-    #
-    # end
 
-    # params = favoritize_params
-    # if request.xhr?
-    #   if user_signed_in?
-    #     render html: 'Action allowed'
-    #   else
-    #     #session[:post_action] = 'favoritize' #{ type: 'favoritize', id: params[:place_id] }
-    #     store_location_for(:user, place_favoritize_path)#(id: params[:place_id]))
-    #     render json: { trigger: 'sign_in', flash: { notice: t('devise.failure.unauthenticated') } }, status: :unauthorized
-    #   end
-    # else
-    #   if user_signed_in?
-    #     place_favoritize(params[:place_id])
-    #     flash[:success] = 'Place was favoritized'
-    #   else
-    #     flash[:error] = 'Unathorized'
-    #   end
+    gon.history = 'replace' if has_action
 
-    #   redirect_to place_path(id: params[:place_id])
-    # end
+    gon.labels.merge!({
+      add_to_favorite: t('.add_to_favorite'),
+      remove_from_favorite: t('.remove_from_favorite'),
+      ownership_under_consideration: t('.take_ownership_underway'),
+      report_under_consideration: t('.report_underway')
+    })
+
     respond_to do |format|
-      format.html { render locals: { item: item, is_favorite_place: is_favorite_place, user_rate: user_rate, is_ownership_requested: is_ownership_requested } }
+      format.html { render locals:
+        {
+          item: item,
+          is_favorite_place: is_favorite_place,
+          user_rate: user_rate,
+          is_ownership_requested: is_ownership_requested,
+          is_report_requested: is_report_requested
+        }
+      }
       format.json { render json: { flash: flash.to_hash }.merge(forward) }
     end
 
@@ -231,10 +216,10 @@ class RootController < ApplicationController
     end
 
   def index_params
-    params.permit(:what, :where, :rate, :favorite, :locale, services: [], map: [])
+    params.permit(:what, :where, :rate, :favorite, :locale, :_, services: [], map: [])
   end
   def place_params
-    params.permit(:id, :a, :v, :locale)
+    params.permit(:id, :a, :v, :locale, :_)
   end
   # def set_page_content
   #   @about_page_content = PageContent.by_name('about')

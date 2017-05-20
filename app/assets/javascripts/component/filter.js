@@ -112,6 +112,8 @@
               });
               t.render_count(t.els['result'].find('.place-card:not(.hidden)').length)
             })
+            t.els['result'].addClass('plain')
+            t.els['result'].find('.region').addClass('collapsed')
             var bounds = mp.getBounds()
             map = [bounds._northEast.lat, bounds._northEast.lng, bounds._southWest.lat, bounds._southWest.lng]
             pollution.elements['places_map_marker_group'].eachLayer(function (layer) {
@@ -120,10 +122,12 @@
             t.render_count(t.els['result'].find('.place-card:not(.hidden)').length)
           }
           else {
+
             map = []
-            t.els['result'].find('.place-card.hidden').removeClass('hidden')
+            t.els['result'].removeClass('plain')
+            t.els['result'].find('.place-card').addClass('hidden')
             mp.off('moveend')
-            t.render_count(t.els['result'].find('.place-card:not(.hidden)').length)
+            t.render_count(t.els['result'].find('.place-card').length)
 
           }
 
@@ -148,23 +152,30 @@
         pollution.elements['places_map_marker_group'].clearLayers()
       }
 
-      $.getJSON(location.pathname, t.data, function(json) {
-        t.result = json.result
-        t.process_callback('success', json)
-      }).fail(function() {
-        t.process_callback('error')
-      })
+      $.ajax({
+        dataType: "json",
+        url: location.pathname,
+        data: t.data,
+        cache: false,
+        success: function(json) {
+          t.result = json.result
+          t.process_callback('success', json)
+        },
+        error: function() {
+          t.process_callback('error')
+        }
+      });
     },
     process_callback: function (type, data) {
       var t = filter
       if(type === 'success') {
 
-        // console.log( "success", data )
+        console.log( "success", data )
         // place_cards_builder(data.result)
-        t.render_result(data.result)
+        t.render_result(data)
       }
       else {
-        t.render_result([])
+        t.render_result({result: {}, result_count: 0})
         // console.log( "fail message" )
       }
       pollution.components.loader.stop()
@@ -212,22 +223,46 @@
     },
     render_result: function (data) {
       var t = filter
+      var result = data.result
 
-      t.render_count(data.length)
+      t.render_count(data.result_count)
 
       if(data.length === 0) {
-        t.els['result'].html('<span>' + gon.labels.not_found + '</span>')
+        t.els['result'].html('<div class="not-found">' + gon.labels.not_found + '</div>')
         return
       }
       // var groups = data.map( function(e,i) { return i%2===0 ? data.slice(i,i+2) : null; })
       //               .filter(function(e){ return e; })
+      var places = []
+      gon.regions.forEach(function (region) {
 
-      data.forEach(function (d) {
-        t.els['result'].append(pollution.components.place_card.builder(d)) // + (d.length === 2 ? d[1].html : ''))// '<div class="row">' ++ '</div>'
-        // <div class="place-card"><div class="card-border"><div class="card"></div></div></div>
-        // if(d.length === 2) { locations.push(d[1].location) }
+        if(typeof result[region[0]] !== 'undefined') {
+          var n = result[region[0]].length
+          // var $region = $('<div class="region collapsed"><div class="region-name">' +
+          //     region[1] + '<span class="caret"></span><span class="region-count">' +
+          //     n + '&nbsp;' + gon.labels[n > 1 ? 'results' : 'result'] +
+          //     '</span></div></div><div class="region-places"></div>')
+          //   .appendTo(t.els['result'])
+          t.els['result'].append('<div class="region collapsed" data-id="' + region[0] + '"><div class="region-name">' +
+              region[1] + '<span class="caret"></span><span class="region-count">' +
+              n + '&nbsp;' + gon.labels[n > 1 ? 'results' : 'result'] +
+              '</span></div></div>')
+            .appendTo()
+
+
+          // var $region_places = $region.find('.region-places')
+          result[region[0]].forEach(function (place) {
+            places.push(place)
+            t.els['result'].append(pollution.components.place_card.builder(place, region[0])) // + (d.length === 2 ? d[1].html : ''))// '<div class="row">' ++ '</div>'
+          })
+        }
       })
-      pollution.components.map.render_markers('places_map', data)
+      // data.forEach(function (d) {
+      //   t.els['result'].append(pollution.components.place_card.builder(d)) // + (d.length === 2 ? d[1].html : ''))// '<div class="row">' ++ '</div>'
+      //   // <div class="place-card"><div class="card-border"><div class="card"></div></div></div>
+      //   // if(d.length === 2) { locations.push(d[1].location) }
+      // })
+      pollution.components.map.render_markers('places_map', places)
     },
     render_count: function (n) {
       var t = filter

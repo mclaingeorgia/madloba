@@ -9,40 +9,23 @@ class FavoritePlace < ActiveRecord::Base
   end
 
   def self.favorite(user_id, place_id, value)
-    return {type: :error, text: :favorite_place_invalid} unless value == true || value == false
+    response = nil
+    class_name = self.model_name.param_key
+
+    r = find_by(user_id: user_id, place_id: place_id)
 
     if value == true
-      r = find_or_create_by(user_id: user_id, place_id: place_id)
-      if r.new_record?
-        return {type: :error, text: :favorite_place_already_true}
-      else
-        return {type: :success, text: :favorite_place_true_succeed}
+      if r.present? || FavoritePlace.create(user_id: user_id, place_id: place_id)
+        response = {type: :success, text: :succeed_to_process, action: class_name, forward: { refresh: { type: 'favorite', to: true } }}
       end
     elsif value == false
-      p = Place.find(place_id)
-      r = p.favorites.find(id: user_id)
-      if r.nil?
-        return {type: :error, text: :favorite_place_already_false}
-      else
-        r.destroy
-        return {type: :success, text: :favorite_place_false_succeed}
-      # query = 'DELETE FROM "favorite_places" WHERE "favorite_places"."user_id" = $1 AND "favorite_places"."place_id" = $2'
-#       query = ActiveRecord::Base.send :sanitize_sql_array, [query, arr]
-# ActiveRecord::Base.connection.execute(query)
-
-
-#         results = ActiveRecord::Base.connection.execute('', user_id, place_id)
-#         if results.present?
-#             return results
-#         else
-#             return nil
-#         end
-
-
-#         r.destroy
-      end
+      r.place.favoritors.destroy(user_id) if r.present?
+      response = {type: :success, text: :succeed_to_process_reject, action: class_name, forward: { refresh: { type: 'favorite', to: false } }}
     end
+
+  rescue Exception => e
+     Rails.logger.debug("-------------------------------------------#{class_name}-#{e}") # only dev
+  ensure
+    return response.present? ? response : {type: :error, text: :failed_to_process, action: class_name}
   end
 end
-
-

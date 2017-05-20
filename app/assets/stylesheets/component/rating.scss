@@ -7,8 +7,8 @@
   border-bottom-left-radius: 3px;
   .value {
     display: inline-block;
-    @include font(18);
-    color: $text;
+    @include font(24, 'b');
+    color: $control;
     &:before {
       display: inline-block;
       content: "";
@@ -19,8 +19,8 @@
     }
   }
   span {
-    @include font(24, 'b');
-    color: $control;
+    @include font(18);
+    color: $text;
   }
 }
 

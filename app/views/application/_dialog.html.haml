@@ -39,3 +39,11 @@
               .in{'data-map': 'contact_map'} +
               .hr
               .out{'data-map': 'contact_map'} −
+    - if @has_place_report_dialog
+      .dialog-page{'data-bind': 'place_report' }
+        .header= t('.report')
+        .form
+          %textarea#place_report_reason{rows: 10, placeholder: t('.report_placeholder')}
+          %button#place_report_send
+            = t('.report_button')
+          %a#place_report_link.hidden{'data-href-template': @place_report_href, 'data-xhr': 'report', 'data-xhr-format': 'json'}
