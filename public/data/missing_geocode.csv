@@ -1,91 +1,91 @@
 id,city,address
-270,Tbilisi,8
-279,Inner Kartli,24
-281,Samtskhe-Javakheti,43
-282,Samtskhe-Javakheti,3
-283,Samtskhe-Javakheti,3
-286,Kakheti,11
-289,Kakheti,2
-290,Kakheti,44
-291,Kakheti,1
-292,Racha – Lechkhumi – Lower Svaneti,1
-294,Racha – Lechkhumi – Lower Svaneti,10
-299,Lower Kartli,39
-303,Lower Kartli,28
-305,Kakheti,41
-319,Tbilisi,1
-323,Tbilisi,3/5
-334,Tbilisi,11a
-335,Kakheti,3
-337,Tbilisi,6
-338,Imereti,4
-340,Tbilisi,""
-342,Tbilisi,21
-355,Imereti,65
-357,Imereti,9
-358,Imereti,3
-359,Imereti,7
-360,Imereti,4
-362,Imereti,15
-365,Imereti,6
-366,Racha – Lechkhumi – Lower Svaneti,1
-367,Racha – Lechkhumi – Lower Svaneti,64
-369,Samegrelo-Upper Svaneti,1
-372,Adjara,23
-373,Adjara,1
-374,Adjara,109
-376,Lower Kartli,73
-377,Lower Kartli,34
-384,Lower Kartli,41
-385,Imereti,7
-389,Inner Kartli,16
-391,Kakheti,16
-394,Samtskhe-Javakheti,10
-396,Kakheti,1
-402,Kakheti,""
-403,Kakheti,23
-404,Kakheti,""
-408,Kakheti,2
-409,Kakheti,16
-410,Kakheti,19
-418,Imereti,3/17
-419,Imereti,1
-421,Imereti,3
-425,Samegrelo-Upper Svaneti,7
-429,Samegrelo-Upper Svaneti,25
-430,Samegrelo-Upper Svaneti,8
-432,Samegrelo-Upper Svaneti,2
-433,Samegrelo-Upper Svaneti,10
-436,Samegrelo-Upper Svaneti,13
-437,Samegrelo-Upper Svaneti,""
-442,Adjara,5
-454,Lower Kartli,25
-455,Lower Kartli,50
-456,All Regions,49ა
-459,Kakheti,""
-460,Kakheti,""
-461,Kakheti,""
-462,Kakheti,""
-464,Kakheti,""
-465,Kakheti,""
-468,Kakheti,""
-470,Kakheti,""
-471,Kakheti,""
-473,Kakheti,""
-474,Kakheti,""
-475,Kakheti,60
-481,Kakheti,""
-483,Kakheti,""
-484,Imereti,6
-487,Lower Kartli,21
-492,Svaneti,31
-499,Inner Kartli,1
-502,Samtskhe-Javakheti,44a
-505,Kakheti,17
-510,Samegrelo-Upper Svaneti,37
-512,Guria,3
-516,Lower Kartli,4
-519,Imereti,11
-525,Kakheti,""
-527,Imereti,22
-528,Inner Kartli,27
+3,Tbilisi,8
+12,Inner Kartli,24
+14,Samtskhe-Javakheti,43
+15,Samtskhe-Javakheti,3
+16,Samtskhe-Javakheti,3
+19,Kakheti,11
+22,Kakheti,2
+23,Kakheti,44
+24,Kakheti,1
+25,Racha – Lechkhumi – Lower Svaneti,1
+27,Racha – Lechkhumi – Lower Svaneti,10
+32,Lower Kartli,39
+36,Lower Kartli,28
+38,Kakheti,41
+52,Tbilisi,1
+56,Tbilisi,3/5
+67,Tbilisi,11a
+68,Kakheti,3
+70,Tbilisi,6
+71,Imereti,4
+73,Tbilisi,""
+75,Tbilisi,21
+88,Imereti,65
+90,Imereti,9
+91,Imereti,3
+92,Imereti,7
+93,Imereti,4
+95,Imereti,15
+98,Imereti,6
+99,Racha – Lechkhumi – Lower Svaneti,1
+100,Racha – Lechkhumi – Lower Svaneti,64
+102,Samegrelo-Upper Svaneti,1
+105,Adjara,23
+106,Adjara,1
+107,Adjara,109
+109,Lower Kartli,73
+110,Lower Kartli,34
+117,Lower Kartli,41
+118,Imereti,7
+122,Inner Kartli,16
+124,Kakheti,16
+127,Samtskhe-Javakheti,10
+129,Kakheti,1
+135,Kakheti,""
+136,Kakheti,23
+137,Kakheti,""
+141,Kakheti,2
+142,Kakheti,16
+143,Kakheti,19
+151,Imereti,3/17
+152,Imereti,1
+154,Imereti,3
+158,Samegrelo-Upper Svaneti,7
+162,Samegrelo-Upper Svaneti,25
+163,Samegrelo-Upper Svaneti,8
+165,Samegrelo-Upper Svaneti,2
+166,Samegrelo-Upper Svaneti,10
+169,Samegrelo-Upper Svaneti,13
+170,Samegrelo-Upper Svaneti,""
+175,Adjara,5
+187,Lower Kartli,25
+188,Lower Kartli,50
+189,All Regions,49ა
+192,Kakheti,""
+193,Kakheti,""
+194,Kakheti,""
+195,Kakheti,""
+197,Kakheti,""
+198,Kakheti,""
+201,Kakheti,""
+203,Kakheti,""
+204,Kakheti,""
+206,Kakheti,""
+207,Kakheti,""
+208,Kakheti,60
+214,Kakheti,""
+216,Kakheti,""
+217,Imereti,6
+220,Lower Kartli,21
+225,Svaneti,31
+232,Inner Kartli,1
+235,Samtskhe-Javakheti,44a
+238,Kakheti,17
+243,Samegrelo-Upper Svaneti,37
+245,Guria,3
+249,Lower Kartli,4
+252,Imereti,11
+258,Kakheti,""
+260,Imereti,22
+261,Inner Kartli,27

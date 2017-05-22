@@ -9,7 +9,7 @@ class Place < ActiveRecord::Base
   has_one :provider, through: :provider_place, source: :provider
 
 
-  has_one :region, required: true
+  has_one :region#, required: true
 
   has_many :favorite_places
   has_many :favoritors, through: :favorite_places, source: :user
