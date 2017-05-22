@@ -2,6 +2,8 @@ class Place < ActiveRecord::Base
   translates :name, :description, :city, :address
   globalize_accessors :locales => [:en, :ka], :attributes => [ :name, :description, :city, :address]
 
+  mount_uploader :image, ImageUploader
+
   belongs_to :provider
 
 
@@ -43,7 +45,8 @@ class Place < ActiveRecord::Base
   end
 
   def get_rating
-    rating.to_s.format_number
+    r = rating.to_s.format_number
+    r == 0 ? '-' : r
   end
   def self.by_filter(filter, current_user)
     places = with_translations(I18n.locale)
@@ -78,7 +81,7 @@ class Place < ActiveRecord::Base
       places = places.where(id: place_ids)
     end
 
-    places.where(sql.join(" OR "), pars)
+    places.where(sql.join(" OR "), pars).order(name: :asc)
   end
 
 

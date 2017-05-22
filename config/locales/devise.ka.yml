@@ -6,6 +6,9 @@ ka:
       confirmed: "თქვენს მიერ შექმნილი ანგარიში წარმატებით დადასტურდა. გთხოვთ შედით მთავარ გვერდზე და დაასრულეთ თქვენი პროფილის რედაქტირება"
       send_instructions: "რამოდენიმე წუთში თქვენ მიიღებთ ელექტრონულ წერილს, სადაც მოცემული იქნება თქვენი ანგარიშის დადასტურების ინსტრუქცია."
       send_paranoid_instructions: "თუ თქვენი ელ.ფოსტა უკვე დაფიქსირებულია ჩვენს ბაზაში, რამოდენიმე წუთში თქვენ მიიღებთ დადასტურების წერილის მასში მოცემული ინსტრუქციებით."
+      new:
+        title: Resend confirmation instructions
+        resend_confirmation: Resend confirmation instructions
     failure:
       already_authenticated: "თქვენ უკვე შესული ხართ თქვენს გვერდზე."
       inactive: "თქვენი ანგარიში არაა აქტივირებული."
@@ -32,6 +35,12 @@ ka:
       send_paranoid_instructions: "თუ თქვენი ელ ფოსტა უკვე არსებობს ჩვენს ბაზაში, რამოდენიმე წუთში თქვენ მიიღებთ პაროლის აღდგენის ლინკს მითითებულ ელექტრონულ მისამართზე."
       updated: "თქვენი პაროლი წარმატებით შეიცვალა. თქვენ უკვე სისტემაში ხართ. "
       updated_not_active: "თქვენ წარმატებით შეცვალეთ პაროლი."
+      new:
+        title: Forgot your password?
+        forgot: Enter your email address and we will send you a link to reset your password.
+      edit:
+        title: Change your password
+        change_your_password: Change your password
     registrations:
       destroyed: "თქვენი ანგარიში გაუქმდა. იმედი გვაქვს თქვენ ისევ დაუბრუნდებით ჩვენს მომხმარებელთა ბაზას."
       signed_up: " თქვენ წარმატებით დარეგისტრირდით "
@@ -40,9 +49,23 @@ ka:
       signed_up_but_unconfirmed: "რეგისტრაციის წერილი გადმოგზავნილია თქვენს ელ. ფოსტაზე. გთხოვთ მიჰყევით ინსტრუქციებს რომ დაადასტუროთ თქვენი ელ. ფოსტა და გააქტიუროთ თქვენი ანგარიში."
       update_needs_confirmation: "თქვენ წარმატებით განაახლეთ თქვენი ანგარიში, მაგრამ საჭიროა მოხდეს თქვენი ახალი ელ ფოსტის დადასტურება.გთხოვთ შეამოწნოთ ელ ფოსტა და დაადასტუროთ თქვენი ახალი ელ ფოსტა მითითებულ ლინკზე დაწკაპუნებით."
       updated: "თქვენი ანგარიში წარმატებით განახლდა."
+      new:
+        title: Create an Account
+        have_questions_html: "<span>Have questions?</span> %{link} to view our Frequently Asked Questions. For further assistance, please contact 0 800 900 902."
+        has_agreed_html: "I have accepted the %{link}"
+        already_registered_html: "Already registered? %{link}"
+        no_confirmation_html: "Didn't receive confirmation instructions? %{link}"
     sessions:
       signed_in: "ანგარიშზე წარმატებით შესვლა."
       signed_out: "ანგარიშიდან წარმატებით გამოსვლა."
+      new:
+        title: Sign in
+        email: "Email"
+        password: "Password"
+        forgot: "Forgot password?"
+        remember_me: "Remember Me"
+        sign_up_prompt_html: "or %{link} if you don't have yet."
+        password_and_forgot_html: "Password %{link}"
     unlocks:
       send_instructions: "რამოდენიმე წუთში თქვენ მიიღებთ წერილის ინსტრუქციებით თუ როგორ განბლოკოთ თქვენი ანგარიში."
       send_paranoid_instructions: "თუ თქვენ გაქვთ ანგარიში, მაშინ რამოდენიმე წუთში მიიღებთ ელ ფოსტას თუ როგორ უნდა მოხსნათ ბლოკი ანგარიშიდან."

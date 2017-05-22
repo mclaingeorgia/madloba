@@ -61,7 +61,10 @@ class RootController < ApplicationController
       by: t('app.common.by'),
       picked_as_favorite: t('shared.picked_as_favorite'),
       overall_rating: t('shared.overall_rating_js'),
-      services: services_clean
+      services: services_clean,
+      view_all_provider_places: t('shared.view_all_provider_places'),
+      view_place_details: t('shared.view_place_details'),
+      view_all_services: t('shared.view_all_services')
     })
     gon.regions = Region.sorted.pluck(:id, :name)
     # gon.regions = {}
@@ -137,6 +140,9 @@ class RootController < ApplicationController
       return
     end
 
+    @has_place_report_dialog = true
+    @place_report_href = place_path(id: item.id, a: 'report', v: '_v_')
+
     user_id = nil
     if user_signed_in?
       user_id = current_user.id
@@ -146,7 +152,7 @@ class RootController < ApplicationController
       is_ownership_requested = PlaceOwnership.requested?(user_id, place_id)
       is_report_requested = PlaceReport.requested?(user_id, place_id)
       @has_place_report_dialog = !is_report_requested
-      @place_report_href = place_path(id: item.id, a: 'report', v: '_v_')
+
     end
 
 
@@ -193,6 +199,7 @@ class RootController < ApplicationController
       ownership_under_consideration: t('.take_ownership_underway'),
       report_under_consideration: t('.report_underway')
     })
+    gon.place_address = item.address
 
     respond_to do |format|
       format.html { render locals:

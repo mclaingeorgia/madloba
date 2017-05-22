@@ -52,16 +52,13 @@
         color: $link;
         text-align: center;
         padding:20px 0 31px;
+        text-transform: uppercase;
       }
       &[data-bind='about'] {
         .header {
-          &.about {
-            text-transform: uppercase;
-          }
           &.partners {
             @include font(24, 'sb', 18);
             color: $control;
-            text-transform: uppercase;
           }
         }
         .text {
@@ -154,10 +151,13 @@
         right: 21px;
       }
       .dialog-page {
+        .header {
+          padding:45px 0 31px;
+        }
         &[data-bind='contact'] {
           .boxes {
             flex-direction: row;
-            padding: 60px 0 65px;
+            padding: 0 0 65px;
             .box {
             }
             .box.info {
@@ -178,9 +178,6 @@
           }
         }
         &[data-bind='about'] {
-          .header {
-            padding:45px 0 31px;
-          }
           .text {
             padding: 0 40px;
           }

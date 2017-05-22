@@ -53,6 +53,9 @@
         if(type !== 'coordinates') {
           var marker = L.marker(coordinates, {icon: pollution.elements.pin })
             .addTo(markerGroup)
+            if(options.hasOwnProperty('popup')) {
+              marker.bindPopup(options.popup);
+            }
         }
 
         var map_container = $mp.parent()
@@ -93,25 +96,32 @@
     render_markers: function (id, locations) {
       if(pollution.elements.hasOwnProperty(id)) {
         var markerGroup = pollution.elements[id + '_marker_group']
+        var popup_template = '<div class="header">%name</div><ul class="contact"><li title="%address"><span class="icon address"></span>%address</li><li title="%phone"><span class="icon phone"></span>%phone</li></ul>'
         // console.log("-----------------------------",locations)
         locations.forEach(function(location) {
           // console.log(location.coordinates)
-          var mrk = L.marker(location.coordinates.map(function(m) { return +m }), {icon: pollution.elements.pin, _place_id: location.id }).addTo(markerGroup)
+          var mrk = L.marker(location.coordinates.map(function(m) { return +m }), {icon: pollution.elements.pin, _place_id: location.id, alt: location.name }).addTo(markerGroup)
 
-          if(!device.desktop()) {
-            mrk.bindPopup("<div class='header'>" + location.name + "</div>");
-          }
-          else {
+          mrk.bindPopup(popup_template.replace(/%name/g, location.name).replace(/%address/g, location.address).replace(/%phone/g, location.phone));
+
+          if(device.desktop()) {
             mrk.on('click', function() {
-              var place_cards = $('.result').get(0)
-              var place_card = $(place_cards).find('.place-card[data-place-id="' + location.id + '"]').get(0)
+              var $result = $('.result')
+              var result = $result.get(0)
+              var $place_card = $result.find('.place-card[data-place-id="' + location.id + '"]')
+              var place_card = $place_card.get(0)
 
+              $result.find('.region[data-id="' + location.region_id + '"]').removeClass('collapsed')
+              $result.find('.place-card[data-region-id="' +  location.region_id + '"]').removeClass('hidden')
+              console.log($result.find('.region[data-id="' + location.region_id + '"]'))
               if(typeof place_card.scrollIntoView === 'function') {
                 place_card.scrollIntoView({block: "end", behavior: "smooth"});
               }
               else {
-                place_cards.scrollTop = place_card.offsetTop - place_cards.offsetTop
+                result.scrollTop = place_card.offsetTop - result.offsetTop
               }
+              $place_card.addClass('highlighted')
+              $place_card.one(animationEvent, function(event) { console.log('transition end'); $place_card.removeClass('highlighted') })
             })
           }
         })

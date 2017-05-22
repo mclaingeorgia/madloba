@@ -7,9 +7,9 @@
         = item.name
       .provider-name
         %span #{"by "}
-        = item.provider.name
+        %a{href: root_path(what: item.provider.name)}= item.provider.name
       %ul.services
-        = item.services.map { |s| "<li class='service'><i class='#{s.icon}'></i><span>#{s.name}</span></li>" }.join("").html_safe
+        = item.services.sorted.map { |s| "<li class='service'><a href='#{root_path(services:[s.id])}'><i class='#{s.icon}'></i><span>#{s.name}</span></a></li>" }.join("").html_safe
       %ul.contact
         - if item.address.present?
           %li
@@ -26,6 +26,7 @@
     .place-map
       .corner
         %img{src: asset_path("svg/corner2.svg")}
+      =  item.get_rating
       = render partial: "shared/rating", locals: { rating: item.get_rating }
       .map-container
         #place_map.map{ 'data-latitude': item.latitude, 'data-longitude': item.longitude }
@@ -67,10 +68,11 @@
           .description
             = @post_action
             = item.description
-        %li
-          .tags
-            .header= t('.service_tags')
-            = item.tags.map { |s| "<a>#{s.name}</a>" }.join(", ").html_safe
+        - if item.tags.present?
+          %li
+            .tags
+              .header= t('.service_tags')
+              = item.tags.map { |s| "<a>#{s.name}</a>" }.join(", ").html_safe
         %li
           .hr
         %li
@@ -78,7 +80,7 @@
             photos
         %li
           .contact
-          .header=t('.contact_service_provider')
+          .header=t('.contact_place', provider: item.name)
           .form-container.wide
             %form{action: send_message_path, method: :post, 'data-remote': true, id: 'invisible-recaptcha-form', class: 'simple_form light column'}
               = hidden_field_tag :authenticity_token, form_authenticity_token

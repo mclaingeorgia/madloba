@@ -5,7 +5,7 @@ namespace :dev do
   desc 'Randomly assing service to places, for test purpose'
   task randomize_place_services: :environment do
     services = Service.all
-    random_amount = [1,2,3]
+    random_amount = [1,2,3,4,5,6,7]
 
     Place.all.each{|p|
       p.services = services.sample(random_amount.sample)

@@ -3,7 +3,7 @@
 //= require component/recaptcha
 //= require component/tinymce
 
-pollution.components.map.init('place_map', { zoom: 16, type: 'data' })
+pollution.components.map.init('place_map', { zoom: 16, type: 'data', popup: gon.place_address })
 
 pollution.components.rator.deferred_bind($('.action-bar .rator'), function(v, $element) {
   $element.attr('href', $element.attr('data-href-template').replace(/_v_/g, v))

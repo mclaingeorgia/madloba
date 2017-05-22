@@ -2,7 +2,7 @@
 = form_for obj, html: { role: 'form', class: 'fields' } do |f|
   .column-view
     .column
-      = render partial: 'shared/fields_localization', locals: { fields: { name: nil, description: { type: 'text_area', class: 'tinymce' }} , form: f, translate_path: translate_path }
+      = render partial: 'shared/fields_localization', locals: { fields: { name: nil, description: { as: :text, class: 'tinymce' }} , form: f, translate_path: translate_path }
       .indent
         .fields-checkbox-list.services
           %label #{t('admin.place.services')}
@@ -16,7 +16,8 @@
                   = b.text
         = render_form_field(:text_field, f, :phone, translate_path)
         = render_form_field(:text_field, f, :website, translate_path)
-
+        = f.file_field :image
+  </div>
     .column
       = render partial: 'shared/fields_localization', locals: { fields: { address: nil, city: nil} , form: f, translate_path: translate_path }
       .indent

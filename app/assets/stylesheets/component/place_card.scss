@@ -19,7 +19,23 @@
       pointer-events: none;
     }
     &:hover:after {
-       border: 3px solid $highlighted_bg;
+      border: 3px solid $highlighted_bg;
+    }
+  }
+  &.highlighted {
+    .card-border:after {
+      animation: 1.5s animateBorderInOut ease-out;
+    }
+  }
+  @keyframes animateBorderInOut {
+    0% {
+      border: 3px solid transparent;
+    }
+    50% {
+      border: 3px solid $highlighted_bg;
+    }
+    100% {
+      border: 3px solid transparent;
     }
   }
   .card {
@@ -81,7 +97,6 @@
         padding-bottom: 4px;
       }
       .provider {
-        padding-bottom: 12px;
         a {
           @include font(18, 'sb');
           color: $link;
@@ -92,26 +107,31 @@
           color: $text;
         }
       }
-      .first-service {
+      .services {
         display: flex;
         flex-direction: row;
         align-items: flex-start;
         flex: 1;
         @include font;
         color: $text;
+        padding-top: 12px;
         padding-bottom: 17px;
-        span {
-          flex: 1;
-          display: inline-block;
-          white-space: nowrap;
-          text-overflow: clip;
+        .service {
+          padding: 0;
         }
+        // span {
+        //   flex: 1;
+        //   display: inline-block;
+        //   white-space: nowrap;
+        //   text-overflow: clip;
+        // }
         .ellipsis {
           margin-right: 13px;
           width: 30px;
-          height: 10px;
+          height: 16px;
           background: transparent url(svg('ellipsis')) no-repeat center;
           cursor: pointer;
+          float: right;
           &:hover {
             cursor: pointer;
             border: 1px solid gray;

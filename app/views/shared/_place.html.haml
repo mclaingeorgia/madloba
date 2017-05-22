@@ -10,9 +10,10 @@
           = render partial: "shared/rating", locals: { rating: place.get_rating }
         .place-info
           = link_to place.name, place_path(place.id), class: 'name'
-          .provider
-            %span #{"by "}
-            = link_to place.provider.name, root_path, 'data-filter': "provider=#{place.provider.id}"
+          - if place.name != place.provider.name
+            .provider
+              %span #{"by "}
+              = link_to place.provider.name, root_path, 'data-filter': "provider=#{place.provider.id}"
           - ss = place.services
           - if ss.length >= 1
             - s = ss.first
@@ -22,10 +23,10 @@
               - if ss.length > 1
                 .ellipsis
           %ul.contact
-            %li
+            %li{title: place.address}
               %span.icon.address
               = place.address
-            %li
+            %li{title: place.phone}
               %span.icon.phone
               = place.phone
       - if place.services.length > 1

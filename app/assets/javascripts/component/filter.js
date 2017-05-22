@@ -7,6 +7,8 @@
     data: {},
     els: {},
     result: [],
+    dynamic_map: false,
+    first: false,
     init: function () {
       var t = filter
       t.el = $('#filter')
@@ -53,26 +55,11 @@
       var map = JSON.parse(t.els['map'].attr('data-m'))
 
       if(map.length === 4) {
-        mp.on('moveend', function () {
-          var bounds = mp.getBounds()
-          var tmp = [bounds._northEast.lat, bounds._northEast.lng, bounds._southWest.lat, bounds._southWest.lng, mp.getZoom()]
-          var url = window.location.pathname + '?' + (jQuery.param(t.data) + (tmp.length ? '&' + jQuery.param({map: tmp}) : ''))
-          window.history.pushState({ }, null, url)
-
-          pollution.elements['places_map_marker_group'].eachLayer(function (layer) {
-            t.els['result'].find('.place-card[data-place-id="' + layer.options._place_id + '"]').toggleClass('hidden', !bounds.contains(layer.getLatLng()))
-          });
-        })
-        // mp.setZoom(zoom)
         mp.fitBounds([[map[0], map[1]],[map[2],map[3]]])
-        // var bounds = mp.getBounds()
-        // var tmp = [bounds._northEast.lat, bounds._northEast.lng, bounds._southWest.lat, bounds._southWest.lng, mp.getZoom()]
-        // pollution.elements['places_map_marker_group'].eachLayer(function (layer) {
-        //   t.els['result'].find('.place-card[data-place-id="' + layer.options._place_id + '"]').toggleClass('hidden', !bounds.contains(layer.getLatLng()))
-        // });
+        t.first = true
       }
 
-      console.log('data to process_all', t.data)
+      // console.log('data to process_all', t.data)
     },
     process: function (type, value) {
       var t = filter
@@ -100,41 +87,10 @@
           break
         case 'map':
           var mp = pollution.elements['places_map']
-          if(value === true) {
-            mp.on('moveend', function () {
-              var bounds = mp.getBounds()
-              var tmp = [bounds._northEast.lat, bounds._northEast.lng, bounds._southWest.lat, bounds._southWest.lng]
-              var url = window.location.pathname + '?' + (jQuery.param(t.data) + (tmp.length ? '&' + jQuery.param({map: tmp}) : ''))
-              window.history.pushState({ }, null, url)
-
-              pollution.elements['places_map_marker_group'].eachLayer(function (layer) {
-                t.els['result'].find('.place-card[data-place-id="' + layer.options._place_id + '"]').toggleClass('hidden', !bounds.contains(layer.getLatLng()))
-              });
-              t.render_count(t.els['result'].find('.place-card:not(.hidden)').length)
-            })
-            t.els['result'].addClass('plain')
-            t.els['result'].find('.region').addClass('collapsed')
-            var bounds = mp.getBounds()
-            map = [bounds._northEast.lat, bounds._northEast.lng, bounds._southWest.lat, bounds._southWest.lng]
-            pollution.elements['places_map_marker_group'].eachLayer(function (layer) {
-              t.els['result'].find('.place-card[data-place-id="' + layer.options._place_id + '"]').toggleClass('hidden', !bounds.contains(layer.getLatLng()))
-            });
-            t.render_count(t.els['result'].find('.place-card:not(.hidden)').length)
-          }
-          else {
-
-            map = []
-            t.els['result'].removeClass('plain')
-            t.els['result'].find('.place-card').addClass('hidden')
-            mp.off('moveend')
-            t.render_count(t.els['result'].find('.place-card').length)
-
-          }
-
-          // t.set_data('map', value)
+          t.map_switch(value)
           break
       }
-      console.log('data to process', t.data)
+      // console.log('data to process', t.data)
       var url = window.location.pathname + '?' + (jQuery.param(t.data) + (map.length ? '&' + jQuery.param({map: map}) : ''))
       window.history.pushState({ }, null, url)
       if(type !== 'map') {
@@ -170,7 +126,7 @@
       var t = filter
       if(type === 'success') {
 
-        console.log( "success", data )
+        // console.log( "success", data )
         // place_cards_builder(data.result)
         t.render_result(data)
       }
@@ -211,6 +167,8 @@
       t.els['map'].change(function () {
         t.process('map', $(this).is(":checked"))
       })
+      pollution.elements['places_map'].on('moveend', function () { t.map_move_end() })
+
     },
     set_data: function (key, value) {
       var t = filter
@@ -231,42 +189,76 @@
         t.els['result'].html('<div class="not-found">' + gon.labels.not_found + '</div>')
         return
       }
-      // var groups = data.map( function(e,i) { return i%2===0 ? data.slice(i,i+2) : null; })
-      //               .filter(function(e){ return e; })
+
       var places = []
       gon.regions.forEach(function (region) {
 
         if(typeof result[region[0]] !== 'undefined') {
           var n = result[region[0]].length
-          // var $region = $('<div class="region collapsed"><div class="region-name">' +
-          //     region[1] + '<span class="caret"></span><span class="region-count">' +
-          //     n + '&nbsp;' + gon.labels[n > 1 ? 'results' : 'result'] +
-          //     '</span></div></div><div class="region-places"></div>')
-          //   .appendTo(t.els['result'])
           t.els['result'].append('<div class="region collapsed" data-id="' + region[0] + '"><div class="region-name">' +
               region[1] + '<span class="caret"></span><span class="region-count">' +
               n + '&nbsp;' + gon.labels[n > 1 ? 'results' : 'result'] +
               '</span></div></div>')
             .appendTo()
 
-
-          // var $region_places = $region.find('.region-places')
           result[region[0]].forEach(function (place) {
+            place.region_id = region[0]
             places.push(place)
             t.els['result'].append(pollution.components.place_card.builder(place, region[0])) // + (d.length === 2 ? d[1].html : ''))// '<div class="row">' ++ '</div>'
           })
         }
       })
-      // data.forEach(function (d) {
-      //   t.els['result'].append(pollution.components.place_card.builder(d)) // + (d.length === 2 ? d[1].html : ''))// '<div class="row">' ++ '</div>'
-      //   // <div class="place-card"><div class="card-border"><div class="card"></div></div></div>
-      //   // if(d.length === 2) { locations.push(d[1].location) }
-      // })
+
       pollution.components.map.render_markers('places_map', places)
+      if(t.first) {
+        t.first = false
+        t.map_switch(true)
+      }
     },
     render_count: function (n) {
       var t = filter
       t.els['count'].html(n + '&nbsp;<span>' + gon.labels[n > 1 ? 'results' : 'result'] + '</span>')
+    },
+    map_move_end: function () {
+      var t = filter
+      if(!t.dynamic_map) { return }
+      var mp = pollution.elements['places_map']
+      var $result_container = t.els['result'].parent()
+
+      $result_container.addClass('loader')
+
+      var bounds = mp.getBounds()
+      var tmp = [bounds._northEast.lat, bounds._northEast.lng, bounds._southWest.lat, bounds._southWest.lng]
+      var url = window.location.pathname + '?' + (jQuery.param(t.data) + (tmp.length ? '&' + jQuery.param({map: tmp}) : ''))
+      window.history.pushState({ }, null, url)
+
+      pollution.elements['places_map_marker_group'].eachLayer(function (layer) {
+        t.els['result'].find('.place-card[data-place-id="' + layer.options._place_id + '"]').toggleClass('hidden', !bounds.contains(layer.getLatLng()))
+      });
+
+      t.render_count(t.els['result'].find('.place-card:not(.hidden)').length)
+      setTimeout(function() { $result_container.removeClass('loader') }, 200)
+    },
+    map_switch: function (value) {
+      var t = filter
+      if(value === true) {
+        t.dynamic_map = true
+        var $result_container = t.els['result'].parent()
+
+        $result_container.addClass('loader')
+        t.els['result'].addClass('plain')
+        t.els['result'].find('.region').addClass('collapsed')
+
+        t.map_move_end()
+
+        $result_container.removeClass('loader')
+      }
+      else {
+        t.dynamic_map = false
+        t.els['result'].removeClass('plain')
+        t.els['result'].find('.place-card').addClass('hidden')
+        t.render_count(t.els['result'].find('.place-card').length)
+      }
     }
   }
   pollution.components.filter = filter

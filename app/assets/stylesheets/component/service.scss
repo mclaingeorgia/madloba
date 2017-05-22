@@ -26,6 +26,9 @@ ul.services {
     &.rehab { background-image: url(svg('services/rehab')); }
     &.social { background-image: url(svg('services/social')); }
   }
+  a {
+    text-decoration: none;
+  }
   span {
     @include font;
     color: $text;

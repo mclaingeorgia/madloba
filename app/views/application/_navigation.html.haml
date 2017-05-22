@@ -1,7 +1,7 @@
 %nav
   .nav-container
     .nav-left
-      = link_to image_tag(asset_path("svg/logo_#{I18n.locale}.svg"), alt: t('.logo_alt'), title: t('.logo_alt')).html_safe, root_path, class: 'nav-brand'
+      = link_to image_tag(asset_path("svg/logo_#{I18n.locale}.svg"), alt: t('.logo_alt'), title: t('.logo_title')).html_safe, root_path, class: 'nav-brand'
       .nav-toggle
         %button{ type: 'submit', class: "nav-toggle-button collapsed", 'data-toggle': 'collapse', 'aria-expanded': false, 'data-target': 'nav-toggle-target' }
           %span.helper Toggle navigation
@@ -24,7 +24,7 @@
         - else
           .user
             = link_to '#', class: 'nav-user-menu-link' do
-              = image_tag(asset_path("svg/user.svg"), alt: t('.logo_alt'), title: t('.logo_alt'), class: 'user-icon')
+              = image_tag(asset_path("svg/user.svg"), alt: t('.user_alt'), title: t('.user_title'), class: 'user-icon')
               .user-name #{current_user.name}
               .caret
             .user-menu{ 'data-set-max-height': true }

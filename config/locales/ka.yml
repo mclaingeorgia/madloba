@@ -1,14 +1,42 @@
 ka:
-  simple_captcha:
-    placeholder: ""
-    label: "ჩაწერე ტექსტი"
-    refresh_button_text: "განაახლე"
-    message:
-      default: "თქვენს მიერ შეყვანი ტექსტი არ შეესატყვისება ქვემოთ მოცემულ ტექსტს"
-      user: "The secret Image and code were different"
   activerecord:
+    models:
+      provider: &provider_model
+        one: Provider
+        other: Providers
+      page_content:
+        one: Page Content
+        other: Page Contents
+      providers:
+        one: Test
+        other: Many
+      place_rates:
+        one: rate class
+    attributes:
+      provider: &provider
+        name: Provider Name
+        description: Provider Description
+      providers:
+        <<: *provider
+      page_content:
+        title: Title
+        content: Content
+      user:
+        first_name: First Name
+        last_name: Last Name
+        password: Password
+        username: Username
+        email: Email
+        password_confirmation: Password Confirmation
+        is_service_provider: Do you plan to provide service?
+        providers:
+          <<: *provider_model
     errors:
       models:
+        user:
+          attributes:
+            providers:
+              not_filled: " data is not filled"
         category:
           attributes:
             name:
@@ -23,73 +51,234 @@ ka:
               too_long: ფაილი არ უნდა აღემატებოდეს 5MB.
             number_of_items:
               greater_than: "გთხოვთ დაამატეთ სულ მცირე ერთი სერვისი."
-  home:
-    home: მთავარი
-    page: მთავარი გვერდი
-    more_about: "%{website}-ს შესახებ"
-    and_other_categories: "და %{number} სხვა კატეგორია."
-    user_panel: მომხმარებლის გვერდი
-    en_language: English
-    ka_language: ქართული
-    register_services_html: რეგისტრირებული <br />სერვისები
-    sign_in: შესვლა
-    sign_up: გასვლა
-    not_have_account_yet_html: გაიარე რეგისტრაცია "%{sign_up_here} ."
-    create_account: რეგისტრაცია
-    refinements: თქვენს მიერ არჩეული
-    delete_all: წაშლა
-    refine_location: ადგილმდებარეობა
-    cancel: გაუქმება
-    close: დახურვა
-    sign_register: შესვლა
-    register_link: რეგისტრაცია
-    e-mail: ელ.ფოსტა
-    password: პაროლი
-    record_not_exist: ბოდიშს გიხდით, ეს გვერდი არ არსებობს!
-    got_it: OK
-    yes: "დიახ"
-    no: "არა"
-    search_items: "სერვისის დასახელება ან აღწერილობა"
-    search_or_signup_html: "სერვისის მიმწოდებლებისათვის. თქვენ შეგიძლიათ მონიშნოთ და დაადასტუროთ ის სერვისი რასაც ახორციელებთ ან გაიაროთ %{signup} და მიაწოდოთ სამიზნე ჯგუფს ვრცელი ინფორმაცია არსებული სერვისების შესახებ"
-    location_example: რეგიონი ან ქალაქი
-    search: ძიება
-    about: შესახებ
-    about_website: "%{website_name} შესახებ"
-    links: ლინკები
-    your_searched_location: თქვენს მიერ მოძიებული ადგილმდებარეობა
-    no_post: სამწუხაროდ ამ ეტაპზე არ არსებობს სერვისები, რომელიც შეესაბამება თქვენს საძიებო სიტყვას.
-    create_an_post_now_html: "გთხოვთ გამოიყენოთ სხვა საძიებო სიტყვა, ან გამოიყენეთ კატეგორიები უფრო ფართო ძიებისათვის."
-    about_page: "%{website_name} შესახებ"
-    faq_page: ხშირად დასმული კითხვები
-    about_description_1_html: "%{website_name} ს ტექნიკურად აგებულია %{madloba_link} ზე."
-    about_description_2_html: "%{madloba_link} არის ღია პლატფორმა, რომლის მეშვეობითაც შენ საშუალება გაქვს გაავრცელო ინფორმაცია თუ რისი გაცემა შეგიძლია."
-    about_description_3: ძალიან ბევრი (ჯერ კიდევ ვარგისი) ნივთი აღმოჩნდება ხოლმე ნაგავსაყრელზე! საბედნიეროდ, ჩვენ ვცხოვრობთ ღია მონაცემთა და ადგილმდებარეობაზე მორგებულ სამყაროში და გვაქვს საკმარისი ტექნოლოგიური საშუალებები რომ გადავწყვიტოთ აღნიშნული პრობლემა.Madloba საშუალებას მოგცემთ ხელმეორედ გამოიყენოთ, მისცეთ ან გაასხვისოთ "ყველა ეს ნივთი" :)
-    contact_us: დაგვიკავშირდით
-    send_us_message_html: მოგვწერეთ %{email}
-    about_send_message_html: ჩვენთან დასაკავშირებლად, მოგვწერეთ ელ.ფოსტაზე %{email}.
-    loc_not_found: ბოდიშს გიხდით აღნიშნული ადგილმდებარეობა არ მოიძებნა.
-    server_error: ბოდიშს გიხდით, სერვერის პრობლემაა.
-    default_current_loc: თქვენი ადგილმდებარეობა.
-    title_guided_nav: კატეგორიები
-    map_positioned_found: "რუკა პოზიციონირებს: %{address}"
-    full_not_found_map_position: "ზუსტი მისამართი ვერ მოიძებნა, რუკა პოზიციონირებს: %{address}"
-    not_found_map_position: ბოდიშს გიხდით, აღნიშნული მისამართი არ მოიძებნა.
-    click_on_map_after: როგორც კი არეალი მოიძებნება, დააწკაპუნე რუკაზე რათა აირჩიო სასურველი ადგილმდებარეობა.
-    demo_sidebar_note_html: (Demo) როგორც ადმინისტრატორი, შენ საშუალება გაქვს შეცვალო ფერები და ამ კატეგორიების ნახატები %{admin_panel} ში.
-    admin_panel: ადმინისტრატორი
-    same_area: ამ რაიონში არსებული სერვისები
-    update: სიახლე
-    demo_instructions_html: "(Demo) რეგისტრაციის ინსტრუქცია %{here}."
-    footer_powered_by_html: ტექნიკურად აგებულია %{madloba_link}
-    footer_new_powered_by_html: ახალი ვებ გვერდი ტექნიკურად აგებულია %{madloba_link}
-    footer_theme_html: "Theme from %{charisma}"
-    log_out: "გასვლა"
-    show_posts_districts: სერვისის ძიება ადგილმდებარეობის მიხედვით.
-    show_details: დეტალური ინფორმაცია
-    error_get_popup_content: ბოდიშით გიხდით ტექნიკური ხარვეზის გამო. მოგვიანებით ცადეთ.
-    error:
-      one: error
-      more: errors
+  app:
+    languages:
+      en: English
+      ka: Georgian
+    common:
+      name: Sheaghe
+      slogan: Discovering Services
+      description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, unde!"
+      _yes: "Yes"
+      _no: "No"
+      mac_alt: "McLain Association for Children seeks to transform the lives of the most vulnerable around the world by providing them with the resources they need and by strengthening the systems and individuals that provide them care."
+      created_by: Created By
+      js_alt: "Informing Communities with Data and Design"
+      privacy_policy: Privacy Policy
+      terms_of_use: Terms of Use
+      contact: -----
+      rate: Rate
+      missing: Missing
+      or: or
+      register: Register
+      sign_in: Sign In
+      sign_up: Sign Up
+      cancel: Cancel
+      reset_password: Reset Password
+      change_password: Change Password
+      resend: Resend
+      click_here: Click Here
+      alt: "%{alt} Image"
+      by: by
+    messages:
+      success_updated: "%{obj} was successfully updated."
+      fail_updated: "%{obj} failed to update."
+      success_destroyed: "%{obj} was successfully deleted."
+  shared:
+    fields_localization: Fields to translate
+    picked_as_favorite: Picked as favorite
+    overall_rating: "Overall place rating %{rating}/5"
+    overall_rating_js: "Overall place rating"
+    rating_threshold: "/%{n}"
+    rating: Rating
+    search: Search
+    and_up: " & Up"
+    rate1: Rate 1
+    rate2: Rate 2
+    rate3: Rate 3
+    rate4: Rate 4
+    rate5: Rate 5
+    view_all_provider_places: See all places from this service provider
+    view_place_details: View place details
+  messages:
+    succeed_to_process: Request to %{action} processed successfully.
+    succeed_to_process_reject: Request to reject %{action} processed successfully.
+    failed_to_process: Request to #{action} failed.
+    place_rate: rate place
+    favorite_place: favorite place
+    place_ownership: take place ownership
+    place_report: report place
+  admin:
+    save: Save
+    cancel: Cancel
+    edit: Edit
+    edit_object: "Edit %{obj}"
+    delete: Delete
+    confirm_delete: "Provider will be removed with all places bind to it."
+    or: or
+    manage_provider:
+      index: Manage Providers
+      edit: Edit Provider
+      new: Create Provider
+    manage_places:
+      index: Manage Places
+      edit: Edit Place
+      new: Create Place
+    moderate_photos:
+      index: Moderate Photos
+    menu:
+      manage_profile: Manage Profile
+      rated_places: Rated Places
+      uploaded_photos: Uploaded Photos
+      manage_provider: Manage Provider
+      manage_places: Manage Places
+      moderate_photos: Moderate Photos
+      favorite_places: Favorite Places
+      users: Users
+      providers: Providers
+      places: Places
+      categories: Categories
+      page_contents: Page Contents
+      settings: Settings
+      reported_places: Reported Places
+      place_ownership: Place Ownership
+      new_provider: New Provider
+      place_tags: Place Tags
+    profile:
+      first_name: "First name:"
+      last_name: "Last name:"
+      username: "Username:"
+      email: "Email:"
+      is_service_provider: "Service Provider:"
+      current_password: "Current password:"
+      password: "New password:"
+      password_confirmation: "Confirm password:"
+    page_contents:
+      index:
+        title: Manage Page Contents
+      edit:
+        title: Edit Page Content
+    places:
+      index:
+        title: "Manage Places"
+      edit:
+        title: "Edit Places"
+      list:
+        provider: "Provider:"
+    place:
+      index:
+        title: "Manage Places"
+      name: "Name:"
+      description: "Description:"
+      services: "Which Rehabilitative services do you provide?"
+      phone: "Phone:"
+      website: "Website:"
+      address: "Address:"
+      city: "City:"
+      postal_code: "Postal Code:"
+      region: "Region:"
+      locate_me: "Locate me on map"
+    user:
+      email: Email
+      password: Password
+      password_confirmation: Password Confirmation
+  application:
+    dialog:
+      partners: PARTNERS
+      contact: CONTACT
+      org: McLain Association for Children
+      address: "Address:"
+      address_content: "Kavsadze #3, Second Floor, Tbilisi Georgia"
+      phone: "Phone:"
+      phone_content: "Free Hotline: 0 800 900 902; Office #: 2197378"
+      email: "Email:"
+      email_content: "mac_info@macgeorgia.org"
+      report: REPORT
+      report_button: Send Report
+      report_placeholder: Type report text
+      alt:
+        close: Close Dialog
+        address: Contact Address
+        phone: Contact Phone
+        email: Contact Email
+    navigation:
+      logo_title: Sheage - Discovering Services
+      logo_alt: Sheage - Discovering Services Logo
+      user_title: Your profile
+      user_alt: Your profile image
+      about: ABOUT
+      faq: FAQ
+      contact: CONTACT
+      facebook_alt: Share on Facebook
+      twitter_alt: Share on Twitter
+      sign_up: Register
+      sign_in: Sign In
+      log_out: Log Out
+  root:
+    index:
+      what: What are you looking for
+      where: Where
+      filters: "Filters"
+      services: "Services:"
+      cancel: Cancel
+      apply: Apply
+      rate: "Rate:"
+      favorites: "Favorites:"
+      rating: "Rating:"
+      result:
+        one: "Result"
+        other: "Results"
+      alt:
+        filter: Filter Image
+        show_all: Show all
+        show_favorite: Show favorite places
+      filter:
+        by_map: Search as I move the map
+      placeholder:
+        what: Type Place or Provider Name
+        where: Type Region or City
+      not_found: There is no data found with provided filters
+    place:
+      contact_place: Contact %{provider}
+      your_name: Your Name
+      your_email: Your Email
+      your_message: Your Message
+      send: Send
+      add_to_favorite: Add To Favorite
+      remove_from_favorite: Remove from Favorite
+      rating: Rating
+      rate: Rate
+      report: Report
+      report_underway: Report Under Consideration
+      take_ownership: Take Ownership
+      take_ownership_underway: Ownership Under Consideration
+      share: Share
+      service_tags: Service Tags
+      comments: Comments
+    faq:
+      title: FAQ
+  mailer:
+    hello: "Hello %{name}!"
+    hi: "Hi %{name}"
+    welcome: "Welcome to %{name}! You will soon be able to search and find details for all rehabilitation services in Georgia."
+    account_created: "An account has been created in your name. Please click on the following link to verify your email address and gain full access to all the features of %{name}:"
+    confirm_account: Confirm my account
+    as_soon_as: As soon as you have been verified, you can log in in to your account anytime by clicking Sign In on the %{name} home page.
+    need_assistance: "If you need assistance searching your required services or would like to contact us with any questions or feedback, please use the Contact Us page at http://"
+    phone_number: "Alternatively you may call this number:"
+    thanks: "Thank you for registering. We hope you enjoy using %{name}."
+    thanks_short: "Thanks!"
+    register: "To Register your services, all you have to do is log in to your account and follow these simple steps:"
+    register_1: "Click 'Register Services' button"
+    register_2: Complete the application details. Note that you are able to register as many categories of service linked to your profile as you wish.
+    register_3: Submit Registration
+    someone_requested: Someone has requested a link to change your password. You can do this through the link below.
+    please_ignore: If you didn't request this, please ignore this email.
+    password_not_changing: Your password won't change until you access the link above and create a new one.
+    change_my_password: Change my password
+    account_locked: Your account has been locked due to an excessive number of unsuccessful sign in attempts.
+    link_unlock: Click the link below to unlock your account
+    unlock_account: Unlock my account
   errors:
     oops: "Oops!"
     not_found: 404 გვერდი არ მოიძებნა
@@ -101,769 +290,3 @@ ka:
     ws_error: Sorry, a server error occurred. Please refresh this page.
   config:
     not_authorized: სამწუხაროდ თქვენ  ვერ გადახვალთ ამ გვერდზე.
-  location:
-    location: "ადგილმდებარეობა:*"
-    user_location: "მომხარებლის მეირ რეგისტრირებული მისამართები:*"
-    new_location: შეიყვანეთ თქვენი ადგილმდებარეობა
-    name_en: "ადგილმდებარეობის აღწერა (en):"
-    name_ka: "ადგილმდებარეობის აღწერა (ge):"
-    name_help: "მიეცით სახელი თქვენს ადგილმდებარეობას, მაგ: სახელოსნოს ან შენობის სახელი. თქვენს მიერ მითითებული შენობის დასახელება იქნება საჯარო, მაგრამ თუ თქვენს მიერ მითითებულ ადგილმდებარეობას არა აქვს დასახელება, დატოვეთ ეს სივრცე ცარიელი."
-    name_to_use: "რომელი სახელის გამოყენება გსურთ?*"
-    anon_publisher_name_note: "ეს სერვისი არის განთავსებული ანონიმურად რეგისტრირებული მომხმარებლის მიერ:"
-    no_service_provider_yet: "ამჟამად არცერთი სერვისის პროვაიდერი არ არის დაკავშირებული ამ სერვისთან დაკავშირებული.გთხოვთ შეიყვანოთ სერვისის მიმწოდებლის სახელწოდება და ელ.ფოსტა:"
-    or_choose_user: "ან აირჩიეთ არსებული მომხმარებელი ქვემოთ მოცემული ჩამონათვალიდან:"
-    post_action: "ქმედება:*"
-    publish_service: "გინდა გამოაქვეყნო ეს სერვისი?"
-    post_action_giving: მე გავცემ ნივთებს.
-    post_action_accepting: მე ვეძებ ნივთებს.
-    name_username: მომხმარებელი
-    name_fullname: სრული სახელი
-    definition: "შეიყვანე შენი ადგილმდებარეობა*:"
-    definition_exact: ზუსტი მისამართი
-    definition_postal_code: საფოსტო ინდექსი
-    definition_district: რეგიონი
-    street_number: "ქუჩის ნომერი:"
-    block_unit_en: "ბლოკი,კვარტალი, შესახვევი,ბინის ნომერი (en):"
-    block_unit_ka: "ბლოკი,კვარტალი, შესახვევი,ბინის ნომერი (ge):"
-    street_name_en: "ქუჩის დასახელება (en)*:"
-    street_name_ka: "ქუჩის დასახელება (ge)*:"
-    street_name_help: სახელწოდება გზის, ქუჩის, გამზირი, გზატკეცილი…
-    postal_code: "საფოსტო კოდი:"
-    district: "უბანი*:"
-    province: რეგიონი
-    province_en: რეგიონი (en)
-    province_ka: რეგიონი (ge)
-    village_en: "სოფელი (en):"
-    village_ka: "სოფელი (ge):"
-    city_en: ქალაქი (en)
-    city_ka: ქალაქი (ge)
-    define_geocode_button: რუკაზე ჩემი ადგილმდებარეობის განსაზღვრა
-    map: "რუკა:"
-    phone_number: "ძირითადი საკონქატო ტელეფონი:"
-    add_phone_number: "დამატებითი საკონტაქტო ტელეფონი:"
-    website: "ვებ გვერდი:"
-    facebook: "Facebook:"
-    link_to_facebook: Facebook გვერდის ლინკი
-    description: "დეტალები აღნიშნული მდებარეობის შესახებ:"
-    description_en: "დეტალები აღნიშნული მდებარეობის შესახებ (en):"
-    description_ka: "დეტალები აღნიშნული მდებარეობის შესახებ (ge):"
-    description_help: შეავსეთ არჩევითი სექცია, თუ გინდათ დამატებითი დეტალების მითითება აღნიშნული ადგილმდებარეობის შესახებ.(მაგ. როგორ უნდა მიაგნოთ, როგორია გარედან და ა.შ.)
-    not_found: "ადგილმდებარეობა ვერ მოიძებნა"
-    not_found_descr1: " თქვენს მიერ შეყვანილი ინფორმაციით ადგილმდებარეობის მოძიება ვერ მოხერხდა."
-    not_found_descr2: " თქვენ შეგიძლიათ დააწკაპუნოთ რუკაზე."
-    district_help: "შეცვალეთ რეგიონი, სადაც შეიძლება აღნიშნული ადგილმდებარეობის მოძებნა."
-  post:
-    back_to_home: "მთავარ გვერდზე დაბრუნება"
-    mandatory_field: "*აუცილებლად შესავსები ველი"
-    new_post: სერვისის რეგისტრაცია
-    area: რაიონი
-    error_occurred: "%{errors} - აღნიშნული სერვისის შენახვა ვერ მოხერხდა"
-    published: "გამოაქვეყნა:"
-    expiration_date: "სერვისის გასვლის თარიღია %{expire_date}. აღნიშნულ დღეს თქვენ მიიღებთ სერვისის განახლების მოთხოვნას."
-    expires_today: "დღეს ამ სერვისს გადის ვადა!"
-    no_favorite_yet: " ამჟამად თქვენ არ გაქვთ არჩეული ფავორიტი სერვისი "
-    has_expired: აღნიშნულ სერვისს ვადა გაუვიდა %{expire_date},  და ამ ეტაპისათვის ის ვებ გვერდზე არ იძებნება.
-    title: "სერვისის დასახელება:"
-    title_en: "Name of service (en)*:"
-    title_ka: "სერვისის დასახელება(ge)*:"
-    title_help: "თქვენი ცენტრის, სკოლის ან ორგანიზაციის დასახლება მაგ: 'ბავშვზე ზრუნვის ასოციაცია' ან 'ბავშვთა დღის ცენტრი'"
-    item: "რა ტიპის რეაბილიტაციის სერვისების აწვდით?*:"
-    about_you: "თქვენს შესახებ"
-    name: "თქვენი სახელი*:"
-    type_services: სერვისების კატეგორიები
-    name_help: გთხოვთ აქ შეიყვანოთ თქვენი სახელი ან მეტსახელი.გაითვალისწინეთ რომ ის იქნება საჯარო და მიბმული იქნება თქვენს მიერ გამოქვეყნებულ სერვისებთან.
-    captcha: "Captcha*:"
-    email_help: ელ. ფოსტის მითითება არაა სავალდებულო (აუცილებელია მიუთითოთ მხოლოდ საკონტაქტო ტელეფონის ნომერი თქვენი სერვისის აღწერის ნაწილში ). თუ თქვენ მიუთითებთ ელ.ფოსტას, ის საჯაროდ არ გამოქვეყნდება, მაგრამ მომხმარებლებს მაინც შეეძლებათ თქვენთან წერილის მოწერა.
-    post_is_deleted: "'%{deleted_post_title}' სერვისი წაშლილია."
-    your_email: Your email
-    location_website: "ვებ.გვერდი:"
-    your_message: "თქვენი წერილი*:"
-    send_message: გააგზავნეთ წერილი
-    send_message_label: "გააგზავნე წერილი %{name} მათი სერვისების შესახებ:"
-    description: სერვისების აღწერა
-    description_en: Description of Services (en)
-    description_ka: სერვისების აღწერა (ge)
-    funding_source: დაფინანსების წყარო
-    beneficiaries_age_group: ბენეფიციარების ასაკობრივი ჯგუფი
-    legal_form: იურიდიული ფორმა
-    parental_support: მშობელთა მხარდაჭერა
-    location_description: "ამ ადგილის შესახებ:"
-    description_help: "დაამატეთ ინფორმცია თქვენი სერვისების შესახებ, განსაზღვრეთ თუ რა ინფორმაცია გინდა მიაწოდოთ სამიზნე აუდიტორიას თქვენი სერვისების შესახებ."
-    new_location: შეიყვანე ახალი ადგილმდებარეობა
-    choose_existing: აირჩიეთ არსებული ადგილმდებარეობა
-    service_category: "სერვისების კატეგორიები*"
-    please_select_apply: "გთხოვთ მონიშნეთ ყველა პასუხი რომელიც შეგესაბამება"
-    create_this_post: დაარეგისტრირეთ ჩემი სერვისი!
-    create_success: სერვისის '%{title}' შექმნილია. თქვენ მიიღებთ ელ.ფოსტას სერვისის დეტალური ინფორმაციის შესახებ.
-    where_to_find: "ადგილმდებარეობა:"
-    where_to_bring: "Where to bring the service(s):"
-    you_own: თქვენ შექმენით სერვისი
-    you_manage: თქვენ შეგიძლიათ მართოთ ის
-    here: აქ
-    error_empty_message: "გთხოვთ შეავსოთ ველი, ცარიელი წერილის გადაგზავნა არ შეიძლება."
-    from: From
-    get_back_to: თქვენს პირადად შეგიძლიათ დაუკავშირდეთ %{first_name} საპასუხო წერილით.
-    success_sent: თქვენი წერილი წარმატებით გადაიგზავნა.
-    post_create_expire: თქვენ სერვის ვადა გაუვა %{day_number} დღეში , კერძოდ %{expire_date}.
-    post_has_expired: ბოდიშს გიხდით აღნიშნულ სერვისს გაუვიდა ვადა და ის აღარ არის ხელმისაწვდომი.
-    no_post_created_yet: ამ ეტაპზე თქვენ არ გაქვთ შექმნილი სერვისი. სერვისის შესაქმნელად, დააწკაპუნეთ ზედა ღილაკზე.
-    no_location_yet: "აქ ცვლილებებს ვერ შეიტანთ: ჯერ თქვენ არ შეგიქმნიათ სერვისი, რომელსაც განსაზღვრული ექნება ადგილმდებარეობა."
-    upload_image: "ლოგოს ან სურათის ატვირთვა:"
-    less_than_limit: სურათის ზომა არ უნდა აჭარბებდეს 5MB.
-    remove_image: სურათის გაუქმება
-    image_currently_processed: მიმდინარეობს სურათის დამუშავება.
-    show_post_image_processed: აღნიშნული სერვისის სურათი დამუშავებულია.
-    will_show_up: ცვლილებები აისახება გვერდის განახლების შემდეგ.
-    create_item: ახალი სერვისის ტიპის შექმნა
-    create_location: Create a new location
-    write_new_item: ჩაწერეთ თქვენის სერვისის ტიპი აქ.
-    add_item: ახალი სერვისის ტიპის დამატება
-    see_published: გამოქვეყნებული სერვისის ტიპის ნახვა
-    see_non_published: სერვისი არაა ჯერ გამოქვეყნებული
-    error_post_must_have_item: გთხოვთ დაამატეთ სულ მცირე ერთი სერვისის ტიპი.
-    error_post_must_have_location: Please enter at least one location.
-    error_post_must_have_category: გთხოვთ აირჩიოთ სულ მცირე ერთი კატეგორია.
-    image_selected: Image is selected. It will be uploaded once this post is created.
-    provide_anon_name: გთხოვთ შეიყვანოთ თქვენი სახელი
-    provide_anon_email: გთხოვთ შეიყვანოთ თქვენი ელ.ფოსტა
-    captcha_not_valid: თქვენს მიერ შეყვანი ტექსტი არ შეესატყვისება ქვემოთ მოცემულ ტექსტს.
-    create_account_first_html: "%{create_account} ან %{sign_in} სანამ გამოაქვეყნებთ თქვენს სერვისს, თუ გსურთ რომ რედაქტირება გაუკეთოთ თქვენს სერვისს მოგვიანებით."
-    funding_private: კერძო
-    funding_municipality: მუნიციპალიტეტი
-    funding_government: საჯარო
-    funding_other: სხვა
-    post_not_published_html: "ეს სერვისის არაა ჯერ გამოქვეყნებული. მოძებნეთ %{editpage} და დააწკაპუნეთ გამოქვეყნება."
-    post_to_be_reviewed: "თქვენის სერვისი დადასტურდება ადმინისტრატორის მიერ და შემდეგ გამოქვეყნდება. ( ამ ეტაპზე მხოლოდ თქვენ შეგიძლიათ ამ სერვისის ნახვა)."
-    edit_page: სერვისის გვერდის რედაქტირება
-    under_review: თქვენის სერვისი არაა გამოქვეყნებული, ის ჯერ განხილვის პროცესშია.
-    log_in_to_send_html: "გთხოვთ %{login} ან %{create} თუ გსურთ რომ გააგზავნოთ ტექსტური შეტყობინება."
-    no_user_tied_yet: "- ამჟამად არაა სერვისის მიმწოდებელი -"
-    select_user: მომხმარებლის არჩევა
-    municipal_type: მუნიციპალიტეტი
-    government_type: საჯარო
-    ngo_type: არასამეწარმეო არაკომერციული იურიდიული პირი (ააიპ) -NGO
-    local_org: ადგილობრივი ორგანიზაცია
-    disabled_org: შეზღუდული შესაძლებლობების მქონე პირთა ორგანიზაცია (DPO)
-    inter_ngo_type: საერთაშორისო არასამეწარმეო არაკომერციული იურიდიული პირი (ააიპ)
-    community_org: სათემო
-    private_type: კერძო
-    other: სხვა
-    select_new_location: არსებული ადგილმდებარეობის არჩევა ან ახალის შექმნა.
-  region:
-    tbilisi: თბილისი
-    guria: გურია
-    imereti: იმერეთი
-    kakheti: კახეთი
-    kvemo_kartli: ქვემო ქართლი
-    kazbegi: ყაზბეგი
-    mtskheta_mtianeti: მცხეთა-მთიანეთი
-    racha: რაჭა
-    svaneti: სვანეთი
-    samegrelo: სამეგრელო
-    samtskhe_javakheti: სამცხე-ჯავახეთი
-    shida_kartli: შიდა ქართლი
-    adjara: აჭარა
-    abkhazia: აფხაზეთი
-    khevsureti: ხევსურეთი
-    tusheti: თუშეთი
-    south_osettia: სამხრეთ ოსეთი
-    create_account_first_html: "%{create_account} ან %{sign_in} სერვისის განთავსებამდე, თუ გაქვთ სურვილი შეცვალოთ ან წაშალოთ ის მოგვიანებით."
-  mailer:
-    hello: "გამარჯობათ %{name}"
-    welcome: "მადლობას გიხდით %{name} სტუმრობისათვის! მალე თქვენ შეძლებთ მოიძიოთ დეტალური ინფორმაცია სარეაბილიტაციო სერვისების შესახებ საქართველოში."
-    account_created: "თქვენს სახელზე უკვე შექმნილია გვერდი.დააწკაპუნეთ ქვემოთ მითითებულ ლინკზე, რათა მოხდეს თქვენი ელ.ფოსტის დადასრურება და თქვენ გქონდეთ სრული წვდომა %{name} სერვისებზე მიმართ:"
-    confirm_account: ჩემი მონაცემების დადასტურება
-    as_soon_as: როგორც კი მოხდება თქვენი მონაცემების დადასტურება, თქვენ შეგიძლიათ ნებისმიერ დროს შეხვიდეთ თქვენს შექმნილ გვერდზე, შესვლა - ზე დააწკაპუნეთ  %{name} თქვენს გვერდზე შესასვლელად. გვერდზე.
-    need_assistance: "თუ გსურთ დახმარება სასურველი სერვისის მოძებნაში ან დატოვოთ შეტყობინება გთხოვთ მოგვწეროთ: info.rehabge@gmail.com ან დაგვიკავშრდეთ ტელეფონზე 0 800 900 902"
-    phone_number: "ასევე თქვენს შეგიძლიათ დაგვიკავშირდეთ ტელეფონის ნომერზე:"
-    thanks: "მადლობას გიხდით რეგისტრაციისათვის. იმედია კმაყოფილი დარჩებით %{name ის გამოყენებით."
-    thanks_short: "მადლობა"
-    register: "სერვისის რეგისტრაციისათვის დაგჭირდებათ თქვენს გვერდზე შესვლა და მიჰყვეთ მარტივ ინსტრუქციებს:"
-    register_1: "დააწკაპუნეთ 'სერვისის რეგისტრაცია'"
-    register_2: სრულად შეავსეთ აპლიკაცია. თქვენ შეგიძლიათ დაარეგისტრიროთ შეუზღუდავი რაოდენობის სერვისები, მაგრამ ისინი აუცილებლად უნდა იყოს დაკავშირებული თქვენს საქმიანობასთან.
-    register_3: რეგისტრაცია
-    signature: "%{name} გუნდი"
-    dear: "ძვირფასო %{name}"
-    post_created: თქვენ წარამტებით დაარეგისტრირეთ აღნიშნული სერვისი %{site_name} ზე
-    user_is_admin_html: "თქვენ ხართ  %{site_name} ვებ გვერდის %{new_role} ."
-    post_title: სერვისის დასახელება
-    description: აღწერა
-    where_pick_up: Where to pick up the item
-    admin_panel: უნდა შეხვიდეთ
-    manage_post_html: "არსებული სერვისის ან თქვენს მიერ უკვე განთავსებული სერვისის განსაახლებლად, %{admin_panel}"
-    thanks: მადლობა!
-    received_message: თქვენ მიიღეთ საპასუხო წერილი'%{post_title}' -ზე  %{site_name} ვებ გვერდზე.
-    new_post_object: თქვენი სერვისი დარეგისტრირდა %{site_name} - '%{post_title}'
-    new_post_to_review: "ახალი სერვისის ნახვა: '%{title}'"
-    updated_service: "სერვისი განახლება: '%{title}'"
-    reply_post_object: თქვენ მიიღეთ წერილი, თქვენს მიერ განთავსებულ '%{post_title}' სერვისზე %{site_name}
-    you_are_admin_html: "თქვენ ხართ %{site_name} %{new_role} ."
-    account_locked: თქვენ ხუთჯერ არარასწორად შეიყვანეთ პაროლი და თქვენი გვერდი დაიბლოკა.
-    link_unlock: დააწკაპუნეთ ქვემოთ მითითებულ ლინკზე რომ მოხდეს გვერდიდან ბლოკის ახსნა
-    unlock_account: ბლოკის მოხსნა
-    post_will_expire: ამ სერვისს ვადა გადის %{day_number} დღეში, %{expire_date} დღეს
-    new_service_posted: "მომხმარებელმა %{sitename} ზე განათავსა ახალი სერვისი '%{title}'."
-    service_just_updated: "სერვისის სახელწოდება '%{title}' შეიცვალა %{sitename}. "
-    review_it_html: "თქვენ შეგიძლიათ შეამოწმოთ სერვისი %{link}."
-    after_review: "შემოწმების შემდეგ, არ დაგავიწყდეთ გამოაქვეყნოთ სერვისი თუ გსურთ რომ ის გახდეს საჯაროდ ხელმისაწვდომი."
-  registration:
-    all_mandatory: (ყველა ველის შევსება სავალდებულოა)
-    first_name: სახელი
-    last_name: გვარი
-    first_name_en: სახელი (en)
-    last_name_en: გვარი (en)
-    first_name_ka: სახელი (ge)
-    last_name_ka: გვარი (ge)
-    username: სახელი რეგისტრაციისათვის
-    username_help: თქვენს მიერ შერჩეული სახელი რეგისტრაციისათვის იქნება გამოყენებული იმ შემთხვევაში თუ თქვენ გაქვს სურვილი დარჩეთ ანონიმური.
-    email: ელ.ფოსტა
-    password: პაროლი
-    password_help: პაროლი უნდა იყოს მინიმუმ 8 სიმბოლო.
-    password_confirm: პაროლის დადასტურება
-    register_service: გეგმავთ სერვისის დარეგისტრირებას?
-    is_provider: "დიახ"
-    is_not_provider: "არა"
-    sign_up: რეგისტრაცია
-    not_received: ჯერ არ მოგსვლიათ დადასტურების წერილი?
-    waiting_confirmation: მოიცადთ დადასტურების წერილის მისაღებად
-    leave_blank: (დატოვეთ შეუვსებელი თუ არ გინდათ რომ შეცვალოთ რამე)
-    need_current: (საჭიროა თქვენ ახალი პაროლი რომ მოხდეს ცვლილებების დადასტურება)
-    unhappy: არ მოგწონთ?
-    you_sure: დარწმუნებული ხართ?
-    back: უკან დაბრუნება
-    resend_unlock: ბლოდის მოხსნის ინსტრუქციის ხელახლა გადაგზავნა
-    cancel_account: გვერდის გაუქმება
-  confirmation:
-    resend: დადასტურების წერილის ხელახლა გადაგზავნა
-  session:
-    hello: გამარჯობა
-    sign_in: შესვლა
-    someone_requested: შემოვიდა მოთხოვდა ლინკზე თქვენი პაროლის შეცვლისათვის. გთხოვთ მიჰყევით ქვემოთ მითითებულ ინსტრუქციას.
-    please_ignore: თუ თქვენ არ მოგითხოვიათ პაროლის შეცვლა, უგულვებელყავით აღნიშნული წერილი.
-    password_not_changing: თქვენი პაროლი არ შეიცვლება სანამ თქვენ არ დააწკაპუნებთ ლინკზე და შექმნით ახალ პაროლს.
-    forgot: დაგავიწყდათ პაროლი?
-    not_received_unlock: არ მოგსვლიათ ბლოკის მოხსნის ინსტრუქციე?
-    sign_in_with: "შესვლა %{name}"
-    change_password: პაროლის შეცვლა
-    reset_password: გადმომიგზავნეთ პაროლის შეცვლის ინსტრუქცია.
-    change_your_password: პაროლის შეცვლა
-  admin:
-    dashboard: მთავარი გვერდი
-    disclaimer: "Rehab GE -ს მეშვეობით ჩვენ ვცდილობთ მივაწოდოთ ჩვენს მომხმარებლებს მხოლოდ ხარისხიანი ინფორმაცია. თუ ნებისმიერ დროს თქვენ უკმაყოფილო იქნებით საიტის გამოყენებით ან შეგექმნებათ პრობლემა ნებისმიერ რეგისტრირებულ სერვისის მიმწოდებელთან, გთხოვთ შეგვეხმიანოთ info.rehabge@gmail.com ან  დაგვირეკოთ 0 800 900 902. თქვენი უკუკავშირი მნიშვნელოვანია."
-    todo_list: გასაკეთებელი საქმის სია
-    name: სახელი
-    address: "მისამართი/რეგიონი/საფოსტო ინდექსი"
-    address_en: მისამართი (en)
-    address_ka: მისამართი (ge)
-    exact_area: ადგილმდებარეობის განსაზღვრა
-    posts: სერვისები
-    post_settings: სერვისების მონაცემები
-    location_name: ადგილი
-    expiration_date: ვადის გასვლა
-    locations: ადგილმდებარეობა
-    location_tab: ადგილი
-    items: "სერვისების ტიპი/ები"
-    item_name: სერვისის ტიპი
-    categories: კატეგორიები
-    add_location: ადგილის დამატება
-    add_faq: "კითხვა/პასუხის დამატება"
-    check_faq: ნახეთ გამოქვეყნებული ხშირად დასმული კითხვები
-    no_question: "კითხვა/პასუხები არაა"
-    edit_faq: "შეკითხვის/პასუხის რედაქტირება"
-    edit_location: ადგილმდებარეობის განახლება
-    new_location: ახალი ადგილმდებარეობა
-    add_item: სერვისის ტიპის დამატება
-    edit_item: სერვისის ტიპის რედაქტირება
-    new_item: სერვისის ახალი ტიპი
-    is_service_provider: "This new user is a service provider"
-    add_category: კატეგორიის დამატება
-    edit_category: კატეგორიის რედაქტირება
-    new_category: ახალი კატეგორია
-    title: სათაური
-    question: კითხვა
-    answer: პასუხი
-    actions: მოქმედება
-    description: აღწერა
-    description_en: "აღწერა (en)"
-    description_ka: "აღწერა (ge)"
-    category_name: კატეგორიის სახელწოდება
-    category_name_en: "კატეგორიის სახელწოდება (en)"
-    category_name_ka: "კატეგორიის სახელწოდება (ge)"
-    marker: ფერი
-    icon: Icon
-    edit_delete: "განახლება / წაშლა"
-    created_by_user: მომხმარებლის მიერ შექმნილი
-    update_post: სერვისის განახლება
-    manage_your_posts: სერვისების მართვა
-    manage_records: მონაცემების მართვა
-    records_message: "ვებ გვერდზე განთავსებული სერვისების მართვა, ასევე ადგილმდებარეობის და კატეგორიების რედაქტირება."
-    faq_message: "RehabLink ხშირად დასმული კითხვების გვერდის რედაქტირება."
-    back_to_records: "'მონაცემების მართვა' გვერდზე უკან დაბრუნება"
-    back_to_posts: "'სერვისების მართვა' გვერდზე უკან დაბრუნება"
-    back_to_users: "'მომხმარებლის მართვა' გვერდზე უკან დაბრუნება"
-    create_post: სერვისის შექმნა
-    mandatory: "(* სავალდებულო ველი)"
-    general_settings_menu: ზოგადი მონაცემები
-    save: შენახვა
-    nothing_to_do: მოქმედება დასრულებულია
-    no_mapbox_account_html: "თქვენ ჯერ არ შეგიყვანიათ Mapbox ის კოდი  'რუკის მონაცემები' ში. თქვენ შეგიძლიათ გახსნათ თქვენი გვერდი <strong>%{mapbox_website}</strong>, თუ გინდათ ვებ გვერდისათვის ახალი რუკის სტილის შექმნა."
-    no_mapquest_account_html: "თქვენ არ შეგიყვანიათ MapQuest კოდი, 'რუკის მონაცემები' ში. თქვენ შეგიძლიათ გახსნათ თქვენი გვერდი <strong>%{mapquest_website}</strong>, თუ გინდათ ვებ გვერდისათვის ახალი რუკის სტილის შექმნა."
-    no_social: "თქვენ არ შეგიყვანიათ სოციალური ქსელის ლინკები (Facebook, Twitter, Pinterest), 'ზოგადი მონაცემები'. გთხოვთ შეიყვანოთ რამოდენიმე სოციალური გვერდის ლინკი, თუ გახდეთ უფრო შესამჩნევი."
-    one_category_html: "<strong> მხოლოდ ერთი კატეგორიაა ხელმისაწვდომი </strong>. გთხოვთ შექმნათ რამოდენიმე კატეგორია რომ გახადოთ მომხმარებლის ძებნა უფრო სრულყოფილი."
-    no_website_description: "ვებ გვერდის აღწერა არაა განთავსებული 'ზოგად მონაცემები' ში. აღწერეთ თქვენი ვებ გვერდი რომ მომხმარებელს საშუალება ქონდეს უკეთ გაგიცნოს. თქვენს მიერ დაწერილი გვერდი აღწერა გამოჩნდება მთავარი გვერდის ქვედა კუთხეში , 'შესახებ' გვერდზე."
-    no_area_type_html: "<strong> არეალის არაა განსაზღვრული </strong>. არეალის ტერიტორიის განსაზღვრის არ არსებობის შემთხვევაში, რეგისტრირებული მომხმარებელი იძულებული იქნება მიუთითოს ზუსტი მისამართი ( რომლის მითითებაც მომხმარებელს არ უნდა). 'არეალის მონაცემები' ში , მიუთითეთ როგორ განსაზღვრავთ არეალს ( საფოსტო ინდექსი ან რეგიონი ) , ეს არჩევნის საშუალებას მისცემს მომხმარებელს როდესაც საქმე მივა ადგილმდებარეობის არჩევანზე."
-    you_admin: თქვენ ხართ ამ ვებ გვერდის ადმინისტრატორი.
-    you_super_admin: თქვენ ხარ ვებ გვერდის სუპერ ადმინისტრატორი.
-    use_left_hand: გამოიყენეთ მარცხენა მხარეს განთავსებული მენიუ მონაცემთა სამართავად
-    admin_descr1: "ვებ გვერდის სხვადასხვა კომპონენტები ( სერვისები, ადგილმდებარეობა, სერვისების ტიპები, კატეგორიები )"
-    admin_descr2: "რეგისტრირებული მომხმარებლები ( ადმინისტრატორები და ჩვეულებრივი მომხმარებლები )"
-    admin_descr3: ვებ გვერდის ძირითადი მონაცემები
-    admin_descr4: რუკის მონაცემები მთავარ გვერდზე
-    admin_descr5: "მონაცემები, რომელიც განსაზღვრავს თქვენი ქალაქის არეალს (მაგ. საფოსტო ინდექსი და/ან რეგიონი)"
-    admin_descr6: ვებ გვერდი სტატისტიკა.
-    regular_actions: თქვენ შეგიძლიათ განახორციელოთ ჩვეულებრივი მომხმარებლის ფუნქციებიც.
-    todo_list: გასაკეთებელი საქმის ნუსხა
-    welcome_user: "კეთილი იყოს თქვენი მობრძანება %{site_name} გვერდზე. მონაცემთა სამართავად გამოიყენეთ მარცხენა მხარეს განთავსებული მენიუ, რომლის მეშვეობითად თქვენ შეძლებთ:"
-    user_descr1: განთავსებული სერვისების მართვას და მათ დაკავშირებას სასურველ ადგილმდებარეობასთან.
-    user_descr2: თქვენს მომხმარებლის გვერდზე არსებულ ინფორმაციის მართვას.
-    user_descr3: „გამორჩეულ სერვისებში“ განთავსებულ სერვისების რედაქტირებას.
-    social_media: სოციალური მედია
-    useful_links: სასარგებლო ლინკები
-    delete_sure: "დარწმუნებული ხართ რომ გინდათ წაშალოთ %{entity}?"
-    warning_posts_before_delete_item: "გაფრთხილება: ზოგი სერვისები ჯერ კიდევ დაკავშირებულია ამ სერვისის ტიპთან. ამ სერვისის წაშლა გამოიწვევს მის მთლიან ამოღებას სერვისების ტიპებიდან."
-    warning_posts_before_delete_location: "გაფრთხილება: ზოგი სერვისები ჯერ კიდევ დაკავშირებულია ამ სერვისის ტიპთან. ამ სერვისის წაშლა გამოიწვევს მის მთლიან ამოღებას სერვისების ტიპებიდან."
-    delete_confirm: "დიახ, %{entity} წაშლა"
-    save_not_possible: "საცდელი - ამ გვერდი განახლება შეუძლებელია"
-    see_service: სერვისის ნახვა
-    left_menu:
-      admin_task: ადმინისტრატორი
-      user_tasks: მომხმარებელი
-      map_settings: რუკის მონაცემები
-      area_settings: არეალის მონაცემები
-      manage_users: მომხმარებელთა მართვა
-      manage_profile: პროფილის რედაქტირება
-      favorite_services: გამორჩეული სერვისები
-      manage_faq: ხშირად დასმული შეკითხვების მართვა
-    post:
-      manage_posts: სერვისების მართვა
-      post_edit: "სერვისების დეტალები - რედაქტირება"
-      post_updated: "სერვისის '%{title}' რედაქტირებული იქნა."
-      error_update: " მოხდა %{errors} სერვისის განახლების დროს"
-      delete: სერვისის წაშლა
-      delete_post_error_html: "მოხდა Error აერვისის განახლების დროს! უკან დაბრუნება %{href}"
-      manage_posts_page: "'თქვენი სერვისების მართვა გვერდი"
-      giving_accepting_title: Giving away/Accepting
-      giving_away: Giving away
-      accepting: Accepting
-      delete_post: სერვისის წაშლა?
-      delete_post_permanently: "დარწმუნებული ხართ რომ გინდათ წაშალოს აღნიშნული სერვისი?"
-      delete_this_post: დიახ, ამ სერვისის წაშლა
-    location:
-      error_occurred: "%{errors} ადგილის შენახვის დროს"
-      update_success: "ადგილის '%{name}' განახლდა."
-      created_success: "ადგილის '%{name}' შეიქმნა."
-      delete: ადგილმდებარეობის წაშლა
-      linked_posts: ამ ადგილმდებარეობასთან დაკავშირებული სერვისები
-      no_post: ამ ეტაპზე აღნიშნულ ადგილი არაა დაკავშირებული რომელიმე ტიპის სერვისთან.
-      area: არეალი
-      exact_address: ზუსტი მისამართი
-      map_notification_postal_code: დააწკაპუნეთ რუკაზე რომ განსაზღვროთ თქვენი საფოსტო კოდის არეალი.
-      map_notification_exact: დააწკაპუნეთ რუკაზე რომ განათავსოთ თქვენი ზუსტი მისამართი.
-      location_deleted: "ადგილმდებარეობა '%{deleted_location_name}' წაიშალა."
-      unnamed: ადგილმდებარეობა დასახელების გარეში
-      area_name: "%{area} არეალი"
-      no_post_tied: ამ ეტაპზე აღნიშნულ ადგილი არაა დაკავშირებული რომელიმე ტიპის სერვისთან.
-      anonymous_user: (ანონიმური მომხმარებელი)
-    category:
-      update_success: "კატეგორიის რედაქტირება."
-      created_success: "კატეგორიის შექმნა."
-      cat_error_occurred: "%{errors} ამ კატეგორიის შენახვის დროს"
-      delete_category: კატეგორიის წაშლა
-      choose_icon: სიმბოლოს არჩევა
-      delete_confirm: "დარწმუნებული ხართ რომ გინდათ ამ კატეგორიის წაშლა?"
-      before_you_delete1: რამოდენიმე სერვისის მიმწოდებელი ჯერ კიდევ არის დაკავშირებული იმ კატეგორიასთან რომლის წაშლაც თქვენ გინდათ.
-      before_you_delete2: გთხოვთ ჩამონათვალიდან აირჩიოთ სხვა კატეგორია და გადაამისამართოთ სერვის პროვაიდერები ახალ კატეგორიაზე ვიდრე წაშლით იმ კატეგორიას და შესაბამისა სერვისის მიმწოდებლებს.
-      cannot_delete: ამ კატეგორიის წაშლა შეუძლებელია, რადგან ის ერთადერთი არსებული კატეგორიაა.
-      delete_yes: დიახ, ამ კატეგორიის წაშლა
-      transfer_and_delete: სერვისის მიმწოდებლების გადამისამართება და კატეგორიის წაშლა
-      success_deleted: კატეგორიის '%{name}' წაიშალა.
-      marker: კატეგორიის ფერი
-      icon: კატეგორიის სიმბოლო
-      currently_selected: არჩეული სიმბოლო
-      font_awesome_link_html: "აირჩიეთ სიმბოლოდ %{our_selection} დან."
-      font_awesome_link2_html: თქვენს ასევე შეგიძლიათ აირჩიოთ სიმბოლო სრული ჩამონათვალიდან რომელიც განთავსებულია %{fa_website} ბიბლიოთეკაში და ქვემოთ ჩაბეჭდოთ საძიენო სიტყვა.
-      font_awesome_help: ჩაბეჭდეთ სიმბოლოს დასახელება ზუსტად ისე როგორც ეს წერია Font Awesome გვერდზე.
-      item_linked: ამ კატეგორიასთან დაკავშირებული სერვისები
-      item_name: სერვისის სახელწოდება
-      no_item: ამ ეტაპზე აღნიშნულ კატეგორიასთან არაა დაკავშირებული არცერთი სერვისი.
-      your_marker_icon: თქვენი ფერი და სიმბოლო
-      marker_icon_not_unique: "აღნიშნული სიმბოლო და ფერიც უკვე გამოყენებულია სხვა კატეგორიასთან. გთხოვთ აირჩიოთ სხვა ფერი და/ან სიმბოლო."
-      our_selection: ჩამონათვალი
-    item:
-      error_occurred: "%{errors} ამ სერვისის ტიპის შენახვის დროს "
-      update_success: "სერვისის ტიპის '%{name}' განახლდა."
-      created_success: "სერვისის ტიპის '%{name}' შეიქმნა."
-      delete_item: ამ სერვისის ტიპის წაშლა
-      delete_faq: კითხვის წაშლა
-      name_en: "სერვისის ტიპის სახელი (en)"
-      name_ka: "სერვისის ტიპის სახელი (ge)"
-      posts_promoting: სერვისები რომლებიც რეკლამირებენ სერვისის ტიპს
-      post_title: სერვისის დასახელება
-      no_post: ამ ეტაპზე აღნიშნული სერვისის ტიპი არ გამოიყენება არცერთ სერვისთან.
-      item_deleted: "სერვისის ტიპი '%{deleted_item_name}' წაიშალა."
-    general_settings:
-      name: ვებ გვერდის სახელწოდება
-      description: ვებ გვერდის აღწერა
-      description_ka: ვებ გვერდის აღწერა (ge)
-      summary: ვებ გვერდის სარჩევი
-      summary_ka: ვებ გვერდის სარჩევი (ge)
-      contact_email: "საკონტაქტო - ელ.ფოსტა"
-      facebook: Facebook გვერდი URL
-      instagram: Instagram გვერდი
-      pinterest: Pinterest გვერდი URL
-      success_message: ზოგადი მონაცემები განახლდა.
-      error_message: "'ვებ გვერდი' ს ველი არ შეიძლება იყოს ცარიელი."
-      max_post_expire: "სერვისს ვადა გადის - დღეების მაქსიმალური რაოდენობა."
-      max_post_expire_help: დღეების მაქსიმალური რაოდენობის დაყენება, როდესაც სერვისი იქნება განთავსებული ონლაინ მისი გამოქვეყნების დღიდან. (შეიყვანეთ '0' თუ გინდათ რომ განთავსებული სერვისის ხანგრძლივობა იყოს ულიმიტო).
-      link_one: პირველი ლინკი
-      link_one_ka: პირველი ლინკი (ge)
-      link_two: მეორე ლინკი
-      link_two_ka: მეორე ლინკი (ge)
-      link_three: მესამე ლინკი
-      link_three_ka: მესამე ლინკი (ge)
-      link_four: მეოთხე ლინკი
-      link_four_ka: მეოთხე ლინკი (ge)
-      link_five: მეხუთე ლინკი
-      link_five_ka: მეხუთე ლინკი (ge)
-      link_six: მეექვსე ლინკი
-      link_six_ka: მეექვსე ლინკი (ge)
-      link_help: თქვენ შეგიძლიათ დაამატოთ 6 მდე ლინკი აღნიშნულ სექციაში, რომ დააპიაროთ ვებ გვერდის შესაბამისი გვერდები.
-    area_settings:
-      title: არეალის მონაცემები
-      define_area: შეიძლება არეალის განსაზღვრა
-      by_postal_code: საფოსტო კოდით
-      by_district: რეგიონის მიხედვით
-      area_postal_code: არეალი განსაზღვრული საფოსტო კოდით
-      area_district: არეალი განსაზღვრული რეგიონით
-      district_name: რეგიონის დასახელება
-      add_district: რეგიონის დამატება
-      map_description: "ამ რუკის გამოყენებით თქვენ შეგიძლიათ მოხაზოთ, განაახლოთ ან წაშალოთ თქვენი რაიონის საზღვრები."
-      error_update_district: რაიონის განახლების დროს დაფიქსირდა სერვერის პრობლემა. გთხოვთ მოგვიანებით ცადოთ.
-      error_save_district: რაიონის შენახვის დროს დაფიქსირდა სერვერის პრობლემა. გთხოვთ მოგვიანებით ცადოთ.
-      save_success: დაემატა ახალი რაიონი.
-      save_name_success: რაიონის დასახელება წარმატებით განახლდა.
-      error_name_save: რაიონის სახელის განახლებისას დაფიქსირდა შეცდომა. მოგვიანებით ცადეთ.
-      update_success: აღნიშნული რაიონები წარმატებით განახლდა.
-      delete_success: წაშლა დასრულებულია.
-      delete_error: რაიონის წაშლისას დაფიქსირდა შეცდომა. მოგვიანებით ცადეთ.
-    map_settings:
-      title: რუკის მონაცემები
-      type: "რუკის ტიპი:"
-      mapbox: "Mapbox API კოდი:"
-      mapbox_link: "Mapbox გვერდის შესვლა..."
-      mapquest: "MapQuest API კოდი:"
-      mapquest_link: "დაბრუნდით MapQuest შემქნელ გვერდზე..."
-      map_api_keys: API რუკის კოდები
-      key_first: ახალი API კოდის შეყვანის შემდეგ უპირველესად შეინახეთ ცვლილებები.შემდეგ ჩამოშალეთ ზედა უჯრა და მოძებნეთ რუკის სახეობა რომელიც შეესატყვისება ახალი კოდს.
-      location_info: ინფორმაცია ადგილმდებარეობაზე
-      postal_code_field1: საფოსტო კოდის სიგრძე
-      postal_code_field2: არეალის სიგრდძე
-      postal_code_help1: "ქალაქის საფოსტო ინდექსში გამოყენებული მაქსიმალური სიმბოლოების რაოდენობა (მაგ. 6 - 'A1B2C3')"
-      postal_code_help2: "ქალაქის საფოსტო ინდექსში არსებული ასოების მაქსიმალური რაოდენობა (მაგ. 3  'A1B')"
-      find_city_map: "ქალაქის მოძებნა რუკაზე:"
-      city: ქალაქი
-      english_map: Mapbox English map ID
-      georgian_map: Mapbox ქართული რუკა ID
-      state: "რეგიონი (არჩევითი)"
-      country: ქვეყანა
-      find_city: ქალაქის მოძებნა
-      map_description: "- დააწკაპუნე რუკაზე. არჩეული ადგილი იქნება აღნიშნული რუკაზე იმ შემთხვევაში თუ ზუსტი მისამართი არ იქნა მითითებული მომხმარებლის მიერ."
-      map_description_zoom: "- ზუმის სასურველი დონის განსაზღვრა (დააკლიკე '-' ან '+')."
-      should_be_numeric: გრძივი და განიდის მონაცემები უნდა იყოს გამოხატული ციფრებში.
-      cannot_be_empty: გრძივი და განიდის მონაცემები არ შეიძლება იყოს ცარიელი.
-      postal_area_error: საფოსტო კოდის სიგრძე უნდა აღემატებოდეს ან უტოლდებოდეს არეალის კოდს.
-      update_success: რუკის მონაცემები განახლდა.
-      area_update_success: არეალის მონაცემები განახლდა.
-      update_success_demo: "მხოლოდ რუკის ტიპის იქნა რედაქტირებული (საცდელი ვერსია)."
-      demo_message: საცდელი ვერსიაში თქვენს მხოლოდ შეგიძლიათ განაახლოთ "რუკის ტიპი".
-    users:
-      title: მომხმარებელთა მართვა
-      description: "ან ანგარიშიდან თქვენ შეგიძლიათ მომხმარებელთა მართვა ( ადმინისტრატორი და ჩვეულებრივი მომხმარებლები )."
-      add: მომხმარებლის შექმნა
-      email: ელ. ფოსტა
-      full_name: სრული სახელი
-      role: ფუნქცია
-      error_occurred: "%{errors} წარმოიქნბა ამ მომხმარებლის შენახვისას"
-      myprofile_update_success: თქვენი მომხმარებლის ანგარიში განახლდა.
-      update_success: "მომხმარებლის '%{email}' განახლდა."
-      created_success: "მომხმარებლის '%{email}' შეიქმნა. გაწევრიანების დადასტურების წერილი გადაიგზავნა მითითებულ ელ. ფოსტაზე."
-      delete: აღნიშნული მომხმარებლის წაშლა
-      confirm_delete: "გაფრთხილება: ყველა სერვისი მათ შორის ადგილები რომელიც რეგისტრირებულია ამ მომხმარებლის მიერ სრულად წაიშლება."
-      confirm_delete_2: "დარწმუნებული ხარ რომ გინდა ამ მომხმარებლის წაშლა?"
-      delete_yes: დიახ, მომხმარებლის წაშლა
-      user_destroyed: "მომხმარებლის '%{email}' და მათ მიერ განთავსებული სერვისები წაიშალა."
-      delete_not_possible: "საცდელი ვერსია - მომხმარებელთა წაშლა შეუძლებელია"
-    profile:
-      title:  პროფილის მართვა
-      title_manage_users: მომხმარებლების მართვა
-      update_profile: პროფილის განახლება
-      new_user: ახალი მომხმარებელი
-      user_role: მომხმარებლის როლი
-      regular_user: ჩვეულებრივი მომხმარებელი
-      admin_user: ადმინისტრატორი
-      super_admin_user: სუპერ ადმინისტრატორი
-      make_user_admin: "აღნიშნული მომხმარებლის ადმინისტრატორად დანიშვნა."
-      first_name: სახელი
-      first_name_en: სახელი (en)
-      first_name_ka: სახელი (ge)
-      last_name: გვარი
-      last_name_en: გვარი (en)
-      last_name_ka: გვარი (ge)
-      username: სარეგისტრაციო სახელი
-      current_password: არსებული პაროლი
-      new_password: ახალი პაროლი
-      confirm_password: პაროლის დადასტურება
-      agree_to_tos: მე ვეთანხმები საიტის გამოყენების პირობებს
-      please_agree: ვიდრე გააგრძელებთ მუშაობას,გთხოვთ დაეთანხმოთ საიტის გამოყენების პირობებს
-      i_have_accepted_html: მე ვეთანხმები %{terms_and_conditions}.
-      terms_and_conditions: საიტის გამოყენების პირობები
-  setup:
-    choose_language: Please choose a language
-    madloba_setup: Madloba setup
-    welcome_madloba: Welcome to Madloba!
-    about_to_setup: You're about to finalize the Madloba setup on your server.
-    process_takes: This process will take about 10 minutes, then you'll be ready to go!
-    click_next: Click on "Next" to continue.
-    back: Back
-    back_language_html: (You can also go back and choose another language %{here}).
-    next: Next
-    step_html: "(step %{current_step}/6)"
-    general_info: General information
-    image_storage: Image storage
-    name_description: The name of your website
-    description_description: Write what your website is about...
-    map_settings: Map settings
-    city_help: The city your Madloba website is about
-    state_help: The state/province where this city is
-    country_help: The country where this city is
-    creation_admin: Creation of admin user
-    all_done: All done!
-    setup_successfully: Your Madloba website has been setup successfully!
-    add_config: There are some additional configurations to take care of.
-    check_config: Make sure to check them out in your admin panel!
-    enjoy: Enjoy!
-    go_to_website: Go to the home page!
-    name_cant_be_blank: The website name cannot be blank.
-    select_geocodes: Please select a center point on the map.
-    state_province: State/Province
-    find_city_on_map: Find this city on the map
-    map_description: "Click somewhere in your city: the marker showing up will set the middle of the map, on the home page of your website."
-    map_description_2: "Click also on '+/-' to choose the default level of zoom."
-    gmail_note: "If you've set up a Gmail address as your SMTP username, you need to let Google know about it. So before submitting this form:"
-    gmail_note2: Open a new tab right now, and log into your Gmail SMTP email account (log out from any other Gmail account).
-    gmail_note3_html: Notify Google that you want to use this Gmail account with a third-party website, by clicking %{here}.
-    gmail_link_here: here
-    gmail_note4: Once you're done, you can continue with the submission of this form.
-    confirm_email: If the information entered above in this form is correct, and after you click "Next", a confirmation e-mail will be sent to you.
-    check_email: Please check your inbox to confirm your account.
-    note_for_gmail: Important note on using GMail for SMTP settings
-    city_country_mandatory: "'City' and 'Country' fields are mandatory."
-    option_no_storage: Users won't be allowed to upload any pictures at all.
-    option_s3: Images will directly uploaded to Amazon S3.
-    option_server: Images will be stored on the same server where this Madloba website is deployed.
-    image_description: When users create services, they'll have the choice to attach an image with it.
-    image_server_or_s3_html: "This image can either be stored on your server, or on %{s3_link}"
-    image_s3_only_html: "Service images will be stored on %{s3_link}"
-    image_no_storage: Alternatively, you can choose not to have any image uploaded at all.
-    image_strategy: Image storage strategy
-    image_select_option: Please select below which photo storage strategy you'd like to choose.
-    install_guide: the installation guide
-    amazon_s3_warning_html: If you're choosing Amazon S3, make sure you've set up the relevant environment variables correctly (check out %{install_guide} - section about the set_environment_variables script - for more details).
-    image_error: A problem occured while saving your settings. Please refresh this page and try again in a moment.
-  terms_and_conditions:
-    title: საიტის გამოყენების პირობები
-    intro_1: აღნიშნულ გვერდზე თქვენ გაეცნობით ინფორმაციას ჩვენს შესახებ და სამართლებრივ ტერმინებსა და პირობებს, რომელიც  დაკავშირებულია საიტის გამოყენებასთან. გთხოვთ ყურადღებით გაეცნოთ დოკუმენტს სანამ გამოიყენებთ ვებ გვერდის სერვისს. აღნიშნული ონლაინ სერვისის არჩევით და სერვისის მიმწოდებლად რეგისტრაციის შემდეგ თქვენ ავტომატურად ეთანხმებით ქვემოთ მითითებულ საიტის მოხმარების წესებსა და პირობებს.
-    intro_2: მიზანშეწონილია აღნიშნული გვერდის ამობეჭდვა შენიშვნების შემთხვევაში.
-    intro_3: გაითვალისწინეთ რომ დრო და დრო შეიძლება მოხდეს საიტის გამოყენების პირობების შეცვლა, ამიტომ მიზანშეწონილია ვებ გვერდის გამოყენებისას ყოველ ჯერზე შეამოწმოთ საიტის გამოყენების პირობები, რათა გააზრებული გქონდეთ თუ რა ჩარჩოში ჯდება თქვენი ქმედება.
-    title_1: 1. ტერმინთა განმარტება
-    info_1_1: "საიტის მოხმარების წესში:"
-    info_1_2: "„მომხმარებელი“  არის ნებისმიერი ინდივიდი რომელიც იყენებს ვებ გვერდს რეაბილიტაციის სერვისების  მოძიების მიზნით. იქნება ეს რეგისტრირებული თუ არარეგისტრირებული მომხმარებელი, მათ შორის სერვისის მიმწოდებლები და ადმინისტრატორები."
-    info_1_3: "„რეგისტრირებული მომხმარებელი“ არის ნებისმიერი პირი, რომელმაც გაიარა რეგისტრაცია და გახსნა საკუთარი ანგარიში RehabGe. მათ აქვთ დამატებით წვდომა საიტის სერვისებთან, როგორიც არის სერვისის პროვაიდერებთან პირდაპირი კომუნიკაცია ელ.ფოსტით და გამორჩეული სერვისების სიის შექმნა-შენახვა."
-    info_1_4: "„სერვისები“ ან „ვებ გვერდის სერვისები“ მოიცავს ყველა ფუნქციასა და საიტის სერვისებს, რომელიც ხელმისაწვდომია მომხმარებლებისათვის  RehabGe გვერდზე. ამაში შედის სერვისების ძიება, მომხმარებელთა რეგისტრაცია, გამორჩეული სერვისების სიის შექმნა და კომუნიკაცია ელ.ფოსტით."
-    info_1_5: "„რეგისტრირებული სერვისი“ არის ნებისმიერი სარეაბილიტაციო ტიპის სერვისი, რომელიც მოძებნადია RehabGe საძიებო ფუნქციის მიხედვით, რომელიც განთავსებულია საიტის მთავარ გვერდზე. რეგისტრირებული სერვისების სისწორე და საკონტაქტო ინფორმაცია შემოწმებული იქნება მის გამოქვეყნებამდე."
-    info_1_6: "„სერვისის მიმწოდებლები“ არის ნებისმიერი ინდივიდი, რომელსაც აქვს გახსნილი ანგარიში და რომლის შეთავაზებული სერვისი დატესტილია და იძებნება REHAB GE გვერდძე სხვა მომხმარებლების მიერ.  ასევე მათი სერვისების საინფორმაციო გვერდზე მიმაგრებულია სერვისის მიმწოდებლების საკონტაქტო ელ.ფოსტა მომხმარებლებთან საკომუნიკაციოდ. აღნიშნული საშუალებას აძლევს მომხმარებელს პირდაპირი კავშირი ქონდეთ სერვისის მიმწოდებლებთან . ასევე, სერვისის მიმწოდებლები ვალდებულები არიან მათ მიერ შეთავაზებული სერვისის  დეტალებისა და საკონტაქტო ინფორმაციის სისწორეში. გთხოვთ ნახოთ მონაწილეობის მიღება -რეგისტრირებული მომხმარებლები დეტალური ინფორმაციისათვის."
-    info_1_7: "„რეგისტრირებული“ ნიშნავს რომ სერვისის მოძიება შესაძლებელია RehabGe საძიებო სისტემაში"
-    info_1_8: "„ადმინისტრატორი“ არის მომხმარებელი, რომელსაც აქვს წვდომა RehabGe დამატებითი სერვისების მიმართ და ასევე ახდენს ვებ გვერდზე განთავსებული სერვისების რეგისტრაციას ისე რომ ის ადვილად მოსაძიებელი იყოს სხვა მომხმარებლებისათვის."
-    info_1_9: "„შინაარსი“ არის ის ყველაფერი რაც შეიძლება განთავსებული იქნას საიტზე მომხმარებლებისა ან ადმინისტრატორის მიერ, მათ შორის  წერილობითი ინფორმაცია, ტექსტური მესიჯები, ფოტოსურათები, ნახაზები, ვიდეო და სხვა საიტის ლინკები."
-    info_1_10: "„სწრაფი ფოსტა“ არის ტექსტური შეტყობინება, რომელსაც ღებულობს სერვისის მიმწოდებელი მათ საინფორმაციო გვერდზე."
-    title_2: 2. ჩვენს შესახებ
-    info_2_1: "საიტი შექმნილია და ფუნქციონირებს მაკლეინის ასოციაცია ბავშვებისათვის (MAC) მიერ.საქართველოს შრომის, ჯანმრთელობისა და სოციალური დაცვის სამინისტროსთან  და საქართველოს კოალიცია ბავშვებისა და ახალგაზრდების კეთილდღეობისათვის ერთად ჩვენ ვართ ამ ვებ გვერდის ძირითადი ადმინისტრატორები. დამატებითი ინფორმაციისათვის თქვენ შეგიძლიათ ეწვიოთ ჩვენს შესახებ გვერდს."
-    title_3: 3. რეგისტრირებული მომხმარებლები
-    info_3_1: "როგორც ვებ გვერდის რეგისტრირებული მომხმარებლები ისინი ვალდებულები არიან:"
-    info_3_2: გაატარონ ყველა საჭირო ღონისძიება, რათ თქვენთვის საიტი გახდეს ხელმისაწვდომი
-    info_3_3: გახსნან ანგარიში და შეავსონ საკუთარი საინფორმაციო გვერდი პერსონალური ინფორმაციის გამოყენებით საკუთარი შეხედულებისამებრ (მათ შორის შეიძლება გამოყენებული იქნას მეტსახელი ან ფსევდონიმი)
-    info_3_4: მოგვაწოდონ პერსონალური ინფორმაცია იმის გათვალისწინებით რომ შეიძლება ეს მონაცემები გამოყენებული იქნას მონაცემთა შეგროვების მიზნით(მაკლეინის ასოციაცია ბავშვებისათვის, საქართველოს შრომის, ჯანმრთელობისა და სოციალური დაცვის სამინისტროს ან ადმინისტრატორების მიერ ავტორიზირებული სხვა ორგანიზაციების მიერ), რათ მოხდეს სარეაბილიტაციო სერვისების ხელმისაწვდომობისა და ხარისხის გაუმჯობესება საქართველოში.
-    info_3_5: უზრუნველყონ საკუთარი პაროლის კონფედენციალურობა
-    info_3_6: პასუხისმგებლობა აიღონ საკუთარი ანგარიშიდან გავრცელებულ ინფორმაციაზე
-    info_3_7: "დამატებით, როგორც სერვისის მიმწოდებელი და რეგისტრირებული სერვისებით ვებ გვერდზე თქვენ მიუთითებთ რომ:"
-    info_3_8: თქვენი ელ.ფოსტის მითითებით და ანგარიშის გახსნის დამადასტურებელი ელ.ფოსტის მიღების შემდეგ თქვენ თანხმდებით მიიღოთ სწრაფი ფოსტა ვებ გვერდიდან. სწრაფი ფოსტის შესახებ მეტი ინფორმაციის მისაღებად გთხოვთ გადახვიდეთ მე-4 პუნქტზე -სწრაფი ფოსტის სერვისი სერვისის მიმწოდებლებისათვის.
-    info_3_9: თქვენ უნდა განაახლოთ თქვენი პირადი ინფორმაცია და ელ.ფოსტა რათა ინფორმაცია იყოს განახლებული ვებ გვერდზე და თქვენ გქონდეთ წვდომა სწრაფ ფოსტაზე.
-    info_3_10: თანახმა ხართ მიიღოთ რიგითი წერილები ( სულ მცირე 6თვეში ერთხელ) იმ ელ. ფოსტაზე რომლითაც დარეგისტრირებული ხართ ვებ. გვერდზე.
-    info_3_11: თანახმა ხართ საშუალება მისცეთ ადმინისტრატორს შეამოწმოს და გამოაქვეყნოს თქვენს მიერ განახლებული სერვისები.
-    info_3_12: მომხმარებელთა ანგარიში არ უნდა გაიხსნას სხვა ადამიანის მიერ, მათ შორის სერვისის მიმწოდებლის მიერ, გარდა იმ შემთხვევებისა თუ თქვენ გაქვთ ამის მინდობილობა. გთხვოთ ნახოთ კონფედენციალურობის პოლიტიკის დოკუმენტი დამატებითი ინფორმაციისათვის.
-    title_4: 4. სწრაფი ფოსტის სერვისი  სერვისის მიმწოდებლებისათვის
-    info_4_1: "აღნიშნული სერვისი ხელმისაწვდომია მხოლოდ რეგისტრირებული მომხმარებლებისათვის, რომლებსაც სერვისების პროფილის გვერდიდან შეუძლიათ პირდაპირ დაუკავშირდნენე სერვისების მიმწოდებლებს, გასათალისწინებელია რომ:"
-    info_4_2: მხოლოდ რეგისტრირებულ მომხმარებელს აქვს წვდომა სწრაფი ფოსტის მიმართ
-    info_4_3: გზავნილი ფოსტის ადრესატი არის სერვისის მიმწოდებელი და ამ ფოსტის ნახვა არ შეუძლია არცერთ მესამე მხარეს, მათ შორის ადმინისტრატორებსაც.
-    info_4_4: ფოსტა ეგზავნება სერვისის მიმწოდებელს მის მიერ მითითებულ ფოსტაზე. ასევე სერვისის მიმწოდებლები პასუხისმგებლები არიან მათ მიერ მითითებული ელ.ფოსტის სისწორეში.
-    info_4_5: სერვისის მიმწოდებლები ვალდებულები არიან შესაბამისი პასუხი გასცენ მომხმარებელთა შეკითხვას.
-    info_4_6: ყველა რეგისტრირებული მომხმარებელი ავტომატურად ეთანხმება საიტის გამოყენების პირობებს და სწრაფი ფოსტის სერვისის უპირატესობის ეთიკურ გამოყენებას.არაეთიკური ფოსტის მიმოწერის განხორციელება შეიძლება მოხდეს მომხმარებლის ან სერვისის მიმწოდებლის მხრიდან და ორივე შემთხვევაში დაუშვებელია. მსგავსი, არაეთიკური წერილის მიღების შემთხვევაში მხარეები ვალდებულები არიან სასწრაფოდ შეეხმიანონ ვებ გვერდის ადმინისტრატორს. საკონტაქტო ინფორმაცია ხელმისაწვდომია ჩვენს შესახებ გვერდზე.
-    title_5: 5. ანგარიშის დახურვა
-    info_5_1: ვებ გვერდის ადმინისტრატორი იტოვებს უფლებას შეცვალოს ან გააუქმოს თქვენი ანგარიში ნებისმიერ დროს რამე კონკრეტული მიზნით ან უმიზეზოდ.
-    info_5_2: თუ თქვენ გექნებათ სურვილი დახუროთ თქვენი ანგარიში, ამისათვის საჭიროა გადმოაგზავნოთ წერილი MAC თან, და განხილვის შემდეგ თქვენი ანგარიში, ისევე როგორც თქვენი სერვისები საბოლოოდ წაიშლება.
-    title_6: 6. სერვისის გაუქმება
-    info_6_1: "ჩვენ ვიტოვეთ უფლებას წავშალოთ ნებისმიერი დარეგისტრირებული სერვისი თუ აშკარაა რომ ისინი არღვევენ კანონს ან შეიცავენ უცენზურო შინაარს ( გამოხატულს სურათებით, ვულგარული გამონათქვამით, შინაარსით და ლინკებით) გთხოვთ გაეცნოთ აკრძალული ქმედება მეტი ინფორმაციის მისაღებად."
-    title_7: 7. როგორ ხდება თქვენი პერსონალური ინფორმაციის გამოყენება
-    info_7_1: ყველა ის პერსონალური ინფორმაცია რომელიც თქვენ განათავსეთ აღნიშნულლ ვებ გვერდზე შესაბამისობაში მოდის ჩვენს კონფედენციალურობის პოლიტიკის დოკუმებტთან. ჩვენს ხელთ არსებული ყველა ძალით ჩვენ ვცდილობთ დავიცვათ თქვენი პერსონალური ინფორმაცია, თუმცა უნდა გაითვალისწინოთ ფაქტი რომ მიუხედავად ამისა, გამორიცხული არაა მოხდეს ხაკერების მხრიდან მოხდეს საიტის გატეხვა. გთხოვთ თავიდან აიცილეთ ისეთი სენსიტიური და პირადული ინფორმაციის განთავსებას რომლის მიმართაც წვდომამ შეიძლება თქვენ დაგაზარალოთ გაუთვალისწინებელი საიტის გატეხვის დროს.
-    info_7_2: RehabGe არის ვებ გვერდი,რომელიც თავს უყრის იმ მონაცემებსა და სტატისტიკას რაც დაკავშირებულია საიტის გამოყენების სიხშირესთან, ხარისხისა და სერვისების გაუმჯობესების მიზნით. ჩვენ პასუხისმგებლობას ვიღებთ ჩვენს მიერ შეგროვილი მონაცემების სწორ გამოყენებაზე. გთხოვთ გაეცნოთ კონფედენციალურობის პოლიტიკის დოკუმენტს, თუ როგორ ხდება მონაცემების შეგროვება ვებ გვერდიდან და არსებული სერვისებიდან.  დოკუმენტი შეიცავს მნიშვნელოვან პირობებსა და მოთხოვნებს, რომელიც ეხება ყველა რეგისტრირებულ მომხმარებელს.
-    info_7_3: გაითვალისწინეთ რომ ჩვენ არ ვყიდით ან ვაზიარებთ თქვენს მონაცემებს ნებისმიერ მესამე პირზე, ასევე არ ვიყენებთ თქვენს ელ.ფოსტას უცხო წერილების გადმოსაგზავნად. ყველა ის ელექტრონული წერილი რომელსაც ჩვენ გადმოგიგზავნით დაკავშირებული იქნება ვებ გვერდის უზრუნველსაყოფად.
-    title_8: 8. საიტის მოხმარების წესი
-    info_8_1: ჩვენ არ ვართ პასუხისმგებელი იმ ზიანზე რომელიც თქვენ მოგადგებათ ჩვენი საიტის გამოყენებით, რეგისტრაციისა თუ თქვენი სერვისების განთავსებით. გთხოვთ  გამოიყენოთ ეს საიტი საკუთარი შეხედულემებისამებრ და გადაწყვეტილება მიიღეთ საღი აზრით, როდესაც არეგისტრირებთ სერვისებს და სწრაფი ფოსტის მეშვეობით უკავშირდებით სერვისის მიმწოდებელს.
-    info_8_2: საიტზე ყოფნის დრო განსაზღვრულია და ჩვენ ვიტოვეთ უფლებას გავაუქმოთ სერვისი ან ვებ გვერდზე განთავსებული ინფორმაცია წინასწარი შეტყობინების გარეშე. ასევე ვიტოვებთ უფლებას შევცვალოთ  ვებ გვერდის შინაარსი წინასწარი შეტყობინების გარეშე იქნება ეს რეგისტრირებული თუ არარეგისტრირებული პირის მიმართ.ჩვენ პასუხს არ ვაგებთ თუ საიტის დროებით გახდება მიუწვდომელი. გაითვალისწინეთ რომ დროდადრო ჩვენ შეიძლება შევზღუდოთ საიტის რომელის ნაწილის ხელმისაწვდომობა ან დავბლოკოთ სერვისის პროფილის ხილვადობა რუკაზე.  ეს ეხება როგორც არარეგისტრირებულ ასევე რეგისტრირებულ მომხმარებლებს.
-    info_8_3: მიუხედავად იმისა რომ ჩვენ ვცდილობთ საიტზე განთავსებული ინფორმაცია შეესაბამებოდეს სიმართლეს და იყოს ზუსტი, ჩვენამდე მოწოდებული ინფორმაციას არააქვს არანაირი სიზუსტის გარანტია.
-    title_9: 9. აკრძალული ქმედება
-    info_9_1: "აღნიშნული ვებ გვერდის და მასთან დაკავშირებული სერვისების გამოყენებით თქვენ ეთანხმებით ქვემოთ ჩამოთვლილ პირობებს:"
-    info_9_2_html: "<strong>უფლებებისა და კანონის უგულვებელყოფა</strong>: თქვენ გეკრძალებათ( ა)გამოიყენოთ საიტზე განთავსებული სერვი/ები  რამე არალეგალური მიზნისთვის, ან რაც წინააღმდეგობაში მოდის ადგილობრივ, რეგიონალური თუ საერთაშორისო სამართალთან და კანონთან, (ბ)დაარღვიოთ ან უბიძგოთ სხვას რომ დაარღვიოს მესამე პირის უფლება-მოვალეობები კანონის უგულვებელყოფით, ინტელექტუალური საკუთრების უკანონო მითვისებით ან პირადი ცხოვრების ხელშეუხებლობის დარღვევის გზით."
-    info_9_3_html: "<strong>არამიზნობრიობა</strong>: თქვენ არ გაქვთ უფლება გამოიყენოთ ვებ გვერდზე განთავსებული სერვისი ან ნებისმიერი ინფორმაცია სარეკლამო და კომერციული მიზნით, მათ შორის სპამების გადაგზავნით, ქსელური მარკეტინგის სქემის გამოსაყენებლად და სხვა ნებისმიერი არამიზნობრივი და უკანონო ქმედებისათვის."
-    info_9_4_html: "<strong>დაზიანება</strong>: თქვენ გეკრძალებათ გამოიყენოთ ამ ვებ გვერდის სერვისები ნებისმიერი ისეთი სახით, რაც მწყობრიდან გამოიყვანს,შეაფერხებს და დააზიანებს მას, ასევე ხელს შეუშლის მესამე მხარის უფლებას თავისუფლად და მარტივად გამოიყენოს ვებ გვერდის სერვისები. ასეთ ქმედებად განიხილება ა)ვირუსის, რეკლამების, მუქარის წერილების ატვირთვა ან გავრცელება ბ)ქსელის ან სერვერის მუშაობის შეფერხება, რომელიც განკუთვნილია ამ ვებ გვერდის ნორმალური ფუნქციონირებისათვის, ნებისმიერი რეგულაციის, კანონის და პროცედურებზე გადახვევა რაც შეაფერხებს საიტის ნორმალურ ფუნციონირებას."
-    info_9_5_html: "<strong>სხვებისთვის ზიანის მიყენება</strong>: თქვენ გეკრძალებათ განათავსოთ ან გაავრცელოთ ისეთი ინფორმაცია რომელიც საზიანოა ,შეურაცხმყოფელია , უცენზუროა,ცილისმწამებელია, დისკრიმინაციულია, ეფუძვნება ცრუ ფაქტებს და ხელს უწყობს უკანონო ქმედების განხორციელებაში, თქვენ გეკრძალებათ ავიწროვებდეთ ან აშანტაჟოთ სხვები ვებ საიტის სერვისების გამოყენების გზით, თქვენ გეკრძალებათ განათავსოთ და გაავრცელოთ პირადი ინფორმაციის შემცვლელი მონაცემები 13წლამდე ასაკის ადამიანის შესახებ."
-    info_9_6_html: "<strong>გამოგონილი ან სხვისი სახელით რეგისტრაცია</strong>: თქვენ არ გაქვთ უფლება დარეგისტრირდეთ სხვა პირის ან ორგანიზაციის სახელით. თქვენ არ უნდა ცადოთ შეხვიდეთ ვებ გვერდზე სხვა დარეგისტრირებული პირის სახელით."
-    info_9_7: ზოგადად მიჰყევით საიტის მოხმარების ინსტრუქციას და არ დაარღვიოთ კანონი.
-    title_10: 10. ფოტო ვიდეო და სხვა მასალების ატვირთვა ვებ გვერდზე
-    info_10_1: "ვებ გვერდზე თქვენს სერვის პროფილთან დაკავშირებული  ფოტოს, ვიდეოს და სხვა მასალების ატვირთვისას თქვენ ითვალისწინებთ შემდეგ ფაქტს, რომ:"
-    info_10_2: თქვენ ხართ ერთადერთი ავტორი და  ვებ გვერდზე განთავსებული ინტელექტუალური საკუთრების მფლობელი
-    info_10_3: "თქვენ გეკისრებათ „მორალური პასუხისმგებლობა“ მასალებზე, რომელიც ატვირთულია ვებ გვერდზე. მაგ: თქვენ თავად განსაზღვრავთ ატვირთული ფოტოსურათის საავტორო უფლებას"
-    info_10_4: ატვირთული მასალა, სახელდობრ ფოტომასალა/ვიდეომასალა არ უნდა იყოს გამოქვეყნებული ან გავრცელებული და საჯაროდ გამოყენებული ამ გვერდზე გამოქვეყნებამდე, ან მისი გავრცელების შემთხვევაში ეს უნდა ყოფილიყო თქვენთან შეთანხმებით მომხდარი
-    info_10_5: ფოტო და ვიდეო მასალა არ უნდა იყოს უცენზურო, სილისმწამებლური ან უკანონო და ზიანს აყენებდეს ჩვენს ან საიტის ნებისმიერი მომხმარებლის  რეპუტაციას
-    info_10_6: "თქვენს მიერ ატვირთული ფოტო და ვიდეო მასალის გამოყენების შემთხვევაში ჩვენს მიერ არ უნდა გამოიწვიოს მესამე მხარის უფლებების ( მათ შორის ინტელექტუალური საკუთრების უფლების) შელახვა"
-    info_10_7: თქვენს მიერ ატვირთული მასალების გამოყენება არ იწვევს ნებისმიერი ზემოთ ხსენებული წესების დარღვევას
-    info_10_8: "დამატებით თქვენ ეთანხმებით რომ თქვენს მიერ განთავსებული მასალების შინაარსი არ შეიცავს სურათებს, კონოტაციას ან დოკუმენტაციას, რომელიც:"
-    info_10_9: ამცირებს ნებისმიერი ადამიანის, ან ჩვენი და ჩვენთან დაკავშირებული პროდუქტების ან სხვა ორგანიზაციების ან სერვისის მიმწოდებლების ღირსებას
-    info_10_10: "არღვევს და ლახავს საავტორო, სასაქონლო ნიშნის,პირადი ცხოვრების ხელშეუხებლობის, საჯარო ინფორმაციის გავრცელების ან ნებისმიერი სხვა პირის ან ორგანიზაციის ინტელექტუალურ საკუთრებას"
-    info_10_11: შეიცავს ბრენდის სახელს, საავტორო ნაშრომს ან ლოგოს რომელიც შეიძლება ლახავდეს მესამე მხარის უფლებებს
-    info_10_12: მიზანმიმართულად დუბლირებას უკეთებს უკვე არსებულ სერვისებს
-    info_10_13: "დამაკნინებელი, მადისკრიტირებელი, წილისმწამებლური"
-    info_10_14: "ხელს უწყობს ფანატიზმს, რასიზმს, სექსიზმს, ზიანს აყენებს რომელიმე ჯგუფს ან ინდივიდუალს, ხელს უწყობს დისკრიმინაციას რასის, სქესის, რელიგიის, ეროვნების, სექსუალური ორიენტაციის, ასაკის ან შეზღუდული შესაძლებლობების საფუძველზე."
-    info_10_15: "შეიცავს პირად ინფორმაციას"
-    info_10_16: "ხელს უწყობს ალკოჰოლის, ნარკოტიკების, თამბაქოს, ცეცხლსასროლი იარაღის (და მსგავსი მნიშვნელობის) პოპულარიზაციას"
-    info_10_17: "ხელს უწყობს ნებისმიერი საშიში და სახიფათო აქტივობების პოპულარიზაციას"
-    info_10_18: "არღვევს რომელიმე კანონს"
-    info_10_19: "შეიცავს შიშველ, ამორალურ, შეურაცხმყოფელ ან დამამცირებელ მასალებს და შინაარსს"
-    info_10_20: "არის შეუსაბამო რომ აიტვირთოს ვებ გვერდზე, ნებისმიერი მიზეზით ან"
-    info_10_21: "შეიცავს ისეთ ტექსტს და სურათებს რაც შეუსაბამოა ამ ვებ გვერდის პოზიტიურ და კეთილსინდისიერ საქმიანობასთან, რასთანაც ის ასოცირდება"
-    info_10_22: ჩვენ ვიტოვეთ უფლებას,,წინასწარი გაფრთხილების გარეშე,  ჩვენი შეხედულემებისამებრ გავაუქმოთ ან შევაჩეროთ ატვირთვის ფუნქცია სერვისის მიმწოდებლის პროფილზე და მოვხსნათ ფოტო თუ ვიდეო მასალა რომელიც ჩვენი აზრით ლახავს ნებისმიერ ზემოთ ჩამოთვლილ წესს.
-    info_10_23: ვიდეო,ფოტო  თუ სხვა ტექსტური მასალების ატვირთვისას თქვენ ავტომატურად ეთანხმებით იმას, რო ჩვენ (ან ჩვენი ჯგუფი ან პარტნიორი ორგანიზაციები) შეგვიძლია გამოვიყენოთ  ტექსტის შინაარსი ჩვენს ან სხვა გვერდზე და მივუთითოთ თქვენი სახელი, რომელიც გამოყენებული გაქვთ ამ მასალების ატვირთვისას. თქვენს მიერ განთავსებული მასალები შეიძლება საჯაროდ იქნას გამოქვეყნებული იმ ვებ გვერდებზე რომელსაც ჩვენ ავარჩევთ. ასევე, ჩვენ არ ვართ პასუხისმგებელი თუ მოხდა თქვენი სურათების, ან ვიდეოს არასანქცირებული გამოყენება ვებ გვერდების მომხმარებლების მიერ.
-    info_10_24: ვიდეო, ფოტო თუ სხვა ტექსტური მასალის გამოქვეყნებით თქვენ ავტომატურად ეთანხმებით იმას რომ თქვენთვის გასამრჯელოს გადაუხდელად, ჩვენ ნებისმიერ დროს (ახლა ან მოგვიანებით) შეგვიძლია რედაქტირება გავუკეთოთ, გამოვაქვეყნოთ ან გამოვიყენოთ ეს მასალები ნებისმიერი მედია საშუალებით სარეკლამო თუ საინფორმაციო მიზნით ვებ გვერდის სერვისების განვითარების კუთხით.
-    info_10_25: ჩვენ არ ვიძლევით გარანტიას იმისა რომ თქვენ შეძლებთ რედაქტირება გაუკეთოთ ან წაშალოთ ის ვიდეო, ფოტო თუ სხვა მასალა რომელიც თქვენ უკვე გამოაქვეყნეთ.
-    title_11: 11. ვებ გვერდის ბმულის გამოყენება
-    info_11_1: თქვენ არ გაქვთ უფლება გამოიყენოთ აღნიშნული ვებ გვერდის ლინკი, ჩვენთან შეთანხმების გარეშე. თუ თქვენ შექმნით ამ ვებ გვერდის ბმულს თქვენს საიტზე, პასუხისმგებლობა მთლიანად დაგეკისრებათ თქვენ და თქვენზე გამოყენებული იქნება ზემოთ მითითებული საიტის მოხმარების შეზღუდვები.
-    title_12: 12. ვებ გვერდზე განთავსებული ლინკები
-    info_12_1: ვებ გვერდზე განთავსებული ლინკები,აპლიკაციები და რესურსები არის მოწოდებული მესამე მხარის მიერ თქვენი პირადი გამოყენებისათვის. ჩვენ არ ვაწარმოებთ მონიტორინგს მესამე მხარის მიერ ჩვენს გვერდზე დალინკებულ ინფორმაციისა თუ რესურსების და პასუხს არ ვაგებთ მათ მიერ განთავსებულ ინფორმაციის სისწორეზე. აქიდან გამომდინარე ჩვენ არ ვიღებთ პასუხისმგებლობას იმ ზიანზე რომელიც თქვენ მოგადგებათ სერვისის მიმწოდებლების მიერ განთავსებული ლინკების მოხმარებაზე.
-    info_12_2: ის მოსაზრებები და მასალები რომელიც განთავსებულია იმ ვებ გვერდებზე რომელიც დალინკულია ჩვენს გვერდზე არ წარმოადგენს იმ მასალას რომელსაც ჩვენ აუცილებლად ვეთანხმებით ან ვიზიარებთ. ჩვენ არ განვიხილავთ ჩვენს თავს როგორც გამომცემელს ასეთი მოსაზრებებისა და მასალების. ჩვენ მოგიწოდებთ გაეცნოთ იმ საიტების კონფედენციალურობის პოლიტიკის დოკუმეტს სანამ გამოიყენებთ მათ სერვისს. თქვენი პასუხისმგებლობაა განსაზღვროთ იმ საიტების უსაფრთხოების და ნდობის ხარისხი რომელიც დალინკებულია ჩვენს გვერდთან და თავად გადაწყვიტოთ თუ რა პირადი ინფორმაციის გაზიარება გინდათ მათთან. ჩვენ პასუხს არ ვაგებთ  ნებისმიერი ტიპის დანაკარგზე და ზიანის ანაზღაურებაზე რომელიც თქვენ მოგადგებათ იმ შემთხვევაში თუ თქვენი პერსონალური ინფორმაცია იქნა გაზიარებული მესამე მხარის მიმართ თქვენივე ნებით.
-    title_13: 13. სიახლეები
-    info_13_1: ჩვენ ვიტოვებთ უფლებას დრო და დრო განვაახლოთ საიტის გამოყენების პირობები. თქვენი ვალდებულებაა თვალი ადევნოთ აღნიშნულ სიახლეებს.
-    info_13_2: საიტის გამოყნების დროს მოქმედებს ის პირობები რომელიც ჩვენ განვაახლეთ.
-    title_14: 14. ჩვენი პასუხისმგებლობა
-    info_14_1: ჩვენი ვებ გვერდი არის უფასო და ღია სივრცე რომლის მიმართ წვდომაც ექნება ყველას ვისაც აქვს ინტერნეტი. ვებ გვერდის მიზანი არაა იყოს სარეკლამო პლატფორმა რომელიმე კონკრეტული სერვისის მიმწოდებლისათვის ან გამოიყენებოდეს კომერციული მიზნისათვის რომელიმე ორგანიზაციის მიერ. თუ თქვენ გამოიყენებთ აღნიშნულ ვებ გვერდს კომერციული მიზნების მისაღწევად ჩვენ პასუხს არ ვაგებთ იმ დანაკარგებზე ან შეფერხებებზე თქვენს ბიზნესს საქმიანობაში რაც მოგადგათ ამ საიტის ან მომსახურეობების გამოყენების შედეგად.
-    title_15: 15. კომუნიკაცია
-    info_15_1: ყველა კომუნიკაციის წყარო არის ელექტრონული მიმოწერა. თუ გსურთ ჩვენთან დაკავშირება გთხოვთ მოგვწეროთ ელექტრონულ ფოსტაზე რომელიც მითითებულია ჩვენს შესახებ გვერდზე. თქვენ მოგივათ დადასტურების პასუხი თქვენ მიერ მითითებულ მაილზე.
-    info_15_2: ასევე ,თუ კი ჩვენ დაგვჭირდება თქვენთან დაკავშირება შეგეხმიანებით თქვენს მიერ მითითებულ ელექტრონულ ფოსტაზე, რომლითაც გაიარეთ რეგისტრაცია ჩვენს ვებ გვერდზე.
-    title_16: 16. სხვა მნიშვნელოვანი პირობები
-    info_16_1: გაითვალისწინეთ რომ შეიძლება ნებისმიერ დროს მოხდეს ჩვენს მიერ აღებული უფლებებისა და პასუხისმგებლობების გადაბარება კოტრაქტის გზით რომელიმე ორგანიზაციაზე. თუმცა ეს არ მოხდება თქვენი უფლებების და ჩვენი ვალდებულებების ნებისმიერი ტიპის ცვლილებების ხარჯზე.
-    info_16_2: საიტის მოხმარების პირობების თითოეული პარაგრაფი არის დამოუკიდებელი ერთეული.იმ შემთხვევაში თუ სასამართლო ან სხვა შესაბამისი ორგანო გადაწყვეტს რომ რომელიმე პარაგრაფი უკანონოა ან არაა აღსრულებადი, სხვა პარაგრაფები შეინარჩუნებს თავის სამართლებრივ ძალას.
-    info_16_3: თუ ჩვენ ვერ დავამტკიცებთ თქვენს მიერ ნაკისრი ვალდებულებების უგულვებელყოფას, ან არ გამოვიყენებთ ჩვენს ხელთ არსებულ სანქციებს თქვენს წინააღმდეგ, ან ვაგვიანებთ ჩვენი უფლებების აღსრულებას ეს არ გათავისუფლებთ თქვენ ნაკისრი ვალდებულებების შესრულებისაგან ისევე როგორც ამით არ მომხდარა ჩვენი უფლებების გადახედვა თქვენს მიმართ. თუ ჩვენ უარი ვთქვით თქვენს მიმართ სანქციების გატარებაზე ეს თქვენ გეცნობებათ წერილობით, და აღნიშნული გამონაკლისი ავტომატურად არ დაიშვება სხვა შემთხვევების დროს.
-    title_17: 17. საკონტაქტო
-    info_17_1: თუ გაქვთ რამე შეკითხვები, მოსაზრებები ან რეკომენტდაციები აღნიშნულ პირობებთან გთხოვთ შეგვეხმიანოთ
-    privacy_title: კონფედენციალურობის პოლიტა
-    privacy_intro: RehabGe  - ჩვენ მზად ვართ დავიცვათ თქვენი კონფედენციალურობა. მხოლოდ ვებ გვერდის ადმინისტრატორებს ექნებათ წვდომა რეგისტრირებული და არარეგისტრირებული პირების შესახებ არსებულ ინფორმაციაზე.
-    priv_title_1: მონაცემების შეგროვება და გამოყენება
-    priv_info_1_1: RehabGe აგროვებს ინფორმაციას სერვისის მომხმარებლებისა და სერვისის მიმწოდებლების შესახებ, რომელებიც დარეგისტრირებულები არიან ვებ გვერდზე
-    priv_info_1_2: ყველა ის შეგროვებული ინფორმაცია Rehab GE გვერდიდან იქნება განხილული ადმინისტრატორის მიერ და რჩება კონფედენციალური. ნებისმიერი ის ინფორმაცია რომელსაც ჩვენ ვაგროვებთ მიზნად ისახავს ვებ გვერდის სერვისების გაუმჯობესებას და საქართველოს მასშტაბით სარეაბილიტაციო სერვისების მიმართ საჭიროებების იდენტიფიცირებას.
-    priv_info_1_3: ყველა სხვა დანარჩენი ინფორმაცია რომელიც გროვდება ჩვენს ვებ გვერდზე მიზნად ისახავს ვებ გვერდის სრულფასოვან ფუნქციონირებას და არ იქნება გაზიარებული , გაცემული ან გაყიდული.
-    priv_info_1_4: RehabGe არ გააზიარებს, გადაცემს ან გაყიდის ინფორმაციას თქვენს შესახებ ნებისმიერ მესამე მხარეზე -ფიზიკურ თუ იურიდიულ პირზე.
-    priv_title_2: ჩვენს შესახებ
-    priv_info_2_1: ჩვენ ვიტოვეთ უფლებას დავაგზავნოთ ისეთი ტიპის წერილები სერვისის მიმწოდებლებთან, როგორიცაა წერილი ვებ გვერდის განცხადებას სერვისების შესახებ, ადმინისტრატორების წერილი რეგისტრაციის და საინფორმაციო გვერდის შესახებ, ან ნებისმიერი სხვა ტიპის წერილი, რომელსაც ჩვენ მივიჩნევთ  რომ აუცილებელია საიტის ნორმალური ფუნქციონირებისათვის და თქვენ არ გექნებათ საშუალება უარი თქვათ ან დაბლოკოთ თქვენი ელ.ფოსტა მსგავსი წერილების მიღებისგან.
-    priv_info_2_2: სწრაფი ფოსტით იგზავნება ერჯერადად დაგეგმილი ღონისძიებები. ჩვენ არ ვავრცელებთ თქვენს ელექტრონულ ფოსტას ნებისმიერ მხარეზე ან პარტნიორ ორგანიზაციებზე, ასევე ჩვენ არ ვიყენებთ თქვენს ელექტრონულ მისამართს ნებისმიერი სხვა მიზნისთვის. გთხოვთ იხილოთ საიტის გამოყენების პირობების დოკუმენტი და გაეცნოთ სწრაფი ფოსტის სერვისს რეგისტრირებული მომხმარებლებისათვის.
-    priv_info_2_3: ნებისმიერი ის წერილი რომელიც გადაგზავნილია Rehab GE დან  სწრაფი ფოსტის მეშვეობით უნდა მოხვდეს სერვისის მიმწოდებლის მიერ რეგისტრაციის დროს მითითებულ ელექტრონული ფოსტის შემოსულ წერილებში. Rehab GE ვერ შეძლებს გადაგზავნილი წერილების რედაქტირებას ან გაუქმებას, სანამ სერვისის მიმწოდებლები არ მიიღებენ ამ წერილს.  აქიდან გამომდინარე Rehab GE არ იღებს პასუხისმგებლობას იმ შემთხვევებზე თუ სწრაფი ფოსტის მეშვეობით თქვენ მიიღებთ შეურაცხმყოფელ ან უცენზურო წერილს. ასეთი შემთხვევევის დროს სერვისის მიმწოდებლები არიან ვალდებულები შეეხმიანონ Rehab GE ადმინისტრატორს და ამცნობოს საიტის მოხმარების წესის დარღვევა. ამის შემდგომ Rehab GE გაატარებს ყველა საჭირო ზომებს მდგომარეობის შეცვლის მიზნით.
-    priv_info_2_4: წერილის მიღების შემდეგ სერვისის მიმწოდებელი ვალდებულია გონივრულ ვადაში უპასუხოს სწრაფი ფოსტის წერილს მისი პროფილიდან და საპასუხო წერილის შინაარსი უნდა ჯდებოდეს და შეესაბამებოდეს საიტის გამოყენების პირობებსა და კონფედენციალურობის დოკუმენტების პოლიტიკას. იმ შემთხვევაში თუ საიტზე რეგისტრირებული მომხმარებელი მიიღებს შეურაცხმყოფელ და უცენზურო შინაარსის წერილს სერვისის მიმწოდებლისგან ის ვალდებულია დაუყოვნებლივ აცნობოს Rehab GE ადმინისტრატორს აღნიშნული მდგომარეობის შესახებ.
-    priv_title_3: კონფედენციალობა და უსაფრთხოება
-    priv_info_3_1: RehabGe ჩვენ ვზღუდავთ დარეგისტრირებული ადმინისტრატორებისათვის წვდომას თქვენს პერსონალურ მონაცემეზე. გამონაკლისად ჩაითვლება ის ინფორმაციისა რომელიც ესაჭიროება ადმინისტრატორს ვებ გვერდის სერვისების განვითარების კუთხით ყველა მომხმარებლისათვის.
-    priv_title_4: ცვლილებები კონფედენციალურობაში
-    priv_info_4_1: RehabGe შეიძლება შეიტანოს ცვლილებები აღნიშნულ დოკუმენტში. ჩვენ ვიტოვებთ უფლებას არ შეგატყობინოთ უმნიშვნელო ცვლილებები რომელიც აისახება ამ დოკუმენტში, მაგრამ მნიშვნელოვანი ცვლილებების დროს, რაც ძირეულად ცვლის თქვენი პირადი ინფორმაციის გამოყენების საშუალებებს, ჩვენ შეგატყობინებთ აღნიშნულ ცვლილებებს RehabGe ის ელ.ფოსტის მეშვეობით, ან ვებ გვერდზე გამოსაჩენ ადგილას განთავსდება შეტყობინება აღნიშნული ინფორმაციის ცვლილების შესახებ.
-    priv_title_5: საავტორო უფლების გასაჩივრება
-    priv_info_5_1: RehabGe პატივს სცემს საავტორო უფლებას და ჩვენ ვუკრძალავთ ჩვენი სერვისის მომხმარებლებს ნებისმიერი ტიპის მასალის ატვირთვას, განთავსებას ან გავრცელებას რომელიც არღვევს სხვა პირის საკუთრების უფლებას.
-    priv_info_5_2: თუ თქვენ თვლით რომ რამე სპეციფიური მასალის გაზიარებით თქვენ შეიძლება დაარღვიოთ საავტორო უფლება გთხოვთ ამცნობოთ ამის შესახებ დაუყოვნებლივ საიტის ადმინისტრატორს ელექტრონული წერილის გადაგზავნით. ჩვენი საკონტაქტო ინფორმაცია განთავსებულია დაგვიკავშირდით გვერდზე.
-    priv_title_6: გაუქმება
-    priv_info_6_1: "ჩვენ ვიტოვებთ უფლებას შევცვალოთ, შევაჩეროთ ან შევწყვიტოთ  ყველა ის ოპერაცია, ხელმისაწვდომობა და სხვა სერვისი რომელიც განთავსებულია ვებ გვერდზე ნებისმიერ დრო სხვადასხვა მიზეზების გამო. მათ შორის შეიძლება მოხდეს სერვისებზე წვდომის შეჩერება ან გაუქმება ინდივიდუალური შემთხვევებშიც, რომლის მიზნობრიობას წყვეტს RehabGe ადმინისტრაციული გუნდი. ამ შემთხვევებში თქვენ წინასწარ მიიღებთ ელექტრონულ წერილს თქვენს მიერ რეგისტრაციის დროს მითითებულ ფოსტაზე."
-    priv_info_6_2: "თუ თქვენ გაქვთ სურვილი გააუქმოთ თქვენი ანგარიში, ამის გაკეთება შესაძლებელია ნებისმიერ დროს. ანგარიშის გაუქმების პროცედურები აღწერილია საიტის გამოყენების წესებში."
-    priv_info_6_3: "ანგარიშის ავტომატური გაუქმება მოხდება იმ შემთხვევაში თუ თქვენ დაარღვევთ RehabGe ზე განთავსებული საიტისი გამოყენების წესებს."
-  general_js:
-    loading: "იტვირთება"
-    categories_create_post: "კატეგორიები/სერვისის რეგისტრაცია"
-    adblock_warning: "გაფრთხილება! AdBlock გამოყენება"
-    adblock_browser: თქვენი ბრაუზერი იყენებს AdBlock.
-    adblock_affecting: რაც აფერხებს Madloba ვებ გვერდის გამართულ მუშაობას.
-    adblock_turnoff: გამორთეთ AdBlock ამ გვერდისათვის და გადატვირთეთ გვერდი.
-    search_for_items: "სერვისების ტიპების ძიება..."
-    start_typing_item: სერვისის ტიპის სახელის ბეჭდვა
-    no_result_create_item: "შედეგი არ მოიძებნა. აირჩიე 'ახალი სერვისის ტიპის შექმნა'."
-    new_image_uploading: ახალი სურათი იტვირთება. გთხოვთ დაიცადოთ.
-    type_district_name: "ჩაბეჭდეთ რეგიონის დასახელება აქ..."
-    latitude: (განედი)
-    longitude: (გრძედი)
-    add: დამატება
-    updating_district: "რეგიონის ნუსხის განახლება..."
-    area_show_up: "აღნიშნული ადგილმდებარეობა გამოჩნდება როგორც:"
-    searching_location: "ადგილის ძიება..."
-    update: განახლება
-    loading: "იტვირთება..."
-    choose_location: აირჩიე შემოთავაზებული ადგილმდებარეობიდან
-    remove: წაშლა
-    remove_from_favorites: წაშალე შენი ფავორიტებიდან
-    add_to_favorites: დაამატე შენს ფავორიტებში
-    records_per_page: ჩანაწერები ერთ გვერდზე
-    search: "ძებნა:"
-    search_button: "ძებნა"
-    showing: ჩვენება
-    to: to
-    of: of
-    entries: შეყვანილი მონაცემები
-    previous: წინა
-    next: შემდე
-    no_data: მონაცემები არ არსებობს
-    first: პირველი
-    last: ბოლო
-    filtered_from: დაფილტრული
-    total_entries: ჯამური შეყვანილი მონაცემები
-    in_this_district: ამ რაიონში
-    posts_for: სერვისები მიმართულია
-    items_given: "ჩაბეჭდეთ სერვისის ტიპები:"
-    items_searched: "სერვისის ტიპი ან ტიპები მოიძებნა:"
-    image_not_available: "სურათი არაა ხელმისაწვდომი ამ ეტაპზე."
-    select_item: დეტალური ინფორმაციისათვის ქვემოთ აირჩიეთ სერვისის ტიპი.
-    cancel_drawing: ხაზვის გაუქმება
-    cancel: გაუქმება
-    delete_last_point_drawn: წაშალეთ ბოლო აღნიშნული წერტილი
-    delete_last_point: წაშალეთ ბოლო აღნიშვნა
-    draw_district: დახაზეთ დისტანცია
-    start_draw_district: დააწკაპუნეთ რაიონის ნახაზის დასაწყებად.
-    continue_draw_district: დააწკაპუნეთ რომ გაარგძელოთ რაიონის ხაზვა.
-    click_first_point: დააწკაპუნეთ პირველ წერტილზე, თუ გინდათ რომ დაიხუროს პირველი რაიონი.
-    error: "შეცდომა:"
-    edges_cannot: "რაიონის საზღვრები არ უნდა გადაიკვეთოს!"
-    edit_district: რაიონის შეცვლა
-    no_edit_district: რაიონი ვერ შეიცვლება
-    delete_district: რაიონის წაშლა
-    no_district_delete: რაიონი არ იშლება
-    drag_handles: ხელით შეცვალეთ რაიონის საზღვრები.დააწკაპუნეთ რაიონზე რომ მისცეთ მას სახელი.
-    select_new_location_only: არსებული ადგილმდებარეობის არჩევა

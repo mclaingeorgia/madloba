@@ -22,13 +22,19 @@
       flex-direction: column;
       .name {
         @include font(26, 'sb', 28);
+        color: $text;
         padding-bottom: 8px;
       }
       .provider-name {
-        @include font(26, 'sb', 28);
-        padding-bottom: 17px;
+        a {
+          @include font(26, 'sb', 28);
+          color: $text;
+          padding-bottom: 17px;
+          text-decoration: none;
+        }
         span {
           @include font(16);
+          color: $text;
         }
       }
     }

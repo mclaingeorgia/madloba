@@ -1,6 +1,6 @@
 - locales = I18n.available_locales
 .fields-localization{{}.merge(defined?(container_options) ? container_options : {})}
-  .tabs{'data-target': '123'}
+  .tabs
     .d.d1
     %label=t('shared.fields_localization')
     .d.d2
@@ -9,9 +9,9 @@
       - if locale_i != locales.length-1
         .d.d3
     .d.d4
-  .tabs-content{'data-target': '123'}
+  .tabs-content
     %ul
       - locales.each_with_index do |locale, locale_i|
         %li{class: locale_i == 0 ? 'active' : nil, 'data-link': locale}
           - fields.each do |field|
-            = form.input :"#{field[0]}_#{locale}", label: t("activerecord.attributes.#{form.object.class.name.downcase}.#{field[0]}")
+            = form.input :"#{field[0]}_#{locale}", { label: t("activerecord.attributes.#{form.object.class.name.downcase}.#{field[0]}") }.merge(field[1].present? ? field[1] : {})
