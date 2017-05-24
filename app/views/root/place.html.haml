@@ -113,7 +113,7 @@
       .upload
         %img{src: asset_path("svg/upload.svg") }
         Upload your image
-      .picture
-      .picture
-      .picture
+      - item.assets.each do |asset|
+        .picture
+          = image_tag asset.image.thumb.url
 = render partial: "shared/footer", locals: { with_links: true }

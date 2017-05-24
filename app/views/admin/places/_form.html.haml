@@ -1,40 +1,61 @@
-- translate_path = 'admin.place.'
-= form_for obj, html: { role: 'form', class: 'fields' } do |f|
-  .column-view
-    .column
-      = render partial: 'shared/fields_localization', locals: { fields: { name: nil, description: { as: :text, class: 'tinymce' }} , form: f, translate_path: translate_path }
-      .indent
-        .fields-checkbox-list.services
-          %label #{t('admin.place.services')}
-          .fields
-            = f.collection_check_boxes(:service_ids, Service.all, :id, :name) do |b|
-              .field
-                = b.check_box
-                = b.label do
-                  %i
-                  %span{ class: "icon #{b.object.icon}" }
-                  = b.text
-        = render_form_field(:text_field, f, :phone, translate_path)
-        = render_form_field(:text_field, f, :website, translate_path)
-        = f.file_field :image
-  </div>
-    .column
-      = render partial: 'shared/fields_localization', locals: { fields: { address: nil, city: nil} , form: f, translate_path: translate_path }
-      .indent
-        = render_form_field(:text_field, f, :postal_code, translate_path)
-        .field
-          %label #{t('admin.place.region')}
-          = f.collection_select :region_id, Region.all, :id, :name, {}, { class: 'value' }
-        %a.map-locator{'data-map': 'locator_map'} Locate Me on the Map
+-# translate_path = 'admin.place.'
+-# page_title(t('.title'))
+.form-container{class: @form_container_class}
+  = simple_form_for obj, html: { class: @form_class } do |f|
+    = devise_error_messages!
+    .column-view
+      .column
+        = render partial: 'shared/fields_localization', locals: { fields: { name: nil, description: { as: :text, input_html: { class: 'tinymce' } }} , form: f }
+        .indent
+          .fields-collection
+            %label.fields-collection-label #{t('admin.place.services')}
+            .fields-collection-wrapper
+              = f.collection_check_boxes(:service_ids, Service.all, :id, :name) do |b|
+                .field-wrapper
+                  = b.check_box class: 'field-input'
+                  = b.label class: 'field-label service' do
+                    %i{ class: "#{b.object.icon}" }
+                    %span= b.text
+          = f.input :emails, as: :array, input_html: { 'data-max': 3 }
+          = f.input :phones, as: :array, input_html: { 'data-max': 3 }
+          = f.input :website
+      .column
+        = render partial: 'shared/fields_localization', locals: { fields: { address: nil, city: nil} , form: f }
+        .indent
+          = f.input :postal_code
+          .field-wrapper
+            %label.field-label #{t('admin.place.region')}
+            = f.collection_select :region_id, Region.all, :id, :name, {}, { class: 'field-input' }
+          %a.map-locator{'data-map': 'locator_map'}= t(".shared.locate_me")
+          .locator.map-container
+            #locator_map.map
+            .map-zoomer
+              .in{'data-map': 'locator_map'} +
+              .hr
+              .out{'data-map': 'locator_map'} −
+          = f.input :latitude, as: :hidden
+          = f.input :longitude, as: :hidden
+    .fields-asset
+      = f.input :picked_asset_id, as: :hidden
+      =# f.object.assets.length
+      .field-wrapper.field-file
+        = f.label :assets do
+          %img{src: asset_path("svg/upload.svg") }
+          = 'Upload Your Image'
+        = f.input :assets, as: :file, label: false, input_html: { name: "place[assets_attributes][][image]", multiple: true }
 
-        .locator.map-container
-          #locator_map.map
-          .map-zoomer
-            .in{'data-map': 'locator_map'} +
-            .hr
-            .out{'data-map': 'locator_map'} −
+      - assets = f.object.assets.to_a
 
-        = f.hidden_field(:latitude)
-        = f.hidden_field(:longitude)
-
-  = render_form_actions()
+      - picked = nil
+      - if f.object.picked_asset_id.present?
+        - picked = f.object.assets.find(f.object.picked_asset_id)
+        - assets.delete_if {|x| x.id == picked.id }
+        - assets.unshift(picked)
+      - assets.each do |asset|
+        .field-wrapper.field-asset{'data-asset-id': asset.id, class: asset.id == f.object.picked_asset_id ? 'picked' : nil }
+          = image_tag asset.image.thumb.url
+          .field-input
+            = link_to "Delete Photo", manage_place_path(f.object.id, place: { assets_attributes: { id: asset.id, "_destroy" => true }}), remote: true, method: :put, 'data-type': 'json'
+    .actions
+      = f.submit t("app.common.save")
+      = f.submit t("app.common.cancel"), type: :reset

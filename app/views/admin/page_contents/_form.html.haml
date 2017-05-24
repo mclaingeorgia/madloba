@@ -2,6 +2,6 @@
 
 = form_for obj, html: { role: 'form', class: 'fields' } do |f|
   = render_form_field(:text_field, f, :name, translate_path)
-  = render partial: 'shared/fields_localization', locals: { fields: { title: nil, content: { as: :text, class: 'tinymce' }} , form: f, translate_path: translate_path }
+  = render partial: 'shared/fields_localization', locals: { fields: { title: nil, content: { as: :text, input_html: { class: 'tinymce' } }} , form: f, translate_path: translate_path }
 
   = render_form_actions()

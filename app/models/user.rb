@@ -20,6 +20,8 @@ class User < ActiveRecord::Base
 
   has_many :place_rates
   has_many :rates, through: :place_rates, source: :place
+
+  # has_many :places
   # accepts_nested_attributes_for :provider_users
   accepts_nested_attributes_for :providers
 

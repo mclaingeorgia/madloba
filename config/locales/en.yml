@@ -80,6 +80,7 @@ en:
       click_here: Click Here
       alt: "%{alt} Image"
       by: by
+      save: Save
     messages:
       success_updated: "%{obj} was successfully updated."
       fail_updated: "%{obj} failed to update."
@@ -101,6 +102,8 @@ en:
     view_all_provider_places: See all places from this service provider
     view_place_details: View place details
     view_all_services: View All Services
+    locate_me: Locate Me on the Map
+    add: Add
   messages:
     succeed_to_process: Request to %{action} processed successfully.
     succeed_to_process_reject: Request to reject %{action} processed successfully.
@@ -110,6 +113,7 @@ en:
     place_ownership: take place ownership
     place_report: report place
   admin:
+    add: Add
     save: Save
     cancel: Cancel
     edit: Edit
@@ -166,6 +170,9 @@ en:
         title: "Edit Places"
       list:
         provider: "Provider:"
+    providers:
+      edit:
+        title: Edit Provider
     place:
       index:
         title: "Manage Places"

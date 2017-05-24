@@ -20,3 +20,46 @@ $(document).ready(function(){
   })
 
 })
+
+
+$(".field-file").change(function(e) {
+  var t = $(this)
+  var p = t.closest('.fields-asset')
+    p.find('.field-asset[data-asset-id="-1"]').remove()
+
+    $.each(e.originalEvent.srcElement.files, function(i, file) {
+      var asset = $('<div class="field-wrapper field-asset blink" data-asset-id="-1"></div>').insertAfter(t)
+      var img = document.createElement("img")
+      var reader = new FileReader()
+      reader.onloadend = function () {
+        asset.removeClass('blink')
+        img.src = reader.result
+      }
+      reader.readAsDataURL(file)
+      asset.append(img)
+    })
+})
+
+$('.fields-asset .field-asset:not([data-asset-id="-1"]) img').click(function () {
+  var asset = $(this).parent()
+  var assets = asset.parent()
+  assets.find('.field-asset.picked').removeClass('picked')
+  asset.addClass('picked')
+  $('#place_picked_asset_id').val(asset.attr('data-asset-id'))
+})
+
+$('.field-array .field-add').click(function(event) {
+  var field_array = $(this).parent()
+  var max_inputs = +field_array.attr('data-max')
+
+  if(field_array.find('input').length < max_inputs) {
+    $cl = field_array.find('input:last-of-type').clone()
+    $cl.val('')
+    $cl.insertBefore($(this))
+  }
+  else {
+    $(this).hide()
+  }
+  event.stopPropagation()
+  event.preventDefault()
+})

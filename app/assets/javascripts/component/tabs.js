@@ -1,5 +1,6 @@
 
   $('.tabs a').on('click', function (event) {
+    console.log("click")
     var t = $(this)
     var link = t.attr('data-link')
     var tabs = t.closest('.tabs')
@@ -16,8 +17,8 @@
       t.closest('.tab-link').addClass('active')
     }
 
-    target.find('ul li').removeClass('active')
-    target.find('ul li[data-link="' + link + '"]').addClass('active')
+    target.find('> ul > li').removeClass('active')
+    target.find('> ul > li[data-link="' + link + '"]').addClass('active')
 
     t.attr('aria-expanded', true)
 

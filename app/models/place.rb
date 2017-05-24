@@ -1,11 +1,13 @@
 class Place < ActiveRecord::Base
+  include ActiveModel::Validations
+
   translates :name, :description, :city, :address
   globalize_accessors :locales => [:en, :ka], :attributes => [ :name, :description, :city, :address]
 
-  mount_uploader :image, ImageUploader
+  has_many :assets, {foreign_key: :owner_id, class_name: "Asset"} # , -> { where(owner_type: 1) },
+  accepts_nested_attributes_for :assets, :allow_destroy => true
 
   belongs_to :provider
-
 
   has_one :provider_place
   has_one :provider, through: :provider_place, source: :provider
@@ -19,8 +21,6 @@ class Place < ActiveRecord::Base
   has_many :place_services
   has_many :services, through: :place_services, source: :service
 
-  has_many :assets
-
   has_many :place_tags
   has_many :tags, through: :place_tags, source: :tag
 
@@ -32,10 +32,54 @@ class Place < ActiveRecord::Base
   has_many :ownership_requests, through: :place_ownerships, source: :user
 
 
+  after_commit :set_picked_asset
+  before_validation :remove_blanks
+
+  def remove_blanks
+    emails.reject!(&:blank?)
+    phones.reject!(&:blank?)
+  end
+
+
+  validates :region_id, presence: true
+  validates :services, presence: true
+
+  validates :website, format: { with: URI::regexp }, if: :website?
+  validates :emails, array: { email: true }
+  validates :emails, :length => { :minimum => 1, :maximum => 3 }
+  validates :phones, array: { numericality: { only_integer: true }, length: {is: 9} }
+  validates :latitude, :longitude, numericality: true, presence: true
+
+# validates :array_column, array: { length: { is: 20 }, allow_blank: true }
+# validates :array_column, array: { numericality: true }
+  # validate :check_each_email
+
+  # def check_each_thing
+  #   emails.each do |email|
+  #     if email.present?
+  #       /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+  #       if thing.size < 2 || thing.size > 255
+  #         errors.add(:things, 'It should be longer than 2 and shorter than 255.')
+  #       end
+  #     else
+  #       errors.add(:things, 'It should be present.')
+  #     end
+  #   end
+  # end
+  # has_one :user
   # def self.authorized_by_id(id)
   #   all.find(id)
   # end
 
+  def set_picked_asset
+    if self.picked_asset_id.nil? && self.assets.count > 0
+      update_attributes({picked_asset_id: self.assets.first.id})
+    end
+    if self.picked_asset_id.present? && self.assets.count == 0
+      update_attributes({picked_asset_id: nil })
+    end
+     Rails.logger.debug("--------------------------------------------set_picked_asset")
+  end
   def phone
     phones.join(", ")
   end
@@ -83,6 +127,7 @@ class Place < ActiveRecord::Base
 
     places.where(sql.join(" OR "), pars).order(name: :asc)
   end
+
 
 
 end

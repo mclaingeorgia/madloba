@@ -1,10 +1,10 @@
 .page-title
   = t('.title')
-  = link_to t('admin.add'), new_provider_path, class: 'add btn'
+  = link_to t('admin.add'), new_manage_provider_path, class: 'add btn'
 %ul.list
   - items.each do |item|
     %li
       %span{class: 'name'} #{item.name}
       .actions
-        = link_to t('admin.edit'), manage_provider_profile_path({ page: 'manage-provider', id: item.id }), class: 'edit'
-        = link_to t('admin.delete'), provider_path(item.id), method: :delete, class: 'delete', data: {confirm: t('admin.confirm_delete') }
+        = link_to t('admin.edit'), manage_provider_profile_path({ page: 'manage-provider', id: item.id, edit: 'edit' }), class: 'edit'
+        = link_to t('admin.delete'), manage_provider_path(item.id), method: :delete, class: 'delete', data: {confirm: t('admin.confirm_delete') }

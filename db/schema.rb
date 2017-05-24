@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170522063935) do
+ActiveRecord::Schema.define(version: 20170523113610) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,9 @@ ActiveRecord::Schema.define(version: 20170522063935) do
   create_table "assets", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "owner_id"
+    t.integer  "owner_type"
+    t.string   "image"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -274,15 +277,15 @@ ActiveRecord::Schema.define(version: 20170522063935) do
   create_table "places", force: :cascade do |t|
     t.string   "website"
     t.string   "postal_code"
-    t.decimal  "latitude",    precision: 8, scale: 5
-    t.decimal  "longitude",   precision: 8, scale: 5
-    t.decimal  "rating",                              default: 0.0
+    t.decimal  "latitude",        precision: 8, scale: 5
+    t.decimal  "longitude",       precision: 8, scale: 5
+    t.decimal  "rating",                                  default: 0.0
     t.integer  "region_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "emails",                              default: [],  null: false, array: true
-    t.string   "phones",                              default: [],  null: false, array: true
-    t.string   "image"
+    t.string   "emails",                                  default: [],  null: false, array: true
+    t.string   "phones",                                  default: [],  null: false, array: true
+    t.integer  "picked_asset_id"
   end
 
   add_index "places", ["region_id"], name: "index_places_on_region_id", using: :btree

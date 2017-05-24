@@ -59,7 +59,7 @@ class ApplicationController < ActionController::Base
     gon.labels = {}
   end
   def set_session
-    Rails.logger.debug("--------------------------------------------#{session.to_hash}")
+    Rails.logger.debug("--------------------------------------------#{params.inspect}")
     if session[:user_return_to].present? && DEVISE_CONTROLLERS.index(params[:controller]).nil?
       # @post_action = session[:post_action]
       # Rails.logger.debug("--------------------------------------------post_action #{@post_action}")
@@ -95,6 +95,7 @@ class ApplicationController < ActionController::Base
 
   # Method to render 404 page
   def render_not_found(exception)
+     Rails.logger.debug("--------------------------------------------#{params} #{exception}")
     ExceptionNotifier.notify_exception(exception, env: request.env, :data => {:message => "was doing something wrong"})
     respond_to do |format|
       format.html { render template: 'errors/error404', status: 404 }

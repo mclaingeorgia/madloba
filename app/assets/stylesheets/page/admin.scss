@@ -1,12 +1,16 @@
 @import 'var';
 @import 'component/service';
-@import 'component/form';
 @import 'component/breadcrumbs';
+@import 'component/views';
 
 
 
 
 main {
+  .form-container {
+    max-width: 100%;
+    width: 100%;
+  }
   &.provider_profile {
     .panels {
       display: flex;

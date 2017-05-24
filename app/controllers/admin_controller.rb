@@ -65,20 +65,13 @@ class AdminController < ApplicationController
 
     item = provider_profile_prepare_item(page, id, action)
     l = {
+      providers: providers,
       current_page: page,
       action: action,
-      item: item,
-      providers: providers,
-      photos: photos
+      item: item
     }
      Rails.logger.debug("--------------------------------------------#{l}")
-    locals({
-      current_page: page,
-      action: action,
-      item: item,
-      providers: providers,
-      photos: photos
-    })
+    locals(l)
   end
 
   private

@@ -32,6 +32,10 @@
         if(json.hasOwnProperty('refresh')) {
           partial_refresher(json.refresh)
         }
+        if(json.hasOwnProperty('remove_asset')) {
+          $('[data-asset-id="' + json.remove_asset + '"]').remove()
+        }
+
       }
     }
   });

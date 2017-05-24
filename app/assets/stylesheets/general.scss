@@ -147,8 +147,14 @@
       margin-right: 7px;
       // vertical-align: top;
   }
+  input[type="checkbox"] + label.light:before {
+    background:url(svg('checkbox_light')) no-repeat 0 top;
+  }
   input[type="checkbox"]:checked + label:before {
     background:url(svg('checkbox')) no-repeat -23px top;
+  }
+  input[type="checkbox"]:checked + label.light:before {
+    background:url(svg('checkbox_light')) no-repeat -23px top;
   }
 
 abbr[title='required'] {

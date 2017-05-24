@@ -1,6 +1,6 @@
 - locales = I18n.available_locales
 .fields-localization{{}.merge(defined?(container_options) ? container_options : {})}
-  .tabs
+  .tabs{'data-target': 'localization'}
     .d.d1
     %label=t('shared.fields_localization')
     .d.d2
@@ -9,7 +9,7 @@
       - if locale_i != locales.length-1
         .d.d3
     .d.d4
-  .tabs-content
+  .tabs-content{'data-target': 'localization'}
     %ul
       - locales.each_with_index do |locale, locale_i|
         %li{class: locale_i == 0 ? 'active' : nil, 'data-link': locale}

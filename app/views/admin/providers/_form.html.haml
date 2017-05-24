@@ -1,13 +1,15 @@
-- translate_path = 'admin.provider.'
+-# translate_path = 'admin.provider.'
+.form-container{class: @form_container_class}
+  = simple_form_for obj, html: { class: @form_class } do |f|
+    = devise_error_messages!
+    .panels
+      .panel
+        = render partial: 'shared/fields_localization', locals: { fields: { name: nil, description: { as: :text, input_html: { required: true, rows: 6 } } } , form: f }
+      .panel
 
-= form_for @item, html: { role: 'form', class: 'fields' } do |f|
-  .panels
-    .panel
-      = render partial: 'shared/fields_localization', locals: { fields: { name: nil, description: { as: :text, required: true } } , form: f, translate_path: translate_path }
-    .panel
-
-  = render_form_actions()
-
+    .actions
+      = f.submit t("app.common.save")
+      = f.submit t("app.common.cancel"), type: :reset
 
 
 -# page ||= 'new'
