@@ -50,7 +50,8 @@ class AdminController < ApplicationController
       current_page: page,
       action: action,
       favorite_places: current_user.favorites,
-      rates: current_user.rates
+      rated_places: current_user.rates,
+      uploads_by_place: current_user.uploads.group_by(&:place_id)
       # item: item
     })
   end

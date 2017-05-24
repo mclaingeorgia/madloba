@@ -39,25 +39,26 @@
       %ul.action-bar
         %li
           = render partial: 'shared/favoritor', locals: { is_favorite: is_favorite_place, href: place_path(id: item.id, a: 'favorite', v: !is_favorite_place), href_template: place_path(id: item.id, a: 'favorite', v: '_v_'), label: is_favorite_place ? t('.remove_from_favorite') : t('.add_to_favorite') }
-        %li
-          = render partial: "shared/rating", locals: { rating: item.get_rating, with_label: true, klass: 'mobile' }
+        %li.mobile
+          = render partial: "shared/rating", locals: { rating: item.get_rating, with_label: true }
         %li
           = render partial: 'shared/rator', locals: {rator: {'data-href-template': place_path(id: item.id, a: 'rate', v: '_v_'), 'data-xhr-redirected': 'rator', 'data-xhr-format': 'json', 'data-r': user_rate }}
-        %li
-          - if is_report_requested
-            .report
-              %label=t('.report_underway')
-          - else
-            %a.report{'data-dialog-link': 'place_report', href:"javascript:void(0);"}
-              -#@href: place_path(id: item.id, a: 'report'), 'data-xhr': 'report', 'data-xhr-format': 'json'}
-              =t('.report')
-        %li
-          - if is_ownership_requested
-            .take-ownership
-              %label=t('.take_ownership_underway')
-          - else
-            %a.take-ownership{href: place_path(id: item.id, a: 'ownership'), 'data-xhr': 'ownership', 'data-xhr-format': 'json'}
-              =t('.take_ownership')
+        - if user_signed_in? && !item.provider.users.include?(current_user)
+          %li
+            - if is_report_requested
+              .report
+                %label=t('.report_underway')
+            - else
+              %a.report{'data-dialog-link': 'place_report', href:"javascript:void(0);"}
+                -#@href: place_path(id: item.id, a: 'report'), 'data-xhr': 'report', 'data-xhr-format': 'json'}
+                =t('.report')
+          %li
+            - if is_ownership_requested
+              .take-ownership
+                %label=t('.take_ownership_underway')
+            - else
+              %a.take-ownership{href: place_path(id: item.id, a: 'ownership'), 'data-xhr': 'ownership', 'data-xhr-format': 'json'}
+                =t('.take_ownership')
         %li
           .share
             %label=t('.share')
@@ -110,6 +111,16 @@
           .comment
             .header=t('.comments')
     %section.photos
+      .form-container
+        = simple_form_for [:manage, Upload.new(place_id: item.id)] do |f|
+          = hidden_field_tag :authenticity_token, form_authenticity_token
+          = f.input :place_id, as: :hidden
+          .field-wrapper.field-file
+            = f.label :image do
+              %img{src: asset_path("svg/upload.svg") }
+              = t(".shared.upload_image")
+            = f.input :image, as: :file, label: false, input_html: { name: "assets_attributes[][image]", multiple: true, onchange: "javascript:this.form.submit();" }
+
       .upload
         %img{src: asset_path("svg/upload.svg") }
         Upload your image
@@ -117,3 +128,22 @@
         .picture
           = image_tag asset.image.thumb.url
 = render partial: "shared/footer", locals: { with_links: true }
+
+
+
+
+
+
+
+-#
+  - assets = f.object.assets.to_a
+
+  - picked = nil
+  - if f.object.poster_id.present?
+    - picked = f.object.assets.find(f.object.poster_id)
+    - assets.delete_if {|x| x.id == picked.id }
+    - assets.unshift(picked)
+  - assets.each do |asset|
+    .field-wrapper.field-asset{'data-asset-id': asset.id, class: asset.id == f.object.poster_id ? 'picked' : nil }
+      = image_tag asset.image.thumb.url
+

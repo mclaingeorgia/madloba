@@ -1,1 +1,3 @@
-rates12
+.grid-view
+  - rated_places.each do |place|
+    = render partial: 'shared/place', locals: { place: place, with_rator: true }

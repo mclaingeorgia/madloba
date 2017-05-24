@@ -8,7 +8,6 @@
     color: $text;
     margin-right: 4px;
     position: relative;
-    top: -3px;
   }
   .rator {
     display: flex;
@@ -87,5 +86,13 @@
       .reset { visibility: visible; }
     }
 
+  }
+}
+
+.action-bar {
+  .rator-container {
+    label {
+      top: -3px;
+    }
   }
 }

@@ -104,6 +104,11 @@ en:
     view_all_services: View All Services
     locate_me: Locate Me on the Map
     add: Add
+    upload_image: 'Upload Photo'
+    delete_image: 'Delete Photo'
+    pending: Pending
+    approved: Approved
+    declined: Declined
   messages:
     succeed_to_process: Request to %{action} processed successfully.
     succeed_to_process_reject: Request to reject %{action} processed successfully.

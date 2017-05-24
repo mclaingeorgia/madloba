@@ -9,11 +9,14 @@ class PlaceRate < ActiveRecord::Base
   def calculate_place_rating
     r = PlaceRate.where(place_id: self.place_id)
     p = Place.find_by(id: self.place_id)
-
-    p.update({rating: (r.sum(:value)+0.0)/r.count()}) if r.present? && p.present?
+    puts "--------------------------#{r.inspect} #{p.inspect} #{(r.sum(:value)+0.0)/r.count()} #{r.present? && p.present?}"
+    p.update_attribute(:rating, (r.sum(:value)+0.0)/r.count()) if r.present? && p.present?
+    puts "--------------------------#{p.errors.inspect}"
   end
 
   def self.rate(user_id, place_id, value)
+    puts "--------------------------here"
+     Rails.logger.debug("--------------------------------------------test")
     response = nil
     class_name = self.model_name.param_key
 

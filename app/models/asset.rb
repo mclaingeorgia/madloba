@@ -6,6 +6,7 @@ class Asset < ActiveRecord::Base
   validates_processing_of :image
   validate :image_size_validation
 
+  has_many :uploads
 
   private
     def image_size_validation

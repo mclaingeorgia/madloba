@@ -4,7 +4,7 @@ class Place < ActiveRecord::Base
   translates :name, :description, :city, :address
   globalize_accessors :locales => [:en, :ka], :attributes => [ :name, :description, :city, :address]
 
-  has_many :assets, {foreign_key: :owner_id, class_name: "Asset"} # , -> { where(owner_type: 1) },
+  has_many :assets, -> { where(owner_type: 1) }, {foreign_key: :owner_id, class_name: "Asset"}
   accepts_nested_attributes_for :assets, :allow_destroy => true
 
   belongs_to :provider
@@ -31,8 +31,9 @@ class Place < ActiveRecord::Base
   has_many :place_ownerships
   has_many :ownership_requests, through: :place_ownerships, source: :user
 
+  has_many :uploads
 
-  after_commit :set_picked_asset
+  after_commit :set_poster
   before_validation :remove_blanks
 
   def remove_blanks
@@ -71,14 +72,14 @@ class Place < ActiveRecord::Base
   #   all.find(id)
   # end
 
-  def set_picked_asset
+  def set_poster
     if self.poster_id.nil? && self.assets.count > 0
       update_attributes({poster_id: self.assets.first.id})
     end
     if self.poster_id.present? && self.assets.count == 0
       update_attributes({poster_id: nil })
     end
-     Rails.logger.debug("--------------------------------------------set_picked_asset")
+     Rails.logger.debug("--------------------------------------------set_poster")
   end
   def phone
     phones.join(", ")

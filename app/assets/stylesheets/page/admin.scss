@@ -2,6 +2,11 @@
 @import 'component/service';
 @import 'component/breadcrumbs';
 @import 'component/views';
+@import 'component/place_card';
+@import 'component/favorite';
+@import 'component/rating';
+@import 'component/rator';
+@import 'component/service';
 
 
 
@@ -120,7 +125,7 @@ main {
       display: flex;
       flex-direction: column;
       > ul {
-        padding: 27px 27px 27px 0;
+        padding: 27px 0 27px 0;
         flex: 1;
         > li {
           display: none;

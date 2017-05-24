@@ -11,13 +11,10 @@
       %li{class: current_page == :'manage-profile' ? 'active' : nil, 'data-link': 'manage-profile'}
         = render 'admin/users/edit'
       %li{class: current_page == :'favorite-places' ? 'active' : nil, 'data-link': 'favorite-places'}
-        %span= t("favorite_places")
         = render partial: 'admin/users/favorites', locals: { favorite_places: favorite_places }
       %li{class: current_page == :'rated-places' ? 'active' : nil, 'data-link': 'rated-places'}
-        %span= t("rated_places")
-        = render partial: 'admin/users/rates', locals: { items: [] }
+        = render partial: 'admin/users/rates', locals: { rated_places: rated_places }
       %li{class: current_page == :'uploaded-photos' ? 'active' : nil, 'data-link': 'uploaded-photos'}
-        %span= t("uploaded_photos")
-        = render partial: 'admin/users/photos', locals: { items: [] }
+        = render partial: 'admin/users/photos', locals: { uploads_by_place: uploads_by_place }
 
     = render partial: "shared/footer"

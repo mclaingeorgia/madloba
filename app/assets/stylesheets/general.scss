@@ -74,7 +74,7 @@
     display: none;
   }
   html.desktop {
-    .mobile { display: none; }
+    .mobile { display: none !important; }
   }
 /****************************** scroll bar ******************************/
   *::-webkit-scrollbar-track {

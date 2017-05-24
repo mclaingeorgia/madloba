@@ -2,7 +2,7 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require dataTables/extras/dataTables.responsive
-
+//= require component/place_card
 
 $(document).ready(function(){
   $('.datatable').DataTable({

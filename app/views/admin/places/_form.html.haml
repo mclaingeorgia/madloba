@@ -41,7 +41,7 @@
       .field-wrapper.field-file
         = f.label :assets do
           %img{src: asset_path("svg/upload.svg") }
-          = 'Upload Your Image'
+          = t(".shared.upload_image")
         = f.input :assets, as: :file, label: false, input_html: { name: "place[assets_attributes][][image]", multiple: true }
 
       - assets = f.object.assets.to_a
@@ -55,7 +55,7 @@
         .field-wrapper.field-asset{'data-asset-id': asset.id, class: asset.id == f.object.poster_id ? 'picked' : nil }
           = image_tag asset.image.thumb.url
           .field-input
-            = link_to "Delete Photo", manage_place_path(f.object.id, place: { assets_attributes: { id: asset.id, "_destroy" => true }}), remote: true, method: :put, 'data-type': 'json'
+            = link_to t(".shared.delete_image"), manage_place_path(f.object.id, place: { assets_attributes: { id: asset.id, "_destroy" => true }}), remote: true, method: :put, 'data-type': 'json'
     .actions
       = f.submit t("app.common.save")
       = f.submit t("app.common.cancel"), type: :reset

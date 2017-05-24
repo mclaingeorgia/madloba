@@ -36,6 +36,7 @@ Madloba::Application.routes.draw do
         resources :places#, controller: '/admin'
         resources :users
         resources :page_contents
+        resources :uploads, only: [:create]
       # end
     end
 

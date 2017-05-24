@@ -1,2 +1,3 @@
-- favorite_places.each do |place|
-  = render partial: 'shared/place', locals: { place: place, all_favorite: true }
+.grid-view
+  - favorite_places.each do |place|
+    = render partial: 'shared/place', locals: { place: place, all_favorite: true }
