@@ -33,9 +33,9 @@ class AdminController < ApplicationController
     #gon.default_point = [41.74288345375358, 44.74130630493165]
   end
 
-  def index
-    redirect_to manage_user_profile_path
-  end
+  # def index
+  #   redirect_to manage_user_profile_path
+  # end
 
   def user_profile
     @class = 'user_profile'
@@ -43,10 +43,14 @@ class AdminController < ApplicationController
 
     page, id, action = get_sub_action(params[:page], params[:id], params[:edit], :user_profile)
 
+    # favorite_places = current_user.favorites
+    # rated_places = current_user.rates
     # item = user_profile_prepare_item(page, id, action)
     locals({
       current_page: page,
-      action: action#,
+      action: action,
+      favorite_places: current_user.favorites,
+      rates: current_user.rates
       # item: item
     })
   end
@@ -137,6 +141,7 @@ class AdminController < ApplicationController
 
     def get_user_profile_page(page)
       options = [:'manage-profile', :'favorite-places', :'rated-places', :'uploaded-photos']
+      page = options[0] if page.nil?
       page = page.to_sym
 
       options.index(page).present? ? page : options[0]

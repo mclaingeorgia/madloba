@@ -104,15 +104,19 @@ namespace :uploader do
           name: template[:name][:ka],
           description: template[:description][:ka],
           address: [row[4], row[2], row[6], row[10]].map{|m| clean_string(m) }.reject { |c| c.empty? }.join(', '),
-          city: row[8].squeeze(' ').strip
+          city: row[8].squeeze(' ').strip,
+          services: [other_service]
         }
 
         # tmp = Region.with_translations(:ka).find_by(name: region)
 
         pl = nil
         Globalize.with_locale(:ka) do
-          pl = Place.create(place)
-          pl.services << other_service
+          pl = Place.new(place)
+          pl.save(:validate => false)
+          # puts other_service.inspect
+          # pl.services << other_service
+          # puts pl.errors.inspect
           p.places << pl
         end
 

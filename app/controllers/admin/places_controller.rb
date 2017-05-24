@@ -53,7 +53,7 @@ class Admin::PlacesController < AdminController
         flash[:success] = t('app.messages.success_updated', obj: @model)
         format.html do
           #redirect_to manage_provider_profile_path(page: 'manage-places')
-          redirect_to manage_provider_profile_path(page: 'manage-places', id: @item.id)
+          redirect_to manage_provider_profile_path(page: 'manage-places')
         end
         format.json { render json: { flash: flash.to_hash, remove_asset: pars[:assets_attributes][:id] } }
       else
@@ -121,7 +121,7 @@ class Admin::PlacesController < AdminController
   private
 
   def pars
-    permitted = Place.globalize_attribute_names + [:website, :postal_code, :region_id, :latitude, :longitude, :picked_asset_id, emails: [], phones: [], service_ids: [],
+    permitted = Place.globalize_attribute_names + [:website, :postal_code, :region_id, :latitude, :longitude, :poster_id, emails: [], phones: [], service_ids: [],
       assets_attributes: ["@original_filename", "@content_type", "@headers", "_destroy", "id", "image"]]
     #
     #assets:  [ "@original_filename", "@content_type", "@headers", "_destroy", "id", "image"],

@@ -24,17 +24,18 @@ Madloba::Application.routes.draw do
 
 
     namespace :manage, :module => :admin, :constraints => { format: :html } do
-      get '/', to: '/admin#index'
+      get '/', to: '/admin#user_profile'
       get 'user/(:page)', to: '/admin#user_profile', :as => :user_profile
       get 'provider/:page/(:id)/(:edit)', to: '/admin#provider_profile', :as => :provider_profile, constraints: { id: /(new)|(\d+)/, edit: 'edit' }
       get 'admin', to: '/admin#admin_profile', :as => :admin_profile
 
-      scope 'admin' do
-        resources :page_contents
-      end
+      # scope 'admin' do
+      # end
       # namespace :manage do
         resources :providers#, controller: 'providers'
         resources :places#, controller: '/admin'
+        resources :users
+        resources :page_contents
       # end
     end
 

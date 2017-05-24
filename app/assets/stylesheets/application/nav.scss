@@ -171,16 +171,16 @@
               background-color: #fff;
               text-align: left;
               ul.first {
-                padding: 22px 46px 22px 20px;
+                padding: 22px 46px 0 20px;
                 > li.sans {
                   padding-bottom: 20px;
                 }
               }
               ul.last {
-                padding: 22px 46px 22px 20px;
+                padding: 10px 46px 22px 20px;
               }
               a {
-                @include font;
+                @include font(18, 'sb', 20);
                 color: $text;
                 text-decoration: none;
                 white-space: nowrap;
@@ -188,10 +188,11 @@
               li:not(.sans) a {
                 padding-left: 38px;
                 position: relative;
-                @include font;
+                @include font(18, 'sb', 20);
                 color: $text;
                 white-space: nowrap;
-                padding-bottom: 10px;
+                padding-bottom: 14px;
+                opacity: .8;
                 &:after {
                   content: '';
                   display: block;
@@ -202,20 +203,19 @@
                 }
               }
               .header {
-                @include font;
+                display: block;
+                @include font(18, 'sb', 20);
                 color: $link;
-                padding-bottom: 6px;
+                padding-bottom: 10px;
+                text-transform: uppercase;
               }
               .subheader {
-                @include font;
+                display: block;
+                @include font(18, 'sb', 20);
                 color: $link;
                 padding-left: 19px;
                 padding-bottom: 6px;
-              }
-              hr {
-                border: 0;
-                border-top: 1px solid #d8d8d8;
-                margin: 0;
+                padding-top: 6px;
               }
             }
             &:hover .user-menu {

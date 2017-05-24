@@ -72,7 +72,6 @@ class RootController < ApplicationController
     #   gon.regions[e[0]] = e[1]\
     # }
 
-    missing_path = ActionController::Base.helpers.asset_path("png/missing.png")
     result = {}
     places.each {|place|
       region_id = place.region_id
@@ -80,7 +79,7 @@ class RootController < ApplicationController
       result[region_id] << {
         id: place.id,
         name: place.name,
-        image: missing_path,
+        image: place.poster,
         path: place_path(id: place.id),
         rating: place.get_rating,
         provider: {

@@ -277,15 +277,15 @@ ActiveRecord::Schema.define(version: 20170523113610) do
   create_table "places", force: :cascade do |t|
     t.string   "website"
     t.string   "postal_code"
-    t.decimal  "latitude",        precision: 8, scale: 5
-    t.decimal  "longitude",       precision: 8, scale: 5
-    t.decimal  "rating",                                  default: 0.0
+    t.decimal  "latitude",    precision: 8, scale: 5
+    t.decimal  "longitude",   precision: 8, scale: 5
+    t.decimal  "rating",                              default: 0.0
     t.integer  "region_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "emails",                                  default: [],  null: false, array: true
-    t.string   "phones",                                  default: [],  null: false, array: true
-    t.integer  "picked_asset_id"
+    t.string   "emails",                              default: [],  null: false, array: true
+    t.string   "phones",                              default: [],  null: false, array: true
+    t.integer  "poster_id"
   end
 
   add_index "places", ["region_id"], name: "index_places_on_region_id", using: :btree

@@ -12,7 +12,7 @@
         = render 'admin/users/edit'
       %li{class: current_page == :'favorite-places' ? 'active' : nil, 'data-link': 'favorite-places'}
         %span= t("favorite_places")
-        = render partial: 'admin/users/favorites', locals: { items: [] }
+        = render partial: 'admin/users/favorites', locals: { favorite_places: favorite_places }
       %li{class: current_page == :'rated-places' ? 'active' : nil, 'data-link': 'rated-places'}
         %span= t("rated_places")
         = render partial: 'admin/users/rates', locals: { items: [] }
@@ -20,4 +20,4 @@
         %span= t("uploaded_photos")
         = render partial: 'admin/users/photos', locals: { items: [] }
 
-  = render partial: "shared/footer"
+    = render partial: "shared/footer"

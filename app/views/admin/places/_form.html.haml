@@ -36,7 +36,7 @@
           = f.input :latitude, as: :hidden
           = f.input :longitude, as: :hidden
     .fields-asset
-      = f.input :picked_asset_id, as: :hidden
+      = f.input :poster_id, as: :hidden
       =# f.object.assets.length
       .field-wrapper.field-file
         = f.label :assets do
@@ -47,12 +47,12 @@
       - assets = f.object.assets.to_a
 
       - picked = nil
-      - if f.object.picked_asset_id.present?
-        - picked = f.object.assets.find(f.object.picked_asset_id)
+      - if f.object.poster_id.present?
+        - picked = f.object.assets.find(f.object.poster_id)
         - assets.delete_if {|x| x.id == picked.id }
         - assets.unshift(picked)
       - assets.each do |asset|
-        .field-wrapper.field-asset{'data-asset-id': asset.id, class: asset.id == f.object.picked_asset_id ? 'picked' : nil }
+        .field-wrapper.field-asset{'data-asset-id': asset.id, class: asset.id == f.object.poster_id ? 'picked' : nil }
           = image_tag asset.image.thumb.url
           .field-input
             = link_to "Delete Photo", manage_place_path(f.object.id, place: { assets_attributes: { id: asset.id, "_destroy" => true }}), remote: true, method: :put, 'data-type': 'json'

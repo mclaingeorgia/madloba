@@ -45,7 +45,7 @@ $('.fields-asset .field-asset:not([data-asset-id="-1"]) img').click(function () 
   var assets = asset.parent()
   assets.find('.field-asset.picked').removeClass('picked')
   asset.addClass('picked')
-  $('#place_picked_asset_id').val(asset.attr('data-asset-id'))
+  $('#place_poster_id').val(asset.attr('data-asset-id'))
 })
 
 $('.field-array .field-add').click(function(event) {

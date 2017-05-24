@@ -42,11 +42,11 @@ class Place < ActiveRecord::Base
 
 
   validates :region_id, presence: true
-  validates :services, presence: true
+  validates :services, :length => { :minimum => 1 }
 
   validates :website, format: { with: URI::regexp }, if: :website?
   validates :emails, array: { email: true }
-  validates :emails, :length => { :minimum => 1, :maximum => 3 }
+  validates :emails, :length => { :maximum => 3 }
   validates :phones, array: { numericality: { only_integer: true }, length: {is: 9} }
   validates :latitude, :longitude, numericality: true, presence: true
 
@@ -72,11 +72,11 @@ class Place < ActiveRecord::Base
   # end
 
   def set_picked_asset
-    if self.picked_asset_id.nil? && self.assets.count > 0
-      update_attributes({picked_asset_id: self.assets.first.id})
+    if self.poster_id.nil? && self.assets.count > 0
+      update_attributes({poster_id: self.assets.first.id})
     end
-    if self.picked_asset_id.present? && self.assets.count == 0
-      update_attributes({picked_asset_id: nil })
+    if self.poster_id.present? && self.assets.count == 0
+      update_attributes({poster_id: nil })
     end
      Rails.logger.debug("--------------------------------------------set_picked_asset")
   end
@@ -91,6 +91,10 @@ class Place < ActiveRecord::Base
   def get_rating
     r = rating.to_s.format_number
     r == 0 ? '-' : r
+  end
+  def poster
+    poster = self.assets.find_by(id: self.poster_id)
+    poster.present? ? poster.image.thumb.url : ActionController::Base.helpers.asset_path("png/missing.png")
   end
   def self.by_filter(filter, current_user)
     places = with_translations(I18n.locale)
