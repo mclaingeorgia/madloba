@@ -40,7 +40,7 @@ Madloba::Application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # Set to :debug to see everything in the log.
   config.log_level = :debug
@@ -66,7 +66,7 @@ Madloba::Application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
-  config.action_mailer.default_url_options = { host: "#{Rails.application.secrets.smtp_host}" }
+  config.action_mailer.default_url_options = { host: "#{Rails.application.secrets.smtp_host}", :protocol => 'https'  }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
       address: "#{Rails.application.secrets.smtp_address}",
@@ -94,7 +94,7 @@ Madloba::Application.configure do
 
   Madloba::Application.config.middleware.use ExceptionNotification::Rack,
                                               :email => {
-                                                  :email_prefix => "[Mclain App error] ",
+                                                  :email_prefix => "[Sheaghe App error] ",
                                                   :sender_address => "#{Rails.application.secrets.error_sender_email}",
                                                   :exception_recipients => "#{Rails.application.secrets.error_recipients_email}",
                                                   :delivery_method => :smtp
