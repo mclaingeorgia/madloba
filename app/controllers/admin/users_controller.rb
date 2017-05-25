@@ -131,7 +131,7 @@ class Admin::UsersController < AdminController
 
   def user_params
     params.require(:user).permit(:first_name, :first_name_en, :first_name_ka,
-                                 :last_name, :last_name_en, :last_name_ka, :username,
+                                 :last_name, :last_name_en, :last_name_ka,
                                  :email, :role, :password, :password_confirmation, :current_password, :is_service_provider, :has_agreed)
   end
 

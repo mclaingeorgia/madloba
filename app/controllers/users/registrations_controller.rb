@@ -60,18 +60,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # private
 
   def sign_up_params
-    permitted = User.globalize_attribute_names + [:username, :email, :password, :password_confirmation, :is_service_provider, :has_agreed, providers_attributes: Provider.globalize_attribute_names ]
+    permitted = User.globalize_attribute_names + [:email, :password, :password_confirmation, :is_service_provider, :has_agreed, providers_attributes: Provider.globalize_attribute_names ]
     p = params.require(:user).permit(*permitted)
     p["providers_attributes"].reject! { |attr| attr.empty? }
     p
   end
-
-  # def account_update_params
-  #   params.require(:user).permit(:first_name, :first_name_en, :first_name_ka,
-  #                                :last_name, :last_name_en, :last_name_ka, :username, :email,
-  #                                :password, :password_confirmation, :current_password, :role, :is_service_provider, :has_agreed_to_tos)
-  # end
-
 end
-
-#first_name_ka, last_name_ka, first_name_en, last_name_en, username, is_service_provider, providers_attributes, has_agreed

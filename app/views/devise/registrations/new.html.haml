@@ -7,7 +7,7 @@
     = devise_error_messages!
     = render partial: 'shared/fields_localization', locals: { fields: { first_name: nil, last_name: nil } , form: f }
     .fields-group
-      = f.input :username
+      =# f.input :username
       = f.input :email, required: true
       = f.input :password, input_html: { autocomplete: 'off' }, required: true
       = f.input :password_confirmation, input_html: { autocomplete: 'off' }, required: true

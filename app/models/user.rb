@@ -43,36 +43,18 @@ class User < ActiveRecord::Base
    validates :"first_name_#{locale}", presence: true
    validates :"last_name_#{locale}", presence: true
  end
-  validates :username, presence: true
-  validates_uniqueness_of :username
-  # validates :email, presence: true
-  # validates_uniqueness_of :email
+
+  validates :email, presence: true
+  validates_uniqueness_of :email
 
   validates :is_service_provider, inclusion: [true, false]
-  # validates :providers, presence: true, if
   validates :has_agreed, inclusion: [true], on: :create
 
-  # validates :password, presence: true, on: :create
-  # validates :password_confirmation, presence: true, on: :create
+  validates :password, presence: true, on: :create
+  validates :password_confirmation, presence: true, on: :create
 
-  # validate :providers, presence: true, if: :is_service_provider?
   validate :check_providers_number, on: :create
 
-
-  # validates_presence_of :first_name_ka, :unless => lambda { self.first_name_en.blank? }
-
-
-
-  # validates :email, presence: true, if: :should_validate?
-
-  # def should_validate?
-  #   new_record? || email.present?
-  # end
-
-  # has_many :locations, dependent: :destroy
-  # has_many :posts, dependent: :destroy
-  # has_many :post_users
-  # has_many :favorite_posts, through: :post_users, source: :post
 
   def guest?
     nil?
@@ -106,13 +88,9 @@ class User < ActiveRecord::Base
   #   "#{self.first_name} #{self.last_name} - #{self.email}"
   # end
 
-  # def has_accepted_terms_and_conditions
-  #   errors.add(:base, I18n.t('admin.profile.please_agree')) if (self.has_agreed.nil? || !self.has_agreed)
-  # end
-
   # used to order flash messages
   def self.validation_order_list
-    [User.globalize_attribute_names, :username, :email, :password, :password_confirmation].flatten
+    [User.globalize_attribute_names, :email, :password, :password_confirmation].flatten
   end
 
 
@@ -134,8 +112,3 @@ class User < ActiveRecord::Base
       end
     end
 end
-
-
-# User::Translation.class_eval do
-#   validates :first_name, presence: true
-# end
