@@ -99,5 +99,6 @@ Madloba::Application.configure do
                                                   :exception_recipients => "#{Rails.application.secrets.error_recipients_email}",
                                                   :delivery_method => :smtp
                                               }
+  config.asset_host = 'https://dev-sheaghe.jumpstart.ge'
 
 end

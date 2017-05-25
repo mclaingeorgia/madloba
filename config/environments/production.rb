@@ -100,4 +100,5 @@ Madloba::Application.configure do
                                                   :delivery_method => :smtp
                                               }
 
+  config.asset_host = 'https://sheaghe.ge'
 end

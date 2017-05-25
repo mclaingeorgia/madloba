@@ -56,4 +56,6 @@ Madloba::Application.configure do
     ActiveRecord::Base.logger.level = Logger::INFO
   end
 
+  config.asset_host = 'http://localhost:3000'
+
 end

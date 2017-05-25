@@ -1,5 +1,5 @@
 - title = (content_for?(:page_title) && yield(:page_title) != t('app.common.name') ? "#{strip_tags_nbsp(yield(:page_title))} | #{t('app.common.name')}" : "#{t('app.common.name')} | #{t('app.common.slogan')}").html_safe
-- desc = t("app.common.description").html_safe
+- desc = content_for?(:page_desc) ?  yield(:page_desc) : t("app.common.description").html_safe
 
 %head
   %meta{:charset => "utf-8"}
@@ -14,6 +14,9 @@
   %meta{:property => "og:site_name", :content => t("app.common.name")}
   %meta{:property => "og:type", :content => "non_profit"}
   %meta{:property => "og:url", :content => current_url}
+
+  - if content_for?(:meta_image)
+    = yield(:meta_image)
   %meta{:property => "og:image", :content => image_url("share_#{I18n.locale}.jpg")}
 
   = csrf_meta_tags

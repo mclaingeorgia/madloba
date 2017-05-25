@@ -97,6 +97,12 @@ class Place < ActiveRecord::Base
     poster = self.assets.find_by(id: self.poster_id)
     poster.present? ? poster.image.thumb.url : ActionController::Base.helpers.asset_path("png/missing.png")
   end
+
+  def poster_url
+    poster = self.assets.find_by(id: self.poster_id)
+    ActionController::Base.helpers.image_url(poster.present? ? poster.image_url(:thumb) : "png/missing.png")
+  end
+
   def self.by_filter(filter, current_user)
     places = with_translations(I18n.locale)
     sql = []
