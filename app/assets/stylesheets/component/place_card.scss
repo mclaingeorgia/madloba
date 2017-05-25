@@ -97,14 +97,15 @@
         padding-bottom: 4px;
       }
       .provider {
+        span {
+          @include font(12);
+          color: $text;
+        }
         a {
           @include font(18, 'sb');
           color: $link;
           text-decoration: underline;
-        }
-        span {
-          @include font(12);
-          color: $text;
+          display: inline;
         }
       }
       .services {

@@ -85,8 +85,8 @@
       })
 
       pollution.hooks.click.push(function(event) {
-        var el = $(event.toElement)
-        if(t.is_open && (event.toElement.nodeName.toLowerCase() === 'dialog' ||
+        var el = $(event.target)
+        if(t.is_open && (event.target.nodeName.toLowerCase() === 'dialog' ||
           (!el.hasClass('nav-toggle-button') &&
           el.closest('dialog').length === 0))) {
           t.close();

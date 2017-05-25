@@ -47,14 +47,8 @@
                     '%ellipsis' +
                   '</div>' +
                   '<ul class="contact">' +
-                    '<li title="%address">' +
-                      '<span class="icon address"></span>' +
-                      '%address' +
-                    '</li>' +
-                    '<li title="%phone">' +
-                      '<span class="icon phone"></span>' +
-                      '%phone' +
-                    '</li>' +
+                    '%address_template' +
+                    '%phone_template' +
                   '</ul>' +
                 '</div>' +
               '</div>' +
@@ -74,7 +68,7 @@
       if(place.name !== place.provider.name) {
         provider_template = '<div class="provider">' +
                               '<span>%by&nbsp;</span>' +
-                              '<a href="/en?what=%provider" title="%provider_title">%provider</a>' +
+                              '<a href="?what=%provider" title="%provider_title">%provider</a>' +
                             '</div>'
         provider_template = provider_template
           .replace(/%by/g, gon.labels.by)
@@ -82,36 +76,48 @@
           .replace(/%provider/g, place.provider.name)
       }
 
-
-      // '<div class="first-service service">' +
-      //   '<i class="%service_icon"></i>' +
-      //   '<span>%service_name</span>' +
-      //   '%ellipsis' +
-      // '</div>' +
-
       var services_list = gon.labels.services
         .filter(function(f) {
           return place.services.indexOf(f[0]) !== -1
         })
-      var front_template = services_list.slice(0,6).map(function(m) { return '<div class="service"><i class="' + m[2] + '" title="' + m[1] + '"></i></div>' }).join("")
-      console.log(front_template)
+      // console.log(services_list)
+      var front_template = services_list.slice(0,6).map(function(m) { return '<div class="service"><a href="?services[]=' + m[0] + '" title="' + m[1] + ' - ' + gon.labels.view_all_service_places + '"><i class="' + m[2] + '"></i></a></div>' }).join("")
+      // console.log(front_template)
       var back_template = ''
       var back_ellipsis_template = ''
       if(services_list.length > 6) {
         back_template = '<div class="back hidden"><div class="close"></div><ul class="services">' +
           services_list.map(function(m) {
-            return '<li class="service"><i class="' + m[2] + '"></i><span>' + m[1] + '</span></li>'
+            return '<li class="service"><a href="?services[]=' + m[0] + '" title="' + m[1] + ' - ' + gon.labels.view_all_service_places + '"><i class="' + m[2] + '"></i><span>' + m[1] + '</span></a></li>'
           }).join("") +
           '</ul></div>'
         back_ellipsis_template = '<div class="ellipsis" title="' + gon.labels.view_all_services + '"></div>'
       }
 
+
+      var address_template = ''
+      if(place.address !== '') {
+        address_template = ('<li title="%address">' +
+                            '<span class="icon address"></span>' +
+                            '%address' +
+                          '</li>').replace(/%address/g, place.address)
+      }
+
+      var phone_template = ''
+      if(place.phone !== '') {
+        phone_template = ('<li title="%phone">' +
+                            '<span class="icon phone"></span>' +
+                            '%phone' +
+                          '</li>').replace(/%phone/g, place.phone)
+      }
+
+
       var html = template
         .replace(/%id/g, place.id)
         .replace(/%name/g, place.name)
         .replace(/%title/g, gon.labels.view_place_details)
-        .replace(/%phone/g, place.phone)
-        .replace(/%address/g, place.address)
+        .replace(/%address_template/g, address_template)
+        .replace(/%phone_template/g, phone_template)
         .replace(/%path/g, place.path)
         .replace(/%provider_template/g, provider_template)
         .replace(/%image/g, place.image)

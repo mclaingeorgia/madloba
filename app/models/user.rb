@@ -44,14 +44,14 @@ class User < ActiveRecord::Base
    validates :"last_name_#{locale}", presence: true
  end
 
-  validates :email, presence: true
-  validates_uniqueness_of :email
+  # validates :email, presence: true
+  # validates_uniqueness_of :email
 
   validates :is_service_provider, inclusion: [true, false]
   validates :has_agreed, inclusion: [true], on: :create
 
-  validates :password, presence: true, on: :create
-  validates :password_confirmation, presence: true, on: :create
+  # validates :password, presence: true, on: :create
+  # validates :password_confirmation, presence: true, on: :create
 
   validate :check_providers_number, on: :create
 

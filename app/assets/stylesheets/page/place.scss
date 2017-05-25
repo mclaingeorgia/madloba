@@ -26,15 +26,16 @@
         padding-bottom: 8px;
       }
       .provider-name {
-        a {
-          @include font(26, 'sb', 28);
-          color: $text;
-          padding-bottom: 17px;
-          text-decoration: none;
-        }
+        padding-bottom: 17px;
         span {
           @include font(16);
           color: $text;
+        }
+        a {
+          @include font(26, 'sb', 28);
+          color: $text;
+          text-decoration: none;
+          display: inline;
         }
       }
     }

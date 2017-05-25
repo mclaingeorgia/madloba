@@ -1,6 +1,7 @@
 - with_rator ||= false
 - all_favorite ||= false
 - ss = place.services.sorted
+- view_all_service_places = t('shared.view_all_service_places')
 .place-card{'data-place-id': place.id}
   .card-border
     .card
@@ -19,24 +20,28 @@
           .services
             - ss[0,6].each do |s|
               .service
-                %i{class: s.icon, title: s.name}
+                = link_to root_path(services:[s.id]), title: "#{s.name} - #{view_all_service_places}" do
+                  %i{class: s.icon}
+                  %span= s.name
             - if ss.length > 6
               .ellipsis{title: t('shared.view_all_services')}
           %ul.contact
-            %li{title: place.address}
-              %span.icon.address
-              = place.address
-            %li{title: place.phone}
-              %span.icon.phone
-              = place.phone
+            - if item.address.present?
+              %li{title: place.address}
+                %span.icon.address
+                = place.address
+            - if item.address.present?
+              %li{title: place.phone}
+                %span.icon.phone
+                = place.phone
       - if ss.length > 6
         .back.hidden
           .close
           %ul.services
-            - ss[0,6].each do |s|
+            - ss.each do |s|
               %li.service
-                %i{class: s.icon, title: s.name}
-                %span= s.name
-            = place.services.map { |s| "<li class='service'><i class='#{s.icon}'></i><span>#{s.name}</span></li>" }.join("").html_safe
+                = link_to root_path(services:[s.id]), title: "#{s.name} - #{view_all_service_places}" do
+                  %i{class: s.icon}
+                  %span= s.name
   - if with_rator
     = render partial: 'shared/rator', locals: { rate: PlaceRate.get_rate(current_user.id, place.id) }

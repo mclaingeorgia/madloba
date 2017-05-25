@@ -35,6 +35,8 @@ en:
       models:
         user:
           attributes:
+            email:
+              taken: This email is already used
             providers:
               not_filled: " data is not filled"
         category:
@@ -102,6 +104,7 @@ en:
     view_all_provider_places: See all places from this service provider
     view_place_details: View place details
     view_all_services: View All Services
+    view_all_service_places: See all places with this service
     locate_me: Locate Me on the Map
     add: Add
     upload_image: 'Upload Photo'

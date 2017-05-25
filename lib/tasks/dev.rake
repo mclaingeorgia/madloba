@@ -34,4 +34,18 @@ namespace :dev do
       }
     }
   end
+
+  desc 'Randomly slightly change provider name, for test purpose'
+  task randomize_provider_name: :environment do
+    places = Provider.all
+    random_amount = [0,1]
+    places.each{|p|
+
+      if random_amount.sample == 1
+        p.name = "#{p.name} *"
+        I18n.locale = :en
+        p.save
+      end
+    }
+  end
 end

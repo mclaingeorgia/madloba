@@ -55,6 +55,9 @@
     padding-top: 16px;
     padding: 33px 27px; //0 0 0;// 33px;
     z-index: 1;
+    > ul {
+      overflow: auto;
+    }
     li {
       display: none;
       &.active {

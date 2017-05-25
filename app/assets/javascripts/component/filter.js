@@ -9,6 +9,7 @@
     result: [],
     dynamic_map: false,
     first: false,
+    map: [],
     init: function () {
       var t = filter
       t.el = $('#filter')
@@ -62,8 +63,8 @@
       // console.log('data to process_all', t.data)
     },
     process: function (type, value) {
+      console.log(type, value)
       var t = filter
-      var map = []
       switch(type) {
         case 'search':
           t.set_data('what', t.els['what'].val())
@@ -91,9 +92,9 @@
           break
       }
       // console.log('data to process', t.data)
-      var url = window.location.pathname + '?' + (jQuery.param(t.data) + (map.length ? '&' + jQuery.param({map: map}) : ''))
-      window.history.pushState({ }, null, url)
       if(type !== 'map') {
+        var url = window.location.pathname + '?' + (jQuery.param(t.data)) + (t.map.length ? '&' + jQuery.param({map: t.map}) : '')
+        window.history.pushState({ }, null, url)
         t.process_send()
       }
     },
@@ -213,6 +214,8 @@
       if(t.first) {
         t.first = false
         t.map_switch(true)
+      } else if (t.dynamic_map) {
+        t.map_move_end()
       }
     },
     render_count: function (n) {
@@ -229,7 +232,9 @@
 
       var bounds = mp.getBounds()
       var tmp = [bounds._northEast.lat, bounds._northEast.lng, bounds._southWest.lat, bounds._southWest.lng]
+      t.map = tmp
       var url = window.location.pathname + '?' + (jQuery.param(t.data) + (tmp.length ? '&' + jQuery.param({map: tmp}) : ''))
+      console.log(url)
       window.history.pushState({ }, null, url)
 
       pollution.elements['places_map_marker_group'].eachLayer(function (layer) {

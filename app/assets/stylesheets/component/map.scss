@@ -18,10 +18,11 @@
         border-radius: 0;
         .leaflet-popup-content {
           max-width: 200px;
-          .header {
+          .header a{
             @include font(16, 'sb', 16);
             color: #000000;
             padding-bottom: 12px;
+            text-decoration: underline;
           }
           .contact {
             @include font(14, 'r', 16);

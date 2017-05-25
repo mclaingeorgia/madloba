@@ -96,13 +96,13 @@
     render_markers: function (id, locations) {
       if(pollution.elements.hasOwnProperty(id)) {
         var markerGroup = pollution.elements[id + '_marker_group']
-        var popup_template = '<div class="header">%name</div><ul class="contact"><li title="%address"><span class="icon address"></span>%address</li><li title="%phone"><span class="icon phone"></span>%phone</li></ul>'
+        var popup_template = '<div class="header"><a href="%path">%name</a></div><ul class="contact"><li title="%address"><span class="icon address"></span>%address</li><li title="%phone"><span class="icon phone"></span>%phone</li></ul>'
         // console.log("-----------------------------",locations)
         locations.forEach(function(location) {
           // console.log(location.coordinates)
           var mrk = L.marker(location.coordinates.map(function(m) { return +m }), {icon: pollution.elements.pin, _place_id: location.id, alt: location.name }).addTo(markerGroup)
 
-          mrk.bindPopup(popup_template.replace(/%name/g, location.name).replace(/%address/g, location.address).replace(/%phone/g, location.phone));
+          mrk.bindPopup(popup_template.replace(/%path/g, location.path).replace(/%name/g, location.name).replace(/%address/g, location.address).replace(/%phone/g, location.phone));
 
           if(device.desktop()) {
             mrk.on('click', function() {

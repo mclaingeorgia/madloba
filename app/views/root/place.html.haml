@@ -1,8 +1,6 @@
 - page_title item.name
 - if item.description.present?
   - content_for(:page_desc) { item.description }
-= item.poster_id
-= '3333333333333333'
 - if item.poster_id.present?
   - content_for(:meta_image) do
     %meta{:property => "og:image", :content => item.poster_url}
@@ -14,28 +12,29 @@
     .summary
       .name
         = item.name
-      .provider-name
-        %span #{"by "}
-        %a{href: root_path(what: item.provider.name)}= item.provider.name
+      - if item.name != item.provider.name
+        .provider-name
+          %span #{"by "}
+          %a{href: root_path(what: item.provider.name)}= item.provider.name
       %ul.services
-        = item.services.sorted.map { |s| "<li class='service'><a href='#{root_path(services:[s.id])}'><i class='#{s.icon}'></i><span>#{s.name}</span></a></li>" }.join("").html_safe
+        - view_all_service_places = t('shared.view_all_service_places')
+        = item.services.sorted.map { |s| "<li class='service'><a href='#{root_path(services:[s.id])}' title='#{s.name} - #{view_all_service_places}'><i class='#{s.icon}'></i><span>#{s.name}</span></a></li>" }.join("").html_safe
       %ul.contact
         - if item.address.present?
-          %li
+          %li{title: item.address}
             %span.icon.address
             = item.address
         - if item.phone.present?
-          %li
+          %li{title: item.phone}
             %span.icon.phone
             = item.phone
         - if item.website.present?
-          %li
+          %li{title: item.website}
             %span.icon.website
             = item.website
     .place-map
       .corner
         %img{src: asset_path("svg/corner2.svg")}
-      =  item.get_rating
       = render partial: "shared/rating", locals: { rating: item.get_rating }
       .map-container
         #place_map.map{ 'data-latitude': item.latitude, 'data-longitude': item.longitude }

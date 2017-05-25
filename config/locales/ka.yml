@@ -35,6 +35,8 @@ ka:
       models:
         user:
           attributes:
+            email:
+              taken: is already used
             providers:
               not_filled: " data is not filled"
         category:

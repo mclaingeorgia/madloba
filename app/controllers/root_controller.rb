@@ -49,7 +49,7 @@ class RootController < ApplicationController
     end
 
 
-    places = Place.by_filter(filter, current_user)#.limit(10)
+    places = Place.by_filter(filter, current_user).limit(10)
 
     gon.labels.merge!({
       result: t('.result', count: 1),
@@ -64,7 +64,9 @@ class RootController < ApplicationController
       services: services_clean,
       view_all_provider_places: t('shared.view_all_provider_places'),
       view_place_details: t('shared.view_place_details'),
-      view_all_services: t('shared.view_all_services')
+      view_all_services: t('shared.view_all_services'),
+      view_all_service_places: t('shared.view_all_service_places')
+
     })
     gon.regions = Region.sorted.pluck(:id, :name)
     # gon.regions = {}
@@ -88,7 +90,7 @@ class RootController < ApplicationController
         address: place.address,
         phone: place.phone,
         coordinates: [place.latitude, place.longitude],
-        services: place.service_ids
+        services: place.services.ids
       }
     }
 
