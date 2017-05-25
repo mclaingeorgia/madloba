@@ -98,16 +98,16 @@
       var address_template = ''
       if(place.address !== '') {
         address_template = ('<li title="%address">' +
-                            '<span class="icon address"></span>' +
-                            '%address' +
+                            '<i class="address"></i>' +
+                            '<span>%address</span>' +
                           '</li>').replace(/%address/g, place.address)
       }
 
       var phone_template = ''
       if(place.phone !== '') {
         phone_template = ('<li title="%phone">' +
-                            '<span class="icon phone"></span>' +
-                            '%phone' +
+                            '<i class="phone"></i>' +
+                            '<span>%phone</span>' +
                           '</li>').replace(/%phone/g, place.phone)
       }
 

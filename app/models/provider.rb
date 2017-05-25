@@ -26,7 +26,7 @@ class Provider < ActiveRecord::Base
   # has_many :favoriting_users
 
 
-  [:ka].each do |locale|
+  [I18n.locale].each do |locale|
     validates :"name_#{locale}", presence: true
     validates :"description_#{locale}", presence: true
   end

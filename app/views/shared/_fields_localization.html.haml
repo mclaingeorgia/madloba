@@ -5,13 +5,13 @@
     %label=t('shared.fields_localization')
     .d.d2
     - locales.each_with_index do |locale, locale_i|
-      = link_to t("app.languages.#{locale}"), 'javascript:void(0);', class: "tab-link#{locale_i == 0 ? ' active' : ''}", 'data-link': locale
+      = link_to t("app.languages.#{locale}"), 'javascript:void(0);', class: "tab-link#{I18n.locale == locale ? ' active' : ''}", 'data-link': locale
       - if locale_i != locales.length-1
         .d.d3
     .d.d4
   .tabs-content{'data-target': 'localization'}
     %ul
-      - locales.each_with_index do |locale, locale_i|
-        %li{class: locale_i == 0 ? 'active' : nil, 'data-link': locale}
+      - locales.each_with_index do |locale|
+        %li{class: I18n.locale == locale ? 'active' : nil, 'data-link': locale}
           - fields.each do |field|
             = form.input :"#{field[0]}_#{locale}", { label: t("activerecord.attributes.#{form.object.class.name.downcase}.#{field[0]}") }.merge(field[1].present? ? field[1] : {})

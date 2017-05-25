@@ -51,6 +51,11 @@ class Place < ActiveRecord::Base
   validates :phones, array: { numericality: { only_integer: true }, length: {is: 9} }
   validates :latitude, :longitude, numericality: true, presence: true
 
+
+ [I18n.locale].each do |locale|
+   validates :"name_#{locale}", presence: true
+   validates :"description_#{locale}", presence: true
+ end
 # validates :array_column, array: { length: { is: 20 }, allow_blank: true }
 # validates :array_column, array: { numericality: true }
   # validate :check_each_email

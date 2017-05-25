@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
 
- [:ka].each do |locale|
+ [I18n.locale].each do |locale|
    validates :"first_name_#{locale}", presence: true
    validates :"last_name_#{locale}", presence: true
  end
@@ -54,7 +54,6 @@ class User < ActiveRecord::Base
   # validates :password_confirmation, presence: true, on: :create
 
   validate :check_providers_number, on: :create
-
 
   def guest?
     nil?

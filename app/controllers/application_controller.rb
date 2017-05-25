@@ -94,24 +94,26 @@ class ApplicationController < ActionController::Base
   protected
 
   # Method to render 404 page
-  def render_not_found(exception)
-     Rails.logger.debug("--------------------------------------------#{params} #{exception}")
-    ExceptionNotifier.notify_exception(exception, env: request.env, :data => {:message => "was doing something wrong"})
-    respond_to do |format|
-      format.html { render template: 'errors/error404', status: 404 }
-      format.all { render nothing: true, status: 404}
-    end
-  end
+    def render_not_found(exception)
+      ExceptionNotifier.notify_exception(exception, env: request.env, :data => {:message => "was doing something wrong"})
 
-  # Method to render 500 page
-  def render_error(exception)
-    ExceptionNotifier.notify_exception(exception, env: request.env)
-    respond_to do |format|
-      format.html { render template: 'errors/error500', status: 500 }
-      format.all { render nothing: true, status: 500}
-    end
-  end
+      respond_to do |format|
+        format.html { render template: 'errors/error404', status: 404 }
+        format.json { render json: { flash: { error: t('errors.not_found') } }, status: 404 }
+        format.all { render nothing: true, status: 404}
 
+      end
+    end
+
+    # Method to render 500 page
+    def render_error(exception)
+      ExceptionNotifier.notify_exception(exception, env: request.env)
+      respond_to do |format|
+        format.html { render template: 'errors/error500', status: 500 }
+        format.json { render json: { flash: { error: t('errors.server_error') } }, status: 500 }
+        format.all { render nothing: true, status: 500}
+      end
+    end
 
 
   #  def default_url_options(options={})

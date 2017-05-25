@@ -22,18 +22,17 @@
               .service
                 = link_to root_path(services:[s.id]), title: "#{s.name} - #{view_all_service_places}" do
                   %i{class: s.icon}
-                  %span= s.name
             - if ss.length > 6
               .ellipsis{title: t('shared.view_all_services')}
           %ul.contact
             - if item.address.present?
               %li{title: place.address}
-                %span.icon.address
-                = place.address
-            - if item.address.present?
+                %i.address
+                %span= place.address
+            - if item.phone.present?
               %li{title: place.phone}
-                %span.icon.phone
-                = place.phone
+                %i.phone
+                %span= place.phone
       - if ss.length > 6
         .back.hidden
           .close

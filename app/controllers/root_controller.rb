@@ -49,7 +49,7 @@ class RootController < ApplicationController
     end
 
 
-    places = Place.by_filter(filter, current_user).limit(10)
+    places = Place.by_filter(filter, current_user)#.limit(10)
 
     gon.labels.merge!({
       result: t('.result', count: 1),

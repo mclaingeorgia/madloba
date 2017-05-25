@@ -92,9 +92,10 @@
           break
       }
       // console.log('data to process', t.data)
+      var url = window.location.pathname + '?' + (jQuery.param(t.data)) + (t.map.length ? '&' + jQuery.param({map: t.map}) : '')
+      window.history.pushState({ }, null, url)
+
       if(type !== 'map') {
-        var url = window.location.pathname + '?' + (jQuery.param(t.data)) + (t.map.length ? '&' + jQuery.param({map: t.map}) : '')
-        window.history.pushState({ }, null, url)
         t.process_send()
       }
     },
@@ -260,6 +261,7 @@
       }
       else {
         t.dynamic_map = false
+        t.map = []
         t.els['result'].removeClass('plain')
         t.els['result'].find('.place-card').addClass('hidden')
         t.render_count(t.els['result'].find('.place-card').length)

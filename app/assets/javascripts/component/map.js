@@ -103,7 +103,9 @@
           var mrk = L.marker(location.coordinates.map(function(m) { return +m }), {icon: pollution.elements.pin, _place_id: location.id, alt: location.name }).addTo(markerGroup)
 
           mrk.bindPopup(popup_template.replace(/%path/g, location.path).replace(/%name/g, location.name).replace(/%address/g, location.address).replace(/%phone/g, location.phone));
-
+          mrk.on('popupclose', function (event) {
+            $('.result').find('.place-card[data-place-id="' + location.id + '"]').removeClass('highlighted')
+          })
           if(device.desktop()) {
             mrk.on('click', function() {
               var $result = $('.result')
@@ -121,7 +123,7 @@
                 result.scrollTop = place_card.offsetTop - result.offsetTop
               }
               $place_card.addClass('highlighted')
-              $place_card.one(animationEvent, function(event) { console.log('transition end'); $place_card.removeClass('highlighted') })
+              // $place_card.one(animationEvent, function(event) { console.log('transition end'); $place_card.removeClass('highlighted') })
             })
           }
         })

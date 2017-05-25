@@ -22,16 +22,16 @@
       %ul.contact
         - if item.address.present?
           %li{title: item.address}
-            %span.icon.address
-            = item.address
+            %i.address
+            %span= item.address
         - if item.phone.present?
           %li{title: item.phone}
-            %span.icon.phone
-            = item.phone
+            %i.phone
+            %span= item.phone
         - if item.website.present?
           %li{title: item.website}
-            %span.icon.website
-            = item.website
+            %i.website
+            %span= item.website
     .place-map
       .corner
         %img{src: asset_path("svg/corner2.svg")}
@@ -51,7 +51,7 @@
           = render partial: "shared/rating", locals: { rating: item.get_rating, with_label: true }
         %li
           = render partial: 'shared/rator', locals: {rator: {'data-href-template': place_path(id: item.id, a: 'rate', v: '_v_'), 'data-xhr-redirected': 'rator', 'data-xhr-format': 'json', 'data-r': user_rate }}
-        - if user_signed_in? && !item.provider.users.include?(current_user)
+        - if !user_signed_in? || !item.provider.users.include?(current_user)
           %li
             - if is_report_requested
               .report

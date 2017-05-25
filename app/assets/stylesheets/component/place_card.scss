@@ -24,20 +24,21 @@
   }
   &.highlighted {
     .card-border:after {
-      animation: 1.5s animateBorderInOut ease-out;
-    }
-  }
-  @keyframes animateBorderInOut {
-    0% {
-      border: 3px solid transparent;
-    }
-    50% {
       border: 3px solid $highlighted_bg;
-    }
-    100% {
-      border: 3px solid transparent;
+      // animation: 1.5s animateBorderInOut ease-out;
     }
   }
+  // @keyframes animateBorderInOut {
+  //   0% {
+  //     border: 3px solid transparent;
+  //   }
+  //   50% {
+  //     border: 3px solid $highlighted_bg;
+  //   }
+  //   100% {
+  //     border: 3px solid transparent;
+  //   }
+  // }
   .card {
     padding: 9px;
     min-width: 327px;
