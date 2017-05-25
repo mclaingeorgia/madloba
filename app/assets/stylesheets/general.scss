@@ -160,6 +160,7 @@
 abbr[title='required'] {
   @include font(16);
   color: $control;
+  text-decoration: none;
 }
 // .required:after {
 //   content: "*";

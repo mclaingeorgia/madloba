@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
 
   # has_many :places
   # accepts_nested_attributes_for :provider_users
-  accepts_nested_attributes_for :providers
+  accepts_nested_attributes_for :providers, :reject_if => :not_service_provider?
 
   after_initialize :set_default_role, :if => :new_record?
 
@@ -55,6 +55,7 @@ class User < ActiveRecord::Base
   # validates :password, presence: true, on: :create
   # validates :password_confirmation, presence: true, on: :create
 
+  # validate :providers, presence: true, if: :is_service_provider?
   validate :check_providers_number, on: :create
 
 
@@ -117,6 +118,10 @@ class User < ActiveRecord::Base
 
 
   private
+    def not_service_provider?
+      !self.is_service_provider
+    end
+
     def providers_count_valid?
        Rails.logger.debug("--------------------------------------------#{self.providers.inspect}")
       providers.length >= PROVIDERS_COUNT_MIN
