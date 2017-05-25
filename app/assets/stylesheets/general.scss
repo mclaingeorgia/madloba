@@ -162,6 +162,11 @@ abbr[title='required'] {
   color: $control;
   text-decoration: none;
 }
+.no-data-found {
+  @include font(16);
+  color: $text;
+  padding: 0 27px;
+}
 // .required:after {
 //   content: "*";
 //   color: $control;

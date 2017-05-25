@@ -1,3 +1,6 @@
-.grid-view
-  - rated_places.each do |place|
-    = render partial: 'shared/place', locals: { place: place, with_rator: true }
+- if rated_places.length > 0
+  .grid-view
+    - rated_places.each do |place|
+      = render partial: 'shared/place', locals: { place: place, with_rator: true }
+- else
+  .no-data-found= t('shared.no_data_found')

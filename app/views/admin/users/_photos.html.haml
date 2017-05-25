@@ -1,15 +1,16 @@
-%ul.list-view.photos-view
-  - uploads_by_place_length = uploads_by_place.length
-  - uploads_by_place.each_with_index do |place_collection, place_collection_i|
-    - place_id = place_collection[0]
-    - place_uploads = place_collection[1]
-    / = place_uploads.inspect
-    - ln = place_uploads
-    %li.place
-      = link_to Place.find(place_id).name, place_path(place_id), class: 'name'
-      %ul.photos
-        - place_uploads.each do |upload|
-          %li.photo
-            = image_tag upload.asset.image.url(:thumb)
-            - state = upload.get_state
-            .state{class: state}= t(".shared.#{state}")
+- if uploads_by_place.length > 0
+  %ul.photos-view.slides
+    - uploads_by_place.each_with_index do |place_collection, place_collection_i|
+      - place_id = place_collection[0]
+      - place_uploads = place_collection[1]
+      - ln = place_uploads
+      %li
+        = link_to Place.find(place_id).name, place_path(place_id)
+        %ul
+          - place_uploads.each do |upload|
+            %li
+              = image_tag upload.asset.image.url(:thumb), 'data-slide': upload.asset.image.url(:normal)
+              - state = upload.get_state
+              .state{class: state}= t("shared.#{state}")
+- else
+  .no-data-found= t('shared.no_data_found')

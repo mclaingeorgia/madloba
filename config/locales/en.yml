@@ -112,6 +112,8 @@ en:
     pending: Pending
     approved: Approved
     declined: Declined
+    no_data_found: No Data Found
+    are_you_sure: Are you sure?
   messages:
     succeed_to_process: Request to %{action} processed successfully.
     succeed_to_process_reject: Request to reject %{action} processed successfully.

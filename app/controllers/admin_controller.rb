@@ -39,6 +39,7 @@ class AdminController < ApplicationController
 
   def user_profile
     @class = 'user_profile'
+    @has_slideshow = true
     @is_admin_profile_page = false
 
     page, id, action = get_sub_action(params[:page], params[:id], params[:edit], :user_profile)

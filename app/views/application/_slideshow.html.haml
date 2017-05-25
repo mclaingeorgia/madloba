@@ -1,0 +1,12 @@
+#slideshow.slideshow-container
+  .slideshow-image
+    = image_tag(Place.first.assets.first.image.url(:normal))
+
+  .slideshow-close
+    = link_to image_tag(asset_path("svg/close.svg"), alt: t('.alt.close'), title: t('.alt.close'), width: '26px', height: '26px'), 'javascript:void(0);'
+    / .slideshow-page
+  .slideshow-previous
+    = link_to image_tag(asset_path("svg/slideshow_arrow_left.svg"), alt: t('.alt.prev'), title: t('.alt.prev')), 'javascript:void(0);'
+  .slideshow-next
+    = link_to image_tag(asset_path("svg/slideshow_arrow_right.svg"), alt: t('.alt.next'), title: t('.alt.next')), 'javascript:void(0);'
+  / .slideshow-content

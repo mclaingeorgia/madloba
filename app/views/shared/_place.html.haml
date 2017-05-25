@@ -25,11 +25,11 @@
             - if ss.length > 6
               .ellipsis{title: t('shared.view_all_services')}
           %ul.contact
-            - if item.address.present?
+            - if place.address.present?
               %li{title: place.address}
                 %i.address
                 %span= place.address
-            - if item.phone.present?
+            - if place.phone.present?
               %li{title: place.phone}
                 %i.phone
                 %span= place.phone

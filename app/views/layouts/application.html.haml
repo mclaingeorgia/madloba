@@ -7,4 +7,6 @@
       = render 'application/navigation'
       = render "application/#{@is_admin ? 'main_admin' : 'main'}"
       = render 'application/dialog'
+    - if @has_slideshow
+      = render 'application/slideshow'
     = render 'application/javascript'

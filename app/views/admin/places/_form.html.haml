@@ -55,7 +55,7 @@
         .field-wrapper.field-asset{'data-asset-id': asset.id, class: asset.id == f.object.poster_id ? 'picked' : nil }
           = image_tag asset.image.thumb.url
           .field-input
-            = link_to t(".shared.delete_image"), manage_place_path(f.object.id, place: { assets_attributes: { id: asset.id, "_destroy" => true }}), remote: true, method: :put, 'data-type': 'json'
+            = link_to t(".shared.delete_image"), manage_place_path(f.object.id, place: { assets_attributes: { id: asset.id, "_destroy" => true }}), remote: true, method: :put, 'data-type': 'json', data: { confirm: t('shared.are_you_sure') }
     .actions
       = f.submit t("app.common.save")
       = f.submit t("app.common.cancel"), type: :reset

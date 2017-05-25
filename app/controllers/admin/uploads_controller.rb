@@ -9,28 +9,52 @@ class Admin::UploadsController < AdminController
     p = Place.find(upload_pars[:place_id])
 
     if p.present?
-      assets_pars.map do |m|
-        m[:owner_id] = p.id
-        m[:owner_type] = 2
-      end
+      if p.provider.users.include?(current_user)
+        assets_pars.map do |m|
+          m[:owner_id] = p.id
+          m[:owner_type] = 1
+        end
 
-      flag = true
-      assets_length = 0
-      ActiveRecord::Base.transaction do
-        assets = Asset.create(assets_pars)
-        flag = false if !assets.present?
-        assets_length = assets.length
-        assets.each {|asset|
-          if !@model.create(upload_pars.merge({user_id: current_user.id, asset_id: asset.id}))
-            flag = false
-            raise ActiveRecord::Rollback
-          end
-        }
-      end
-      if flag
-        flash[:success] = "#{assets_length} photos uploaded and waiting to be processed"
+        flag = true
+        assets_length = 0
+        ActiveRecord::Base.transaction do
+          assets = Asset.create(assets_pars)
+          flag = false if !assets.present?
+          assets_length = assets.length
+        end
+
+        if flag
+          flash[:success] = "#{assets_length} photos uploaded."
+        else
+          flash[:error] = "Something went wrong, try again later"
+        end
+
+
       else
-        flash[:error] = "Error while uploading photos, please contact administration"
+
+        assets_pars.map do |m|
+          m[:owner_id] = p.id
+          m[:owner_type] = 2
+        end
+
+        flag = true
+        assets_length = 0
+        ActiveRecord::Base.transaction do
+          assets = Asset.create(assets_pars)
+          flag = false if !assets.present?
+          assets_length = assets.length
+          assets.each {|asset|
+            if !@model.create(upload_pars.merge({user_id: current_user.id, asset_id: asset.id}))
+              flag = false
+              raise ActiveRecord::Rollback
+            end
+          }
+        end
+        if flag
+          flash[:success] = "#{assets_length} photos uploaded and waiting to be processed"
+        else
+          flash[:error] = "Error while uploading photos, please contact administration"
+        end
       end
     else
       flash[:error] = "#{Place.human_name} #{t('errors.messages.not_found')}"

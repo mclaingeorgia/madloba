@@ -28,9 +28,9 @@
     open: function () {
       var t = flash
       t.el.attr('open', 'open')
-        // .delay(5000).fadeOut(2000, function(){
-        //   t.close()
-        // });
+        .delay(5000).fadeOut(2000, function(){
+          t.close()
+        });
       return t
     },
     close: function () {
