@@ -4,7 +4,7 @@
       = link_to image_tag(asset_path("svg/logo_#{I18n.locale}.svg"), alt: t('.logo_alt'), title: t('.logo_title')).html_safe, root_path, class: 'nav-brand'
       .nav-toggle
         %button{ type: 'submit', class: "nav-toggle-button collapsed", 'data-toggle': 'collapse', 'aria-expanded': false, 'data-target': 'nav-toggle-target' }
-          %span.helper Toggle navigation
+          %span.helper= t('shared.toggle_navigation')
           .toggle
     #nav-toggle-target.nav-right
       .nav-menu
@@ -31,7 +31,7 @@
               - if current_user.user?
                 %ul.first
                   %li.sans
-                    %span.header User Profile
+                    %span.header= t('shared.user_profile')
                     %ul
                       %li
                         = link_to t('admin.menu.manage_profile'), manage_user_profile_path(page: 'manage-profile')
@@ -43,7 +43,7 @@
                         = link_to t('admin.menu.uploaded_photos'), manage_user_profile_path(page: 'uploaded-photos')
                   - if current_user.provider?
                     %li.sans
-                      %span.header Provider Profile
+                      %span.header= t('shared.provider_profile')
                       %ul
                         %li
                           = link_to t('admin.menu.manage_provider'), manage_provider_profile_path(page: 'manage-provider')
@@ -53,40 +53,38 @@
                           = link_to t('admin.menu.moderate_photos'), manage_provider_profile_path(page: 'moderate-photos')
                   - if current_user.admin?
                     %li.sans
-                      %span.header Admin Profile
+                      %span.header= t('shared.admin_profile')
                       %ul
                         %li.sans
-                          %span.subheader Manage
+                          %span.subheader= t('shared.manage')
                           %ul
                             %li
-                              = link_to t('admin.menu.users'), root_path
+                              = link_to t('admin.menu.users'), manage_users_path
                             %li
-                              = link_to t('admin.menu.providers'), root_path
+                              = link_to t('admin.menu.providers'), manage_providers_path
                             %li
-                              = link_to t('admin.menu.places'), root_path
+                              = link_to t('admin.menu.places'), manage_places_path
                             %li
-                              = link_to t('admin.menu.categories'), root_path
+                              = link_to t('admin.menu.services'), manage_services_path
                             %li
                               = link_to t('admin.menu.page_contents'), manage_page_contents_path
-                            %li
-                              = link_to t('admin.menu.settings'), root_path
                         %li.sans
-                          %span.subheader Moderate
+                          %span.subheader= t('shared.moderate')
                           %ul
                             %li
-                              = link_to t('admin.menu.reported_places'), root_path
+                              = link_to t('admin.menu.reported_places'), manage_moderate_reported_places_path
                             %li
-                              = link_to t('admin.menu.place_ownership'), root_path
+                              = link_to t('admin.menu.place_ownership'), manage_moderate_place_ownership_path
                             %li
-                              = link_to t('admin.menu.new_provider'), root_path
+                              = link_to t('admin.menu.new_provider'), manage_moderate_new_provider_path
                             %li
-                              = link_to t('admin.menu.place_tags'), root_path
+                              = link_to t('admin.menu.place_tags'), manage_moderate_place_tags_path
                 %ul.last
                   %li.sans
                     = link_to t('.log_out'), destroy_user_session_path, :method => :delete
       .nav-lang
-        = link_to 'English', url_for(locale: :en), class: "#{I18n.locale == :en ? 'active' : ''}", lang: :en
-        = link_to 'ქართული', url_for(locale: :ka), class: "#{I18n.locale == :ka ? 'active' : ''}", lang: :ka
+        = link_to t('app.languages._en'), url_for(locale: :en), class: "#{I18n.locale == :en ? 'active' : ''}", lang: :en
+        = link_to t('app.languages._ka'), url_for(locale: :ka), class: "#{I18n.locale == :ka ? 'active' : ''}", lang: :ka
       .nav-links
         = link_to t('app.common.privacy_policy'), privacy_policy_path
         = link_to t('app.common.terms_of_use'), terms_of_use_path

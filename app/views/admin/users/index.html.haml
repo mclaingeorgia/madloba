@@ -1,0 +1,23 @@
+- page_title t('.title')
+.page-title
+  = t('.title')
+  = link_to t('admin.add'), new_manage_user_path, class: 'add btn'
+.table-view
+  %table.datatable.datatable-table.table-responsive{width: '100%'}
+    %thead
+      %tr
+        %th.spacer
+        %th= @model.human_attribute_name(:name)
+        %th= @model.human_attribute_name(:email)
+        %th.fill= @model.human_attribute_name(:role)
+        %th.actions= t('.actions')
+    %tbody
+      - @items.each do |item|
+        %tr
+          %td
+          %td= item.name
+          %td= item.email
+          %td= item.role_name
+          %td.actions
+            = link_to t('admin.edit'), edit_manage_user_path(item.id), class: 'edit'
+            = link_to t('admin.delete'), manage_user_path(item.id), method: :delete, class: 'delete', data: {confirm: t('admin.confirm_delete') }

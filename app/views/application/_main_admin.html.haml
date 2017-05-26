@@ -3,17 +3,18 @@
     %section.aside
       %ul
         %li
-          %span Manage
+          %span= t('shared.manage')
           %ul
-            - [:users, :providers, :places, :categories, :page_contents, :settings].each do |pth|
+            - [:users, :providers, :places, :services, :page_contents].each do |pth|
               %li
-                = link_to t("admin.menu.#{pth}"), pth == :page_contents ? public_send("manage_#{pth}_path") : root_path, class: controller_name?(pth) ? 'current' : nil
+                = link_to t("admin.menu.#{pth}"), public_send("manage_#{pth}_path"), class: controller_name?(pth) ? 'current' : nil
         %li
-          %span Moderate
+          %span= t('shared.moderate')
           %ul
             - [:reported_places, :place_ownership, :new_provider, :place_tags].each do |pth|
               %li
-                = link_to t("admin.menu.#{pth}"), pth == :page_contents ? public_send("manage_#{pth}_path") : root_path, class: controller_name?(pth) ? 'current' : nil
+                - Rails.logger.debug("-----------------------------------------#{controller_name}")
+                = link_to t("admin.menu.#{pth}"), public_send("manage_moderate_#{pth}_path"), class: action_name?(pth) ? 'current' : nil
     %section.content
       = yield
       = render partial: "shared/footer"

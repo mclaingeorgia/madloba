@@ -5,7 +5,13 @@ class Admin::ProvidersController < AdminController
   before_filter { @model = Provider; }
 
   def index
+    @items = @model.sorted
+
+    respond_to do |format|
+      format.html
+    end
   end
+
   def show
     @item = @model.find(params[:id])
 

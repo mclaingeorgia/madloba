@@ -81,7 +81,7 @@
       td {
         @include font(16, 'r', 16);
         color: $text;
-        opacity: .8;
+        // opacity: .8;
         padding: 14px 33px 14px 4px;
       }
       th.actions {
@@ -96,7 +96,7 @@
     tbody {
       tr:hover {
         background-color: #ededed;
-        cursor: pointer;
+        // cursor: pointer;
       }
     }
 

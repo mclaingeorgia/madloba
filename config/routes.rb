@@ -37,7 +37,13 @@ Madloba::Application.routes.draw do
         resources :users
         resources :page_contents
         resources :uploads, only: [:create]
-      # end
+        resources :services
+
+      get 'moderate/reported_places', to: '/admin/moderates#reported_places', :as => :moderate_reported_places
+      get 'moderate/place_ownership', to: '/admin/moderates#place_ownership', :as => :moderate_place_ownership
+      get 'moderate/new_provider', to: '/admin/moderates#new_provider', :as => :moderate_new_provider
+      get 'moderate/place_tags', to: '/admin/moderates#place_tags', :as => :moderate_place_tags
+
     end
 
 

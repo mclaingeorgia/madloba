@@ -2,6 +2,7 @@
 //= require component/rator
 //= require component/recaptcha
 //= require component/tinymce
+//= require component/slideshow
 
 pollution.components.map.init('place_map', { zoom: 16, type: 'data', popup: gon.place_address })
 

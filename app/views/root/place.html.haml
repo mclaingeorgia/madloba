@@ -7,6 +7,17 @@
 
 - content_for :custom_stylesheet, 'page/place'
 - content_for :custom_javascript, 'page/place'
+- if !Rails.env.development?
+  - content_for :inline_javascript do
+    :plain
+      <div id="fb-root"></div>
+      <script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9&appId=240650056418235";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
 %section.content
   .summary-wrapper
     .summary
@@ -118,40 +129,24 @@
         %li
           .comment
             .header=t('.comments')
-    %section.photos
-      .form-container
-        = simple_form_for [:manage, Upload.new(place_id: item.id)] do |f|
-          = hidden_field_tag :authenticity_token, form_authenticity_token
-          = f.input :place_id, as: :hidden
-          .field-wrapper.field-file
-            = f.label :image do
-              %img{src: asset_path("svg/upload.svg") }
-              = t(".shared.upload_image")
-            = f.input :image, as: :file, label: false, input_html: { name: "assets_attributes[][image]", multiple: true, onchange: "javascript:this.form.submit();" }
-
-      .upload
-        %img{src: asset_path("svg/upload.svg") }
-        Upload your image
-      - item.assets.each do |asset|
-        .picture
-          = image_tag asset.image.thumb.url
+            .fb-comments{'data-numposts': 5, width: '992px'}
+    %section.photos.slides
+      - if user_signed_in?
+        .form-container
+          = simple_form_for [:manage, Upload.new(place_id: item.id)] do |f|
+            = hidden_field_tag :authenticity_token, form_authenticity_token
+            = f.input :place_id, as: :hidden
+            .field-wrapper.field-file
+              = f.label :image do
+                %img{src: asset_path("svg/upload.svg") }
+                = t(".shared.upload_image")
+              = f.input :image, as: :file, label: false, wrapper: false, input_html: { name: "assets_attributes[][image]", multiple: true, onchange: "javascript:this.form.submit();" }
+      - else
+        .field-file
+          %label{href: new_user_session_path, 'data-xhr': 'sign_in'}
+            %img{src: asset_path("svg/upload.svg") }
+            = t(".shared.upload_image")
+      - item.assets_sorted.each do |asset|
+        .photo
+          = image_tag asset.image.url(:thumb), 'data-slide': asset.image.url(:normal)
 = render partial: "shared/footer", locals: { with_links: true }
-
-
-
-
-
-
-
--#
-  - assets = f.object.assets.to_a
-
-  - picked = nil
-  - if f.object.poster_id.present?
-    - picked = f.object.assets.find(f.object.poster_id)
-    - assets.delete_if {|x| x.id == picked.id }
-    - assets.unshift(picked)
-  - assets.each do |asset|
-    .field-wrapper.field-asset{'data-asset-id': asset.id, class: asset.id == f.object.poster_id ? 'picked' : nil }
-      = image_tag asset.image.thumb.url
-

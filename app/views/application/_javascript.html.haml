@@ -7,3 +7,7 @@
 
 - if content_for? :custom_javascript
   = javascript_include_tag yield(:custom_javascript)
+
+- if content_for? :inline_javascript
+  = yield(:inline_javascript)
+

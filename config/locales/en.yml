@@ -18,6 +18,11 @@ en:
         description: Provider Description
       providers:
         <<: *provider
+      service: &service
+        name: Service Name
+        description: Service Description
+        icon: Service Icon
+        color: Service Color
       page_content:
         title: Title
         content: Content
@@ -29,6 +34,10 @@ en:
         email: Email
         password_confirmation: Password Confirmation
         is_service_provider: Do you plan to provide service?
+        roles:
+          user: User
+          provider: Provider
+          admin: Admin
         providers:
           <<: *provider_model
     errors:
@@ -57,6 +66,8 @@ en:
     languages:
       en: English
       ka: Georgian
+      _en: English
+      _ka: ქართული
     common:
       name: Sheaghe
       slogan: Discovering Services
@@ -88,6 +99,12 @@ en:
       fail_updated: "%{obj} failed to update."
       success_destroyed: "%{obj} was successfully deleted."
   shared:
+    toggle_navigation: Toggle navigation
+    user_profile: User Profile
+    provider_profile: Provider Profile
+    admin_profile: Admin Profile
+    manage: Manage
+    moderate: Moderate
     fields_localization: Fields to translate
     picked_as_favorite: Picked as favorite
     overall_rating: "Overall place rating %{rating}/5"
@@ -122,15 +139,24 @@ en:
     favorite_place: favorite place
     place_ownership: take place ownership
     place_report: report place
+    n_photo_uploaded:
+      one: "Photo uploaded."
+      other: "%{n} photos uploaded."
+    n_photo_uploaded_and_pending:
+      one: "Photo uploaded and waiting to be processed"
+      other: "%{n} photos uploaded and waiting to be processed"
+    uploader_failed: "Error while uploading photos, please contact administration"
   admin:
-    add: Add
-    save: Save
-    cancel: Cancel
-    edit: Edit
-    edit_object: "Edit %{obj}"
-    delete: Delete
-    confirm_delete: "Provider will be removed with all places bind to it."
-    or: or
+    shared:
+      add: Add
+      save: Save
+      cancel: Cancel
+      edit: Edit
+      edit_object: "Edit %{obj}"
+      delete: Delete
+      confirm_delete: "Provider will be removed with all places bind to it."
+      or: or
+      actions: Actions
     manage_provider:
       index: Manage Providers
       edit: Edit Provider
@@ -152,7 +178,7 @@ en:
       users: Users
       providers: Providers
       places: Places
-      categories: Categories
+      services: Services
       page_contents: Page Contents
       settings: Settings
       reported_places: Reported Places
@@ -181,6 +207,8 @@ en:
       list:
         provider: "Provider:"
     providers:
+      index:
+        title: Manage Providers
       edit:
         title: Edit Provider
     place:
@@ -200,6 +228,9 @@ en:
       email: Email
       password: Password
       password_confirmation: Password Confirmation
+    services:
+      index:
+        title: "Manage Services"
   application:
     dialog:
       partners: PARTNERS
@@ -306,5 +337,6 @@ en:
     faq_label: Frequently Asked Questions
     have_questions_html: "Have questions? Click here to view our %{link}. For further assistance, please contact 0 800 900 902."
     ws_error: Sorry, a server error occurred. Please refresh this page.
+    try_again: 'Something went wrong, try again later'
   config:
     not_authorized: You are not allowed go to that page.

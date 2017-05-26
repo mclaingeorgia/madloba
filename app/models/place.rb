@@ -13,7 +13,7 @@ class Place < ActiveRecord::Base
   has_one :provider, through: :provider_place, source: :provider
 
 
-  has_one :region#, required: true
+  belongs_to :region#, required: true
 
   has_many :favorite_places
   has_many :favoritors, through: :favorite_places, source: :user
@@ -86,6 +86,23 @@ class Place < ActiveRecord::Base
     end
      Rails.logger.debug("--------------------------------------------set_poster")
   end
+
+  def get_poster
+    self.assets.find_by(id: self.poster_id)
+  end
+
+  def assets_sorted
+    poster_asset = self.get_poster()
+    assets_array = assets.to_a
+
+    if poster_asset.present?
+      assets_array.delete_if{|d| d.id == poster_asset.id}
+      assets_array.unshift(poster_asset)
+    end
+
+    assets_array
+  end
+
   def phone
     phones.join(", ")
   end
@@ -144,6 +161,8 @@ class Place < ActiveRecord::Base
     places.where(sql.join(" OR "), pars).order(name: :asc)
   end
 
-
+  def self.sorted
+    with_translations(I18n.locale).order(name: :asc)
+  end
 
 end

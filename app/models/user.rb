@@ -92,8 +92,13 @@ class User < ActiveRecord::Base
     [User.globalize_attribute_names, :email, :password, :password_confirmation].flatten
   end
 
+  def self.sorted
+    with_translations(I18n.locale).order(first_name: :asc, last_name: :asc)
+  end
 
-
+  def role_name
+    I18n.t("activerecord.attributes.user.roles.#{self.role}")
+  end
   private
     def not_service_provider?
       !self.is_service_provider

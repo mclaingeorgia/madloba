@@ -34,4 +34,8 @@ class Provider < ActiveRecord::Base
   def self.by_user(user_id)
     joins(:users).where(:users => { :id => user_id}).includes(:places)
   end
+
+  def self.sorted
+    with_translations(I18n.locale).order(name: :asc)
+  end
 end

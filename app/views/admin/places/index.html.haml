@@ -1,0 +1,29 @@
+- page_title t('.title')
+.page-title
+  = t('.title')
+  = link_to t('admin.add'), new_manage_place_path, class: 'add btn'
+.table-view
+  %table.datatable.datatable-table.table-responsive{width: '100%'}
+    %thead
+      %tr
+        %th.spacer
+        %th= @model.human_attribute_name(:name)
+        %th.fill= @model.human_attribute_name(:address)
+        %th.fill= @model.human_attribute_name(:city)
+        %th.fill= @model.human_attribute_name(:region)
+        %th.fill= @model.human_attribute_name(:emails)
+        %th.fill= @model.human_attribute_name(:website)
+        %th.actions= t('.actions')
+    %tbody
+      - @items.each do |item|
+        %tr
+          %td
+          %td= item.name
+          %td= item.address
+          %td= item.city
+          %td= item.region.name
+          %td= item.email
+          %td= item.website
+          %td.actions
+            = link_to t('admin.edit'), edit_manage_place_path(item.id), class: 'edit'
+            = link_to t('admin.delete'), manage_place_path(item.id), method: :delete, class: 'delete', data: {confirm: t('admin.confirm_delete') }

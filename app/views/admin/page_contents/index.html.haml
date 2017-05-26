@@ -8,15 +8,15 @@
     %thead
       %tr
         %th.spacer
-        %th= @model.human_attribute_name(:name)
-        %th.fill= @model.human_attribute_name(:title)
+        %th= @model.human_attribute_name(:title)
+        %th.fill= @model.human_attribute_name(:name)
         %th.actions= t('.actions')
     %tbody
       - @items.each do |item|
         %tr
           %td
-          %td= item.name
           %td= item.title
+          %td= item.name
           %td.actions
             = link_to t('admin.edit'), edit_manage_page_content_path(item.id), class: 'edit'
             = link_to t('admin.delete'), manage_page_content_path(item.id), method: :delete, class: 'delete', data: {confirm: t('admin.confirm_delete') }

@@ -23,10 +23,19 @@ class Admin::UploadsController < AdminController
           assets_length = assets.length
         end
 
+    n_photo_uploaded:
+      one: "Photo uploaded."
+      other: "%{n} photos uploaded."
+    n_photo_uploaded_and_pending:
+      one: "Photo uploaded and waiting to be processed"
+      other: "%{n} photos uploaded and waiting to be processed"
+    uploader_failed: "Error while uploading photos, please contact administration"
+
+
         if flag
-          flash[:success] = "#{assets_length} photos uploaded."
+          flash[:success] = t('messages.n_photo_uploaded', n: assets_length, count: assets_length)
         else
-          flash[:error] = "Something went wrong, try again later"
+          flash[:error] = t('errors.try_again')
         end
 
 
@@ -51,9 +60,9 @@ class Admin::UploadsController < AdminController
           }
         end
         if flag
-          flash[:success] = "#{assets_length} photos uploaded and waiting to be processed"
+          flash[:success] = t('messages.n_photo_uploaded_and_pending', n: assets_length, count: assets_length)
         else
-          flash[:error] = "Error while uploading photos, please contact administration"
+          flash[:error] = t('messages.uploader_failed')
         end
       end
     else
@@ -64,27 +73,12 @@ class Admin::UploadsController < AdminController
   end
 
   private
-
-  # def set_gallery
-  #   @gallery = Gallery.find(params[:gallery_id])
-  # end
-
-  # def add_more_images(new_images)
-  #   images = @gallery.images # copy the old images
-  #   images += new_images # concat old images with new ones
-  #   @gallery.images = images # assign back
-  # end
-
-  # def create_params
-  #   params.require(:assets_attributes)
-  #   params.require(:upload).permit(:place_id, :image, "@original_filename", "@content_type", "@headers") # allow nested params as array
-  # end
-  def create_upload_params
-    params.require(:upload).permit(:place_id)
-  end
-  def create_assets_params
-    params.require(:assets_attributes).map do |m|
-      ActionController::Parameters.new(m.to_hash).permit(:image, "@original_filename", "@content_type", "@headers")
+    def create_upload_params
+      params.require(:upload).permit(:place_id)
     end
+    def create_assets_params
+      params.require(:assets_attributes).map do |m|
+        ActionController::Parameters.new(m.to_hash).permit(:image, "@original_filename", "@content_type", "@headers")
+      end
   end
 end

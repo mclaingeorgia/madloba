@@ -1,14 +1,22 @@
 class Admin::UsersController < AdminController
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   before_action :authenticate_user!
-  before_action :requires_user
-  after_action :verify_authorized
+  before_filter { @model = User; }
+  # before_action :requires_user
+  # after_action :verify_authorized
 
   include ApplicationHelper
 
   def show
   end
 
+  def index
+    @items = @model.all#.sorted
+
+    respond_to do |format|
+      format.html
+    end
+  end
   def new
     @user = User.new
     authorize @user
@@ -126,6 +134,7 @@ class Admin::UsersController < AdminController
 
   def photos
   end
+
 
   private
 

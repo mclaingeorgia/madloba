@@ -125,6 +125,8 @@ class RootController < ApplicationController
   end
 
   def place
+    @has_slideshow = true
+
     pars = place_params.inject({}) { |memo, (k, v)|
       key = k.to_sym
       v = true if v == 'true'
