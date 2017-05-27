@@ -1,0 +1,20 @@
+- content_for :custom_stylesheet, 'page/moderate'
+= page_title t("admin.moderates.place_tag.title")
+- active_page = 'pending'
+.tabs{'data-target': 'states'}
+  %ul
+    - ['pending', 'processed'].each do |page|
+      %li.tab-link{class: page == active_page ? 'active' : nil}
+        = link_to t("shared.#{page}"), 'javascript:void(0);', 'data-link': page, 'aria-expanded': page == active_page
+.tabs-content{'data-target': 'states'}
+  %ul
+    %li{'data-link': 'pending', class: 'active'}
+      .report-view
+        - @items[:pending].each do |item|
+          = render partial: 'place_tag', locals: { item: item }
+        .all-done{class: @items[:pending].present? ? 'hidden' : nil}= t('shared.all_done')
+    %li{'data-link': 'processed'}
+      .report-view
+        - @items[:processed].each do |item|
+          = render partial: 'place_tag', locals: { item: item }
+        .no-data-found{class: @items[:processed].present? ? 'hidden' : nil}= t('shared.no_data_found')

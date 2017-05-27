@@ -200,7 +200,7 @@
       opacity: .8;
       padding: 16px 21px;
       &.pending { background-color: #eaba6b; }
-      &.approved { background-color: $link; }
+      &.accepted { background-color: $link; }
       &.declined { background-color: $control; }
     }
     > ul {

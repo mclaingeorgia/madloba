@@ -35,6 +35,45 @@
         if(json.hasOwnProperty('remove_asset')) {
           $('[data-asset-id="' + json.remove_asset + '"]').remove()
         }
+        if(json.hasOwnProperty('moderate') && json.moderate.hasOwnProperty('type')) {
+          var type = json.moderate.type
+          if (type === 'report') {
+            var id = json.moderate.id
+            var state = json.moderate.state
+            var state_was = state === 'accept' ? 'decline' : 'accept'
+
+            var $report = $('[data-report-id="' + id + '"]')
+            var previous_state = $report.attr('data-report-state')
+
+            if(typeof previous_state !== 'undefined') {
+              $report.attr('data-report-state', null)
+              $report.find('.state span').text(gon.labels[state+'d']).parent().removeClass('hidden')
+              $report.find('.actions a').first().remove()
+              var generated_url = gon.labels.place_report_path.replace('_id_', id).replace('_state_', state_was)
+              $report.find('.actions a').removeClass(state).addClass(state_was).attr('href', generated_url).text(gon.labels[state_was])
+              console.log('move to processed')
+
+
+              $report_view = $('.tabs-content [data-link="processed"] .report-view')
+              $report_view.find('.no-data-found').remove()
+              $report_view.append($report.detach())
+
+              var $report_view_pendings = $('.tabs-content [data-link="pending"] .report-view')
+              if(!$report_view_pendings.find('.report').length) {
+                $report_view_pendings.find('.all-done').removeClass('hidden')
+              }
+
+            }
+            else {
+              console.log('already in processed')
+              $report.find('.state span').text(gon.labels[state+'d'])
+              var generated_url = gon.labels.place_report_path.replace('_id_', id).replace('_state_', state_was)
+              $report.find('.actions a').removeClass(state).addClass(state_was).attr('href', generated_url).text(gon.labels[state_was])
+            }
+
+          }
+
+        }
 
       }
     }

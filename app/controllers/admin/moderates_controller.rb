@@ -11,16 +11,93 @@ class Admin::ModeratesController < AdminController
   #      render :nothing => true, :status => 400
   #   end
   # end
-  def reported_places
-    @items = PlaceReport.all.group_by(&:processed)
+  def place_report
+    @items = {pending: [], processed: []}.merge(PlaceReport.all.group_by {|b|
+      b.processed == 0 ? :pending : :processed
+    })
+
+    gon.labels.merge!({
+      state_label: t('shared.labels.state'),
+      accept: t('shared.accept'),
+      accepted: t('shared.accepted'),
+      decline: t('shared.decline'),
+      declined: t('shared.declined'),
+      place_report_path: manage_update_moderate_place_report_path(id: '_id_', state: 'accept').gsub('accept', '_state_')
+    })
   end
+  def place_report_update
+    pars = place_report_params
+    item = PlaceReport.find(pars[:id])
+    state = ['accept', 'decline'].index(pars[:state])+1
+
+    if item.processed == state
+      flash.now[:success] =  t('app.messages.state_already_set', obj: item.place.name)
+    elsif item.update_attributes(processed: state, processed_by: current_user.id)
+      flash.now[:success] =  t("app.messages.#{pars[:state]}d", obj: item.place.name)
+      forward = { moderate: { type: :report,  id: item.id, state: pars[:state] } }
+    else
+      flash.now[:error] =  t('app.messages.fail_updated_state', obj: item.place.name)
+    end
+
+    forward = {} unless forward.present?
+    respond_to do |format|
+      format.html { redirect_to manage_moderate_place_report_path }
+      format.json { render json: { flash: flash.to_hash }.merge(forward) }
+    end
+  end
+
   def place_ownership
+    @items = {pending: [], processed: []}.merge(PlaceOwnership.all.group_by {|b|
+      b.processed == 0 ? :pending : :processed
+    })
+
+
+  end
+  def place_ownership_update
+    # pars = reported_places_params
+    # item = PlaceReport.find(pars[:id])
+    # state = ['accept', 'decline'].index(pars[:state])+1
+
+    # if item.processed == state
+    #   flash.now[:success] =  t('app.messages.state_already_set', obj: item.place.name)
+    # elsif item.update_attributes(processed: state, processed_by: current_user.id)
+    #   flash.now[:success] =  t("app.messages.#{pars[:state]}d", obj: item.place.name)
+    #   forward = { moderate: { type: :report,  id: item.id, state: pars[:state] } }
+    # else
+    #   flash.now[:error] =  t('app.messages.fail_updated_state', obj: item.place.name)
+    # end
+
+    # forward = {} unless forward.present?
+    # respond_to do |format|
+    #   format.html { redirect_to manage_moderate_reported_places_path }
+    #   format.json { render json: { flash: flash.to_hash }.merge(forward) }
+    # end
   end
   def new_provider
   end
-  def place_tags
+  def place_tag
+    @items = {pending: [], processed: []}.merge(Tag.all.group_by {|b|
+      b.processed == 0 ? :pending : :processed
+    })
+
+    # gon.labels.merge!({
+    #   state_label: t('shared.labels.state'),
+    #   accept: t('shared.accept'),
+    #   accepted: t('shared.accepted'),
+    #   decline: t('shared.decline'),
+    #   declined: t('shared.declined'),
+    #   reported_places_path: manage_update_moderate_reported_places_path(id: '_id_', state: 'accept').gsub('accept', '_state_')
+    # })
+  end
+  def place_tag_update
+
   end
 
+  private
+
+    def place_report_params
+      params.permit(:id, :state, :locale)
+    end
   # def index
   #   @items = @model.sorted
 

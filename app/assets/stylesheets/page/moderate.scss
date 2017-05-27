@@ -1,0 +1,65 @@
+  @import 'var';
+
+.report-view, .ownership-view {
+  padding: 0 27px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  .report {
+    max-width: 340px;
+    margin-right: 65px;
+    .row {
+      display: block;
+      padding-bottom: 15px;
+      label {
+        @include font(16, 'r', 20);
+        color: $link;
+        text-transform: uppercase;
+      }
+      span {
+        @include font(16, 'r', 20);
+        color: #000000;
+      }
+      .name {
+        @include font(18, 'sb', 20);
+        color: #000000;
+      }
+
+      &.pad {
+        padding-bottom: 9px;
+      }
+      &.actions {
+        a {
+          display: inline-block;
+          padding: 12px 20px;
+          border: 0;
+          border-radius: 3px;
+          @include font(18, 'r', 20);
+          color: $bg;
+          background-color: $link;
+          cursor: pointer;
+          text-decoration: none;
+          margin-right: 10px;
+          &.decline {
+            background-color: $control;
+          }
+        }
+      }
+    }
+
+  }
+}
+
+
+  //   = link_to item.place.name, place_path(item.place.id), class: 'name'
+  // .row
+  //   %label reported by
+  //   %span= "#{item.user.name} (#{item.user.email})"
+  // .row
+  //   %label reason
+  //   %span= item.reason
+  // .row
+  //   - if item.can_accept?
+  //     %button Accept
+  //   - if item.can_decline?
+  //     %button Decline

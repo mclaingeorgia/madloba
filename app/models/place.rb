@@ -24,7 +24,6 @@ class Place < ActiveRecord::Base
   has_many :place_tags
   has_many :tags, through: :place_tags, source: :tag
 
-
   has_many :place_rates
   has_many :rates, through: :place_rates, source: :user
 
@@ -41,6 +40,7 @@ class Place < ActiveRecord::Base
     phones.reject!(&:blank?)
   end
 
+  scope :published, -> { where(published: true) }
 
   validates :region_id, presence: true
   validates :services, :length => { :minimum => 1 }
@@ -126,7 +126,7 @@ class Place < ActiveRecord::Base
   end
 
   def self.by_filter(filter, current_user)
-    places = with_translations(I18n.locale)
+    places = published.with_translations(I18n.locale)
     sql = []
     pars = {}
     if filter[:what].present?

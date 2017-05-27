@@ -440,7 +440,26 @@
   }
 }
 
-
+.field-tag {
+  ul.field-inputs {
+    li {
+      display: inline-block;
+      white-space: nowrap;
+      padding: 6px 8px;
+    }
+    label {
+      @include font;
+      color: $text;
+    }
+    .close {
+      display: inline-block;
+      width: 18px;
+      height: 16px;
+      background: transparent url(svg('close')) no-repeat center;
+      cursor: pointer;
+    }
+  }
+}
 
 // simple_form type-non-autonomous style-light style-wide
 

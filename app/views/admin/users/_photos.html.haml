@@ -10,7 +10,7 @@
           - place_uploads.each do |upload|
             %li
               = image_tag upload.asset.image.url(:thumb), 'data-slide': upload.asset.image.url(:normal)
-              - state = upload.get_state
+              - state = upload.processed_human
               .state{class: state}= t("shared.#{state}")
 - else
   .no-data-found= t('shared.no_data_found')

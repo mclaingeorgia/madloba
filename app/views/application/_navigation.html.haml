@@ -72,13 +72,13 @@
                           %span.subheader= t('shared.moderate')
                           %ul
                             %li
-                              = link_to t('admin.menu.reported_places'), manage_moderate_reported_places_path
+                              = link_to t('admin.menu.place_report'), manage_moderate_place_report_path
                             %li
                               = link_to t('admin.menu.place_ownership'), manage_moderate_place_ownership_path
                             %li
                               = link_to t('admin.menu.new_provider'), manage_moderate_new_provider_path
                             %li
-                              = link_to t('admin.menu.place_tags'), manage_moderate_place_tags_path
+                              = link_to t('admin.menu.place_tags'), manage_moderate_place_tag_path
                 %ul.last
                   %li.sans
                     = link_to t('.log_out'), destroy_user_session_path, :method => :delete

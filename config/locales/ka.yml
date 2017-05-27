@@ -142,7 +142,7 @@ ka:
       categories: Categories
       page_contents: Page Contents
       settings: Settings
-      reported_places: Reported Places
+      place_report: Reported Places
       place_ownership: Place Ownership
       new_provider: New Provider
       place_tags: Place Tags

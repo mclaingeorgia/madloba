@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170525051911) do
+ActiveRecord::Schema.define(version: 20170527155645) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -220,7 +220,8 @@ ActiveRecord::Schema.define(version: 20170525051911) do
     t.integer  "user_id",                  null: false
     t.integer  "processed",    default: 0
     t.integer  "processed_by"
-    t.datetime "processed_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "place_rates", force: :cascade do |t|
@@ -239,7 +240,8 @@ ActiveRecord::Schema.define(version: 20170525051911) do
     t.text     "reason"
     t.integer  "processed",    default: 0
     t.integer  "processed_by"
-    t.datetime "processed_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "place_services", id: false, force: :cascade do |t|
@@ -283,9 +285,10 @@ ActiveRecord::Schema.define(version: 20170525051911) do
     t.integer  "region_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "emails",                              default: [],  null: false, array: true
-    t.string   "phones",                              default: [],  null: false, array: true
+    t.string   "emails",                              default: [],    null: false, array: true
+    t.string   "phones",                              default: [],    null: false, array: true
     t.integer  "poster_id"
+    t.boolean  "published",                           default: false
   end
 
   add_index "places", ["region_id"], name: "index_places_on_region_id", using: :btree
@@ -466,9 +469,12 @@ ActiveRecord::Schema.define(version: 20170525051911) do
   add_index "tag_translations", ["tag_id"], name: "index_tag_translations_on_tag_id", using: :btree
 
   create_table "tags", force: :cascade do |t|
-    t.boolean  "permit",     default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "processed"
+    t.integer  "processed_by"
+    t.integer  "user_id"
+    t.integer  "place_id"
   end
 
   create_table "todos", force: :cascade do |t|
@@ -485,7 +491,8 @@ ActiveRecord::Schema.define(version: 20170525051911) do
     t.integer  "asset_id",                 null: false
     t.integer  "processed",    default: 0
     t.integer  "processed_by"
-    t.datetime "processed_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "user_translations", force: :cascade do |t|

@@ -1,0 +1,14 @@
+.report{'data-tag-id': item.id, 'data-tag-state': item.is_pending? ? 'pending' : nil}
+  .row
+    = link_to item.place.name, place_path(item.place.id), class: 'name', target: :_blank
+  .row.pad.state{class: item.is_processed? ? nil : 'hidden'}
+    %label= t('shared.labels.state')
+    %span= t("shared.#{item.processed_human}")
+  .row
+    %label= t('.tag')
+    %span= item.name
+  .row.actions
+    - if item.can_accept?
+      = link_to t("shared.accept"), manage_update_moderate_place_tag_path(id: item.id, state: :accept), remote: true, method: :put, 'data-type': 'json'
+    - if item.can_decline?
+      = link_to t("shared.decline"), manage_update_moderate_place_tag_path({id: item.id, state: :decline}), remote: true, method: :put, 'data-type': 'json', class: 'decline'

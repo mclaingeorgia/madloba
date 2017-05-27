@@ -1,9 +1,15 @@
 class PlaceReport < ActiveRecord::Base
 
+  # processed
+  # 0 - pending
+  # 1 - accepted
+  # 2 - declined
+
   belongs_to :user
   belongs_to :place
 
-  default_scope { where(:processed => 0) }
+  # default_scope
+  scope :pending, -> { where(processed: 0) }
 
   validates :user_id, :place_id, :reason, presence: true
 
@@ -26,4 +32,21 @@ class PlaceReport < ActiveRecord::Base
   ensure
     return response.present? ? response : {type: :error, text: :failed_to_process, action: class_name}
   end
+
+  def can_accept?
+    [0,2].include?(self.processed)
+  end
+  def can_decline?
+    [0,1].include?(self.processed)
+  end
+  def is_processed?
+    [1,2].include?(self.processed)
+  end
+  def is_pending?
+    [0].include?(self.processed)
+  end
+  def processed_human
+    ['pending', 'accepted', 'declined'][self.processed]
+  end
+
 end

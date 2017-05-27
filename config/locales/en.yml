@@ -98,6 +98,10 @@ en:
       success_updated: "%{obj} was successfully updated."
       fail_updated: "%{obj} failed to update."
       success_destroyed: "%{obj} was successfully deleted."
+      accepted: "%{obj} was successfully accepted."
+      declined: "%{obj} was successfully declined."
+      fail_updated_state: "%{obj} state failed to update."
+      state_already_set: "%{obj} state already set."
   shared:
     toggle_navigation: Toggle navigation
     user_profile: User Profile
@@ -127,10 +131,16 @@ en:
     upload_image: 'Upload Photo'
     delete_image: 'Delete Photo'
     pending: Pending
-    approved: Approved
+    accept: Accept
+    accepted: Accepted
+    decline: Decline
     declined: Declined
+    processed: Processed
     no_data_found: No Data Found
+    all_done: All done!
     are_you_sure: Are you sure?
+    labels:
+      state: 'State:'
   messages:
     succeed_to_process: Request to %{action} processed successfully.
     succeed_to_process_reject: Request to reject %{action} processed successfully.
@@ -181,10 +191,10 @@ en:
       services: Services
       page_contents: Page Contents
       settings: Settings
-      reported_places: Reported Places
+      place_report: Reported Places
       place_ownership: Place Ownership
       new_provider: New Provider
-      place_tags: Place Tags
+      place_tag: Place Tags
     profile:
       first_name: "First name:"
       last_name: "Last name:"
@@ -231,6 +241,15 @@ en:
     services:
       index:
         title: "Manage Services"
+    moderates:
+      place_report:
+        title: Moderate Reported Places
+        reported_by: 'Reported By:'
+        reason: 'Reason:'
+        state: 'State:'
+      place_ownership:
+        title: Moderate Place Ownership
+        request_from: 'Request From:'
   application:
     dialog:
       partners: PARTNERS

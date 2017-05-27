@@ -3,7 +3,8 @@ class PlaceOwnership < ActiveRecord::Base
   belongs_to :user
   belongs_to :place
 
-  default_scope { where(:processed => 0) }
+  # default_scope { where(:processed => 0) }
+  scope :pending, -> { where(processed: 0) }
 
   validates :user_id, :place_id, presence: true
 
@@ -34,4 +35,21 @@ class PlaceOwnership < ActiveRecord::Base
   ensure
     return response.present? ? response : {type: :error, text: :failed_to_process, action: class_name}
   end
+
+  def can_accept?
+    [0,2].include?(self.processed)
+  end
+  def can_decline?
+    [0,1].include?(self.processed)
+  end
+  def is_processed?
+    [1,2].include?(self.processed)
+  end
+  def is_pending?
+    [0].include?(self.processed)
+  end
+  def processed_human
+    ['pending', 'accepted', 'declined'][self.processed]
+  end
+
 end

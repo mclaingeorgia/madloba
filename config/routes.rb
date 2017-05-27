@@ -39,10 +39,16 @@ Madloba::Application.routes.draw do
         resources :uploads, only: [:create]
         resources :services
 
-      get 'moderate/reported_places', to: '/admin/moderates#reported_places', :as => :moderate_reported_places
+      get 'moderate/place_report', to: '/admin/moderates#place_report', :as => :moderate_place_report
+      put 'moderate/place_report/:id/:state', to: '/admin/moderates#place_report_update', :as => :update_moderate_place_report, :constraints => { state: /(accept|decline)/ }
+
       get 'moderate/place_ownership', to: '/admin/moderates#place_ownership', :as => :moderate_place_ownership
+      put 'moderate/place_ownership/:id/:state', to: '/admin/moderates#place_ownership_update', :as => :update_moderate_place_ownership, :constraints => { state: /(accept|decline)/ }
+
       get 'moderate/new_provider', to: '/admin/moderates#new_provider', :as => :moderate_new_provider
-      get 'moderate/place_tags', to: '/admin/moderates#place_tags', :as => :moderate_place_tags
+
+      get 'moderate/place_tag', to: '/admin/moderates#place_tag', :as => :moderate_place_tag
+      put 'moderate/place_tag/:id/:state', to: '/admin/moderates#place_tag_update', :as => :update_moderate_place_tag, :constraints => { state: /(accept|decline)/ }
 
     end
 

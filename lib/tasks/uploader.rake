@@ -105,7 +105,8 @@ namespace :uploader do
           description: template[:description][:ka],
           address: [row[4], row[2], row[6], row[10]].map{|m| clean_string(m) }.reject { |c| c.empty? }.join(', '),
           city: row[8].squeeze(' ').strip,
-          services: [other_service]
+          services: [other_service],
+          published: true
         }
 
         # tmp = Region.with_translations(:ka).find_by(name: region)

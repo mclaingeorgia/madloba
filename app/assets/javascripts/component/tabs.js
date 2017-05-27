@@ -1,6 +1,6 @@
 
   $('.tabs a').on('click', function (event) {
-    console.log("click")
+    // console.log("click")
     var t = $(this)
     var link = t.attr('data-link')
     var tabs = t.closest('.tabs')

@@ -9,7 +9,7 @@
       %ul
         - item.places.each do |place|
           %li
-            = link_to place.name, root_path, class: 'name'
+            = link_to place.name, place_path(place.id), class: 'name'
             .actions
               = link_to t('admin.edit'), manage_provider_profile_path({ page: 'manage-places', id: item.id, edit: 'edit' }), class: 'edit'
               = link_to t('admin.delete'), place_path(item.id), method: :delete, class: 'delete', data: {confirm: t('admin.confirm_delete') }

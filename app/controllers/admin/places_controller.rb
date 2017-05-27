@@ -51,9 +51,14 @@ class Admin::PlacesController < AdminController
   end
 
   def update
-     Rails.logger.debug("-------------------------------place update-------------#{pars}")
-
+    pars = place_params
     @item = @model.find(params[:id])
+
+    pars[:tag_ids] = Tag.process(current_user.id, @item.id, pars.delete(:tags) ) if pars[:tags].present?
+
+
+    Rails.logger.debug("-------------------------------place update------tags-------#{pars}")
+
     respond_to do |format|
       if @item.update_attributes(pars)
         flash[:success] = t('app.messages.success_updated', obj: @model)
@@ -65,12 +70,12 @@ class Admin::PlacesController < AdminController
       else
 
 
-   l = {
-      providers: Provider.by_user(current_user.id),
-      current_page: :'manage-places',
-      action: :edit,
-      item: @item
-    }
+     l = {
+        providers: Provider.by_user(current_user.id),
+        current_page: :'manage-places',
+        action: :edit,
+        item: @item
+      }
            @is_admin = true
 
         @class = 'provider_profile'
@@ -126,9 +131,9 @@ class Admin::PlacesController < AdminController
   # end
   private
 
-  def pars
-    permitted = Place.globalize_attribute_names + [:website, :postal_code, :region_id, :latitude, :longitude, :poster_id, emails: [], phones: [], service_ids: [],
-      assets_attributes: ["@original_filename", "@content_type", "@headers", "_destroy", "id", "image"]]
+  def place_params
+    permitted = Place.globalize_attribute_names + [:website, :postal_code, :region_id, :latitude, :longitude, :poster_id, :published, emails: [], phones: [], service_ids: [],
+      assets_attributes: ["@original_filename", "@content_type", "@headers", "_destroy", "id", "image"], tags: [] ]
     #
     #assets:  [ "@original_filename", "@content_type", "@headers", "_destroy", "id", "image"],
     params.require(:place).permit(*permitted)
