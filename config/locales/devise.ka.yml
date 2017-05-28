@@ -21,11 +21,11 @@ ka:
       unconfirmed: "თქვენ უნდა დაადასტუროთ თქვენი ანგარიში სანამ გააგრძელებთ მოქმედებას."
     mailer:
       confirmation_instructions:
-        subject: "დადასტურების წერილი ინსტრუქციებით"
+        subject: "Sheaghe.ge - დადასტურების წერილი ინსტრუქციებით"
       reset_password_instructions:
-        subject: "პაროლის ინსტრუქციების განახლება"
+        subject: "Sheaghe.ge - პაროლის ინსტრუქციების განახლება"
       unlock_instructions:
-        subject: "ინსტრუქციის განბლოკვა"
+        subject: "Sheaghe.ge - ინსტრუქციის განბლოკვა"
     omniauth_callbacks:
       failure: "თქვენი დადასტურება ვერ მოხერხდა %{kind} იმიტომ რომ '%{reason}'."
       success: "თქვენი ანგარიში დადასტურებულია %{kind} ."

@@ -68,15 +68,24 @@ Madloba::Application.configure do
 
   config.action_mailer.default_url_options = { host: "#{Rails.application.secrets.smtp_host}" }
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-      address: "#{Rails.application.secrets.smtp_address}",
-      port: Rails.application.secrets.smtp_port,
-      user_name: "#{Rails.application.secrets.smtp_username}",
-      password: "#{Rails.application.secrets.smtp_password}",
-      authentication: "#{Rails.application.secrets.smtp_authentication}",
-      enable_starttls_auto: true
-  }
+  # config.action_mailer.smtp_settings = {
+  #     address: "#{Rails.application.secrets.smtp_address}",
+  #     port: Rails.application.secrets.smtp_port,
+  #     user_name: "#{Rails.application.secrets.smtp_username}",
+  #     password: "#{Rails.application.secrets.smtp_password}",
+  #     authentication: "#{Rails.application.secrets.smtp_authentication}",
+  #     enable_starttls_auto: true
+  # }
 
+  config.action_mailer.smtp_settings = {
+    :address              => "smtp.gmail.com",
+    :port                 => 587,
+    :domain               => 'www.jumpstart.ge',
+    :user_name            => ENV['APPLICATION_FEEDBACK_FROM_EMAIL'],
+    :password             => ENV['APPLICATION_FEEDBACK_FROM_PWD'],
+    :authentication       => 'plain',
+    :enable_starttls_auto => true
+  }
   config.active_record.raise_in_transactional_callbacks = true
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
@@ -92,13 +101,22 @@ Madloba::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
 
-  Madloba::Application.config.middleware.use ExceptionNotification::Rack,
-                                              :email => {
-                                                  :email_prefix => "[Staging Madloba App error] ",
-                                                  :sender_address => "#{Rails.application.secrets.error_sender_email}",
-                                                  :exception_recipients => "#{Rails.application.secrets.error_recipients_email}",
-                                                  :delivery_method => :smtp
-                                              }
+  # Madloba::Application.config.middleware.use ExceptionNotification::Rack,
+  #                                             :email => {
+  #                                                 :email_prefix => "[Staging Madloba App error] ",
+  #                                                 :sender_address => "#{Rails.application.secrets.error_sender_email}",
+  #                                                 :exception_recipients => "#{Rails.application.secrets.error_recipients_email}",
+  #                                                 :delivery_method => :smtp
+  #                                             }
+
+config.middleware
+    .use ExceptionNotification::Rack,
+         email: {
+           email_prefix: "[Sheaghe.ge App Error (#{Rails.env})] ",
+           sender_address: [ENV['APPLICATION_ERROR_FROM_EMAIL']],
+           exception_recipients: [ENV['APPLICATION_FEEDBACK_TO_EMAIL']]
+         }
+
   config.asset_host = 'https://dev-sheaghe.jumpstart.ge'
 
 end
