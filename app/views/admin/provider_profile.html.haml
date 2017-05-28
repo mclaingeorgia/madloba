@@ -16,14 +16,12 @@
           = render partial: 'admin/providers/list', locals: { items: providers }
 
       %li{class: current_page == :'manage-places' ? 'active' : nil, 'data-link': 'manage-places'}
-        = current_page
-        - Rails.logger.debug("--------------------------test#{current_page == :'manage-places'}#{(action == :new || action == :edit)}")
         - if current_page == :'manage-places' && (action == :new || action == :edit)
           = render partial: "admin/places/#{action}", locals: { item: item }
         - else
           = render partial: 'admin/places/list', locals: { items: providers }
 
       %li{class: current_page == :'moderate-photos' ? 'active' : nil, 'data-link': 'moderate-photos'}
-        = t('admin.menu.moderate_photos')
+        = render partial: 'admin/uploads/list', locals: { uploads_by_place: uploads_by_place }
 
     = render partial: "shared/footer"

@@ -32,13 +32,16 @@ function xhr($element) {
   var t = $element
   var caller = t.attr('data-xhr') || t.attr('data-xhr-redirected')
   var format = t.attr('data-xhr-format')
+  var type = t.attr('data-xhr-method')
   if(typeof format === 'undefined') { format = 'html' }
+  if(typeof type === 'undefined') { format = 'GET' }
   var url = t.attr('href')
 
   // console.log('data-xhr', caller, format, url)
   $.ajax({
     url: url,
     dataType: format,
+    type: type,
     cache: false
   })
     .success(function (data) {

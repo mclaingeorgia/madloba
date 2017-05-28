@@ -80,22 +80,43 @@ class Admin::ModeratesController < AdminController
       b.processed == 0 ? :pending : :processed
     })
 
-    # gon.labels.merge!({
-    #   state_label: t('shared.labels.state'),
-    #   accept: t('shared.accept'),
-    #   accepted: t('shared.accepted'),
-    #   decline: t('shared.decline'),
-    #   declined: t('shared.declined'),
-    #   reported_places_path: manage_update_moderate_reported_places_path(id: '_id_', state: 'accept').gsub('accept', '_state_')
-    # })
+    gon.labels.merge!({
+      state_label: t('shared.labels.state'),
+      accept: t('shared.accept'),
+      accepted: t('shared.accepted'),
+      decline: t('shared.decline'),
+      declined: t('shared.declined'),
+      place_tag_path: manage_update_moderate_place_tag_path(id: '_id_', state: 'accept').gsub('accept', '_state_')
+    })
   end
   def place_tag_update
+    pars = place_tag_params
+    item = Tag.find(pars[:id])
+    state = ['accept', 'decline'].index(pars[:state])+1
 
+    if item.processed == state
+      flash.now[:success] =  t('app.messages.state_already_set', obj: item.name)
+    elsif item.update_attributes(processed: state, processed_by: current_user.id)
+      flash.now[:success] =  t("app.messages.#{pars[:state]}d", obj: item.name)
+      forward = { moderate: { type: :tag,  id: item.id, state: pars[:state] } }
+    else
+      flash.now[:error] =  t('app.messages.fail_updated_state', obj: item.name)
+    end
+
+    forward = {} unless forward.present?
+    respond_to do |format|
+      format.html { redirect_to manage_moderate_place_tag_path }
+      format.json { render json: { flash: flash.to_hash }.merge(forward) }
+    end
   end
 
   private
 
     def place_report_params
+      params.permit(:id, :state, :locale)
+    end
+
+    def place_tag_params
       params.permit(:id, :state, :locale)
     end
   # def index

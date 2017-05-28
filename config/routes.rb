@@ -29,15 +29,19 @@ Madloba::Application.routes.draw do
       get 'provider/:page/(:id)/(:edit)', to: '/admin#provider_profile', :as => :provider_profile, constraints: { id: /(new)|(\d+)/, edit: 'edit' }
       get 'admin', to: '/admin#admin_profile', :as => :admin_profile
 
+      put 'place/:id/favorite/:flag', to: '/admin/places#favorite', :as => :place_favorite, :constraints => { rate: /(true|false)/ }
+      put 'place/:id/rate/:rate', to: '/admin/places#rate', :as => :place_rate, :constraints => { rate: /(0|1|2|3|4|5)/ }
       # scope 'admin' do
       # end
       # namespace :manage do
-        resources :providers#, controller: 'providers'
-        resources :places#, controller: '/admin'
-        resources :users
-        resources :page_contents
-        resources :uploads, only: [:create]
-        resources :services
+      resources :providers#, controller: 'providers'
+      resources :places#, controller: '/admin'
+      resources :users
+      resources :page_contents
+      resources :uploads, only: [:create]
+      put 'moderate/upload_state/:id/:state', to: '/admin/uploads#upload_state_update', :as => :update_moderate_upload_state, :constraints => { state: /(accept|decline)/ }
+
+      resources :services
 
       get 'moderate/place_report', to: '/admin/moderates#place_report', :as => :moderate_place_report
       put 'moderate/place_report/:id/:state', to: '/admin/moderates#place_report_update', :as => :update_moderate_place_report, :constraints => { state: /(accept|decline)/ }

@@ -3,7 +3,7 @@
 @import 'component/breadcrumbs';
 @import 'component/views';
 @import 'component/place_card';
-@import 'component/favorite';
+@import 'component/favoritor';
 @import 'component/rating';
 @import 'component/rator';
 @import 'component/service';
@@ -80,7 +80,7 @@ main {
     flex-direction: column;
     width: 100%;
     overflow-y: auto;
-    // height: 100%;
+    height: 100%;
     // min-height: 100%;
     background-color: $bg;
     > .tabs {
@@ -122,7 +122,8 @@ main {
       }
     }
     > .tabs-content {
-      height: 100%;
+      // height: 100%;
+      flex: 1;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
@@ -142,48 +143,52 @@ main {
     //   height: 100%;
     // }
   }
-  .list {
-    max-width: 768px;
-    padding: 23px 33px 0;
-    > li {
-      padding-bottom: 12px;
-      @include font(18, 'sb');
-      color: $text;
-      padding-bottom: 45px;
-      &:last-child {
-        padding-bottom: 0;
-      }
-      .subheader {
+  .list-view-container {
+    margin: 23px 30px 0;
+    .list-view {
+      max-width: 768px;
+      .list-view-header {
         display: flex;
         flex-direction: row;
         align-items: center;
-        label {
+        padding-bottom: 20px;
+        .label {
           @include font(18, 'sb');
           color: $text;
-        }
-        span {
           width: 100%;
-          padding-left: 4px;
+          span {
+            padding-left: 4px;
+          }
         }
       }
-    }
-    ul {
-      display: block;
-      padding: 26px 0 26px 41px;
-    }
-    ul > li {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      padding-bottom: 13px;
-      &:last-child {
-        padding-bottom: 0;
+      .list-view-content {
+        padding-left: 42px;
+        padding-bottom: 67px;
+        > li {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding-bottom: 12px;
+          // padding: 26px 0 26px 41px;
+          @include font(18, 'sb');
+          color: $text;
+          &:last-child {
+            padding-bottom: 0;
+          }
+          .name {
+            @include font(18, 'sb');
+            color: $text;
+            text-decoration: underline;
+            width: 100%;
+          }
+          .actions {
+            display: flex;
+            flex-decoration: row;
+          }
+        }
       }
-      a.name {
-        @include font(18, 'sb');
-        color: $text;
-        width: 100%;
-        text-decoration: underline;
+      &:last-child .list-view-content {
+        padding-bottom: 0;
       }
     }
   }
@@ -191,11 +196,11 @@ main {
 
 
 
-.page-title {
-  @include font(18, 'sb');
-  color: $text;
-  padding: 27px 33px 20px 33px;
-}
+// .page-title {
+//   @include font(18, 'sb');
+//   color: $text;
+//   padding: 27px 33px 20px 33px;
+// }
 a.btn {
   display: inline-block;
   padding: 9px 20px;
@@ -205,8 +210,16 @@ a.btn {
   color: $bg2;
   text-decoration: none;
   margin:0 5px;
-  &.add {
-    background-color: $link;
+  white-space: nowrap;
+  background-color: $link;
+  &.edit {
+    background-color: $highlighted_bg;
+  }
+  &.delete {
+    background-color: $control;
+  }
+  &.publish {
+    background-color: #3c81ca;
   }
 }
 

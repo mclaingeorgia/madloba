@@ -186,22 +186,22 @@ regions.each {|item|
 }
 
 tags = [
-  { name: { en: "Physical Rehabilitation", ka: "Physical Rehabilitation" } },
-  { name: { en: "Blind guide", ka: "Blind guide" } },
-  { name: { en: "Massage therapy", ka: "Massage therapy" } },
-  { name: { en: "Physical assessment", ka: "Physical assessment" } },
-  { name: { en: "Psychological assessment", ka: "Psychological assessment" } },
-  { name: { en: "Small grants", ka: "Small grants" } }
+  { name: "Physical Rehabilitation" },
+  { name: "Blind guide" },
+  { name: "Massage therapy" },
+  { name: "Physical assessment" },
+  { name: "Psychological assessment" },
+  { name: "Small grants" }
 ]
 Tag.destroy_all
 tags.each {|item|
-  d = Tag.create()
-  I18n.available_locales.each { |locale|
-    Globalize.with_locale(locale) do
-      d.update_attributes(:name => item[:name][locale])
-    end
-  }
+  d = Tag.create(item)
 }
+  # I18n.available_locales.each { |locale|
+  #   Globalize.with_locale(locale) do
+  #     d.update_attributes(:name => item[:name][locale])
+  #   end
+  # }
 
 descr = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 

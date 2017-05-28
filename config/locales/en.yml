@@ -139,6 +139,8 @@ en:
     no_data_found: No Data Found
     all_done: All done!
     are_you_sure: Are you sure?
+    favorite: Favorite
+    unfavorite: Unfavorite
     labels:
       state: 'State:'
   messages:
@@ -164,9 +166,11 @@ en:
       edit: Edit
       edit_object: "Edit %{obj}"
       delete: Delete
-      confirm_delete: "Provider will be removed with all places bind to it."
+      confirm_provider_delete: "Provider will be removed with all places bind to it."
       or: or
       actions: Actions
+      add_provider: Add Provider
+      add_place: Add Place
     manage_provider:
       index: Manage Providers
       edit: Edit Provider
@@ -221,6 +225,8 @@ en:
         title: Manage Providers
       edit:
         title: Edit Provider
+      list:
+        providers: "Providers:"
     place:
       index:
         title: "Manage Places"
@@ -246,10 +252,16 @@ en:
         title: Moderate Reported Places
         reported_by: 'Reported By:'
         reason: 'Reason:'
-        state: 'State:'
       place_ownership:
         title: Moderate Place Ownership
         request_from: 'Request From:'
+      place_tag:
+        title: Moderate Place Tag
+        created_by: 'Created By:'
+        tag: 'Tag:'
+    uploads:
+      list:
+        uploaded_by: 'Uploaded By:'
   application:
     dialog:
       partners: PARTNERS
@@ -282,6 +294,11 @@ en:
       sign_up: Register
       sign_in: Sign In
       log_out: Log Out
+    slideshow:
+      alt:
+        close: Close slideshow
+        prev: Show previous slideshow image
+        next: Show next slideshow image
   root:
     index:
       what: What are you looking for

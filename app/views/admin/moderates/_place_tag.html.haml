@@ -1,12 +1,15 @@
-.report{'data-tag-id': item.id, 'data-tag-state': item.is_pending? ? 'pending' : nil}
+.tag{'data-tag-id': item.id, 'data-tag-state': item.is_pending? ? 'pending' : nil}
   .row
     = link_to item.place.name, place_path(item.place.id), class: 'name', target: :_blank
+  .row.pad
+    %label= t('.tag')
+    %span= item.name
   .row.pad.state{class: item.is_processed? ? nil : 'hidden'}
     %label= t('shared.labels.state')
     %span= t("shared.#{item.processed_human}")
   .row
-    %label= t('.tag')
-    %span= item.name
+    %label= t('.created_by')
+    %span= "#{item.user.name} (#{item.user.email})"
   .row.actions
     - if item.can_accept?
       = link_to t("shared.accept"), manage_update_moderate_place_tag_path(id: item.id, state: :accept), remote: true, method: :put, 'data-type': 'json'

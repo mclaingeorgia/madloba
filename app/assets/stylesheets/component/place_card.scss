@@ -85,6 +85,20 @@
         right: 0;
         transform: translateY(-50%);
       }
+      .favoritor-container {
+        position: absolute;
+        top: 7px;
+        right: 4px;
+
+        .favoritor {
+          &[data-f=true] i, &:hover i{
+            background-position: -54px 0;
+          }
+          &[data-f=true]:hover i{
+            background-position: -27px 0;
+          }
+        }
+      }
     }
     .place-info {
       display: flex;

@@ -1,6 +1,6 @@
 - if favorite_places.length > 0
   .grid-view
     - favorite_places.each do |place|
-      = render partial: 'shared/place', locals: { place: place, all_favorite: true }
+      = render partial: 'shared/place', locals: { place: place, favoritor: true }
 - else
   .no-data-found= t('shared.no_data_found')

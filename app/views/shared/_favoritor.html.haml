@@ -2,8 +2,12 @@
 - is_favorite ||= false
 - href ||= ''
 - href_template ||= nil
+- favoritor ||= nil
 .favoritor-container
-  - if is_filter
+  - if favoritor.present?
+    %a.favoritor{favoritor}
+      %i
+  - elsif is_filter
     %label=label
     .favoritor{'data-filter': 'favorite', 'data-f': is_favorite.to_s, title: title}
       %i

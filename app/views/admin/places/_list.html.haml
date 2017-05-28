@@ -1,15 +1,15 @@
-%ul.list
+%ul.list-view-container
   - items.each do |item|
-    %li
-      .subheader
+    %li.list-view
+      .list-view-header
         .label
           = t('.provider')
-        %span{class: 'name'} #{item.name}
-        = link_to t('admin.add'), manage_provider_profile_path({ page: 'manage-places', id: 'new', provider_id: item.id }), class: 'add btn'
-      %ul
+          %span{class: 'name'} #{item.name}
+        = link_to t('admin.shared.add_place'), manage_provider_profile_path({ page: 'manage-places', id: 'new', provider_id: item.id }), class: 'add btn'
+      %ul.list-view-content
         - item.places.each do |place|
           %li
             = link_to place.name, place_path(place.id), class: 'name'
             .actions
-              = link_to t('admin.edit'), manage_provider_profile_path({ page: 'manage-places', id: item.id, edit: 'edit' }), class: 'edit'
-              = link_to t('admin.delete'), place_path(item.id), method: :delete, class: 'delete', data: {confirm: t('admin.confirm_delete') }
+              = link_to t('admin.shared.edit'), manage_provider_profile_path({ page: 'manage-places', id: place.id, edit: 'edit' }), class: 'edit btn'
+              = link_to t('admin.shared.delete'), place_path(place.id), method: :delete, class: 'delete btn', data: {confirm: t('admin.confirm_place_delete') }

@@ -3,6 +3,8 @@
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require dataTables/extras/dataTables.responsive
 //= require component/place_card
+//= require component/rator
+//= require component/favoritor
 //= require component/slideshow
 
 $(document).ready(function(){
@@ -81,4 +83,19 @@ $(".field-tag .field-inputs").on('click', ' .close', function(event) {
   var t = $(this)
   console.log('clicked')
   t.parent().remove()
+})
+
+$('.rator').each(function(i,d) {
+  pollution.components.rator.deferred_bind($(d), function(v, $element) {
+    $element.attr('href', $element.attr('data-href-template').replace(/_v_/g, v))
+    xhr($element)
+  })
+})
+
+$('.favoritor').each(function(i,d) {
+  pollution.components.favoritor.deferred_bind($(d), function(v, $element) {
+    console.log(v)
+    $element.attr('href', $element.attr('data-href-template').replace(/_v_/g, v))
+    xhr($element)
+  })
 })

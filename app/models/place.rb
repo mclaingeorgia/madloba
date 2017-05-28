@@ -1,6 +1,7 @@
 class Place < ActiveRecord::Base
   include ActiveModel::Validations
 
+
   translates :name, :description, :city, :address
   globalize_accessors :locales => [:en, :ka], :attributes => [ :name, :description, :city, :address]
 
@@ -20,6 +21,7 @@ class Place < ActiveRecord::Base
 
   has_many :place_services
   has_many :services, through: :place_services, source: :service
+
 
   has_many :place_tags
   has_many :tags, through: :place_tags, source: :tag
@@ -41,6 +43,8 @@ class Place < ActiveRecord::Base
   end
 
   scope :published, -> { where(published: true) }
+  scope :deleted, -> { where(:deleted => true) }
+  scope :active, -> { where(:deleted => false) }
 
   validates :region_id, presence: true
   validates :services, :length => { :minimum => 1 }
@@ -84,7 +88,7 @@ class Place < ActiveRecord::Base
     if self.poster_id.present? && self.assets.count == 0
       update_attributes({poster_id: nil })
     end
-     Rails.logger.debug("--------------------------------------------set_poster")
+     # Rails.logger.debug("--------------------------------------------set_poster")
   end
 
   def get_poster
@@ -126,17 +130,19 @@ class Place < ActiveRecord::Base
   end
 
   def self.by_filter(filter, current_user)
-    places = published.with_translations(I18n.locale)
+    places = active.published.with_translations(I18n.locale)
     sql = []
     pars = {}
     if filter[:what].present?
       sql << 'lower(place_translations.name) like :name'
       pars[:name] = "%#{filter[:what].downcase}%"
 
-      place_ids = Provider.with_translations(I18n.locale).where('lower(provider_translations.name) like ?', "%#{filter[:what].downcase}%").includes(:places).pluck('places.id')
+      place_ids = Provider.active.with_translations(I18n.locale).where('lower(provider_translations.name) like ?', "%#{filter[:what].downcase}%").includes(:places).pluck('places.id')
+      place_ids += Tag.accepted.where('lower(name) like ?', "%#{filter[:what].downcase}%").includes(:places).pluck('places.id')
 
       sql << 'places.id in (:place_ids)'
-      pars[:place_ids] = place_ids
+
+      pars[:place_ids] = place_ids.uniq
     end
     if filter[:where].present?
       sql << 'lower(place_translations.address) like :address'

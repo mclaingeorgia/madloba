@@ -1,4 +1,4 @@
-.report{'data-ownership-id': item.id, 'data-ownership-state': item.is_pending? ? 'pending' : nil}
+.ownership{'data-ownership-id': item.id, 'data-ownership-state': item.is_pending? ? 'pending' : nil}
   .row
     = link_to item.place.name, place_path(item.place.id), class: 'name'
   .row.pad.state{class: item.is_processed? ? nil : 'hidden'}

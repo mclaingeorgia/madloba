@@ -1,13 +1,14 @@
   @import 'var';
 
-.report-view, .ownership-view {
+.report-view, .ownership-view, .tag-view {
   padding: 0 27px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  .report {
+  .report, .ownership, .tag {
     max-width: 340px;
     margin-right: 65px;
+    margin-bottom: 65px;
     .row {
       display: block;
       padding-bottom: 15px;

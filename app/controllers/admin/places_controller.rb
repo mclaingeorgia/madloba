@@ -54,13 +54,15 @@ class Admin::PlacesController < AdminController
     pars = place_params
     @item = @model.find(params[:id])
 
-    pars[:tag_ids] = Tag.process(current_user.id, @item.id, pars.delete(:tags) ) if pars[:tags].present?
+    tag_ids = pars[:tags].present? ? Tag.process(current_user.id, @item.id, pars.delete(:tags)) : []
+    pars[:tag_ids] = tag_ids
+    old_tag_ids = @item.tag_ids - tag_ids
 
-
-    Rails.logger.debug("-------------------------------place update------tags-------#{pars}")
+    # Rails.logger.debug("-------------------------------place update------tags-------#{pars}")
 
     respond_to do |format|
       if @item.update_attributes(pars)
+        Tag.remove_pended(old_tag_ids) if old_tag_ids.present?
         flash[:success] = t('app.messages.success_updated', obj: @model)
         format.html do
           #redirect_to manage_provider_profile_path(page: 'manage-places')
@@ -82,7 +84,7 @@ class Admin::PlacesController < AdminController
 
     @is_admin_profile_page = false
 
-         Rails.logger.debug("--------------------------------------------#{@item.errors.inspect}")
+         # Rails.logger.debug("--------------------------------------------#{@item.errors.inspect}")
         flash[:error] = t('app.messages.fail_updated', obj: @model)
         format.html do
           render 'admin/provider_profile', locals: l
@@ -111,6 +113,31 @@ class Admin::PlacesController < AdminController
       # format.json { head :no_content }
     end
   end
+
+
+
+  def favorite
+    pars = favorite_params
+     Rails.logger.debug("---------------------before-----------------------#{pars.inspect}")
+    forward = set_flash(FavoritePlace.favorite(current_user.id, pars[:id], pars[:flag] == 'true'))
+    forward = {} unless forward.present?
+     Rails.logger.debug("----------------------------------------favorite----#{forward} #{manage_user_profile_path(page: 'favorite-places')}")
+    respond_to do |format|
+      format.html { redirect_to manage_user_profile_path(page: 'favorite-places') }
+      format.json { render json: { flash: flash.to_hash }.merge(forward) }
+    end
+  end
+  def rate
+     Rails.logger.debug("------------------------------------------rate--#{}")
+    pars = rate_params
+
+    forward = set_flash(PlaceRate.rate(current_user.id, pars[:id], pars[:rate].to_i))
+    forward = {} unless forward.present?
+    respond_to do |format|
+      format.html { redirect_to manage_user_profile_path(page: 'rated-places') }
+      format.json { render json: { flash: flash.to_hash }.merge(forward) }
+    end
+  end
   # flash message type test
   # def destroy
   #   @item = @model.find(params[:id])
@@ -137,6 +164,13 @@ class Admin::PlacesController < AdminController
     #
     #assets:  [ "@original_filename", "@content_type", "@headers", "_destroy", "id", "image"],
     params.require(:place).permit(*permitted)
+  end
+
+  def favorite_params
+    params.permit(:id, :flag, :locale)
+  end
+  def rate_params
+    params.permit(:id, :rate, :locale)
   end
 end
 

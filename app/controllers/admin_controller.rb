@@ -44,6 +44,10 @@ class AdminController < ApplicationController
 
     page, id, action = get_sub_action(params[:page], params[:id], params[:edit], :user_profile)
 
+    gon.labels.merge!({
+      favorite: t('shared.favorite'),
+      unfavorite: t('shared.unfavorite')
+    })
     # favorite_places = current_user.favorites
     # rated_places = current_user.rates
     # item = user_profile_prepare_item(page, id, action)
@@ -59,28 +63,51 @@ class AdminController < ApplicationController
 
   def provider_profile
     @class = 'provider_profile'
-
+    @has_slideshow = true
     @is_admin_profile_page = false
 
     page, id, action = get_sub_action(params[:page], params[:id], params[:edit], :provider_profile)
 
     Rails.logger.debug("-----------------------------------------#{page}---#{id} #{action}")
 
-    providers = Provider.by_user(current_user.id)
+    providers = Provider.active.by_user(current_user.id)
     photos = []
 
     item = provider_profile_prepare_item(page, id, action)
+
+    uploads_by_place = []
+    providers.sorted.each do |provider|
+      provider.places.sorted.each do |place|
+        uploads = place.uploads.sorted
+        uploads_by_place << [place.id, uploads] if uploads.present?
+      end
+    end
+
+    gon.labels.merge!({
+      state_label: t('shared.labels.state'),
+      accept: t('shared.accept'),
+      accepted: t('shared.accepted'),
+      decline: t('shared.decline'),
+      declined: t('shared.declined'),
+      upload_state_path: manage_update_moderate_upload_state_path(id: '_id_', state: 'accept').gsub('accept', '_state_')
+    })
+
     l = {
       providers: providers,
       current_page: page,
       action: action,
-      item: item
+      item: item,
+      uploads_by_place: uploads_by_place
     }
      Rails.logger.debug("--------------------------------------------#{l}")
     locals(l)
   end
 
+
+
+
   private
+
 
     def locals(values)
       render locals: values

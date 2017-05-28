@@ -1,6 +1,8 @@
 class Provider < ActiveRecord::Base
   translates :name, :description
   globalize_accessors :locales => [:en, :ka], :attributes => [:name, :description]
+
+
   # before_validation(on: :create) do
   #   Rails.logger.debug("-----------------------asdfdsf")
   #   true
@@ -25,6 +27,8 @@ class Provider < ActiveRecord::Base
 
   # has_many :favoriting_users
 
+  scope :deleted, -> { where(:deleted => true) }
+  scope :active, -> { where(:deleted => false) }
 
   [I18n.locale].each do |locale|
     validates :"name_#{locale}", presence: true

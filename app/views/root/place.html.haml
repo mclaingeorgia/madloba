@@ -18,7 +18,7 @@
         js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9&appId=240650056418235";
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));</script>
-%section.content
+%section.content{'data-place-id': item.id}
   .summary-wrapper
     .summary
       .name
@@ -88,11 +88,12 @@
           .description
             = @post_action
             = item.description
-        - if item.tags.present?
+        - tags = item.tags.accepted
+        - if tags.present?
           %li
             .tags
               .header= t('.service_tags')
-              = item.tags.map { |s| "<a>#{s.name}</a>" }.join(", ").html_safe
+              = tags.map { |s| "<a href='#{root_path(what: s.name)}'>#{s.name}</a>" }.join(", ").html_safe
         %li
           .hr
         %li

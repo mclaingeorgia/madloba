@@ -1,8 +1,13 @@
 class Tag < ActiveRecord::Base
-  translates :name
-  globalize_accessors :locales => [:en, :ka], :attributes => [ :name ]
+  # belongs_to :places
+  belongs_to :place
+  belongs_to :user
 
-  belongs_to :places
+  has_many :place_tags
+  has_many :places, through: :place_tags, source: :place
+
+  scope :accepted, -> { where(processed: 1) }
+  scope :pended, -> { where(processed: 0) }
 
 
   def self.process(user_id, place_id, tags)
@@ -20,6 +25,15 @@ class Tag < ActiveRecord::Base
 
     tag_ids
   end
+
+  def self.remove_pended(tag_ids)
+     Rails.logger.debug("--------------------------------------remove_pended------#{tag_ids}")
+    Tag.pended.where(id: tag_ids).each{|tag|
+     # Rails.logger.debug("--------------------------------------remove_pended inside------#{tag.inspect}#{tag.places.size}")
+      tag.destroy if tag.places.size == 0
+    }
+  end
+
   def can_accept?
     [0,2].include?(self.processed)
   end

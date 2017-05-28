@@ -23,13 +23,13 @@ class Admin::UploadsController < AdminController
           assets_length = assets.length
         end
 
-    n_photo_uploaded:
-      one: "Photo uploaded."
-      other: "%{n} photos uploaded."
-    n_photo_uploaded_and_pending:
-      one: "Photo uploaded and waiting to be processed"
-      other: "%{n} photos uploaded and waiting to be processed"
-    uploader_failed: "Error while uploading photos, please contact administration"
+    # n_photo_uploaded:
+    #   one: "Photo uploaded."
+    #   other: "%{n} photos uploaded."
+    # n_photo_uploaded_and_pending:
+    #   one: "Photo uploaded and waiting to be processed"
+    #   other: "%{n} photos uploaded and waiting to be processed"
+    # uploader_failed: "Error while uploading photos, please contact administration"
 
 
         if flag
@@ -72,6 +72,31 @@ class Admin::UploadsController < AdminController
     redirect_to :back
   end
 
+  def upload_state_update
+    pars = upload_state_params
+    item = @model.find(pars[:id])
+    state = ['accept', 'decline'].index(pars[:state])+1
+    stated = state == 'accept' ? 'accepted' : 'declined'
+    if current_user.providers.includes(:places).where(places: {id: item.place_id}).count()
+      if item.processed == state
+        flash.now[:success] =  t('app.messages.state_already_set', obj: item.place.name)
+      elsif item.update_attributes(processed: state, processed_by: current_user.id)
+        flash.now[:success] =  t("app.messages.#{stated}", obj:  item.place.name)
+        forward = { moderate: { type: :upload,  id: item.id, state: pars[:state] } }
+      else
+        flash.now[:error] =  t('app.messages.fail_updated_state', obj:  item.place.name)
+      end
+
+    else
+      flash.now[:error] =  t('app.messages.fail_updated_state', obj:  item.place.name)
+    end
+
+    forward = {} unless forward.present?
+    respond_to do |format|
+      format.html { redirect_to manage_provider_profile_path(page: 'moderate-photos') }
+      format.json { render json: { flash: flash.to_hash }.merge(forward) }
+    end
+  end
   private
     def create_upload_params
       params.require(:upload).permit(:place_id)
@@ -80,5 +105,9 @@ class Admin::UploadsController < AdminController
       params.require(:assets_attributes).map do |m|
         ActionController::Parameters.new(m.to_hash).permit(:image, "@original_filename", "@content_type", "@headers")
       end
-  end
+    end
+
+    def upload_state_params
+      params.permit(:id, :state, :locale)
+    end
 end

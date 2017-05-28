@@ -8,7 +8,7 @@
     // if(request.getResponseHeader('X-Message') !== null) {
     //   request.getResponseHeader("X-Message-Type");
     // }
-    console.log(request)
+    console.log(request, request.responseText)
     if(request.hasOwnProperty('responseJSON')) {
       var json = request.responseJSON
       if(json.hasOwnProperty('reload') && json.reload === true) {
@@ -35,23 +35,27 @@
         if(json.hasOwnProperty('remove_asset')) {
           $('[data-asset-id="' + json.remove_asset + '"]').remove()
         }
+        // if(json.hasOwnProperty('remove_place')) {
+        //   $('[data-place-id="' + json.remove_place + '"]').remove()
+        // }
         if(json.hasOwnProperty('moderate') && json.moderate.hasOwnProperty('type')) {
           var type = json.moderate.type
           if (type === 'report') {
             var id = json.moderate.id
             var state = json.moderate.state
             var state_was = state === 'accept' ? 'decline' : 'accept'
-
+            var stated = state === 'accept' ? 'accepted' : 'declined'
+            var generated_url = ''
             var $report = $('[data-report-id="' + id + '"]')
             var previous_state = $report.attr('data-report-state')
 
             if(typeof previous_state !== 'undefined') {
               $report.attr('data-report-state', null)
-              $report.find('.state span').text(gon.labels[state+'d']).parent().removeClass('hidden')
+              $report.find('.state span').text(gon.labels[stated]).parent().removeClass('hidden')
               $report.find('.actions a').first().remove()
-              var generated_url = gon.labels.place_report_path.replace('_id_', id).replace('_state_', state_was)
+              generated_url = gon.labels.place_report_path.replace('_id_', id).replace('_state_', state_was)
               $report.find('.actions a').removeClass(state).addClass(state_was).attr('href', generated_url).text(gon.labels[state_was])
-              console.log('move to processed')
+              // console.log('move to processed')
 
 
               $report_view = $('.tabs-content [data-link="processed"] .report-view')
@@ -66,11 +70,29 @@
             }
             else {
               console.log('already in processed')
-              $report.find('.state span').text(gon.labels[state+'d'])
-              var generated_url = gon.labels.place_report_path.replace('_id_', id).replace('_state_', state_was)
+              $report.find('.state span').text(gon.labels[stated])
+              generated_url = gon.labels.place_report_path.replace('_id_', id).replace('_state_', state_was)
               $report.find('.actions a').removeClass(state).addClass(state_was).attr('href', generated_url).text(gon.labels[state_was])
             }
 
+          } else if (type === 'upload') {
+            var id = json.moderate.id
+            var state = json.moderate.state
+            var state_was = state === 'accept' ? 'decline' : 'accept'
+            var stated = state === 'accept' ? 'accepted' : 'declined'
+            var stated_was = state === 'accept' ? 'declined' : 'accepted'
+            var generated_url = ''
+            var $report = $('[data-upload-id="' + id + '"]')
+            var previous_state = $report.attr('data-upload-state')
+
+            if(typeof previous_state !== 'undefined') {
+              $report.attr('data-upload-state', null)
+              $report.find('.actions a').first().remove()
+            }
+            console.log($report.find('.state'))
+            $report.find('.state').text(gon.labels[stated]).removeClass(stated_was).addClass(stated)
+            generated_url = gon.labels.upload_state_path.replace('_id_', id).replace('_state_', state_was)
+            $report.find('.actions a').removeClass(state).addClass(state_was).attr('href', generated_url).text(gon.labels[state_was])
           }
 
         }
@@ -86,17 +108,20 @@
       // console.log(type)
       if (typeof options['to'] !== undefined) {
         var to = options['to']
+        var $place
         if(type === 'rate') {
           if(Array.isArray(to) && to.length === 2) {
-            $('.rator').attr('data-r', to[0])
-            $('.rating .value span').text(to[1])
+            var $rator = $('[data-place-id="' + options['place_id'] + '"] .rator')
+            $place = $rator.closest('[data-place-id]')
+            $rator.attr('data-r', to[0])
+            $place.find('.rating .value span').text(to[1])
           }
         } else if (type === 'favorite') {
-          // console.log(to)
+          var $favoritor = $('[data-place-id="' + options['place_id'] + '"] .favoritor')
+          $place = $favoritor.closest('[data-place-id]')
           if(to === true || to === false) {
-            var el = $('.favoritor')
-            el.attr('data-f', to).attr('href', el.attr('data-href-template').replace(/_v_/g, !to))
-            el.find('span').text(to ? gon.labels.remove_from_favorite : gon.labels.add_to_favorite)
+            $favoritor.attr('data-f', to).attr('href', $favoritor.attr('data-href-template').replace(/_v_/g, !to))
+            $favoritor.attr('title', to ? gon.labels.unfavorite : gon.labels.favorite)
           }
         } else if (type === 'ownership') {
           $('a.take-ownership').parent().html('<div class="take-ownership"><label>' + gon.labels.ownership_under_consideration + '</label>')

@@ -26,6 +26,7 @@ class Admin::ProvidersController < AdminController
   end
 
   def update
+    pars = provider_params
      Rails.logger.debug("--------------------------------------------#{pars}")
     @item = @model.find(params[:id])
     respond_to do |format|
@@ -48,20 +49,17 @@ class Admin::ProvidersController < AdminController
   end
 
   def destroy
+    # pars = provider_params
     @item = @model.find(params[:id])
-    # @item.destroy
+
+    if @item.update_attributes(deleted: true) && @item.places.update_all(deleted: true)
+      flash[:success] =  t("app.messages.success_destroyed", obj: @model)
+    else
+      flash[:error] =  t('app.messages.fail_destroyed', obj: @modele)
+    end
 
     respond_to do |format|
-      format.html do
-        redirect_to manage_provider_profile_path(page: 'manage-provider'), flash: {
-          success:  t('app.messages.success_destroyed',
-                      obj: @model),
-          notice: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim, officiis?',
-                    error: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Soluta, voluptas, ipsa.',
-                    alert: 'Lorem ipsum dolor.'
-        }
-      end
-      # format.json { head :no_content }
+      format.html { redirect_to manage_provider_profile_path(page: 'manage-provider') }
     end
   end
 
@@ -117,7 +115,7 @@ class Admin::ProvidersController < AdminController
   # end
   private
 
-  def pars
+  def provider_params
     params.require(:provider).permit(*Provider.globalize_attribute_names)
   end
 end

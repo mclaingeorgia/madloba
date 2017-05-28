@@ -1,5 +1,5 @@
 - with_rator ||= false
-- all_favorite ||= false
+- favoritor ||= false
 - ss = place.services.sorted
 - view_all_service_places = t('shared.view_all_service_places')
 .place-card{'data-place-id': place.id}
@@ -8,8 +8,11 @@
       .front
         .poster
           = link_to image_tag(place.poster, alt: t('app.common.alt', alt: place.name), class: 'image'), place_path(place.id), title: t('shared.view_place_details')
-          - if all_favorite || place.favoritors.include?(current_user)
-            .favorite{title: t('shared.picked_as_favorite')}
+          - if favoritor || place.favoritors.include?(current_user)
+            - if favoritor
+              = render partial: 'shared/favoritor', locals: {favoritor: {'data-href-template': manage_place_favorite_path(id: place.id, flag: true).gsub('favorite/true', 'favorite/_v_'), 'data-xhr-redirected': 'favoritor', 'data-xhr-format': 'json', 'data-xhr-method': 'put', 'data-f': 'true', title: t('shared.unfavorite') }}
+            -else
+              .favorite{title: t('shared.picked_as_favorite')}
           = render partial: "shared/rating", locals: { rating: place.get_rating }
         .place-info
           = link_to place.name, place_path(place.id), class: 'name', title: t('shared.view_place_details')
@@ -43,4 +46,4 @@
                   %i{class: s.icon}
                   %span= s.name
   - if with_rator
-    = render partial: 'shared/rator', locals: { rate: PlaceRate.get_rate(current_user.id, place.id) }
+    = render partial: 'shared/rator', locals: {rator: {'data-href-template': manage_place_rate_path(id: place.id, rate: 0).gsub('rate/0', 'rate/_v_'), 'data-xhr-redirected': 'rator', 'data-xhr-format': 'json', 'data-xhr-method': 'put', 'data-r': PlaceRate.get_rate(current_user.id, place.id) }}
