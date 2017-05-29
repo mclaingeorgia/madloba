@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::Base
+  include ApplicationHelper
+  include Pundit
+  after_action :verify_authorized
 
   protect_from_forgery
 
@@ -19,7 +22,6 @@ class ApplicationController < ActionController::Base
   before_action :set_session
   before_action :prepare_about_content
 
-  include ApplicationHelper
   # include Pundit
   # include SimpleCaptcha::ControllerHelpers
 

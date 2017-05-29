@@ -1,11 +1,13 @@
 %main{class: @class}
   - if @is_admin_profile_page
+    - space = false
     %section.aside
       %ul
         %li
           %span= t('shared.manage')
           %ul
             - [:users, :providers, :places, :services, :page_contents].each do |pth|
+              - space = true if controller_name?(pth)
               %li
                 = link_to t("admin.menu.#{pth}"), public_send("manage_#{pth}_path"), class: controller_name?(pth) ? 'current' : nil
         %li
@@ -13,9 +15,8 @@
           %ul
             - [:place_report, :place_ownership, :new_provider, :place_tag].each do |pth|
               %li
-                - Rails.logger.debug("-----------------------------------------#{controller_name}")
                 = link_to t("admin.menu.#{pth}"), public_send("manage_moderate_#{pth}_path"), class: action_name?(pth) ? 'current' : nil
-    %section.content
+    %section.content{class: space ? 'space' : nil}
       = yield
       = render partial: "shared/footer"
   - else

@@ -41,9 +41,53 @@
               .out{'data-map': 'contact_map'} −
     - if @has_place_report_dialog
       .dialog-page{'data-bind': 'place_report' }
-        .header= t('.report')
+        .header= t('.report', name: @place_name)
         .form
           %textarea#place_report_reason{rows: 10, placeholder: t('.report_placeholder')}
           %button#place_report_send
             = t('.report_button')
           %a#place_report_link.hidden{'data-href-template': @place_report_href, 'data-xhr': 'report', 'data-xhr-format': 'json'}
+    - if @has_place_ownership_dialog
+      .dialog-page{'data-bind': 'place_ownership' }
+        .header= t('.ownership', name: @place_name)
+        -#
+          .form
+            = 'Providers:'
+            = 'New Provider'
+            = 'New Provider Name'
+            = 'New Provider Description'
+            = 'Take Ownership'
+              %textarea#place_ownership_reason{rows: 10, placeholder: t('.ownership_placeholder')}
+              %button#place_ownership_send
+                = t('.ownership_button')
+              %a#place_ownership_link.hidden{'data-href-template': @place_report_href, 'data-xhr': 'ownership', 'data-xhr-format': 'json'}
+
+        .form-container
+          %form{action: manage_place_ownership_path, method: :post, 'data-remote': true, id: 'invisible-recaptcha-form', class: 'simple_form light column'}
+            = hidden_field_tag :authenticity_token, form_authenticity_token
+            .field-wrapper
+              %label.field-label Pick existing provider
+              = collection_select(:ownership, :provider_id, current_user.providers.accessible, :id, :name, prompt: true)
+            .or Or
+            = simple_fields_for :provider_attributes, Provider.new do |provider_form|
+              = render partial: 'shared/fields_localization', locals: { fields: { name: nil, description: { as: :text, input_html: { required: true, rows: 6 } } } , form: provider_form }
+            .actions
+              %input{type: :submit, name: 'commit', value: 'Take Ownership'}
+          -#
+              .field-wrapper
+                %label.field-label{for: 'message_sender'}
+                  =t('.your_name')
+                  %abbr{title: 'required'} *
+                %input.field-input{type: 'text', name: 'message[sender]', id: 'message_sender'}
+              .field-wrapper
+                %label.field-label{for: 'message_email'}
+                  =t('.your_email')
+                  %abbr{title: 'required'} *
+                %input.field-input{type: 'email', name: 'message[email]', id: 'message_email'}
+              .field-wrapper
+                %label.field-label{for: 'message_text'}
+                  =t('.your_message')
+                  %abbr{title: 'required'} *
+                %textarea.field-input{rows: 8, name: 'message[text]', id: 'message_text'}
+              .actions
+                =# invisible_recaptcha_tags callback: 'submitInvisibleRecaptchaForm', text: t('.send'), badge: 'inline', hl: I18n.locale

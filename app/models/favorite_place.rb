@@ -8,17 +8,13 @@ class FavoritePlace < ActiveRecord::Base
     find_by(user_id: user_id, place_id: place_id).present?
   end
 
-  def self.favorite(user_id, place_id, value) #, forward_type = :refresh
-     Rails.logger.debug("-------------------------------------------favorite inside-#{value}")
+  def self.favorite(user_id, place_id, value)
     response = nil
     class_name = self.model_name.param_key
 
     r = find_by(user_id: user_id, place_id: place_id)
 
     forward = { refresh: { type: 'favorite', to: true, place_id: place_id } }
-    # if forward_type == :remove_place
-    #   forward = { remove_place: place_id }
-    # end
     if value == true
       if r.present? || FavoritePlace.create(user_id: user_id, place_id: place_id)
 
@@ -26,7 +22,7 @@ class FavoritePlace < ActiveRecord::Base
       end
     elsif value == false
       r.place.favoritors.destroy(user_id) if r.present?
-      # forward[:refresh][:to] = false if forward_type == :refresh
+      forward[:refresh][:to] = false
       response = {type: :success, text: :succeed_to_process_reject, action: class_name, forward: forward }
     end
 

@@ -136,25 +136,27 @@ class RootController < ApplicationController
     }
 
     place_id = pars[:id]
-    item = Place.find_by(id: place_id)
+    item = Place.accessible.find_by(id: place_id)
 
     if item.nil?
-      redirect_to root_path, flash: { error:  t('app.messages.not_found', obj: Place) }
+      redirect_to root_path, flash: { error:  t('errors.not_found', obj: Place) }
       return
     end
 
     @has_place_report_dialog = true
+    @has_place_ownership_dialog = false
     @place_report_href = place_path(id: item.id, a: 'report', v: '_v_')
+    @place_name = item.name
 
     user_id = nil
     if user_signed_in?
       user_id = current_user.id
-
+      @has_place_ownership_dialog = current_user.at_least_provider?
       is_favorite_place = FavoritePlace.is_favorite_place?(user_id, place_id)
       user_rate = PlaceRate.get_rate(user_id, place_id)
       is_ownership_requested = PlaceOwnership.requested?(user_id, place_id)
-      is_report_requested = PlaceReport.requested?(user_id, place_id)
-      @has_place_report_dialog = !is_report_requested
+      # is_report_requested = PlaceReport.requested?(user_id, place_id)
+      # @has_place_report_dialog = !is_report_requested
 
     end
 
@@ -183,7 +185,7 @@ class RootController < ApplicationController
         if value >= 0 && value <= 5
           forward = set_flash(PlaceRate.rate(user_id, place_id, value))
         end
-      elsif action == 'report' && !is_report_requested
+      elsif action == 'report'# && !is_report_requested
         if value.present?
           forward = set_flash(PlaceReport.request_report(user_id, place_id, value))
         end
@@ -197,8 +199,8 @@ class RootController < ApplicationController
     gon.history = 'replace' if has_action
 
     gon.labels.merge!({
-      add_to_favorite: t('.add_to_favorite'),
-      remove_from_favorite: t('.remove_from_favorite'),
+      favorite: t('shared.favorite'),
+      unfavorite: t('shared.unfavorite'),
       ownership_under_consideration: t('.take_ownership_underway'),
       report_under_consideration: t('.report_underway')
     })
@@ -210,8 +212,8 @@ class RootController < ApplicationController
           item: item,
           is_favorite_place: is_favorite_place,
           user_rate: user_rate,
-          is_ownership_requested: is_ownership_requested,
-          is_report_requested: is_report_requested
+          is_ownership_requested: is_ownership_requested#,
+          # is_report_requested: is_report_requested
         }
       }
       format.json { render json: { flash: flash.to_hash }.merge(forward) }

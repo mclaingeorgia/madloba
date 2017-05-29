@@ -9,18 +9,16 @@
   .tabs-content{'data-target': 'global'}
     %ul
 
-      %li{class: current_page == :'manage-provider' ? 'active' : nil, 'data-link': 'manage-provider'}
-        - if current_page == :'manage-provider' && (action == :new || action == :edit) # @edit_states[0]
-          = render partial: "admin/providers/#{action}", locals: { item: item }
+      %li{class: current_page == :'manage-providers' ? 'active' : nil, 'data-link': 'manage-providers'}
+        - if current_page == :'manage-providers' && (action == :new || action == :edit) # @edit_states[0]
+          = render template: "admin/providers/#{action}", locals: { item: item, path: manage_provider_profile_path(page: :'manage-providers'), without_title: true }
         - else
           = render partial: 'admin/providers/list', locals: { items: providers }
-
       %li{class: current_page == :'manage-places' ? 'active' : nil, 'data-link': 'manage-places'}
         - if current_page == :'manage-places' && (action == :new || action == :edit)
-          = render partial: "admin/places/#{action}", locals: { item: item }
+          = render partial: "admin/places/#{action}", locals: { item: item, path: manage_provider_profile_path(page: :'manage-places'), without_title: true  }
         - else
           = render partial: 'admin/places/list', locals: { items: providers }
-
       %li{class: current_page == :'moderate-photos' ? 'active' : nil, 'data-link': 'moderate-photos'}
         = render partial: 'admin/uploads/list', locals: { uploads_by_place: uploads_by_place }
 

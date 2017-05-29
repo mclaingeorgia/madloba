@@ -2,12 +2,12 @@
   .list-view
     .list-view-header
       .label
-        = t('.providers')
-      = link_to t('admin.shared.add_provider'), new_manage_provider_path({ page: 'manage-providers', id: 'new' }), class: 'add btn'
+        = t('admin.providers.manage')
+      = link_to t('admin.providers.add'), new_manage_provider_path({ page: 'manage-providers', id: 'new' }), class: 'add btn'
     %ul.list-view-content
       - items.each do |item|
         %li
           %span{class: 'name'} #{item.name}
           .actions
-            = link_to t('admin.shared.edit'), manage_provider_profile_path({ page: 'manage-provider', id: item.id, edit: 'edit' }), class: 'edit btn'
-            = link_to t('admin.shared.delete'), manage_provider_path(item.id), method: :delete, class: 'delete btn', data: {confirm: t('admin.shared.confirm_provider_delete') }
+            = link_to t('admin.shared.edit'), manage_provider_profile_path({ page: 'manage-providers', id: item.id, edit: 'edit' }), class: 'edit btn'
+            = link_to t('admin.shared.delete'), manage_provider_path(item.id), method: :delete, class: 'delete btn', data: {confirm: t('admin.providers.confirm_delete') }

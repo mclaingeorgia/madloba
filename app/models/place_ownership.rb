@@ -9,7 +9,7 @@ class PlaceOwnership < ActiveRecord::Base
   validates :user_id, :place_id, presence: true
 
   def self.requested?(user_id, place_id)
-    find_by(user_id: user_id, place_id: place_id).present?
+    pending.find_by(user_id: user_id, place_id: place_id).present?
   end
 
   # def self.is_ownership_requested_for?(place_id)
@@ -24,8 +24,7 @@ class PlaceOwnership < ActiveRecord::Base
     response = nil
     class_name = self.model_name.param_key
 
-    r = find_by(user_id: user_id, place_id: place_id)
-
+    r = pending.find_by(user_id: user_id, place_id: place_id)
     if r.present? || PlaceOwnership.create(user_id: user_id, place_id: place_id)
       response = {type: :success, text: :succeed_to_process, action: class_name, forward: { refresh: { type: 'ownership' } }}
     end

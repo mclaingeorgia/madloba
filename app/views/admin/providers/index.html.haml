@@ -1,7 +1,6 @@
-- page_title t('.title')
-.page-title
-  = t('.title')
-  = link_to t('admin.add'), new_manage_provider_path, class: 'add btn'
+- title = t('admin.providers.manage')
+- page_title title
+= render partial: 'shared/breadcrumbs', locals: { paths: [title], buttons: [['providers.add', new_manage_provider_path, 'add']] }
 .table-view
   %table.datatable.datatable-table.table-responsive{width: '100%'}
     %thead
@@ -9,7 +8,7 @@
         %th.spacer
         %th= @model.human_attribute_name(:name)
         %th.fill= @model.human_attribute_name(:description)
-        %th.actions= t('.actions')
+        %th.actions= t('admin.shared.actions')
     %tbody
       - @items.each do |item|
         %tr
@@ -18,4 +17,4 @@
           %td= item.description
           %td.actions
             = link_to t('admin.edit'), edit_manage_provider_path(item.id), class: 'edit'
-            = link_to t('admin.delete'), manage_provider_path(item.id), method: :delete, class: 'delete', data: {confirm: t('admin.confirm_delete') }
+            = link_to t('admin.delete'), manage_provider_path(item.id), method: :delete, class: 'delete', data: {confirm: t('admin.providers.confirm_delete') }

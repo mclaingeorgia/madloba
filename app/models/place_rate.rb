@@ -9,7 +9,8 @@ class PlaceRate < ActiveRecord::Base
   def calculate_place_rating
     r = PlaceRate.where(place_id: self.place_id)
     p = Place.find_by(id: self.place_id)
-    p.update_attribute(:rating, (r.sum(:value)+0.0)/r.count()) if r.present? && p.present?
+    avg = r.present? ? (r.sum(:value)+0.0)/r.count() : 0
+    p.update_attribute(:rating, avg) if p.present?
   end
 
   def self.rate(user_id, place_id, value)

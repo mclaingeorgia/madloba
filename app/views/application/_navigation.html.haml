@@ -28,7 +28,7 @@
               .user-name #{current_user.name}
               .caret
             .user-menu{ 'data-set-max-height': true }
-              - if current_user.user?
+              - if current_user.at_least_user?
                 %ul.first
                   %li.sans
                     %span.header= t('shared.user_profile')
@@ -41,12 +41,12 @@
                         = link_to t('admin.menu.rated_places'), manage_user_profile_path(page: 'rated-places')
                       %li
                         = link_to t('admin.menu.uploaded_photos'), manage_user_profile_path(page: 'uploaded-photos')
-                  - if current_user.provider?
+                  - if current_user.at_least_provider?
                     %li.sans
                       %span.header= t('shared.provider_profile')
                       %ul
                         %li
-                          = link_to t('admin.menu.manage_provider'), manage_provider_profile_path(page: 'manage-provider')
+                          = link_to t('admin.menu.manage_provider'), manage_provider_profile_path(page: 'manage-providers')
                         %li
                           = link_to t('admin.menu.manage_places'), manage_provider_profile_path(page: 'manage-places')
                         %li

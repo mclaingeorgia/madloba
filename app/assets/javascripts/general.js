@@ -34,7 +34,7 @@ function xhr($element) {
   var format = t.attr('data-xhr-format')
   var type = t.attr('data-xhr-method')
   if(typeof format === 'undefined') { format = 'html' }
-  if(typeof type === 'undefined') { format = 'GET' }
+  if(typeof type === 'undefined') { type = 'GET' }
   var url = t.attr('href')
 
   // console.log('data-xhr', caller, format, url)

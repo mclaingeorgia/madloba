@@ -13,17 +13,17 @@ class PlaceReport < ActiveRecord::Base
 
   validates :user_id, :place_id, :reason, presence: true
 
-  def self.requested?(user_id, place_id)
-    find_by(user_id: user_id, place_id: place_id).present?
-  end
+  # def self.requested?(user_id, place_id)
+  #   find_by(user_id: user_id, place_id: place_id).present?
+  # end
 
   def self.request_report(user_id, place_id, reason)
     response = nil
     class_name = self.model_name.param_key
 
-    r = find_by(user_id: user_id, place_id: place_id)
+    # r = find_by(user_id: user_id, place_id: place_id)
 
-    if r.present? || PlaceReport.create(user_id: user_id, place_id: place_id, reason: reason)
+    if PlaceReport.create(user_id: user_id, place_id: place_id, reason: reason) #r.present? ||
       response = {type: :success, text: :succeed_to_process, action: class_name, forward: { refresh: { type: 'report' } }}
     end
 

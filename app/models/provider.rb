@@ -2,7 +2,7 @@ class Provider < ActiveRecord::Base
   translates :name, :description
   globalize_accessors :locales => [:en, :ka], :attributes => [:name, :description]
 
-
+  attr_accessor :redirect_default
   # before_validation(on: :create) do
   #   Rails.logger.debug("-----------------------asdfdsf")
   #   true
@@ -29,6 +29,7 @@ class Provider < ActiveRecord::Base
 
   scope :deleted, -> { where(:deleted => true) }
   scope :active, -> { where(:deleted => false) }
+  scope :accessible, -> { where(:deleted => false) }
 
   [I18n.locale].each do |locale|
     validates :"name_#{locale}", presence: true
@@ -41,5 +42,10 @@ class Provider < ActiveRecord::Base
 
   def self.sorted
     with_translations(I18n.locale).order(name: :asc)
+  end
+
+  # used to order flash messages
+  def self.validation_order_list
+    [Provider.globalize_attribute_names].flatten
   end
 end

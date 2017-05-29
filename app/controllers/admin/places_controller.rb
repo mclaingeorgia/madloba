@@ -72,26 +72,26 @@ class Admin::PlacesController < AdminController
       else
 
 
-     l = {
-        providers: Provider.by_user(current_user.id),
-        current_page: :'manage-places',
-        action: :edit,
-        item: @item
-      }
-           @is_admin = true
+    #  l = {
+    #     providers: Provider.by_user(current_user.id),
+    #     current_page: :'manage-places',
+    #     action: :edit,
+    #     item: @item
+    #   }
+    #        @is_admin = true
 
-        @class = 'provider_profile'
+    #     @class = 'provider_profile'
 
-    @is_admin_profile_page = false
+    # @is_admin_profile_page = false
 
-         # Rails.logger.debug("--------------------------------------------#{@item.errors.inspect}")
-        flash[:error] = t('app.messages.fail_updated', obj: @model)
-        format.html do
-          render 'admin/provider_profile', locals: l
+    #      # Rails.logger.debug("--------------------------------------------#{@item.errors.inspect}")
+    #     flash[:error] = t('app.messages.fail_updated', obj: @model)
+    #     format.html do
+    #       render 'admin/provider_profile', locals: l
 
-          # redirect_to manage_provider_profile_path(page: 'manage-places', id: @item.id, edit: :edit)
-        end
-        format.json { render json: { flash: flash.to_hash } }
+    #       # redirect_to manage_provider_profile_path(page: 'manage-places', id: @item.id, edit: :edit)
+    #     end
+    #     format.json { render json: { flash: flash.to_hash } }
       end
     end
   end
@@ -138,6 +138,11 @@ class Admin::PlacesController < AdminController
       format.json { render json: { flash: flash.to_hash }.merge(forward) }
     end
   end
+  def ownership
+    pars = ownership_params
+
+
+  end
   # flash message type test
   # def destroy
   #   @item = @model.find(params[:id])
@@ -171,6 +176,9 @@ class Admin::PlacesController < AdminController
   end
   def rate_params
     params.permit(:id, :rate, :locale)
+  end
+  def ownership_params
+    params.permit(:id, :provider_id, :provider_attributes: [*Provider.globalize_attribute_names], :locale)
   end
 end
 

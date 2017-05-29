@@ -95,11 +95,8 @@ ka:
     rating: Rating
     search: Search
     and_up: " & Up"
-    rate1: Rate 1
-    rate2: Rate 2
-    rate3: Rate 3
-    rate4: Rate 4
-    rate5: Rate 5
+    rate: Give rating of %n
+    rate_reset: Delete your rating
     view_all_provider_places: See all places from this service provider
     view_place_details: View place details
   messages:
@@ -246,8 +243,6 @@ ka:
       your_email: Your Email
       your_message: Your Message
       send: Send
-      add_to_favorite: Add To Favorite
-      remove_from_favorite: Remove from Favorite
       rating: Rating
       rate: Rate
       report: Report

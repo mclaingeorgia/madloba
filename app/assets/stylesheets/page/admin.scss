@@ -17,15 +17,26 @@ main {
     max-width: 100%;
     width: 100%;
   }
-  &.provider_profile {
-    .panels {
-      display: flex;
-      flex-direction: row;
-    }
+  .panels {
+    display: flex;
+    flex-direction: row;
     .panel {
       width: 50%;
       max-width: 600px;
     }
+    .panel:first-child {
+      margin-right: 22px;
+    }
+    .panel:last-child {
+      margin-left: 22px;
+    }
+    .panel-separator {
+      border-right: 1px solid $border;
+    }
+  }
+
+  &.provider_profile {
+
   }
 
   &.admin_profile {
@@ -71,6 +82,12 @@ main {
             padding-bottom: 6px;
           }
         }
+      }
+    }
+    .content.space {
+      padding-top: 27px;
+      .form-container {
+        padding: 0 27px;
       }
     }
 

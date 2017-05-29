@@ -45,6 +45,7 @@ class Place < ActiveRecord::Base
   scope :published, -> { where(published: true) }
   scope :deleted, -> { where(:deleted => true) }
   scope :active, -> { where(:deleted => false) }
+  scope :accessible, -> { where(:deleted => false, published: true) }
 
   validates :region_id, presence: true
   validates :services, :length => { :minimum => 1 }

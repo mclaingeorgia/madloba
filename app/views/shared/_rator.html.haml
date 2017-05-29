@@ -4,20 +4,22 @@
 .rator-container
   %label=label
   .rator{{"data-r": rate}.merge(rator||={})}
-    .heart{"data-r": 1, title: t('shared.rate1')}
+    .heart{"data-r": 1, title: t('shared.rate', n: 1)}
       %i
-      .heart{"data-r": 2, title: t('shared.rate2')}
+      .heart{"data-r": 2, title: t('shared.rate', n: 2)}
         %i
-        .heart{"data-r": 3, title: t('shared.rate3')}
+        .heart{"data-r": 3, title: t('shared.rate', n: 3)}
           %i
-          .heart{"data-r": 4, title: t('shared.rate4')}
+          .heart{"data-r": 4, title: t('shared.rate', n: 4)}
             %i
             - if is_filter
               .heart-dummy
                 %i
             - else
-              .heart{"data-r": 5, title: t('shared.rate5')}
+              .heart{"data-r": 5, title: t('shared.rate', n: 5)}
                 %i
     - if is_filter
       .up= t('shared.and_up')
-    .reset
+    .reset{title: t('shared.rate_reset')}
+
+

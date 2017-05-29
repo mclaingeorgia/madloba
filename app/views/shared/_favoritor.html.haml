@@ -12,9 +12,6 @@
     .favoritor{'data-filter': 'favorite', 'data-f': is_favorite.to_s, title: title}
       %i
   - else
-    %a.favoritor{'data-f': is_favorite.to_s, 'data-xhr': 'favoritor', 'data-xhr-format': 'json', href: href, 'data-href-template': href_template }
+    %a.favoritor{'data-f': is_favorite.to_s, 'data-xhr': 'favoritor', 'data-xhr-format': 'json', href: href, 'data-href-template': href_template, title: t('shared.title.favorite') }
       %span= label
       %i
-      -#
-        / = is_favorite_place ? t('.remove_from_favorite') : t('.add_to_favorite')
-        / %a.favoritor{'data-f': is_favorite_place.to_s, href: place_path(id: item.id, a: 'favorite', v: is_favorite_place ) }

@@ -1,0 +1,6 @@
+- title = t('admin.providers.create')
+- without_title ||= false
+- page_title title unless without_title
+- path ||= manage_providers_path
+= render partial: 'shared/breadcrumbs', locals: { paths: [[t('admin.providers.manage'), path], title] }
+= render partial: 'admin/providers/form', locals: { obj: [:manage, @item || item], is_admin_profile: @item.present? }

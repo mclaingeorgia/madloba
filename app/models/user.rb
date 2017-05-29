@@ -59,24 +59,20 @@ class User < ActiveRecord::Base
     nil?
   end
 
-  def user?
-    role == "user" || role == "provider" || role == "admin"
+  def at_least_user?
+    user? || provider? || admin?
   end
 
-  def provider?
-    role == "provider" || role == "admin"
+  def at_least_provider?
+    provider? || admin?
   end
 
-  def admin?
-    role == "admin"
+  def at_least_admin?
+    admin?
   end
 
   # def owns_post? (post)
   #   self.posts.include?(post)
-  # end
-
-  # def is_admin_or_super_admin
-  #   self.admin? || self.super_admin?
   # end
 
   def name

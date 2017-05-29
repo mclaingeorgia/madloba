@@ -1,9 +1,10 @@
-#flash.flash
+- flashes = flash.to_a
+#flash.flash{'data-flash-type': flashes.present? ? flashes[0][0] : nil}
   .button
     %button.close{:type => "button"} ×
   %ul.messages
-    - if !flash.empty?
-      - flash.each do |key, value|
+    - if flashes.present?
+      - flashes.each do |f|
         %li.message
-          .flag{class: key}
-          .text #{value}
+          .flag{class: f[0]}
+          .text= f[1]

@@ -11,6 +11,7 @@
         $element.attr('data-f', d)
         callback(d, $element)
         event.stopPropagation()
+        event.preventDefault()
       })
     },
     deferred_bind: function ($element, callback) {// element should be .favoritor
@@ -19,6 +20,7 @@
         var d = current_d === 'true' ? false : true
         callback(d, $element)
         event.stopPropagation()
+        event.preventDefault()
       })
     },
     get: function ($element) {

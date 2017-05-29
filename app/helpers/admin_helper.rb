@@ -32,7 +32,7 @@ module AdminHelper
   end
 
   def provider_profile_pages
-    [:'manage-provider', :'manage-places', :'moderate-photos']
+    [:'manage-providers', :'manage-places', :'moderate-photos']
   end
 
   def label_format(label, options)

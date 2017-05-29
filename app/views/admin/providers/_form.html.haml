@@ -1,12 +1,13 @@
--# translate_path = 'admin.provider.'
 .form-container{class: @form_container_class}
   = simple_form_for obj, html: { class: @form_class } do |f|
     = devise_error_messages!
+    = f.input :redirect_default, as: :hidden, input_html: { value: is_admin_profile }
     .panels
       .panel
         = render partial: 'shared/fields_localization', locals: { fields: { name: nil, description: { as: :text, input_html: { required: true, rows: 6 } } } , form: f }
-      .panel
-
+      - if @with_associations
+        .panel-separator
+        .panel 'blah'
     .actions
       = f.submit t("app.common.save")
       = f.submit t("app.common.cancel"), type: :reset

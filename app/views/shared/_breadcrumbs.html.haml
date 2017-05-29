@@ -1,3 +1,4 @@
+- buttons ||= []
 - if paths.length > 0
   .breadcrumbs
     %ul
@@ -10,3 +11,6 @@
           - if path_i != paths.length - 1
             %li
               %span.slash /
+      - buttons.each do |button|
+        %li
+          = link_to t("admin.#{button[0]}"), button[1], class: "#{button[2]} btn"

@@ -98,6 +98,15 @@
           }
         }
       }
+      &.has-error {
+        .field-input {
+          border-color: $control;
+        }
+      }
+      .help-block {
+        @include font(14, 'li');
+        color: $control;
+      }
       .forgot {
         float: right;
         @include font(18);

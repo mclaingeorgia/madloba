@@ -193,6 +193,9 @@
                 white-space: nowrap;
                 padding-bottom: 14px;
                 opacity: .8;
+                &:hover {
+                  opacity: 1;
+                }
                 &:after {
                   content: '';
                   display: block;

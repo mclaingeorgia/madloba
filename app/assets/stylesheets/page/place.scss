@@ -85,15 +85,17 @@
           display: inline-block;
           // margin-right: 80px;
           margin: 0 10px;
-          cursor: pointer;
           white-space: nowrap;
           a, label {
             @include font(18, 'b', 22);
             color: $text;
             text-decoration: none;
           }
+          a {
+             cursor: pointer;
+          }
         }
-        .report, .take-ownership { //.favoritize,
+        .report, .ownership { //.favoritize,
           &:after {
             display: inline-block;
             content: "";
@@ -112,7 +114,7 @@
             // height: 24px;
             background: background('report');
           }
-          &.take-ownership:after {
+          &.ownership:after {
             // width: 20px;
             // height: 22px;
             background: background('ownership');

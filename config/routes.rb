@@ -1,6 +1,8 @@
 Madloba::Application.routes.draw do
 
 
+  get 'greetings/hello'
+
   scope ':locale', locale: /#{I18n.available_locales.join("|")}/ do
 
     devise_scope :user do
@@ -31,10 +33,15 @@ Madloba::Application.routes.draw do
 
       put 'place/:id/favorite/:flag', to: '/admin/places#favorite', :as => :place_favorite, :constraints => { rate: /(true|false)/ }
       put 'place/:id/rate/:rate', to: '/admin/places#rate', :as => :place_rate, :constraints => { rate: /(0|1|2|3|4|5)/ }
+      post 'place/:id/ownership', to: '/admin/places#ownership', :as => :place_ownership
       # scope 'admin' do
       # end
       # namespace :manage do
-      resources :providers#, controller: 'providers'
+      resources :providers, except: [:show]
+      namespace :providers do
+        put '/:id/restore', to: '#restore'
+      end
+      #, controller: 'providers'
       resources :places#, controller: '/admin'
       resources :users
       resources :page_contents

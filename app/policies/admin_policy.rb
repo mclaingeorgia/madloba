@@ -6,6 +6,9 @@ class AdminPolicy < ApplicationPolicy
     @admin = admin
   end
 
+  def user_profile?
+    true
+  end
   def managerecords?
     user.admin?
   end

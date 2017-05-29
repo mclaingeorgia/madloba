@@ -119,13 +119,15 @@
         } else if (type === 'favorite') {
           var $favoritor = $('[data-place-id="' + options['place_id'] + '"] .favoritor')
           $place = $favoritor.closest('[data-place-id]')
+          console.log(to, to === true)
           if(to === true || to === false) {
             $favoritor.attr('data-f', to).attr('href', $favoritor.attr('data-href-template').replace(/_v_/g, !to))
             $favoritor.attr('title', to ? gon.labels.unfavorite : gon.labels.favorite)
           }
-        } else if (type === 'ownership') {
-          $('a.take-ownership').parent().html('<div class="take-ownership"><label>' + gon.labels.ownership_under_consideration + '</label>')
         }
+        // else if (type === 'ownership') {
+        //   $('a.take-ownership').parent().html('<div class="take-ownership"><label>' + gon.labels.ownership_under_consideration + '</label>')
+        // }
         else if (type === 'report') {
           $('a.report').parent().html('<div class="report"><label>' + gon.labels.report_under_consideration + '</label>')
         }

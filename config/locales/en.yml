@@ -98,6 +98,9 @@ en:
       success_updated: "%{obj} was successfully updated."
       fail_updated: "%{obj} failed to update."
       success_destroyed: "%{obj} was successfully deleted."
+      fail_destroyed: "%{obj} failed to delete."
+      success_restored: "%{obj} was successfully restored."
+      fail_restored: "%{obj} failed to restore."
       accepted: "%{obj} was successfully accepted."
       declined: "%{obj} was successfully declined."
       fail_updated_state: "%{obj} state failed to update."
@@ -117,11 +120,8 @@ en:
     rating: Rating
     search: Search
     and_up: " & Up"
-    rate1: Rate 1
-    rate2: Rate 2
-    rate3: Rate 3
-    rate4: Rate 4
-    rate5: Rate 5
+    rate: "Give rating of %{n}"
+    rate_reset: Delete your rating
     view_all_provider_places: See all places from this service provider
     view_place_details: View place details
     view_all_services: View All Services
@@ -143,6 +143,10 @@ en:
     unfavorite: Unfavorite
     labels:
       state: 'State:'
+    title:
+      report: Report a problem with this place
+      ownership: 'Are you a service provider and this is your place? Take ownership of this place so you can manage the content.'
+      favorite: Add or remove this place from your favorites
   messages:
     succeed_to_process: Request to %{action} processed successfully.
     succeed_to_process_reject: Request to reject %{action} processed successfully.
@@ -166,21 +170,27 @@ en:
       edit: Edit
       edit_object: "Edit %{obj}"
       delete: Delete
-      confirm_provider_delete: "Provider will be removed with all places bind to it."
       or: or
       actions: Actions
-      add_provider: Add Provider
       add_place: Add Place
-    manage_provider:
-      index: Manage Providers
+    providers:
+      manage: Manage Providers
       edit: Edit Provider
-      new: Create Provider
-    manage_places:
-      index: Manage Places
-      edit: Edit Place
-      new: Create Place
-    moderate_photos:
-      index: Moderate Photos
+      create: Create Provider
+      add: Add Provider
+      confirm_delete: "Provider will be removed with all places bind to it."
+      list:
+        providers: "Providers:"
+    # manage_provider:
+    #   index: Manage Providers
+    #   edit: Edit Provider
+    #   new: Create Provider
+    # manage_places:
+    #   index: Manage Places
+    #   edit: Edit Place
+    #   new: Create Place
+    # moderate_photos:
+    #   index: Moderate Photos
     menu:
       manage_profile: Manage Profile
       rated_places: Rated Places
@@ -220,13 +230,7 @@ en:
         title: "Edit Places"
       list:
         provider: "Provider:"
-    providers:
-      index:
-        title: Manage Providers
-      edit:
-        title: Edit Provider
-      list:
-        providers: "Providers:"
+
     place:
       index:
         title: "Manage Places"
@@ -273,9 +277,9 @@ en:
       phone_content: "Free Hotline: 0 800 900 902; Office #: 2197378"
       email: "Email:"
       email_content: "mac_info@macgeorgia.org"
-      report: REPORT
+      report: "Report a problem with '%{name}'"
       report_button: Send Report
-      report_placeholder: Type report text
+      report_placeholder: Enter the reason for the report
       alt:
         close: Close Dialog
         address: Contact Address
@@ -329,12 +333,9 @@ en:
       your_email: Your Email
       your_message: Your Message
       send: Send
-      add_to_favorite: Add To Favorite
-      remove_from_favorite: Remove from Favorite
       rating: Rating
       rate: Rate
       report: Report
-      report_underway: Report Under Consideration
       take_ownership: Take Ownership
       take_ownership_underway: Ownership Under Consideration
       share: Share

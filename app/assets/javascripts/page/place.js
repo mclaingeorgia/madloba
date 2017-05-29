@@ -26,3 +26,13 @@ $(document).on('click', '#place_report_send', function () {
     pollution.components.dialog.close()
   }
 })
+
+$(document).on('click', '#place_report_send', function () {
+  var v = $('#place_report_reason').val()
+  if(v !== '') {
+    $element = $('#place_report_link')
+    $element.attr('href', $element.attr('data-href-template').replace(/_v_/g, v))
+    xhr($element)
+    pollution.components.dialog.close()
+  }
+})

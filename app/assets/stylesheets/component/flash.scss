@@ -7,12 +7,21 @@
     z-index: 91;
     right: 20px;
     bottom: 16px;
-    border: 3px solid $control;
+
     background-color: $bg;
     // border-right: 0;
     // border-bottom: 0;
     &[open] {
       display: block;
+    }
+    &[data-flash-type='error'], &[data-flash-type='alert'] {
+      border: 3px solid $control;
+    }
+    &[data-flash-type='success'] {
+      border: 3px solid $link;
+    }
+    &[data-flash-type='notice'] {
+      border: 3px solid $highlighted_bg;
     }
     .button {
       width: 100%;
@@ -20,7 +29,7 @@
       .close {
         background-color: transparent;
         color: $text;
-        border: 1px solid $control;
+        border: 1px solid #d4d4d4;
         border-top: 0;
         cursor: pointer;
         margin-right: 8px;

@@ -19,9 +19,10 @@
       t.close()
       var html = ""
       types = Object.keys(messages)
+      t.el.attr('data-flash-type', types[0])
       types.forEach(function(type) {
-          html += "<li class='message'><div class='flag " + type + "'></div><div class='text'>" +t.urldecode(messages[type]) + "</div></li>"
-        })
+        html += "<li class='message'><div class='flag " + type + "'></div><div class='text'>" +t.urldecode(messages[type]) + "</div></li>"
+      })
       t.content_el.html(html)
       return t
     },

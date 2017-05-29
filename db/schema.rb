@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170528094609) do
+ActiveRecord::Schema.define(version: 20170529175219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -289,7 +289,7 @@ ActiveRecord::Schema.define(version: 20170528094609) do
     t.string   "phones",                              default: [],    null: false, array: true
     t.integer  "poster_id"
     t.boolean  "published",                           default: false
-    t.boolean  "deleted",                             default: false
+    t.integer  "deleted",                             default: 0
   end
 
   add_index "places", ["region_id"], name: "index_places_on_region_id", using: :btree
