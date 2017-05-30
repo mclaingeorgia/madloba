@@ -17,9 +17,10 @@ class UserPolicy < ApplicationPolicy
   #   new?
   # end
 
-  # def new?
-  #   @current_user && @current_user.admin?
-  # end
+  def new?
+    true
+    # @current_user && @current_user.admin?
+  end
 
   # def update?
   #   edit?

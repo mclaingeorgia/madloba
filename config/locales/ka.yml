@@ -2,14 +2,11 @@ ka:
   activerecord:
     models:
       provider: &provider_model
-        one: Provider
-        other: Providers
+        one: პროვაიდერი
+        other: პროვაიდერები
       page_content:
         one: Page Content
         other: Page Contents
-      providers:
-        one: Test
-        other: Many
       place_rates:
         one: rate class
     attributes:
@@ -18,17 +15,26 @@ ka:
         description: Provider Description
       providers:
         <<: *provider
+      service: &service
+        name: Service Name
+        description: Service Description
+        icon: Service Icon
+        color: Service Color
       page_content:
         title: Title
         content: Content
       user:
-        first_name: First Name
-        last_name: Last Name
-        password: Password
-        username: Username
-        email: Email
-        password_confirmation: Password Confirmation
+        first_name: სახელი
+        last_name: გვარი
+        password: პაროლი
+        username: სახელი რეგისტრაციისათვის
+        email: ელ.ფოსტა
+        password_confirmation: პაროლის დადასტურება
         is_service_provider: Do you plan to provide service?
+        roles:
+          user: User
+          provider: Provider
+          admin: Admin
         providers:
           <<: *provider_model
     errors:
@@ -36,7 +42,7 @@ ka:
         user:
           attributes:
             email:
-              taken: is already used
+              taken: This email is already used
             providers:
               not_filled: " data is not filled"
         category:
@@ -55,14 +61,16 @@ ka:
               greater_than: "გთხოვთ დაამატეთ სულ მცირე ერთი სერვისი."
   app:
     languages:
-      en: English
-      ka: Georgian
+      en: ინგლისური
+      ka: ქართული
+      _en: English
+      _ka: ქართული
     common:
       name: Sheaghe
       slogan: Discovering Services
-      description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis, unde!"
-      _yes: "Yes"
-      _no: "No"
+      description: "You can use Sheaghe to search for any type of rehab service in Georgia. We have a whole database of service providers on the website; each of them registered according to their location, category of service and the types of service they provide."
+      _yes: "დიახ"
+      _no: "არა"
       mac_alt: "McLain Association for Children seeks to transform the lives of the most vulnerable around the world by providing them with the resources they need and by strengthening the systems and individuals that provide them care."
       created_by: Created By
       js_alt: "Informing Communities with Data and Design"
@@ -71,34 +79,71 @@ ka:
       contact: -----
       rate: Rate
       missing: Missing
-      or: or
-      register: Register
-      sign_in: Sign In
-      sign_up: Sign Up
-      cancel: Cancel
-      reset_password: Reset Password
-      change_password: Change Password
+      or: ან
+      register: რეგისტრაცია
+      sign_in: შესვლა
+      sign_up: რეგისტრაცია
+      cancel: გაუქმება
+      reset_password: გადმომიგზავნეთ პაროლის შეცვლის ინსტრუქცია.
+      change_password: პაროლის შეცვლა
       resend: Resend
       click_here: Click Here
       alt: "%{alt} Image"
       by: by
+      save: შენახვა
     messages:
       success_updated: "%{obj} was successfully updated."
       fail_updated: "%{obj} failed to update."
       success_destroyed: "%{obj} was successfully deleted."
+      fail_destroyed: "%{obj} failed to delete."
+      success_restored: "%{obj} was successfully restored."
+      fail_restored: "%{obj} failed to restore."
+      accepted: "%{obj} was successfully accepted."
+      declined: "%{obj} was successfully declined."
+      fail_updated_state: "%{obj} state failed to update."
+      state_already_set: "%{obj} state already set."
   shared:
+    toggle_navigation: Toggle navigation
+    user_profile: User Profile
+    provider_profile: Provider Profile
+    admin_profile: Admin Profile
+    manage: Manage
+    moderate: Moderate
     fields_localization: Fields to translate
     picked_as_favorite: Picked as favorite
     overall_rating: "Overall place rating %{rating}/5"
     overall_rating_js: "Overall place rating"
     rating_threshold: "/%{n}"
     rating: Rating
-    search: Search
+    search: ძიება
     and_up: " & Up"
-    rate: Give rating of %n
+    rate: "Give rating of %{n}"
     rate_reset: Delete your rating
     view_all_provider_places: See all places from this service provider
     view_place_details: View place details
+    view_all_services: View All Services
+    view_all_service_places: See all places with this service
+    locate_me: Locate Me on the Map
+    add: დამატება
+    upload_image: 'Upload Photo'
+    delete_image: 'Delete Photo'
+    pending: Pending
+    accept: Accept
+    accepted: Accepted
+    decline: Decline
+    declined: Declined
+    processed: Processed
+    no_data_found: No Data Found
+    all_done: All done!
+    are_you_sure: Are you sure?
+    favorite: Favorite
+    unfavorite: Unfavorite
+    labels:
+      state: 'State:'
+    title:
+      report: Report a problem with this place
+      ownership: 'Are you a service provider and this is your place? Take ownership of this place so you can manage the content.'
+      favorite: Add or remove this place from your favorites
   messages:
     succeed_to_process: Request to %{action} processed successfully.
     succeed_to_process_reject: Request to reject %{action} processed successfully.
@@ -107,24 +152,32 @@ ka:
     favorite_place: favorite place
     place_ownership: take place ownership
     place_report: report place
+    n_photo_uploaded:
+      one: "Photo uploaded."
+      other: "%{n} photos uploaded."
+    n_photo_uploaded_and_pending:
+      one: "Photo uploaded and waiting to be processed"
+      other: "%{n} photos uploaded and waiting to be processed"
+    uploader_failed: "Error while uploading photos, please contact administration"
   admin:
-    save: Save
-    cancel: Cancel
-    edit: Edit
-    edit_object: "Edit %{obj}"
-    delete: Delete
-    confirm_delete: "Provider will be removed with all places bind to it."
-    or: or
-    manage_provider:
-      index: Manage Providers
+    shared:
+      add: დამატება
+      save: შენახვა
+      cancel: გაუქმება
+      edit: რედაქტირება
+      edit_object: "%{obj} რედაქტირება"
+      delete: წაშლა
+      or: or
+      actions: მოქმედება
+      add_place: Add Place
+    providers:
+      manage: Manage Providers
       edit: Edit Provider
-      new: Create Provider
-    manage_places:
-      index: Manage Places
-      edit: Edit Place
-      new: Create Place
-    moderate_photos:
-      index: Moderate Photos
+      create: Create Provider
+      add: Add Provider
+      confirm_delete: "Provider will be removed with all places bind to it."
+      list:
+        providers: "Providers:"
     menu:
       manage_profile: Manage Profile
       rated_places: Rated Places
@@ -136,22 +189,21 @@ ka:
       users: Users
       providers: Providers
       places: Places
-      categories: Categories
+      services: Services
       page_contents: Page Contents
-      settings: Settings
       place_report: Reported Places
       place_ownership: Place Ownership
       new_provider: New Provider
-      place_tags: Place Tags
+      place_tag: Place Tags
     profile:
-      first_name: "First name:"
-      last_name: "Last name:"
-      username: "Username:"
-      email: "Email:"
-      is_service_provider: "Service Provider:"
-      current_password: "Current password:"
-      password: "New password:"
-      password_confirmation: "Confirm password:"
+      first_name: "სახელი:"
+      last_name: "გვარი:"
+      username: "სარეგისტრაციო სახელი:"
+      email: "ელ.ფოსტა:"
+      is_service_provider: "სერვისის პროვაიდერი:"
+      current_password: "არსებული პაროლი:"
+      password: "პაროლი:"
+      password_confirmation: "პაროლის დადასტურება:"
     page_contents:
       index:
         title: Manage Page Contents
@@ -163,24 +215,42 @@ ka:
       edit:
         title: "Edit Places"
       list:
-        provider: "Provider:"
+        provider: "პროვაიდერი:"
     place:
       index:
         title: "Manage Places"
       name: "Name:"
-      description: "Description:"
+      description: "აღწერა:"
       services: "Which Rehabilitative services do you provide?"
-      phone: "Phone:"
-      website: "Website:"
-      address: "Address:"
-      city: "City:"
-      postal_code: "Postal Code:"
-      region: "Region:"
+      phone: "საკონქატო ტელეფონი:"
+      website: "ვებ გვერდი:"
+      address: "მისამართი:"
+      city: "ქალაქი:"
+      postal_code: "საფოსტო კოდი:"
+      region: "რეგიონი:"
       locate_me: "Locate me on map"
     user:
-      email: Email
+      email: ელ. ფოსტა
       password: Password
       password_confirmation: Password Confirmation
+    services:
+      index:
+        title: "Manage Services"
+    moderates:
+      place_report:
+        title: Moderate Reported Places
+        reported_by: 'Reported By:'
+        reason: 'Reason:'
+      place_ownership:
+        title: Moderate Place Ownership
+        request_from: 'Request From:'
+      place_tag:
+        title: Moderate Place Tag
+        created_by: 'Created By:'
+        tag: 'Tag:'
+    uploads:
+      list:
+        uploaded_by: 'Uploaded By:'
   application:
     dialog:
       partners: PARTNERS
@@ -188,16 +258,16 @@ ka:
       org: McLain Association for Children
       address: "Address:"
       address_content: "Kavsadze #3, Second Floor, Tbilisi Georgia"
-      phone: "Phone:"
+      phone: "ტელეფონი:"
       phone_content: "Free Hotline: 0 800 900 902; Office #: 2197378"
       email: "Email:"
       email_content: "mac_info@macgeorgia.org"
-      report: REPORT
+      report: "Report a problem with '%{name}'"
       report_button: Send Report
-      report_placeholder: Type report text
+      report_placeholder: Enter the reason for the report
       alt:
         close: Close Dialog
-        address: Contact Address
+        address: "საკონტაქტო - ელ.ფოსტა"
         phone: Contact Phone
         email: Contact Email
     navigation:
@@ -205,14 +275,19 @@ ka:
       logo_alt: Sheage - Discovering Services Logo
       user_title: Your profile
       user_alt: Your profile image
-      about: ABOUT
+      about: შესახებ
       faq: FAQ
-      contact: CONTACT
+      contact: დაგვიკავშირდით
       facebook_alt: Share on Facebook
       twitter_alt: Share on Twitter
-      sign_up: Register
-      sign_in: Sign In
-      log_out: Log Out
+      sign_up: რეგისტრაცია
+      sign_in: შესვლა
+      log_out: გასვლა
+    slideshow:
+      alt:
+        close: Close slideshow
+        prev: Show previous slideshow image
+        next: Show next slideshow image
   root:
     index:
       what: What are you looking for
@@ -234,19 +309,18 @@ ka:
       filter:
         by_map: Search as I move the map
       placeholder:
-        what: Type Place or Provider Name
+        what: 'Type Place, Tag or Provider Name'
         where: Type Region or City
       not_found: There is no data found with provided filters
     place:
       contact_place: Contact %{provider}
       your_name: Your Name
       your_email: Your Email
-      your_message: Your Message
-      send: Send
+      your_message: თქვენი წერილი
+      send: გააგზავნეთ წერილი
       rating: Rating
       rate: Rate
       report: Report
-      report_underway: Report Under Consideration
       take_ownership: Take Ownership
       take_ownership_underway: Ownership Under Consideration
       share: Share
@@ -255,27 +329,27 @@ ka:
     faq:
       title: FAQ
   mailer:
-    hello: "Hello %{name}!"
-    hi: "Hi %{name}"
-    welcome: "Welcome to %{name}! You will soon be able to search and find details for all rehabilitation services in Georgia."
-    account_created: "An account has been created in your name. Please click on the following link to verify your email address and gain full access to all the features of %{name}:"
-    confirm_account: Confirm my account
-    as_soon_as: As soon as you have been verified, you can log in in to your account anytime by clicking Sign In on the %{name} home page.
-    need_assistance: "If you need assistance searching your required services or would like to contact us with any questions or feedback, please use the Contact Us page at http://"
-    phone_number: "Alternatively you may call this number:"
-    thanks: "Thank you for registering. We hope you enjoy using %{name}."
-    thanks_short: "Thanks!"
-    register: "To Register your services, all you have to do is log in to your account and follow these simple steps:"
-    register_1: "Click 'Register Services' button"
-    register_2: Complete the application details. Note that you are able to register as many categories of service linked to your profile as you wish.
-    register_3: Submit Registration
-    someone_requested: Someone has requested a link to change your password. You can do this through the link below.
-    please_ignore: If you didn't request this, please ignore this email.
-    password_not_changing: Your password won't change until you access the link above and create a new one.
-    change_my_password: Change my password
-    account_locked: Your account has been locked due to an excessive number of unsuccessful sign in attempts.
-    link_unlock: Click the link below to unlock your account
-    unlock_account: Unlock my account
+    hello: "გამარჯობათ %{name}!"
+    hi: "გამარჯობა %{name}"
+    welcome: "მადლობას გიხდით %{name} სტუმრობისათვის! მალე თქვენ შეძლებთ მოიძიოთ დეტალური ინფორმაცია სარეაბილიტაციო სერვისების შესახებ საქართველოში."
+    account_created: "თქვენს სახელზე უკვე შექმნილია გვერდი.დააწკაპუნეთ ქვემოთ მითითებულ ლინკზე, რათა მოხდეს თქვენი ელ.ფოსტის დადასრურება და თქვენ გქონდეთ სრული წვდომა %{name} სერვისებზე მიმართ:"
+    confirm_account: ჩემი მონაცემების დადასტურება
+    as_soon_as: როგორც კი მოხდება თქვენი მონაცემების დადასტურება, თქვენ შეგიძლიათ ნებისმიერ დროს შეხვიდეთ თქვენს შექმნილ გვერდზე, შესვლა - ზე დააწკაპუნეთ  %{name} თქვენს გვერდზე შესასვლელად. გვერდზე.
+    need_assistance: "თუ გსურთ დახმარება სასურველი სერვისის მოძებნაში ან დატოვოთ შეტყობინება გთხოვთ მოგვწეროთ: info.rehabge@gmail.com ან დაგვიკავშრდეთ ტელეფონზე 0 800 900 902"
+    phone_number: "ასევე თქვენს შეგიძლიათ დაგვიკავშირდეთ ტელეფონის ნომერზე:"
+    thanks: "მადლობას გიხდით რეგისტრაციისათვის. იმედია კმაყოფილი დარჩებით %{name ის გამოყენებით."
+    thanks_short: "მადლობა"
+    register: "სერვისის რეგისტრაციისათვის დაგჭირდებათ თქვენს გვერდზე შესვლა და მიჰყვეთ მარტივ ინსტრუქციებს:"
+    register_1: "დააწკაპუნეთ 'სერვისის რეგისტრაცია'"
+    register_2: სრულად შეავსეთ აპლიკაცია. თქვენ შეგიძლიათ დაარეგისტრიროთ შეუზღუდავი რაოდენობის სერვისები, მაგრამ ისინი აუცილებლად უნდა იყოს დაკავშირებული თქვენს საქმიანობასთან.
+    register_3: რეგისტრაცია
+    someone_requested: შემოვიდა მოთხოვდა ლინკზე თქვენი პაროლის შეცვლისათვის. გთხოვთ მიჰყევით ქვემოთ მითითებულ ინსტრუქციას.
+    please_ignore: თუ თქვენ არ მოგითხოვიათ პაროლის შეცვლა, უგულვებელყავით აღნიშნული წერილი.
+    password_not_changing: თქვენი პაროლი არ შეიცვლება სანამ თქვენ არ დააწკაპუნებთ ლინკზე და შექმნით ახალ პაროლს.
+    change_my_password: პაროლის შეცვლა
+    account_locked:  თქვენ ხუთჯერ არარასწორად შეიყვანეთ პაროლი და თქვენი გვერდი დაიბლოკა.
+    link_unlock: დააწკაპუნეთ ქვემოთ მითითებულ ლინკზე რომ მოხდეს გვერდიდან ბლოკის ახსნა
+    unlock_account: ბლოკის მოხსნა
   errors:
     oops: "Oops!"
     not_found: 404 გვერდი არ მოიძებნა
@@ -285,5 +359,6 @@ ka:
     faq_label: ხშირად დასმული კითხვები
     have_questions_html: "შეკითხვების შემთხვევაში გადადით ლინკზე %{link}. ან დაგვიკავშირდით მითითებულ ნომერზე 0 800 900 902."
     ws_error: Sorry, a server error occurred. Please refresh this page.
+    try_again: 'Something went wrong, try again later'
   config:
     not_authorized: სამწუხაროდ თქვენ  ვერ გადახვალთ ამ გვერდზე.

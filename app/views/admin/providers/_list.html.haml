@@ -3,7 +3,7 @@
     .list-view-header
       .label
         = t('admin.providers.manage')
-      = link_to t('admin.providers.add'), new_manage_provider_path({ page: 'manage-providers', id: 'new' }), class: 'add btn'
+      = link_to t('admin.providers.add'), manage_provider_profile_path({ page: 'manage-providers', id: 'new' }), class: 'add btn'
     %ul.list-view-content
       - items.each do |item|
         %li

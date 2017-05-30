@@ -14,11 +14,17 @@
       text-decoration: none;
       margin:0 5px;
     }
-    a.edit, a.add {
+    a.add {
       background-color: $link;
     }
     a.delete {
+      background-color: $text_gray;
+    }
+    a.edit {
       background-color: $control;
+    }
+    a.restore {
+      background-color: $highlighted_bg;
     }
   }
 }

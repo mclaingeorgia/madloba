@@ -1,8 +1,6 @@
-- model_class = PageContent
-- page_title t('.title')
-.page-title
-  = t('.title')
-  = link_to t('admin.add'), new_manage_page_content_path, class: 'add btn'
+- title = t('admin.page_contents.manage')
+- page_title title
+= render partial: 'shared/breadcrumbs', locals: { paths: [title] }
 .table-view
   %table.datatable.datatable-table.table-responsive{width: '100%'}
     %thead
@@ -10,7 +8,7 @@
         %th.spacer
         %th= @model.human_attribute_name(:title)
         %th.fill= @model.human_attribute_name(:name)
-        %th.actions= t('.actions')
+        %th.actions= t('admin.shared.actions')
     %tbody
       - @items.each do |item|
         %tr
@@ -19,4 +17,3 @@
           %td= item.name
           %td.actions
             = link_to t('admin.edit'), edit_manage_page_content_path(item.id), class: 'edit'
-            = link_to t('admin.delete'), manage_page_content_path(item.id), method: :delete, class: 'delete', data: {confirm: t('admin.confirm_delete') }

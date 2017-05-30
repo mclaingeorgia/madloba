@@ -1,0 +1,13 @@
+- title = t('admin.places.create')
+- redirect_default = true unless redirect_default == true || redirect_default == false
+- item = @item || item
+- if redirect_default
+  - page_title title
+  - path = manage_places_path
+  - url = manage_places_path
+- else
+  - path = manage_provider_profile_path(page: :'manage-places')
+  - url = manage_create_place_path
+
+= render partial: 'shared/breadcrumbs', locals: { paths: [[t('admin.places.manage'), path], title] }
+= render partial: 'admin/places/form', locals: { obj: [:manage, item], redirect_default: redirect_default, url: url }

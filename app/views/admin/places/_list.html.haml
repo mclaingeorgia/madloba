@@ -5,11 +5,11 @@
         .label
           = t('.provider')
           %span{class: 'name'} #{item.name}
-        = link_to t('admin.shared.add_place'), manage_provider_profile_path({ page: 'manage-places', id: 'new', provider_id: item.id }), class: 'add btn'
+        = link_to t('admin.places.add_place'), manage_provider_profile_path({ page: 'manage-places', id: 'new', provider_id: item.id }), class: 'add btn'
       %ul.list-view-content
         - item.places.each do |place|
           %li
             = link_to place.name, place_path(place.id), class: 'name'
             .actions
               = link_to t('admin.shared.edit'), manage_provider_profile_path({ page: 'manage-places', id: place.id, edit: 'edit' }), class: 'edit btn'
-              = link_to t('admin.shared.delete'), place_path(place.id), method: :delete, class: 'delete btn', data: {confirm: t('admin.confirm_place_delete') }
+              = link_to t('admin.shared.delete'), manage_place_path(place.id), method: :delete, class: 'delete btn', data: {confirm: t('admin.places.confirm_delete') }

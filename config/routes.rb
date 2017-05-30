@@ -18,12 +18,17 @@ Madloba::Application.routes.draw do
 
     post 'send_message', as: 'send_message', :controller => 'admin/providers'
 
-    get 'faq', to: 'root#faq'
-    get 'contact', to: 'root#contact'
-    get 'privacy_policy', to: 'root#privacy_policy'
-    get 'terms_of_use', to: 'root#terms_of_use'
-    get 'place/:id', to: 'root#place', as: 'place'
 
+    scope "/", controller: :root do
+      get 'faq'
+      get 'contact'
+      get 'privacy_policy'
+      get 'terms_of_use'
+      get 'place/:id', to: 'root#place', as: 'place'
+    end
+
+    patch 'manage/provider/:id/restore', to: 'admin/providers#restore', as: :restore_manage_provider
+    patch 'manage/place/:id/restore', to: 'admin/places#restore', as: :restore_manage_place
 
     namespace :manage, :module => :admin, :constraints => { format: :html } do
       get '/', to: '/admin#user_profile'
@@ -31,20 +36,24 @@ Madloba::Application.routes.draw do
       get 'provider/:page/(:id)/(:edit)', to: '/admin#provider_profile', :as => :provider_profile, constraints: { id: /(new)|(\d+)/, edit: 'edit' }
       get 'admin', to: '/admin#admin_profile', :as => :admin_profile
 
+
+      resources :providers, except: [:show]
+      post 'provider/manage-providers/new', to: '/admin/providers#create', :as => :create_provider
+      patch 'provider/manage-providers/:id', to: '/admin/providers#update', :as => :update_provider
+
+
+      resources :places, except: [:show]
+      post 'provider/manage-places/new', to: '/admin/places#create', :as => :create_place
+      patch 'provider/manage-places/:id', to: '/admin/places#update', :as => :update_place
+
       put 'place/:id/favorite/:flag', to: '/admin/places#favorite', :as => :place_favorite, :constraints => { rate: /(true|false)/ }
       put 'place/:id/rate/:rate', to: '/admin/places#rate', :as => :place_rate, :constraints => { rate: /(0|1|2|3|4|5)/ }
       post 'place/:id/ownership', to: '/admin/places#ownership', :as => :place_ownership
-      # scope 'admin' do
-      # end
-      # namespace :manage do
-      resources :providers, except: [:show]
-      namespace :providers do
-        put '/:id/restore', to: '#restore'
-      end
-      #, controller: 'providers'
-      resources :places#, controller: '/admin'
+
+
       resources :users
-      resources :page_contents
+      resources :page_contents, only: [:index, :edit, :update]
+
       resources :uploads, only: [:create]
       put 'moderate/upload_state/:id/:state', to: '/admin/uploads#upload_state_update', :as => :update_moderate_upload_state, :constraints => { state: /(accept|decline)/ }
 

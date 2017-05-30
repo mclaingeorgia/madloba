@@ -3,6 +3,7 @@ class RootController < ApplicationController
   # before_action :set_page_content, only: [:index, :faq, :privacy_policy, :terms_of_use]
 
   def index
+    authorize :root
     @class = 'loader'
 
     pars = index_params.inject({}) { |memo, (k, v)|
@@ -49,7 +50,7 @@ class RootController < ApplicationController
     end
 
 
-    places = Place.by_filter(filter, current_user)#.limit(10)
+    places = Place.filter(filter, current_user)#.limit(10)
 
     gon.labels.merge!({
       result: t('.result', count: 1),
@@ -109,22 +110,26 @@ class RootController < ApplicationController
   end
 
   def faq
+    authorize :root
     @class = "faq"
     gon.is_faq_page = true
     @page_content = PageContent.by_name('faq')
   end
 
   def privacy_policy
+    authorize :root
     @class = "privacy_policy"
     @page_content = PageContent.by_name('privacy_policy')
   end
 
   def terms_of_use
+    authorize :root
     @class = "terms_of_use"
     @page_content = PageContent.by_name('terms_of_use')
   end
 
   def place
+    authorize :root
     @has_slideshow = true
 
     pars = place_params.inject({}) { |memo, (k, v)|
@@ -227,13 +232,11 @@ class RootController < ApplicationController
       render locals: values
     end
 
-  def index_params
-    params.permit(:what, :where, :rate, :favorite, :locale, :_, services: [], map: [])
-  end
-  def place_params
-    params.permit(:id, :a, :v, :locale, :_)
-  end
-  # def set_page_content
-  #   @about_page_content = PageContent.by_name('about')
-  # end
+    def index_params
+      params.permit(:what, :where, :rate, :favorite, :locale, :_, services: [], map: [])
+    end
+
+    def place_params
+      params.permit(:id, :a, :v, :locale, :_)
+    end
 end

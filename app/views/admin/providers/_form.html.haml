@@ -1,13 +1,33 @@
 .form-container{class: @form_container_class}
-  = simple_form_for obj, html: { class: @form_class } do |f|
+  = simple_form_for obj, url: url, html: { class: @form_class } do |f|
     = devise_error_messages!
-    = f.input :redirect_default, as: :hidden, input_html: { value: is_admin_profile }
+    = f.input :redirect_default, as: :hidden, input_html: { value: redirect_default }
     .panels
       .panel
         = render partial: 'shared/fields_localization', locals: { fields: { name: nil, description: { as: :text, input_html: { required: true, rows: 6 } } } , form: f }
-      - if @with_associations
+      - if current_user.admin?
         .panel-separator
-        .panel 'blah'
+        .panel
+          .owners.r
+            .c>
+              %label Owner Users:
+            .c>
+              %ul
+                - f.object.users.each do |user|
+                  %li
+                    %span= user.name
+                    %a Close
+              %a.btn.add Assign New Owner
+          .places.r
+            .c>
+              %label Places:
+            .c>
+              %ul
+                - f.object.places.each do |user|
+                  %li
+                    %span Test Name
+                    %a Close
+              %a.btn.add Assign New Place
     .actions
       = f.submit t("app.common.save")
       = f.submit t("app.common.cancel"), type: :reset

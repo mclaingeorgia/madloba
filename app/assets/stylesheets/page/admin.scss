@@ -33,6 +33,36 @@ main {
     .panel-separator {
       border-right: 1px solid $border;
     }
+    .r {
+      display: block;
+      margin-left: 30px;
+      margin-bottom: 36px;
+      .c {
+        display: inline-block;
+        &:first-child {
+          width: 40%;
+        }
+        &:last-child {
+          width: 60%;
+        }
+        label {
+          @include font(18, 'b');
+          color: $text;
+          margin-right: 140px;
+          white-space: nowrap;
+        }
+        ul {
+          li {
+            @include font(18, 'r');
+            color: $text;
+            padding-bottom: 21px;
+            &:last-child {
+              padding-bottom: 12px;
+            }
+          }
+        }
+      }
+    }
   }
 
   &.provider_profile {

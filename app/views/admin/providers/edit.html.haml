@@ -1,6 +1,13 @@
 - title = t('admin.providers.edit')
-- without_title ||= false
-- page_title title unless without_title
-- path ||= manage_providers_path
+- redirect_default = true unless redirect_default == true || redirect_default == false
+- item = @item || item
+- if redirect_default
+  - page_title title
+  - path = manage_providers_path
+  - url = manage_provider_path(id: item.id)
+- else
+  - path = manage_provider_profile_path(page: :'manage-providers')
+  - url = manage_update_provider_path(id: item.id)
+
 = render partial: 'shared/breadcrumbs', locals: { paths: [[t('admin.providers.manage'), path], title] }
-= render partial: 'admin/providers/form', locals: { obj: [:manage, @item || item], is_admin_profile: @item.present? }
+= render partial: 'admin/providers/form', locals: { obj: [:manage, item], redirect_default: redirect_default, url: url }

@@ -40,8 +40,8 @@ class User < ActiveRecord::Base
 
 
  [I18n.locale].each do |locale|
-   validates :"first_name_#{locale}", presence: true
-   validates :"last_name_#{locale}", presence: true
+   validates :"first_name_#{locale}", presence: true, on: :create
+   validates :"last_name_#{locale}", presence: true, on: :create
  end
 
   # validates :email, presence: true

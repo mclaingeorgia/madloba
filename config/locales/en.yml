@@ -7,9 +7,6 @@ en:
       page_content:
         one: Page Content
         other: Page Contents
-      providers:
-        one: Test
-        other: Many
       place_rates:
         one: rate class
     attributes:
@@ -172,25 +169,35 @@ en:
       delete: Delete
       or: or
       actions: Actions
-      add_place: Add Place
     providers:
       manage: Manage Providers
       edit: Edit Provider
       create: Create Provider
       add: Add Provider
       confirm_delete: "Provider will be removed with all places bind to it."
+      confirm_restore: "Provider will be restored with all places bind to it."
+    places:
+      manage: Manage Places
+      edit: Edit Place
+      create: Create Place
+      add: Add Place
+      confirm_delete: "Place will be removed."
+      confirm_restore: "Place will be restored."
       list:
-        providers: "Providers:"
-    # manage_provider:
-    #   index: Manage Providers
-    #   edit: Edit Provider
-    #   new: Create Provider
-    # manage_places:
-    #   index: Manage Places
-    #   edit: Edit Place
-    #   new: Create Place
-    # moderate_photos:
-    #   index: Moderate Photos
+        provider: "Provider:"
+    place:
+      index:
+        title: "Manage Places"
+      name: "Name:"
+      description: "Description:"
+      services: "Which Rehabilitative services do you provide?"
+      phone: "Phone:"
+      website: "Website:"
+      address: "Address:"
+      city: "City:"
+      postal_code: "Postal Code:"
+      region: "Region:"
+      locate_me: "Locate me on map"
     menu:
       manage_profile: Manage Profile
       rated_places: Rated Places
@@ -204,7 +211,6 @@ en:
       places: Places
       services: Services
       page_contents: Page Contents
-      settings: Settings
       place_report: Reported Places
       place_ownership: Place Ownership
       new_provider: New Provider
@@ -223,27 +229,6 @@ en:
         title: Manage Page Contents
       edit:
         title: Edit Page Content
-    places:
-      index:
-        title: "Manage Places"
-      edit:
-        title: "Edit Places"
-      list:
-        provider: "Provider:"
-
-    place:
-      index:
-        title: "Manage Places"
-      name: "Name:"
-      description: "Description:"
-      services: "Which Rehabilitative services do you provide?"
-      phone: "Phone:"
-      website: "Website:"
-      address: "Address:"
-      city: "City:"
-      postal_code: "Postal Code:"
-      region: "Region:"
-      locate_me: "Locate me on map"
     user:
       email: Email
       password: Password

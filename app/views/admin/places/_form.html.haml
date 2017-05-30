@@ -1,8 +1,7 @@
--# translate_path = 'admin.place.'
--# page_title(t('.title'))
 .form-container{class: @form_container_class}
-  = simple_form_for obj, html: { class: @form_class } do |f|
+  = simple_form_for obj, url: url, html: { class: @form_class } do |f|
     = devise_error_messages!
+    = f.input :redirect_default, as: :hidden, input_html: { value: redirect_default }
     .column-view
       .column
         = render partial: 'shared/fields_localization', locals: { fields: { name: nil, description: { as: :text, input_html: { class: 'tinymce' } }} , form: f }

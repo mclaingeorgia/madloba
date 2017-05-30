@@ -114,6 +114,7 @@ group :development, :test do
 
   gem 'haml-rails'
   gem 'pry-byebug'
+  gem 'locales_export_import'
 end
 
 group :test do

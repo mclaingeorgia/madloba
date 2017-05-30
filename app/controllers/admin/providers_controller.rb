@@ -7,11 +7,6 @@ class Admin::ProvidersController < AdminController
   def index
     authorize Provider
     @items = @model.sorted
-
-
-    respond_to do |format|
-      format.html
-    end
   end
 
   def new
@@ -20,26 +15,35 @@ class Admin::ProvidersController < AdminController
   end
 
   def create
-    authorize Provider
-    @item = @model.new(provider_params)
+    pars = provider_params
+    redirect_default = pars.delete(:redirect_default) == 'true'
+    item = @model.new(pars)
+    item.users << current_user
+    authorize item
 
-    respond_to do |format|
-      if @item.save
-        format.html do
-          redirect_to manage_place_path, flash: {
-            success:  t('app.messages.success_updated', obj: @model) }
-        end
+    redirect_path = redirect_default ?
+      manage_providers_path :
+      manage_provider_profile_path(page: 'manage-providers')
+
+    @item = item if redirect_default
+
+    if item.save
+      flash[:success] = t('app.messages.success_updated', obj: @model)
+      redirect_to redirect_path
+    else
+      flash[:error] = format_messages(item)
+      if redirect_default
+        render action: "new"
       else
-        format.html { render action: "new" }
+        render 'admin/provider_profile', locals: prepaire_provider_profile(true, :'manage-providers', nil, :new, item)
       end
     end
   end
 
-
   def edit
     @item = @model.find(params[:id])
     authorize @item
-    @with_associations = true
+    @edit_associations = true
   end
 
   def update
@@ -55,7 +59,7 @@ class Admin::ProvidersController < AdminController
     @item = item if redirect_default
 
     if item.update_attributes(pars)
-      flash[:success] = t('app.messages.success_updated', obj: @model)
+      flash[:success] = t('app.messages.success_updated', obj: "#{@model} #{item.name}")
       redirect_to redirect_path
     else
       flash[:error] = format_messages(item)
@@ -68,33 +72,29 @@ class Admin::ProvidersController < AdminController
   end
 
   def destroy
-    @item = @model.find(params[:id])
-    authorize @item
+    item = @model.find(params[:id])
+    authorize item
 
-    if @item.update_attributes(deleted: true) && @item.places.update_all(deleted: 2)
-      flash[:success] =  t("app.messages.success_destroyed", obj: @model)
+    if item.update_attributes(deleted: true) && item.places.update_all(deleted: 2)
+      flash[:success] =  t("app.messages.success_destroyed", obj: "#{@model} #{item.name}")
     else
-      flash[:error] =  t('app.messages.fail_destroyed', obj: @modele)
+      flash[:error] =  t('app.messages.fail_destroyed', obj: "#{@model} #{item.name}")
     end
 
-    respond_to do |format|
-      format.html { redirect_to manage_provider_profile_path(page: 'manage-providers') }
-    end
+    redirect_to :back
   end
 
   def restore
-    @item = @model.find(params[:id])
-    authorize @item
+    item = @model.find(params[:id])
+    authorize item
 
-    if @item.update_attributes(deleted: false) && @item.places.where(deleted: 2).update_all(deleted: 0)
-      flash[:success] =  t("app.messages.success_restored", obj: @model)
+    if item.update_attributes(deleted: false) && item.places.where(deleted: 2).update_all(deleted: 0)
+      flash[:success] =  t("app.messages.success_restored", obj: "#{@model} #{item.name}")
     else
-      flash[:error] =  t('app.messages.fail_restored', obj: @modele)
+      flash[:error] =  t('app.messages.fail_restored', obj: "#{@model} #{item.name}")
     end
 
-    respond_to do |format|
-      format.html { redirect_to manage_provider_profile_path(page: 'manage-providers') }
-    end
+    redirect_to :back
   end
 
   def send_message

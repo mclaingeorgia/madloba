@@ -9,8 +9,8 @@ class AdminController < ApplicationController
 
   def provider_profile
     authorize User
-    page, id, action = get_sub_action(options[:page], options[:id], options[:edit], :provider_profile)
-    locals(prepaire_provider_profile(false, page, id, action))
+    page, id, action = get_sub_action(params[:page], params[:id], params[:edit], :provider_profile)
+    locals(prepaire_provider_profile(false, page, id, action, nil))
   end
 
   private

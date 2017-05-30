@@ -17,4 +17,7 @@
           %td= item.description
           %td.actions
             = link_to t('admin.edit'), edit_manage_provider_path(item.id), class: 'edit'
-            = link_to t('admin.delete'), manage_provider_path(item.id), method: :delete, class: 'delete', data: {confirm: t('admin.providers.confirm_delete') }
+            - if item.deleted?
+              = link_to t('admin.shared.restore'), restore_manage_provider_path(item.id), method: :patch, class: 'restore btn', data: {confirm: t('admin.providers.confirm_restore') }
+            - else
+              = link_to t('admin.shared.delete'), manage_provider_path(item.id), method: :delete, class: 'delete', data: {confirm: t('admin.providers.confirm_delete') }

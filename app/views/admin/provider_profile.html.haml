@@ -11,12 +11,12 @@
 
       %li{class: current_page == :'manage-providers' ? 'active' : nil, 'data-link': 'manage-providers'}
         - if current_page == :'manage-providers' && (action == :new || action == :edit) # @edit_states[0]
-          = render template: "admin/providers/#{action}", locals: { item: item, path: manage_provider_profile_path(page: :'manage-providers'), without_title: true }
+          = render template: "admin/providers/#{action}", locals: { item: item, redirect_default: false }
         - else
           = render partial: 'admin/providers/list', locals: { items: providers }
       %li{class: current_page == :'manage-places' ? 'active' : nil, 'data-link': 'manage-places'}
         - if current_page == :'manage-places' && (action == :new || action == :edit)
-          = render partial: "admin/places/#{action}", locals: { item: item, path: manage_provider_profile_path(page: :'manage-places'), without_title: true  }
+          = render template: "admin/places/#{action}", locals: { item: item, redirect_default: false }
         - else
           = render partial: 'admin/places/list', locals: { items: providers }
       %li{class: current_page == :'moderate-photos' ? 'active' : nil, 'data-link': 'moderate-photos'}
