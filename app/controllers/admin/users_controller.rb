@@ -1,147 +1,145 @@
 class Admin::UsersController < AdminController
-  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-  before_action :authenticate_user!
-  before_filter { @model = User; }
-  # before_action :requires_user
-  # after_action :verify_authorized
-
   include ApplicationHelper
 
-  def show
-  end
+  before_action :authenticate_user!
+  before_filter { @model = User; }
 
   def index
-    @items = @model.all#.sorted
-
-    respond_to do |format|
-      format.html
-    end
+    authorize @model
+    @items = @model.sorted
+     # Rails.logger.debug("------------------------------------#{@model.sorted.length}-------#{@model.all.length}-#{@items.length}")
   end
+
   def new
-    @user = User.new
-    authorize @user
-    @is_managing_user = true
-    render 'user'
-  end
-
-  def create
-    setup_step = Setting.where(key: 'setup_step').pluck(:value).first.to_i
-    setup_mode = (setup_step == 1) || Rails.configuration.setup_debug_mode
-    setup_mode ? create_first_admin_during_setup : create_new_user
-  end
-
-  def create_first_admin_during_setup
-    # We're registering the first admin user, during the website setup process.
-    # Redirection to the "All done" setup page, after creation of the admin user
-    @user = User.new(user_params)
-    authorize @user
-    @user.skip_confirmation!
-    if @user.save
-      redirect_to setup_done_path
-    else
-      redirect_to 'setup/admin'
-    end
-  end
-
-  def create_new_user
-    @user = User.new(user_params)
-    authorize @user
-
-    if @user.save
-      # We're creating a new user, from the admin panel
-      # Redirection to the 'Manage user' edit page (admin panel)
-      flash[:new_user] = @user.email
-      redirect_to edit_user_user_path(@user.id)
-    else
-      render 'user'
-    end
+    authorize @model
+    @item = @model.new
   end
 
   def edit
-    if (current_user.is_admin_or_super_admin && params[:id])
-      @user = User.find(params[:id])
-      @is_managing_user = true
-    else
-      @user = current_user
-      @is_managing_user = false
-    end
-    authorize @user
+    @item = @model.find(params[:id])
+    authorize @item
+  end
 
-    render 'user'
+  def create
+    @item = @model.new(strong_params)
+    authorize item
+
+    if item.save
+      flash[:success] = t('app.messages.success_updated', obj: @model)
+      redirect_to manage_users_path
+    else
+      flash[:error] = format_messages(item)
+      render action: "new"
+    end
   end
 
   def update
-    if (current_user.is_admin_or_super_admin)
-      @user = User.find(params[:id])
-    else
-      @user = current_user
+    pars = strong_params
+    redirect_default = pars.delete(:redirect_default) == 'true'
+    item = redirect_default ? @model.find(params[:id]) : current_user
+    authorize item
+
+    redirect_path = redirect_default ?
+      manage_users_path :
+      manage_user_profile_path(page: 'manage-profile')
+
+    with_password = true
+    if pars[:password].blank?
+      pars.delete(:password)
+      pars.delete(:password_confirmation)
+      with_password = false
     end
-    authorize @user
 
-    old_role = @user.role
+    @item = item if redirect_default
 
-    if params[:user][:password].blank?
-      params[:user].delete(:password)
-      params[:user].delete(:password_confirmation)
-    end
-
-    if (current_user.is_admin_or_super_admin)
-      if @user.update(user_params)
-        flash[:user] = @user.email
-
-        # if the user was promoted
-        if (old_role == 'user' && @user.role != 'user') || (old_role == 'admin' && @user.role == 'super_admin')
-          recipient_info = {email: @user.email, name: @user.first_name, role: @user.role}
-          UserMailer.notify_user_is_admin(recipient_info)
-          # UserMailer.delay.notify_user_is_admin(recipient_info)
+    respond_to do |format|
+      if item.update_attributes(pars) # with_password ? item.update_with_password(pars) :
+        sign_in item, bypass: true if with_password
+        flash[:success] = t('app.messages.success_updated', obj: "#{@model.human} #{item.name}")
+        format.html { redirect_to redirect_path }
+        format.json { render json: { flash: flash.to_hash } }
+      else
+        flash[:error] = format_messages(item)
+        if redirect_default
+          format.html { render action: "edit" }
+          format.json { render json: { flash: flash.to_hash } }
+        else
+          format.html { render 'admin/user_profile', locals: prepaire_user_profile(true, :'manage-profile', nil, :edit, item) }
+          format.json { render json: { flash: flash.to_hash } }
         end
-
-        redirect_to admin_profile_path
-      else
-        render 'user'
-      end
-    else
-      if @user.update_with_password(user_params)
-        sign_in @user, :bypass => true
-        flash[:user] = @user.email
-        redirect_to user_manageprofile_path
-      else
-        render 'user'
       end
     end
+
+
+    # if (current_user.is_admin_or_super_admin)
+    #   @user = User.find(params[:id])
+    # else
+    #   @user = current_user
+    # end
+    # authorize @user
+
+    # old_role = @user.role
+
+
+    # if (current_user.is_admin_or_super_admin)
+    #   if @user.update(strong_params)
+    #     flash[:user] = @user.email
+
+    #     # if the user was promoted
+    #     if (old_role == 'user' && @user.role != 'user') || (old_role == 'admin' && @user.role == 'super_admin')
+    #       recipient_info = {email: @user.email, name: @user.first_name, role: @user.role}
+    #       UserMailer.notify_user_is_admin(recipient_info)
+    #       # UserMailer.delay.notify_user_is_admin(recipient_info)
+    #     end
+
+    #     redirect_to admin_profile_path
+    #   else
+    #     render 'user'
+    #   end
+    # else
+    #   if @user.update_with_password(strong_params)
+    #     sign_in @user, :bypass => true
+    #     flash[:user] = @user.email
+    #     redirect_to user_manageprofile_path
+    #   else
+    #     render 'user'
+    #   end
+    # end
 
   end
 
   def destroy
-    @user = User.find(params[:id])
-    authorize @user
+    item = @model.find(params[:id])
+    authorize item
 
-    user_email = @user.email
-
-    if @user.destroy
-      flash[:success] = user_email
-      redirect_to user_manageusers_path
+    if item.update_attributes(deleted: true)
+      flash[:success] =  t("app.messages.success_destroyed", obj: "#{@model.human} #{item.name}")
     else
-      render 'user'
+      flash[:error] =  t('app.messages.fail_destroyed', obj: "#{@model.human} #{item.name}")
     end
+
+    redirect_to :back
   end
 
-  def favorites
-  end
+  def restore
+    item = @model.find(params[:id])
+    authorize item
 
-  def rates
-  end
+    if item.update_attributes(deleted: false)
+      flash[:success] =  t("app.messages.success_restored", obj: "#{@model.human} #{item.name}")
+    else
+      flash[:error] =  t('app.messages.fail_restored', obj: "#{@model.human} #{item.name}")
+    end
 
-  def photos
+    redirect_to :back
   end
-
 
   private
 
-  def user_params
-    params.require(:user).permit(:first_name, :first_name_en, :first_name_ka,
-                                 :last_name, :last_name_en, :last_name_ka,
-                                 :email, :role, :password, :password_confirmation, :current_password, :is_service_provider, :has_agreed)
-  end
+    def strong_params
+      params.require(:user).permit(:first_name, :first_name_en, :first_name_ka,
+                                   :last_name, :last_name_en, :last_name_ka,
+                                   :email, :role, :password, :password_confirmation, :current_password, :is_service_provider, :has_agreed, :redirect_default)
+    end
 
 end

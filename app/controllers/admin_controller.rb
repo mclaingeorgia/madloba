@@ -4,13 +4,27 @@ class AdminController < ApplicationController
 
   def user_profile
     authorize User
-    locals(prepaire_user_profile)
+    page, id, action = get_sub_action(params[:page], current_user.id, :edit, :user_profile)
+    @model = User
+    locals(prepaire_user_profile(false, page, id, action, nil))
   end
 
   def provider_profile
     authorize User
     page, id, action = get_sub_action(params[:page], params[:id], params[:edit], :provider_profile)
     locals(prepaire_provider_profile(false, page, id, action, nil))
+  end
+
+  def autocomplete
+    type = params[:type]
+    if type == 'places'
+      authorize User, :autocomplete_place?
+      results = Place.autocomplete(params[:q], current_user)
+    elsif type == 'users'
+      authorize User, :autocomplete_user?
+      results = User.all.pluck(:id, :email).map{|m| { id: m[0], text: m[1]} }
+    end
+    render json: { results: results }
   end
 
   private
@@ -21,13 +35,15 @@ class AdminController < ApplicationController
       @class = 'admin_profile' # default admin_profile class
     end
 
-    def prepaire_user_profile
+    def prepaire_user_profile(false_start, page, id, action, item)
       @is_admin = true
       @is_admin_profile_page = false
       @class = 'user_profile'
       @has_slideshow = true
 
-      page, id, action = get_sub_action(params[:page], params[:id], params[:edit], :user_profile)
+      unless false_start
+        item = provider_profile_prepare_item_by_model(User, action, id)
+      end
 
       gon.labels.merge!({
         favorite: t('shared.favorite'),
@@ -37,10 +53,10 @@ class AdminController < ApplicationController
       {
         current_page: page,
         action: action,
+        item: item,
         favorite_places: current_user.favorites,
         rated_places: current_user.rates,
         uploads_by_place: current_user.uploads.group_by(&:place_id)
-        # item: item
       }
     end
     def prepaire_provider_profile(false_start, page, id, action, item)
@@ -48,7 +64,6 @@ class AdminController < ApplicationController
       @is_admin_profile_page = false
       @class = 'provider_profile'
       @has_slideshow = true
-      # Rails.logger.debug("-----------------------------------------#{page}---#{id} #{action}")
 
       providers = Provider.accessible.by_user(current_user.id)
 
@@ -56,6 +71,7 @@ class AdminController < ApplicationController
         item = provider_profile_prepare_item(page, id, action)
       end
 
+      @model = item.class
       uploads_by_place = []
       providers.sorted.each do |provider|
         provider.places.sorted.each do |place|
@@ -74,10 +90,10 @@ class AdminController < ApplicationController
       })
 
       {
-        providers: providers,
         current_page: page,
         action: action,
         item: item,
+        providers: providers,
         uploads_by_place: uploads_by_place
       }
     end
@@ -128,7 +144,7 @@ class AdminController < ApplicationController
 
     def get_user_profile_page(page)
       options = [:'manage-profile', :'favorite-places', :'rated-places', :'uploaded-photos']
-      page = options[0] if page.nil?
+      # page = options[0] if page.nil?
       page = page.to_sym
 
       options.index(page).present? ? page : options[0]

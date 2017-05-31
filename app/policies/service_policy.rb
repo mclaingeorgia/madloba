@@ -1,4 +1,4 @@
-class PageContentPolicy < ApplicationPolicy
+class ServicePolicy < ApplicationPolicy
 
   def index?
     user.admin?

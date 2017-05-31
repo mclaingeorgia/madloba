@@ -481,6 +481,8 @@ GEM
     seed-fu (2.3.6)
       activerecord (>= 3.1)
       activesupport (>= 3.1)
+    select2-rails (4.0.3)
+      thor (~> 0.14)
     selenium-webdriver (3.0.3)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
@@ -598,6 +600,7 @@ DEPENDENCIES
   sass-rails (>= 3.2)
   sdoc
   seed-fu (~> 2.3)
+  select2-rails
   selenium-webdriver
   shoulda-matchers
   simple_form

@@ -167,6 +167,9 @@ abbr[title='required'] {
   color: $text;
   padding: 0 27px;
 }
+.nowrap {
+  white-space: nowrap;
+}
 // .required:after {
 //   content: "*";
 //   color: $control;

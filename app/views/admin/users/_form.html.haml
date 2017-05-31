@@ -1,0 +1,22 @@
+.form-container{class: @form_container_class}
+  = simple_form_for obj, url: url, html: { class: @form_class } do |f|
+    = devise_error_messages!
+    = f.input :redirect_default, as: :hidden, input_html: { value: redirect_default }
+    = render partial: 'shared/fields_localization', locals: { fields: { first_name: nil, last_name: nil } , form: f }
+    .fields-group
+      = f.input :email, label: User.human_attribute_name(:email), required: true
+      = f.input :password, input_html: { autocomplete: 'off' }, label: User.human_attribute_name(:password), required: true
+      = f.input :password_confirmation, label: User.human_attribute_name(:password_confirmation), input_html: { autocomplete: 'off' }, required: true
+    - if f.object.new_record? || f.object.user?
+      .fields-group
+        = f.input :is_service_provider, as: :radio_buttons
+        = f.simple_fields_for :providers do |provider|
+          = render partial: 'shared/fields_localization', locals: { fields: { name: nil, description: { as: :text, input_html: { rows: 4 } } } , form: provider, container_options: { style: 'display:none;', id: 'user_providers' } }
+    - if f.object.new_record?
+      .fields-group
+        = f.input :has_agreed, as: :boolean, label: t("admin.user.has_agreed_html", link: link_to(t('app.common.terms_of_use'), terms_of_use_path)), checked_value: true, unchecked_value: false
+    .actions
+      .action-group
+        = f.submit t("app.common.save")
+        = f.submit t("app.common.cancel"), type: :reset
+

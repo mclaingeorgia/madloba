@@ -29,6 +29,9 @@ Madloba::Application.routes.draw do
 
     patch 'manage/provider/:id/restore', to: 'admin/providers#restore', as: :restore_manage_provider
     patch 'manage/place/:id/restore', to: 'admin/places#restore', as: :restore_manage_place
+    patch 'manage/user/:id/restore', to: 'admin/users#restore', as: :restore_manage_user
+
+    get 'manage/autocomplete/:type', to: 'admin#autocomplete', as: :manage_autocomplete
 
     namespace :manage, :module => :admin, :constraints => { format: :html } do
       get '/', to: '/admin#user_profile'
@@ -52,12 +55,14 @@ Madloba::Application.routes.draw do
 
 
       resources :users
+      patch 'user/manage-profile', to: '/admin/users#update', :as => :update_user
+
       resources :page_contents, only: [:index, :edit, :update]
+      resources :services, only: [:index, :edit, :update]
 
       resources :uploads, only: [:create]
       put 'moderate/upload_state/:id/:state', to: '/admin/uploads#upload_state_update', :as => :update_moderate_upload_state, :constraints => { state: /(accept|decline)/ }
 
-      resources :services
 
       get 'moderate/place_report', to: '/admin/moderates#place_report', :as => :moderate_place_report
       put 'moderate/place_report/:id/:state', to: '/admin/moderates#place_report_update', :as => :update_moderate_place_report, :constraints => { state: /(accept|decline)/ }

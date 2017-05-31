@@ -211,6 +211,7 @@ if User.where(email: email).count == 0
   puts 'Creating app user and api key'
   #User.where(email: email).destroy
   u = User.new(email: email, password: Devise.friendly_token[0,30], role: 1)
+  u.first_name = 'Application'
   u.save(validate: false)
 end
 

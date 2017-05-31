@@ -1,10 +1,18 @@
 class Region < ActiveRecord::Base
-  translates :name, :center
-  globalize_accessors :locales => [:en, :ka], :attributes => [ :name, :center]
 
-  has_one :place
+  # globalize
 
-  def self.sorted
-    with_translations(I18n.locale).order(name: :asc)
-  end
+    translates :name, :center
+    globalize_accessors :locales => [:en, :ka], :attributes => [ :name, :center]
+
+  # associations
+
+    has_one :place
+
+  # scopes
+
+    def self.sorted
+      with_translations(I18n.locale).order(name: :asc)
+    end
+
 end

@@ -1,4 +1,4 @@
-- title = t('admin.places.edit')
+- title = t('admin.shared.edit_model', name: @model.human)
 - redirect_default = true unless redirect_default == true || redirect_default == false
 - item = @item || item
 - if redirect_default
@@ -9,5 +9,5 @@
   - path = manage_provider_profile_path(page: :'manage-places')
   - url = manage_update_place_path(id: item.id)
 
-= render partial: 'shared/breadcrumbs', locals: { paths: [[t('admin.places.manage'), path], title] }
+= render partial: 'shared/breadcrumbs', locals: { paths: [[t('admin.shared.manage_model', name: @model.human(2)), path], title] }
 = render partial: 'admin/places/form', locals: { obj: [:manage, item], redirect_default: redirect_default, url: url }

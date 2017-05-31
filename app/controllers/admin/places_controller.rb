@@ -3,18 +3,18 @@ class Admin::PlacesController < AdminController
   before_filter { @model = Place; }
 
   def index
-    authorize Place
+    authorize @model
     @items = @model.sorted
   end
 
   def new
-    authorize Place
+    authorize @model
     @item = @model.new
     # @item.assets.build(owner_type: 1)
   end
 
   def create
-    pars = place_params
+    pars = strong_params
     redirect_default = pars.delete(:redirect_default) == 'true'
     item = @model.new(pars)
     authorize item
@@ -45,7 +45,7 @@ class Admin::PlacesController < AdminController
   end
 
   def update
-    pars = place_params
+    pars = strong_params
     item = @model.find(params[:id])
     authorize item
 
@@ -63,7 +63,7 @@ class Admin::PlacesController < AdminController
     respond_to do |format|
       if item.update_attributes(pars)
         Tag.remove_pended(old_tag_ids) if old_tag_ids.present?
-        flash[:success] = t('app.messages.success_updated', obj: "#{@model} #{item.name}")
+        flash[:success] = t('app.messages.success_updated', obj: "#{@model.human} #{item.name}")
         format.html { redirect_to redirect_path }
         format.json { render json: { flash: flash.to_hash, remove_asset: pars[:assets_attributes][:id] } }
       else
@@ -84,9 +84,9 @@ class Admin::PlacesController < AdminController
     authorize item
 
     if item.update_attributes(deleted: 1)
-      flash[:success] =  t("app.messages.success_destroyed", obj: "#{@model} #{item.name}")
+      flash[:success] =  t("app.messages.success_destroyed", obj: "#{@model.human} #{item.name}")
     else
-      flash[:error] =  t('app.messages.fail_destroyed', obj: "#{@model} #{item.name}")
+      flash[:error] =  t('app.messages.fail_destroyed', obj: "#{@model.human} #{item.name}")
       flash[:error] = format_messages(item)
     end
 
@@ -98,9 +98,9 @@ class Admin::PlacesController < AdminController
     authorize item
 
     if item.update_attributes(deleted: 0)
-      flash[:success] =  t("app.messages.success_restored", obj: "#{@model} #{item.name}")
+      flash[:success] =  t("app.messages.success_restored", obj: "#{@model.human} #{item.name}")
     else
-      flash[:error] =  t('app.messages.fail_restored', obj: "#{@model} #{item.name}")
+      flash[:error] =  t('app.messages.fail_restored', obj: "#{@model.human} #{item.name}")
     end
 
     redirect_to :back
@@ -132,8 +132,8 @@ class Admin::PlacesController < AdminController
 
   private
 
-    def place_params
-      permitted = Place.globalize_attribute_names + [:website, :postal_code, :region_id, :latitude, :longitude, :poster_id, :published, :redirect_default, emails: [], phones: [], service_ids: [],
+    def strong_params
+      permitted = @model.globalize_attribute_names + [:website, :postal_code, :region_id, :latitude, :longitude, :poster_id, :published, :redirect_default, emails: [], phones: [], service_ids: [],
         assets_attributes: ["@original_filename", "@content_type", "@headers", "_destroy", "id", "image"], tags: [] ]
       params.require(:place).permit(*permitted)
     end

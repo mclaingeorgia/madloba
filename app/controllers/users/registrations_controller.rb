@@ -2,12 +2,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   include Devisable
 
   def new
+    authorize :user_registration
     build_resource({})
     resource.providers.build
     yield resource if block_given?
     respond_with resource
   end
   def create
+    authorize :user_registration
     pars = sign_up_params
     build_resource(pars)
     # resource.providers.build
@@ -57,12 +59,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   end
   # end
 
-  # private
+  private
 
-  def sign_up_params
-    permitted = User.globalize_attribute_names + [:email, :password, :password_confirmation, :is_service_provider, :has_agreed, providers_attributes: Provider.globalize_attribute_names ]
-    p = params.require(:user).permit(*permitted)
-    p["providers_attributes"].reject! { |attr| attr.empty? }
-    p
-  end
+    def sign_up_params
+      permitted = User.globalize_attribute_names + [:email, :password, :password_confirmation, :is_service_provider, :has_agreed, providers_attributes: Provider.globalize_attribute_names ]
+      p = params.require(:user).permit(*permitted)
+      p["providers_attributes"].reject! { |attr| attr.empty? }
+      p
+    end
 end

@@ -1,114 +1,114 @@
 class User < ActiveRecord::Base
-  # Fields to be translated
-  translates :first_name, :last_name
-  globalize_accessors :locales => [:en, :ka], :attributes => [:first_name, :last_name]
-
+  include Nameable
   include HumanTranslatable
 
-  PROVIDERS_COUNT_MIN = 1
-  # enum role: [:user, :admin, :super_admin]
+  # constants
 
-  enum role: [:user, :provider, :admin]
+    PROVIDERS_COUNT_MIN = 1
 
-  # has_many :providers#, -> (object){ where(role: [:provider, :admin]) }
+  # globalize
 
-  has_many :provider_users
-  has_many :providers, through: :provider_users#, :inverse_of => :user, :autosave => true
+    translates :first_name, :last_name
+    globalize_accessors :locales => [:en, :ka], :attributes => [:first_name, :last_name]
 
-  has_many :favorite_places
-  has_many :favorites, through: :favorite_places, source: :place
+  # accessors
 
-  has_many :place_rates
-  has_many :rates, through: :place_rates, source: :place
+    enum role: [:user, :provider, :admin]
 
-  has_many :uploads
+  # associations
 
-  # has_many :places
-  # accepts_nested_attributes_for :provider_users
-  accepts_nested_attributes_for :providers, :reject_if => :not_service_provider?
+    devise :database_authenticatable, :registerable,
+           :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
-  after_initialize :set_default_role, :if => :new_record?
+    has_many :provider_users
+    has_many :providers, through: :provider_users
+    accepts_nested_attributes_for :providers, :reject_if => :not_service_provider?
 
-  def set_default_role
-    self.role ||= :user
-  end
+    has_many :favorite_places
+    has_many :favorites, through: :favorite_places, source: :place
 
-  # Include default devise modules. Others available are:
-  # :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :confirmable
+    has_many :place_rates
+    has_many :rates, through: :place_rates, source: :place
 
+    has_many :uploads
 
- [I18n.locale].each do |locale|
-   validates :"first_name_#{locale}", presence: true, on: :create
-   validates :"last_name_#{locale}", presence: true, on: :create
- end
+  # callbacks
 
-  # validates :email, presence: true
-  # validates_uniqueness_of :email
+    after_initialize :set_default_role, :if => :new_record?
 
-  validates :is_service_provider, inclusion: [true, false]
-  validates :has_agreed, inclusion: [true], on: :create
+    def set_default_role
+      self.role ||= :user
+    end
 
-  # validates :password, presence: true, on: :create
-  # validates :password_confirmation, presence: true, on: :create
+  #scopes
+    default_scope { where.not(email: 'application@sheaghe.ge').where(deleted: false) }
 
-  validate :check_providers_number, on: :create
+    def self.sorted
+      joins(sanitize_sql_array(['LEFT JOIN "user_translations" ON "users"."id" = "user_translations"."user_id" AND "user_translations"."locale" = ?', I18n.locale]))
+        .order('user_translations.first_name ASC, user_translations.last_name ASC')
+    end
 
-  def guest?
-    nil?
-  end
+  # validators
 
-  def at_least_user?
-    user? || provider? || admin?
-  end
+    [I18n.locale].each do |locale|
+      validates :"first_name_#{locale}", presence: true, on: :create
+      validates :"last_name_#{locale}", presence: true, on: :create
+    end
 
-  def at_least_provider?
-    provider? || admin?
-  end
+    validates :is_service_provider, inclusion: [true, false]
+    validates :has_agreed, inclusion: [true], on: :create
 
-  def at_least_admin?
-    admin?
-  end
+    validate :check_providers_number, on: :create
 
-  # def owns_post? (post)
-  #   self.posts.include?(post)
-  # end
+  # helpers
 
-  def name
-    "#{self.first_name} #{self.last_name}"
-  end
+    def guest?
+      nil?
+    end
 
-  # def name_and_email
-  #   "#{self.first_name} #{self.last_name} - #{self.email}"
-  # end
+    def at_least_user?
+      user? || provider? || admin?
+    end
 
-  # used to order flash messages
-  def self.validation_order_list
-    [User.globalize_attribute_names, :email, :password, :password_confirmation].flatten
-  end
+    def at_least_provider?
+      provider? || admin?
+    end
 
-  def self.sorted
-    with_translations(I18n.locale).order(first_name: :asc, last_name: :asc)
-  end
+    def at_least_admin?
+      admin?
+    end
 
-  def role_name
-    I18n.t("activerecord.attributes.user.roles.#{self.role}")
-  end
+  # helpers
+
+    def self.validation_order_list # used to order flash messages
+      [User.globalize_attribute_names, :email, :password, :password_confirmation].flatten
+    end
+
+  # getters
+
+    def name
+      "#{self.first_name} #{self.last_name}"
+    end
+
+    def role_name
+      I18n.t("activerecord.attributes.user.roles.#{self.role}")
+    end
+
   private
-    def not_service_provider?
-      !self.is_service_provider
-    end
+    # validators
 
-    def providers_count_valid?
-       Rails.logger.debug("--------------------------------------------#{self.providers.inspect}")
-      providers.length >= PROVIDERS_COUNT_MIN
-    end
-
-    def check_providers_number
-       # Rails.logger.debug("--------------------------------------------#{self.is_service_provider}#{providers_count_valid?}")
-      if self.is_service_provider && !providers_count_valid?
-        errors.add(:providers, :not_filled, count: 1)
+      def check_providers_number
+        if self.is_service_provider && !providers_count_valid?
+          errors.add(:providers, :not_filled, count: 1)
+        end
       end
-    end
+
+      def not_service_provider?
+        !self.is_service_provider
+      end
+
+      def providers_count_valid?
+        providers.length >= PROVIDERS_COUNT_MIN
+      end
+
 end

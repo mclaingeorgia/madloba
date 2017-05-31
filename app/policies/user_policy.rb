@@ -1,45 +1,48 @@
 class UserPolicy < ApplicationPolicy
-  attr_reader :user
 
-  # def initialize(current_user, model)
-  #   @current_user = current_user
-  #   @user = model
-  # end
-
-  # def index?
-  # end
-
-  # def show?
-  #   @current_user == @user || (@current_user && @current_user.admin?)
-  # end
-
-  # def create?
-  #   new?
-  # end
-
-  def new?
-    true
-    # @current_user && @current_user.admin?
+  def index?
+    user.admin?
   end
 
-  # def update?
-  #   edit?
-  # end
+  def new?
+    user.admin?
+  end
 
-  # def edit?
-  #   @current_user == @user || (@current_user && @current_user.admin?)
-  # end
+  def create?
+    user.admin?
+  end
 
-  # def destroy?
-  #   return false if @current_user == @user
-  #   (@current_user && @current_user.admin?)
-  # end
+  def permitted
+    (user.at_least_user? && user == record) || user.admin?
+  end
+
+  def edit?
+    permitted
+  end
+
+  def update?
+    permitted
+  end
+
+  def destroy?
+    user.admin?
+  end
+
+  def restore?
+    user.admin?
+  end
 
   def user_profile?
     user.at_least_user?
   end
 
   def provider_profile?
+    user.at_least_provider?
+  end
+  def autocomplete_user?
+    user.at_least_provider?
+  end
+  def autocomplete_place?
     user.at_least_provider?
   end
 end

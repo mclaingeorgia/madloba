@@ -2,6 +2,7 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require dataTables/extras/dataTables.responsive
+//= require select2
 //= require component/place_card
 //= require component/rator
 //= require component/favoritor
@@ -99,3 +100,45 @@ $('.favoritor').each(function(i,d) {
     xhr($element)
   })
 })
+
+$("[data-autocomplete]").each(function(i,d) {
+    var t = $(this)
+    var autocomplete = t.attr('data-autocomplete')
+
+    $(d).select2({
+      minimumInputLength: 3,
+      allowClear: true,
+      ajax: {
+        url: gon.autocomplete[autocomplete],
+        delay: 250,
+        data: function (params) {
+          return { q: params.term }
+        }
+      }
+    })
+})
+
+
+
+// $('[data-autocomplete]').keyup(function () {
+//   var t = $(this)
+//   var v = t.val()
+//   var autocomplete = t.attr('data-autocomplete')
+//   var list = $('#' + t.attr('list'))
+//   list.empty()
+//   // console.log(v)
+//   if(v.length >= 3) {
+//     $.getJSON('/manage/autocomplete/' + autocomplete, function(json) {
+//       // console.log(json)
+//       var html = ''
+//       json.forEach(function(d) {
+//         html += '<option data-value="' + d[0] + '" value="' + d[1] + '">'
+//       })
+//       list.append(html)
+//     })
+//   }
+//   console.log('outside')
+// })
+// $('[data-autocomplete]').on('input', function() {
+//   console.log('here', $(this).val())
+// })

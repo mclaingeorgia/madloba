@@ -17,6 +17,7 @@
                   %li
                     %span= user.name
                     %a Close
+              %select{'data-autocomplete': :users, style: 'width: 100%'}
               %a.btn.add Assign New Owner
           .places.r
             .c>
@@ -27,6 +28,7 @@
                   %li
                     %span Test Name
                     %a Close
+              %select{'data-autocomplete': :places, style: 'width: 100%'}
               %a.btn.add Assign New Place
     .actions
       = f.submit t("app.common.save")

@@ -1,5 +1,5 @@
 = content_for :custom_javascript, 'page/admin'
-= page_title t("admin.#{current_page.to_s.gsub('-','_')}.#{action}")
+= page_title t("admin.menu.#{current_page.to_s.gsub('-','_')}")
 %section.content
   .tabs{'data-target': 'global'}
     %ul
@@ -9,7 +9,7 @@
   .tabs-content{'data-target': 'global'}
     %ul
       %li{class: current_page == :'manage-profile' ? 'active' : nil, 'data-link': 'manage-profile'}
-        = render 'admin/users/edit'
+        = render template: "admin/users/edit", locals: { item: item, redirect_default: false }
       %li{class: current_page == :'favorite-places' ? 'active' : nil, 'data-link': 'favorite-places'}
         = render partial: 'admin/users/favorites', locals: { favorite_places: favorite_places }
       %li{class: current_page == :'rated-places' ? 'active' : nil, 'data-link': 'rated-places'}

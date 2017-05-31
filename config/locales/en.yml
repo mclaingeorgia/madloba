@@ -1,9 +1,18 @@
 en:
   activerecord:
     models:
+      user:
+        one: User
+        other: Users
       provider: &provider_model
         one: Provider
         other: Providers
+      place:
+        one: Place
+        other: Places
+      service:
+        one: Service
+        other: Services
       page_content:
         one: Page Content
         other: Page Contents
@@ -165,24 +174,19 @@ en:
       save: Save
       cancel: Cancel
       edit: Edit
-      edit_object: "Edit %{obj}"
       delete: Delete
       or: or
       actions: Actions
+      add_model: "Add %{name}"
+      edit_model: "Edit %{name}"
+      manage_model: "Manage %{name}"
+      create_model: "Create %{name}"
+      confirm_delete_model: "%{name} will be removed."
+      confirm_restore_model: "%{name} will be restored."
     providers:
-      manage: Manage Providers
-      edit: Edit Provider
-      create: Create Provider
-      add: Add Provider
       confirm_delete: "Provider will be removed with all places bind to it."
       confirm_restore: "Provider will be restored with all places bind to it."
     places:
-      manage: Manage Places
-      edit: Edit Place
-      create: Create Place
-      add: Add Place
-      confirm_delete: "Place will be removed."
-      confirm_restore: "Place will be restored."
       list:
         provider: "Provider:"
     place:
@@ -198,14 +202,24 @@ en:
       postal_code: "Postal Code:"
       region: "Region:"
       locate_me: "Locate me on map"
+    manage_providers:
+      index: Manage Providers
+      edit: Edit Provider
+      new: Create Provider
+    manage_places:
+      index: Manage Places
+      edit: Edit Place
+      new: Create Place
+    moderate_photos:
+      index: Moderate Photos
     menu:
       manage_profile: Manage Profile
+      favorite_places: Favorite Places
       rated_places: Rated Places
       uploaded_photos: Uploaded Photos
-      manage_provider: Manage Provider
+      manage_providers: Manage Providers
       manage_places: Manage Places
       moderate_photos: Moderate Photos
-      favorite_places: Favorite Places
       users: Users
       providers: Providers
       places: Places
@@ -214,28 +228,12 @@ en:
       place_report: Reported Places
       place_ownership: Place Ownership
       new_provider: New Provider
-      place_tag: Place Tags
-    profile:
-      first_name: "First name:"
-      last_name: "Last name:"
-      username: "Username:"
-      email: "Email:"
-      is_service_provider: "Service Provider:"
-      current_password: "Current password:"
-      password: "New password:"
-      password_confirmation: "Confirm password:"
-    page_contents:
-      index:
-        title: Manage Page Contents
-      edit:
-        title: Edit Page Content
+      place_tags: Place Tags
     user:
       email: Email
       password: Password
       password_confirmation: Password Confirmation
-    services:
-      index:
-        title: "Manage Services"
+      has_agreed_html: "I have accepted the&nbsp;%{link}"
     moderates:
       place_report:
         title: Moderate Reported Places

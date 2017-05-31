@@ -1,21 +1,19 @@
 class Admin::ProvidersController < AdminController
   before_filter :authenticate_user!, except: [:send_message]
-  # before_action :authenticate_user!
-  # authorize_resource
   before_filter { @model = Provider; }
 
   def index
-    authorize Provider
+    authorize @model
     @items = @model.sorted
   end
 
   def new
-    authorize Provider
+    authorize @model
     @item = @model.new
   end
 
   def create
-    pars = provider_params
+    pars = strong_params
     redirect_default = pars.delete(:redirect_default) == 'true'
     item = @model.new(pars)
     item.users << current_user
@@ -44,10 +42,11 @@ class Admin::ProvidersController < AdminController
     @item = @model.find(params[:id])
     authorize @item
     @edit_associations = true
+    gon.autocomplete = { users: manage_autocomplete_path(:users), places: manage_autocomplete_path(:places) }
   end
 
   def update
-    pars = provider_params
+    pars = strong_params
     item = @model.find(params[:id])
     authorize item
 
@@ -59,7 +58,7 @@ class Admin::ProvidersController < AdminController
     @item = item if redirect_default
 
     if item.update_attributes(pars)
-      flash[:success] = t('app.messages.success_updated', obj: "#{@model} #{item.name}")
+      flash[:success] = t('app.messages.success_updated', obj: "#{@model.human} #{item.name}")
       redirect_to redirect_path
     else
       flash[:error] = format_messages(item)
@@ -76,9 +75,9 @@ class Admin::ProvidersController < AdminController
     authorize item
 
     if item.update_attributes(deleted: true) && item.places.update_all(deleted: 2)
-      flash[:success] =  t("app.messages.success_destroyed", obj: "#{@model} #{item.name}")
+      flash[:success] =  t("app.messages.success_destroyed", obj: "#{@model.human} #{item.name}")
     else
-      flash[:error] =  t('app.messages.fail_destroyed', obj: "#{@model} #{item.name}")
+      flash[:error] =  t('app.messages.fail_destroyed', obj: "#{@model.human} #{item.name}")
     end
 
     redirect_to :back
@@ -89,16 +88,16 @@ class Admin::ProvidersController < AdminController
     authorize item
 
     if item.update_attributes(deleted: false) && item.places.where(deleted: 2).update_all(deleted: 0)
-      flash[:success] =  t("app.messages.success_restored", obj: "#{@model} #{item.name}")
+      flash[:success] =  t("app.messages.success_restored", obj: "#{@model.human} #{item.name}")
     else
-      flash[:error] =  t('app.messages.fail_restored', obj: "#{@model} #{item.name}")
+      flash[:error] =  t('app.messages.fail_restored', obj: "#{@model.human} #{item.name}")
     end
 
     redirect_to :back
   end
 
   def send_message
-    authorize Provider
+    authorize @model
 
     pars = params.permit(:authenticity_token, :locale, :'g-recaptcha-response', {:message => [:sender, :email, :text]})
     message = pars[:message]
@@ -126,7 +125,7 @@ class Admin::ProvidersController < AdminController
       errors.present? ? errors : true
     end
 
-    def provider_params
-      params.require(:provider).permit(*Provider.globalize_attribute_names, :redirect_default)
+    def strong_params
+      params.require(:provider).permit(*@model.globalize_attribute_names, :redirect_default)
     end
 end

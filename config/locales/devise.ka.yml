@@ -52,7 +52,7 @@ ka:
       new:
         title: Create an Account
         have_questions_html: "<span>Have questions?</span> %{link} to view our Frequently Asked Questions. For further assistance, please contact 0 800 900 902."
-        has_agreed_html: "I have accepted the %{link}"
+        has_agreed_html: "I have accepted the&nbsp;%{link}"
         already_registered_html: "Already registered? %{link}"
         no_confirmation_html: "Didn't receive confirmation instructions? %{link}"
     sessions:

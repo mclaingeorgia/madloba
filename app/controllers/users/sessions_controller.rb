@@ -19,4 +19,9 @@ class Users::SessionsController < Devise::SessionsController
     authorize :user_session
     render json: { flash: { error: t('devise.failure.invalid') } }, status: :unauthorized
   end
+
+  def destroy
+    authorize :user_session
+    super
+  end
 end

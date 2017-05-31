@@ -1,5 +1,6 @@
 class Place < ActiveRecord::Base
   include ActiveModel::Validations
+  include Nameable
 
   # globalize
 
@@ -164,6 +165,14 @@ class Place < ActiveRecord::Base
       end
 
       places.where(sql.join(" OR "), pars).order(name: :asc)
+    end
+
+    def self.autocomplete(q, user)
+      if user.admin?
+        with_translations(I18n.locale).where('lower(place_translations.name) like ?', "%#{q.downcase}%").pluck(:id, :name).map{|m| { id: m[0], text: m[1]} }
+      else
+        user.providers.include(:places).with_translations(I18n.locale).where('lower(place_translations.name) like ?', "%#{q.downcase}%").pluck(:id, :name).map{|m| { id: m[0], text: m[1]} }
+      end
     end
 
 end

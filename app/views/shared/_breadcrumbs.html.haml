@@ -13,4 +13,4 @@
               %span.slash /
       - buttons.each do |button|
         %li
-          = link_to t("admin.#{button[0]}"), button[1], class: "#{button[2]} btn"
+          = link_to button[0], button[1], class: "#{button[2]} btn"

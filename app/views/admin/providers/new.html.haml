@@ -1,4 +1,4 @@
-- title = t('admin.providers.create')
+- title = t('admin.shared.create_model', name: @model.human)
 - redirect_default = true unless redirect_default == true || redirect_default == false
 - item = @item || item
 - if redirect_default
@@ -9,5 +9,5 @@
   - path = manage_provider_profile_path(page: :'manage-providers')
   - url = manage_create_provider_path
 
-= render partial: 'shared/breadcrumbs', locals: { paths: [[t('admin.providers.manage'), path], title] }
+= render partial: 'shared/breadcrumbs', locals: { paths: [[t('admin.shared.manage_model', name: @model.human(2)), path], title] }
 = render partial: 'admin/providers/form', locals: { obj: [:manage, item], redirect_default: redirect_default, url: url }

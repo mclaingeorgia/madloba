@@ -8,7 +8,7 @@
 @import 'component/rator';
 @import 'component/service';
 @import 'component/slideshow';
-
+@import 'select2';
 
 
 
@@ -52,6 +52,7 @@ main {
           white-space: nowrap;
         }
         ul {
+          display: block;
           li {
             @include font(18, 'r');
             color: $text;
@@ -60,6 +61,15 @@ main {
               padding-bottom: 12px;
             }
           }
+        }
+        .select2-container {
+          width: 100%;
+        }
+        span {
+          display: block;
+        }
+        a {
+          display: block;
         }
       }
     }
@@ -184,6 +194,9 @@ main {
           }
         }
 
+      }
+      [data-link='manage-profile'] {
+        padding: 0 27px;
       }
     }
     // .table-view {

@@ -1,13 +1,27 @@
 class Service < ActiveRecord::Base
-  translates :name, :description
-  globalize_accessors :locales => [:en, :ka], :attributes => [ :name, :description]
+  include Nameable
 
-  belongs_to :place
+  # globalize
 
-  def self.sorted
-    with_translations(I18n.locale).order(name: :asc)
-  end
-  # has_many :place_services
-  # has_many :services, through: :place_services, source: :place
-  # has_and_belongs_to_many :places
+    translates :name, :description
+    globalize_accessors :locales => [:en, :ka], :attributes => [ :name, :description]
+
+  # associations
+
+    belongs_to :place
+
+  # scopes
+
+    def self.sorted
+      with_translations(I18n.locale).order(name: :asc)
+    end
+
+  # validators
+
+    validates :icon, presence: true
+
+    I18n.available_locales.each do |locale|
+      validates :"name_#{locale}", presence: true
+      validates :"description_#{locale}", presence: true
+    end
 end

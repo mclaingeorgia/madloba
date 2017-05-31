@@ -140,7 +140,7 @@ SimpleForm.setup do |config|
     end
   end
 
-  config.label_text = lambda { |label, required, explicit_label| "#{label} #{required}" }
+  config.label_text = lambda { |label, required, explicit_label| "#{label}#{required}#{explicit_label ? ':' : ''}" }
   config.item_wrapper_tag = :div
   config.include_default_input_wrapper_class = true
   # Wrappers for forms and inputs using the Bootstrap toolkit.

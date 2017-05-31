@@ -12,6 +12,10 @@ class UserSessionPolicy < Struct.new(:user, :user_session)
   def failure?
     true
   end
+
+  def destroy?
+    user.present?
+  end
   # def place?
   #   true
   # end

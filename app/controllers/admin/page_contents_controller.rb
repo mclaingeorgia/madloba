@@ -17,11 +17,11 @@ class Admin::PageContentsController < AdminController
     authorize @item
 
 
-    if item.update_attributes(strong_params)
-      flash[:success] = t('app.messages.success_updated', obj: "#{@model} #{item.title}")
+    if @item.update_attributes(strong_params)
+      flash[:success] = t('app.messages.success_updated', obj: "#{@model.human} #{@item.title}")
       redirect_to manage_page_contents_path
     else
-      flash[:error] = format_messages(item)
+      flash[:error] = format_messages(@item)
       render action: "edit"
     end
   end
@@ -29,7 +29,6 @@ class Admin::PageContentsController < AdminController
   private
 
     def strong_params
-      permitted = PageContent.globalize_attribute_names + [:name]
-      params.require(:page_content).permit(*permitted)
+      params.require(:page_content).permit(*@model.globalize_attribute_names)
     end
 end
