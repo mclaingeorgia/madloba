@@ -216,7 +216,7 @@ providers = [
 ]
 
 providers.each {|item|
-  d = Provider.create()
+  d = Provider.create({processed: 1})
   I18n.available_locales.each { |locale|
     Globalize.with_locale(locale) do
       d.update_attributes(:name => item[:name][locale], :description => item[:description][locale])

@@ -71,7 +71,7 @@ namespace :uploader do
       Globalize.with_locale(:ka) do
         p = Provider.find_by({name: template[:name][:ka], description: template[:description][:ka]})
         unless p.present?
-          p = Provider.create({name: template[:name][:ka], description: template[:description][:ka]})
+          p = Provider.create({name: template[:name][:ka], description: template[:description][:ka], processed: 1})
           is_new = p.present? && !p.new_record?
         end
 

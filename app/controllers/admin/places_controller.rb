@@ -53,16 +53,27 @@ class Admin::PlacesController < AdminController
     pars[:tag_ids] = tag_ids
     old_tag_ids = item.tag_ids - tag_ids
 
+    if pars[:provider_id].present?
+      provider = Provider.find_by(id: pars.delete(:provider_id))
+    end
+
+
     redirect_default = pars.delete(:redirect_default) == 'true'
     redirect_path = redirect_default ?
       manage_places_path :
       manage_provider_profile_path(page: 'manage-places')
 
     @item = item if redirect_default
-
+     Rails.logger.debug("---------------------------------------#{item.valid?}-----#{item.errors.inspect}")
     respond_to do |format|
       if item.update_attributes(pars)
         Tag.remove_pended(old_tag_ids) if old_tag_ids.present?
+
+        if provider.present?
+          item.provider.places.delete(item)
+          provider.places << item
+        end
+
         flash[:success] = t('app.messages.success_updated', obj: "#{@model.human} #{item.name}")
         format.html { redirect_to redirect_path }
         format.json { render json: { flash: flash.to_hash, remove_asset: pars[:assets_attributes][:id] } }
@@ -133,7 +144,7 @@ class Admin::PlacesController < AdminController
   private
 
     def strong_params
-      permitted = @model.globalize_attribute_names + [:website, :postal_code, :region_id, :latitude, :longitude, :poster_id, :published, :redirect_default, emails: [], phones: [], service_ids: [],
+      permitted = @model.globalize_attribute_names + [:website, :postal_code, :region_id, :latitude, :longitude, :poster_id, :published, :redirect_default, :provider_id, emails: [], phones: [], service_ids: [],
         assets_attributes: ["@original_filename", "@content_type", "@headers", "_destroy", "id", "image"], tags: [] ]
       params.require(:place).permit(*permitted)
     end

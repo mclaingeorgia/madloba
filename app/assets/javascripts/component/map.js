@@ -67,29 +67,30 @@
         map_container.find('.map-zoomer .out').click(function(){
           mp.setZoom(mp.getZoom() - 1)
         });
-      }
 
-      if(options.locate) {
-        mp.locate({setView: true, maxZoom: 12});
-      }
-      if(type === 'locator') {
-        mp.on('click', function(e) {
-          locate(e.latlng)
-        });
-        $('.map-locator').click(function () {
-          mp.locate({setView: true, maxZoom: 16});
-        })
-        mp.on('locationfound', function(e) {
-          locate(e.latlng)
-        });
-        mp.on('locationerror', function(e) {
-          $('.map-locator').addClass('disabled')
-        });
 
-        function locate(latlng) {
-          $("input[name$='[latitude]'").val(latlng.lat)
-          $("input[name$='[longitude]'").val(latlng.lng)
-          marker.setLatLng(L.latLng(latlng.lat, latlng.lng));
+        if(options.locate) {
+          mp.locate({setView: true, maxZoom: 12});
+        }
+        if(type === 'locator') {
+          mp.on('click', function(e) {
+            locate(e.latlng)
+          });
+          $('.map-locator').click(function () {
+            mp.locate({setView: true, maxZoom: 16});
+          })
+          mp.on('locationfound', function(e) {
+            locate(e.latlng)
+          });
+          mp.on('locationerror', function(e) {
+            $('.map-locator').addClass('disabled')
+          });
+
+          function locate(latlng) {
+            $("input[name$='[latitude]'").val(latlng.lat)
+            $("input[name$='[longitude]'").val(latlng.lng)
+            marker.setLatLng(L.latLng(latlng.lat, latlng.lng));
+          }
         }
       }
     },
@@ -133,6 +134,6 @@
 
 
   map.init('contact_map', { zoom: 17, coordinates: [41.70978, 44.76133], type: 'coordinate' })
-  // map.init('locator_map', { zoom: 13, type: 'locator' })
+  map.init('locator_map', { zoom: 13, type: 'locator' })
   pollution.components.map = map
 }())

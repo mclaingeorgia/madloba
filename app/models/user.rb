@@ -106,6 +106,10 @@ class User < ActiveRecord::Base
         []
       end
     end
+
+    def get_place_possible_providers(except=[])
+      (admin? ? Provider.all : providers ).where.not(id: except)
+    end
   private
     # validators
 

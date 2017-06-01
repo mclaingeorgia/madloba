@@ -61,6 +61,11 @@ module ApplicationHelper
     end
     response[:forward]
   end
+
+  def custom_label(str, required = false)
+    required_str = required ? '<abbr title="required">*</abbr>' : ''
+    "#{str}#{required_str.html_safe}:"
+  end
   # def resource_name
   #   :user
   # end

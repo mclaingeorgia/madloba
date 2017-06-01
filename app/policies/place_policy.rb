@@ -17,7 +17,7 @@ class PlacePolicy < ApplicationPolicy
   end
 
   def permitted
-    (user.provider? && record.provider.users.include(user)) || user.admin?
+    (user.provider? && record.provider.users.include?(user)) || user.admin?
   end
 
   def edit?

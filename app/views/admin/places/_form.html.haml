@@ -7,7 +7,7 @@
         = render partial: 'shared/fields_localization', locals: { fields: { name: nil, description: { as: :text, input_html: { class: 'tinymce' } }} , form: f }
         .indent
           .fields-collection
-            %label.fields-collection-label #{t('admin.place.services')}
+            %label.fields-collection-label= Place.human_attribute(:services, false)
             .fields-collection-wrapper
               = f.collection_check_boxes(:service_ids, Service.all, :id, :name) do |b|
                 .field-wrapper
@@ -19,19 +19,27 @@
           = f.input :phones, as: :array, input_html: { 'data-max': 3 }
           = f.input :website
           .field-wrapper.field-tag
-            %label.field-label Tags
+            %label.field-label= Place.human_attribute(:tags)
             %input.field-input{type: :text}
             %ul.field-inputs
               =f.object.tags.map{|m| "<li><label>#{m.name}</label><input type='hidden' value='#{m.name}' name=place[tags][]><div class='close'></div></li>" }.join("").html_safe
           = f.input :published
+          - possible_providers = current_user.get_place_possible_providers(f.object.provider.id)
+          .field-wrapper
+            - if !possible_providers.present?
+              %label.field-label= custom_label(t('admin.places.update_provider'))
+              = collection_select :place, :provider_id, possible_providers, :id, :name, {include_blank: true}, { class: 'field-input'}
+            - else
+              %label.field-label= custom_label(t('admin.places.current_provider'))
+              %span.field-input= f.object.provider.name
       .column
         = render partial: 'shared/fields_localization', locals: { fields: { address: nil, city: nil} , form: f }
         .indent
           = f.input :postal_code
           .field-wrapper
-            %label.field-label #{t('admin.place.region')}
+            %label.field-label= Place.human_attribute(:region)
             = f.collection_select :region_id, Region.all, :id, :name, {}, { class: 'field-input' }
-          %a.map-locator{'data-map': 'locator_map'}= t(".shared.locate_me")
+          %a.map-locator{'data-map': 'locator_map'}= t("shared.locate_me")
           .locator.map-container
             #locator_map.map
             .map-zoomer
@@ -46,7 +54,7 @@
       .field-wrapper.field-file
         = f.label :assets do
           %img{src: asset_path("svg/upload.svg") }
-          = t(".shared.upload_image")
+          = t("shared.upload_image")
         = f.input :assets, as: :file, label: false, wrapper: false, input_html: { name: "place[assets_attributes][][image]", multiple: true }
 
       - assets = f.object.assets.to_a

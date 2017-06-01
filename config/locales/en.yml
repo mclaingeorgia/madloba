@@ -46,6 +46,19 @@ en:
           admin: Admin
         providers:
           <<: *provider_model
+      place:
+        name: Name
+        description: Description
+        services: "Which Rehabilitative services do you provide?"
+        emails: Emails
+        phones: Phones
+        website: Website
+        address: Address
+        city: City
+        postal_code: Postal Code
+        region: Region
+        tags: Tags
+        provider: Provider
     errors:
       models:
         user:
@@ -196,20 +209,13 @@ en:
         owner_users: 'Owner Users:'
         places: 'Places:'
     places:
+      current_provider: Assigned provider
+      update_provider: Assign to new provider
       list:
         provider: "Provider:"
     place:
       index:
         title: "Manage Places"
-      name: "Name:"
-      description: "Description:"
-      services: "Which Rehabilitative services do you provide?"
-      phone: "Phone:"
-      website: "Website:"
-      address: "Address:"
-      city: "City:"
-      postal_code: "Postal Code:"
-      region: "Region:"
       locate_me: "Locate me on map"
     manage_providers:
       index: Manage Providers

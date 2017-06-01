@@ -12,7 +12,7 @@ class Place < ActiveRecord::Base
     has_many :assets, -> { where(owner_type: 1) }, {foreign_key: :owner_id, class_name: "Asset"}
     accepts_nested_attributes_for :assets, :allow_destroy => true
 
-    belongs_to :provider
+    # belongs_to :provider
 
     has_one :provider_place
     has_one :provider, through: :provider_place, source: :provider
@@ -174,7 +174,7 @@ class Place < ActiveRecord::Base
       if user.admin?
         with_translations(I18n.locale).where('lower(place_translations.name) like ?', "%#{q.downcase}%").where.not(id: exclude_ids).pluck(:id, :name).map{|m| { id: m[0], text: m[1]} }
       else
-        user.providers.include(:places).with_translations(I18n.locale).where('lower(place_translations.name) like ?', "%#{q.downcase}%").where.not(id: exclude_ids).pluck(:id, :name).map{|m| { id: m[0], text: m[1]} }
+        user.providers.includes(:places).with_translations(I18n.locale).where('lower(place_translations.name) like ?', "%#{q.downcase}%").where.not(id: exclude_ids).pluck(:id, :name).map{|m| { id: m[0], text: m[1]} }
       end
     end
 

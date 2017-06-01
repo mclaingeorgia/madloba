@@ -72,6 +72,11 @@
       .field-input {
         // width: 55%;
         // margin-right: 10px;
+
+      }
+      span.field-input {
+        @include font(18, 'r');
+        color: $text;
       }
       input, textarea, select {
         height: 46px;
@@ -82,6 +87,10 @@
         background-color: $bg2;
         padding: 6px 8px;
         min-width: 300px;
+
+      }
+      select {
+        max-width: 300px;
       }
       textarea {
         height: 100%;
