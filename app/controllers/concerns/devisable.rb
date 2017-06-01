@@ -4,7 +4,7 @@ module Devisable
   included do
     layout :determine_layout
 
-    before_action :determine_page_type, only: [:new, :edit]
+    before_action :determine_page_type, only: [:new, :edit, :show]
 
     clear_respond_to
 

@@ -168,6 +168,10 @@ en:
       one: "Photo uploaded and waiting to be processed"
       other: "%{n} photos uploaded and waiting to be processed"
     uploader_failed: "Error while uploading photos, please contact administration"
+    assign_provider_to_success: "%{child} %{child_name} assigned to provider %{name} successfully"
+    assign_provider_to_failed: 'Failed to assign %{child} to provider'
+    unassign_provider_to_success: "%{child} %{child_name} unassigned from provider %{name} successfully"
+    unassign_provider_to_failed: 'Failed to unassign %{child} from provider'
   admin:
     shared:
       add: Add
@@ -177,15 +181,20 @@ en:
       delete: Delete
       or: or
       actions: Actions
+      assign: Assign
       add_model: "Add %{name}"
       edit_model: "Edit %{name}"
       manage_model: "Manage %{name}"
       create_model: "Create %{name}"
       confirm_delete_model: "%{name} will be removed."
       confirm_restore_model: "%{name} will be restored."
+      search_assign_placeholder: Find object to assign (min 3 chars)
     providers:
       confirm_delete: "Provider will be removed with all places bind to it."
       confirm_restore: "Provider will be restored with all places bind to it."
+      form:
+        owner_users: 'Owner Users:'
+        places: 'Places:'
     places:
       list:
         provider: "Provider:"

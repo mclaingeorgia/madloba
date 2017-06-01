@@ -39,5 +39,21 @@ class ProviderPolicy < ApplicationPolicy
   def send_message
     true # even guest can send messages to provider
   end
+
+  def assign_user?
+    user.admin?
+  end
+
+  def unassign_user?
+    user.admin?
+  end
+
+  def assign_place?
+    user.admin? || (user.provider? && record.present? && record.users.include?(user))
+  end
+
+  def unassign_place?
+    user.admin? || (user.provider? && record.present? && record.users.include?(user))
+  end
 end
 

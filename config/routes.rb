@@ -28,7 +28,13 @@ Madloba::Application.routes.draw do
     end
 
     patch 'manage/provider/:id/restore', to: 'admin/providers#restore', as: :restore_manage_provider
+    patch 'manage/provider/:id/assign/user/:user_id', to: 'admin/providers#assign_user', as: :manage_assign_user_to_provider
+    patch 'manage/provider/:id/unassign/user/:user_id', to: 'admin/providers#unassign_user', as: :manage_unassign_user_from_provider
+    patch 'manage/provider/:id/assign/place/:place_id', to: 'admin/providers#assign_place', as: :manage_assign_place_to_provider
+    patch 'manage/provider/:id/unassign/place/:place_id', to: 'admin/providers#unassign_place', as: :manage_unassign_place_from_provider
+
     patch 'manage/place/:id/restore', to: 'admin/places#restore', as: :restore_manage_place
+
     patch 'manage/user/:id/restore', to: 'admin/users#restore', as: :restore_manage_user
 
     get 'manage/autocomplete/:type', to: 'admin#autocomplete', as: :manage_autocomplete

@@ -2,6 +2,7 @@ class Users::PasswordsController < Devise::PasswordsController
   include Devisable
 
   def create
+    authorize :user_password
     self.resource = resource_class.send_reset_password_instructions(resource_params)
     yield resource if block_given?
 
@@ -14,6 +15,7 @@ class Users::PasswordsController < Devise::PasswordsController
   end
 
   def update
+    authorize :user_password
     self.resource = resource_class.reset_password_by_token(resource_params)
     yield resource if block_given?
 

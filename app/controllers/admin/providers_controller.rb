@@ -43,6 +43,10 @@ class Admin::ProvidersController < AdminController
     authorize @item
     @edit_associations = true
     gon.autocomplete = { users: manage_autocomplete_path(:users), places: manage_autocomplete_path(:places) }
+    gon.labels = {
+      search_placeholder: t('admin.shared.search_assign_placeholder'),
+      are_you_sure:  t('shared.are_you_sure')
+    }
   end
 
   def update
@@ -109,6 +113,120 @@ class Admin::ProvidersController < AdminController
         redirect_to :back
       end
     end
+  end
+
+  def assign_user
+    provider = Provider.find_by(id: params[:id])
+    user = User.find_by(id: params[:user_id])
+    authorize provider
+
+    flag = false
+    if provider.present? && user.present? && !provider.users.include?(user)
+      provider.users << user
+      flag = provider.users.include?(user)
+    end
+
+    forward = {}
+    if flag
+      forward = {
+        refresh: {
+          type: :assign,
+          action: :add,
+          target: :users,
+          to: [user.id, user.name, manage_unassign_user_from_provider_path(provider.id, user.id)]
+        }
+      }
+      flash.now[:success] = t('messages.assign_provider_to_success', child: User.human, child_name: user.name, name: provider.name)
+    else
+      flash.now[:error] = t('messages.assign_provider_to_failed', child: User.human.downcase)
+    end
+    render json:  { flash: flash.to_hash }.merge(forward)
+  end
+
+  def unassign_user
+    provider = Provider.find_by(id: params[:id])
+    user = User.find_by(id: params[:user_id])
+    authorize provider
+
+    flag = false
+    if provider.present? && user.present? && provider.users.include?(user)
+      provider.users.delete(user)
+      flag = !provider.users.include?(user)
+    end
+
+    forward = {}
+    if flag
+      forward = {
+        refresh: {
+          type: :assign,
+          action: :delete,
+          target: :users,
+          to: user.id
+        }
+      }
+      flash.now[:success] = t('messages.unassign_provider_to_success', child: User.human, child_name: user.name, name: provider.name)
+    else
+      flash.now[:error] = t('messages.unassign_provider_to_failed', child: User.human.downcase)
+    end
+    render json:  { flash: flash.to_hash }.merge(forward)
+  end
+
+  def assign_place
+    provider = Provider.find_by(id: params[:id])
+    place = Place.find_by(id: params[:place_id])
+    authorize provider
+
+    flag = false
+    if provider.present? && place.present? && !provider.places.include?(place)
+      place.provider.places.delete(place)
+      provider.places << place
+      flag = provider.places.include?(place)
+    end
+
+    forward = {}
+    if flag
+      forward = {
+        refresh: {
+          type: :assign,
+          action: :add,
+          target: :places,
+          to: [place.id, place.name, manage_unassign_place_from_provider_path(provider.id, place.id)]
+        }
+      }
+      flash.now[:success] = t('messages.assign_provider_to_success', child: Place.human, child_name: place.name, name: provider.name)
+    else
+      flash.now[:error] = t('messages.assign_provider_to_failed', child: Place.human.downcase)
+    end
+    render json:  { flash: flash.to_hash }.merge(forward)
+  end
+
+  def unassign_place
+    provider = Provider.find_by(id: params[:id])
+    place = Place.find_by(id: params[:place_id])
+    authorize provider
+
+    flag = false
+    if provider.present? && place.present? && provider.places.include?(place)
+      provider.places.delete(place)
+      Provider.unknown.places << place
+      flag = !provider.places.include?(place)
+    end
+
+    forward = {}
+    if flag
+      forward = {
+        refresh: {
+          type: :assign,
+          action: :delete,
+          target: :places,
+          to: place.id
+        }
+      }
+      flash.now[:success] = t('messages.unassign_provider_to_success', child: Place.human, child_name: place.name, name: provider.name)
+    else
+      flash.now[:error] = t('messages.unassign_provider_to_failed', child: Place.human.downcase)
+    end
+    render json:  { flash: flash.to_hash }.merge(forward)
   end
 
   private

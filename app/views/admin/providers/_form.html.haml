@@ -8,28 +8,28 @@
       - if current_user.admin?
         .panel-separator
         .panel
-          .owners.r
-            .c>
-              %label Owner Users:
-            .c>
-              %ul
+          .field-wrapper.field-assign{'data-assign': :users, 'data-related-id': f.object.id}
+            %label.field-label= t('.owner_users')
+            .field-aside
+              .field-input
+                %select
+                = link_to t('admin.shared.assign'), 'javascript:void(0);', 'data-href-template': manage_assign_user_to_provider_path(f.object.id, '_v_'), class: 'btn assign', 'data-xhr-method': 'PATCH', 'data-xhr-format': 'json'
+              %ul.field-list
                 - f.object.users.each do |user|
-                  %li
+                  %li{'data-assignee-id': user.id}
                     %span= user.name
-                    %a Close
-              %select{'data-autocomplete': :users, style: 'width: 100%'}
-              %a.btn.add Assign New Owner
-          .places.r
-            .c>
-              %label Places:
-            .c>
-              %ul
-                - f.object.places.each do |user|
-                  %li
-                    %span Test Name
-                    %a Close
-              %select{'data-autocomplete': :places, style: 'width: 100%'}
-              %a.btn.add Assign New Place
+                    = link_to '', manage_unassign_user_from_provider_path(f.object.id, user.id), remote: true, method: :patch, 'data-type': 'json', data: { confirm: t('shared.are_you_sure') }, class: 'close'
+          .field-wrapper.field-assign{'data-assign': :places, 'data-related-id': f.object.id}
+            %label.field-label= t('.places')
+            .field-aside
+              .field-input
+                %select
+                = link_to t('admin.shared.assign'), 'javascript:void(0);', 'data-href-template': manage_assign_place_to_provider_path(f.object.id, '_v_'), class: 'btn assign', 'data-xhr-method': 'PATCH', 'data-xhr-format': 'json'
+              %ul.field-list
+                - f.object.places.each do |place|
+                  %li{'data-assignee-id': place.id}
+                    %span= place.name
+                    = link_to '', manage_unassign_place_from_provider_path(f.object.id, place.id), remote: true, method: :patch, 'data-type': 'json', data: { confirm: t('shared.are_you_sure') }, class: 'close'
     .actions
       = f.submit t("app.common.save")
       = f.submit t("app.common.cancel"), type: :reset

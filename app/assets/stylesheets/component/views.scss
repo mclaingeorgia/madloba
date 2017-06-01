@@ -104,6 +104,9 @@
         background-color: #ededed;
         // cursor: pointer;
       }
+      .btn {
+        @include font(14, 'i');
+      }
     }
 
   }

@@ -94,6 +94,18 @@ class User < ActiveRecord::Base
       I18n.t("activerecord.attributes.user.roles.#{self.role}")
     end
 
+  # filters
+
+    def self.autocomplete(q, user, related_id)
+      provider = Provider.find_by(id: related_id)
+      exclude_ids = []
+      exclude_ids = provider.users.pluck(:id) if provider.present?
+      if user.admin?
+        User.where('lower(email) like ?', "%#{q.downcase}%").where.not(id: exclude_ids).pluck(:id, :email).map{|m| { id: m[0], text: m[1]} }
+      else
+        []
+      end
+    end
   private
     # validators
 

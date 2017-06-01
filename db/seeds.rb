@@ -171,11 +171,6 @@ regions = [
   { name: { en: "Tbilisi", ka: "თბილისი" }, center: { en: "Tbilisi", ka: "თბილისი" } }
 ]
 
-
-
-
-
-
 regions.each {|item|
   d = Region.create()
   I18n.available_locales.each { |locale|
@@ -215,18 +210,16 @@ if User.where(email: email).count == 0
   u.save(validate: false)
 end
 
+Provider.destroy_all
+providers = [
+  { name: { en: "Unknown Provider", ka: "Unknown Provider" }, description: { en: "Unknown Provider", ka: "Unknown Provider" } }
+]
 
-# me = User.find_by_email(email)
-# p1 = Provider.create({ name: 'Provider 1', description: descr })
-# p1.places << Place.create(name: 'Place 1', description: descr, address: 'Rustaveli Avenue 13a', city: 'Tbilisi', phone: '558798789', website: 'www.place1.ge', region_id: 1, latitude: 41.65957525538758, longitude: 44.86507415771485, rating: 3, service_ids: [2,3], tag_ids: [1,2,3])
-# p1.places << Place.create(name: 'Place 2', description: descr, address: 'Rustaveli Avenue 14a', city: 'Tbilisi', phone: '558798789', website: 'www.place2.ge', region_id: 2, latitude: 41.748775021355044, longitude: 44.93785858154297, rating: 2, service_ids: [1,3], tag_ids: [2,3,4])
-# me.providers << p1
-
-
-# p1 = Provider.create({ name: 'Provider 2', description: 'Description 2' })
-# p1.places << Place.create(name: 'Place 3', description: descr, address: 'Rustaveli Avenue 1', city: 'Tbilisi', phone: '558798789', website: 'www.place2.ge', region_id: 3, latitude: 41.66752623198858, longitude: 41.66752623198858, rating: 3, service_ids: [2,5], tag_ids: [2,3])
-# p1.places << Place.create(name: 'Place 4', description: descr, address: 'Rustaveli Avenue 81', city: 'Tbilisi', phone: '558798789', website: 'www.place3.ge', region_id: 4, latitude: 41.6993844050109, longitude: 44.75379467010498, rating: 2, service_ids: [1,4], tag_ids: [3])
-# me.providers << p1
-
-# Provider.create(
-
+providers.each {|item|
+  d = Provider.create()
+  I18n.available_locales.each { |locale|
+    Globalize.with_locale(locale) do
+      d.update_attributes(:name => item[:name][locale], :description => item[:description][locale])
+    end
+  }
+}

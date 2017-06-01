@@ -131,6 +131,14 @@
         else if (type === 'report') {
           $('a.report').parent().html('<div class="report"><label>' + gon.labels.report_under_consideration + '</label>')
         }
+        else if (type === 'assign') {
+          if(options['action'] === 'add') {
+            $('[data-assign="' + options['target'] + '"] .field-list').append('<li data-assignee-id="' + to[0] + '"><span>' + to[1] + '</span><a data-type="json" data-confirm="' + gon.labels.are_you_sure + '" class="close" data-remote="true rel="nofollow" data-method="patch" href="' + to[2] + '"></a></li>')
+          }
+          else if (options['action'] === 'delete') {
+            $('[data-assign="' + options['target'] + '"] .field-list li[data-assignee-id="' + to + '"]').remove()
+          }
+        }
       }
     }
 

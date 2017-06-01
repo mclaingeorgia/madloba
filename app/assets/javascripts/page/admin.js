@@ -95,50 +95,38 @@ $('.rator').each(function(i,d) {
 
 $('.favoritor').each(function(i,d) {
   pollution.components.favoritor.deferred_bind($(d), function(v, $element) {
-    console.log(v)
     $element.attr('href', $element.attr('data-href-template').replace(/_v_/g, v))
     xhr($element)
   })
 })
 
-$("[data-autocomplete]").each(function(i,d) {
+$("[data-assign]").each(function(i,d) {
     var t = $(this)
-    var autocomplete = t.attr('data-autocomplete')
-
-    $(d).select2({
+    var assign_type = t.attr('data-assign')
+    var related_id = t.attr('data-related-id')
+    var select = t.find('.field-input select')
+    select.select2({
       minimumInputLength: 3,
       allowClear: true,
+      placeholder: gon.labels.search_placeholder,
       ajax: {
-        url: gon.autocomplete[autocomplete],
+        url: gon.autocomplete[assign_type],
         delay: 250,
         data: function (params) {
-          return { q: params.term }
+          return { q: params.term, r: related_id }
         }
       }
     })
+
+    t.find('.field-input a.assign').click(function (event) {
+      var v = select.val()
+      var t = $(this)
+      if (v !== null) {
+        var href = t.attr('href', t.attr('data-href-template').replace('_v_', v))
+        xhr(t)
+        event.preventDefault()
+        event.stopPropagation()
+      }
+    })
+
 })
-
-
-
-// $('[data-autocomplete]').keyup(function () {
-//   var t = $(this)
-//   var v = t.val()
-//   var autocomplete = t.attr('data-autocomplete')
-//   var list = $('#' + t.attr('list'))
-//   list.empty()
-//   // console.log(v)
-//   if(v.length >= 3) {
-//     $.getJSON('/manage/autocomplete/' + autocomplete, function(json) {
-//       // console.log(json)
-//       var html = ''
-//       json.forEach(function(d) {
-//         html += '<option data-value="' + d[0] + '" value="' + d[1] + '">'
-//       })
-//       list.append(html)
-//     })
-//   }
-//   console.log('outside')
-// })
-// $('[data-autocomplete]').on('input', function() {
-//   console.log('here', $(this).val())
-// })

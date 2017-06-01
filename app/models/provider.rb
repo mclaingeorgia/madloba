@@ -14,12 +14,14 @@ class Provider < ActiveRecord::Base
   # associations
 
     has_many :provider_users
-    has_many :users, through: :provider_users
+    has_many :users, through: :provider_users, source: :user
 
     has_many :provider_places
     has_many :places, through: :provider_places, source: :place
 
   # scopes
+
+    # default_scope { where.not(id: 1) }
 
     scope :deleted, -> { where(:deleted => true) }
     scope :active, -> { where(:deleted => false) }
@@ -46,6 +48,10 @@ class Provider < ActiveRecord::Base
 
     def self.by_user(user_id)
       joins(:users).where(:users => { :id => user_id}).includes(:places)
+    end
+
+    def self.unknown
+      find_by(id: 1)
     end
 
 end

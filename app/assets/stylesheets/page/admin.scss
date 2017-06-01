@@ -22,7 +22,7 @@ main {
     flex-direction: row;
     .panel {
       width: 50%;
-      max-width: 600px;
+      // max-width: 600px;
     }
     .panel:first-child {
       margin-right: 22px;
@@ -32,46 +32,6 @@ main {
     }
     .panel-separator {
       border-right: 1px solid $border;
-    }
-    .r {
-      display: block;
-      margin-left: 30px;
-      margin-bottom: 36px;
-      .c {
-        display: inline-block;
-        &:first-child {
-          width: 40%;
-        }
-        &:last-child {
-          width: 60%;
-        }
-        label {
-          @include font(18, 'b');
-          color: $text;
-          margin-right: 140px;
-          white-space: nowrap;
-        }
-        ul {
-          display: block;
-          li {
-            @include font(18, 'r');
-            color: $text;
-            padding-bottom: 21px;
-            &:last-child {
-              padding-bottom: 12px;
-            }
-          }
-        }
-        .select2-container {
-          width: 100%;
-        }
-        span {
-          display: block;
-        }
-        a {
-          display: block;
-        }
-      }
     }
   }
 
@@ -266,7 +226,7 @@ a.btn {
   padding: 9px 20px;
   border: 0;
   border-radius: 5px;
-  @include font(14, 'i');
+  @include font(18, 'r');
   color: $bg2;
   text-decoration: none;
   margin:0 5px;

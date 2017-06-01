@@ -167,11 +167,14 @@ class Place < ActiveRecord::Base
       places.where(sql.join(" OR "), pars).order(name: :asc)
     end
 
-    def self.autocomplete(q, user)
+    def self.autocomplete(q, user, related_id)
+      provider = Provider.find_by(id: related_id)
+      exclude_ids = []
+      exclude_ids = provider.places.pluck(:id) if provider.present?
       if user.admin?
-        with_translations(I18n.locale).where('lower(place_translations.name) like ?', "%#{q.downcase}%").pluck(:id, :name).map{|m| { id: m[0], text: m[1]} }
+        with_translations(I18n.locale).where('lower(place_translations.name) like ?', "%#{q.downcase}%").where.not(id: exclude_ids).pluck(:id, :name).map{|m| { id: m[0], text: m[1]} }
       else
-        user.providers.include(:places).with_translations(I18n.locale).where('lower(place_translations.name) like ?', "%#{q.downcase}%").pluck(:id, :name).map{|m| { id: m[0], text: m[1]} }
+        user.providers.include(:places).with_translations(I18n.locale).where('lower(place_translations.name) like ?', "%#{q.downcase}%").where.not(id: exclude_ids).pluck(:id, :name).map{|m| { id: m[0], text: m[1]} }
       end
     end
 

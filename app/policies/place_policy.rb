@@ -35,5 +35,6 @@ class PlacePolicy < ApplicationPolicy
   def restore?
     user.admin?
   end
+
 end
 

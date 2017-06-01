@@ -17,12 +17,13 @@ class AdminController < ApplicationController
 
   def autocomplete
     type = params[:type]
+    related_id = params[:r]
     if type == 'places'
       authorize User, :autocomplete_place?
-      results = Place.autocomplete(params[:q], current_user)
+      results = Place.autocomplete(params[:q], current_user, related_id)
     elsif type == 'users'
       authorize User, :autocomplete_user?
-      results = User.all.pluck(:id, :email).map{|m| { id: m[0], text: m[1]} }
+      results = User.autocomplete(params[:q], current_user, related_id)
     end
     render json: { results: results }
   end
