@@ -62,22 +62,20 @@
           = render partial: "shared/rating", locals: { rating: item.get_rating, with_label: true }
         %li
           = render partial: 'shared/rator', locals: {rator: {'data-href-template': place_path(id: item.id, a: 'rate', v: '_v_'), 'data-xhr-redirected': 'rator', 'data-xhr-format': 'json', 'data-r': user_rate }}
-        - if !user_signed_in? || !item.provider.users.include?(current_user)
+        - if user_guest? || user_user? || (user_provider? && !item.provider.users.include?(current_user))
           %li
             %a.report{'data-dialog-link': 'place_report', href:"javascript:void(0);", title: t('shared.title.report')}
-              -#@href: place_path(id: item.id, a: 'report'), 'data-xhr': 'report', 'data-xhr-format': 'json'}
               =t('.report')
           %li
-            - if user_signed_in?
-              - if is_ownership_requested
+            - if user_guest?
+              = link_to t('.take_ownership'), new_user_session_path, class: 'ownership', 'data-xhr': 'sign_in'
+            - else
+              - if is_ownership_requested # if provider and already requested ownership
                 .ownership
                   %label=t('.take_ownership_underway')
-              - elsif current_user.at_least_provider?
-                -#%a.take-ownership{href: place_path(id: item.id, a: 'ownership'), 'data-xhr': 'ownership', 'data-xhr-format': 'json', title: t('shared.title.ownership')}
-                %a.ownership{'data-dialog-link': 'place_ownership', href:"javascript:void(0);", title: t('shared.title.ownership')}
+              - else # if user or provider and not requested yet
+                %a.take-ownership{href: place_path(id: item.id, a: 'ownership'), 'data-xhr': 'ownership', 'data-xhr-format': 'json', title: t('shared.title.ownership'), class: 'ownership'}
                   =t('.take_ownership')
-            - else
-              = link_to t('.take_ownership'), new_user_session_path, class: 'ownership', 'data-xhr': 'sign_in'
         %li
           .share
             %label=t('.share')
@@ -96,9 +94,6 @@
               = tags.map { |s| "<a href='#{root_path(what: s.name)}'>#{s.name}</a>" }.join(", ").html_safe
         %li
           .hr
-        %li
-          .photos
-            photos
         %li
           .contact
           .header=t('.contact_place', provider: item.name)
@@ -140,13 +135,13 @@
             .field-wrapper.field-file
               = f.label :image do
                 %img{src: asset_path("svg/upload.svg") }
-                = t(".shared.upload_image")
+                = t("shared.upload_image")
               = f.input :image, as: :file, label: false, wrapper: false, input_html: { name: "assets_attributes[][image]", multiple: true, onchange: "javascript:this.form.submit();" }
       - else
         .field-file
           %label{href: new_user_session_path, 'data-xhr': 'sign_in'}
             %img{src: asset_path("svg/upload.svg") }
-            = t(".shared.upload_image")
+            = t("shared.upload_image")
       - item.assets_sorted.each do |asset|
         .photo
           = image_tag asset.image.url(:thumb), 'data-slide': asset.image.url(:normal)

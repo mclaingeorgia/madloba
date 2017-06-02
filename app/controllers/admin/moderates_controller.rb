@@ -12,28 +12,31 @@ class Admin::ModeratesController < AdminController
   #   end
   # end
   def place_report
+    authorize :moderate
     @items = {pending: [], processed: []}.merge(PlaceReport.all.group_by {|b|
       b.processed == 0 ? :pending : :processed
     })
 
     gon.labels.merge!({
-      state_label: t('shared.labels.state'),
+      # state_label: t('shared.labels.state'),
       accept: t('shared.accept'),
       accepted: t('shared.accepted'),
       decline: t('shared.decline'),
       declined: t('shared.declined'),
-      place_report_path: manage_update_moderate_place_report_path(id: '_id_', state: 'accept').gsub('accept', '_state_')
+      moderation_path: manage_update_moderate_place_report_path(id: '_id_', state: 'accept').gsub('accept', '_state_')
     })
   end
   def place_report_update
-    pars = place_report_params
+    authorize :moderate
+    pars = strong_params
     item = PlaceReport.find(pars[:id])
     state = ['accept', 'decline'].index(pars[:state])+1
 
     if item.processed == state
       flash.now[:success] =  t('app.messages.state_already_set', obj: item.place.name)
     elsif item.update_attributes(processed: state, processed_by: current_user.id)
-      flash.now[:success] =  t("app.messages.#{pars[:state]}d", obj: item.place.name)
+      flash.now[:success] =  t("app.messages.#{stated(pars[:state])}", obj: item.place.name)
+      # send notification to user
       forward = { moderate: { type: :report,  id: item.id, state: pars[:state] } }
     else
       flash.now[:error] =  t('app.messages.fail_updated_state', obj: item.place.name)
@@ -47,57 +50,98 @@ class Admin::ModeratesController < AdminController
   end
 
   def place_ownership
+    authorize :moderate
     @items = {pending: [], processed: []}.merge(PlaceOwnership.all.group_by {|b|
       b.processed == 0 ? :pending : :processed
     })
-
-
+    gon.labels.merge!({
+      accepted: t('shared.accepted'),
+      declined: t('shared.declined')
+    })
   end
   def place_ownership_update
-    # pars = reported_places_params
-    # item = PlaceReport.find(pars[:id])
-    # state = ['accept', 'decline'].index(pars[:state])+1
+    authorize :moderate
+    pars = strong_params
+    item = PlaceOwnership.find(pars[:id])
+    place = Place.find(item.place_id)
+    state = ['accept', 'decline'].index(pars[:state])+1
 
-    # if item.processed == state
-    #   flash.now[:success] =  t('app.messages.state_already_set', obj: item.place.name)
-    # elsif item.update_attributes(processed: state, processed_by: current_user.id)
-    #   flash.now[:success] =  t("app.messages.#{pars[:state]}d", obj: item.place.name)
-    #   forward = { moderate: { type: :report,  id: item.id, state: pars[:state] } }
-    # else
-    #   flash.now[:error] =  t('app.messages.fail_updated_state', obj: item.place.name)
-    # end
+    if !item.is_pending?
+      flash.now[:success] =  t('app.messages.state_already_set', obj: place.name)
+    elsif item.process(current_user, state)
+      flash.now[:success] =  t("app.messages.#{stated(pars[:state])}", obj: place.name)
+      # send notification to user
+      forward = { moderate: { type: :provider,  id: item.id, state: pars[:state] } }
+    else
+      flash.now[:error] =  t('app.messages.fail_updated_state', obj: place.name)
+    end
 
-    # forward = {} unless forward.present?
-    # respond_to do |format|
-    #   format.html { redirect_to manage_moderate_reported_places_path }
-    #   format.json { render json: { flash: flash.to_hash }.merge(forward) }
-    # end
+    forward = {} unless forward.present?
+    respond_to do |format|
+      format.html { redirect_to manage_moderate_place_ownership_path }
+      format.json { render json: { flash: flash.to_hash }.merge(forward) }
+    end
   end
   def new_provider
+    authorize :moderate
+    @items = {pending: [], processed: []}.merge(Provider.not_deleted.only_processed.group_by {|b|
+      b.processed == 0 ? :pending : :processed
+    })
+    gon.labels.merge!({
+      accepted: t('shared.accepted'),
+      declined: t('shared.declined')
+    })
   end
+
+  def new_provider_update
+    authorize :moderate
+    pars = strong_params
+    item = Provider.find(pars[:id])
+    state = ['accept', 'decline'].index(pars[:state])+1
+
+    if !item.is_pending?
+      flash.now[:success] =  t('app.messages.state_already_set', obj: item.name)
+    elsif item.update_attributes(processed: state, processed_by: current_user.id)
+      flash.now[:success] =  t("app.messages.#{stated(pars[:state])}", obj: item.name)
+      # send notification to user
+      forward = { moderate: { type: :provider,  id: item.id, state: pars[:state] } }
+    else
+      flash.now[:error] =  t('app.messages.fail_updated_state', obj: item.name)
+    end
+
+    forward = {} unless forward.present?
+    respond_to do |format|
+      format.html { redirect_to manage_moderate_new_provider_path }
+      format.json { render json: { flash: flash.to_hash }.merge(forward) }
+    end
+  end
+
+
   def place_tag
+    authorize :moderate
     @items = {pending: [], processed: []}.merge(Tag.all.group_by {|b|
       b.processed == 0 ? :pending : :processed
     })
 
     gon.labels.merge!({
-      state_label: t('shared.labels.state'),
       accept: t('shared.accept'),
       accepted: t('shared.accepted'),
       decline: t('shared.decline'),
       declined: t('shared.declined'),
-      place_tag_path: manage_update_moderate_place_tag_path(id: '_id_', state: 'accept').gsub('accept', '_state_')
+      moderation_path: manage_update_moderate_place_tag_path(id: '_id_', state: 'accept').gsub('accept', '_state_')
     })
   end
   def place_tag_update
-    pars = place_tag_params
+    authorize :moderate
+    pars = strong_params
     item = Tag.find(pars[:id])
     state = ['accept', 'decline'].index(pars[:state])+1
 
     if item.processed == state
       flash.now[:success] =  t('app.messages.state_already_set', obj: item.name)
     elsif item.update_attributes(processed: state, processed_by: current_user.id)
-      flash.now[:success] =  t("app.messages.#{pars[:state]}d", obj: item.name)
+      flash.now[:success] =  t("app.messages.#{stated(pars[:state])}", obj: item.name)
+      # send notification to user
       forward = { moderate: { type: :tag,  id: item.id, state: pars[:state] } }
     else
       flash.now[:error] =  t('app.messages.fail_updated_state', obj: item.name)
@@ -111,96 +155,12 @@ class Admin::ModeratesController < AdminController
   end
 
   private
-
-    def place_report_params
+    def strong_params
       params.permit(:id, :state, :locale)
     end
 
-    def place_tag_params
-      params.permit(:id, :state, :locale)
+    def stated(state)
+      state == 'accept' ? 'accepted' : 'declined'
     end
-  # def index
-  #   @items = @model.sorted
 
-  #   respond_to do |format|
-  #     format.html
-  #   end
-  # end
-
-  # def show
-  #   @item = @model.find(params[:id])
-
-  #   respond_to do |format|
-  #     format.html
-  #     # format.json { render json: @item }
-  #   end
-  # end
-
-  # def new
-  #   @item = @model.new
-
-  #   respond_to do |format|
-  #     format.html
-  #   end
-  # end
-
-  # def create
-  #   @item = @model.new(pars)
-
-  #   respond_to do |format|
-  #     if @item.save
-  #       format.html do
-  #         redirect_to manage_page_contents_path, flash: {
-  #           success:  t('app.messages.success_updated', obj: @model) }
-  #       end
-  #     else
-  #       format.html { render action: "new" }
-  #     end
-  #   end
-  # end
-
-  # def edit
-  #   @item = @model.find(params[:id])
-  # end
-
-  # def update
-  #   @item = @model.find(params[:id])
-  #   respond_to do |format|
-  #     if @item.update_attributes(pars)
-  #       format.html do
-  #         redirect_to manage_page_contents_path, flash: {
-  #           success:  t('app.messages.success_updated',
-  #                       obj: @model)
-  #         }
-  #       end
-  #     else
-  #       format.html do
-  #         redirect_to manage_page_content_path(id: @item.id), flash: {
-  #           error:  t('app.messages.fail_updated',
-  #                       obj: @model)
-  #         }
-  #       end
-  #     end
-  #   end
-  # end
-
-  # def destroy
-  #   @item = @model.find(params[:id])
-  #   @item.destroy
-
-  #   respond_to do |format|
-  #     format.html do
-  #       redirect_to manage_page_contents_path, flash: {
-  #         success:  t('app.messages.success_destroyed',
-  #                     obj: @model)
-  #       }
-  #     end
-  #     # format.json { head :no_content }
-  #   end
-  # end
-  # private
-  #   def pars
-  #     permitted = PageContent.globalize_attribute_names + [:name]
-  #     params.require(:page_content).permit(*permitted)
-  #   end
 end

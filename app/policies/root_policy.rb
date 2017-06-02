@@ -3,6 +3,14 @@ class RootPolicy < Struct.new(:user, :root)
     true
   end
 
+  def about?
+    true
+  end
+
+  def contact?
+    true
+  end
+
   def place?
     true
   end

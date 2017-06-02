@@ -24,7 +24,7 @@
             %ul.field-inputs
               =f.object.tags.map{|m| "<li><label>#{m.name}</label><input type='hidden' value='#{m.name}' name=place[tags][]><div class='close'></div></li>" }.join("").html_safe
           = f.input :published
-          - possible_providers = current_user.get_place_possible_providers(f.object.provider.id)
+          - possible_providers = Provider.only_active.for_user(current_user, @is_admin_profile_page).excluding(f.object.provider.id)
           .field-wrapper
             - if !possible_providers.present?
               %label.field-label= custom_label(t('admin.places.update_provider'))

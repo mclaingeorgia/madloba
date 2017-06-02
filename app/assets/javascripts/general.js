@@ -22,6 +22,7 @@ var pollution = {
 
 
  $(document).on("click", "[data-xhr]", function (event) {
+  console.log('data-xhr click')
     xhr($(this))
 
     event.preventDefault();
@@ -29,6 +30,7 @@ var pollution = {
   })
 
 function xhr($element) {
+  console.log('called')
   var t = $element
   var caller = t.attr('data-xhr') || t.attr('data-xhr-redirected')
   var format = t.attr('data-xhr-format')
@@ -49,6 +51,8 @@ function xhr($element) {
         if(['sign_in', 'forgot' ].indexOf(caller) !== -1) {
           $(".form-placeholder").html(data)
           pollution.components.popup.set_state(1)
+        } else if(caller === 'ownership') {
+          pollution.components.dialog.create(caller, data).open()
         }
       }
     })
@@ -59,6 +63,7 @@ function xhr($element) {
 
 if(gon.hasOwnProperty('history')) {
   if(gon.history === 'replace') {
+    console.log('history updated')
     history.replaceState({}, null,  window.location.pathname)
   }
 }

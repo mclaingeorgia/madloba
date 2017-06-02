@@ -36,5 +36,16 @@ class PlacePolicy < ApplicationPolicy
     user.admin?
   end
 
+  def favorite?
+    user.user?
+  end
+
+  def rate?
+    user.user?
+  end
+
+  def ownership?
+    user.provider?
+  end
 end
 

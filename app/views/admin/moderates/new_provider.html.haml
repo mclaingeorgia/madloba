@@ -1,5 +1,5 @@
 - content_for :custom_stylesheet, 'page/moderate'
-= page_title t("admin.moderates.place_tag.title")
+= page_title t("admin.moderates.new_provider.title")
 - active_page = 'pending'
 .tabs{'data-target': 'states'}
   %ul
@@ -11,10 +11,10 @@
     %li{'data-link': 'pending', class: 'active'}
       .tab-view
         - @items[:pending].each do |item|
-          = render partial: 'place_tag', locals: { item: item }
+          = render partial: 'new_provider', locals: { item: item }
         .all-done{class: @items[:pending].present? ? 'hidden' : nil}= t('shared.all_done')
     %li{'data-link': 'processed'}
       .tab-view
         - @items[:processed].each do |item|
-          = render partial: 'place_tag', locals: { item: item }
+          = render partial: 'new_provider', locals: { item: item }
         .no-data-found{class: @items[:processed].present? ? 'hidden' : nil}= t('shared.no_data_found')

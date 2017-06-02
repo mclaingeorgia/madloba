@@ -58,11 +58,11 @@ class Place < ActiveRecord::Base
     end
 
   # scopes
-
-    scope :published, -> { where(published: true) }
-    scope :deleted, -> { where(:deleted => true) }
-    scope :active, -> { where(:deleted => false) }
-    scope :accessible, -> { where(:deleted => false, published: true) }
+    scope :only_deleted, -> { where(deleted: true) }
+    scope :only_published, -> { where(published: true) }
+    scope :only_active, -> { where(deleted: false) }
+    scope :excluding, -> (id) { where.not(id: id) }
+    scope :sorted, -> { with_translations(I18n.locale).order(name: :asc) }
 
     def assets_sorted
       poster_asset = self.get_poster()
@@ -74,10 +74,6 @@ class Place < ActiveRecord::Base
       end
 
       assets_array
-    end
-
-    def self.sorted
-      with_translations(I18n.locale).order(name: :asc)
     end
 
   # validators
@@ -130,14 +126,14 @@ class Place < ActiveRecord::Base
   # filter
 
     def self.filter(filter, current_user)
-      places = active.published.with_translations(I18n.locale)
+      places = only_active.only_published.with_translations(I18n.locale)
       sql = []
       pars = {}
       if filter[:what].present?
         sql << 'lower(place_translations.name) like :name'
         pars[:name] = "%#{filter[:what].downcase}%"
 
-        place_ids = Provider.active.with_translations(I18n.locale).where('lower(provider_translations.name) like ?', "%#{filter[:what].downcase}%").includes(:places).pluck('places.id')
+        place_ids = Provider.only_active.with_translations(I18n.locale).where('lower(provider_translations.name) like ?', "%#{filter[:what].downcase}%").includes(:places).pluck('places.id')
         place_ids += Tag.accepted.where('lower(name) like ?', "%#{filter[:what].downcase}%").includes(:places).pluck('places.id')
 
         sql << 'places.id in (:place_ids)'

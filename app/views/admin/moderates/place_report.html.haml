@@ -9,12 +9,12 @@
 .tabs-content{'data-target': 'states'}
   %ul
     %li{'data-link': 'pending', class: 'active'}
-      .report-view
+      .tab-view
         - @items[:pending].each do |item|
           = render partial: 'place_report', locals: { item: item }
         .all-done{class: @items[:pending].present? ? 'hidden' : nil}= t('shared.all_done')
     %li{'data-link': 'processed'}
-      .report-view
+      .tab-view
         - @items[:processed].each do |item|
           = render partial: 'place_report', locals: { item: item }
         .no-data-found{class: @items[:processed].present? ? 'hidden' : nil}= t('shared.no_data_found')

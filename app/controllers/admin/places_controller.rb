@@ -118,6 +118,7 @@ class Admin::PlacesController < AdminController
   end
 
   def favorite
+    authorize Place
     pars = favorite_params
     forward = set_flash(FavoritePlace.favorite(current_user.id, pars[:id], pars[:flag] == 'true'))
     forward = {} unless forward.present?
@@ -128,6 +129,7 @@ class Admin::PlacesController < AdminController
     end
   end
   def rate
+    authorize Place
     pars = rate_params
     forward = set_flash(PlaceRate.rate(current_user.id, pars[:id], pars[:rate].to_i))
     forward = {} unless forward.present?
@@ -138,7 +140,11 @@ class Admin::PlacesController < AdminController
     end
   end
   def ownership
+    authorize Place
     pars = ownership_params
+    forward = set_flash(PlaceOwnership.request_ownership(current_user, pars[:id], params[:provider_id], params[:provider_attributes]), false)
+    forward = {} unless forward.present?
+    redirect_to :back
   end
 
   private
@@ -155,6 +161,6 @@ class Admin::PlacesController < AdminController
       params.permit(:id, :rate, :locale)
     end
     def ownership_params
-      params.permit(:id, :provider_id, :locale, provider_attributes: [*Provider.globalize_attribute_names])
+      params.permit(:id, :locale, :authenticity_token, :provider_id, provider_attributes: [*Provider.globalize_attribute_names])
     end
 end

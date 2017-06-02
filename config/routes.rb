@@ -21,6 +21,7 @@ Madloba::Application.routes.draw do
 
     scope "/", controller: :root do
       get 'faq'
+      get 'about'
       get 'contact'
       get 'privacy_policy'
       get 'terms_of_use'
@@ -42,7 +43,7 @@ Madloba::Application.routes.draw do
     namespace :manage, :module => :admin, :constraints => { format: :html } do
       get '/', to: '/admin#user_profile'
       get 'user/(:page)', to: '/admin#user_profile', :as => :user_profile
-      get 'provider/:page/(:id)/(:edit)', to: '/admin#provider_profile', :as => :provider_profile, constraints: { id: /(new)|(\d+)/, edit: 'edit' }
+      get 'provider/(:page)/(:id)/(:edit)', to: '/admin#provider_profile', :as => :provider_profile, constraints: { id: /(new)|(\d+)/, edit: 'edit' }
       get 'admin', to: '/admin#admin_profile', :as => :admin_profile
 
 
@@ -77,6 +78,7 @@ Madloba::Application.routes.draw do
       put 'moderate/place_ownership/:id/:state', to: '/admin/moderates#place_ownership_update', :as => :update_moderate_place_ownership, :constraints => { state: /(accept|decline)/ }
 
       get 'moderate/new_provider', to: '/admin/moderates#new_provider', :as => :moderate_new_provider
+      put 'moderate/new_provider/:id/:state', to: '/admin/moderates#new_provider_update', :as => :update_moderate_new_provider, :constraints => { state: /(accept|decline)/ }
 
       get 'moderate/place_tag', to: '/admin/moderates#place_tag', :as => :moderate_place_tag
       put 'moderate/place_tag/:id/:state', to: '/admin/moderates#place_tag_update', :as => :update_moderate_place_tag, :constraints => { state: /(accept|decline)/ }

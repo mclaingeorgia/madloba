@@ -66,7 +66,7 @@ class AdminController < ApplicationController
       @class = 'provider_profile'
       @has_slideshow = true
 
-      providers = Provider.accessible.by_user(current_user.id)
+      providers = Provider.only_active.for_user(current_user).with_places
 
       unless false_start
         item = provider_profile_prepare_item(page, id, action)
@@ -82,7 +82,7 @@ class AdminController < ApplicationController
       end
 
       gon.labels.merge!({
-        state_label: t('shared.labels.state'),
+        # state_label: t('shared.labels.state'),
         accept: t('shared.accept'),
         accepted: t('shared.accepted'),
         decline: t('shared.decline'),
@@ -145,7 +145,7 @@ class AdminController < ApplicationController
 
     def get_user_profile_page(page)
       options = [:'manage-profile', :'favorite-places', :'rated-places', :'uploaded-photos']
-      # page = options[0] if page.nil?
+      page = options[0] if page.nil?
       page = page.to_sym
 
       options.index(page).present? ? page : options[0]
@@ -153,6 +153,7 @@ class AdminController < ApplicationController
 
     def get_provider_profile_page (page)
       options = [:'manage-providers', :'manage-places', :'moderate-photos']
+      page = options[0] if page.nil?
       page = page.to_sym
 
       options.index(page).present? ? page : options[0]

@@ -61,7 +61,7 @@ class ApplicationController < ActionController::Base
     gon.labels = {}
   end
   def set_session
-    Rails.logger.debug("--------------------------------------------#{params.inspect}")
+    # Rails.logger.debug("--------------------------------------------#{params.inspect}")
     if session[:user_return_to].present? && DEVISE_CONTROLLERS.index(params[:controller]).nil?
       # @post_action = session[:post_action]
       # Rails.logger.debug("--------------------------------------------post_action #{@post_action}")

@@ -1,5 +1,5 @@
 
-  $('.tabs a').on('click', function (event) {
+  $(document).on('click', '.tabs a', function (event) {
     // console.log("click")
     var t = $(this)
     var link = t.attr('data-link')

@@ -257,6 +257,9 @@
       & + .text {
         padding-top: 12px;
       }
+      &.small {
+        @include font(14, 'l')
+      }
     }
     &.light {
       .field-wrapper {
@@ -307,6 +310,9 @@
           align-self: flex-end;
         }
       }
+    }
+    &.center {
+
     }
     .fields-collection {
 

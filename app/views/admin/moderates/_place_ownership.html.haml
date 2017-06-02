@@ -1,10 +1,13 @@
-.ownership{'data-ownership-id': item.id, 'data-ownership-state': item.is_pending? ? 'pending' : nil}
+.tab-view-item{'data-moderation-id': item.id, 'data-moderation-state': item.is_pending? ? 'pending' : nil}
   .row
     = link_to item.place.name, place_path(item.place.id), class: 'name'
   .row.pad.state{class: item.is_processed? ? nil : 'hidden'}
     %label= t('shared.labels.state')
     %span= t("shared.#{item.processed_human}")
   .row.pad
+    %label= t('.linked_provider')
+    %span= "#{item.provider.name}"
+  .row
     %label= t('.request_from')
     %span= "#{item.user.name} (#{item.user.email})"
   .row.actions

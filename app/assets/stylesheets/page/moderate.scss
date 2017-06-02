@@ -1,11 +1,11 @@
-  @import 'var';
+@import 'var';
 
-.report-view, .ownership-view, .tag-view {
+.tab-view {
   padding: 0 27px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  .report, .ownership, .tag {
+  .tab-view-item {
     max-width: 340px;
     margin-right: 65px;
     margin-bottom: 65px;
@@ -50,17 +50,3 @@
 
   }
 }
-
-
-  //   = link_to item.place.name, place_path(item.place.id), class: 'name'
-  // .row
-  //   %label reported by
-  //   %span= "#{item.user.name} (#{item.user.email})"
-  // .row
-  //   %label reason
-  //   %span= item.reason
-  // .row
-  //   - if item.can_accept?
-  //     %button Accept
-  //   - if item.can_decline?
-  //     %button Decline

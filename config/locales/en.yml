@@ -160,6 +160,7 @@ en:
     are_you_sure: Are you sure?
     favorite: Favorite
     unfavorite: Unfavorite
+    or: Or
     labels:
       state: 'State:'
     title:
@@ -185,6 +186,7 @@ en:
     assign_provider_to_failed: 'Failed to assign %{child} to provider'
     unassign_provider_to_success: "%{child} %{child_name} unassigned from provider %{name} successfully"
     unassign_provider_to_failed: 'Failed to unassign %{child} from provider'
+    provider_role_required: 'This operation require user to be service provider.'
   admin:
     shared:
       add: Add
@@ -192,7 +194,6 @@ en:
       cancel: Cancel
       edit: Edit
       delete: Delete
-      or: or
       actions: Actions
       assign: Assign
       add_model: "Add %{name}"
@@ -256,11 +257,17 @@ en:
         reason: 'Reason:'
       place_ownership:
         title: Moderate Place Ownership
+        linked_provider: 'Linked Provider:'
         request_from: 'Request From:'
       place_tag:
         title: Moderate Place Tag
         created_by: 'Created By:'
         tag: 'Tag:'
+      new_provider:
+        title: Moderate New Provider
+        created_by: 'Created By:'
+        name: 'Provider Name:'
+        description: 'Description:'
     uploads:
       list:
         uploaded_by: 'Uploaded By:'
@@ -336,11 +343,18 @@ en:
       report: Report
       take_ownership: Take Ownership
       take_ownership_underway: Ownership Under Consideration
+      report_underway: Report Under Consideration
       share: Share
       service_tags: Service Tags
       comments: Comments
     faq:
       title: FAQ
+    place_ownership_dialog:
+      take_ownership_for: 'Take "%{name}" Ownership'
+      existing_provider: Pick existing provider
+      or_create: 'or create new'
+      incase_existing_provider: 'If existing provider is picked, will be omitted'
+      take_ownership: Take Ownership
   mailer:
     hello: "Hello %{name}!"
     hi: "Hi %{name}"

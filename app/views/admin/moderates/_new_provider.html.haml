@@ -1,0 +1,18 @@
+.tab-view-item{'data-moderation-id': item.id, 'data-moderation-state': item.is_pending? ? 'pending' : nil}
+  .row.pad
+    %label= t('.name')
+    %span= item.name
+  .row.pad.state{class: item.is_processed? ? nil : 'hidden'}
+    %label= t('shared.labels.state')
+    %span= t("shared.#{item.processed_human}")
+  .row
+    %label= t('.created_by')
+    %span= "#{item.user.name} (#{item.user.email})"
+  .row
+    %label= t('.description')
+    %span= item.description
+  .row.actions
+    - if item.can_accept?
+      = link_to t("shared.accept"), manage_update_moderate_new_provider_path(id: item.id, state: :accept), remote: true, method: :put, 'data-type': 'json'
+    - if item.can_decline?
+      = link_to t("shared.decline"), manage_update_moderate_new_provider_path({id: item.id, state: :decline}), remote: true, method: :put, 'data-type': 'json', class: 'decline'

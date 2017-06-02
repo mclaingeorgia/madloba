@@ -22,15 +22,25 @@
           location.reload()
         }
       }
+      else if(json.hasOwnProperty('redirect_to')) {
+        location.href = json.redirect_to
+      }
       else {
         if(json.hasOwnProperty('trigger')) {
-          $('[data-xhr="' + json.trigger + '"]').trigger('click')
+          console.log('trigger ajax')
+          xhr($('[data-xhr="' + json.trigger + '"]'))
         }
         if(json.hasOwnProperty('flash')) {
           pollution.components.flash.set(json.flash).open()
         }
         if(json.hasOwnProperty('refresh')) {
           partial_refresher(json.refresh)
+        }
+        if(json.hasOwnProperty('dialog')) {
+          pollution.components.dialog.page(json.dialog.name, json.dialog.html)
+          pollution.components.dialog.open(json.dialog.name)
+          // console.log('create and open dialog', json )
+          // pollution.components.flash.set(json.flash).open()
         }
         if(json.hasOwnProperty('remove_asset')) {
           $('[data-asset-id="' + json.remove_asset + '"]').remove()
@@ -40,59 +50,74 @@
         // }
         if(json.hasOwnProperty('moderate') && json.moderate.hasOwnProperty('type')) {
           var type = json.moderate.type
-          if (type === 'report') {
+          if (['tag', 'report'].indexOf(type) !== -1) {
             var id = json.moderate.id
             var state = json.moderate.state
             var state_was = state === 'accept' ? 'decline' : 'accept'
             var stated = state === 'accept' ? 'accepted' : 'declined'
             var generated_url = ''
-            var $report = $('[data-report-id="' + id + '"]')
-            var previous_state = $report.attr('data-report-state')
+            var $moderation_item = $('[data-moderation-id="' + id + '"]')
+            var previous_state = $moderation_item.attr('data-moderation-state')
 
             if(typeof previous_state !== 'undefined') {
-              $report.attr('data-report-state', null)
-              $report.find('.state span').text(gon.labels[stated]).parent().removeClass('hidden')
-              $report.find('.actions a').first().remove()
-              generated_url = gon.labels.place_report_path.replace('_id_', id).replace('_state_', state_was)
-              $report.find('.actions a').removeClass(state).addClass(state_was).attr('href', generated_url).text(gon.labels[state_was])
-              // console.log('move to processed')
+              $moderation_item.attr('data-moderation-state', null)
+              $moderation_item.find('.state span').text(gon.labels[stated]).parent().removeClass('hidden')
+              $moderation_item.find('.actions a').first().remove()
+              generated_url = gon.labels.moderation_path.replace('_id_', id).replace('_state_', state_was)
+              $moderation_item.find('.actions a').removeClass(state).addClass(state_was).attr('href', generated_url).text(gon.labels[state_was])
 
+              $moderation_item_view = $('.tabs-content [data-link="processed"] .tab-view')
+              $moderation_item_view.find('.no-data-found').remove()
+              $moderation_item_view.append($moderation_item.detach())
 
-              $report_view = $('.tabs-content [data-link="processed"] .report-view')
-              $report_view.find('.no-data-found').remove()
-              $report_view.append($report.detach())
-
-              var $report_view_pendings = $('.tabs-content [data-link="pending"] .report-view')
-              if(!$report_view_pendings.find('.report').length) {
-                $report_view_pendings.find('.all-done').removeClass('hidden')
+              var $moderation_item_view_pendings = $('.tabs-content [data-link="pending"] .tab-view')
+              if(!$moderation_item_view_pendings.find('.tab-view-item').length) {
+                $moderation_item_view_pendings.find('.all-done').removeClass('hidden')
               }
 
             }
             else {
-              console.log('already in processed')
-              $report.find('.state span').text(gon.labels[stated])
-              generated_url = gon.labels.place_report_path.replace('_id_', id).replace('_state_', state_was)
-              $report.find('.actions a').removeClass(state).addClass(state_was).attr('href', generated_url).text(gon.labels[state_was])
+              $moderation_item.find('.state span').text(gon.labels[stated])
+              generated_url = gon.labels.moderation_path.replace('_id_', id).replace('_state_', state_was)
+              $moderation_item.find('.actions a').removeClass(state).addClass(state_was).attr('href', generated_url).text(gon.labels[state_was])
             }
 
-          } else if (type === 'upload') {
-            var id = json.moderate.id
-            var state = json.moderate.state
-            var state_was = state === 'accept' ? 'decline' : 'accept'
-            var stated = state === 'accept' ? 'accepted' : 'declined'
-            var stated_was = state === 'accept' ? 'declined' : 'accepted'
-            var generated_url = ''
-            var $report = $('[data-upload-id="' + id + '"]')
-            var previous_state = $report.attr('data-upload-state')
+          } else if (['provider', 'ownership'].indexOf(type) !== -1) {
+            id = json.moderate.id
+            state = json.moderate.state
+            stated = state === 'accept' ? 'accepted' : 'declined'
+            $moderation_item = $('[data-moderation-id="' + id + '"]')
+
+            $moderation_item.find('.state span').text(gon.labels[stated]).parent().removeClass('hidden')
+            $moderation_item.find('.actions').remove()
+
+            $moderation_item_view = $('.tabs-content [data-link="processed"] .tab-view')
+            $moderation_item_view.find('.no-data-found').remove()
+            $moderation_item_view.append($moderation_item.detach())
+
+            $moderation_item_view_pendings = $('.tabs-content [data-link="pending"] .tab-view')
+            if(!$moderation_item_view_pendings.find('.tab-view-item').length) {
+              $moderation_item_view_pendings.find('.all-done').removeClass('hidden')
+            }
+          }
+          else if (type === 'upload') {
+            id = json.moderate.id
+            state = json.moderate.state
+            state_was = state === 'accept' ? 'decline' : 'accept'
+            stated = state === 'accept' ? 'accepted' : 'declined'
+            stated_was = state === 'accept' ? 'declined' : 'accepted'
+            generated_url = ''
+            $moderation_item = $('[data-upload-id="' + id + '"]')
+            previous_state = $moderation_item.attr('data-upload-state')
 
             if(typeof previous_state !== 'undefined') {
-              $report.attr('data-upload-state', null)
-              $report.find('.actions a').first().remove()
+              $moderation_item.attr('data-upload-state', null)
+              $moderation_item.find('.actions a').first().remove()
             }
-            console.log($report.find('.state'))
-            $report.find('.state').text(gon.labels[stated]).removeClass(stated_was).addClass(stated)
+            console.log($moderation_item.find('.state'))
+            $moderation_item.find('.state').text(gon.labels[stated]).removeClass(stated_was).addClass(stated)
             generated_url = gon.labels.upload_state_path.replace('_id_', id).replace('_state_', state_was)
-            $report.find('.actions a').removeClass(state).addClass(state_was).attr('href', generated_url).text(gon.labels[state_was])
+            $moderation_item.find('.actions a').removeClass(state).addClass(state_was).attr('href', generated_url).text(gon.labels[state_was])
           }
 
         }

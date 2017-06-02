@@ -51,13 +51,18 @@ module ApplicationHelper
      # # user_return_to
   end
 
-  def set_flash(response)
+  def set_flash(response, now = true)
     type = response[:type]
     text = response[:text]
     if [:success, :notice, :error, :alert].index(type).present?
+      text_str = t("messages.#{text}", response[:action].present? ? {action: t("messages.#{response[:action]}")} : {})
 
-      flash.now[type] = t("messages.#{text}", response[:action].present? ? {action: t("messages.#{response[:action]}")} : {})
-      Rails.logger.debug("------------------------------------------set_flash-#{type} #{text}")
+      if now
+        flash.now[type] = text_str
+      else
+        flash[type] = text_str
+      end
+
     end
     response[:forward]
   end
@@ -65,6 +70,21 @@ module ApplicationHelper
   def custom_label(str, required = false)
     required_str = required ? '<abbr title="required">*</abbr>' : ''
     "#{str}#{required_str.html_safe}:"
+  end
+
+  def user_guest?
+    current_user.nil?
+  end
+
+  def user_user?
+    current_user.present? && current_user.user?
+  end
+
+  def user_provider?
+    current_user.present? && current_user.provider?
+  end
+  def user_admin?
+    current_user.present? && current_user.admin?
   end
   # def resource_name
   #   :user

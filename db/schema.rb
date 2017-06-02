@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170601152332) do
+ActiveRecord::Schema.define(version: 20170602172307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -222,6 +222,7 @@ ActiveRecord::Schema.define(version: 20170601152332) do
     t.integer  "processed_by"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "provider_id"
   end
 
   create_table "place_rates", force: :cascade do |t|
@@ -394,8 +395,9 @@ ActiveRecord::Schema.define(version: 20170601152332) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "deleted",      default: false
-    t.integer  "processed",    default: 0
+    t.integer  "processed"
     t.integer  "processed_by"
+    t.integer  "created_by"
   end
 
   create_table "region_translations", force: :cascade do |t|

@@ -180,18 +180,18 @@ regions.each {|item|
   }
 }
 
-tags = [
-  { name: "Physical Rehabilitation" },
-  { name: "Blind guide" },
-  { name: "Massage therapy" },
-  { name: "Physical assessment" },
-  { name: "Psychological assessment" },
-  { name: "Small grants" }
-]
-Tag.destroy_all
-tags.each {|item|
-  d = Tag.create(item)
-}
+# tags = [
+#   { name: "Physical Rehabilitation" },
+#   { name: "Blind guide" },
+#   { name: "Massage therapy" },
+#   { name: "Physical assessment" },
+#   { name: "Psychological assessment" },
+#   { name: "Small grants" }
+# ]
+# Tag.destroy_all
+# tags.each {|item|
+#   d = Tag.create(item)
+# }
   # I18n.available_locales.each { |locale|
   #   Globalize.with_locale(locale) do
   #     d.update_attributes(:name => item[:name][locale])
@@ -216,7 +216,7 @@ providers = [
 ]
 
 providers.each {|item|
-  d = Provider.create({processed: 1})
+  d = Provider.create()
   I18n.available_locales.each { |locale|
     Globalize.with_locale(locale) do
       d.update_attributes(:name => item[:name][locale], :description => item[:description][locale])

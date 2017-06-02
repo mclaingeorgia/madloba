@@ -1,4 +1,4 @@
-.report{'data-report-id': item.id, 'data-report-state': item.is_pending? ? 'pending' : nil}
+.tab-view-item{'data-moderation-id': item.id, 'data-moderation-state': item.is_pending? ? 'pending' : nil}
   .row
     = link_to item.place.name, place_path(item.place.id), class: 'name'
   .row.pad.state{class: item.is_processed? ? nil : 'hidden'}

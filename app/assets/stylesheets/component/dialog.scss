@@ -51,7 +51,7 @@
         @include font(22, 'sb', 18);
         color: $link;
         text-align: center;
-        padding:20px 0 31px;
+        padding:20px 10px 31px;
         text-transform: uppercase;
       }
       &[data-bind='about'] {
@@ -141,6 +141,15 @@
         }
 
       }
+      &[data-bind='place_ownership'] {
+        text-align: center;
+        .or {
+          @include font(18, 'r', 18);
+          color: $text;
+          text-align: center;
+          padding-bottom: 22px;
+        }
+      }
     }
   }
 
@@ -152,7 +161,7 @@
       }
       .dialog-page {
         .header {
-          padding:45px 0 31px;
+          padding:45px 50px 31px;
         }
         &[data-bind='contact'] {
           .boxes {

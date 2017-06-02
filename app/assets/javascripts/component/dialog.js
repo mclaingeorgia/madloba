@@ -11,7 +11,7 @@
     init: function () {
       var t = dialog
       t.el = $('dialog')
-      t.content_el = t.el.find('.messages')
+      t.content_el = t.el.find('.dialog-content')
       t.bind()
 
       // on page load check if about or contact page if yes open dialog
@@ -96,6 +96,12 @@
       pollution.hooks.keydown.push(function(code) {
         if (code === 27) { t.close() }
       })
+    },
+    page: function (name, html) {
+      var t = dialog
+      t.content_el.find('.dialog-page[data-bind="' + name + '"]').remove()
+      t.content_el.append(html)
+
     }
   }
 

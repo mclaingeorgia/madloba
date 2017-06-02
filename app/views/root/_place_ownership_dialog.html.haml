@@ -1,0 +1,14 @@
+.dialog-page{'data-bind': 'place_ownership' }
+  .header= t('.take_ownership_for', name: place.name)
+  .form-container
+    %form{action: manage_place_ownership_path, method: :post, id: 'invisible-recaptcha-form', class: 'simple_form light center'}
+      = hidden_field_tag :authenticity_token, form_authenticity_token
+      .field-wrapper
+        %label.field-label= t('.existing_provider')
+        = collection_select(nil, :provider_id, current_user.providers.only_active, :id, :name, prompt: true)
+      .or= t('.or_create')
+      = simple_fields_for :provider_attributes, Provider.new do |provider_form|
+        = render partial: 'shared/fields_localization', locals: { fields: { name: nil, description: { as: :text, input_html: { required: true, rows: 6 } } } , form: provider_form }
+      .text.small= t('.incase_existing_provider')
+      .actions
+        %input{type: :submit, value: t('.take_ownership')}

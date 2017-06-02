@@ -24,6 +24,7 @@ class Admin::ProvidersController < AdminController
       manage_provider_profile_path(page: 'manage-providers')
 
     @item = item if redirect_default
+    item.user << current_user
 
     if item.save
       flash[:success] = t('app.messages.success_updated', obj: @model)

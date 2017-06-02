@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
            :recoverable, :rememberable, :trackable, :validatable, :confirmable
 
     has_many :provider_users
-    has_many :providers, through: :provider_users
+    has_many :providers, -> { where('providers.deleted = false and (providers.processed is null or providers.processed = 1)') }, through: :provider_users
     accepts_nested_attributes_for :providers, :reject_if => :not_service_provider?
 
     has_many :favorite_places
@@ -107,9 +107,6 @@ class User < ActiveRecord::Base
       end
     end
 
-    def get_place_possible_providers(except=[])
-      (admin? ? Provider.all : providers ).where.not(id: except)
-    end
   private
     # validators
 
