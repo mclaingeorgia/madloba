@@ -104,16 +104,29 @@ class Admin::ProvidersController < AdminController
   def send_message
     authorize @model
 
-    pars = params.permit(:authenticity_token, :locale, :'g-recaptcha-response', {:message => [:sender, :email, :text]})
-    message = pars[:message]
-    verification = verify_message(message)
-
-    # flash = { message: 'test message' }
-    respond_to do |format|
-      format.html do
-        redirect_to :back
+    pars = params.permit(:id, :authenticity_token, :locale, :'g-recaptcha-response', {:message => [:sender, :email, :text]})
+    msg = pars[:message]
+    verification = verify_message(msg)
+    if verification == true
+      place = Place.find(pars[:id])
+      if place.emails.present?
+        message = Message.new
+        message.bcc = place.emails.join(';')
+        message.subject = "#{I18n.t('app.common.name')} - #{I18n.t('notification.contact.subject')}"
+        message.message = { name: msg[:sender], email: msg[:email], text: msg[:text] }
+        ApplicationMailer.send_contact_message(message).deliver_now
+        flash[:success] = I18n.t('app.messages.contact_send_success')
+      else
+        flash[:error] = I18n.t('errors.not_found')
       end
+    else
+      set_flash({ type: :error, text: verification.map{|m| m[:text] }.join('<br>').html_safe}, false)
     end
+  rescue Exception => e
+    flash[:error] = I18n.t('app.messages.contact_send_fail')
+    Rails.logger.debug("--------------------------------------------#{e}") # only dev
+  ensure
+    redirect_to :back
   end
 
   def assign_user
@@ -235,11 +248,11 @@ class Admin::ProvidersController < AdminController
     def verify_message(message)
       errors = []
       if verify_recaptcha
-        errors << { type: :error, text: t('.sender_missing') } if message[:sender].nil?
-        errors << { type: :error, text: t('.improper_email_') } if /\A[^@]+@[^@]+\z/.match(message[:email]).present?
-        errors << { type: :error, text: t('.text_missing') } if message[:text].nil?
+        errors << { type: :error, text: t('notification.contact.errors.sender_missing') } if message[:sender].blank?
+        errors << { type: :error, text: t('notification.contact.errors.improper_email') } unless /\A[^@]+@[^@]+\z/.match(message[:email])
+        errors << { type: :error, text: t('notification.contact.errors.text_missing') } if message[:text].blank?
       else
-        errors << { type: :error, text: t('.skynet_detected') } if message[:sender].nil?
+        errors << { type: :error, text: t('notification.contact.errors.skynet_detected') }
       end
       errors.present? ? errors : true
     end

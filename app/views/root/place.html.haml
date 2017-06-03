@@ -98,7 +98,7 @@
           .contact
           .header=t('.contact_place', provider: item.name)
           .form-container.wide
-            %form{action: send_message_path, method: :post, 'data-remote': true, id: 'invisible-recaptcha-form', class: 'simple_form light column'}
+            %form{action: send_message_path(item.id), method: :post, id: 'invisible-recaptcha-form', class: 'simple_form light column'}
               = hidden_field_tag :authenticity_token, form_authenticity_token
               .fields-column
                 .field-wrapper

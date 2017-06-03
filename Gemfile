@@ -8,6 +8,9 @@ gem 'rake', '< 11.0'
 # Use Postgresql as the database for Active Record
 gem 'pg'
 
+# used to schedule mail send
+gem 'whenever'
+
 # Use Bootstrap and SCSS for stylesheets
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'sass-rails', '>= 3.2'
@@ -58,7 +61,7 @@ gem 'carrierwave'
 # Photo resizing
 gem 'mini_magick'
 # For AWS cloud storage
-gem 'fog'
+# gem 'fog'
 # Delayed job
 # gem 'delayed_job_active_record'
 # Processes/Uploads image in the background

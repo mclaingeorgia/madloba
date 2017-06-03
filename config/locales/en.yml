@@ -124,6 +124,8 @@ en:
       declined: "%{obj} was successfully declined."
       fail_updated_state: "%{obj} state failed to update."
       state_already_set: "%{obj} state already set."
+      contact_send_success: "Message successfully sent."
+      contact_send_fail: "Failed to send message."
   shared:
     toggle_navigation: Toggle navigation
     user_profile: User Profile
@@ -170,7 +172,7 @@ en:
   messages:
     succeed_to_process: Request to %{action} processed successfully.
     succeed_to_process_reject: Request to reject %{action} processed successfully.
-    failed_to_process: Request to #{action} failed.
+    failed_to_process: Request to %{action} failed.
     place_rate: rate place
     favorite_place: favorite place
     place_ownership: take place ownership
@@ -377,6 +379,27 @@ en:
     account_locked: Your account has been locked due to an excessive number of unsuccessful sign in attempts.
     link_unlock: Click the link below to unlock your account
     unlock_account: Unlock my account
+  notification:
+    admin_moderate:
+      subject: New Moderation Request(s)
+      hello: 'Hello Admin,'
+      intro: 'You have new items to moderate:'
+      report_item: '%{n} place report(s).'
+      ownership_item: '%{n} take ownership request(s)'
+      new_provider_item: '%{n} new provider(s)'
+      tag_item: '%{n} tag(s)'
+    contact:
+      subject: Customer Message
+      hello: 'Hello,'
+      intro: 'You have new message from customer:'
+      customer_name: 'Name: %{name}'
+      customer_email: 'Email: %{email}'
+      customer_text: 'Message Text: %{text}'
+      errors:
+        sender_missing: Name is required field
+        improper_email: Email is not valid
+        text_missing: Message text is blank
+        skynet_detected: Oops
   errors:
     oops: "Oops!"
     not_found: 404 Page Not Found

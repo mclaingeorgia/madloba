@@ -16,7 +16,7 @@ Madloba::Application.routes.draw do
     match '/500' => 'errors#error500', via: [ :get, :post, :patch, :delete ]
 
 
-    post 'send_message', as: 'send_message', :controller => 'admin/providers'
+    post 'send_message/:id', as: 'send_message', :to => 'admin/providers#send_message'
 
 
     scope "/", controller: :root do

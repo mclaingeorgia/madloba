@@ -55,11 +55,14 @@ module ApplicationHelper
     type = response[:type]
     text = response[:text]
     if [:success, :notice, :error, :alert].index(type).present?
-      text_str = t("messages.#{text}", response[:action].present? ? {action: t("messages.#{response[:action]}")} : {})
+         Rails.logger.debug("--------------------------------------------11")
+      text_str = text.is_a?(Symbol) ? (t("messages.#{text}", response[:action].present? ? {action: t("messages.#{response[:action]}")} : {})) : text
+         Rails.logger.debug("--------------------------------------------12")
 
       if now
         flash.now[type] = text_str
       else
+         Rails.logger.debug("--------------------------------------------#{text_str}")
         flash[type] = text_str
       end
 

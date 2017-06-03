@@ -1,0 +1,20 @@
+- I18n.available_locales.each_with_index do |locale, locale_i|
+  - I18n.locale = locale
+
+
+  .hello= t('notification.contact.hello')
+  %br
+  .intro= t('notification.contact.intro')
+  %br
+  .name= t('notification.contact.customer_name', name: @message.message[:name])
+  .email= t('notification.contact.customer_email', email: @message.message[:email])
+  .text= t('notification.contact.customer_text', text: @message.message[:text])
+
+  %br
+  %br
+  = '---'
+  .signature
+    = "#{t('app.common.name')} - #{t('app.common.slogan')}"
+
+  - if locale_i != I18n.available_locales.length - 1
+    %hr

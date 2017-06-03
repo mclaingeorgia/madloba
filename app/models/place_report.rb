@@ -22,10 +22,9 @@ class PlaceReport < ActiveRecord::Base
     class_name = self.model_name.param_key
 
     # r = find_by(user_id: user_id, place_id: place_id)
-
-    if PlaceReport.create(user_id: user_id, place_id: place_id, reason: reason) #r.present? ||
-      response = {type: :success, text: :succeed_to_process, action: class_name, forward: { refresh: { type: 'report' } }}
-    end
+    pr = PlaceReport.create!(user_id: user_id, place_id: place_id, reason: reason)
+    response = {type: :success, text: :succeed_to_process, action: class_name, forward: { refresh: { type: 'report' } }}
+    NotificationTrigger.add_admin_moderation(:admin_moderate_report, pr.id)
 
   rescue Exception => e
      Rails.logger.debug("-------------------------------------------#{class_name}-#{e}") # only dev

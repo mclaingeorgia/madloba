@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170602172307) do
+ActiveRecord::Schema.define(version: 20170603092251) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -193,6 +193,14 @@ ActiveRecord::Schema.define(version: 20170602172307) do
     t.datetime "updated_at",        null: false
     t.string   "map_georgian_name"
     t.string   "map_english_name"
+  end
+
+  create_table "notification_triggers", force: :cascade do |t|
+    t.integer  "notification_type"
+    t.integer  "related_id"
+    t.boolean  "processed",         default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "page_content_translations", force: :cascade do |t|

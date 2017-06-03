@@ -1,0 +1,20 @@
+- I18n.available_locales.each_with_index do |locale, locale_i|
+  - I18n.locale = locale
+
+
+  .hello= t('notification.admin_moderate.hello')
+  %br
+  .intro= t('notification.admin_moderate.intro')
+
+  %ul.content
+  - @message.message.each do |item|
+    %li= t("notification.admin_moderate.#{item[0]}_item", n: item[1])
+
+  %br
+  %br
+  = '---'
+  .signature
+    = "#{t('app.common.name')} - #{t('app.common.slogan')}"
+
+  - if locale_i != I18n.available_locales.length - 1
+    %hr

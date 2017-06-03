@@ -18,6 +18,7 @@ class Tag < ActiveRecord::Base
         t = Tag.find_by(name: tag)
         if !t.present?
           t = Tag.create(user_id: user_id, place_id: place_id, name: tag)
+          NotificationTrigger.add_admin_moderation(:admin_moderate_tag, t.id)
         end
         tag_ids << t.id
       }

@@ -36,7 +36,7 @@ class ProviderPolicy < ApplicationPolicy
     user.admin?
   end
 
-  def send_message
+  def send_message?
     true # even guest can send messages to provider
   end
 

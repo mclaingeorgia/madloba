@@ -19,6 +19,13 @@ class Provider < ActiveRecord::Base
     has_many :provider_places
     has_many :places, -> { where( 'places.deleted': false) }, through: :provider_places, source: :place
 
+  # callbacks
+
+    after_create :queue_send_mail
+
+    def queue_send_mail
+      NotificationTrigger.add_admin_moderation(:admin_moderate_new_provider, self.id)
+    end
   # scopes
 
     # default_scope { where.not(id: 1) }

@@ -94,6 +94,12 @@ class User < ActiveRecord::Base
       I18n.t("activerecord.attributes.user.roles.#{self.role}")
     end
 
+    def self.admin_emails
+      emails = []
+      users = User.where(role: 2)
+      emails = users.map{|m| m.email}.join(';') if users.present?
+      return emails
+    end
   # filters
 
     def self.autocomplete(q, user, related_id)

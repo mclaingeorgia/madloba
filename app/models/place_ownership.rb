@@ -10,6 +10,7 @@ class PlaceOwnership < ActiveRecord::Base
   validates :user_id, :place_id, :provider_id, presence: true
 
   def self.requested?(user_id, place_id)
+     Rails.logger.debug("--------------------------------------------#{user_id} #{place_id}")
     pending.find_by(user_id: user_id, place_id: place_id).present?
   end
 
@@ -31,22 +32,25 @@ class PlaceOwnership < ActiveRecord::Base
     else
       provider_params = provider_params.merge({ processed: 0, user_ids: [user_id] })
       provider = Provider.create!(provider_params.permit(*(Provider.globalize_attribute_names + [:processed, user_ids: []])))
-      provider.user << current_user
+      provider.update_attributes({created_by: current_user.id})
     end
 
     place = Place.find(place_id)
 
     provider_id = provider.id
 
-    if current_user.providers.include?(provider) && !current_user.providers.include?(Place.find(place_id))
+    if Provider.for_user(current_user).include?(provider) && !current_user.providers.include?(place)
       r = pending.find_by(user_id: user_id, place_id: place_id)
-      if !r.present? && PlaceOwnership.create!(user_id: user_id, place_id: place_id, provider_id: provider_id)
+      pp =
+      if !r.present?
+        po = PlaceOwnership.create!(user_id: user_id, place_id: place_id, provider_id: provider_id)
         response = {type: :success, text: :succeed_to_process, action: class_name, forward: { refresh: { type: 'ownership' } }}
+        NotificationTrigger.add_admin_moderation(:admin_moderate_ownership, po.id)
       end
     end
 
   rescue Exception => e
-     Rails.logger.debug("-------------------------------------------#{class_name}-#{e}") # only dev
+     Rails.logger.debug("-------------------------------------------#{class_name}-#{e.inspect}") # only dev
   ensure
     return response.present? ? response : {type: :error, text: :failed_to_process, action: class_name}
   end
