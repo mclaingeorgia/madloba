@@ -51,8 +51,8 @@ class User < ActiveRecord::Base
   # validators
 
     [I18n.locale].each do |locale|
-      validates :"first_name_#{locale}", presence: true, on: :create
-      validates :"last_name_#{locale}", presence: true, on: :create
+      validates :"first_name_#{locale}", presence: true#, on: :create
+      validates :"last_name_#{locale}", presence: true#, on: :create
     end
 
     validates :is_service_provider, inclusion: [true, false]

@@ -13,7 +13,8 @@ class NotificationTrigger < ActiveRecord::Base
   # Take ownership  every hour  to admin moderators
   # new place tags  every hour  to admin moderators
   #
-  # user upload image every hour  to place moderators
+  # TODO user upload image every hour  to place moderators
+
   # service provider moderated  every hour  to user
   # report moderated  every hour  to user
   # ownership moderated every hour  to user
@@ -22,7 +23,8 @@ class NotificationTrigger < ActiveRecord::Base
     puts "**************************"
     puts "--> Notification Triggers - process all types start at #{Time.now}"
     puts "**************************"
-    process_admin_moderations
+    # process_admin_moderations
+    process_moderator_responses
     # process_new_user
     # process_published_theme
     # process_story_collaboration
@@ -33,15 +35,24 @@ class NotificationTrigger < ActiveRecord::Base
   end
 
 
-  TYPES = {:admin_moderate_report => 1, :admin_moderate_ownership => 2, :admin_moderate_new_provider => 3,
-           :admin_moderate_tag => 3}
-
-
+  TYPES = {
+          :admin_moderate_report => 1,
+          :admin_moderate_ownership => 2,
+          :admin_moderate_new_provider => 3,
+          :admin_moderate_tag => 4,
+          :moderator_report_response => 5,
+          :moderator_ownership_response => 6,
+          :moderator_new_provider_response => 7,
+          :moderator_tag_response => 8,
+          :moderator_photo_response => 9
+         }
 
   def self.add_admin_moderation(type, related_id)
     # Rails.logger.debug("--------------------------------------------#{type} #{related_id}")
+
     TYPES.include?(type) && NotificationTrigger.create({notification_type: TYPES[type], related_id: related_id})
   end
+
 
   def self.process_admin_moderations
     puts "--> Notification Triggers - process_admin_moderations"
@@ -53,14 +64,78 @@ class NotificationTrigger < ActiveRecord::Base
     if triggers.present?
       message = Message.new
       message.bcc = User.admin_emails
-      message.subject = "#{I18n.t('app.common.name')} - #{I18n.t('notification.admin_moderate.subject')}"
+      message.subject = "#{I18n.t('app.common.name', locale: :en)} - #{I18n.t('notification.admin_moderate.subject', locale: :en)}"
       message.message = triggers.group_by{|g| g[1]}.map{|k,v| [short_moderation_types[k], v.count]}
 
       NotificationMailer.send_admin_moderations(message).deliver_now# if !Rails.env.staging?
-      # NotificationTrigger.where(id: triggers.map{|m| m[0]}).update_all(:processed => true)
+      NotificationTrigger.where(id: triggers.map{|m| m[0]}).update_all(:processed => true)
     end
   end
 
 
+  def self.add_moderator_response(type, related_id)
+    Rails.logger.debug("--------------------------------------------#{type} #{related_id}")
+    TYPES.include?(type) && NotificationTrigger.create({notification_type: TYPES[type], related_id: related_id})
+  end
 
+  def self.process_moderator_responses #
+    puts "--> Notification Triggers - process_moderator_responses"
+    moderation_types = {
+      5 => :moderator_report_response,
+      6 => :moderator_ownership_response,
+      7 => :moderator_new_provider_response,
+      8 => :moderator_tag_response,
+      9 => :moderator_photo_response
+    }
+    short_moderation_types = { 5 => :report, 6 => :ownership, 7 => :new_provider, 8 => :tag, 9 => :photo }
+
+    grouped_triggers = NotificationTrigger.where(notification_type: moderation_types.keys).pending.group_by{|g| short_moderation_types[g.notification_type] }#.map{|k,v| [short_moderation_types[k], v.count]}
+    users_triggers = {}
+    users_triggers_ids = {}
+    grouped_triggers.each do |trigger_type, triggers|
+      triggers.each do |trigger|
+        if trigger.notification_type == TYPES[:moderator_report_response]
+          item = PlaceReport.find(trigger.related_id)
+        elsif trigger.notification_type == TYPES[:moderator_ownership_response]
+          item = PlaceOwnership.find(trigger.related_id)
+        elsif trigger.notification_type == TYPES[:moderator_new_provider_response]
+          item = Provider.find(trigger.related_id)
+        elsif trigger.notification_type == TYPES[:moderator_tag_response]
+          item = Tag.find(trigger.related_id)
+        elsif trigger.notification_type == TYPES[:moderator_photo_response]
+          item = Upload.find(trigger.related_id)
+        end
+
+        # image moderated every hour  to user
+        # report moderated  every hour  to user
+        # ownership moderated every hour  to user
+        # service provider moderated  every hour  to user
+
+        if users_triggers[item.user_id].nil?
+          users_triggers[item.user_id] = { }
+          users_triggers_ids[item.user_id] = []
+        end
+
+        if users_triggers[item.user_id][trigger_type].nil?
+          users_triggers[item.user_id][trigger_type] = [item]
+        else
+          users_triggers[item.user_id][trigger_type] << item
+        end
+        users_triggers_ids[item.user_id] << trigger.id
+      end
+    end
+    # puts "--------------------------------------#{users_triggers}------"
+    users_triggers.each do |user_id, trigger_by_types|
+      # puts "--------------------------#{user_id}"
+      user = User.find(user_id)
+      message = Message.new
+      message.to = Rails.env.staging? ? User.admin_emails : user.email
+      message.subject = "#{I18n.t('app.common.name', locale: :en)} - #{I18n.t('notification.moderator_response.subject', locale: :en)}"
+      message.message = trigger_by_types
+      # puts "----------------------triggers----#{trigger_by_types.inspect}"
+      NotificationMailer.send_moderator_responses(user, message).deliver_now# if !Rails.env.staging?
+      NotificationTrigger.where(id: users_triggers_ids[user_id]).update_all(:processed => true)
+
+    end
+  end
 end

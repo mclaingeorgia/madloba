@@ -1,0 +1,72 @@
+%style{:media => "screen"}
+  td, th { border: 1px solid #d8d8d8; padding: 6px 10px; text-align: left; }
+
+- type_order = [:report, :ownership, :new_provider, :photo]
+- objects_by_type = @message.message
+- I18n.available_locales.each_with_index do |locale, locale_i|
+  - I18n.locale = locale
+
+  .hello= t('notification.moderator_response.hello', name: @user.name)
+  %br
+  .intro= t('notification.moderator_response.intro')
+
+  %ul{style: 'list-style-type: none;'}
+    - type_order.each do |type|
+      - if objects_by_type[type].present?
+        - objects = objects_by_type[type]
+        %li
+          %span= t("notification.moderator_response.#{type}_type", n: objects.length)
+          %table{style: 'margin:10px 20px 20px; border-collapse: collapse;'}
+            %thead
+              %tr
+                - if type == :report
+                  %th= t('notification.moderator_response.place')
+                  %th= t('notification.moderator_response.reason')
+                  %th= t('notification.moderator_response.state')
+                - elsif type == :ownership
+                  %th= t('notification.moderator_response.place')
+                  %th= t('notification.moderator_response.provider')
+                  %th= t('notification.moderator_response.state')
+                - elsif type == :new_provider
+                  %th= t('notification.moderator_response.provider')
+                  %th= t('notification.moderator_response.description')
+                  %th= t('notification.moderator_response.state')
+                - elsif type == :photo
+                  %th= t('notification.moderator_response.place')
+                  %th= t('notification.moderator_response.photo')
+                  %th= t('notification.moderator_response.state')
+            %tbody
+              - objects.each do |object|
+                %tr
+                  - if type == :report
+                    %td
+                      =object.place.name
+                    %td
+                      =object.reason
+                  - elsif type == :ownership
+                    %td
+                      =object.place.name
+                    %td
+                      =object.provider.name
+                  - elsif type == :new_provider
+                    %td
+                      =object.provider.name
+                    %td
+                      =object.provider.description
+                  - elsif type == :photo
+                    %td
+                      =object.place.name
+                    %td
+                      =image_tag(object.asset.image.url(:thumb))
+                  %td
+                    =t("shared.#{object.processed_human}")
+
+  %br
+  %br
+  = '---'
+  .signature
+    = "#{t('app.common.name')} - #{t('app.common.slogan')}"
+
+  - if locale_i != I18n.available_locales.length - 1
+    %hr
+

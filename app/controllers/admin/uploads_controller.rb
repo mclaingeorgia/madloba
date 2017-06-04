@@ -3,6 +3,7 @@ class Admin::UploadsController < AdminController
   before_filter { @model = Upload; }
 
   def create
+    authorize Upload
     upload_pars = create_upload_params
     assets_pars = create_assets_params
 
@@ -73,6 +74,7 @@ class Admin::UploadsController < AdminController
   end
 
   def upload_state_update
+    authorize Upload
     pars = upload_state_params
     item = @model.find(pars[:id])
     state = ['accept', 'decline'].index(pars[:state])+1
@@ -82,6 +84,7 @@ class Admin::UploadsController < AdminController
         flash.now[:success] =  t('app.messages.state_already_set', obj: item.place.name)
       elsif item.update_attributes(processed: state, processed_by: current_user.id)
         flash.now[:success] =  t("app.messages.#{stated}", obj:  item.place.name)
+        NotificationTrigger.add_moderator_response(:moderator_photo_response, item.id)
         forward = { moderate: { type: :upload,  id: item.id, state: pars[:state] } }
       else
         flash.now[:error] =  t('app.messages.fail_updated_state', obj:  item.place.name)

@@ -384,10 +384,25 @@ en:
       subject: New Moderation Request(s)
       hello: 'Hello Admin,'
       intro: 'You have new items to moderate:'
-      report_item: '%{n} place report(s).'
+      report_item: '%{n} place report(s)'
       ownership_item: '%{n} take ownership request(s)'
       new_provider_item: '%{n} new provider(s)'
       tag_item: '%{n} tag(s)'
+    moderator_response:
+      subject: Your request(s) was moderated
+      hello: 'Hello %{name},'
+      intro: 'Moderated request(s):'
+      report_type: '%{n} place report(s)'
+      ownership_type: '%{n} take ownership request(s)'
+      new_provider_type: '%{n} new provider(s)'
+      tag_type: '%{n} tag(s)'
+      photo_type: '%{n} new photos(s)'
+      labels:
+        place: Place
+        reason: Reason
+        state: State
+        provider: Provider
+        description: Description
     contact:
       subject: Customer Message
       hello: 'Hello,'

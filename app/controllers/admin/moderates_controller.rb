@@ -36,7 +36,7 @@ class Admin::ModeratesController < AdminController
       flash.now[:success] =  t('app.messages.state_already_set', obj: item.place.name)
     elsif item.update_attributes(processed: state, processed_by: current_user.id)
       flash.now[:success] =  t("app.messages.#{stated(pars[:state])}", obj: item.place.name)
-      # send notification to user
+      NotificationTrigger.add_moderator_response(:moderator_report_response, item.id)
       forward = { moderate: { type: :report,  id: item.id, state: pars[:state] } }
     else
       flash.now[:error] =  t('app.messages.fail_updated_state', obj: item.place.name)
@@ -70,7 +70,8 @@ class Admin::ModeratesController < AdminController
       flash.now[:success] =  t('app.messages.state_already_set', obj: place.name)
     elsif item.process(current_user, state)
       flash.now[:success] =  t("app.messages.#{stated(pars[:state])}", obj: place.name)
-      # send notification to user
+      NotificationTrigger.add_moderator_response(:moderator_ownership_response, item.id)
+      # TODO if new provider accept by default
       forward = { moderate: { type: :provider,  id: item.id, state: pars[:state] } }
     else
       flash.now[:error] =  t('app.messages.fail_updated_state', obj: place.name)
@@ -103,7 +104,7 @@ class Admin::ModeratesController < AdminController
       flash.now[:success] =  t('app.messages.state_already_set', obj: item.name)
     elsif item.update_attributes(processed: state, processed_by: current_user.id)
       flash.now[:success] =  t("app.messages.#{stated(pars[:state])}", obj: item.name)
-      # send notification to user
+      NotificationTrigger.add_moderator_response(:moderator_new_provider_response, item.id)
       forward = { moderate: { type: :provider,  id: item.id, state: pars[:state] } }
     else
       flash.now[:error] =  t('app.messages.fail_updated_state', obj: item.name)
