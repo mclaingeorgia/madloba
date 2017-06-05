@@ -1,0 +1,25 @@
+- objects = @message.message
+- I18n.available_locales.each_with_index do |locale, locale_i|
+  - I18n.locale = locale
+
+  = t('notification.photo_upload.hello', name: @place.name)
+  \
+  = t('notification.photo_upload.intro', n: objects.length)
+  \
+  = '----------------------------------------------'
+  \
+  - objects.each_with_index do |object, object_i|
+    = "#{t('notification.photo_upload.labels.place')}: #{object.place.name}"
+    = "#{t('notification.photo_upload.labels.photo')}: #{image_url(object.asset.image.url(:thumb))}"
+    - if object_i != objects.length - 1
+      = '---'
+  \
+  \
+  \
+  = '---'
+  = "#{t('app.common.name')} - #{t('app.common.slogan')}"
+
+  - if locale_i != I18n.available_locales.length - 1
+    /
+    = '**********************************************'
+    /

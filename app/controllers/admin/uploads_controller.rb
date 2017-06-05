@@ -24,14 +24,6 @@ class Admin::UploadsController < AdminController
           assets_length = assets.length
         end
 
-    # n_photo_uploaded:
-    #   one: "Photo uploaded."
-    #   other: "%{n} photos uploaded."
-    # n_photo_uploaded_and_pending:
-    #   one: "Photo uploaded and waiting to be processed"
-    #   other: "%{n} photos uploaded and waiting to be processed"
-    # uploader_failed: "Error while uploading photos, please contact administration"
-
 
         if flag
           flash[:success] = t('messages.n_photo_uploaded', n: assets_length, count: assets_length)
@@ -49,19 +41,27 @@ class Admin::UploadsController < AdminController
 
         flag = true
         assets_length = 0
+        upload_ids = []
         ActiveRecord::Base.transaction do
-          assets = Asset.create(assets_pars)
-          flag = false if !assets.present?
-          assets_length = assets.length
-          assets.each {|asset|
-            if !@model.create(upload_pars.merge({user_id: current_user.id, asset_id: asset.id}))
-              flag = false
-              raise ActiveRecord::Rollback
-            end
-          }
+          begin
+            assets = Asset.create(assets_pars)
+            flag = false if !assets.present?
+            assets_length = assets.length
+            assets.each {|asset|
+              obj = @model.create!(upload_pars.merge({user_id: current_user.id, asset_id: asset.id}))
+              upload_ids << obj.id
+            }
+          rescue
+            flag = false
+            upload_ids = []
+            raise ActiveRecord::Rollback
+          end
         end
         if flag
           flash[:success] = t('messages.n_photo_uploaded_and_pending', n: assets_length, count: assets_length)
+          upload_ids.each {|uid|
+            NotificationTrigger.add_photo_upload(:provider_photo_upload, uid)
+          }
         else
           flash[:error] = t('messages.uploader_failed')
         end
@@ -82,7 +82,7 @@ class Admin::UploadsController < AdminController
     if current_user.providers.includes(:places).where(places: {id: item.place_id}).count()
       if item.processed == state
         flash.now[:success] =  t('app.messages.state_already_set', obj: item.place.name)
-      elsif item.update_attributes(processed: state, processed_by: current_user.id)
+      elsif item.update_attributes(processed: state, processed_by: current_user.id) && item.asset.update_attributes({owner_type: 1})
         flash.now[:success] =  t("app.messages.#{stated}", obj:  item.place.name)
         NotificationTrigger.add_moderator_response(:moderator_photo_response, item.id)
         forward = { moderate: { type: :upload,  id: item.id, state: pars[:state] } }

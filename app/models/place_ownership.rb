@@ -61,6 +61,7 @@ class PlaceOwnership < ActiveRecord::Base
       if user.present? && provider.present? && place.present? && provider.users.include?(user) && !provider.places.include?(place)
         place.provider.places.delete(place)
         provider.places << place
+        provider.update_attributes(processed: 1, processed_by: current_user.id) if provider.is_pending?
       end
       flag = provider.places.include?(place)
     end

@@ -20,21 +20,21 @@
             %thead
               %tr
                 - if type == :report
-                  %th= t('notification.moderator_response.place')
-                  %th= t('notification.moderator_response.reason')
-                  %th= t('notification.moderator_response.state')
+                  %th= t('notification.moderator_response.labels.place')
+                  %th= t('notification.moderator_response.labels.reason')
+                  %th= t('notification.moderator_response.labels.state')
                 - elsif type == :ownership
-                  %th= t('notification.moderator_response.place')
-                  %th= t('notification.moderator_response.provider')
-                  %th= t('notification.moderator_response.state')
+                  %th= t('notification.moderator_response.labels.place')
+                  %th= t('notification.moderator_response.labels.provider')
+                  %th= t('notification.moderator_response.labels.state')
                 - elsif type == :new_provider
-                  %th= t('notification.moderator_response.provider')
-                  %th= t('notification.moderator_response.description')
-                  %th= t('notification.moderator_response.state')
+                  %th= t('notification.moderator_response.labels.provider')
+                  %th= t('notification.moderator_response.labels.description')
+                  %th= t('notification.moderator_response.labels.state')
                 - elsif type == :photo
-                  %th= t('notification.moderator_response.place')
-                  %th= t('notification.moderator_response.photo')
-                  %th= t('notification.moderator_response.state')
+                  %th= t('notification.moderator_response.labels.place')
+                  %th= t('notification.moderator_response.labels.photo')
+                  %th= t('notification.moderator_response.labels.state')
             %tbody
               - objects.each do |object|
                 %tr

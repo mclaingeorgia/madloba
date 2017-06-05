@@ -396,13 +396,22 @@ en:
       ownership_type: '%{n} take ownership request(s)'
       new_provider_type: '%{n} new provider(s)'
       tag_type: '%{n} tag(s)'
-      photo_type: '%{n} new photos(s)'
+      photo_type: '%{n} photos(s)'
       labels:
         place: Place
         reason: Reason
         state: State
         provider: Provider
         description: Description
+        photo: Photo
+    photo_upload:
+      subject: New photo uploaded
+      hello: 'Hello %{name},'
+      intro: 'You have %{n} uploaded photo(s):'
+      labels:
+        user: User
+        photo: Photo
+        place: Place
     contact:
       subject: Customer Message
       hello: 'Hello,'

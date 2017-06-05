@@ -1,0 +1,32 @@
+%style{:media => "screen"}
+  td, th { border: 1px solid #d8d8d8; padding: 6px 10px; text-align: left; }
+
+- objects = @message.message
+- I18n.available_locales.each_with_index do |locale, locale_i|
+  - I18n.locale = locale
+
+  .hello= t('notification.photo_upload.hello', name: @place.name)
+  %br
+  .intro= t('notification.photo_upload.intro', n: objects.length)
+
+  %table{style: 'margin:10px 20px 20px; border-collapse: collapse;'}
+    %thead
+      %tr
+        %th= t('notification.photo_upload.labels.user')
+        %th= t('notification.photo_upload.labels.photo')
+    %tbody
+      - objects.each do |object|
+        %tr
+          %td
+            =object.user.name
+          %td
+            =image_tag(object.asset.image.url(:thumb))
+  %br
+  %br
+  = '---'
+  .signature
+    = "#{t('app.common.name')} - #{t('app.common.slogan')}"
+
+  - if locale_i != I18n.available_locales.length - 1
+    %hr
+

@@ -1,0 +1,43 @@
+- type_order = [:report, :ownership, :new_provider, :photo]
+- objects_by_type = @message.message
+- I18n.available_locales.each_with_index do |locale, locale_i|
+  - I18n.locale = locale
+
+  = t('notification.moderator_response.hello', name: @user.name)
+  \
+  = t('notification.moderator_response.intro')
+  \
+  - type_order.each do |type|
+    - if objects_by_type[type].present?
+      - objects = objects_by_type[type]
+      = '----------------------------------------------'
+      \
+      = t("notification.moderator_response.#{type}_type", n: objects.length)
+      \
+      - objects.each_with_index do |object, object_i|
+        - if type == :report
+          = "#{t('notification.moderator_response.labels.place')}: #{object.place.name}"
+          = "#{t('notification.moderator_response.labels.reason')}: #{object.reason}"
+        - elsif type == :ownership
+          = "#{t('notification.moderator_response.labels.place')}: #{object.place.name}"
+          = "#{t('notification.moderator_response.labels.provider')}: #{object.provider.name}"
+        - elsif type == :new_provider
+          = "#{t('notification.moderator_response.labels.provider')}: #{object.provider.name}"
+          = "#{t('notification.moderator_response.labels.description')}: #{object.provider.description}"
+        - elsif type == :photo
+          = "#{t('notification.moderator_response.labels.place')}: #{object.place.name}"
+          = "#{t('notification.moderator_response.labels.photo')}: #{image_url(object.asset.image.url(:thumb))}"
+
+        = t('notification.moderator_response.labels.state') + ': ' + t("shared.#{object.processed_human}")
+        - if object_i != objects.length - 1
+          = '---'
+      \
+  \
+  \
+  = '---'
+  = "#{t('app.common.name')} - #{t('app.common.slogan')}"
+
+  - if locale_i != I18n.available_locales.length - 1
+    /
+    = '**********************************************'
+    /

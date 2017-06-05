@@ -8,6 +8,9 @@ class ApplicationMailer < ActionMailer::Base
 
   def send_contact_message(message)
     @message = message
-    mail(:bcc => message.bcc, :subject => message.subject)
+    mail(:bcc => message.bcc, :subject => message.subject) do |format|
+      format.html { render 'mailers/application/send_contact_message' }
+      format.text { render 'mailers/application/send_contact_message' }
+    end
   end
 end

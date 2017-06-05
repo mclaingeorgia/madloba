@@ -71,7 +71,6 @@ class Admin::ModeratesController < AdminController
     elsif item.process(current_user, state)
       flash.now[:success] =  t("app.messages.#{stated(pars[:state])}", obj: place.name)
       NotificationTrigger.add_moderator_response(:moderator_ownership_response, item.id)
-      # TODO if new provider accept by default
       forward = { moderate: { type: :provider,  id: item.id, state: pars[:state] } }
     else
       flash.now[:error] =  t('app.messages.fail_updated_state', obj: place.name)

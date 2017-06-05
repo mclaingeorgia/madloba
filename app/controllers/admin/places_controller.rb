@@ -64,7 +64,6 @@ class Admin::PlacesController < AdminController
       manage_provider_profile_path(page: 'manage-places')
 
     @item = item if redirect_default
-     Rails.logger.debug("---------------------------------------#{item.valid?}-----#{item.errors.inspect}")
     respond_to do |format|
       if item.update_attributes(pars)
         Tag.remove_pended(old_tag_ids) if old_tag_ids.present?
