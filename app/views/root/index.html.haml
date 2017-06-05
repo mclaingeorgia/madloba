@@ -2,14 +2,15 @@
 - content_for :custom_javascript, 'page/root'
 %section.content#filter
   .search
-    #by_what.filter-input
+    .search-input.first
       %label=t('.what')
       %input{type: 'text', placeholder: t('.placeholder.what'), 'data-filter': 'what', value: filter[:what] }
     .bar
-    #by_where.filter-input
-      %label= t('.where')
-      %input{type: 'text', placeholder: t('.placeholder.where'), 'data-filter': 'where', value: filter[:where] }
-    %input{type: 'submit', value: t('shared.search')}
+    .search-group
+      .search-input
+        %label= t('.where')
+        %input{type: 'text', placeholder: t('.placeholder.where'), 'data-filter': 'where', value: filter[:where] }
+      %input{type: 'submit', value: t('shared.search')}
   .filter
     %ul
       %li.prompt
@@ -37,18 +38,22 @@
             %button.reset=t('.cancel')
             %button.apply=t('.apply')
         .inner-right-border
-      %li#by_rate
-        = render partial: 'shared/rator', locals: { rate: filter[:rate], rator: {'data-filter': 'rate'}, label: t('.rating'), is_filter: true }
-      %li#by_favorite
-        = render partial: 'shared/favoritor', locals: { is_filter: true, is_favorite: filter[:favorite], label: t('.favorites'), title: filter[:favorite] ? t('.alt.show_all') : t('.alt.show_favorite') }
+      %li.filter-group
+        #by_rate
+          = render partial: 'shared/rator', locals: { rate: filter[:rate], rator: {'data-filter': 'rate'}, label: t('.rating'), is_filter: true }
+        #by_favorite
+          = render partial: 'shared/favoritor', locals: { is_filter: true, is_favorite: filter[:favorite], label: t('.favorites'), title: filter[:favorite] ? t('.alt.show_all') : t('.alt.show_favorite') }
   .info
     .map-view
+      %span Map View
+      %i
     .count
       = 0
       %span= t('.result', count: 1)
   .result-container
     %ul.result
-    = render partial: "shared/footer", locals: { with_links: true }
+    .desktop
+      = render partial: "shared/footer", locals: { with_links: true }
 %section.mapper
   .map-container
     #places_map.map
@@ -59,3 +64,5 @@
       .in{'data-map': 'locator_map'} +
       .hr
       .out{'data-map': 'locator_map'} −
+.mobile
+  = render partial: "shared/footer"

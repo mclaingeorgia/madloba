@@ -8,7 +8,7 @@
     // if(request.getResponseHeader('X-Message') !== null) {
     //   request.getResponseHeader("X-Message-Type");
     // }
-    console.log(request, request.responseText)
+    // console.log(request, request.responseText)
     if(request.hasOwnProperty('responseJSON')) {
       var json = request.responseJSON
       if(json.hasOwnProperty('reload') && json.reload === true) {
@@ -27,7 +27,7 @@
       }
       else {
         if(json.hasOwnProperty('trigger')) {
-          console.log('trigger ajax')
+          // console.log('trigger ajax')
           xhr($('[data-xhr="' + json.trigger + '"]'))
         }
         if(json.hasOwnProperty('flash')) {
@@ -114,7 +114,7 @@
               $moderation_item.attr('data-upload-state', null)
               $moderation_item.find('.actions a').first().remove()
             }
-            console.log($moderation_item.find('.state'))
+            // console.log($moderation_item.find('.state'))
             $moderation_item.find('.state').text(gon.labels[stated]).removeClass(stated_was).addClass(stated)
             generated_url = gon.labels.upload_state_path.replace('_id_', id).replace('_state_', state_was)
             $moderation_item.find('.actions a').removeClass(state).addClass(state_was).attr('href', generated_url).text(gon.labels[state_was])
@@ -144,7 +144,7 @@
         } else if (type === 'favorite') {
           var $favoritor = $('[data-place-id="' + options['place_id'] + '"] .favoritor')
           $place = $favoritor.closest('[data-place-id]')
-          console.log(to, to === true)
+          // console.log(to, to === true)
           if(to === true || to === false) {
             $favoritor.attr('data-f', to).attr('href', $favoritor.attr('data-href-template').replace(/_v_/g, !to))
             $favoritor.attr('title', to ? gon.labels.unfavorite : gon.labels.favorite)

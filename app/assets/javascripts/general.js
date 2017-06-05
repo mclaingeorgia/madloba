@@ -87,17 +87,19 @@ if(gon.hasOwnProperty('history')) {
   'parent' value will calculate height based on parent elements position
 */
 pollution.hooks.resize.push(function(windowWidth, windowHeight) {
-  $('[data-set-max-height]').each(function() {
-    var t = $(this)
-    var v = t.attr('data-set-max-height')
-    if(v === 'parent') {
-      var tmpHeight = t.parent().outerHeight() + t.parent().position().top + 1
-      t.css('max-height', windowHeight - tmpHeight )
-    }
-    else {
-      t.css('max-height', windowHeight - 75 )
-    }
-  })
+  if(device.desktop()) {
+    $('[data-set-max-height]').each(function() {
+      var t = $(this)
+      var v = t.attr('data-set-max-height')
+      if(v === 'parent') {
+        var tmpHeight = t.parent().outerHeight() + t.parent().position().top + 1
+        t.css('max-height', windowHeight - tmpHeight )
+      }
+      else {
+        t.css('max-height', windowHeight - 75 )
+      }
+    })
+  }
 })
 
 
