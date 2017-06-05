@@ -37,7 +37,7 @@ env :PATH, ENV['PATH']
 # end
 
 # send notifications
-every 1.hour do
+every 2.hour do
   runner "NotificationTrigger.process_all_types"
 end
 
