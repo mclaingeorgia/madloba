@@ -9,7 +9,7 @@ gem 'rake', '< 11.0'
 gem 'pg'
 
 # used to schedule mail send
-gem 'whenever'
+gem 'whenever', :require => false
 
 # Use Bootstrap and SCSS for stylesheets
 gem 'bootstrap-sass', '~> 3.3.6'
