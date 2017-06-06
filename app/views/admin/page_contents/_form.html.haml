@@ -1,7 +1,7 @@
 .form-container{class: @form_container_class}
   = simple_form_for obj, html: { class: @form_class } do |f|
     = devise_error_messages!
-    = render partial: 'shared/fields_localization', locals: { fields: { title: nil, content: { as: :text, input_html: { rows: 6 } } } , form: f }
+    = render partial: 'shared/fields_localization', locals: { fields: { title: nil, content: { as: :text, input_html: { rows: 10, style: 'width: 100%' } } } , form: f }
     .actions
       = f.submit t("app.common.save")
       = f.submit t("app.common.cancel"), type: :reset

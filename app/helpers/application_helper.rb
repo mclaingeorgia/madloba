@@ -43,7 +43,7 @@ module ApplicationHelper
     messages.keys.sort.each{|item|
       ordered_messages << resource.errors.full_messages_for(item).join(joiner)
     }
-    ordered_messages.join(joiner)
+    ordered_messages.join(joiner).html_safe
   end
   def set_user_return_to
     session[:user_return_to] = current_url
@@ -72,7 +72,7 @@ module ApplicationHelper
 
   def custom_label(str, required = false)
     required_str = required ? '<abbr title="required">*</abbr>' : ''
-    "#{str}#{required_str.html_safe}:"
+    "#{str}#{required_str.html_safe}:".html_safe
   end
 
   def user_guest?

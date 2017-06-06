@@ -15,17 +15,31 @@ class Admin::PlacesController < AdminController
 
   def create
     pars = strong_params
-    redirect_default = pars.delete(:redirect_default) == 'true'
-    item = @model.new(pars)
-    authorize item
 
+    tags = pars[:tags].present? ? pars.delete(:tags) : []
+
+    if pars[:provider_id].present?
+      provider = Provider.find_by(id: pars[:provider_id])
+    end
+
+    redirect_default = pars.delete(:redirect_default) == 'true'
     redirect_path = redirect_default ?
       manage_places_path :
       manage_provider_profile_path(page: 'manage-places')
 
+    item = @model.new(pars)
+    authorize item
+
     @item = item if redirect_default
 
     if item.save
+      tag_ids = tags.present? ? Tag.process(current_user.id, item.id, tags) : []
+      item.update_attributes({ tag_ids: tag_ids })
+
+      if provider.present?
+        provider.places << item
+      end
+
       flash[:success] = t('app.messages.success_updated', obj: @model)
       redirect_to redirect_path
     else
@@ -54,7 +68,7 @@ class Admin::PlacesController < AdminController
     old_tag_ids = item.tag_ids - tag_ids
 
     if pars[:provider_id].present?
-      provider = Provider.find_by(id: pars.delete(:provider_id))
+      provider = Provider.find_by(id: pars[:provider_id])
     end
 
 
@@ -69,7 +83,7 @@ class Admin::PlacesController < AdminController
         Tag.remove_pended(old_tag_ids) if old_tag_ids.present?
 
         if provider.present?
-          item.provider.places.delete(item)
+          item.provider.places.delete(item) if item.provider.present?
           provider.places << item
         end
 

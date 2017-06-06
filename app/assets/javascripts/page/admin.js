@@ -18,13 +18,11 @@ $(document).ready(function(){
     autoWidth: false,
     responsive: true,
     dom: '<".datatable-filters"fl>rt<"datatable-pagination"p>',
-    columnDefs: [
-      { targets: 'sorting_disabled', orderable: false }
-    ]
+    "order": []
   })
 
 })
-
+// columnDefs: [  { visible: false, targets: [5,12,13] } ],
 
 $(".field-file").change(function(e) {
   var t = $(this)
@@ -67,16 +65,16 @@ $('.field-array .field-add').click(function(event) {
   event.stopPropagation()
   event.preventDefault()
 })
-
 $(".field-tag .field-input").keydown(function(event) {
   var t = $(this)
   var tag_wrapper = t.parent().find('.field-inputs')
   var code = event.keyCode || event.which
   var v = t.val()
-  console.log(code)
-  if(code === 13 && !tag_wrapper.find('li input[value="' + v + '"]').length) {
+  // console.log(code)
+  if(code === 13 && !tag_wrapper.find('li input[value="' + v + '"]').length && v !== '') {
     tag_wrapper.append('<li><label>' + v + '</label><input type="hidden" value="' + v + '" name="place[tags][]"><div class="close"></div></li>')
     t.val('')
+    event.preventDefault()
   }
 })
 
@@ -129,4 +127,16 @@ $("[data-assign]").each(function(i,d) {
       }
     })
 
+})
+
+
+$('#user_has_agreed').change(function() {
+  var state = $(this).is(":checked")
+  $('#new_user input[type="submit"]').attr('disabled', !state)
+})
+
+$('[name="user[is_service_provider]"').change(function() {
+  var state = $(this).val()
+  $('#user_providers').toggle(state)
+  console.log('here', state)
 })

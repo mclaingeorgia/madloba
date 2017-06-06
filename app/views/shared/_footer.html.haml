@@ -1,5 +1,6 @@
 - with_links ||= false
-%footer
+- klass ||= nil
+%footer{class: klass}
   .mac
     = link_to image_tag(asset_path("svg/mac_grayscale.svg"), alt: t('app.common.mac_alt'), title: t('app.common.mac_alt')).html_safe, "http://www.macgeorgia.org/", target: '_blank'
   .js

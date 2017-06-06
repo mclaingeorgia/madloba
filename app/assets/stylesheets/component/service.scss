@@ -9,10 +9,14 @@ ul.services {
   display: block;
   white-space: nowrap;
   padding:0 16px 12px 0;
+  &.inline {
+    display: inline-block;
+  }
   i {
     display: inline-block;
     width: 25px;
     height: 19px;
+    min-width: 25px;
     margin: 0 8px 0 0;
     vertical-align: top;
     background-color: transparent;

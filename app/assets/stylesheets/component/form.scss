@@ -587,20 +587,14 @@
 
 }
 .field-wrapper.field-assign {
-   display: flex !important;
-   flex-direction: row;
    margin-left: 30px;
    margin-bottom: 36px;
   .field-label {
     @include font(18, 'b');
     color: $text;
-    margin-right: 140px;
     white-space: nowrap;
-    flex: 2;
   }
-  .field-aside {
-    flex: 3;
-  }
+
   .field-input {
     white-space: nowrap;
     padding-bottom: 12px;

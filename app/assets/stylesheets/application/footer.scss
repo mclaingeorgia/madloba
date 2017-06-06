@@ -3,16 +3,22 @@
   footer {
     background-color: $bg;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    min-height: 104px;
+    justify-content: left;
+    flex-wrap: wrap;
+    min-height: 52px;
+    border-top: 1px solid $border;
+    &.light {
+      background-color: $bg2;
+    }
+    // min-height: 104px;
     a {
       display: inline-block;
       white-space: nowrap;
     }
     .mac, .js {
-      padding: 0 6px 6px;
+      padding: 0 6px 0;//6px;
       white-space: nowrap;
     }
 

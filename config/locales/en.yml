@@ -81,6 +81,11 @@ en:
               too_long: "The image must be less than 5MB"
             number_of_items:
               greater_than: "Please add at least 1 service."
+  simple_form:
+    placeholders:
+      place:
+        website: 'http://example.com'
+        tags: Type tag name and press enter
   app:
     languages:
       en: English
@@ -170,13 +175,13 @@ en:
       ownership: 'Are you a service provider and this is your place? Take ownership of this place so you can manage the content.'
       favorite: Add or remove this place from your favorites
   messages:
-    succeed_to_process: Request to %{action} processed successfully.
+    succeed_to_process: '%{action} was successfully submitted'
     succeed_to_process_reject: Request to reject %{action} processed successfully.
     failed_to_process: Request to %{action} failed.
-    place_rate: rate place
-    favorite_place: favorite place
-    place_ownership: take place ownership
-    place_report: report place
+    place_rate: Place rating
+    favorite_place: Favorite place
+    place_ownership: Take place ownership
+    place_report: Place report
     n_photo_uploaded:
       one: "Photo uploaded."
       other: "%{n} photos uploaded."
@@ -198,6 +203,7 @@ en:
       delete: Delete
       actions: Actions
       assign: Assign
+      view: View
       add_model: "Add %{name}"
       edit_model: "Edit %{name}"
       manage_model: "Manage %{name}"
@@ -213,7 +219,7 @@ en:
         places: 'Places:'
     places:
       current_provider: Assigned provider
-      update_provider: Assign to new provider
+      update_provider: Assign provider
       list:
         provider: "Provider:"
     place:
@@ -345,7 +351,6 @@ en:
       report: Report
       take_ownership: Take Ownership
       take_ownership_underway: Ownership Under Consideration
-      report_underway: Report Under Consideration
       share: Share
       service_tags: Service Tags
       comments: Comments

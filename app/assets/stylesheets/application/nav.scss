@@ -190,6 +190,13 @@
               }
               ul.last {
                 padding: 10px 46px 22px 20px;
+                li a {
+                  opacity: .8;
+                  &:hover {
+                    opacity: 1;
+                  }
+                }
+
               }
               a {
                 @include font(18, 'sb', 20);

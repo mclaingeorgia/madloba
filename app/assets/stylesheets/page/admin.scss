@@ -1,3 +1,4 @@
+// *= require dataTables/bootstrap/2/jquery.dataTables.bootstrap
 @import 'var';
 @import 'component/service';
 @import 'component/breadcrumbs';
@@ -6,10 +7,8 @@
 @import 'component/favoritor';
 @import 'component/rating';
 @import 'component/rator';
-@import 'component/service';
 @import 'component/slideshow';
 @import 'select2';
-
 
 
 main {

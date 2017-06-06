@@ -116,7 +116,6 @@ class RootController < ApplicationController
       favorite: t('shared.favorite'),
       unfavorite: t('shared.unfavorite'),
       ownership_under_consideration: t('.take_ownership_underway'),
-      report_under_consideration: t('.report_underway')
     })
     gon.place_address = item.address
 

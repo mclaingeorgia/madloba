@@ -80,6 +80,7 @@
     input[type="checkbox"] + label:before {
       width:14px;
       height:14px;
+      min-width: 14px;
       background:url(svg('map_checkbox')) no-repeat 0 top;
     }
     input[type="checkbox"]:checked + label:before {

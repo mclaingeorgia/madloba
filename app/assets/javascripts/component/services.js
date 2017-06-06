@@ -16,10 +16,13 @@
       var close_html = '<div class="close"></div>'
 
       $element.find('.toggle').click(function () {
-        $element.toggleClass('collapsed', state.is_open)
-        state.is_open = !state.is_open
-        if(state.is_open) {
+        if(!state.is_open) {
+          $element.toggleClass('collapsed', state.is_open)
+          state.is_open = !state.is_open
           state.reset = t.get($element)
+        }
+        else {
+          $element.find('button.reset').trigger('click')
         }
       })
 

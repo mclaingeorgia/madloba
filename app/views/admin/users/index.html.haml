@@ -5,11 +5,11 @@
   %table.datatable.datatable-table.table-responsive{width: '100%'}
     %thead
       %tr
-        %th.spacer
+        %th.spacer{'data-orderable': 'false'}
         %th= @model.human_attribute_name(:name)
         %th= @model.human_attribute_name(:email)
         %th.fill= @model.human_attribute_name(:role)
-        %th.actions= t('admin.shared.actions')
+        %th.actions{'data-orderable': 'false'}= t('admin.shared.actions')
     %tbody
       - @items.each do |item|
         %tr

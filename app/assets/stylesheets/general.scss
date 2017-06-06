@@ -76,6 +76,9 @@
   html.desktop {
     .mobile { display: none !important; }
   }
+  html.mobile {
+    .desktop { display: none !important; }
+  }
 /****************************** scroll bar ******************************/
   *::-webkit-scrollbar-track {
     background-color: $bg;
@@ -142,6 +145,7 @@
       content: "";
       width:23px;
       height:23px;
+      min-width: 23px;
       background:url(svg('checkbox')) no-repeat 0 top;
       cursor:pointer;
       margin-right: 7px;
@@ -175,4 +179,6 @@ abbr[title='required'] {
 //   color: $control;
 // }
 
-
+.ib {
+  display: inline-block
+}

@@ -1,18 +1,18 @@
-- title = t('admin.places.manage')
+- title = t('admin.shared.manage_model', name: @model.human(2))
 - page_title title
 = render partial: 'shared/breadcrumbs', locals: { paths: [title], buttons: [[t('admin.shared.add_model', name: @model.human ), new_manage_place_path, 'add']] }
 .table-view
   %table.datatable.datatable-table.table-responsive{width: '100%'}
     %thead
       %tr
-        %th.spacer
+        %th.spacer{'data-orderable': 'false'}
         %th= @model.human_attribute_name(:name)
         %th.fill= @model.human_attribute_name(:address)
         %th.fill= @model.human_attribute_name(:city)
         %th.fill= @model.human_attribute_name(:region)
         %th.fill= @model.human_attribute_name(:emails)
         %th.fill= @model.human_attribute_name(:website)
-        %th.actions= t('admin.shared.actions')
+        %th.actions{'data-orderable': 'false'}= t('admin.shared.actions')
     %tbody
       - @items.each do |item|
         %tr
@@ -22,7 +22,9 @@
           %td= item.city
           %td= item.region.name
           %td= item.email
-          %td= item.website
+          %td
+            - if item.website.present?
+              %a{href: item.website, class: 'btn', target: :_blank }= t('admin.shared.view')
           %td.actions
             = link_to t('admin.shared.edit'), edit_manage_place_path(item.id), class: 'edit'
             - if item.deleted?

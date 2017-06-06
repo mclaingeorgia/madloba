@@ -40,6 +40,18 @@ class User < ActiveRecord::Base
       self.role ||= :user
     end
 
+    before_validation :remove_blanks
+
+    def remove_blanks
+      I18n.available_locales.each do |locale|
+        Globalize.with_locale(locale) do
+          self.first_name = nil if self.first_name.blank?
+          self.last_name = nil if self.last_name.blank?
+        end
+      end
+    end
+
+
   #scopes
     default_scope { where.not(email: 'application@sheaghe.ge').where(deleted: false) }
 
@@ -49,17 +61,42 @@ class User < ActiveRecord::Base
     end
 
   # validators
+    # [I18n.locale].each do |locale|
+    #  Rails.logger.debug("--------------------------------------------first_name_#{locale}")
+    #   validates :"first_name_#{locale}", presence: true#, on: :create
+    #   validates :"last_name_#{locale}", presence: true#, on: :create
+    # end
+    # validates :first_name_ka, presence: true, if: Proc.new {|p|
+    #    Rails.logger.debug("--------------------------------------------#{I18n.locale}")
+    #  I18n.locale == :ka }
+    # validates :first_name_en, presence: true, if: Proc.new {|p| I18n.locale == :en }
 
-    [I18n.locale].each do |locale|
-      validates :"first_name_#{locale}", presence: true#, on: :create
-      validates :"last_name_#{locale}", presence: true#, on: :create
+    before_validation :add_instance_validations
+    def add_instance_validations
+       Rails.logger.debug("-------------------------------------------instance validatin")
+      singleton_class.class_eval { validates :first_name_ka, presence: true }
     end
+    # validates :first_name_ka, :presence => true, :if => :check_country
+
+    # def check_country
+    #    Rails.logger.debug("--------------------------------------------check first_name ka")
+    #   I18n.locale == :ka
+    #   # ["US", "Canada"].include?(self.country)
+    # end
+
 
     validates :is_service_provider, inclusion: [true, false]
     validates :has_agreed, inclusion: [true], on: :create
 
     validate :check_providers_number, on: :create
+    # validate :check_globalize_attributes
 
+    # def check_globalize_attributes
+    #   Globalize.with_locale(I18n.locale) do
+    #    Rails.logger.debug("-------------------------------------------here #{self.first_name} #{self.last_name}")
+    #     self.first_name. && self.last_name.present?
+    #   end
+    # end
   # helpers
 
     def guest?

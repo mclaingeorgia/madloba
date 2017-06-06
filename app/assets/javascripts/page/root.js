@@ -13,3 +13,16 @@ $(document).on('click', '.result .region-name', function() {
   p.toggleClass('collapsed')
   $('.result').find('.place-card[data-region-id="' + p.attr('data-id') + '"]').toggleClass('hidden', p.hasClass('collapsed'))
 })
+
+$(document).on('click', '[toggle-view]', function() {
+  var t = $(this)
+  var view = t.attr('toggle-view')
+  var is_map_view = view === 'map'
+
+  $('[toggle-view]').removeClass('hidden')
+  t.addClass('hidden')
+  $('.result-container').toggleClass('hidden', is_map_view)
+  $('.mapper').toggleClass('hidden', !is_map_view)
+   pollution.elements.places_map.invalidateSize()
+  console.log('toggle-view')
+})

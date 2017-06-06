@@ -4,7 +4,7 @@
     = f.input :redirect_default, as: :hidden, input_html: { value: redirect_default }
     .column-view
       .column
-        = render partial: 'shared/fields_localization', locals: { fields: { name: nil, description: { as: :text, input_html: { class: 'tinymce' } }} , form: f }
+        = render partial: 'shared/fields_localization', locals: { fields: { name: nil, description: { as: :text, input_html: { rows: 10, style: 'width: 100%' } }} , form: f }
         .indent
           .fields-collection
             %label.fields-collection-label= Place.human_attribute(:services, false)
@@ -17,19 +17,20 @@
                     %span= b.text
           = f.input :emails, as: :array, input_html: { 'data-max': 3 }
           = f.input :phones, as: :array, input_html: { 'data-max': 3 }
-          = f.input :website
+          = f.input :website, placeholder: true
           .field-wrapper.field-tag
             %label.field-label= Place.human_attribute(:tags)
-            %input.field-input{type: :text}
+            %input.field-input{type: :text, placeholder: t('simple_form.placeholders.place.tags')}
             %ul.field-inputs
               =f.object.tags.map{|m| "<li><label>#{m.name}</label><input type='hidden' value='#{m.name}' name=place[tags][]><div class='close'></div></li>" }.join("").html_safe
           = f.input :published
-          - possible_providers = Provider.only_active.for_user(current_user, @is_admin_profile_page).excluding(f.object.provider.id)
+          - possible_providers = Provider.only_active.for_user(current_user, @is_admin_profile_page)
+          -# possible_providers = possible_providers.excluding(f.object.provider.id) if f.object.provider.present?
           .field-wrapper
-            - if !possible_providers.present?
-              %label.field-label= custom_label(t('admin.places.update_provider'))
-              = collection_select :place, :provider_id, possible_providers, :id, :name, {include_blank: true}, { class: 'field-input'}
-            - else
+            - if possible_providers.present?
+              %label.field-label= custom_label(t('admin.places.update_provider'), true)
+              = collection_select :place, :provider_id, possible_providers, :id, :name, { selected: f.object.provider.present? ? f.object.provider.id : @provider_id}, { class: 'field-input'}
+            -# else
               %label.field-label= custom_label(t('admin.places.current_provider'))
               %span.field-input= f.object.provider.name
       .column

@@ -4,7 +4,7 @@
     content_el: undefined,
     init: function () {
       var t = flash
-      t.el = $('#flash'),
+      t.el = $('#flash')
       t.content_el = t.el.find('.messages')
       t.bind()
 
@@ -29,7 +29,7 @@
     open: function () {
       var t = flash
       t.el.attr('open', 'open')
-        .delay(5000).fadeOut(2000, function(){
+        .delay(10000).fadeOut(2000, function(){
           t.close()
         });
       return t

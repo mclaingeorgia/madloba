@@ -5,15 +5,15 @@
   %table.datatable.datatable-table.table-responsive{width: '100%'}
     %thead
       %tr
-        %th.spacer
-        %th= @model.human_attribute_name(:name)
-        %th.fill= @model.human_attribute_name(:title)
-        %th.actions= t('admin.shared.actions')
+        %th.spacer{'data-orderable': 'false'}
+        %th= @model.human_attribute_name(:title)
+        %th.fill= @model.human_attribute_name(:content)
+        %th.actions{'data-orderable': 'false'}= t('admin.shared.actions')
     %tbody
       - @items.each do |item|
         %tr
           %td
-          %td= item.name
           %td.nowrap= item.title
+          %td= truncate(strip_tags(item.content), length: 600)
           %td.actions
             = link_to t('admin.shared.edit'), edit_manage_page_content_path(item.id), class: 'edit'

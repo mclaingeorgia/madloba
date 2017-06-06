@@ -38,6 +38,9 @@ class Place < ActiveRecord::Base
 
     has_many :uploads
 
+
+    attr_accessor :provider_id
+
   # callbacks
 
     after_commit :set_poster
@@ -79,6 +82,7 @@ class Place < ActiveRecord::Base
   # validators
 
     validates :region_id, presence: true
+    validates :provider_id, presence: true
     validates :services, :length => { :minimum => 1 }
 
     validates :website, format: { with: URI::regexp }, if: :website?

@@ -2,7 +2,8 @@
 
 .place-card {
   display: inline-block;
-  padding: 0 19px 50px;
+  padding: 0 19px 16px;
+  // padding: 0 14px 16px;
   text-align: left;
   .card-border {
     border: 1px solid $highlighted_bg;
@@ -41,8 +42,10 @@
   // }
   .card {
     padding: 9px;
-    min-width: 327px;
-    max-width: 327px;
+    min-width: 294px;
+    max-width: 294px;
+    // min-width: 327px;
+    // max-width: 327px;
     display: inline-block;
     position: relative;
     height: 100%;
