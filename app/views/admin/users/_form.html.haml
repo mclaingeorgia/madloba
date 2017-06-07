@@ -2,7 +2,7 @@
   = simple_form_for obj, url: url, html: { class: @form_class } do |f|
     = devise_error_messages!
     = f.input :redirect_default, as: :hidden, input_html: { value: redirect_default }
-    = render partial: 'shared/fields_localization', locals: { fields: { first_name: nil, last_name: nil } , form: f }
+    = render partial: 'shared/fields_localization', locals: { fields: { first_name: { required_locale: true }, last_name: { required_locale: true } } , form: f }
     .fields-group
       = f.input :email, label: User.human_attribute_name(:email), required: true
       = f.input :password, input_html: { autocomplete: 'off' }, label: User.human_attribute_name(:password), required: true

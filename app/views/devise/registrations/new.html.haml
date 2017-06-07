@@ -5,7 +5,7 @@
   = simple_form_for resource, as: resource_name, url: registration_path(resource_name), remote: true, html: { :'data-type' => 'json', class: @form_class } do |f|
     -# .header= t('.sign_up')
     = devise_error_messages!
-    = render partial: 'shared/fields_localization', locals: { fields: { first_name: nil, last_name: nil } , form: f }
+    = render partial: 'shared/fields_localization', locals: { fields: { first_name: { required_locale: true }, last_name: { required_locale: true } } , form: f }
     .fields-group
       =# f.input :username
       = f.input :email, required: true

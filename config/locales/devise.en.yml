@@ -77,6 +77,7 @@ en:
       expired: "has expired, please request a new one"
       not_found: "not found"
       not_locked: "was not locked"
+      blank: can't be blank
       not_saved:
         one: "1 error occurred. Please correct it and try to save your %{resource} profile again:"
         other: "%{count} errors occurred. Please correct them and try to save your %{resource} profile again:"

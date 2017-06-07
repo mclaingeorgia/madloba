@@ -11,7 +11,12 @@
     .d.d4
   .tabs-content{'data-target': 'localization'}
     %ul
-      - locales.each_with_index do |locale|
-        %li{class: I18n.locale == locale ? 'active' : nil, 'data-link': locale}
-          - fields.each do |field|
-            = form.input :"#{field[0]}_#{locale}", { label: t("activerecord.attributes.#{form.object.class.name.downcase}.#{field[0]}") }.merge(field[1].present? ? field[1] : {})
+      - fields.each do |field|
+        - field_name = field[0]
+        - field_options = {}
+        - field_options = field[1] if field[1].present?
+        - required_locale = field_options.delete(:required_locale)
+        - locales.each_with_index do |locale|
+          - is_current_locale = I18n.locale == locale
+          %li{class: is_current_locale ? 'active' : nil, 'data-link': locale}
+            = form.input :"#{field_name}_#{locale}", { label: t("activerecord.attributes.#{form.object.class.name.downcase}.#{field[0]}") }.merge(field_options.merge(is_current_locale && required_locale == true ? {required: true} : {}))

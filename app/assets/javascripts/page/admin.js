@@ -7,6 +7,7 @@
 //= require component/rator
 //= require component/favoritor
 //= require component/slideshow
+//= require component/tinymce
 
 $(document).ready(function(){
   $('.datatable').DataTable({

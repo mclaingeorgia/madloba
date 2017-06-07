@@ -1,12 +1,13 @@
 class Provider < ActiveRecord::Base
   include Nameable
   include HumanTranslatable
+  include RequiredLocale
 
   # globalize
 
     translates :name, :description
     globalize_accessors :locales => [:en, :ka], :attributes => [:name, :description]
-
+    globalize_validations([:name, :description])
   # accessors
 
     attr_accessor :redirect_default
@@ -44,11 +45,6 @@ class Provider < ActiveRecord::Base
     scope :sorted, -> { with_translations(I18n.locale).order(name: :asc) }
     scope :unknown, -> { where(id: 1) }
   # validators
-
-    [I18n.locale].each do |locale|
-      validates :"name_#{locale}", presence: true
-      validates :"description_#{locale}", presence: true
-    end
 
   # helpers
 

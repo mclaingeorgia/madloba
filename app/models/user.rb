@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   include Nameable
   include HumanTranslatable
-
+  include RequiredLocale
   # constants
 
     PROVIDERS_COUNT_MIN = 1
@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
 
     translates :first_name, :last_name
     globalize_accessors :locales => [:en, :ka], :attributes => [:first_name, :last_name]
+
+    globalize_validations([:first_name, :last_name])
 
   # accessors
 
@@ -51,6 +53,11 @@ class User < ActiveRecord::Base
       end
     end
 
+    before_save :update_role_if_is_service_provider
+
+    def update_role_if_is_service_provider
+      self.role = :provider if self.is_service_provider
+    end
 
   #scopes
     default_scope { where.not(email: 'application@sheaghe.ge').where(deleted: false) }
@@ -60,43 +67,11 @@ class User < ActiveRecord::Base
         .order('user_translations.first_name ASC, user_translations.last_name ASC')
     end
 
-  # validators
-    # [I18n.locale].each do |locale|
-    #  Rails.logger.debug("--------------------------------------------first_name_#{locale}")
-    #   validates :"first_name_#{locale}", presence: true#, on: :create
-    #   validates :"last_name_#{locale}", presence: true#, on: :create
-    # end
-    # validates :first_name_ka, presence: true, if: Proc.new {|p|
-    #    Rails.logger.debug("--------------------------------------------#{I18n.locale}")
-    #  I18n.locale == :ka }
-    # validates :first_name_en, presence: true, if: Proc.new {|p| I18n.locale == :en }
-
-    before_validation :add_instance_validations
-    def add_instance_validations
-       Rails.logger.debug("-------------------------------------------instance validatin")
-      singleton_class.class_eval { validates :first_name_ka, presence: true }
-    end
-    # validates :first_name_ka, :presence => true, :if => :check_country
-
-    # def check_country
-    #    Rails.logger.debug("--------------------------------------------check first_name ka")
-    #   I18n.locale == :ka
-    #   # ["US", "Canada"].include?(self.country)
-    # end
-
-
     validates :is_service_provider, inclusion: [true, false]
     validates :has_agreed, inclusion: [true], on: :create
 
     validate :check_providers_number, on: :create
-    # validate :check_globalize_attributes
 
-    # def check_globalize_attributes
-    #   Globalize.with_locale(I18n.locale) do
-    #    Rails.logger.debug("-------------------------------------------here #{self.first_name} #{self.last_name}")
-    #     self.first_name. && self.last_name.present?
-    #   end
-    # end
   # helpers
 
     def guest?

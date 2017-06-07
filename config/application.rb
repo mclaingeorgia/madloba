@@ -23,7 +23,7 @@ module Madloba
 
     config.i18n.default_locale = :ka
 
-    config.i18n.fallbacks = [:ka] #{'es' => 'en', 'fr' => 'en', 'de' => 'fr'}
+    config.i18n.fallbacks = {'ka' => 'en', 'en' => 'ka'}
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = 'utf-8'

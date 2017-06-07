@@ -1,12 +1,13 @@
 class Place < ActiveRecord::Base
   include ActiveModel::Validations
   include Nameable
+  include RequiredLocale
 
   # globalize
 
     translates :name, :description, :city, :address
     globalize_accessors :locales => [:en, :ka], :attributes => [ :name, :description, :city, :address]
-
+    globalize_validations([:name, :description])
   # associations
 
     has_many :assets, -> { where(owner_type: 1) }, {foreign_key: :owner_id, class_name: "Asset"}
@@ -91,11 +92,6 @@ class Place < ActiveRecord::Base
     validates :phones, array: { numericality: { only_integer: true }, length: {is: 9} }
     validates :latitude, :longitude, numericality: true, presence: true
 
-
-   [I18n.locale].each do |locale|
-     validates :"name_#{locale}", presence: true
-     validates :"description_#{locale}", presence: true
-   end
 
   # helpers
     def self.validation_order_list

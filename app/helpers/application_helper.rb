@@ -33,7 +33,7 @@ module ApplicationHelper
     ordered_messages = []
     messages = resource.errors.messages.dup
     joiner = '.<br/>'
-
+    Rails.logger.debug("--------------------format_messages------------------------#{messages.inspect}")
     order_list.each {|item|
       if messages.include?(item)
         ordered_messages << resource.errors.full_messages_for(item).join(joiner)
