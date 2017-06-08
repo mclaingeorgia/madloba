@@ -1,6 +1,11 @@
 class Users::PasswordsController < Devise::PasswordsController
   include Devisable
 
+  def new
+    authorize :user_password
+    super
+  end
+
   def create
     authorize :user_password
     self.resource = resource_class.send_reset_password_instructions(resource_params)

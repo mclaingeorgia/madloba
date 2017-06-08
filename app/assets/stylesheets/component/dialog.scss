@@ -150,6 +150,10 @@
           padding-bottom: 22px;
         }
       }
+      &[data-bind='sign_in'], &[data-bind='forgot'] {
+        text-align: center;
+        padding:20px 10px 31px;
+      }
     }
   }
 

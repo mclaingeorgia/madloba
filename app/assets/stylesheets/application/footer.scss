@@ -17,8 +17,16 @@
       display: inline-block;
       white-space: nowrap;
     }
+    .mac {
+      padding: 6px 0;
+      margin-right: 50px;
+    }
+    .js {
+      padding: 6px 0;
+      flex: 1;
+    }
     .mac, .js {
-      padding: 0 6px 0;//6px;
+      // padding: 0 6px 0;//6px;
       white-space: nowrap;
     }
 
@@ -32,8 +40,10 @@
     }
     .footer-links {
       display: none;
-      width: 100%;
-      padding-right: 33px;
+      padding: 6px 0;
+
+      justify-content: flex-end;
+      // padding-right: 33px;
       text-align: right;
       a {
         @include font(14);
@@ -48,16 +58,13 @@
 
   @media (min-width: 992px) {
     footer {
-     display: flex;
-     flex-direction: row;
-     align-items: center;
-     min-height: 52px;
-     justify-content: left;
-     .mac {
-       margin-right: 50px;
-     }
+      border-top: 0;
+      padding-right: 19px;
+      &.light {
+        background-color: transparent;
+      }
      .footer-links {
-        display: block;
+        display: inherit;
      }
     }
   }

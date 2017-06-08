@@ -97,11 +97,17 @@
         if (code === 27) { t.close() }
       })
     },
-    page: function (name, html) {
+    page: function (name, html) { // with dialog-page wrapper
       var t = dialog
       t.content_el.find('.dialog-page[data-bind="' + name + '"]').remove()
       t.content_el.append(html)
-
+      return t
+    },
+    create: function (name, html) { // html without dialog-page wrapper
+      var t = dialog
+      t.content_el.find('.dialog-page[data-bind="' + name + '"]').remove()
+      t.content_el.append('<div class="dialog-page" data-bind="' + name + '">' + html + '</div>')
+      return t
     }
   }
 

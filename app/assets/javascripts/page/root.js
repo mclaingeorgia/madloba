@@ -19,10 +19,9 @@ $(document).on('click', '[toggle-view]', function() {
   var view = t.attr('toggle-view')
   var is_map_view = view === 'map'
 
-  $('[toggle-view]').removeClass('hidden')
-  t.addClass('hidden')
-  $('.result-container').toggleClass('hidden', is_map_view)
-  $('.mapper').toggleClass('hidden', !is_map_view)
+  $('[toggle-view]').removeClass('mobile-hidden')
+  t.addClass('mobile-hidden')
+  $('.result-container').toggleClass('mobile-hidden', is_map_view)
+  $('.mapper').toggleClass('mobile-hidden', !is_map_view)
    pollution.elements.places_map.invalidateSize()
-  console.log('toggle-view')
 })

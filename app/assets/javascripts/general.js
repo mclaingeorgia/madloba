@@ -49,10 +49,16 @@ function xhr($element) {
     .success(function (data) {
       if(format === 'html') {
         if(['sign_in', 'forgot' ].indexOf(caller) !== -1) {
-          $(".form-placeholder").html(data)
-          pollution.components.popup.set_state(1)
+          if(device.desktop()) {
+            $(".form-placeholder").html(data)
+            pollution.components.popup.set_state(1)
+          }
+          else {
+            console.log(pollution.components, caller, data)
+            pollution.components.dialog.create(caller, data).open(caller)
+          }
         } else if(caller === 'ownership') {
-          pollution.components.dialog.create(caller, data).open()
+          pollution.components.dialog.page(caller, data).open(caller)
         }
       }
     })
