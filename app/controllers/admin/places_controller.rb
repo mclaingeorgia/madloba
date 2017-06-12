@@ -103,6 +103,23 @@ class Admin::PlacesController < AdminController
     end
   end
 
+  def destroy_asset
+    pars = destroy_asset_strong_params
+    item = @model.find(params[:id])
+    authorize item
+    asset_attrs = pars[:assets_attributes]
+    Rails.logger.debug("----#{pars}")
+    respond_to do |format|
+      if asset_attrs[:_destroy] == 'true' && asset_attrs[:id].present? && item.destroy_asset(asset_attrs[:id])
+        flash[:success] = t('app.messages.success_updated', obj: "#{@model.human} #{item.name}")
+        format.json { render json: { flash: flash.to_hash, remove_asset: pars[:assets_attributes][:id] } }
+      else
+        flash[:error] = format_messages(item)
+        format.json { render json: { flash: flash.to_hash } }
+      end
+    end
+  end
+
   def destroy
     item = @model.find(params[:id])
     authorize item
@@ -166,6 +183,9 @@ class Admin::PlacesController < AdminController
       permitted = @model.globalize_attribute_names + [:website, :postal_code, :region_id, :latitude, :longitude, :poster_id, :published, :redirect_default, :provider_id, emails: [], phones: [], service_ids: [],
         assets_attributes: ["@original_filename", "@content_type", "@headers", "_destroy", "id", "image"], tags: [] ]
       params.require(:place).permit(*permitted)
+    end
+    def destroy_asset_strong_params
+      params.require(:place).permit([ assets_attributes: ["_destroy", "id"]] )
     end
     def favorite_params
       params.permit(:id, :flag, :locale)

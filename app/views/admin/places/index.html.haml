@@ -26,6 +26,7 @@
             - if item.website.present?
               %a{href: item.website, class: 'btn', target: :_blank }= t('admin.shared.view')
           %td.actions
+            = link_to t('admin.shared.view'), place_path(item.id), class: 'view'
             = link_to t('admin.shared.edit'), edit_manage_place_path(item.id), class: 'edit'
             - if item.deleted?
               = link_to t('admin.shared.restore'), restore_manage_place_path(item.id), method: :patch, class: 'restore btn', data: {confirm: t('admin.shared.confirm_restore_model', name: @model.human) }

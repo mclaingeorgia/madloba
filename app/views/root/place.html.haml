@@ -136,7 +136,7 @@
               = f.label :image do
                 %img{src: asset_path("svg/upload.svg") }
                 = t("shared.upload_image")
-              = f.input :image, as: :file, label: false, wrapper: false, input_html: { name: "assets_attributes[][image]", multiple: true, onchange: "javascript:this.form.submit();" }
+              = f.input :image, as: :file, label: false, wrapper: false, input_html: { name: "assets_attributes[][image]", multiple: true, onchange: "javascript:this.form.submit();", accept: 'image/png,image/gif,image/jpeg' }
       - else
         .field-file
           %label{href: new_user_session_path, 'data-xhr': 'sign_in'}

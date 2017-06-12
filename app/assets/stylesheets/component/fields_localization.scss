@@ -71,6 +71,13 @@
       }
 
     }
+    &.with-footnote {
+      padding: 33px 27px 7px;
+    }
+    .footnote {
+      @include font(14, 'l');
+      padding-top: 20px;
+    }
     // .field label {
     //   padding: 0 14px 0 0;
     // }

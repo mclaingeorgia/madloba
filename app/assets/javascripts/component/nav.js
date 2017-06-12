@@ -35,13 +35,12 @@
         t.toggle()
       })
       if(device.desktop()) {
-        t.menu_toggle_el.on('mouseover', function (event) {
-          console.log('mouseenter')
+        t.menu_toggle_el.on('mouseenter', function (event) {
           $(this).parent().addClass('hover')
           event.preventDefault()
           event.stopPropagation()
         })
-        t.menu_toggle_el.parent().on('mouseleave', function () {
+        t.menu_toggle_el.parent().on('mouseleave', function (event) {
           $(this).removeClass('hover')
           event.preventDefault()
           event.stopPropagation()

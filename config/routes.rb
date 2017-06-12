@@ -35,6 +35,7 @@ Madloba::Application.routes.draw do
     patch 'manage/provider/:id/unassign/place/:place_id', to: 'admin/providers#unassign_place', as: :manage_unassign_place_from_provider
 
     patch 'manage/place/:id/restore', to: 'admin/places#restore', as: :restore_manage_place
+    put 'manage/place/:id/destroy_asset', to: 'admin/places#destroy_asset', as: :destroy_asset_manage_place
 
     patch 'manage/user/:id/restore', to: 'admin/users#restore', as: :restore_manage_user
 

@@ -56,7 +56,7 @@
         = f.label :assets do
           %img{src: asset_path("svg/upload.svg") }
           = t("shared.upload_image")
-        = f.input :assets, as: :file, label: false, wrapper: false, input_html: { name: "place[assets_attributes][][image]", multiple: true }
+        = f.input :assets, as: :file, label: false, wrapper: false, input_html: { name: "place[assets_attributes][][image]", multiple: true, accept: 'image/png,image/gif,image/jpeg' }
 
       - assets = f.object.assets.to_a
 
@@ -69,7 +69,7 @@
         .field-wrapper.field-asset{'data-asset-id': asset.id, class: asset.id == f.object.poster_id ? 'picked' : nil }
           = image_tag asset.image.thumb.url
           .field-input
-            = link_to t("shared.delete_image"), manage_place_path(f.object.id, place: { assets_attributes: { id: asset.id, "_destroy" => true }}), remote: true, method: :put, 'data-type': 'json', data: { confirm: t('shared.are_you_sure') }
+            = link_to t("shared.delete_image"), destroy_asset_manage_place_path(f.object.id, place: { assets_attributes: { id: asset.id, "_destroy" => true }}), remote: true, method: :put, 'data-type': 'json', data: { confirm: t('shared.are_you_sure') }
     .actions
       = f.submit t("app.common.save")
       = f.submit t("app.common.cancel"), type: :reset

@@ -18,7 +18,6 @@ pollution.components.rator.deferred_bind($('.action-bar .favoritor'), function(v
 
 // var report_dialog = $('[data-bind="place_report"]')
 $(document).on('click', '#place_report_send', function () {
-  console.log('place report send')
   var v = $('#place_report_reason').val()
   if(v !== '') {
     $element = $('#place_report_link')

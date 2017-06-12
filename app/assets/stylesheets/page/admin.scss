@@ -18,9 +18,8 @@ main {
   }
   .panels {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     .panel {
-      width: 50%;
       // max-width: 600px;
     }
     .panel:first-child {
@@ -246,4 +245,16 @@ a.btn {
 .indent {
   padding: 0 27px;
 }
+
+@media (min-width: 992px) {
+  main {
+    .panels {
+      flex-direction: row;
+      .panel {
+        width: 50%;
+      }
+    }
+  }
+}
+
 

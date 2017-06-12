@@ -177,10 +177,10 @@ en:
   messages:
     succeed_to_process: '%{action} was successfully submitted'
     succeed_to_process_reject: Request to reject %{action} processed successfully.
-    failed_to_process: Request to %{action} failed.
+    failed_to_process: Request for %{action} failed.
     place_rate: Place rating
-    favorite_place: Favorite place
-    place_ownership: Take place ownership
+    favorite_place: Favorite
+    place_ownership: Place ownership
     place_report: Place report
     n_photo_uploaded:
       one: "Photo uploaded."
@@ -360,7 +360,7 @@ en:
       take_ownership_for: 'Take "%{name}" Ownership'
       existing_provider: Pick existing provider
       or_create: 'or create new'
-      incase_existing_provider: 'If existing provider is picked, will be omitted'
+      incase_existing_provider: '* If existing provider is picked, this text will be ignored.'
       take_ownership: Take Ownership
   mailer:
     hello: "Hello %{name}!"

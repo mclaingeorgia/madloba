@@ -1,5 +1,6 @@
 #slideshow.slideshow-container
   .slideshow-image
+    %img
   .slideshow-close
     = link_to image_tag(asset_path("svg/close.svg"), alt: t('.alt.close'), title: t('.alt.close'), width: '26px', height: '26px'), 'javascript:void(0);'
     / .slideshow-page

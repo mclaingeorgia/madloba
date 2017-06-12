@@ -25,12 +25,12 @@ $(document).ready(function(){
 })
 // columnDefs: [  { visible: false, targets: [5,12,13] } ],
 
-$(".field-file").change(function(e) {
+$(".field-file").change(function(event) {
   var t = $(this)
   var p = t.closest('.fields-asset')
     p.find('.field-asset[data-asset-id="-1"]').remove()
-
-    $.each(e.originalEvent.srcElement.files, function(i, file) {
+    var target = event.target || event.srcElement;
+    $.each(target.files, function(i, file) {
       var asset = $('<div class="field-wrapper field-asset blink" data-asset-id="-1"></div>').insertAfter(t)
       var img = document.createElement("img")
       var reader = new FileReader()

@@ -1,4 +1,5 @@
 - locales = I18n.available_locales
+- footnote ||= nil
 .fields-localization{{}.merge(defined?(container_options) ? container_options : {})}
   .tabs{'data-target': 'localization'}
     .d.d1
@@ -9,7 +10,7 @@
       - if locale_i != locales.length-1
         .d.d3
     .d.d4
-  .tabs-content{'data-target': 'localization'}
+  .tabs-content{'data-target': 'localization', class: footnote.present? ? 'with-footnote' : nil }
     %ul
       - fields.each do |field|
         - field_name = field[0]
@@ -20,3 +21,5 @@
           - is_current_locale = I18n.locale == locale
           %li{class: is_current_locale ? 'active' : nil, 'data-link': locale}
             = form.input :"#{field_name}_#{locale}", { label: t("activerecord.attributes.#{form.object.class.name.downcase}.#{field[0]}") }.merge(field_options.merge(is_current_locale && required_locale == true ? {required: true} : {}))
+    - if footnote.present?
+      .footnote= footnote

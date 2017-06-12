@@ -98,6 +98,20 @@ class Place < ActiveRecord::Base
       [Place.globalize_attribute_names, :services, :emails, :phones, :website, :tags, :published, :postal_code, :region].flatten
     end
 
+    def destroy_asset(id)
+      a = self.assets.find(id)
+      if a.present?
+        self.assets.delete(a)
+        a.delete
+        if a.id == self.poster_id
+          first = self.assets.first
+          self.update_attribute(:poster_id, first.present? ? first.id : nil )
+        end
+        true
+      end
+    rescue Exception => e
+      false
+    end
   # getters
     def phone
       phones.join(", ")

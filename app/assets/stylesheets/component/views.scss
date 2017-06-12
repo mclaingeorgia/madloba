@@ -26,6 +26,9 @@
     a.restore {
       background-color: $highlighted_bg;
     }
+    a.view {
+      background-color: #3c81ca;
+    }
   }
 }
 
@@ -147,18 +150,8 @@
 
 .column-view {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   padding: 0 70px 0;
-  .column {
-    width: 50%;
-    &:first-child {
-      padding: 0 20px 0 0;
-      border-right: 1px solid #d2d2d2;
-    }
-    &:last-child {
-      padding: 0 0 0 20px;
-    }
-  }
 }
 
 .grid-view {
@@ -166,6 +159,7 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
   max-width: 734px;
   margin: 0 auto;
 }
@@ -266,5 +260,23 @@
         position: relative;
       }
     }
+  }
+}
+
+@media (min-width: 992px) {
+  .column-view {
+    flex-direction: row;
+    .column {
+      width: 50%;
+      &:first-child {
+        padding: 0 20px 0 0;
+        border-right: 1px solid #d2d2d2;
+      }
+      &:last-child {
+        padding: 0 0 0 20px;
+      }
+
+    }
+
   }
 }

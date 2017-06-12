@@ -32,20 +32,24 @@ class PlacePolicy < ApplicationPolicy
     permitted
   end
 
+  def destroy_asset?
+    permitted
+  end
+
   def restore?
     user.admin?
   end
 
   def favorite?
-    user.user?
+    user.at_least_user?
   end
 
   def rate?
-    user.user?
+    user.at_least_user?
   end
 
   def ownership?
-    user.provider?
+    user.at_least_provider?
   end
 end
 
