@@ -1,8 +1,7 @@
-class PageContent < ActiveRecord::Base
+class PageContentItem < ActiveRecord::Base
   include Nameable
 
-  has_many :page_content_items
-  accepts_nested_attributes_for :page_content_items, :allow_destroy => true
+  belongs_to :page_content
   # globalize
 
     translates :title, :content
@@ -10,13 +9,13 @@ class PageContent < ActiveRecord::Base
 
   # scopes
 
-    def self.sorted
-      order(:name, :created_at)
-    end
+    # def self.sorted
+    #   order(:name, :created_at)
+    # end
 
   # validators
 
-    validates :name, presence: true, uniqueness: true
+    # validates :name, presence: true, uniqueness: true
     I18n.available_locales.each do |locale|
       validates :"title_#{locale}", presence: true
       validates :"content_#{locale}", presence: true
@@ -24,8 +23,8 @@ class PageContent < ActiveRecord::Base
 
   # getters
 
-    def self.by_name(name)
-      find_by(name: name)
-    end
+    # def self.by_name(name)
+    #   find_by(name: name)
+    # end
 
 end

@@ -1,8 +1,0 @@
-.field{{}.merge(container_options)}
-  = form.label field, t("#{translate_path}")
-  - options[:items].each_with_index do |item, item_i|
-    .radio
-      = form.radio_button field, item, {checked: item == options[:default], class: 'value'}
-      = form.label(field, item, value: item) do
-        %span
-        = t("#{options[:translate_path]}#{options[:item_translations][item_i]}")

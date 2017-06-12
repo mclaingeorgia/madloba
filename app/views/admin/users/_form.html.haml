@@ -11,12 +11,12 @@
       .fields-group
         = f.input :is_service_provider, as: :radio_buttons
         = f.simple_fields_for Provider.new do |provider|
-          = render partial: 'shared/fields_localization', locals: { fields: { name: nil, description: { as: :text, input_html: { rows: 10, style: 'width: 100%' } } } , form: provider, container_options: { style: 'display:none;', id: 'user_providers' } }
+          = render partial: 'shared/fields_localization', locals: { fields: { name: nil, description: { as: :text, input_html: { rows: 10, style: 'width: 100%' } } } , form: provider, container_options: { style: f.object.is_service_provider ? nil : 'display:none;', id: 'user_providers' } }
     - if f.object.new_record?
       .fields-group
         = f.input :has_agreed, as: :boolean, label: t("admin.user.has_agreed_html", link: link_to(t('app.common.terms_of_use'), terms_of_use_path)), checked_value: true, unchecked_value: false
     .actions
       .action-group
+        = f.submit t("app.common.reset"), type: :reset
         = f.submit t("app.common.save")
-        = f.submit t("app.common.cancel"), type: :reset
 

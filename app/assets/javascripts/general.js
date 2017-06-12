@@ -3,7 +3,7 @@
 //= require hook/click
 //= require hook/keydown
 //= require hook/resize
-//
+
 var pollution = {
   hooks: {
     click: [],

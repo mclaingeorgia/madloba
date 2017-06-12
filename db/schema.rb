@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170603092251) do
+ActiveRecord::Schema.define(version: 20170612151641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,6 +199,25 @@ ActiveRecord::Schema.define(version: 20170603092251) do
     t.integer  "notification_type"
     t.integer  "related_id"
     t.boolean  "processed",         default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "page_content_item_translations", force: :cascade do |t|
+    t.integer  "page_content_item_id", null: false
+    t.string   "locale",               null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.string   "title"
+    t.text     "content"
+  end
+
+  add_index "page_content_item_translations", ["locale"], name: "index_page_content_item_translations_on_locale", using: :btree
+  add_index "page_content_item_translations", ["page_content_item_id"], name: "index_page_content_item_translations_on_page_content_item_id", using: :btree
+
+  create_table "page_content_items", force: :cascade do |t|
+    t.integer  "page_content_id"
+    t.integer  "order"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

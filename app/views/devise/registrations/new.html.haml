@@ -20,9 +20,8 @@
     .fields-group
       = f.input :has_agreed, as: :boolean, label: t(".has_agreed_html", link: link_to(t('app.common.terms_of_use'), terms_of_use_path)), checked_value: true, unchecked_value: false
       .actions
-        .action-group
-          = f.submit t("app.common.register"), :disabled => true
-          = f.submit t("app.common.cancel"), type: :reset
+        = f.submit t("app.common.register"), :disabled => true
+        = f.submit t("app.common.cancel"), type: :reset
 
     .fields-group
       .text= t(".already_registered_html", link: link_to(t('app.common.sign_in'), new_user_session_path))

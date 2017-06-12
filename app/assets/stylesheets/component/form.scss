@@ -151,7 +151,7 @@
         @include font;
         color: $text_gray;
         background-color: transparent;
-        text-decoration: underline;
+        // text-decoration: underline;
         border: 0;
         white-space: normal;
       }
@@ -256,7 +256,11 @@
         .field-label {
           @include font;
           color: $link;
-
+        }
+      }
+      .actions {
+        input[type='reset'] {
+          text-decoration: underline;
         }
       }
     }
@@ -480,23 +484,26 @@
 }
 
 .field-tag {
-  ul.field-inputs {
-    li {
-      display: inline-block;
-      white-space: nowrap;
-      padding: 6px 8px;
-    }
-    label {
-      @include font;
-      color: $text;
-    }
-    .close {
-      display: inline-block;
-      width: 18px;
-      height: 16px;
-      background: transparent url(svg('close')) no-repeat center;
-      cursor: pointer;
-    }
+  .select2-container--default .select2-selection--multiple {
+    border: 1px solid $border;
+  }
+  .select2-container--default.select2-container--focus .select2-selection--multiple {
+    border: 1px solid $border;
+  }
+  .select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: $bg;
+    white-space: nowrap;
+    padding: 6px 8px;
+    @include font;
+    color: $text;
+  }
+  .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+    color: $control;
+    opacity: .8;
+  }
+  .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
+    color: $control;
+    opacity: 1;
   }
 }
 

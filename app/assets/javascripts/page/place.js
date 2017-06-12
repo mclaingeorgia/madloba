@@ -24,5 +24,6 @@ $(document).on('click', '#place_report_send', function () {
     $element.attr('href', $element.attr('data-href-template').replace(/_v_/g, v))
     xhr($element)
     pollution.components.dialog.close()
+    $('#place_report_reason').val('')
   }
 })

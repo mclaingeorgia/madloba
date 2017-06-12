@@ -15,6 +15,7 @@
 //= require jquery_ujs
 //= require leaflet
 //= require device.min
+//= require jquery.touchSwipe.min
 //
 //= require general
 //
@@ -25,3 +26,4 @@
 //= require component/dialog
 //= require component/tabs
 //= require component/toggleable_list
+

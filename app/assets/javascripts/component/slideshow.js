@@ -13,28 +13,6 @@
       t.image_el = t.content_el.find('img')
       t.bind()
 
-
-// $(window).load(function(){
-//  $('.container').find('img').each(function(){
-//   var imgClass = (this.width/this.height > 1) ? 'wide' : 'tall';
-//   $(this).addClass(imgClass);
-//  })
-// })
-      // if(t.el.find('.messages li').length) {
-      //   t.open()
-      // }
-      return t
-    },
-    set: function (messages) {
-      var t = slideshow
-      t.el.stop()
-      t.close()
-      var html = ""
-      types = Object.keys(messages)
-      types.forEach(function(type) {
-          html += "<li class='message'><div class='flag " + type + "'></div><div class='text'>" +t.urldecode(messages[type]) + "</div></li>"
-        })
-      t.content_el.html(html)
       return t
     },
     open: function (src) {
@@ -42,16 +20,13 @@
       t.image_el.attr('src', src)
 
       t.el.attr('open', 'open')
-        // .delay(5000).fadeOut(2000, function(){
-        //   t.close()
-        // });
       return t
     },
     close: function () {
       var t = slideshow
       t.el.removeAttr('open')
-      // t.el.attr('style', '')
       t.image_el.attr('src', null)
+
       t.current_image = 0
       t.count = 0
       t.current_slides = undefined
@@ -100,8 +75,27 @@
       t.el.find('.slideshow-next').on('click', function (event) {
         t.next()
       })
+
+
+      if(!device.desktop()) {
+        t.content_el.swipe( {
+          swipeLeft:function(event, direction, distance, duration, fingerCount) {
+            t.next()
+          },
+          swipeRight:function(event, direction, distance, duration, fingerCount) {
+            t.prev()
+          }
+        });
+      }
+
+
+      // t.content_el.on("swipe",function(event){
+      //   console.log('swipe', event)
+      // });
       pollution.hooks.keydown.push(function(code) {
         if (code === 27) { t.close() }
+        else if (code === 37) { t.prev() }
+        else if (code === 39) { t.next() }
       })
     }
   }

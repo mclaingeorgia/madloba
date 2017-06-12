@@ -25,6 +25,9 @@ class AdminController < ApplicationController
     elsif type == 'users'
       authorize User, :autocomplete_user?
       results = User.autocomplete(params[:q], current_user, related_id)
+    elsif type == 'tags'
+      authorize User, :autocomplete_tag?
+      results = Tag.autocomplete(params[:q])
     end
     render json: { results: results }
   end

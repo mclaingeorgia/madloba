@@ -10,6 +10,7 @@ class Admin::PlacesController < AdminController
   def new
     authorize @model
     @item = @model.new
+    gon.autocomplete = { tags: manage_autocomplete_path(:tags) }
     # @item.assets.build(owner_type: 1)
   end
 
@@ -56,6 +57,7 @@ class Admin::PlacesController < AdminController
     @item = @model.find(params[:id])
     # @item.assets.new(owner_type: 1)
     authorize @item
+    gon.autocomplete = { tags: manage_autocomplete_path(:tags) }
   end
 
   def update
@@ -108,7 +110,7 @@ class Admin::PlacesController < AdminController
     item = @model.find(params[:id])
     authorize item
     asset_attrs = pars[:assets_attributes]
-    Rails.logger.debug("----#{pars}")
+
     respond_to do |format|
       if asset_attrs[:_destroy] == 'true' && asset_attrs[:id].present? && item.destroy_asset(asset_attrs[:id])
         flash[:success] = t('app.messages.success_updated', obj: "#{@model.human} #{item.name}")

@@ -1,7 +1,29 @@
 .form-container{class: @form_container_class}
   = simple_form_for obj, html: { class: @form_class } do |f|
     = devise_error_messages!
-    = render partial: 'shared/fields_localization', locals: { fields: { title: nil, content: { as: :text, input_html: { rows: 10, style: 'width: 100%' } } } , form: f }
+    = render partial: 'shared/fields_localization', locals: { fields: { title: nil, content: { as: :text, input_html: { rows: 10, style: 'width: 100%' } },  } , form: f }
+
+    .table-view
+      %table.datatable.datatable-table.table-responsive{width: '100%'}
+        %thead
+          %tr
+            %th.spacer{'data-orderable': 'false'}
+            %th= PageContentItem.human_attribute_name(:title)
+            %th.fill= PageContentItem.human_attribute_name(:description)
+            %th.actions{'data-orderable': 'false'}= t('admin.shared.actions')
+        %tbody
+          - f.object.page_content_items.each do |item|
+            %tr
+              %td
+              %td= item.title
+              %td= item.description
+              %td.actions
+                = link_to t('admin.shared.edit'), root_path, class: 'edit'
+
     .actions
-      = f.submit t("app.common.save")
-      = f.submit t("app.common.cancel"), type: :reset
+      .action-group
+        = f.submit t("app.common.reset"), type: :reset
+        = f.submit t("app.common.save")
+
+
+

@@ -50,4 +50,10 @@ class Tag < ActiveRecord::Base
   def processed_human
     ['pending', 'accepted', 'declined'][self.processed]
   end
+
+  # filters
+
+    def self.autocomplete(q)
+      Tag.where('lower(name) like ?', "%#{q.downcase}%").pluck(:name).map{|m| { id: m, text: m} }
+    end
 end

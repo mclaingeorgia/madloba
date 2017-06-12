@@ -6,9 +6,6 @@
     callbacks: {
       contact: function () {
         pollution.elements.contact_map.invalidateSize()
-      },
-      place_report: function () {
-        $('#place_report_reason').val('')
       }
     },
     init: function () {

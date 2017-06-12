@@ -3,5 +3,6 @@
     = devise_error_messages!
     = render partial: 'shared/fields_localization', locals: { fields: { name: nil, description: { as: :text, input_html: { rows: 10, style: 'width: 100%' } } } , form: f }
     .actions
-      = f.submit t("app.common.save")
-      = f.submit t("app.common.cancel"), type: :reset
+      .action-group
+        = f.submit t("app.common.reset"), type: :reset
+        = f.submit t("app.common.save")

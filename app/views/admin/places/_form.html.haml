@@ -20,9 +20,8 @@
           = f.input :website, placeholder: true
           .field-wrapper.field-tag
             %label.field-label= Place.human_attribute(:tags)
-            %input.field-input{type: :text, placeholder: t('simple_form.placeholders.place.tags')}
-            %ul.field-inputs
-              =f.object.tags.map{|m| "<li><label>#{m.name}</label><input type='hidden' value='#{m.name}' name=place[tags][]><div class='close'></div></li>" }.join("").html_safe
+            %select.field-input{placeholder: t('simple_form.placeholders.place.tags'), multiple: 'multiple', name: 'place[tags][]'}
+              =f.object.tags.map{|m| "<option selected='selected'>#{m.name}</option>" }.join("").html_safe
           = f.input :published
           - possible_providers = Provider.only_active.for_user(current_user, @is_admin_profile_page)
           -# possible_providers = possible_providers.excluding(f.object.provider.id) if f.object.provider.present?
@@ -71,5 +70,6 @@
           .field-input
             = link_to t("shared.delete_image"), destroy_asset_manage_place_path(f.object.id, place: { assets_attributes: { id: asset.id, "_destroy" => true }}), remote: true, method: :put, 'data-type': 'json', data: { confirm: t('shared.are_you_sure') }
     .actions
-      = f.submit t("app.common.save")
-      = f.submit t("app.common.cancel"), type: :reset
+      .action-group
+        = f.submit t("app.common.reset"), type: :reset
+        = f.submit t("app.common.save")

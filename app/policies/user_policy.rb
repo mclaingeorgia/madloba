@@ -45,4 +45,7 @@ class UserPolicy < ApplicationPolicy
   def autocomplete_place?
     user.at_least_provider?
   end
+  def autocomplete_tag?
+    user.at_least_provider?
+  end
 end

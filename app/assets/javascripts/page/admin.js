@@ -66,24 +66,23 @@ $('.field-array .field-add').click(function(event) {
   event.stopPropagation()
   event.preventDefault()
 })
-$(".field-tag .field-input").keydown(function(event) {
-  var t = $(this)
-  var tag_wrapper = t.parent().find('.field-inputs')
-  var code = event.keyCode || event.which
-  var v = t.val()
-  // console.log(code)
-  if(code === 13 && !tag_wrapper.find('li input[value="' + v + '"]').length && v !== '') {
-    tag_wrapper.append('<li><label>' + v + '</label><input type="hidden" value="' + v + '" name="place[tags][]"><div class="close"></div></li>')
-    t.val('')
-    event.preventDefault()
-  }
-})
 
-$(".field-tag .field-inputs").on('click', ' .close', function(event) {
-  var t = $(this)
-  console.log('clicked')
-  t.parent().remove()
-})
+if($(".field-tag").length) {
+  $(".field-tag .field-input").select2({
+    tags: true,
+    minimumInputLength: 3,
+    // allowClear: true,
+    tokenSeparators: [','],
+    placeholder: gon.labels.search_placeholder,
+    ajax: {
+      url: gon.autocomplete.tags,
+      delay: 250,
+      data: function (params) {
+        return { q: params.term }
+      }
+    }
+  })
+}
 
 $('.rator').each(function(i,d) {
   pollution.components.rator.deferred_bind($(d), function(v, $element) {

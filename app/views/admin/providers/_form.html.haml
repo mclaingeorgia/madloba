@@ -29,5 +29,6 @@
                   %span= place.name
                   = link_to '', manage_unassign_place_from_provider_path(f.object.id, place.id), remote: true, method: :patch, 'data-type': 'json', data: { confirm: t('shared.are_you_sure') }, class: 'close'
     .actions
-      = f.submit t("app.common.save")
-      = f.submit t("app.common.cancel"), type: :reset
+      .action-group
+        = f.submit t("app.common.reset"), type: :reset
+        = f.submit t("app.common.save")
