@@ -1,5 +1,6 @@
 class CreatePageContentItem < ActiveRecord::Migration
   def change
+    add_column :page_content_translations, :header, :string
     create_table :page_content_items do |t|
       t.integer  :page_content_id
       t.integer :order

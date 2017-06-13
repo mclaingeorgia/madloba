@@ -103,6 +103,7 @@
         padding: 0 33px 4px 4px;
       }
     }
+
     tbody {
       tr:hover {
         background-color: #ededed;
@@ -112,7 +113,14 @@
         @include font(14, 'i');
       }
     }
-
+    &.simple {
+      td {
+        padding: 4px;
+        .field-wrapper {
+          padding: 0 !important;
+        }
+      }
+    }
   }
   .datatable-pagination {
     display: block;
@@ -262,7 +270,25 @@
     }
   }
 }
-
+.sort-view {
+  li {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    .fill {
+      flex: 1;
+      textarea {
+        width: 100%;
+      }
+    }
+  }
+}
+.list-header {
+  display: block;
+  @include font(18, 'b');
+  color: $text;
+  padding: 20px 0 10px;
+}
 @media (min-width: 992px) {
   .column-view {
     flex-direction: row;

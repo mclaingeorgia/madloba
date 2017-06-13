@@ -228,6 +228,8 @@ en:
       index:
         title: "Manage Places"
       locate_me: "Locate me on map"
+    page_contents:
+      list: List Items
     manage_providers:
       index: Manage Providers
       edit: Edit Provider

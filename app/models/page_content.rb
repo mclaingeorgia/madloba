@@ -1,12 +1,12 @@
 class PageContent < ActiveRecord::Base
   include Nameable
 
-  has_many :page_content_items
+  has_many :page_content_items, dependent: :destroy
   accepts_nested_attributes_for :page_content_items, :allow_destroy => true
   # globalize
 
-    translates :title, :content
-    globalize_accessors :locales => [:en, :ka], :attributes => [:title, :content]
+    translates :title, :header, :content
+    globalize_accessors :locales => [:en, :ka], :attributes => [:title, :header, :content]
 
   # scopes
 
@@ -19,9 +19,14 @@ class PageContent < ActiveRecord::Base
     validates :name, presence: true, uniqueness: true
     I18n.available_locales.each do |locale|
       validates :"title_#{locale}", presence: true
-      validates :"content_#{locale}", presence: true
+      # validates :"content_#{locale}", presence: true
     end
 
+  # helpers
+
+    def self.validation_order_list # used to order flash messages
+      [PageContent.globalize_attribute_names].flatten
+    end
   # getters
 
     def self.by_name(name)

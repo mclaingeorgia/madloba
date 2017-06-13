@@ -7,16 +7,17 @@ class Admin::UsersController < AdminController
   def index
     authorize @model
     @items = @model.sorted
-     # Rails.logger.debug("------------------------------------#{@model.sorted.length}-------#{@model.all.length}-#{@items.length}")
   end
 
   def new
     authorize @model
     @item = @model.new
+    @item.providers.build
   end
 
   def edit
     @item = @model.find(params[:id])
+    @item.providers.build if !@item.is_service_provider?
     authorize @item
   end
 
@@ -25,6 +26,7 @@ class Admin::UsersController < AdminController
     authorize item
 
     if item.save
+      item.providers.update_all(created_by: item.id, processed: 0)
       flash[:success] = t('app.messages.success_updated', obj: @model)
       redirect_to manage_users_path
     else
@@ -54,6 +56,7 @@ class Admin::UsersController < AdminController
 
     respond_to do |format|
       if item.update_attributes(pars) # with_password ? item.update_with_password(pars) :
+        item.providers.update_all(created_by: item.id, processed: 0)
         sign_in item, bypass: true if with_password
         flash[:success] = t('app.messages.success_updated', obj: "#{@model.human} #{item.name}")
         format.html { redirect_to redirect_path }
@@ -137,9 +140,10 @@ class Admin::UsersController < AdminController
   private
 
     def strong_params
-      params.require(:user).permit(:first_name, :first_name_en, :first_name_ka,
-                                   :last_name, :last_name_en, :last_name_ka,
-                                   :email, :role, :password, :password_confirmation, :current_password, :is_service_provider, :has_agreed, :redirect_default)
+      permitted = User.globalize_attribute_names + [:email, :role, :password, :password_confirmation, :current_password, :is_service_provider, :has_agreed, :redirect_default, providers_attributes: Provider.globalize_attribute_names ]
+      p = params.require(:user).permit(*permitted)
+      p["providers_attributes"].reject! { |attr| attr.empty? }
+      p
     end
 
 end

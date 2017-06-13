@@ -1,5 +1,20 @@
 - content_for :custom_stylesheet, 'page/list'
 - page_title @page_content.title
 %section.content
-  = @page_content.content.html_safe
+  - if @page_content.header.present? || @page_content.content.present?
+    .toggleable-list-prefix
+      - if @page_content.header.present?
+        .header= @page_content.header
+      - if @page_content.content.present?
+        =@page_content.content.html_safe
+    %ul.toggleable-list
+      - @page_content.page_content_items.each_with_index do |page_content_item, i|
+        %li
+          %a{name: "block-#{i+1}"}
+            = "#{i + 1}. "
+            = page_content_item.title
+            %span.caret
+          .toggleable-list-text
+            = page_content_item.content.html_safe
+
 = render partial: "shared/footer", locals: { with_links: true }

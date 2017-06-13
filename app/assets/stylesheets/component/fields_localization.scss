@@ -57,19 +57,20 @@
     z-index: 1;
     > ul {
       overflow: auto;
-    }
-    li {
-      display: none;
-      &.active {
-        display: block;
-      }
-      .field {
-        padding-bottom: 22px;
-        &:last-child {
-          padding-bottom: 0;
-        }
-      }
 
+      > li {
+        display: none;
+        &.active {
+          display: block;
+        }
+        .field {
+          padding-bottom: 22px;
+          &:last-child {
+            padding-bottom: 0;
+          }
+        }
+
+      }
     }
     &.with-footnote {
       padding: 33px 27px 7px;
@@ -81,6 +82,9 @@
     // .field label {
     //   padding: 0 14px 0 0;
     // }
+  }
+  &.wide {
+    max-width: 100%;
   }
 }
 // .field + .fields-localization {

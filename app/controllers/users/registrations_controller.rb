@@ -11,18 +11,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     authorize :user_registration
     pars = sign_up_params
-    build_resource(pars)
-    # resource.providers.build
-    #resource.providers.build({name_ka: "ab", description_ka: 'asdf'})
-     # Rails.logger.debug("--------------------------------------------#{resource.providers.inspect}")
-    # resource.build_provider
 
-    # resource.providers.build
-     # Rails.logger.debug("--------------------------------------------#{pars[:providers_attributes]}")
-    # resource.providers.build({ providers_attributes: pars[:providers_attributes] })
+
+    build_resource(pars)
+
     resource.save
     yield resource if block_given?
     if resource.persisted?
+      resource.providers.update_all(created_by: resource.id, processed: 0)
+      # created_by: current_user.id
       if resource.active_for_authentication?
         set_flash_message! :notice, :signed_up
         sign_up(resource_name, resource)

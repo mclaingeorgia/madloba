@@ -50,6 +50,8 @@ class AdminController < ApplicationController
         item = provider_profile_prepare_item_by_model(User, action, id)
       end
 
+      item.providers.build if !item.is_service_provider? # create new provider to use it in form if not service provider yet
+
       gon.labels.merge!({
         favorite: t('shared.favorite'),
         unfavorite: t('shared.unfavorite')

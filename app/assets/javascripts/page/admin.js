@@ -8,18 +8,22 @@
 //= require component/favoritor
 //= require component/slideshow
 //= require component/tinymce
+//= require jquery-ui/widgets/sortable
 
 $(document).ready(function(){
-  $('.datatable').DataTable({
-    language: {
-        search: "_INPUT_",
-        searchPlaceholder: "Search",
-        lengthMenu: "_MENU_ Records Per Page"
-    },
-    autoWidth: false,
-    responsive: true,
-    dom: '<".datatable-filters"fl>rt<"datatable-pagination"p>',
-    "order": []
+  $('datatable').each(function(i,d) {
+    $d = $(d)
+    $d.DataTable({
+      language: {
+          search: "_INPUT_",
+          searchPlaceholder: "Search",
+          lengthMenu: "_MENU_ Records Per Page"
+      },
+      autoWidth: false,
+      responsive: true,
+      dom: $d.hasClass('simple') ? 'rt' : '<".datatable-filters"fl>rt<"datatable-pagination"p>',
+      "order": []
+    })
   })
 
 })
@@ -140,3 +144,5 @@ $('[name="user[is_service_provider]"').change(function() {
   $('#user_providers').toggle(state)
   console.log('here', state)
 })
+
+$( "ul.sortable" ).sortable();
