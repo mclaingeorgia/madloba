@@ -11,3 +11,14 @@
           .actions
             = link_to t('admin.shared.edit'), manage_provider_profile_path({ page: 'manage-providers', id: item.id, edit: 'edit' }), class: 'edit btn'
             = link_to t('admin.shared.delete'), manage_provider_path(item.id), method: :delete, class: 'delete btn', data: {confirm: t('admin.providers.confirm_delete') }
+      - if current_user.admin?
+        %hr
+        .list-view-header
+          .label
+            = t('admin.providers.manage_without_owner')
+        - without_owner_items.each do |item|
+          %li
+            %span{class: 'name'} #{item.name}
+            .actions
+              = link_to t('admin.shared.edit'), manage_provider_profile_path({ page: 'manage-providers', id: item.id, edit: 'edit' }), class: 'edit btn'
+              = link_to t('admin.shared.delete'), manage_provider_path(item.id), method: :delete, class: 'delete btn', data: {confirm: t('admin.providers.confirm_delete') }

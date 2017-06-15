@@ -212,6 +212,7 @@ en:
       add_model: "Add %{name}"
       edit_model: "Edit %{name}"
       manage_model: "Manage %{name}"
+      manage_without_owner: "Manage %{name} with no owners"
       create_model: "Create %{name}"
       confirm_delete_model: "%{name} will be removed."
       confirm_restore_model: "%{name} will be restored."

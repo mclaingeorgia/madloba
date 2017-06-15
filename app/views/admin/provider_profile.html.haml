@@ -13,7 +13,7 @@
         - if current_page == :'manage-providers' && (action == :new || action == :edit) # @edit_states[0]
           = render template: "admin/providers/#{action}", locals: { item: item, redirect_default: false }
         - else
-          = render partial: 'admin/providers/list', locals: { items: providers }
+          = render partial: 'admin/providers/list', locals: { items: providers, without_owner_items: providers_without_owner }
       %li{class: current_page == :'manage-places' ? 'active' : nil, 'data-link': 'manage-places'}
         - if current_page == :'manage-places' && (action == :new || action == :edit)
           = render template: "admin/places/#{action}", locals: { item: item, redirect_default: false }

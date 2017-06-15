@@ -127,7 +127,8 @@ namespace :uploader do
               name: template[:name][:en],
               description: template[:description][:en],
               address: [row[5], row[3], row[7], row[11]].map{|m| clean_string(m) }.reject { |c| c.empty? }.join(', '),
-              city: row[9].squeeze(' ').strip
+              city: row[9].squeeze(' ').strip,
+              provider_id: p.id
             })
           end
         end
