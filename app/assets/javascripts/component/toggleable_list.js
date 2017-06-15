@@ -29,6 +29,7 @@
           li.addClass('toggled')
           window.location.hash = name
         } else {
+          console.log('here')
           li.toggleClass('toggled')
           tt.attr("name", "")
           window.location.hash = name

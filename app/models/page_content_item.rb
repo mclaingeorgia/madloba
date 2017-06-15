@@ -9,9 +9,9 @@ class PageContentItem < ActiveRecord::Base
 
   # scopes
 
-    # def self.sorted
-    #   order(:name, :created_at)
-    # end
+    def self.sorted
+      order(order: :asc)
+    end
 
   # validators
 

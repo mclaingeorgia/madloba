@@ -1,0 +1,13 @@
+%li{'data-index': '_index_'}
+  .toggle-wrapper
+    %span.sort
+    %a.toggle{href: "javascript:void(0);"}
+      = t('admin.page_contents.new_item')
+      %span.caret
+    .actions
+      = link_to t('admin.shared.delete'), 'javascript:void(0);', 'data-index': '_index_', 'data-virtual': 'true', class: 'delete btn'
+  .page-content-list-text
+    .field-wrapper.string.required.page_content_page_content_items_title__locale_
+      %input.field-input.string.required{placeholder: PageContentItem.human_attribute_name(:title), type: "text", value: '', name: "page_content[page_content_items_attributes][_index_][title__locale_]"}
+    .field-wrapper.string.required.page_content_page_content_items_content__locale_.fill
+      %textarea.field-input.text.required.tinymce-limited{rows: 6, placeholder: PageContentItem.human_attribute_name(:content), name: "page_content[page_content_items_attributes][_index_][title__locale_]"}

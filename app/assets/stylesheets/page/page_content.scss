@@ -1,0 +1,124 @@
+@import 'var';
+
+/****************************** page-content-list ******************************/
+
+.page-content-list {
+  padding: 0 0 5px;
+  > li {
+    padding: 0 0;
+    border-bottom: 1px solid $control;
+    &.toggled {
+      .toggle {
+        color: $link;
+        .caret {
+          background-position: -13px 0;
+        }
+      }
+      .page-content-list-text {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        .fill {
+          flex: 1;
+          padding-left: 22px;
+          textarea {
+            width: 100%;
+          }
+        }
+      }
+    }
+    .toggle-wrapper {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .actions {
+        padding-bottom: 0px;
+      }
+      .sort {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        background: background('sort');
+      }
+    }
+    .toggle {
+      width: 100%;
+      padding: 20px 16px;
+      position: relative;
+      @include font(18, 'sb');
+      color: $text;
+      text-decoration: none;
+      cursor: pointer;
+      max-width: 992px;
+      .caret {
+        display: inline-block;
+        width: 12px;
+        height: 8px;
+        background: background('arrows');
+      }
+    }
+  }
+
+  .page-content-list-text {
+    display: none;
+    padding:0 16px 20px;
+    max-width: 992px;
+    p, a {
+      @include font(18);
+      color: $text;
+      padding-bottom: 27px;
+      &:last-child {
+        padding-bottom: 0;
+      }
+      b {
+        @include font(18, 'b');
+      }
+    }
+    ul {
+      list-style-type: square;
+      color: $text;
+      padding-bottom: 27px;
+      &.numbered {
+        list-style-type: none;
+      }
+      li {
+        margin-left: 20px;
+      }
+      &:last-child {
+        padding-bottom: 0;
+      }
+    }
+  }
+}
+
+  @media (min-width: 992px) {
+    .page-content-list {
+      // padding: 9px 31px 20px;
+      > li {
+        // padding: 16px 16px 20px;
+        > a {
+          width: auto;
+          padding: 0;
+          position: static;
+          .caret {
+            display: inline-block;
+            width: 12px;
+            height: 8px;
+            background: background('arrows');
+            position: static;
+            margin-left: 6px;
+          }
+        }
+      }
+      .page-content-list-text {
+        padding: 20px 0 0;
+      }
+    }
+  }
+
+.sortable {
+  position: relative;
+}
+.ui-sortable-placeholder {
+  border-bottom: 0;
+}

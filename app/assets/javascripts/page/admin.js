@@ -145,4 +145,3 @@ $('[name="user[is_service_provider]"').change(function() {
   console.log('here', state)
 })
 
-$( "ul.sortable" ).sortable();

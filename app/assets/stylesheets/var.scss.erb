@@ -25,6 +25,9 @@
 @function svg($file_name) {
   @return asset_path('svg/' + $file_name + '.svg');
 }
+@function gif($file_name) {
+  @return asset_path('gif/' + $file_name + '.gif');
+}
 
 @function png($file_name) {
   @return asset_path('png/' + $file_name + '.png');
@@ -70,4 +73,7 @@
 
 @function background($image_path) {
   @return transparent url(svg($image_path)) no-repeat;
+}
+@function background_gif($image_path) {
+  @return transparent url(gif($image_path)) no-repeat;
 }

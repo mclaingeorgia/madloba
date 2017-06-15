@@ -20,7 +20,7 @@ class RootController < ApplicationController
     authorize :root
     @class = "faq"
     gon.is_faq_page = true
-    @page_content = PageContent.by_name('faq_')
+    @page_content = PageContent.by_name('faq')
   end
 
   def privacy_policy

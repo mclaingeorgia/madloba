@@ -52,7 +52,7 @@ en:
       new:
         title: Create an Account
         have_questions_html: "<span>Have questions?</span> %{link} to view our Frequently Asked Questions. For further assistance, please contact 0 800 900 902."
-        has_agreed_html: "I have accepted the %{link}"
+        has_agreed_html: "I have accepted the %{link}!:"
         already_registered_html: "Already registered? %{link}"
         no_confirmation_html: "Didn't receive confirmation instructions? %{link}"
     sessions:
@@ -63,7 +63,7 @@ en:
         email: "Email"
         password: "Password"
         forgot: "Forgot password?"
-        remember_me: "Remember Me"
+        remember_me: "Remember Me!:"
         sign_up_prompt_html: "or %{link} if you don't have yet."
         password_and_forgot_html: "Password %{link}"
     unlocks:

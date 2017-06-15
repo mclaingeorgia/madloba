@@ -16,6 +16,7 @@ class User < ActiveRecord::Base
   # accessors
 
     enum role: [:user, :provider, :admin]
+    attr_accessor :promote
 
   # associations
 
@@ -56,9 +57,15 @@ class User < ActiveRecord::Base
     before_save :update_role_if_is_service_provider
 
     def update_role_if_is_service_provider
-      self.role = :provider if self.is_service_provider
+      self.role = :provider if self.is_service_provider && !self.at_least_provider?
     end
 
+    before_save :promote_to_admin
+
+    def promote_to_admin
+       Rails.logger.debug("--------------------------------------------#{self.promote}")
+      self.role = :admin if self.promote == 'true' && !self.admin?
+    end
   #scopes
     default_scope { where.not(email: 'application@sheaghe.ge').where(deleted: false) }
 

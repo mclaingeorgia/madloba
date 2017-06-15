@@ -18,6 +18,9 @@ en:
         other: Page Contents
       place_rates:
         one: rate class
+      page_content_item:
+        one: Page Content List Item
+        other: Page Content List Item
     attributes:
       provider: &provider
         name: Provider Name
@@ -230,6 +233,7 @@ en:
       locate_me: "Locate me on map"
     page_contents:
       list: List Items
+      new_item: Unnamed page content item
     manage_providers:
       index: Manage Providers
       edit: Edit Provider
@@ -261,7 +265,8 @@ en:
       email: Email
       password: Password
       password_confirmation: Password Confirmation
-      has_agreed_html: "I have accepted the&nbsp;%{link}"
+      has_agreed_html: "I have accepted the&nbsp;%{link}!:"
+      promote: 'Promote to Admin!:'
     moderates:
       place_report:
         title: Moderate Reported Places

@@ -10,6 +10,11 @@ class Admin::PageContentsController < AdminController
   def edit
     @item = @model.find(params[:id])
     authorize @item
+    gon.locales = I18n.available_locales
+    gon.page_content_item_template = render_to_string 'item_template', layout: false
+    gon.labels = {
+      new_page_content_item: t('admin.page_contents.new_item')
+    }
   end
 
   def update
@@ -22,6 +27,11 @@ class Admin::PageContentsController < AdminController
       redirect_to manage_page_contents_path
     else
       flash[:error] = format_messages(@item)
+      gon.locales = I18n.available_locales
+      gon.page_content_item_template = render_to_string 'item_template', layout: false
+      gon.labels = {
+        new_page_content_item: t('admin.page_contents.new_item')
+      }
       render action: "edit"
     end
   end
@@ -29,6 +39,6 @@ class Admin::PageContentsController < AdminController
   private
 
     def strong_params
-      params.require(:page_content).permit(*@model.globalize_attribute_names, page_content_items_attributes: [:id, *PageContentItem.globalize_attribute_names])
+      params.require(:page_content).permit(*@model.globalize_attribute_names, page_content_items_attributes: [:id, :order, *PageContentItem.globalize_attribute_names])
     end
 end
