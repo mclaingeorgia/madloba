@@ -90,7 +90,7 @@ namespace :uploader do
         region = 'რაჭა-ლეჩხუმი და ქვემო სვანეთი' if region == 'რაჭა-ლეჩხუმი-ქვემო სვანეთი'
         region_id = nil
         tmp = Region.with_translations(:ka).find_by(name: region)
-        region_id = tmp.id if tmp.present?
+        region_id = tmp.present? ? tmp.id : Region.find_by(name: 'თბილისი').id
 
         puts "#{row_index} - #{region}" if region_id.nil?
 

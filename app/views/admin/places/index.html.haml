@@ -20,7 +20,7 @@
           %td= item.name
           %td= item.address
           %td= item.city
-          %td= item.region.name
+          %td= item.region.present? ? item.region.name : ''
           %td= item.email
           %td
             - if item.website.present?

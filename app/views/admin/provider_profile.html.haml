@@ -18,8 +18,8 @@
         - if current_page == :'manage-places' && (action == :new || action == :edit)
           = render template: "admin/places/#{action}", locals: { item: item, redirect_default: false }
         - else
-          = render partial: 'admin/places/list', locals: { items: providers }
+          = render partial: 'admin/places/list', locals: { items: providers, without_owner_items: providers_without_owner }
       %li{class: current_page == :'moderate-photos' ? 'active' : nil, 'data-link': 'moderate-photos'}
-        = render partial: 'admin/uploads/list', locals: { uploads_by_place: uploads_by_place }
+        = render partial: 'admin/uploads/list', locals: { uploads_by_place: uploads_by_place, without_owner_uploads_by_place: without_owner_uploads_by_place }
 
     = render partial: "shared/footer"

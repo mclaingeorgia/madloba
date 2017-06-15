@@ -87,8 +87,15 @@ class AdminController < ApplicationController
         end
       end
       providers_without_owner = []
+      without_owner_uploads_by_place = []
       if current_user.admin?
         providers_without_owner = Provider.only_active.joins("LEFT OUTER JOIN provider_users ON providers.id = provider_users.provider_id").where(provider_users: {user_id: nil})
+        providers_without_owner.sorted.each do |provider|
+          provider.places.sorted.each do |place|
+            uploads = place.uploads.sorted
+            without_owner_uploads_by_place << [place.id, uploads] if uploads.present?
+          end
+        end
       end
 
       gon.labels.merge!({
@@ -106,7 +113,8 @@ class AdminController < ApplicationController
         item: item,
         providers: providers,
         uploads_by_place: uploads_by_place,
-        providers_without_owner: providers_without_owner
+        providers_without_owner: providers_without_owner,
+        without_owner_uploads_by_place: without_owner_uploads_by_place
       }
     end
 

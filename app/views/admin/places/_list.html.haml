@@ -13,3 +13,20 @@
             .actions
               = link_to t('admin.shared.edit'), manage_provider_profile_path({ page: 'manage-places', id: place.id, edit: 'edit' }), class: 'edit btn'
               = link_to t('admin.shared.delete'), manage_place_path(place.id), method: :delete, class: 'delete btn', data: {confirm: t('admin.places.confirm_delete') }
+- if current_user.admin?
+  .manage-list-header= t('.manage_with_no_owners')
+  %ul.list-view-container
+    - without_owner_items.each do |item|
+      %li.list-view
+        .list-view-header
+          .label
+            = t('.provider')
+            %span{class: 'name'} #{item.name}
+          = link_to t('admin.places.add_place'), manage_provider_profile_path({ page: 'manage-places', id: 'new', provider_id: item.id }), class: 'add btn'
+        %ul.list-view-content
+          - item.places.each do |place|
+            %li
+              = link_to place.name, place_path(place.id), class: 'name'
+              .actions
+                = link_to t('admin.shared.edit'), manage_provider_profile_path({ page: 'manage-places', id: place.id, edit: 'edit' }), class: 'edit btn'
+                = link_to t('admin.shared.delete'), manage_place_path(place.id), method: :delete, class: 'delete btn', data: {confirm: t('admin.places.confirm_delete') }

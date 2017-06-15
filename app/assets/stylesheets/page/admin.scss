@@ -163,6 +163,18 @@ main {
     //   height: 100%;
     // }
   }
+  .manage-list-header{
+    @include font(20, 'sb');
+    border-top: 1px solid $control;
+    border-bottom: 1px dashed $control;
+    color: #373f51;
+    width: 100%;
+    padding: 20px 0 20px 30px;
+    margin: 20px 0;
+  }
+  .list-view-separator {
+    margin: 20px 0;
+  }
   .list-view-container {
     margin: 23px 30px 0;
     .list-view {

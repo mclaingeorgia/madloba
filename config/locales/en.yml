@@ -212,7 +212,6 @@ en:
       add_model: "Add %{name}"
       edit_model: "Edit %{name}"
       manage_model: "Manage %{name}"
-      manage_without_owner: "Manage %{name} with no owners"
       create_model: "Create %{name}"
       confirm_delete_model: "%{name} will be removed."
       confirm_restore_model: "%{name} will be restored."
@@ -223,11 +222,15 @@ en:
       form:
         owner_users: 'Owner Users:'
         places: 'Places:'
+      list:
+        manage: Manage Providers
+        manage_with_no_owners: Manage Providers With No Owner
     places:
       current_provider: Assigned provider
       update_provider: Assign provider
       list:
         provider: "Provider:"
+        manage_with_no_owners: Manage Places With No Owner
     place:
       index:
         title: "Manage Places"
@@ -289,6 +292,7 @@ en:
     uploads:
       list:
         uploaded_by: 'Uploaded By:'
+        manage_with_no_owners: Manage Place Photos With No Owner
   application:
     dialog:
       partners: PARTNERS

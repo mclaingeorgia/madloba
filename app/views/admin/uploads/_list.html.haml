@@ -1,26 +1,52 @@
-- if uploads_by_place.length > 0
-  %ul.photo-view.slides
-    - uploads_by_place.each_with_index do |place_collection, place_collection_i|
-      - place_id = place_collection[0]
-      - place_uploads = place_collection[1]
-      - ln = place_uploads
-      %li
-        = link_to Place.find(place_id).name, place_path(place_id), class: 'name', target: :_blank
-        %ul
-          - place_uploads.each do |upload|
-            %li{'data-upload-id': upload.id, 'data-upload-state': upload.is_pending? ? 'pending' : nil}
-              .row
-                %label= t('.uploaded_by')
-                %span= "#{upload.user.name} (#{upload.user.email})"
-              .row
-                .photo
-                  = image_tag upload.asset.image.url(:thumb), 'data-slide': upload.asset.image.url(:normal)
-                  - state = upload.processed_human
-                  .state{class: state}= t("shared.#{state}")
-              .row.actions
-                - if upload.can_accept?
-                  = link_to t("shared.accept"), manage_update_moderate_upload_state_path(id: upload.id, state: :accept), remote: true, method: :put, 'data-type': 'json'
-                - if upload.can_decline?
-                  = link_to t("shared.decline"), manage_update_moderate_upload_state_path({id: upload.id, state: :decline}), remote: true, method: :put, 'data-type': 'json', class: 'decline'
+- if uploads_by_place.length > 0 || without_owner_uploads_by_place.length > 0
+  - if uploads_by_place.length > 0
+    %ul.photo-view.slides
+      - uploads_by_place.each_with_index do |place_collection, place_collection_i|
+        - place_id = place_collection[0]
+        - place_uploads = place_collection[1]
+        - ln = place_uploads
+        %li
+          = link_to Place.find(place_id).name, place_path(place_id), class: 'name', target: :_blank
+          %ul
+            - place_uploads.each do |upload|
+              %li{'data-upload-id': upload.id, 'data-upload-state': upload.is_pending? ? 'pending' : nil}
+                .row
+                  %label= t('.uploaded_by')
+                  %span= "#{upload.user.name} (#{upload.user.email})"
+                .row
+                  .photo
+                    = image_tag upload.asset.image.url(:thumb), 'data-slide': upload.asset.image.url(:normal)
+                    - state = upload.processed_human
+                    .state{class: state}= t("shared.#{state}")
+                .row.actions
+                  - if upload.can_accept?
+                    = link_to t("shared.accept"), manage_update_moderate_upload_state_path(id: upload.id, state: :accept), remote: true, method: :put, 'data-type': 'json'
+                  - if upload.can_decline?
+                    = link_to t("shared.decline"), manage_update_moderate_upload_state_path({id: upload.id, state: :decline}), remote: true, method: :put, 'data-type': 'json', class: 'decline'
+  - if without_owner_uploads_by_place.length > 0
+    .manage-list-header= t('.manage_with_no_owners')
+    %ul.photo-view.slides
+      - without_owner_uploads_by_place.each_with_index do |place_collection, place_collection_i|
+        - place_id = place_collection[0]
+        - place_uploads = place_collection[1]
+        - ln = place_uploads
+        %li
+          = link_to Place.find(place_id).name, place_path(place_id), class: 'name', target: :_blank
+          %ul
+            - place_uploads.each do |upload|
+              %li{'data-upload-id': upload.id, 'data-upload-state': upload.is_pending? ? 'pending' : nil}
+                .row
+                  %label= t('.uploaded_by')
+                  %span= "#{upload.user.name} (#{upload.user.email})"
+                .row
+                  .photo
+                    = image_tag upload.asset.image.url(:thumb), 'data-slide': upload.asset.image.url(:normal)
+                    - state = upload.processed_human
+                    .state{class: state}= t("shared.#{state}")
+                .row.actions
+                  - if upload.can_accept?
+                    = link_to t("shared.accept"), manage_update_moderate_upload_state_path(id: upload.id, state: :accept), remote: true, method: :put, 'data-type': 'json'
+                  - if upload.can_decline?
+                    = link_to t("shared.decline"), manage_update_moderate_upload_state_path({id: upload.id, state: :decline}), remote: true, method: :put, 'data-type': 'json', class: 'decline'
 - else
   .no-data-found= t('shared.no_data_found')
