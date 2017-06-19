@@ -98,7 +98,8 @@ pollution.hooks.resize.push(function(windowWidth, windowHeight) {
       var t = $(this)
       var v = t.attr('data-set-max-height')
       if(v === 'parent') {
-        var tmpHeight = t.parent().outerHeight() + t.parent().position().top + 1
+        var p = t.parent()
+        var tmpHeight = p.outerHeight() + p.offset().top + 1
         t.css('max-height', windowHeight - tmpHeight )
       }
       else {

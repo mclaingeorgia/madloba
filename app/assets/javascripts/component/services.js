@@ -17,6 +17,7 @@
 
       $element.find('.toggle').click(function () {
         if(!state.is_open) {
+          t.stop_events(true)
           $element.toggleClass('collapsed', state.is_open)
           state.is_open = !state.is_open
           state.reset = t.get($element)
@@ -62,12 +63,14 @@
       })
 
       $element.find('button.apply').click(function () {
+        t.stop_events(false)
         state.is_open = false
         $element.addClass('collapsed')
         callback(t.get($element))
       })
 
       $element.find('button.reset').click(function () {
+       t.stop_events(false)
        state.is_open = false
        $element.addClass('collapsed')
 
@@ -87,6 +90,23 @@
       var services = []
       $element.find('.list .service').each(function(i, service) { services.push(+service.dataset.id) })
       return services
+    },
+    stop_events: function(state) {
+      $('main').toggleClass('stop_events', state)
+      if(state) {
+
+        $(document).on('click.stop_events', function () {
+          var el = $(event.target)
+          if(el.hasClass('app')) {
+            $('.filter-service').addClass('highlighted')
+          }
+        })
+      }
+      else {
+        $(document).off('click.stop_events')
+        $('.filter-service').removeClass('highlighted')
+      }
+
     }
   }
   pollution.components.services = services

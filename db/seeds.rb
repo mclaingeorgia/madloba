@@ -484,7 +484,7 @@ end
 
 if !Rails.env.production?
   ['user', 'provider', 'admin'].each_with_index {|user, user_i|
-    u = User.create(
+    u = User.create({
       first_name: user.capitalize,
       last_name: 'Account',
       email: "#{user}@sheaghe.ge",
@@ -493,7 +493,7 @@ if !Rails.env.production?
       role: user_i,
       has_agreed: true,
       is_service_provider: user != 'user'
-    )
+    }.merge(user != 'user' ? { provider_ids: user_i+1 } : {}))
   }
 end
 

@@ -10,6 +10,15 @@
 /****************************** main ******************************/
 
 main {
+  &.stop_events {
+    pointer-events: none;
+    .filter-service {
+      pointer-events: all;
+      &.highlighted .input-group{
+        box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+      }
+    }
+  }
   // display: flex;
   // flex-direction: column; //row
   section.content {
