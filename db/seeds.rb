@@ -477,14 +477,14 @@ email = 'application@sheaghe.ge'
 if User.where(email: email).count == 0
   puts 'Creating app user and api key'
   #User.where(email: email).destroy
-  u = User.new(email: email, password: Devise.friendly_token[0,30], role: 1)
+  u = User.new(email: email, password: Devise.friendly_token[0,30], role: 1, confirmed_at: DateTime.now, has_agreed: true)
   u.first_name = 'Application'
   u.save(validate: false)
 end
 
 if !Rails.env.production?
   ['user', 'provider', 'admin'].each_with_index {|user, user_i|
-    u = User.create({
+    u = User.new({
       first_name: user.capitalize,
       last_name: 'Account',
       email: "#{user}@sheaghe.ge",
@@ -493,7 +493,8 @@ if !Rails.env.production?
       role: user_i,
       has_agreed: true,
       is_service_provider: user != 'user'
-    }.merge(user != 'user' ? { provider_ids: user_i+1 } : {}))
+    })
+    u.save(validate: false)
   }
 end
 
