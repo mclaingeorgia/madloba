@@ -4,6 +4,7 @@
 //= require component/services
 //= require component/filter
 //= require component/place_card
+//= require select2
 
 pollution.components.map.init('places_map', { zoom: 8, type: 'coordinates', locate: true })
 pollution.components.filter.init()
@@ -24,4 +25,10 @@ $(document).on('click', '[toggle-view]', function() {
   $('.result-container').toggleClass('mobile-hidden', is_map_view)
   $('.mapper').toggleClass('mobile-hidden', !is_map_view)
    pollution.elements.places_map.invalidateSize()
+})
+
+
+ $('#region_filter').select2({
+  width: '100%',
+  allowClear: true
 })

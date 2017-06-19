@@ -121,6 +121,12 @@ class Place < ActiveRecord::Base
       emails.join(", ")
     end
 
+    def address_full
+      f = [self.address, self.city]
+      f << self.region.name if self.region.present?
+      f.reject(&:blank?).join(', ')
+    end
+
     def get_rating
       r = rating.to_s.format_number
       r == 0 ? '-' : r
@@ -147,6 +153,12 @@ class Place < ActiveRecord::Base
         sql << 'lower(place_translations.name) like :name'
         pars[:name] = "%#{filter[:what].downcase}%"
 
+        sql << 'lower(place_translations.address) like :address'
+        pars[:address] = "%#{filter[:where].downcase}%"
+
+        sql << 'lower(place_translations.city) like :city'
+        pars[:city] = "%#{filter[:where].downcase}%"
+
         place_ids = Provider.only_active.with_translations(I18n.locale).where('lower(provider_translations.name) like ?', "%#{filter[:what].downcase}%").includes(:places).pluck('places.id')
         place_ids += Tag.accepted.where('lower(name) like ?', "%#{filter[:what].downcase}%").includes(:places).pluck('places.id')
 
@@ -154,11 +166,9 @@ class Place < ActiveRecord::Base
 
         pars[:place_ids] = place_ids.uniq
       end
+
       if filter[:where].present?
-        sql << 'lower(place_translations.address) like :address'
-        pars[:address] = "%#{filter[:where].downcase}%"
-        sql << 'lower(place_translations.city) like :city'
-        pars[:city] = "%#{filter[:where].downcase}%"
+        places = places.where(:region_id => filter[:where])
       end
 
       if filter[:services].present?

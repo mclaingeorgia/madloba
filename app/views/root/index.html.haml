@@ -6,11 +6,13 @@
       %label=t('.what')
       %input{type: 'text', placeholder: t('.placeholder.what'), 'data-filter': 'what', value: filter[:what] }
     .bar
-    .search-group
-      .search-input
-        %label= t('.where')
-        %input{type: 'text', placeholder: t('.placeholder.where'), 'data-filter': 'where', value: filter[:where] }
-      %input{type: 'submit', value: t('shared.search')}
+    .search-group-wrapper
+      %label= t('.where')
+      .search-group
+        .search-input
+          = collection_select :filter, :region, Region.all, :id, :name, { selected: filter[:where].present? ? filter[:where] : nil}, { id: 'region_filter', 'data-filter': 'where', 'data-placeholder': t('.placeholder.where'), multiple: true, style: 'display: none;' }
+          =#%input{type: 'text', placeholder: t('.placeholder.where'), 'data-filter': 'where', value: filter[:where] }
+        %input{type: 'submit', value: t('shared.search')}
   .filter
     %ul
       %li.filter-prompt
@@ -45,10 +47,10 @@
           = render partial: 'shared/favoritor', locals: { is_filter: true, is_favorite: filter[:favorite], label: t('.favorites'), title: filter[:favorite] ? t('.alt.show_all') : t('.alt.show_favorite') }
   .info
     .list-view.mobile-hidden{'toggle-view': :list}
-      %span List View
+      %span= t('.list_view')
       %i
     .map-view{'toggle-view': :map}
-      %span Map View
+      %span= t('.map_view')
       %i
     .count
       = 0

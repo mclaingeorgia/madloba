@@ -32,9 +32,9 @@
         = item.services.sorted.map { |s| "<li class='service'><a href='#{root_path(services:[s.id])}' title='#{s.name} - #{view_all_service_places}'><i class='#{s.icon}'></i><span>#{s.name}</span></a></li>" }.join("").html_safe
       %ul.contact
         - if item.address.present?
-          %li{title: item.address}
+          %li{title: item.address_full}
             %i.address
-            %span= item.address
+            %span= item.address_full
         - if item.phone.present?
           %li{title: item.phone}
             %i.phone

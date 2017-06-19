@@ -117,7 +117,7 @@ class RootController < ApplicationController
       unfavorite: t('shared.unfavorite'),
       ownership_under_consideration: t('.take_ownership_underway'),
     })
-    gon.place_address = item.address
+    gon.place_address = item.address_full
 
     respond_to do |format|
       format.html { render locals:
@@ -153,6 +153,9 @@ class RootController < ApplicationController
         memo[key] = v if key != :locale
         memo
       }
+
+      tmp = pars[:where]
+      pars[:where] = (tmp.present? && tmp.kind_of?(Array) && tmp.length >= 1) ? tmp.map(&:to_i) : []
 
       tmp = pars[:services]
       pars[:services] = (tmp.present? && tmp.kind_of?(Array) && tmp.length >= 1) ? tmp.map(&:to_i) : []
@@ -190,7 +193,7 @@ class RootController < ApplicationController
       end
 
 
-      places = Place.filter(filter, current_user)#.limit(10)
+      places = Place.filter(filter, current_user).limit(10)
 
       gon.labels.merge!({
         result: t('root.index.result', count: 1),
@@ -228,7 +231,7 @@ class RootController < ApplicationController
           provider: {
             name: place.provider.name
             },
-          address: place.address,
+          address: place.address_full,
           phone: place.phone,
           coordinates: [place.latitude, place.longitude],
           services: place.services.ids
@@ -245,7 +248,7 @@ class RootController < ApplicationController
     end
 
     def index_params
-      params.permit(:what, :where, :rate, :favorite, :locale, :_, services: [], map: [])
+      params.permit(:what, :rate, :favorite, :locale, :_, where: [], services: [], map: [])
     end
 
     def place_params

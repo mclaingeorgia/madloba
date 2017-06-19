@@ -29,9 +29,9 @@
               .ellipsis{title: t('shared.view_all_services')}
           %ul.contact
             - if place.address.present?
-              %li{title: place.address}
+              %li{title: place.address_full}
                 %i.address
-                %span= place.address
+                %span= place.address_full
             - if place.phone.present?
               %li{title: place.phone}
                 %i.phone

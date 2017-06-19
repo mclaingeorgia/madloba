@@ -3,7 +3,7 @@
 .form-container{class: @form_container_class}
   = simple_form_for obj, html: { class: @form_class } do |f|
     = devise_error_messages!
-    = render partial: 'shared/fields_localization', locals: { fields: { title: nil, header: nil, content: { as: :text, input_html: { rows: 10, style: 'width: 100%' } },  } , form: f }
+    = render partial: 'shared/fields_localization', locals: { fields: { title: nil, header: nil, content: { as: :text, input_html: { rows: 10, style: 'width: 100%', class: 'tinymce-limited' } },  } , form: f }
     %label.list-header= t('admin.page_contents.list')
     - locales = I18n.available_locales
     .fields-localization.wide

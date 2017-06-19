@@ -122,6 +122,7 @@ en:
       alt: "%{alt} Image"
       by: by
       save: Save
+      reset: Reset
     messages:
       success_updated: "%{obj} was successfully updated."
       fail_updated: "%{obj} failed to update."
@@ -352,8 +353,10 @@ en:
         by_map: Search as I move the map
       placeholder:
         what: Type Place or Provider Name
-        where: Type Region or City
+        where: Select Region(s)
       not_found: There is no data found with provided filters
+      list_view: List View
+      map_view: Map View
     place:
       contact_place: Contact %{provider}
       your_name: Your Name
@@ -366,7 +369,7 @@ en:
       take_ownership: Take Ownership
       take_ownership_underway: Ownership Under Consideration
       share: Share
-      service_tags: Service Tags
+      service_tags: 'Service Tags:'
       comments: Comments
     faq:
       title: FAQ

@@ -482,6 +482,22 @@ if User.where(email: email).count == 0
   u.save(validate: false)
 end
 
+if !Rails.env.production?
+  ['user', 'provider', 'admin'].each_with_index {|user, user_i|
+    u = User.create(
+      first_name: user.capitalize,
+      last_name: 'Account',
+      email: "#{user}@sheaghe.ge",
+      password: 'password',
+      confirmed_at: DateTime.now,
+      role: user_i,
+      has_agreed: true,
+      is_service_provider: user != 'user'
+    )
+  }
+end
+
+
 Provider.destroy_all
 providers = [
   { name: { en: "Unknown Provider", ka: "Unknown Provider" }, description: { en: "Unknown Provider", ka: "Unknown Provider" } }
