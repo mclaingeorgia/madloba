@@ -154,10 +154,10 @@ class Place < ActiveRecord::Base
         pars[:name] = "%#{filter[:what].downcase}%"
 
         sql << 'lower(place_translations.address) like :address'
-        pars[:address] = "%#{filter[:where].downcase}%"
+        pars[:address] = "%#{filter[:what].downcase}%"
 
         sql << 'lower(place_translations.city) like :city'
-        pars[:city] = "%#{filter[:where].downcase}%"
+        pars[:city] = "%#{filter[:what].downcase}%"
 
         place_ids = Provider.only_active.with_translations(I18n.locale).where('lower(provider_translations.name) like ?', "%#{filter[:what].downcase}%").includes(:places).pluck('places.id')
         place_ids += Tag.accepted.where('lower(name) like ?', "%#{filter[:what].downcase}%").includes(:places).pluck('places.id')
