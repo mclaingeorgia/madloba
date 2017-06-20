@@ -141,12 +141,71 @@
     // private
     bind: function () {
       var t = filter
+
       var search_keydown = function (event) {
         var code = event.keyCode || event.which
         if(code === 13) {
           t.process('search')
         }
       }
+      if($('.en2ka').length) {
+        var en2kaFlag = true
+        $('.en2ka-switcher').click(function () {
+          en2kaFlag = this.innerText === 'EN'
+          this.innerText = en2kaFlag ? 'KA' : 'EN'
+        })
+
+        t.els['what'].keypress(function(event){
+          if(en2kaFlag) {
+            insertText(this, en2ka(String.fromCharCode(event.keyCode || event.which)))
+            event.preventDefault()
+          }
+        })
+      }
+
+
+      function en2ka(str) {
+         var index, symbols = "abgdevzTiklmnopJrstufqRySCcZwWxjh"
+
+         return str.split('').map(function(m) {
+           index = symbols.indexOf(m)
+           return index >= 0 ? String.fromCharCode(index + 4304) : m
+         }).join('')
+       }
+
+       function insertText(input, text) {
+         if (input == undefined) { return; }
+         var scrollPos = input.scrollTop;
+         var pos = 0;
+         var browser = ((input.selectionStart || input.selectionStart == "0") ?
+           "ff" : (document.selection ? "ie" : false ) );
+         if (browser == "ie") {
+           input.focus();
+           var range = document.selection.createRange();
+           range.moveStart ("character", -input.value.length);
+           pos = range.text.length;
+         }
+         else if (browser == "ff") { pos = input.selectionStart };
+
+         var front = (input.value).substring(0, pos);
+         var back = (input.value).substring(pos, input.value.length);
+         input.value = front+text+back;
+         pos = pos + text.length;
+         if (browser == "ie") {
+           input.focus();
+           var range = document.selection.createRange();
+           range.moveStart ("character", -input.value.length);
+           range.moveStart ("character", pos);
+           range.moveEnd ("character", 0);
+           range.select();
+         }
+         else if (browser == "ff") {
+           input.selectionStart = pos;
+           input.selectionEnd = pos;
+           input.focus();
+         }
+         input.scrollTop = scrollPos;
+       }
 
       t.els['what'].keydown(search_keydown)
       t.els['where'].keydown(search_keydown)
@@ -270,6 +329,9 @@
   }
   pollution.components.filter = filter
 }())
+
+
+
 
 
 

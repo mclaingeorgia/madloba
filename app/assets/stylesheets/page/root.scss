@@ -45,8 +45,26 @@ main {
         width: 100%;
         &.first {
           padding-bottom: 18px;
+          .en2ka {
+            position: relative;
+            .en2ka-switcher {
+              position: absolute;
+              top: 1px;
+              bottom: 1px;
+              left: 0;
+              padding: 16px 10px 0;
+              @include font(16, 'r');
+              color: $text;
+              border-right: 1px solid $border2;
+              cursor: pointer;
+            }
+          }
+
           input {
-            border-radius: 3px;
+            border-radius: 3px !important;
+            &:lang(ka) {
+              padding-left: 50px !important;
+            }
           }
         }
         input[type='text'] {
