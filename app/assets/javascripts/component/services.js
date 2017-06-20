@@ -95,7 +95,7 @@
       $('main').toggleClass('stop_events', state)
       if(state) {
 
-        $(document).on('click.stop_events', function () {
+        $(document).on('click.stop_events', function (event) {
           var el = $(event.target)
           if(el.hasClass('app')) {
             $('.filter-service').addClass('highlighted')
