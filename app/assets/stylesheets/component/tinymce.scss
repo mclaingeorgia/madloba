@@ -10,3 +10,7 @@
     padding: 2px 4px;
   }
 }
+
+.mce-container, .mce-container *, .mce-widget, .mce-widget *, .mce-reset {
+  box-sizing: border-box !important;
+}

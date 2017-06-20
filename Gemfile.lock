@@ -393,6 +393,8 @@ GEM
     thread_safe (0.3.5)
     tilt (2.0.5)
     tins (1.13.0)
+    tinymce-rails (4.6.4)
+      railties (>= 3.1.1)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (3.0.4)
@@ -472,6 +474,7 @@ DEPENDENCIES
   shoulda-matchers
   simple_form
   sprockets-rails (= 2.3.3)
+  tinymce-rails
   uglifier (>= 1.3.0)
   unicorn
   whenever

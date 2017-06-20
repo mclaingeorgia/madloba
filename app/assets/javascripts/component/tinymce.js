@@ -1,4 +1,5 @@
-//= require tinymce.min
+//= require tinymce
+
 var tinyMCEPreInit = {
     suffix: '',
     base: '/tinymce/',
@@ -10,6 +11,7 @@ tinymce.init({
   menubar: false,
   statusbar: false,
   relative_urls : false,
+  branding: false,
 
   // browser_spellcheck: false,
   // gecko_spellcheck: false,
@@ -25,7 +27,7 @@ tinymce.init({
 // },
   plugins: [ 'autolink lists link anchor code' ],
   toolbar: 'undo redo | insert | styleselect | bold italic | link | code',
-  skin_url: '/assets/skins/lightgray'
+  // skin_url: '/assets/skins/lightgray'
 })
 
 function initTinymceLimited(target) {
@@ -36,7 +38,8 @@ function initTinymceLimited(target) {
     valid_elements: "p, a, b, i, ul, ol, li, dl",
     plugins: [ 'autolink lists link anchor' ],
     toolbar: 'undo redo | insert | bold italic | link | numlist bullist',
-    skin_url: '/assets/skins/lightgray'
+    branding: false,
+    // skin_url: '/assets/skins/lightgray'
   }
   if (typeof target === 'string') {
     options['selector'] = target
