@@ -1,4 +1,9 @@
 //= require tinymce.min
+var tinyMCEPreInit = {
+    suffix: '',
+    base: '/tinymce/',
+    query: ''
+};
 
 tinymce.init({
   selector: 'textarea.tinymce' ,
@@ -19,7 +24,8 @@ tinymce.init({
 //   'span': 'caret'
 // },
   plugins: [ 'autolink lists link anchor code' ],
-  toolbar: 'undo redo | insert | styleselect | bold italic | link | code'
+  toolbar: 'undo redo | insert | styleselect | bold italic | link | code',
+  skin_url: '/assets/skins/lightgray'
 })
 
 function initTinymceLimited(target) {
@@ -29,7 +35,8 @@ function initTinymceLimited(target) {
     allow_html_in_named_anchor: true,
     valid_elements: "p, a, b, i, ul, ol, li, dl",
     plugins: [ 'autolink lists link anchor' ],
-    toolbar: 'undo redo | insert | bold italic | link | numlist bullist'
+    toolbar: 'undo redo | insert | bold italic | link | numlist bullist',
+    skin_url: '/assets/skins/lightgray'
   }
   if (typeof target === 'string') {
     options['selector'] = target
