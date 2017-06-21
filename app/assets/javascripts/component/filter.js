@@ -156,7 +156,8 @@
         })
 
         t.els['what'].keypress(function(event){
-          if(en2kaFlag) {
+          if (event.altKey || event.ctrlKey || event.metaKey) return;
+          if(en2kaFlag && event.charCode) {
             insertText(this, en2ka(String.fromCharCode(event.keyCode || event.which)))
             event.preventDefault()
           }

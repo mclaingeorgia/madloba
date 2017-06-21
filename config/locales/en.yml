@@ -122,7 +122,6 @@ en:
       alt: "%{alt} Image"
       by: by
       save: Save
-      reset: Reset
     messages:
       success_updated: "%{obj} was successfully updated."
       fail_updated: "%{obj} failed to update."
@@ -354,6 +353,8 @@ en:
       placeholder:
         what: Type Place or Provider Name
         where: Select Region(s)
+      title:
+        keyboard: Select keyboard to use
       not_found: There is no data found with provided filters
       list_view: List View
       map_view: Map View

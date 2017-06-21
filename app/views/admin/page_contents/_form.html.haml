@@ -41,7 +41,7 @@
                       = link_to t('admin.shared.delete'), 'javascript:void(0);', 'data-index': page_content_item.index, class: 'delete btn'
                   .page-content-list-text
                     = page_content_item.input :"title_#{locale}", input_html: { id: nil }, label: false, placeholder: PageContentItem.human_attribute_name(:title)
-                    = page_content_item.input :"content_#{locale}", as: :text, input_html: { rows: 6, id: nil, class: 'tinymce-limited' }, wrapper_html: {class: 'fill'}, label: false, placeholder: PageContentItem.human_attribute_name(:content)
+                    = page_content_item.input :"content_#{locale}", as: :text, input_html: { rows: 10, id: nil, class: 'tinymce-limited' }, wrapper_html: {class: 'fill'}, label: false, placeholder: PageContentItem.human_attribute_name(:content)
 
           - locales.each_with_index do |locale|
             - is_current_locale = I18n.locale == locale

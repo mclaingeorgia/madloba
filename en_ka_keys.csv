@@ -1,9 +1,17 @@
 key,en_value,ka_value
+en.activerecord.models.user.one,User,User
+en.activerecord.models.user.other,Users,Users
 en.activerecord.models.provider.one,Provider,პროვაიდერი
 en.activerecord.models.provider.other,Providers,პროვაიდერები
+en.activerecord.models.place.one,Place,Place
+en.activerecord.models.place.other,Places,Places
+en.activerecord.models.service.one,Service,Service
+en.activerecord.models.service.other,Services,Services
 en.activerecord.models.page_content.one,Page Content,Page Content
 en.activerecord.models.page_content.other,Page Contents,Page Contents
 en.activerecord.models.place_rates.one,rate class,rate class
+en.activerecord.models.page_content_item.one,Page Content List Item,Page Content List Item
+en.activerecord.models.page_content_item.other,Page Content List Item,Page Content List Item
 en.activerecord.attributes.provider.name,Provider Name,Provider Name
 en.activerecord.attributes.provider.description,Provider Description,Provider Description
 en.activerecord.attributes.providers.name,Provider Name,Provider Name
@@ -26,6 +34,18 @@ en.activerecord.attributes.user.roles.provider,Provider,Provider
 en.activerecord.attributes.user.roles.admin,Admin,Admin
 en.activerecord.attributes.user.providers.one,Provider,პროვაიდერი
 en.activerecord.attributes.user.providers.other,Providers,პროვაიდერები
+en.activerecord.attributes.place.name,Name,Name
+en.activerecord.attributes.place.description,Description,Description
+en.activerecord.attributes.place.services,Which Rehabilitative services do you provide?,Which Rehabilitative services do you provide?
+en.activerecord.attributes.place.emails,Emails,Emails
+en.activerecord.attributes.place.phones,Phones,Phones
+en.activerecord.attributes.place.website,Website,Website
+en.activerecord.attributes.place.address,Address,Address
+en.activerecord.attributes.place.city,City,City
+en.activerecord.attributes.place.postal_code,Postal Code,Postal Code
+en.activerecord.attributes.place.region,Region,Region
+en.activerecord.attributes.place.tags,Tags,Tags
+en.activerecord.attributes.place.provider,Provider,Provider
 en.activerecord.errors.models.user.attributes.email.taken,This email is already used,This email is already used
 en.activerecord.errors.models.user.attributes.providers.not_filled, data is not filled, data is not filled
 en.activerecord.errors.models.category.attributes.name.blank,The category name can't be blank,კატეგორიის დასახელება არ შეიძლება იყოს ცარიელი
@@ -33,6 +53,8 @@ en.activerecord.errors.models.category.attributes.marker_color.taken,Marker colo
 en.activerecord.errors.models.category.attributes.icon.blank,The icon name can't be blank.,სიმბოლო არ შეიძლება იყოს ცარიელი.
 en.activerecord.errors.models.post.attributes.image.too_long,The image must be less than 5MB,ფაილი არ უნდა აღემატებოდეს 5MB.
 en.activerecord.errors.models.post.attributes.number_of_items.greater_than,Please add at least 1 service.,გთხოვთ დაამატეთ სულ მცირე ერთი სერვისი.
+en.simple_form.placeholders.place.website,http://example.com,http://example.com
+en.simple_form.placeholders.place.tags,Type tag name and press enter,Type tag name and press enter
 en.app.languages.en,English,ინგლისური
 en.app.languages.ka,Georgian,ქართული
 en.app.languages._en,English,English
@@ -55,6 +77,7 @@ en.app.common.register,Register,რეგისტრაცია
 en.app.common.sign_in,Sign In,შესვლა
 en.app.common.sign_up,Sign Up,რეგისტრაცია
 en.app.common.cancel,Cancel,გაუქმება
+en.app.common.reset,Reset,Reset
 en.app.common.reset_password,Reset Password,გადმომიგზავნეთ პაროლის შეცვლის ინსტრუქცია.
 en.app.common.change_password,Change Password,პაროლის შეცვლა
 en.app.common.resend,Resend,Resend
@@ -72,6 +95,8 @@ en.app.messages.accepted,%{obj} was successfully accepted.,%{obj} was successful
 en.app.messages.declined,%{obj} was successfully declined.,%{obj} was successfully declined.
 en.app.messages.fail_updated_state,%{obj} state failed to update.,%{obj} state failed to update.
 en.app.messages.state_already_set,%{obj} state already set.,%{obj} state already set.
+en.app.messages.contact_send_success,Message successfully sent.,Message successfully sent.
+en.app.messages.contact_send_fail,Failed to send message.,Failed to send message.
 en.shared.toggle_navigation,Toggle navigation,Toggle navigation
 en.shared.user_profile,User Profile,User Profile
 en.shared.provider_profile,Provider Profile,Provider Profile
@@ -107,44 +132,72 @@ en.shared.all_done,All done!,All done!
 en.shared.are_you_sure,Are you sure?,Are you sure?
 en.shared.favorite,Favorite,Favorite
 en.shared.unfavorite,Unfavorite,Unfavorite
+en.shared.or,Or,Or
 en.shared.labels.state,State:,State:
 en.shared.title.report,Report a problem with this place,Report a problem with this place
 en.shared.title.ownership,Are you a service provider and this is your place? Take ownership of this place so you can manage the content.,Are you a service provider and this is your place? Take ownership of this place so you can manage the content.
 en.shared.title.favorite,Add or remove this place from your favorites,Add or remove this place from your favorites
-en.messages.succeed_to_process,Request to %{action} processed successfully.,Request to %{action} processed successfully.
-en.messages.succeed_to_process_reject,Request to reject %{action} processed successfully.,Request to reject %{action} processed successfully.
-en.messages.failed_to_process,Request to,Request to
-en.messages.place_rate,rate place,rate place
-en.messages.favorite_place,favorite place,favorite place
-en.messages.place_ownership,take place ownership,take place ownership
-en.messages.place_report,report place,report place
+en.messages.succeed_to_process,%{action} was successfully submitted,%{action} was successfully submitted
+en.messages.succeed_to_process_reject,%{action} was successfully removed.,%{action} was successfully removed.
+en.messages.failed_to_process,Request for %{action} failed.,Request for %{action} failed.
+en.messages.place_rate,Place rating,Place rating
+en.messages.favorite_place,Favorite,Favorite
+en.messages.place_ownership,Place ownership,Place ownership
+en.messages.place_report,Place report,Place report
 en.messages.n_photo_uploaded.one,Photo uploaded.,Photo uploaded.
 en.messages.n_photo_uploaded.other,%{n} photos uploaded.,%{n} photos uploaded.
 en.messages.n_photo_uploaded_and_pending.one,Photo uploaded and waiting to be processed,Photo uploaded and waiting to be processed
 en.messages.n_photo_uploaded_and_pending.other,%{n} photos uploaded and waiting to be processed,%{n} photos uploaded and waiting to be processed
 en.messages.uploader_failed,"Error while uploading photos, please contact administration","Error while uploading photos, please contact administration"
+en.messages.assign_provider_to_success,%{child} %{child_name} assigned to provider %{name} successfully,%{child} %{child_name} assigned to provider %{name} successfully
+en.messages.assign_provider_to_failed,Failed to assign %{child} to provider,Failed to assign %{child} to provider
+en.messages.unassign_provider_to_success,%{child} %{child_name} unassigned from provider %{name} successfully,%{child} %{child_name} unassigned from provider %{name} successfully
+en.messages.unassign_provider_to_failed,Failed to unassign %{child} from provider,Failed to unassign %{child} from provider
+en.messages.provider_role_required,This operation require user to be service provider.,This operation require user to be service provider.
 en.admin.shared.add,Add,დამატება
 en.admin.shared.save,Save,შენახვა
 en.admin.shared.cancel,Cancel,გაუქმება
+en.admin.shared.reset,Reset,Reset
 en.admin.shared.edit,Edit,რედაქტირება
-en.admin.shared.edit_object,Edit %{obj},%{obj} რედაქტირება
 en.admin.shared.delete,Delete,წაშლა
-en.admin.shared.or,or,or
 en.admin.shared.actions,Actions,მოქმედება
-en.admin.shared.add_place,Add Place,Add Place
-en.admin.providers.manage,Manage Providers,Manage Providers
-en.admin.providers.edit,Edit Provider,Edit Provider
-en.admin.providers.create,Create Provider,Create Provider
-en.admin.providers.add,Add Provider,Add Provider
+en.admin.shared.assign,Assign,Assign
+en.admin.shared.view,View,View
+en.admin.shared.add_model,Add %{name},Add %{name}
+en.admin.shared.edit_model,Edit %{name},Edit %{name}
+en.admin.shared.manage_model,Manage %{name},Manage %{name}
+en.admin.shared.create_model,Create %{name},Create %{name}
+en.admin.shared.confirm_delete_model,%{name} will be removed.,%{name} will be removed.
+en.admin.shared.confirm_restore_model,%{name} will be restored.,%{name} will be restored.
+en.admin.shared.search_assign_placeholder,Find object to assign (min 3 chars),Find object to assign (min 3 chars)
 en.admin.providers.confirm_delete,Provider will be removed with all places bind to it.,Provider will be removed with all places bind to it.
-en.admin.providers.list.providers,Providers:,Providers:
+en.admin.providers.confirm_restore,Provider will be restored with all places bind to it.,Provider will be restored with all places bind to it.
+en.admin.providers.form.owner_users,Owner Users:,Owner Users:
+en.admin.providers.form.places,Places:,Places:
+en.admin.providers.list.manage,Manage Providers,Manage Providers
+en.admin.providers.list.manage_with_no_owners,Manage Providers With No Owner,Manage Providers With No Owner
+en.admin.places.current_provider,Assigned provider,Assigned provider
+en.admin.places.update_provider,Assign provider,Assign provider
+en.admin.places.list.provider,Provider:,Provider:
+en.admin.places.list.manage_with_no_owners,Manage Places With No Owner,Manage Places With No Owner
+en.admin.place.index.title,Manage Places,Manage Places
+en.admin.place.locate_me,Locate me on map,Locate me on map
+en.admin.page_contents.list,List Items,List Items
+en.admin.page_contents.new_item,Unnamed page content item,Unnamed page content item
+en.admin.manage_providers.index,Manage Providers,Manage Providers
+en.admin.manage_providers.edit,Edit Provider,Edit Provider
+en.admin.manage_providers.new,Create Provider,Create Provider
+en.admin.manage_places.index,Manage Places,Manage Places
+en.admin.manage_places.edit,Edit Place,Edit Place
+en.admin.manage_places.new,Create Place,Create Place
+en.admin.moderate_photos.index,Moderate Photos,Moderate Photos
 en.admin.menu.manage_profile,Manage Profile,Manage Profile
+en.admin.menu.favorite_places,Favorite Places,Favorite Places
 en.admin.menu.rated_places,Rated Places,Rated Places
 en.admin.menu.uploaded_photos,Uploaded Photos,Uploaded Photos
-en.admin.menu.manage_provider,Manage Provider,Manage Provider
+en.admin.menu.manage_providers,Manage Providers,Manage Providers
 en.admin.menu.manage_places,Manage Places,Manage Places
 en.admin.menu.moderate_photos,Moderate Photos,Moderate Photos
-en.admin.menu.favorite_places,Favorite Places,Favorite Places
 en.admin.menu.users,Users,Users
 en.admin.menu.providers,Providers,Providers
 en.admin.menu.places,Places,Places
@@ -153,44 +206,27 @@ en.admin.menu.page_contents,Page Contents,Page Contents
 en.admin.menu.place_report,Reported Places,Reported Places
 en.admin.menu.place_ownership,Place Ownership,Place Ownership
 en.admin.menu.new_provider,New Provider,New Provider
-en.admin.menu.place_tag,Place Tags,Place Tags
-en.admin.profile.first_name,First name:,სახელი:
-en.admin.profile.last_name,Last name:,გვარი:
-en.admin.profile.username,Username:,სარეგისტრაციო სახელი:
-en.admin.profile.email,Email:,ელ.ფოსტა:
-en.admin.profile.is_service_provider,Service Provider:,სერვისის პროვაიდერი:
-en.admin.profile.current_password,Current password:,არსებული პაროლი:
-en.admin.profile.password,New password:,პაროლი:
-en.admin.profile.password_confirmation,Confirm password:,პაროლის დადასტურება:
-en.admin.page_contents.index.title,Manage Page Contents,Manage Page Contents
-en.admin.page_contents.edit.title,Edit Page Content,Edit Page Content
-en.admin.places.index.title,Manage Places,Manage Places
-en.admin.places.edit.title,Edit Places,Edit Places
-en.admin.places.list.provider,Provider:,პროვაიდერი:
-en.admin.place.index.title,Manage Places,Manage Places
-en.admin.place.name,Name:,Name:
-en.admin.place.description,Description:,აღწერა:
-en.admin.place.services,Which Rehabilitative services do you provide?,Which Rehabilitative services do you provide?
-en.admin.place.phone,Phone:,საკონქატო ტელეფონი:
-en.admin.place.website,Website:,ვებ გვერდი:
-en.admin.place.address,Address:,მისამართი:
-en.admin.place.city,City:,ქალაქი:
-en.admin.place.postal_code,Postal Code:,საფოსტო კოდი:
-en.admin.place.region,Region:,რეგიონი:
-en.admin.place.locate_me,Locate me on map,Locate me on map
-en.admin.user.email,Email,ელ. ფოსტა
+en.admin.menu.place_tags,Place Tags,Place Tags
+en.admin.user.email,Email,Email
 en.admin.user.password,Password,Password
 en.admin.user.password_confirmation,Password Confirmation,Password Confirmation
-en.admin.services.index.title,Manage Services,Manage Services
+en.admin.user.has_agreed_html,I have accepted the&nbsp;%{link}!:,I have accepted the&nbsp;%{link}!:
+en.admin.user.promote,Promote to Admin!:,Promote to Admin!:
 en.admin.moderates.place_report.title,Moderate Reported Places,Moderate Reported Places
 en.admin.moderates.place_report.reported_by,Reported By:,Reported By:
 en.admin.moderates.place_report.reason,Reason:,Reason:
 en.admin.moderates.place_ownership.title,Moderate Place Ownership,Moderate Place Ownership
+en.admin.moderates.place_ownership.linked_provider,Linked Provider:,Linked Provider:
 en.admin.moderates.place_ownership.request_from,Request From:,Request From:
 en.admin.moderates.place_tag.title,Moderate Place Tag,Moderate Place Tag
 en.admin.moderates.place_tag.created_by,Created By:,Created By:
 en.admin.moderates.place_tag.tag,Tag:,Tag:
+en.admin.moderates.new_provider.title,Moderate New Provider,Moderate New Provider
+en.admin.moderates.new_provider.created_by,Created By:,Created By:
+en.admin.moderates.new_provider.name,Provider Name:,Provider Name:
+en.admin.moderates.new_provider.description,Description:,Description:
 en.admin.uploads.list.uploaded_by,Uploaded By:,Uploaded By:
+en.admin.uploads.list.manage_with_no_owners,Manage Place Photos With No Owner,Manage Place Photos With No Owner
 en.application.dialog.partners,PARTNERS,PARTNERS
 en.application.dialog.contact,CONTACT,CONTACT
 en.application.dialog.org,McLain Association for Children,McLain Association for Children
@@ -237,9 +273,12 @@ en.root.index.alt.filter,Filter Image,Filter Image
 en.root.index.alt.show_all,Show all,Show all
 en.root.index.alt.show_favorite,Show favorite places,Show favorite places
 en.root.index.filter.by_map,Search as I move the map,Search as I move the map
-en.root.index.placeholder.what,Type Place or Provider Name,"Type Place, Tag or Provider Name"
-en.root.index.placeholder.where,Type Region or City,Type Region or City
+en.root.index.placeholder.what,Type Place or Provider Name,Type Place or Provider Name
+en.root.index.placeholder.where,Select Region(s),Select Region(s)
+en.root.index.title.keyboard,Select keyboard to use,Select keyboard to use
 en.root.index.not_found,There is no data found with provided filters,There is no data found with provided filters
+en.root.index.list_view,List View,List View
+en.root.index.map_view,Map View,Map View
 en.root.place.contact_place,Contact %{provider},Contact %{provider}
 en.root.place.your_name,Your Name,Your Name
 en.root.place.your_email,Your Email,Your Email
@@ -251,9 +290,14 @@ en.root.place.report,Report,Report
 en.root.place.take_ownership,Take Ownership,Take Ownership
 en.root.place.take_ownership_underway,Ownership Under Consideration,Ownership Under Consideration
 en.root.place.share,Share,Share
-en.root.place.service_tags,Service Tags,Service Tags
+en.root.place.service_tags,Service Tags:,Service Tags
 en.root.place.comments,Comments,Comments
 en.root.faq.title,FAQ,FAQ
+en.root.place_ownership_dialog.take_ownership_for,"Take ""%{name}"" Ownership","Take ""%{name}"" Ownership"
+en.root.place_ownership_dialog.existing_provider,Pick existing provider,Pick existing provider
+en.root.place_ownership_dialog.or_create,or create new,or create new
+en.root.place_ownership_dialog.incase_existing_provider,"* If existing provider is picked, this text will be ignored.","* If existing provider is picked, this text will be ignored."
+en.root.place_ownership_dialog.take_ownership,Take Ownership,Take Ownership
 en.mailer.hello,Hello %{name}!,გამარჯობათ %{name}!
 en.mailer.hi,Hi %{name},გამარჯობა %{name}
 en.mailer.welcome,Welcome to %{name}! You will soon be able to search and find details for all rehabilitation services in Georgia.,მადლობას გიხდით %{name} სტუმრობისათვის! მალე თქვენ შეძლებთ მოიძიოთ დეტალური ინფორმაცია სარეაბილიტაციო სერვისების შესახებ საქართველოში.
@@ -275,6 +319,43 @@ en.mailer.change_my_password,Change my password,პაროლის შეც�
 en.mailer.account_locked,Your account has been locked due to an excessive number of unsuccessful sign in attempts.,თქვენ ხუთჯერ არარასწორად შეიყვანეთ პაროლი და თქვენი გვერდი დაიბლოკა.
 en.mailer.link_unlock,Click the link below to unlock your account,დააწკაპუნეთ ქვემოთ მითითებულ ლინკზე რომ მოხდეს გვერდიდან ბლოკის ახსნა
 en.mailer.unlock_account,Unlock my account,ბლოკის მოხსნა
+en.notification.admin_moderate.subject,New Moderation Request(s),New Moderation Request(s)
+en.notification.admin_moderate.hello,"Hello Admin,","Hello Admin,"
+en.notification.admin_moderate.intro,You have new items to moderate:,You have new items to moderate:
+en.notification.admin_moderate.report_item,%{n} place report(s),%{n} place report(s)
+en.notification.admin_moderate.ownership_item,%{n} take ownership request(s),%{n} take ownership request(s)
+en.notification.admin_moderate.new_provider_item,%{n} new provider(s),%{n} new provider(s)
+en.notification.admin_moderate.tag_item,%{n} tag(s),%{n} tag(s)
+en.notification.moderator_response.subject,Your request(s) was moderated,Your request(s) was moderated
+en.notification.moderator_response.hello,"Hello %{name},","Hello %{name},"
+en.notification.moderator_response.intro,Moderated request(s):,Moderated request(s):
+en.notification.moderator_response.report_type,%{n} place report(s),%{n} place report(s)
+en.notification.moderator_response.ownership_type,%{n} take ownership request(s),%{n} take ownership request(s)
+en.notification.moderator_response.new_provider_type,%{n} new provider(s),%{n} new provider(s)
+en.notification.moderator_response.tag_type,%{n} tag(s),%{n} tag(s)
+en.notification.moderator_response.photo_type,%{n} photos(s),%{n} photos(s)
+en.notification.moderator_response.labels.place,Place,Place
+en.notification.moderator_response.labels.reason,Reason,Reason
+en.notification.moderator_response.labels.state,State,State
+en.notification.moderator_response.labels.provider,Provider,Provider
+en.notification.moderator_response.labels.description,Description,Description
+en.notification.moderator_response.labels.photo,Photo,Photo
+en.notification.photo_upload.subject,New photo uploaded,New photo uploaded
+en.notification.photo_upload.hello,"Hello %{name},","Hello %{name},"
+en.notification.photo_upload.intro,You have %{n} uploaded photo(s):,You have %{n} uploaded photo(s):
+en.notification.photo_upload.labels.user,User,User
+en.notification.photo_upload.labels.photo,Photo,Photo
+en.notification.photo_upload.labels.place,Place,Place
+en.notification.contact.subject,Customer Message,Customer Message
+en.notification.contact.hello,"Hello,","Hello,"
+en.notification.contact.intro,You have new message from customer:,You have new message from customer:
+en.notification.contact.customer_name,Name: %{name},Name: %{name}
+en.notification.contact.customer_email,Email: %{email},Email: %{email}
+en.notification.contact.customer_text,Message Text: %{text},Message Text: %{text}
+en.notification.contact.errors.sender_missing,Name is required field,Name is required field
+en.notification.contact.errors.improper_email,Email is not valid,Email is not valid
+en.notification.contact.errors.text_missing,Message text is blank,Message text is blank
+en.notification.contact.errors.skynet_detected,Oops,Oops
 en.errors.oops,Oops!,Oops!
 en.errors.not_found,404 Page Not Found,404 გვერდი არ მოიძებნა
 en.errors.server_error,500 Internal server error,500 შიდა სერვერის პრობლემა
