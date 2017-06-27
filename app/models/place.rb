@@ -59,6 +59,7 @@ class Place < ActiveRecord::Base
     def remove_blanks
       emails.reject!(&:blank?)
       phones.reject!(&:blank?)
+      websites.reject!(&:blank?)
     end
 
   # scopes
@@ -86,16 +87,17 @@ class Place < ActiveRecord::Base
     validates :provider_id, presence: true
     validates :services, :length => { :minimum => 1 }
 
-    validates :website, format: { with: URI::regexp }, if: :website?
     validates :emails, array: { email: true }
     validates :emails, :length => { :maximum => 3 }
+    validates :websites, :length => { :maximum => 3 }
+    validates :websites, array: { format: { with: URI::regexp } }
     validates :phones, array: { numericality: { only_integer: true }, length: {is: 9} }
     validates :latitude, :longitude, numericality: true, presence: true
 
 
   # helpers
     def self.validation_order_list
-      [Place.globalize_attribute_names, :services, :emails, :phones, :website, :tags, :published, :postal_code, :region].flatten
+      [Place.globalize_attribute_names, :services, :emails, :phones, :websites, :tags, :published, :postal_code, :region].flatten
     end
 
     def destroy_asset(id)
@@ -112,6 +114,15 @@ class Place < ActiveRecord::Base
     rescue Exception => e
       false
     end
+
+    def get_domain(url)
+      host = nil
+      require 'uri'
+      url = 'http://' + url unless url.match(/^(https{0,1}:\/\/)/)
+      host = URI.parse(url).host.gsub(/^www\./, '')
+    ensure
+      host
+    end
   # getters
     def phone
       phones.join(", ")
@@ -119,6 +130,10 @@ class Place < ActiveRecord::Base
 
     def email
       emails.join(", ")
+    end
+
+    def website
+      websites.join(", ")
     end
 
     def address_full

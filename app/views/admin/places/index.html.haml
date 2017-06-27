@@ -11,7 +11,7 @@
         %th.fill= @model.human_attribute_name(:city)
         %th.fill= @model.human_attribute_name(:region)
         %th.fill= @model.human_attribute_name(:emails)
-        %th.fill= @model.human_attribute_name(:website)
+        %th.fill= @model.human_attribute_name(:websites)
         %th.actions{'data-orderable': 'false'}= t('admin.shared.actions')
     %tbody
       - @items.each do |item|
@@ -23,8 +23,9 @@
           %td= item.region.present? ? item.region.name : ''
           %td= item.email
           %td
-            - if item.website.present?
-              %a{href: item.website, class: 'btn', target: :_blank }= t('admin.shared.view')
+            - if item.websites.present?
+              - item.websites.each do |website|
+                %a{href: website, target: :_blank }= item.get_domain(website)
           %td.actions
             = link_to t('admin.shared.view'), place_path(item.id), class: 'view'
             = link_to t('admin.shared.edit'), edit_manage_place_path(item.id), class: 'edit'

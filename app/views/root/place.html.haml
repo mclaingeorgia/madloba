@@ -39,10 +39,13 @@
           %li{title: item.phone}
             %i.phone
             %span= item.phone
-        - if item.website.present?
-          %li{title: item.website}
+        - if item.websites.present?
+          %li.websites
             %i.website
-            %span= item.website
+            - item.websites.each_with_index do |website, website_i|
+              %a{href: website, title: website, target: :_blank }>= item.get_domain(website)
+              - if website_i + 1 != item.websites.length
+                %span=',&nbsp;'.html_safe
     .place-map
       .corner
         %img{src: asset_path("svg/corner2.svg")}

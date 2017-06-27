@@ -17,7 +17,7 @@
                     %span= b.text
           = f.input :emails, as: :array, input_html: { 'data-max': 3 }
           = f.input :phones, as: :array, input_html: { 'data-max': 3 }
-          = f.input :website, placeholder: true
+          = f.input :websites, as: :array, input_html: { 'data-max': 3, placeholder: t('shared.url_placeholder') }
           .field-wrapper.field-tag
             %label.field-label= Place.human_attribute(:tags)
             %select.field-input{placeholder: t('simple_form.placeholders.place.tags'), multiple: 'multiple', name: 'place[tags][]'}

@@ -55,7 +55,7 @@ en:
         services: "Which Rehabilitative services do you provide?"
         emails: Emails
         phones: Phones
-        website: Website
+        websites: Websites
         address: Address
         city: City
         postal_code: Postal Code
@@ -171,6 +171,7 @@ en:
     are_you_sure: Are you sure?
     favorite: Favorite
     unfavorite: Unfavorite
+    url_placeholder: 'ex: http://www.example.org'
     or: Or
     labels:
       state: 'State:'

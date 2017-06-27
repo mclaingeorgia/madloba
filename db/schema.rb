@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170612151641) do
+ActiveRecord::Schema.define(version: 20170627103033) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -306,7 +306,6 @@ ActiveRecord::Schema.define(version: 20170612151641) do
   add_index "place_translations", ["place_id"], name: "index_place_translations_on_place_id", using: :btree
 
   create_table "places", force: :cascade do |t|
-    t.string   "website"
     t.string   "postal_code"
     t.decimal  "latitude",    precision: 8, scale: 5
     t.decimal  "longitude",   precision: 8, scale: 5
@@ -319,6 +318,7 @@ ActiveRecord::Schema.define(version: 20170612151641) do
     t.integer  "poster_id"
     t.boolean  "published",                           default: false
     t.integer  "deleted",                             default: 0
+    t.string   "websites",                            default: [],    null: false, array: true
   end
 
   add_index "places", ["region_id"], name: "index_places_on_region_id", using: :btree

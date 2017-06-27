@@ -58,15 +58,17 @@ $('.fields-asset .field-asset:not([data-asset-id="-1"]) img').click(function () 
 $('.field-array .field-add').click(function(event) {
   var field_array = $(this).parent()
   var max_inputs = +field_array.attr('data-max')
-
-  if(field_array.find('input').length < max_inputs) {
+  var ln = field_array.find('input').length
+  if(ln < max_inputs) {
     $cl = field_array.find('input:last-of-type').clone()
     $cl.val('')
     $cl.insertBefore($(this))
   }
-  else {
+
+  if(ln + 1 >= max_inputs) {
     $(this).hide()
   }
+
   event.stopPropagation()
   event.preventDefault()
 })

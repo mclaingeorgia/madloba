@@ -6,6 +6,9 @@ ul.contact {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    &.websites {
+      white-space: normal;
+    }
     i {
       display: inline-block;
       width: 12px;
@@ -15,9 +18,12 @@ ul.contact {
       &.phone { background: background('phone'); }
       &.website { background: background('website'); }
     }
-    span {
+    a, span {
       @include font(16);
       color: $text;
+    }
+    span {
+      display: inline;
     }
   }
 
