@@ -253,7 +253,7 @@
         .nav-lang {
           a {
             display: inline-block;
-            @include font(16);
+            // @include font(16);
             color: #4c4c4c;
             text-decoration: none;
             padding: 6px 10px;
@@ -261,8 +261,12 @@
               color: $link;
             }
           }
-          a:lang(en) { @include font(18, 'en'); }
-          a:lang(ka) { @include font(13, 'ka'); }
+          a:lang(en) {
+            font: 18px/20px 'en';
+          }
+          a:lang(ka) {
+            font: 16px/18px 'ka';
+          }
         }
         .nav-links {
           // margin: 0 -20px;

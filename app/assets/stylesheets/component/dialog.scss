@@ -51,7 +51,7 @@
         @include font(22, 'sb', 18);
         color: $link;
         text-align: center;
-        padding:20px 10px 31px;
+        padding:20px 50px 31px;
         text-transform: uppercase;
       }
       &[data-bind='about'] {
@@ -99,7 +99,7 @@
             background-color: #e8c26b;
             padding: 27px 0 33px 0;
             .name {
-              @include font(26, 'sb', 18);
+              @include font(26, 'sb', 28);
               color: $text;
               padding: 0 0 29px 20px;
             }

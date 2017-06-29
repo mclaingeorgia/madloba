@@ -16,7 +16,7 @@
       z-index: 1;
     }
     &.loader:before {
-      position: absolute;
+      position: fixed;
       content: "";
       background-color: rgba(0,0,0,0.4);
       z-index: 2;
@@ -24,7 +24,7 @@
       height: 100%;
     }
     &.loader:after {
-      position: absolute;
+      position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
@@ -181,4 +181,17 @@ abbr[title='required'] {
 
 .ib {
   display: inline-block
+}
+
+@media (min-width: 1200px) {
+  main {
+    &.loader:before {
+      position: absolute;
+
+    }
+    &.loader:after {
+      position: absolute;
+
+    }
+  }
 }

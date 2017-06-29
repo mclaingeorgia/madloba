@@ -88,10 +88,12 @@ class RootController < ApplicationController
 
       if action == 'favorite'
         forward = set_flash(FavoritePlace.favorite(user_id, place_id, value))
+        is_favorite_place = FavoritePlace.is_favorite_place?(user_id, place_id)
       elsif action == 'rate'
         value = value.to_i if value.present? && value.is_number?
         if value >= 0 && value <= 5
           forward = set_flash(PlaceRate.rate(user_id, place_id, value))
+          user_rate = PlaceRate.get_rate(user_id, place_id)
         end
       elsif action == 'report'# && !is_report_requested
         if value.present?
@@ -104,6 +106,7 @@ class RootController < ApplicationController
           forward = { redirect_to: manage_user_profile_path }#set_flash(PlaceOwnership.request_ownership(user_id, place_id))
         elsif current_user.at_least_provider?
           forward = { dialog: { name: 'place_ownership', html: place_ownership_dialog(item) } }#set_flash(PlaceOwnership.request_ownership(user_id, place_id))
+          is_ownership_requested = PlaceOwnership.requested?(user_id, place_id)
         end
       end
     end

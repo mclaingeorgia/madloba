@@ -18,10 +18,10 @@
         = render partial: 'shared/fields_localization', locals: { fields: { name: nil, description: { as: :text, input_html: { rows: 4 } } } , form: provider, container_options: { style: 'display:none;', id: 'user_providers' } }
 
     .fields-group
-      = f.input :has_agreed, as: :boolean, label: t(".has_agreed_html", link: link_to(t('app.common.terms_of_use'), terms_of_use_path)), checked_value: true, unchecked_value: false
+      = f.input :has_agreed, as: :boolean, label: t(".has_agreed_html", link: link_to(t('app.common.terms_of_use'), terms_of_use_path, target: :_blank)), checked_value: true, unchecked_value: false
       .actions
         = f.submit t("app.common.register"), :disabled => true
-        = f.submit t("app.common.cancel"), type: :reset
+        = f.submit t("app.common.reset"), type: :reset
 
     .fields-group
       .text= t(".already_registered_html", link: link_to(t('app.common.sign_in'), new_user_session_path))

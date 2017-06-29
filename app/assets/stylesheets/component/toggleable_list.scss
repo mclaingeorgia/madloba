@@ -5,7 +5,7 @@
     padding: 16px 0 0;
     .header {
       padding: 0 16px 16px;
-      @include font(24, 'sb');
+      @include font(24, 'sb', 26);
       color: $link;
       text-transform: uppercase;
       max-width: 992px;

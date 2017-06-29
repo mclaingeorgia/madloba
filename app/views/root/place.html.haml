@@ -69,9 +69,11 @@
           %li
             %a.report{'data-dialog-link': 'place_report', href:"javascript:void(0);", title: t('shared.title.report')}
               =t('.report')
+            .hidden-title= t('shared.title.report')
           %li
             - if user_guest?
-              = link_to t('.take_ownership'), new_user_session_path, class: 'ownership', 'data-xhr': 'sign_in'
+              = link_to t('.take_ownership'), new_user_session_path, title: t('shared.title.ownership'), class: 'ownership', 'data-xhr': 'sign_in'
+              .hidden-title= t('shared.title.ownership')
             - else
               - if is_ownership_requested # if provider and already requested ownership
                 .ownership
@@ -79,6 +81,7 @@
               - else # if user or provider and not requested yet
                 %a.take-ownership{href: place_path(id: item.id, a: 'ownership'), 'data-xhr': 'ownership', 'data-xhr-format': 'json', title: t('shared.title.ownership'), class: 'ownership'}
                   =t('.take_ownership')
+                .hidden-title= t('shared.title.ownership')
         %li
           .share
             %label=t('.share')

@@ -143,6 +143,8 @@ class Place < ActiveRecord::Base
     end
 
     def get_rating
+      value = self.class.where(:id=>id).select(:rating).first[:rating]
+      self[:rating] = value
       r = rating.to_s.format_number
       r == 0 ? '-' : r
     end

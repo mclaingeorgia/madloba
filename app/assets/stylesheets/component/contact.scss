@@ -2,10 +2,7 @@
 
 ul.contact {
   li {
-    padding-bottom: 2px;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+    padding-bottom: 4px;
     &.websites {
       white-space: normal;
     }
@@ -29,3 +26,13 @@ ul.contact {
 
 }
 
+
+@media (min-width: 1200px) {
+  ul.contact {
+    li {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+}
