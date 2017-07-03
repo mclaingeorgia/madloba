@@ -104,7 +104,7 @@ gem "recaptcha", require: "recaptcha/rails"
 group :development, :test do
 
   # Mailcatcher
-  gem 'mailcatcher'
+  # gem 'mailcatcher'
 
   # Capistrano
   # gem 'capistrano3-delayed-job', '~> 1.0'

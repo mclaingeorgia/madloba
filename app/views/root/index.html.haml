@@ -50,11 +50,11 @@
         .filter-favorite
           = render partial: 'shared/favoritor', locals: { is_filter: true, is_favorite: filter[:favorite], label: t('.favorites'), title: filter[:favorite] ? t('.alt.show_all') : t('.alt.show_favorite') }
   .info
-    .list-view.mobile-hidden{'toggle-view': :list}
-      %span= t('.list_view')
+    %a.list-view.mobile-hidden{href: 'javascript:void(0);', 'toggle-view': :list}
+      = t('.list_view')
       %i
-    .map-view{'toggle-view': :map}
-      %span= t('.map_view')
+    %a.map-view{href: 'javascript:void(0);', 'toggle-view': :map}
+      = t('.map_view')
       %i
     .count
       = 0

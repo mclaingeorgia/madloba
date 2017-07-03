@@ -92,19 +92,21 @@
       return services
     },
     stop_events: function(state) {
-      $('main').toggleClass('stop_events', state)
-      if(state) {
+      if(device.desktop()) {
+        $('main').toggleClass('stop_events', state)
+        if(state) {
 
-        $(document).on('click.stop_events', function (event) {
-          var el = $(event.target)
-          if(el.hasClass('app')) {
-            $('.filter-service').addClass('highlighted')
-          }
-        })
-      }
-      else {
-        $(document).off('click.stop_events')
-        $('.filter-service').removeClass('highlighted')
+          $(document).on('click.stop_events', function (event) {
+            var el = $(event.target)
+            if(el.hasClass('app')) {
+              $('.filter-service').addClass('highlighted')
+            }
+          })
+        }
+        else {
+          $(document).off('click.stop_events')
+          $('.filter-service').removeClass('highlighted')
+        }
       }
 
     }

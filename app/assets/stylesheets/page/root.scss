@@ -332,11 +332,9 @@ main {
       flex-direction: row;
       .map-view {
         white-space: nowrap;
-        span {
-          @include font(16);
-          color: $link;
-          text-decoration: underline;
-        }
+        @include font(16);
+        color: $link;
+        text-decoration: underline;
         i {
           display: inline-block;
           margin-left: 4px;
@@ -349,11 +347,9 @@ main {
       }
       .list-view {
         white-space: nowrap;
-        span {
-          @include font(16);
-          color: $link;
-          text-decoration: underline;
-        }
+        @include font(16);
+        color: $link;
+        text-decoration: underline;
         i {
           display: inline-block;
           margin-left: 4px;
@@ -369,7 +365,7 @@ main {
         color: $text;
         width: 100%;
       }
-      > div {
+      > * {
         padding: 16px 0 12px;
       }
     }
