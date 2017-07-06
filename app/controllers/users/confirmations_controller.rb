@@ -1,6 +1,11 @@
 class Users::ConfirmationsController < Devise::ConfirmationsController
   include Devisable
 
+  def new
+    authorize :user_confirmation
+    super
+  end
+
   def show
     authorize :user_confirmation
     super
