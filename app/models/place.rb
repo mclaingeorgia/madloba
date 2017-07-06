@@ -40,7 +40,7 @@ class Place < ActiveRecord::Base
     has_many :uploads
 
 
-    attr_accessor :provider_id
+    attr_accessor :provider_id, :redirect_default
 
   # callbacks
 

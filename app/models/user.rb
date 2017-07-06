@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   # accessors
 
     enum role: [:user, :provider, :admin]
-    attr_accessor :promote
+    attr_accessor :promote, :redirect_default
 
   # associations
 
