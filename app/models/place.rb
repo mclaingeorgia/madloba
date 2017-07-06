@@ -63,9 +63,9 @@ class Place < ActiveRecord::Base
     end
 
   # scopes
-    scope :only_deleted, -> { where(deleted: true) }
+    scope :only_deleted, -> { where.not(deleted: 0) }
     scope :only_published, -> { where(published: true) }
-    scope :only_active, -> { where(deleted: false) }
+    scope :only_active, -> { where(deleted: 0) }
     scope :excluding, -> (id) { where.not(id: id) }
     scope :sorted, -> { with_translations(I18n.locale).order(name: :asc) }
 

@@ -29,7 +29,7 @@
           %td.actions
             = link_to t('admin.shared.view'), place_path(item.id), class: 'view'
             = link_to t('admin.shared.edit'), edit_manage_place_path(item.id), class: 'edit'
-            - if item.deleted?
+            - if item.deleted != 0
               = link_to t('admin.shared.restore'), restore_manage_place_path(item.id), method: :patch, class: 'restore btn', data: {confirm: t('admin.shared.confirm_restore_model', name: @model.human) }
             - else
               = link_to t('admin.shared.delete'), manage_place_path(item.id), method: :delete, class: 'delete', data: {confirm: t('admin.shared.confirm_delete_model', name: @model.human) }
