@@ -2,93 +2,79 @@ ka:
   activerecord:
     models:
       user:
-        one: User
-        other: Users
+        one: მომხმარებელი
+        other: მომხმარებლები
       provider: &provider_model
         one: პროვაიდერი
         other: პროვაიდერები
       place:
-        one: Place
-        other: Places
+        one: ადგილი
+        other: ადგილები
       service:
-        one: Service
-        other: Services
+        one: სერვისი
+        other: სერვისები
       page_content:
-        one: Page Content
-        other: Page Contents
+        one: საინფორმაციო გვერდი
+        other: საინფორმაციო გვერდი
       place_rates:
-        one: rate class
+        one: კატეგორიის შეფასება
       page_content_item:
-        one: Page Content List Item
-        other: Page Content List Item
+        one: მონაცემის დამატება
+        other: მონაცემის დამატება
     attributes:
       provider: &provider
-        name: Provider Name
-        description: Provider Description
+        name: პროვაიდერის დასახელება
+        description: პროვაიდერის აღწერა
       providers:
         <<: *provider
       service: &service
-        name: Service Name
-        description: Service Description
-        icon: Service Icon
-        color: Service Color
+        name: სერვისის დასახელება
+        description: სერვისის აღწერა
+        icon: სერვისის სიმბოლო
+        color: სერვისის ფერი
       page_content:
-        title: Title
-        content: Content
+        title: სათაური
+        content: შინაარსი
       user:
         first_name: სახელი
         last_name: გვარი
         password: პაროლი
-        username: სახელი რეგისტრაციისათვის
+        username: მომხმარებლის სახელი
         email: ელ.ფოსტა
         password_confirmation: პაროლის დადასტურება
-        is_service_provider: Do you plan to provide service?
+        is_service_provider: გეგმავთ გახდეთ სერვისის პროვაიდერი?
         roles:
-          user: User
-          provider: Provider
-          admin: Admin
+          user: მომხმარებელი
+          provider: პროვაიდერი
+          admin: ადმინისტრატორი
         providers:
           <<: *provider_model
       place:
-        name: Name
-        description: Description
-        services: "Which Rehabilitative services do you provide?"
-        emails: Emails
-        phones: Phones
-        websites: Websites
-        address: Address
-        city: City
-        postal_code: Postal Code
-        region: Region
-        tags: Tags
-        provider: Provider
+        name: სახელი
+        description: აღწერა
+        services: რა ტიპის სარეაბილიტაციო მომსახურეობას ახორციელებთ?
+        emails: ელ.ფოსტა
+        phones: 'ტელეფონი:'
+        website: 'ვებ-გვერდი:'
+        address: მისამართი
+        city: ქალაქი
+        postal_code: საფოსტო ინდექსი
+        region: რეგიონი
+        tags: კატეგორია
+        provider: პროვაიდერი
     errors:
       models:
         user:
           attributes:
             email:
-              taken: This email is already used
+              taken: აღნიშნული ელ.ფოსტა უკვე დარეგისტრირებულია
             providers:
-              not_filled: " data is not filled"
-        category:
-          attributes:
-            name:
-              blank: კატეგორიის დასახელება არ შეიძლება იყოს ცარიელი
-            marker_color:
-              taken: "სიმბოლო და ფერი არ შეესატყვისება ერთმანეთს: აღნიშნული სიმბოლო და ფერი უკვე გამოყენებული იქნა სხვა კატეგორიისათვის. გთხოვთ შექმნათ ახალი კატეგორია ან აირჩიოთ სხვა ფერი."
-            icon:
-              blank: სიმბოლო არ შეიძლება იყოს ცარიელი.
-        post:
-          attributes:
-            image:
-              too_long: ფაილი არ უნდა აღემატებოდეს 5MB.
-            number_of_items:
-              greater_than: "გთხოვთ დაამატეთ სულ მცირე ერთი სერვისი."
+              not_filled: მონაცემები არ არის შეყვანილი
   simple_form:
     placeholders:
       place:
-        website: 'http://example.com'
-        tags: Type tag name and press enter
+        website: http://example.com
+        tags: ჩაბეჭდეთ კატეგორიის დასახელება და დააჭირეთ "enter" -ს
   app:
     languages:
       en: ინგლისური
@@ -97,366 +83,366 @@ ka:
       _ka: ქართული
     common:
       name: Sheaghe
-      slogan: Discovering Services
-      description: "You can use Sheaghe to search for any type of rehab service in Georgia. We have a whole database of service providers on the website; each of them registered according to their location, category of service and the types of service they provide."
-      _yes: "დიახ"
-      _no: "არა"
-      mac_alt: "McLain Association for Children seeks to transform the lives of the most vulnerable around the world by providing them with the resources they need and by strengthening the systems and individuals that provide them care."
-      created_by: Created By
-      js_alt: "Informing Communities with Data and Design"
-      privacy_policy: Privacy Policy
-      terms_of_use: Terms of Use
-      contact: -----
-      rate: Rate
-      missing: Missing
+      slogan: აღმოაჩინე სერვისები
+      description: "თქვენ შეგიძლიათ მოიძიოთ ნებისმიერი ტიპის რეაბილიტაციის მომსახურეობა საქართველოში Sheaghe -ს მეშვეობით. ვებ გვერდი წარმოადგენს მომსახურეობის გამწევი ორგანიზაციების ერთიან ბაზას. თითოეული ორგანიზაცია რეგისტრირებულია მომსახურეობის შესაბამის კატეგორიასა და ტიპში რომელსაც ის ახორციელებს მისი გეოგრაფიული  მდებარეობის მიხედვით."
+      _yes: დიახ
+      _no: არა
+      mac_alt: "მაკლეინის ასოციაცია ბავშვებისთვის ცდილობს ყველაზე მოწყვლადი ჯგუფების ცხოვრების შეცვლას უკეთესობისკენ, მათთვის საჭირო რესურსების მიწოდების გზით, სისტემისა და ამ სისტემაში მომუშავები პირების გაძლიერებით."
+      created_by: შექმნილია
+      js_alt: ჩვენ გაწვდით ინფორმაციას მონაცემებით და დიზაინით
+      privacy_policy: კონფედენციალურობის პოლიტიკა
+      terms_of_use: მოხმარების პირობები
+      contact: "-----"
+      rate: შეფასება
+      missing: ცარიელია
       or: ან
       register: რეგისტრაცია
       sign_in: შესვლა
       sign_up: რეგისტრაცია
       cancel: გაუქმება
-      reset: Reset
+      reset: გადატვირთვა
       reset_password: გადმომიგზავნეთ პაროლის შეცვლის ინსტრუქცია.
       change_password: პაროლის შეცვლა
-      resend: Resend
-      click_here: Click Here
-      alt: "%{alt} Image"
-      by: by
+      resend: გადაგზავნა
+      click_here: დააწკაპუნეთ აქ
+      alt: "%{alt} სურათი"
+      by: მიერ
       save: შენახვა
     messages:
-      success_updated: "%{obj} was successfully updated."
-      fail_updated: "%{obj} failed to update."
-      success_destroyed: "%{obj} was successfully deleted."
-      fail_destroyed: "%{obj} failed to delete."
-      success_restored: "%{obj} was successfully restored."
-      fail_restored: "%{obj} failed to restore."
-      accepted: "%{obj} was successfully accepted."
-      declined: "%{obj} was successfully declined."
-      fail_updated_state: "%{obj} state failed to update."
-      state_already_set: "%{obj} state already set."
-      contact_send_success: "Message successfully sent."
-      contact_send_fail: "Failed to send message."
+      success_updated: "%{obj} წარმატებით განახლდა."
+      fail_updated: "%{obj} ინფორმაციის განახლება ვერ მოხდა."
+      success_destroyed: "%{obj} წარმატებით გაუქმდა."
+      fail_destroyed: "%{obj} ინფორმაციის გაუქმება ვერ მოხდა."
+      success_restored: "%{obj} ინფორმაცია წარმატებით აღდგა."
+      fail_restored: "%{obj} ინფორმაციის აღდგენა ვერ მოხდა."
+      accepted: "%{obj} წარმატებით იქნა მიღებული."
+      declined: "%{obj} წარმატებით იქნა უარყოფილი."
+      fail_updated_state: "%{obj} სტატუსის განახლება ვერ მოხდა."
+      state_already_set: "%{obj} აღნიშნული სტატუსი უკვე არსებობს."
+      contact_send_success: შეტყობინება წარმატებით გაიგზავნა.
+      contact_send_fail: შეტყობინების გაგზავნა ვერ მოხერხდა
   shared:
-    toggle_navigation: Toggle navigation
-    user_profile: User Profile
-    provider_profile: Provider Profile
-    admin_profile: Admin Profile
-    manage: Manage
-    moderate: Moderate
-    fields_localization: Fields to translate
-    picked_as_favorite: Picked as favorite
-    overall_rating: "Overall place rating %{rating}/5"
-    overall_rating_js: "Overall place rating"
+    toggle_navigation: ნავიგაციის ჩვენება
+    user_profile: მომხმარებლის პროფილი
+    provider_profile: პროვაიდერის პროფილი
+    admin_profile: ადმინისტრატორის პროფილი
+    manage: მართვა
+    moderate: მოდერაცია
+    fields_localization: სათარგმნი ველები
+    picked_as_favorite: ფავორიტად არჩევა
+    overall_rating: ადგილის მთლიანი შეფასება%{rating}/5
+    overall_rating_js: ადგილის მთლიანი შეფასება
     rating_threshold: "/%{n}"
-    rating: Rating
+    rating: შეფასება
     search: ძიება
-    and_up: " & Up"
-    rate: "Give rating of %{n}"
-    rate_reset: Delete your rating
-    view_all_provider_places: See all places from this service provider
-    view_place_details: View place details
-    view_all_services: View All Services
-    view_all_service_places: See all places with this service
-    locate_me: Locate Me on the Map
+    and_up: "& ზევით"
+    rate: შეფასების მიცემა %{n}
+    rate_reset: შეფასების გაუქმება
+    view_all_provider_places: ყველა ადგილის ნახვა სადაც აღნიშნული სერვისის მომწოდებელია
+    view_place_details: ადგილის დეტალების ნახვა
+    view_all_services: ყველა სერვისის ნახვა
+    view_all_service_places: ყველა ადგილის ნახვა სადაც არის აღნიშნული სერვისი
+    locate_me: რუკაზე ჩემი ადგილმდებარეობის განთავსება
     add: დამატება
-    upload_image: 'Upload Photo'
-    delete_image: 'Delete Photo'
-    pending: Pending
-    accept: Accept
-    accepted: Accepted
-    decline: Decline
-    declined: Declined
-    processed: Processed
-    no_data_found: No Data Found
-    all_done: All done!
-    are_you_sure: Are you sure?
-    favorite: Favorite
-    unfavorite: Unfavorite
+    upload_image: სურათის დამატება
+    delete_image: სურათის წაშლა
+    pending: მიმდინარე
+    accept: დასტური
+    accepted: დადასტურებული
+    decline: უარყოფა
+    declined: უარყოფილი
+    processed: დასრულებული
+    no_data_found: მონაცემები არ მოიძებნა
+    all_done: შესაცვლელი არაფერია
+    are_you_sure: დარწმუნებული ხართ?
+    favorite: ფავორიტი
+    unfavorite: არაფავორიტი
     url_placeholder: 'ex: http://www.example.org'
-    or: Or
+    or: ან
     labels:
-      state: 'State:'
+      state: 'სტატუსი:'
     title:
-      report: Report a problem with this place
-      ownership: 'Are you a service provider and this is your place? Take ownership of this place so you can manage the content.'
-      favorite: Add or remove this place from your favorites
+      report: აღნიშნულ ადგილზე პრობლემის დარეპორტება
+      ownership: 'თუ თქვენ ხართ სერვისის პროვაიდერი და ეს თქვენი სერვისის განხორციელების ადგილია, თქვენ შეგიძლიათ აიღოთ მონაცემების მართვა თქვენს თავზე. '
+      favorite: დაამატე ან წაშალე აღნიშნული ადგილი შენი ფავორიტებიდან
   messages:
-    succeed_to_process: '%{action} was successfully submitted'
-    succeed_to_process_reject: '%{action} was successfully removed.'
-    failed_to_process: Request for %{action} failed.
-    place_rate: Place rating
-    favorite_place: Favorite
-    place_ownership: Place ownership
-    place_report: Place report
+    succeed_to_process: "%{action} წარმატებით დასრულდა"
+    succeed_to_process_reject: "%{action} წარმატებით გაუქმდა"
+    failed_to_process: მოთხოვნა  %{action} უარყოფილი იქნა.
+    place_rate: ადგილის შეფასება
+    favorite_place: ფავორიტი
+    place_ownership: მონაცემების მართვა
+    place_report: ადგილის რეპორტირება
     n_photo_uploaded:
-      one: "Photo uploaded."
-      other: "%{n} photos uploaded."
+      one: ფოტო აიტვირთა.
+      other: "%{n} ფოტოები აიტვირთა."
     n_photo_uploaded_and_pending:
-      one: "Photo uploaded and waiting to be processed"
-      other: "%{n} photos uploaded and waiting to be processed"
-    uploader_failed: "Error while uploading photos, please contact administration"
-    assign_provider_to_success: "%{child} %{child_name} assigned to provider %{name} successfully"
-    assign_provider_to_failed: 'Failed to assign %{child} to provider'
-    unassign_provider_to_success: "%{child} %{child_name} unassigned from provider %{name} successfully"
-    unassign_provider_to_failed: 'Failed to unassign %{child} from provider'
-    provider_role_required: 'This operation require user to be service provider.'
+      one: ფოტო აიტვირთა და ელოდება საბოლოო დასტურს
+      other: "%{n} ფოტოები აიტვირთა და ელოდება საბოლოო დასტურს"
+    uploader_failed: მოხდა ხარვეზი ფოტოების ატვირთვის დროს, გთხოვთ შეეხმიანოთ ადმინისტრატორს
+    assign_provider_to_success: მომხმარებელი %{child} %{child_name} წარმატებით გახდა %{name} პროვაიდერი
+    assign_provider_to_failed: მომხმარებელი %{child} ვერ გახდა პროვაიდერი
+    unassign_provider_to_success: მომხმარებელი %{child} %{child_name} აღარ არის %{name} პროვაიდერი
+    unassign_provider_to_failed: ვერ მოხერხდა მომხმარებელი %{child} არა პროვაიდერად შეცვლა
+    provider_role_required: აღნიშნული ოპერაციის გაკეთება შეუძლია მხოლოდ სერვისის მომწოდებელს.
   admin:
     shared:
       add: დამატება
       save: შენახვა
       cancel: გაუქმება
-      reset: Reset
+      reset: განახლება
       edit: რედაქტირება
       delete: წაშლა
       actions: მოქმედება
-      assign: Assign
-      view: View
-      add_model: "Add %{name}"
-      edit_model: "Edit %{name}"
-      manage_model: "Manage %{name}"
-      create_model: "Create %{name}"
-      confirm_delete_model: "%{name} will be removed."
-      confirm_restore_model: "%{name} will be restored."
-      search_assign_placeholder: Find object to assign (min 3 chars)
+      assign: დამატება
+      view: ნახვა
+      add_model: დამატება%{name}
+      edit_model: რედაქტირება %{name}
+      manage_model: მართვა %{name}
+      create_model: შექმნა  %{name}
+      confirm_delete_model: "%{name} იქნება წაშლილი."
+      confirm_restore_model: "%{name} იქნება აღდგენილი."
+      search_assign_placeholder: ინფორმაციის მოძიება
     providers:
-      confirm_delete: "Provider will be removed with all places bind to it."
-      confirm_restore: "Provider will be restored with all places bind to it."
+      confirm_delete: მოხდება პროვაიდერის და მასთან დაკავშირებული ყველა ადგილის წაშლა.
+      confirm_restore: მოხდება პროვაიდერის და მასთან დაკავშირებული ყველა ადგილის აღდგენა.
       form:
-        owner_users: 'Owner Users:'
-        places: 'Places:'
+        owner_users: 'მფლობელი:'
+        places: 'ადგილები:'
       list:
-        manage: Manage Providers
-        manage_with_no_owners: Manage Providers With No Owner
+        manage: პროვაიდერების მართვა
+        manage_with_no_owners: პროვაიდერების მართვა ვისაც არ ყავს მფლობელი
     places:
-      current_provider: Assigned provider
-      update_provider: Assign provider
+      current_provider: პროვაიდერი შეცვლილია
+      update_provider: პროვაიდერის შეცვლა
       list:
-        provider: "Provider:"
-        manage_with_no_owners: Manage Places With No Owner
+        provider: 'პროვაიდერი:'
+        manage_with_no_owners: ადგილის მართვა ვისაც არ ყავს მფლობელი
     place:
       index:
-        title: "Manage Places"
-      locate_me: "Locate me on map"
+        title: ადგილების მართვა
+      locate_me: რუკაზე ჩემი ადგილის განთავსება
     page_contents:
-      list: List Items
-      new_item: Unnamed page content item
+      list: დასახელებების ჩამონათალი
+      new_item: სახელის გარეშე
     manage_providers:
-      index: Manage Providers
-      edit: Edit Provider
-      new: Create Provider
+      index: პროვაიდერების მართვა
+      edit: პროვაიდერების განახლება
+      new: პროვაიდერების შექმნა
     manage_places:
-      index: Manage Places
-      edit: Edit Place
-      new: Create Place
+      index: ადგილების მართვა
+      edit: ადგილის რედაქტირება
+      new: ადგილის შექმნა
     moderate_photos:
-      index: Moderate Photos
+      index: ფოტოების მოდერაცია
     menu:
-      manage_profile: Manage Profile
-      favorite_places: Favorite Places
-      rated_places: Rated Places
-      uploaded_photos: Uploaded Photos
-      manage_providers: Manage Providers
-      manage_places: Manage Places
-      moderate_photos: Moderate Photos
-      users: Users
-      providers: Providers
-      places: Places
-      services: Services
-      page_contents: Page Contents
-      place_report: Reported Places
-      place_ownership: Place Ownership
-      new_provider: New Provider
-      place_tags: Place Tags
+      manage_profile: პროფილი
+      favorite_places: ფავორიტი ადგილები
+      rated_places: შეფასებული ადგილები
+      uploaded_photos: ატვირთული ფოტოები
+      manage_providers: პროვაიდერების მართვა
+      manage_places: ადგილების მართვა
+      moderate_photos: სურათის მოდერაცია
+      users: მომხმარებელი
+      providers: პროვაიდერები
+      places: ადგილები
+      services: სერვისები
+      page_contents: გვერდი შინაარსი
+      place_report: დარეპორტებული ადგილები
+      place_ownership: მართვის უფლების მიცემა
+      new_provider: ახალი პროვაიდერი
+      place_tags: ადგილის კატეგორია
     user:
-      email: Email
-      password: Password
-      password_confirmation: Password Confirmation
-      has_agreed_html: "I have accepted the&nbsp;%{link}!:"
-      promote: 'Promote to Admin!:'
+      email: ელ.ფოსტა
+      password: პაროლი
+      password_confirmation: პაროლის დადასტურება
+      has_agreed_html: 'მე ვეთანხმები პირობებს &nbsp;%{link}!:'
+      promote: 'შეეხმიანე ადმინისტრატორს!:'
     moderates:
       place_report:
-        title: Moderate Reported Places
-        reported_by: 'Reported By:'
-        reason: 'Reason:'
+        title: დარეპორტებული ადგილების მოდერაცია
+        reported_by: 'რეპორტი მომზადებულია:'
+        reason: 'მიზეზი:'
       place_ownership:
-        title: Moderate Place Ownership
-        linked_provider: 'Linked Provider:'
-        request_from: 'Request From:'
+        title: მართვის უფლების მოდერაცია
+        linked_provider: 'სერვისის მომწოდებელი:'
+        request_from: 'მოთხოვნა:'
       place_tag:
-        title: Moderate Place Tag
-        created_by: 'Created By:'
-        tag: 'Tag:'
+        title: ადგილის კატეგორიის მოდერაცია
+        created_by: 'შექმნილია:'
+        tag: 'კატეგორია:'
       new_provider:
-        title: Moderate New Provider
-        created_by: 'Created By:'
-        name: 'Provider Name:'
-        description: 'Description:'
+        title: ახალი პროვაიდერის მოდერაცია
+        created_by: 'შექმნილია:'
+        name: 'პროვაიდერის სახელი:'
+        description: 'აღწერა:'
     uploads:
       list:
-        uploaded_by: 'Uploaded By:'
-        manage_with_no_owners: Manage Place Photos With No Owner
+        uploaded_by: 'ატვირთულია:'
+        manage_with_no_owners: ადგილის ფოტოების მართვა, ვისაც არ ყავს მფლობელი
   application:
     dialog:
-      partners: PARTNERS
-      contact: CONTACT
-      org: McLain Association for Children
-      address: "Address:"
-      address_content: "Kavsadze #3, Second Floor, Tbilisi Georgia"
-      phone: "ტელეფონი:"
-      phone_content: "Free Hotline: 0 800 900 902; Office #: 2197378"
-      email: "Email:"
-      email_content: "mac_info@macgeorgia.org"
-      report: "Report a problem with '%{name}'"
-      report_button: Send Report
-      report_placeholder: Enter the reason for the report
+      partners: პარტნიორები
+      contact: საკონტაქტო
+      org: მაკლეინის ასოციაცია ბავშვებისთვის
+      address: 'მისამართი:'
+      address_content: "#3 კავსაძის ქუჩა, მეორე სართული, თბილისი საქართველო"
+      phone: 'ტელეფონი:'
+      phone_content: 'უფასო ცხელი ხაზი: 0 800 900 902; ოფისი #: 2197378'
+      email: 'ელ.ფოსტა:'
+      email_content: mac_info@macgeorgia.org
+      report: პრობლემის დაფიქსირება  '%{name}'
+      report_button: გაგზავნა
+      report_placeholder: ჩაწერეთ რეპორტის შევსების მიზეზი
       alt:
-        close: Close Dialog
-        address: "საკონტაქტო - ელ.ფოსტა"
-        phone: Contact Phone
-        email: Contact Email
+        close: დიალოგის დახურვა
+        address: საკონტაქტო - ელ.ფოსტა
+        phone: საკონტაქტო ტელეფონი
+        email: საკონტაქტო ელ.ფოსტა
     navigation:
-      logo_title: Sheage - Discovering Services
-      logo_alt: Sheage - Discovering Services Logo
-      user_title: Your profile
-      user_alt: Your profile image
+      logo_title: Sheage - მოიძიე სერვისები
+      logo_alt: Sheage - მოიძიე სერვისების ლოგო
+      user_title: თქვენი პროფილი
+      user_alt: თქვენი პროფილის სურათი
       about: შესახებ
-      faq: FAQ
+      faq: ხშირად დასმული კითხვები
       contact: დაგვიკავშირდით
-      facebook_alt: Share on Facebook
-      twitter_alt: Share on Twitter
+      facebook_alt: Facebook -ზე  გაზიარება
+      twitter_alt: Twitter-ზე გაზიარება
       sign_up: რეგისტრაცია
       sign_in: შესვლა
       log_out: გასვლა
     slideshow:
       alt:
-        close: Close slideshow
-        prev: Show previous slideshow image
-        next: Show next slideshow image
+        close: ფოტო კოლაჟის დახურვა
+        prev: წინა გვერდზე სურათის ნახვა
+        next: მომდევნო გვერდზე სურათის ნახვა
   root:
     index:
-      what: What are you looking for
-      where: Where
-      filters: "Filters"
-      services: "Services:"
-      cancel: Cancel
-      apply: Apply
-      rate: "Rate:"
-      favorites: "Favorites:"
-      rating: "Rating:"
+      what: რას ეძებთ
+      where: სად
+      filters: ფილტრი
+      services: 'სერვისები:'
+      cancel: გაუქმება
+      apply: ძიება
+      rate: 'შეაფასე:'
+      favorites: 'ფავორიტი:'
+      rating: 'შეფასება:'
       result:
-        one: "Result"
-        other: "Results"
+        one: შედეგი
+        other: შედეგები
       alt:
-        filter: Filter Image
-        show_all: Show all
-        show_favorite: Show favorite places
+        filter: გაფილტვრა
+        show_all: ყველას ნახვა
+        show_favorite: ფავორიტი ადგილმდებარეობის ნახვა
       filter:
-        by_map: Search as I move the map
+        by_map: ძიების გაგრძელება რუკის მანიპულაციის პარალელურად
       placeholder:
-        what: Type Place or Provider Name
-        where: Select Region(s)
+        what: ჩაბეჭდეთ ადგილი ან პროვაიდერის დასახელება
+        where: რეგიონის(ების) არჩევა
       title:
-        keyboard: Select keyboard to use
-      not_found: There is no data found with provided filters
-      list_view: List View
-      map_view: Map View
+        keyboard: აირჩიეთ ენა
+      not_found: აღნიშნული გაფილტვრის შედეგად ინფორმაცია ვერ იქნა მოძიებული
+      list_view: ჩამონათვალის ნახვა
+      map_view: რუკის ნახვა
     place:
-      contact_place: Contact %{provider}
-      your_name: Your Name
-      your_email: Your Email
+      contact_place: დაუკავშირდი %{provider}
+      your_name: თქვენი სახელი
+      your_email: თქვენი ელ.ფოსტა
       your_message: თქვენი წერილი
       send: გააგზავნეთ წერილი
-      rating: Rating
-      rate: Rate
-      report: Report
-      take_ownership: Take Ownership
-      take_ownership_underway: Ownership Under Consideration
-      share: Share
-      service_tags: Service Tags
-      comments: Comments
+      rating: შეფასება
+      rate: შეაფასე
+      report: რეპორტი
+      take_ownership: მონაცემის მართვა
+      take_ownership_underway: მონაცემების მართვის უფლება განხილვის პერიოდშია
+      share: გაზიარება
+      service_tags: 'კატეგორია:'
+      comments: კომენტარი
     faq:
-      title: FAQ
+      title: ხშირად დასმული კითხვები
     place_ownership_dialog:
-      take_ownership_for: 'Take "%{name}" Ownership'
-      existing_provider: Pick existing provider
-      or_create: 'or create new'
-      incase_existing_provider: '* If existing provider is picked, this text will be ignored.'
-      take_ownership: Take Ownership
+      take_ownership_for: '"%{name}" მონაცემის მართა'
+      existing_provider: აირჩიეთ არსებული პროვაიდერი
+      or_create: ან შექმენით ახალი
+      incase_existing_provider: "* თუ არჩეული იქნა არსებული მომსახურეობის გამწევი, ეს ტექსტი იქნება უარყოფილი."
+      take_ownership: მონაცემის მართა
   mailer:
-    hello: "გამარჯობათ %{name}!"
-    hi: "გამარჯობა %{name}"
-    welcome: "მადლობას გიხდით %{name} სტუმრობისათვის! მალე თქვენ შეძლებთ მოიძიოთ დეტალური ინფორმაცია სარეაბილიტაციო სერვისების შესახებ საქართველოში."
-    account_created: "თქვენს სახელზე უკვე შექმნილია გვერდი.დააწკაპუნეთ ქვემოთ მითითებულ ლინკზე, რათა მოხდეს თქვენი ელ.ფოსტის დადასრურება და თქვენ გქონდეთ სრული წვდომა %{name} სერვისებზე მიმართ:"
+    hello: გამარჯობათ %{name}!
+    hi: გამარჯობა %{name}
+    welcome: მადლობას გიხდით %{name} სტუმრობისათვის! მალე თქვენ შეძლებთ მოიძიოთ დეტალური ინფორმაცია სარეაბილიტაციო სერვისების შესახებ საქართველოში.
+    account_created: 'თქვენს სახელზე უკვე შექმნილია გვერდი.დააწკაპუნეთ ქვემოთ მითითებულ ლინკზე, რათა მოხდეს თქვენი ელ.ფოსტის დადასრურება და თქვენ გქონდეთ სრული წვდომა %{name} სერვისებზე მიმართ:'
     confirm_account: ჩემი მონაცემების დადასტურება
-    as_soon_as: როგორც კი მოხდება თქვენი მონაცემების დადასტურება, თქვენ შეგიძლიათ ნებისმიერ დროს შეხვიდეთ თქვენს შექმნილ გვერდზე, შესვლა - ზე დააწკაპუნეთ  %{name} თქვენს გვერდზე შესასვლელად. გვერდზე.
-    need_assistance: "თუ გსურთ დახმარება სასურველი სერვისის მოძებნაში ან დატოვოთ შეტყობინება გთხოვთ მოგვწეროთ: info.rehabge@gmail.com ან დაგვიკავშრდეთ ტელეფონზე 0 800 900 902"
-    phone_number: "ასევე თქვენს შეგიძლიათ დაგვიკავშირდეთ ტელეფონის ნომერზე:"
-    thanks: "მადლობას გიხდით რეგისტრაციისათვის. იმედია კმაყოფილი დარჩებით %{name ის გამოყენებით."
-    thanks_short: "მადლობა"
-    register: "სერვისის რეგისტრაციისათვის დაგჭირდებათ თქვენს გვერდზე შესვლა და მიჰყვეთ მარტივ ინსტრუქციებს:"
-    register_1: "დააწკაპუნეთ 'სერვისის რეგისტრაცია'"
+    as_soon_as: როგორც კი მოხდება თქვენი მონაცემების დადასტურება, თქვენ შეგიძლიათ ნებისმიერ დროს შეხვიდეთ თქვენს შექმნილ გვერდზე, შესვლა - ზე დააწკაპუნეთ %{name} თქვენს გვერდზე შესასვლელად. გვერდზე.
+    need_assistance: 'თუ გსურთ დახმარება სასურველი სერვისის მოძებნაში ან დატოვოთ შეტყობინება გთხოვთ მოგვწეროთ: info.rehabge@gmail.com ან დაგვიკავშრდეთ ტელეფონზე 0 800 900 902'
+    phone_number: 'ასევე თქვენს შეგიძლიათ დაგვიკავშირდეთ ტელეფონის ნომერზე:'
+    thanks: მადლობას გიხდით რეგისტრაციისათვის. იმედია კმაყოფილი დარჩებით %{name ის გამოყენებით.
+    thanks_short: მადლობა
+    register: 'სერვისის რეგისტრაციისათვის დაგჭირდებათ თქვენს გვერდზე შესვლა და მიჰყვეთ მარტივ ინსტრუქციებს:'
+    register_1: დააწკაპუნეთ 'სერვისის რეგისტრაცია'
     register_2: სრულად შეავსეთ აპლიკაცია. თქვენ შეგიძლიათ დაარეგისტრიროთ შეუზღუდავი რაოდენობის სერვისები, მაგრამ ისინი აუცილებლად უნდა იყოს დაკავშირებული თქვენს საქმიანობასთან.
     register_3: რეგისტრაცია
     someone_requested: შემოვიდა მოთხოვდა ლინკზე თქვენი პაროლის შეცვლისათვის. გთხოვთ მიჰყევით ქვემოთ მითითებულ ინსტრუქციას.
     please_ignore: თუ თქვენ არ მოგითხოვიათ პაროლის შეცვლა, უგულვებელყავით აღნიშნული წერილი.
     password_not_changing: თქვენი პაროლი არ შეიცვლება სანამ თქვენ არ დააწკაპუნებთ ლინკზე და შექმნით ახალ პაროლს.
     change_my_password: პაროლის შეცვლა
-    account_locked:  თქვენ ხუთჯერ არარასწორად შეიყვანეთ პაროლი და თქვენი გვერდი დაიბლოკა.
+    account_locked: თქვენ ხუთჯერ არარასწორად შეიყვანეთ პაროლი და თქვენი გვერდი დაიბლოკა.
     link_unlock: დააწკაპუნეთ ქვემოთ მითითებულ ლინკზე რომ მოხდეს გვერდიდან ბლოკის ახსნა
     unlock_account: ბლოკის მოხსნა
   notification:
     admin_moderate:
-      subject: New Moderation Request(s)
-      hello: 'Hello Admin,'
-      intro: 'You have new items to moderate:'
-      report_item: '%{n} place report(s)'
-      ownership_item: '%{n} take ownership request(s)'
-      new_provider_item: '%{n} new provider(s)'
-      tag_item: '%{n} tag(s)'
+      subject: ახალი მოდერაციის მოთხვნა
+      hello: გამარჯობა ადმინისტრატორო,
+      intro: 'ახალი მონაცემები საჭიროებს მოდერაციას:'
+      report_item: "%{n} დარეპორტებული ადგილი"
+      ownership_item: "%{n}  მფლობელი"
+      new_provider_item: "%{n} ახალი პროვაიდერი "
+      tag_item: "%{n} კატეგორია"
     moderator_response:
-      subject: Your request(s) was moderated
-      hello: 'Hello %{name},'
-      intro: 'Moderated request(s):'
-      report_type: '%{n} place report(s)'
-      ownership_type: '%{n} take ownership request(s)'
-      new_provider_type: '%{n} new provider(s)'
-      tag_type: '%{n} tag(s)'
-      photo_type: '%{n} photos(s)'
+      subject: თქვენი მოთხვა იქნა მოდერირებული
+      hello: გამარჯობა %{name},
+      intro: 'მოდერირებული მოთხვნა:'
+      report_type: "%{n} ადგილის რეპორტი"
+      ownership_type: "%{n} მფლობელი"
+      new_provider_type: "%{n} ახალი პროვაიდერი "
+      tag_type: "%{n} კატეგორია"
+      photo_type: "%{n} სურათი"
       labels:
-        place: Place
-        reason: Reason
-        state: State
-        provider: Provider
-        description: Description
-        photo: Photo
+        place: ადგილი
+        reason: მიზეზი
+        state: სტატუსი
+        provider: პროვაიდერი
+        description: აღწერა
+        photo: ფოტო
     photo_upload:
-      subject: New photo uploaded
-      hello: 'Hello %{name},'
-      intro: 'You have %{n} uploaded photo(s):'
+      subject: დაემატა ახალი ფოტო
+      hello: გამარჯობა %{name},
+      intro: 'თქვენ გაქვთ %{n} ატვირთული ფოტო/ები:'
       labels:
-        user: User
-        photo: Photo
-        place: Place
+        user: მომხმარებელი
+        photo: ფოტო
+        place: ადგილი
     contact:
-      subject: Customer Message
-      hello: 'Hello,'
-      intro: 'You have new message from customer:'
-      customer_name: 'Name: %{name}'
-      customer_email: 'Email: %{email}'
-      customer_text: 'Message Text: %{text}'
+      subject: მომხმარებლის წერილი
+      hello: გამარჯობათ,
+      intro: თქვენ მიიღეთ ახალი წერილი მომხმარებლისგან
+      customer_name: 'სახელი: %{name}'
+      customer_email: 'ელ.ფოსტა: %{email}'
+      customer_text: 'შეტყობინების ტექსტი: %{text}'
       errors:
-        sender_missing: Name is required field
-        improper_email: Email is not valid
-        text_missing: Message text is blank
+        sender_missing: სახელის გრაფის შევსება აუცილებელია
+        improper_email: ელ.ფოსტა არ არის სწორი
+        text_missing: წერილის ჩასაწერი ადგილი ცარიელია
         skynet_detected: Oops
   errors:
-    oops: "Oops!"
+    oops: Oops!
     not_found: 404 გვერდი არ მოიძებნა
     server_error: 500 შიდა სერვერის პრობლემა
-    404_sorry: "ბოდიშს გიხდით, აღნიშნული გვერდი ვერ მოიძებნა!"
-    500_sorry: "ბოდიშს გიხდით, სერვერის პრობლემაა. მოგვიანებით ცადეთ."
+    404_sorry: ბოდიშს გიხდით, აღნიშნული გვერდი ვერ მოიძებნა!
+    500_sorry: ბოდიშს გიხდით, სერვერის პრობლემაა. მოგვიანებით ცადეთ.
     faq_label: ხშირად დასმული კითხვები
-    have_questions_html: "შეკითხვების შემთხვევაში გადადით ლინკზე %{link}. ან დაგვიკავშირდით მითითებულ ნომერზე 0 800 900 902."
-    ws_error: Sorry, a server error occurred. Please refresh this page.
-    try_again: 'Something went wrong, try again later'
+    have_questions_html: შეკითხვების შემთხვევაში გადადით ლინკზე %{link}. ან დაგვიკავშირდით მითითებულ ნომერზე 0 800 900 902.
+    ws_error: ბოდიში, სერვერის პრობლემაა, გთხოვთ განაახლოთ გვერდი.
+    try_again: დაუდგენელი პრობლემა. გთხოვთ კიდევ სცადოთ
   config:
-    not_authorized: სამწუხაროდ თქვენ  ვერ გადახვალთ ამ გვერდზე.
+    not_authorized: სამწუხაროდ თქვენ ვერ გადახვალთ ამ გვერდზე.
