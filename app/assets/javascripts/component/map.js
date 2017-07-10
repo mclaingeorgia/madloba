@@ -34,10 +34,15 @@
         if(lat > 0) { coordinates[0] = lat }
         if(lon > 0) { coordinates[1] = lon }
 
-        var mp = L.map(id, {zoomControl: false, maxBounds: [ // only georgia can be selected
-          [43.784728, 39.891357],
-          [40.919480, 46.845703]
-        ]}).setView(coordinates, options.zoom);
+        var mp = L.map(id, {zoomControl: false,
+         maxBounds: [ // only georgia and area around can be selected
+          [46.119,35.618],
+          [39.419,49.197]
+          // only georgia can be selected
+          // [43.784728, 39.891357],
+          // [40.919480, 46.845703]
+        ]
+      }).setView(coordinates, options.zoom);
         t.maps[id] = mp
         // mp.fitBounds();
 

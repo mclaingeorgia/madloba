@@ -338,13 +338,13 @@
       if(typeof fly === 'undefined') { fly = true }
       var t = filter
       var region_ids = t.els['where'].val()
-      var fly_coordinates = ['41.44273', '45.79102']
+      var fly_coordinates = [42.224, 43.401]
       var zoomTo = 7
       if(region_ids !== null)  {
         if(region_ids.length === 1) {
           var r = gon.regions.filter(function(f) { return f[0] === +region_ids[0] })[0]
           fly_coordinates = [r[2], r[3]]
-          zoomTo = 8
+          zoomTo = 9
         } else {
           fly = false
         }
