@@ -6,7 +6,7 @@
 //= require component/place_card
 //= require select2
 
-pollution.components.map.init('places_map', { zoom: 8, type: 'coordinates', locate: true })
+pollution.components.map.init('places_map', { zoom: 7, type: 'coordinates' })
 pollution.components.filter.init()
 
 $(document).on('click', '.result .region-name', function() {
@@ -28,7 +28,3 @@ $(document).on('click', '[toggle-view]', function() {
 })
 
 
- $('#region_filter').select2({
-  width: '100%',
-  allowClear: true
-})

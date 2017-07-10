@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170627103033) do
+ActiveRecord::Schema.define(version: 20170710072103) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -443,6 +443,8 @@ ActiveRecord::Schema.define(version: 20170627103033) do
   create_table "regions", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "latitude",   precision: 8, scale: 5, default: 41.44273
+    t.decimal  "longitude",  precision: 8, scale: 5, default: 45.79102
   end
 
   create_table "service_translations", force: :cascade do |t|

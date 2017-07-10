@@ -48,4 +48,19 @@ namespace :dev do
       end
     }
   end
+
+  desc 'Find and fill region coordinates by region center'
+  task fill_region_coordinates: :environment do
+    Globalize.with_locale(:en) do
+      Region.all.each {|item|
+        geocodes = geocodes_from_address("#{item.center}, #{item.name}")
+        coordinate = geocodes.present? ? geocodes : [0,0]#[41.44273, 45.79102]
+        item.update_attributes(
+          :latitude => coordinate[0],
+          :longitude => coordinate[1]
+        )
+      }
+    end
+  end
+
 end

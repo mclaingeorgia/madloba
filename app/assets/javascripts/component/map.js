@@ -7,7 +7,7 @@
       // coordinate uses options coordinates, coordinates - multiple markers from gon.coordinates
 
     },
-    maps: [],
+    maps: {},
     init: function(id, options) { // id without #
       var t = map
       var $mp = $('#' + id)
@@ -38,7 +38,7 @@
           [43.784728, 39.891357],
           [40.919480, 46.845703]
         ]}).setView(coordinates, options.zoom);
-
+        t.maps[id] = mp
         // mp.fitBounds();
 
 
@@ -128,6 +128,17 @@
             })
           }
         })
+      }
+    },
+    set_view: function (id, coordinates, zoom, fly) {
+      var t = map
+      if(t.maps.hasOwnProperty(id)) {
+        if(fly) {
+          t.maps[id].flyTo(L.latLng(coordinates[0], coordinates[1]), zoom)
+        } else {
+          t.maps[id].setView(L.latLng(coordinates[0], coordinates[1]), zoom)
+        }
+
       }
     }
   }

@@ -25,6 +25,8 @@
 
       t.prepaire_data()
       t.process_send()
+      t.map_highlight_region(false)
+
       return t
     },
     prepaire_data: function () {
@@ -59,11 +61,9 @@
         mp.fitBounds([[map[0], map[1]],[map[2],map[3]]])
         t.first = true
       }
-
       // console.log('data to process_all', t.data)
     },
     process: function (type, value) {
-      console.log(type, value)
       var t = filter
       switch(type) {
         case 'search':
@@ -211,6 +211,15 @@
       t.els['what'].keydown(search_keydown)
       t.els['where'].keydown(search_keydown)
 
+       $('#region_filter').select2({
+        width: '100%',
+        allowClear: true
+      })
+        .on('change', function (evt) {
+          t.process('search')
+          t.map_highlight_region()
+        })
+
       t.els['search'].click(function () {
         t.process('search')
       })
@@ -295,13 +304,12 @@
       var tmp = [bounds._northEast.lat, bounds._northEast.lng, bounds._southWest.lat, bounds._southWest.lng]
       t.map = tmp
       var url = window.location.pathname + '?' + (jQuery.param(t.data) + (tmp.length ? '&' + jQuery.param({map: tmp}) : ''))
-      console.log(url)
+      // console.log(url)
       window.history.pushState({ }, null, url)
 
       pollution.elements['places_map_marker_group'].eachLayer(function (layer) {
         t.els['result'].find('.place-card[data-place-id="' + layer.options._place_id + '"]').toggleClass('hidden', !bounds.contains(layer.getLatLng()))
       });
-
       t.render_count(t.els['result'].find('.place-card:not(.hidden)').length)
       setTimeout(function() { $result_container.removeClass('loader') }, 200)
     },
@@ -316,7 +324,6 @@
         t.els['result'].find('.region').addClass('collapsed')
 
         t.map_move_end()
-
         $result_container.removeClass('loader')
       }
       else {
@@ -326,6 +333,23 @@
         t.els['result'].find('.place-card').addClass('hidden')
         t.render_count(t.els['result'].find('.place-card').length)
       }
+    },
+    map_highlight_region: function (fly) {
+      if(typeof fly === 'undefined') { fly = true }
+      var t = filter
+      var region_ids = t.els['where'].val()
+      var fly_coordinates = ['41.44273', '45.79102']
+      var zoomTo = 7
+      if(region_ids !== null)  {
+        if(region_ids.length === 1) {
+          var r = gon.regions.filter(function(f) { return f[0] === +region_ids[0] })[0]
+          fly_coordinates = [r[2], r[3]]
+          zoomTo = 8
+        } else {
+          fly = false
+        }
+      }
+      pollution.components.map.set_view('places_map', fly_coordinates, zoomTo, fly)
     }
   }
   pollution.components.filter = filter

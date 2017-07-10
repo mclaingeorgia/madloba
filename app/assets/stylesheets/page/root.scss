@@ -113,12 +113,12 @@ main {
             input {
               @include font;
               color: $link;
-              border: 1px solid $border2;
               border-radius: 0;
               border-top-right-radius: 3px;
               border-bottom-right-radius: 3px;
               padding: 13px 15px 12px;
               width: 100%;
+              min-height: 44px;
             }
 
           }
@@ -130,6 +130,9 @@ main {
               float: right;
               margin-left: 2px;
               margin-right: 0;
+            }
+            .select2-selection__choice + .select2-search {
+              border-top: 1px solid $border2;
             }
             .select2-selection__choice {
               @include font;
@@ -143,8 +146,9 @@ main {
               margin-top: 0;
               padding: 0;
               display: inline-block;
-              padding-right: 10px;
-              padding-bottom: 10px;
+              padding: 6px 10px;
+              // padding-right: 10px;
+              // padding-bottom: 10px;
             }
             .select2-selection__clear {
               float: none;
@@ -157,6 +161,7 @@ main {
             .select2-selection__rendered {
               white-space: normal;
               padding: 0;
+              border: 1px solid #e2e2e2;
             }
 
           }

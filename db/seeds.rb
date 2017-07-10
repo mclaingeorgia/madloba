@@ -445,9 +445,16 @@ regions = [
 
 regions.each {|item|
   d = Region.create()
+  geocodes = geocodes_from_address("#{item[:center][:en]}, #{item[:name][:en]}")
+  coordinate = geocodes.present? ? geocodes : [41.44273, 45.79102]
   I18n.available_locales.each { |locale|
     Globalize.with_locale(locale) do
-      d.update_attributes(:name => item[:name][locale], :center => item[:center][locale])
+      d.update_attributes(
+        :name => item[:name][locale],
+        :center => item[:center][locale],
+        :latitude => coordinate[0],
+        :longitude => coordinate[1]
+        )
     end
   }
 }

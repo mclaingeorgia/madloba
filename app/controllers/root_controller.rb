@@ -215,11 +215,7 @@ class RootController < ApplicationController
         view_all_service_places: t('shared.view_all_service_places')
 
       })
-      gon.regions = Region.sorted.pluck(:id, :name)
-      # gon.regions = {}
-      # Region.sorted.pluck(:id, :name).each{|e|
-      #   gon.regions[e[0]] = e[1]\
-      # }
+      gon.regions = Region.sorted.pluck(:id, :name, :latitude, :longitude)
 
       result = {}
       places.each {|place|
