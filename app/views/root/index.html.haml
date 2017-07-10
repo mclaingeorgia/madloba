@@ -2,21 +2,19 @@
 - content_for :custom_javascript, 'page/root'
 %section.content#filter
   .search
-    .search-input.first
+    .search-input
       %label=t('.what')
-      - if I18n.locale == :ka
-        .en2ka
-          .en2ka-switcher{title: t('.title.keyboard')}= 'KA'
-          %input{type: 'text', placeholder: t('.placeholder.what'), 'data-filter': 'what', value: filter[:what] }
-      - else
-        %input{type: 'text', placeholder: t('.placeholder.what'), 'data-filter': 'what', value: filter[:what] }
-    .search-group-wrapper
-      %label= t('.where')
       .search-group
-        .search-input
-          = collection_select :filter, :region, Region.all, :id, :name, { selected: filter[:where].present? ? filter[:where] : nil}, { id: 'region_filter', 'data-filter': 'where', 'data-placeholder': t('.placeholder.where'), multiple: true, style: 'display: none;' }
-          =#%input{type: 'text', placeholder: t('.placeholder.where'), 'data-filter': 'where', value: filter[:where] }
+        - if I18n.locale == :ka
+          .en2ka
+            .en2ka-switcher{title: t('.title.keyboard')}= 'KA'
+            %input{type: 'text', placeholder: t('.placeholder.what'), 'data-filter': 'what', value: filter[:what] }
+        - else
+          %input{type: 'text', placeholder: t('.placeholder.what'), 'data-filter': 'what', value: filter[:what] }
         %input{type: 'submit', value: t('shared.search')}
+    .search-input
+      %label= t('.where')
+      = collection_select :filter, :region, Region.all, :id, :name, { selected: filter[:where].present? ? filter[:where] : nil}, { id: 'region_filter', 'data-filter': 'where', 'data-placeholder': t('.placeholder.where'), multiple: true, style: 'display: none;' }
   .filter
     %ul
       %li.filter-prompt
