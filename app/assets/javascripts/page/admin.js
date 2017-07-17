@@ -75,11 +75,19 @@ $('.field-array .field-add').click(function(event) {
 
 if($(".field-tag").length) {
   $(".field-tag .field-input").select2({
-    tags: true,
+    multiple: true,
     minimumInputLength: 3,
-    // allowClear: true,
-    tokenSeparators: [','],
     placeholder: gon.labels.search_placeholder,
+    escapeMarkup: function(m) { return m },
+    templateResult: function (data) {
+      return data.text
+    },
+    templateSelection: function (style) {
+      if(!style.hasOwnProperty('state')) {
+        style.state = +$(style.element).attr('data-state')
+      }
+      return $('<span data-state="' + ['pending', 'accepted', 'declined'][style.state] + '">' + style.text + '</span>')
+    },
     ajax: {
       url: gon.autocomplete.tags,
       delay: 250,
@@ -87,6 +95,16 @@ if($(".field-tag").length) {
         return { q: params.term }
       }
     }
+  })
+  function prepare_tag_input () {
+    $(".field-tag .select2-container [data-state]").each(function(i,d) {
+      var d = $(d)
+      d.parent().addClass('state-' + d.attr('data-state'))
+    })
+  }
+  prepare_tag_input()
+  $(".field-tag .field-input").on('change', function () {
+    setTimeout(prepare_tag_input, 100)
   })
 }
 

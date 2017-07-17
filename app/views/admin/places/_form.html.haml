@@ -21,7 +21,13 @@
           .field-wrapper.field-tag
             %label.field-label= Place.human_attribute(:tags)
             %select.field-input{placeholder: t('simple_form.placeholders.place.tags'), multiple: 'multiple', name: 'place[tags][]'}
-              =f.object.tags.map{|m| "<option selected='selected'>#{m.name}</option>" }.join("").html_safe
+              =f.object.tags.active.map{|m| "<option selected='selected' data-state='#{m.processed}' class='#{m.processed_human}'>#{m.name}</option>" }.join("").html_safe
+            - declined = f.object.tags.declined
+            - if declined.present?
+              .decline-list
+                %label.field-label= t('admin.places.declined_tags')
+                %ul
+                  = declined.map{|m| "<li>#{m.name}</li>" }.join("").html_safe
           = f.input :published
           - possible_providers = Provider.only_active.for_user(current_user, @is_admin_profile_page)
           -# possible_providers = possible_providers.excluding(f.object.provider.id) if f.object.provider.present?

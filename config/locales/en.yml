@@ -21,6 +21,8 @@ en:
       page_content_item:
         one: List Item
         other: List Items
+      tag:
+        declined: ' (Declined)'
     attributes:
       provider: &provider
         name: Provider Name
@@ -215,6 +217,7 @@ en:
     places:
       current_provider: Assigned provider
       update_provider: Assign provider
+      declined_tags: 'Declined Tags:'
       list:
         provider: 'Provider:'
         manage_with_no_owners: Manage Places With No Owner

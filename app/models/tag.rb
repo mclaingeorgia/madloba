@@ -8,6 +8,8 @@ class Tag < ActiveRecord::Base
 
   scope :accepted, -> { where(processed: 1) }
   scope :pended, -> { where(processed: 0) }
+  scope :active, -> { where(processed: [0,1]) }
+  scope :declined, -> { where(processed: 2) }
 
 
   def self.process(user_id, place_id, tags)
@@ -53,7 +55,8 @@ class Tag < ActiveRecord::Base
 
   # filters
 
-    def self.autocomplete(q)
-      Tag.where('lower(name) like ?', "%#{q.downcase}%").pluck(:name).map{|m| { id: m, text: m} }
-    end
+  def self.autocomplete(q)
+    Tag.where('lower(name) like ?', "%#{q.downcase}%").pluck(:name, :processed).map{|m| { id: m[0], text: m[0] + (m[1] == 2 ? I18n.t('activerecord.models.tag.declined') : ''), state: m[1], disabled: m[1] == 2 } } +
+    (Tag.where('name = ?', q).present? ? [] : [ id: q, text: q, state: 0, disabled: false])
+  end
 end

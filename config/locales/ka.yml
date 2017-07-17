@@ -21,6 +21,8 @@ ka:
       page_content_item:
         one: მონაცემის დამატება
         other: მონაცემის დამატება
+      tag:
+        declined: ' (Declined)'
     attributes:
       provider: &provider
         name: პროვაიდერის დასახელება
@@ -215,6 +217,7 @@ ka:
     places:
       current_provider: პროვაიდერი შეცვლილია
       update_provider: პროვაიდერის შეცვლა
+      declined_tags: 'Declined Tags:'
       list:
         provider: 'პროვაიდერი:'
         manage_with_no_owners: ადგილის მართვა ვისაც არ ყავს მფლობელი

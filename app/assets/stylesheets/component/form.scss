@@ -495,15 +495,33 @@
     white-space: nowrap;
     padding: 6px 8px;
     @include font;
-    color: $text;
+    color: $text_white;
+    border: 0;
+    &.state-pending {
+      background-color: #e8c26b;
+    }
+    &.state-accepted {
+      background-color: #009b72;
+    }
+    &.state-declined {
+      background-color: #f38d68;
+    }
   }
   .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
-    color: $control;
+    color: $text_white;
     opacity: .8;
   }
   .select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
     color: $control;
     opacity: 1;
+  }
+  .decline-list {
+    margin-top: 12px;
+    li {
+      @include font;
+      color: $text;
+      white-space: nowrap;
+    }
   }
 }
 
