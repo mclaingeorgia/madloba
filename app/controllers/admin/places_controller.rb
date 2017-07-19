@@ -72,10 +72,9 @@ class Admin::PlacesController < AdminController
     pars = strong_params
     item = @model.find(params[:id])
     authorize item
-
-    tag_ids = pars[:tags].present? ? Tag.process(current_user.id, item.id, pars.delete(:tags)) : []
+    tag_ids = (pars[:tags].present? ? Tag.process(current_user.id, item.id, pars.delete(:tags)) : []) + item.tags.declined.pluck(:id)
     pars[:tag_ids] = tag_ids
-    old_tag_ids = item.tag_ids - tag_ids
+    old_tag_ids = item.tags.active.pluck(:id) - tag_ids
 
     if pars[:provider_id].present?
       provider = Provider.find_by(id: pars[:provider_id])

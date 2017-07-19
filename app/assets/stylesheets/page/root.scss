@@ -93,6 +93,9 @@ main {
             border: 0;
             height: 46px;
             cursor: pointer;
+            &:lang(en) {
+              height: 50px;
+            }
             // margin-bottom: -1px;
             // width: 20%;
           }

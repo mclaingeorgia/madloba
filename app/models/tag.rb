@@ -30,9 +30,7 @@ class Tag < ActiveRecord::Base
   end
 
   def self.remove_pended(tag_ids)
-     Rails.logger.debug("--------------------------------------remove_pended------#{tag_ids}")
     Tag.pended.where(id: tag_ids).each{|tag|
-     # Rails.logger.debug("--------------------------------------remove_pended inside------#{tag.inspect}#{tag.places.size}")
       tag.destroy if tag.places.size == 0
     }
   end
