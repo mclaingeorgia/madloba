@@ -99,7 +99,9 @@ if($(".field-tag").length) {
   function prepare_tag_input () {
     $(".field-tag .select2-container [data-state]").each(function(i,d) {
       var d = $(d)
-      d.parent().addClass('state-' + d.attr('data-state'))
+      var p = d.parent()
+      var state = d.attr('data-state')
+      p.addClass('state-' + state).attr('title', p.attr('title') + ' (' +  gon.tag_states[state] + ')')
     })
   }
   prepare_tag_input()

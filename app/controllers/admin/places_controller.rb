@@ -11,6 +11,10 @@ class Admin::PlacesController < AdminController
     authorize @model
     @item = @model.new
     gon.autocomplete = { tags: manage_autocomplete_path(:tags) }
+    gon.tag_states = {
+      pending: t('shared.pending'),
+      accepted: t('shared.accepted')
+    }
     # @item.assets.build(owner_type: 1)
   end
 
@@ -58,6 +62,10 @@ class Admin::PlacesController < AdminController
     # @item.assets.new(owner_type: 1)
     authorize @item
     gon.autocomplete = { tags: manage_autocomplete_path(:tags) }
+    gon.tag_states = {
+      pending: t('shared.pending'),
+      accepted: t('shared.accepted')
+    }
   end
 
   def update

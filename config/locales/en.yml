@@ -255,6 +255,7 @@ en:
       place_ownership: Place Ownership
       new_provider: New Provider
       place_tags: Place Tags
+      place_tag: Place Tags
     user:
       email: Email
       password: Password

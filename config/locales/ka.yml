@@ -255,6 +255,7 @@ ka:
       place_ownership: მართვის უფლების მიცემა
       new_provider: ახალი პროვაიდერი
       place_tags: ადგილის კატეგორია
+      place_tag: ადგილის კატეგორია
     user:
       email: ელ.ფოსტა
       password: პაროლი
