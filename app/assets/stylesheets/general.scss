@@ -195,3 +195,33 @@ abbr[title='required'] {
     }
   }
 }
+
+main.error {
+  width: 100%;
+  text-align: center;
+  .main-container {
+    margin: 20px auto;
+    display: inline-block;
+    text-align: left;
+    h1 {
+      @include font(26, 'r', 28);
+      color: $text;
+      margin-bottom: 20px;
+    }
+    h2 {
+      @include font(22, 'r', 24);
+      color: $text;
+      margin-bottom: 20px;
+    }
+    p {
+      @include font(18, 'r', 20);
+      color: $text;
+      margin-bottom: 20px;
+    }
+    .links a {
+      @include font(18, 'r', 20);
+      color: $link;
+      margin-bottom: 20px;
+    }
+  }
+}
