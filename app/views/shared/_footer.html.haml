@@ -2,10 +2,10 @@
 - klass ||= nil
 %footer{class: klass}
   .mac
-    = link_to image_tag(asset_path("svg/mac_grayscale.svg"), alt: t('app.common.mac_alt'), title: t('app.common.mac_alt')).html_safe, "http://www.macgeorgia.org/", target: '_blank'
-  .js
+    = link_to image_tag(asset_path("png/mac.png"), alt: t('app.common.mac_alt'), title: t('app.common.mac_alt')).html_safe, "http://www.macgeorgia.org/", target: '_blank'
+  .forset
     %span #{t('app.common.created_by')}
-    = link_to image_tag(asset_path("svg/js_grayscale.svg"), alt: t('app.common.js_alt'), title: t('app.common.js_alt')).html_safe, "https://jumpstart.ge/#{I18n.locale}", target: '_blank'
+    = link_to image_tag(asset_path("svg/forset.svg"), alt: t('app.common.forset_alt'), title: t('app.common.forset_alt')).html_safe, "https://forset.ge/#{I18n.locale}", target: '_blank'
   - if with_links
     .footer-links
       = link_to t('app.common.privacy_policy'), privacy_policy_path

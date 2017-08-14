@@ -10,8 +10,8 @@
         .hr
       .header.partners= t('.partners')
       .partners-list
-        = link_to image_tag(asset_path("svg/mac_color.svg"), alt: t('app.common.mac_alt'), title: t('app.common.mac_alt')).html_safe, "http://www.macgeorgia.org/", target: '_blank'
-        = link_to image_tag(asset_path("svg/js_color.svg"), alt: t('app.common.js_alt'), title: t('app.common.js_alt')).html_safe, "https://jumpstart.ge/#{I18n.locale}", target: '_blank'
+        = link_to image_tag(asset_path("png/mac.png"), alt: t('app.common.mac_alt'), title: t('app.common.mac_alt')).html_safe, "http://www.macgeorgia.org/", target: '_blank'
+        = link_to image_tag(asset_path("svg/forset.svg"), alt: t('app.common.forset_alt'), title: t('app.common.forset_alt')).html_safe, "https://forset.ge/#{I18n.locale}", target: '_blank'
     .dialog-page{ 'data-bind': 'contact' }
       .header= t('.contact')
       .boxes
