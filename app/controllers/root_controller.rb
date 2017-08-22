@@ -196,7 +196,7 @@ class RootController < ApplicationController
       end
 
 
-      places = Place.filter(filter, current_user).limit(3)
+      places = Place.filter(filter, current_user)#.limit(3)
 
       gon.labels.merge!({
         result: t('root.index.result', count: 1),
