@@ -20,6 +20,7 @@
     .mac {
       padding: 6px 0;
       margin-right: 50px;
+      img { height: 50px; }
     }
     .forset {
       padding: 6px 0;
@@ -29,11 +30,15 @@
         padding-top: 20px;
         vertical-align: top;
       }
+      img {
+        height: 36px;
+        position: relative;
+        left: -8px;
+        top: 8px;
+      }
     }
     .mac, .forset {
-      // padding: 0 6px 0;//6px;
       white-space: nowrap;
-      img { height: 50px; }
     }
 
     span {
