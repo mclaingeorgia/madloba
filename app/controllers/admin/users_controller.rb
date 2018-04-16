@@ -22,7 +22,7 @@ class Admin::UsersController < AdminController
   end
 
   def create
-    @item = @model.new(strong_params)
+    item = @model.new(strong_params)
     authorize item
 
     if item.save
