@@ -8,6 +8,10 @@ class UserPasswordPolicy < Struct.new(:user, :user_password)
     true
   end
 
+  def edit?
+    true
+  end
+
   def update?
     true
   end
