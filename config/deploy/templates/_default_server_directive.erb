@@ -9,8 +9,10 @@ server {
 <% if fetch(:nginx_use_ssl) -%>
     <% if fetch(:nginx_use_spdy) -%>
     listen <%= ssl_port %> spdy;
+    listen [::]:<%= ssl_port %> spdy;
     <% else -%>
     listen <%= ssl_port %> ssl http2;
+    listen [::]:<%= ssl_port %> ssl http2;
     <% end -%>
 
     # the certificate and key
@@ -51,6 +53,7 @@ server {
 
 <% else -%>
     listen <%= fetch(:nginx_server_port) %>;
+    listen [::]:<%= fetch(:nginx_server_port) %>;
 <% end -%>
 
 
