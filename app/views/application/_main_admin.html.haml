@@ -6,7 +6,7 @@
         %li
           %span= t('shared.manage')
           %ul
-            - [:users, :providers, :places, :services, :page_contents].each do |pth|
+            - [:users, :providers, :places, :services, :page_contents, :resources, :resource_items].each do |pth|
               - space = true if controller_name?(pth)
               %li
                 = link_to t("admin.menu.#{pth}"), public_send("manage_#{pth}_path"), class: controller_name?(pth) ? 'current' : nil

@@ -1,0 +1,64 @@
+- content_for :custom_stylesheet, 'page/admin_resource'
+- content_for :custom_javascript, 'page/admin_resource_item'
+.form-container{class: @form_container_class}
+  = simple_form_for obj, html: { class: @form_class } do |f|
+    = devise_error_messages!
+    = render partial: 'shared/fields_localization', locals: { fields: { title: { input_html: { disabled: true } } } , form: f }
+    %label.list-header= t('admin.resource_items.list')
+    - locales = I18n.available_locales
+    .fields-localization.wide
+      .tabs{'data-target': 'localization'}
+        .d.d1
+        %label=t('shared.fields_localization')
+        .d.d2
+        - locales.each_with_index do |locale, locale_i|
+          = link_to t("app.languages.#{locale}"), 'javascript:void(0);', class: "tab-link#{I18n.locale == locale ? ' active' : ''}", 'data-link': locale
+          - if locale_i != locales.length-1
+            .d.d3
+        .d.d4
+      .tabs-content{'data-target': 'localization' }
+        %ul.resource-list-wrapper{'data-initial-length': f.object.resource_contents.length}
+          - lists = {}
+          - orders = []
+          -ids = []
+          - locales.each do |locale|
+            - lists[locale] = []
+          = f.simple_fields_for :resource_contents, include_id: true do |resource_content|
+            - ids << capture_haml do
+              = resource_content.input :id, as: :hidden, wrapper: false, input_html: { id: nil }
+            - orders << capture_haml do
+              = resource_content.input :order, as: :hidden, wrapper: false, input_html: { id: nil }
+            - locales.each_with_index do |locale|
+              - lists[locale] << capture_haml do
+                %li{'data-index': resource_content.index}
+                  %span.sort
+                  .field.fill
+                    - if resource_content.object.has_content?
+                      = resource_content.input :"content_#{locale}", as: :text, input_html: { rows: 6, id: nil, class: 'tinymce-limited' }, wrapper_html: {class: 'fill'}, label: false, placeholder: ResourceContent.human_attribute_name(:content)
+                    - else
+                      = resource_content.input :"visual_#{locale}", as: :file, label: false
+                      - if resource_content.object.send("visual_#{locale}").present?
+                        .field-wrapper
+                          - if resource_content.object.send("visual_#{locale}").image?
+                            = image_tag resource_content.object.send("visual_#{locale}").thumb.url
+                          - else
+                            = link_to t('admin.shared.pdf'), resource_content.object.send("visual_#{locale}").url, class: 'btn'
+                  = link_to t('admin.shared.delete'), 'javascript:void(0);', 'data-index': resource_content.index, class: 'delete btn'
+          - locales.each_with_index do |locale|
+            - is_current_locale = I18n.locale == locale
+            %li{class: is_current_locale ? 'active' : nil, 'data-link': locale}
+              %ul.sortable.resource-list
+                - lists[locale].each do |d|
+                  = d
+          .ids
+            - ids.each do |d|
+              = d
+
+          .orders
+            - orders.each do |d|
+              = d
+    %a#add_resource_list_item.btn.add{href:'javascript:void(0);'}= t('admin.shared.add_model', name: ResourceContent.human)
+    .actions
+      .action-group
+        = f.submit t("app.common.reset"), type: :reset
+        = f.submit t("app.common.save")

@@ -23,6 +23,15 @@ en:
         other: List Items
       tag:
         declined: ' (Declined)'
+      resource:
+        one: Resource
+        other: Resources
+      resource_item:
+        one: Resource Item
+        other: Resource Items
+      resource_content:
+        one: Resource Content
+        other: Resource Contents
     attributes:
       provider: &provider
         name: Provider Name
@@ -64,6 +73,11 @@ en:
         region: Region
         tags: Tags
         provider: Provider
+      resource:
+        title: Title
+        content: Content
+      resourceitem:
+        title: Resource Item Title
     errors:
       models:
         user:
@@ -256,6 +270,8 @@ en:
       new_provider: New Provider
       place_tags: Place Tags
       place_tag: Place Tags
+      resources: Resources
+      resource_items: Resource Items
     user:
       email: Email
       password: Password
@@ -284,6 +300,12 @@ en:
       list:
         uploaded_by: 'Uploaded By:'
         manage_with_no_owners: Manage Place Photos With No Owner
+    resources:
+      new_item: New Resource Item
+      list: Resource Items
+    resource_items:
+      new_item: New Resource Content
+      list: Resource Items
   application:
     dialog:
       partners: PARTNERS
@@ -311,6 +333,7 @@ en:
       about: ABOUT
       faq: FAQ
       contact: CONTACT
+      resources: RESOURCES
       facebook_alt: Share on Facebook
       twitter_alt: Share on Twitter
       sign_up: Register

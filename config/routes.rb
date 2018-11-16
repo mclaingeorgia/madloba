@@ -26,6 +26,9 @@ Madloba::Application.routes.draw do
       get 'privacy_policy'
       get 'terms_of_use'
       get 'place/:id', to: 'root#place', as: 'place'
+      get 'resources'
+      get 'resources/:id', to: 'root#resources', as: 'resource'
+      get 'resources/:id/:subid', to: 'root#resources', as: 'resource_item'
     end
 
     patch 'manage/provider/:id/restore', to: 'admin/providers#restore', as: :restore_manage_provider
@@ -66,6 +69,8 @@ Madloba::Application.routes.draw do
       patch 'user/manage-profile', to: '/admin/users#update', :as => :update_user
 
       resources :page_contents, only: [:index, :edit, :update]
+      resources :resources
+      resources :resource_items, only: [:index, :edit, :update]
       resources :services, only: [:index, :edit, :update]
 
       resources :uploads, only: [:create]

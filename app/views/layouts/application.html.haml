@@ -10,3 +10,5 @@
     - if @has_slideshow
       = render 'application/slideshow'
     = render 'application/javascript'
+    - if content_for? :body_end
+      = yield(:body_end)

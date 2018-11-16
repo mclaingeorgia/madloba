@@ -1,0 +1,6 @@
+%li{'data-index': '_index_'}
+  %span.sort
+  .field.fill
+    .field-wrapper.string.required.resource_resource_items_title__locale_
+      %input.field-input.string.required{placeholder: ResourceItem.human_attribute_name(:title), type: "text", value: '', name: "resource[resource_items_attributes][_index_][title__locale_]"}
+  = link_to t('admin.shared.delete'), 'javascript:void(0);', 'data-index': '_index_', 'data-virtual': 'true', class: 'delete btn'

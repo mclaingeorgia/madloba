@@ -23,6 +23,15 @@ ka:
         other: მონაცემის დამატება
       tag:
         declined: ' (Declined)'
+      resource:
+        one: რესურსი
+        other: რესურსები
+      resource_item:
+        one: რესურსის გვერდი
+        other: რესურსის გვერდები
+      resource_content:
+        one: რეს. გვერდის კონტენტი
+        other: რეს. გვერდის კონტენტი
     attributes:
       provider: &provider
         name: პროვაიდერის დასახელება
@@ -64,6 +73,11 @@ ka:
         region: რეგიონი
         tags: კატეგორია
         provider: პროვაიდერი
+      resource:
+        title: დასახელება
+        content: კონტენტი
+      resourceitem:
+        title: რესურსის გვერდის დასახელება
     errors:
       models:
         user:
@@ -198,7 +212,7 @@ ka:
       actions: მოქმედება
       assign: დამატება
       view: ნახვა
-      add_model: დამატება%{name}
+      add_model: დამატება %{name}
       edit_model: რედაქტირება %{name}
       manage_model: მართვა %{name}
       create_model: შექმნა  %{name}
@@ -256,6 +270,8 @@ ka:
       new_provider: ახალი პროვაიდერი
       place_tags: ადგილის კატეგორია
       place_tag: ადგილის კატეგორია
+      resources: რესურსები
+      resource_items: რესურსის გვერდები
     user:
       email: ელ.ფოსტა
       password: პაროლი
@@ -284,6 +300,12 @@ ka:
       list:
         uploaded_by: 'ატვირთულია:'
         manage_with_no_owners: ადგილის ფოტოების მართვა, ვისაც არ ყავს მფლობელი
+    resources:
+      new_item: რესურსის ახალი გვერდი
+      list: რესურსის გვერდები
+    resource_items:
+      new_item: რესურსის გვერდის ახალი კონტენტი
+      list: რესურსის გვერდის კონტენტი
   application:
     dialog:
       partners: პარტნიორები
@@ -311,6 +333,7 @@ ka:
       about: ჩვენ შესახებ
       faq: ხშირად დასმული კითხვები
       contact: დაგვიკავშირდით
+      resources: რესურსები
       facebook_alt: Facebook -ზე  გაზიარება
       twitter_alt: Twitter-ზე გაზიარება
       sign_up: რეგისტრაცია

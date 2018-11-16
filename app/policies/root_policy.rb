@@ -19,6 +19,10 @@ class RootPolicy < Struct.new(:user, :root)
     true
   end
 
+  def resources?
+    true
+  end
+
   def privacy_policy?
     true
   end

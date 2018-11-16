@@ -1,0 +1,88 @@
+- content_for :custom_stylesheet, 'page/admin_resource'
+- content_for :custom_javascript, 'page/admin_resource'
+.form-container{class: @form_container_class}
+  = simple_form_for obj, html: { class: @form_class } do |f|
+    = devise_error_messages!
+    .field-wrapper
+      = f.input :cover, as: :file
+      - if f.object.cover.present?
+        = f.check_box :remove_cover, class: 'field-input'
+        = f.label :remove_cover, class: 'field-label'
+        = image_tag f.object.cover.thumb.url
+    .field-wrapper
+      = f.input :order, input_html: { step: 100 }
+    = render partial: 'shared/fields_localization', locals: { fields: { title: nil, content: { as: :text, input_html: { rows: 10, style: 'width: 100%', class: 'tinymce-limited' } },  } , form: f }
+    %label.list-header= t('admin.resources.list')
+    - locales = I18n.available_locales
+    .fields-localization.wide
+      .tabs{'data-target': 'localization'}
+        .d.d1
+        %label=t('shared.fields_localization')
+        .d.d2
+        - locales.each_with_index do |locale, locale_i|
+          = link_to t("app.languages.#{locale}"), 'javascript:void(0);', class: "tab-link#{I18n.locale == locale ? ' active' : ''}", 'data-link': locale
+          - if locale_i != locales.length-1
+            .d.d3
+        .d.d4
+      .tabs-content{'data-target': 'localization' }
+        %ul.resource-list-wrapper{'data-initial-length': f.object.resource_items.length}
+          - lists = {}
+          - orders = []
+          -ids = []
+          - locales.each do |locale|
+            - lists[locale] = []
+          = f.simple_fields_for :resource_items, include_id: true do |resource_item|
+            - ids << capture_haml do
+              = resource_item.input :id, as: :hidden, wrapper: false, input_html: { id: nil }
+            - orders << capture_haml do
+              = resource_item.input :order, as: :hidden, wrapper: false, input_html: { id: nil }
+            - locales.each_with_index do |locale|
+
+              - lists[locale] << capture_haml do
+                %li{'data-index': resource_item.index}
+                  %span.sort
+                  .field.fill
+                    = resource_item.input :"title_#{locale}", input_html: { id: nil }, wrapper_html: {class: 'fill'}, label: false, placeholder: ResourceItem.human_attribute_name(:title)
+                  = link_to t('admin.shared.delete'), 'javascript:void(0);', 'data-index': resource_item.index, class: 'delete btn'
+          - locales.each_with_index do |locale|
+            - is_current_locale = I18n.locale == locale
+            %li{class: is_current_locale ? 'active' : nil, 'data-link': locale}
+              %ul.sortable.resource-list
+                - lists[locale].each do |d|
+                  = d
+          .ids
+            - ids.each do |d|
+              = d
+
+          .orders
+            - orders.each do |d|
+              = d
+    %a#add_resource_list_item.btn.add{href:'javascript:void(0);'}= t('admin.shared.add_model', name: ResourceItem.human)
+    .actions
+      .action-group
+        = f.submit t("app.common.reset"), type: :reset
+        = f.submit t("app.common.save")
+
+
+/ .fields-asset
+/       = f.input :poster_id, as: :hidden
+/       =# f.object.assets.length
+/       .field-wrapper.field-file
+/         = f.label :assets do
+/           %img{src: asset_path("svg/upload.svg") }
+/           = t("shared.upload_image")
+/         = f.input :assets, as: :file, label: false, wrapper: false, input_html: { name: "place[assets_attributes][][image]", multiple: true, accept: 'image/png,image/gif,image/jpeg' }
+
+/       - assets = f.object.assets.to_a
+
+/       - picked = nil
+/       - if f.object.poster_id.present?
+/         - picked = f.object.assets.find(f.object.poster_id)
+/         - assets.delete_if {|x| x.id == picked.id }
+/         - assets.unshift(picked)
+/       - assets.each do |asset|
+/         .field-wrapper.field-asset{'data-asset-id': asset.id, class: asset.id == f.object.poster_id ? 'picked' : nil }
+/           = image_tag asset.image.thumb.url
+/           .field-input
+/             = link_to t("shared.delete_image"), destroy_asset_manage_place_path(f.object.id, place: { assets_attributes: { id: asset.id, "_destroy" => true }}), remote: true, method: :put, 'data-type': 'json', data: { confirm: t('shared.are_you_sure') }
+//, input_html: { name: "place[assets_attributes][][image]", multiple: true, accept: 'image/png,image/gif,image/jpeg' }

@@ -1,0 +1,19 @@
+- title = t('admin.shared.manage_model', name: @model.human(2))
+- page_title title
+= render partial: 'shared/breadcrumbs', locals: { paths: [title] }
+.table-view
+  %table.datatable.datatable-table.table-responsive{width: '100%'}
+    %thead
+      %tr
+        %th.spacer{'data-orderable': 'false'}
+        %th= @model.human_attribute_name(:title)
+        %th= @model.human_attribute_name(:order)
+        %th.actions{'data-orderable': 'false'}= t('admin.shared.actions')
+    %tbody
+      - @items.each do |item|
+        %tr
+          %td
+          %td.nowrap= item.resource.title + '/' + item.title
+          %td.nowrap= item.order
+          %td.actions
+            = link_to t('admin.shared.edit'), edit_manage_resource_item_path(item.id), class: 'edit'

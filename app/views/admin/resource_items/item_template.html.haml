@@ -1,0 +1,16 @@
+%li{'data-index': '_index_'}
+  %span.sort
+  .field.fill.hidden
+    .paragraph.hidden.field-wrapper.string.optional.resource_item_resource_contents_content__locale_.fill
+      %textarea.field-input.text.required.tinymce-limited{rows: 10, placeholder: ResourceContent.human_attribute_name(:content), name: "resource_item[resource_contents_attributes][_index_][content__locale_]"}
+    .visual.hidden.field-wrapper.file.optional.resource_item_resource_contents_visual__locale_
+      %input.field-input.file.optional{type: "file", name: "resource_item[resource_contents_attributes][_index_][visual__locale_]"}
+
+  .choose-content-type.fill
+    %input{type:"radio", name:"content_type", value: "paragraph", id: "content_type_paragraph__locale__index_"}
+    %label.field-label{ for: "content_type_paragraph__locale__index_" }
+      Paragraph
+    %input{type:"radio", name:"content_type", value: "visual", id: "content_type_visual__locale__index_"}
+    %label.field-label{ for: "content_type_visual__locale__index_" }
+      Visual
+  = link_to t('admin.shared.delete'), 'javascript:void(0);', 'data-index': '_index_', 'data-virtual': 'true', class: 'delete btn'

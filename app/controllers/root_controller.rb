@@ -23,6 +23,42 @@ class RootController < ApplicationController
     @page_content = PageContent.by_name('faq')
   end
 
+  def resources
+    authorize :root
+    @class = "resources"
+
+    resource_id = resource_params[:id]
+    if not resource_id
+      resource_id = Resource.first.id
+    end
+    resource_item_id = resource_params[:subid]
+
+    @menu = Resource.all
+    @content = Resource.find(resource_id)
+    @next = nil
+    @prev = nil
+    if resource_item_id.present?
+      resource_item_id = resource_item_id.to_i
+      rs = @content.resource_items.all
+      rs.each_with_index{|item, item_i|
+        if resource_item_id == item.id
+          @content = item
+          if item_i != 0
+            @prev = rs[item_i-1]
+          end
+          if item_i < rs.length-1
+            @next = rs[item_i+1]
+          end
+        end
+      }
+    end
+    @curr_menu = [resource_id, resource_item_id]
+
+  rescue Exception => e
+    redirect_to root_path, flash: { error:  t('errors.not_found', obj: Place) }
+    return
+  end
+
   def privacy_policy
     authorize :root
     @class = "privacy_policy"
@@ -252,5 +288,9 @@ class RootController < ApplicationController
 
     def place_params
       params.permit(:id, :a, :v, :locale, :_)
+    end
+
+    def resource_params
+      params.permit(:id, :subid, :locale)
     end
 end

@@ -1,0 +1,83 @@
+- content_for :custom_stylesheet, 'page/resources'
+- content_for :custom_javascript, 'page/resources'
+
+- content_for :inline_stylesheet do
+  :plain
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/blueimp-gallery/2.33.0/css/blueimp-gallery.min.css">
+
+- content_for :inline_javascript do
+  :plain
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-gallery/2.33.0/js/jquery.blueimp-gallery.min.js"></script>
+
+- page_title @content.title
+
+%section.menu
+  %ul
+    - @menu.each_with_index do |m, m_i|
+      %li
+        .group
+          - active = false
+          - if m.id.to_s == @curr_menu[0]
+            - active = true
+          - if m.resource_items.present?
+            .expand{'data-toggle': active ? '+' : '-'}=active ? '-' : '+'
+          - else
+            .expand
+          - klass=''
+          - if active && ! @curr_menu[1].present?
+            - klass=' active'
+          = link_to m.title, resource_path(id: m.id), class: 'menu-link'+klass
+        - if m.resource_items.present?
+          %ul{'class': active ? 'open' : ''}
+            - m.resource_items.each_with_index do |sm, sm_i| # sub menu
+              %li
+                - klass=''
+                - if active && sm.id == @curr_menu[1]
+                  - klass=' active'
+                = link_to sm.title, resource_item_path(id: m.id, subid: sm.id), class: 'menu-inner-link'+klass
+%section.content
+  - if @content.class == Resource
+    - if @content.cover.present?
+      .cover
+        = image_tag @content.cover
+        .box-wrapper
+          .box
+            %h1=@content.title
+    .blocks{class: @content.cover.present? ? 'has-cover' : ''}
+      - if !@content.cover.present?
+        %h1=@content.title
+      - if @content.content.present?
+        .text=@content.content.html_safe
+      - if @content.resource_items.present?
+        %ul
+          - @content.resource_items.each_with_index do |item, item_i|
+            %li
+              = link_to item.title, resource_item_path(id: @content.id, subid: item.id)
+  - elsif @content.class == ResourceItem
+    - if @next.present? || @prev.present?
+      .shortcuts-wrapper
+        .shortcuts
+          - if @prev.present?
+            = link_to resource_item_path(id: @content.resource.id, subid: @prev.id), class: 'shortcut shortcut-prev' do
+              %i
+          - if @next.present?
+            = link_to resource_item_path(id: @content.resource.id, subid: @next.id), class: 'shortcut shortcut-next' do
+              %i
+    .blocks
+
+      %h1=@content.resource.title
+      %h2=@content.title
+      - @content.resource_contents.each_with_index do |cont, cont_i|
+        - if cont.content.present?
+          .text=cont.content.html_safe
+        - elsif cont.visual.present?
+          - if cont.visual.image?
+            = link_to cont.visual.url, 'data-gallery': "#blueimp-gallery-long" do
+              = image_tag cont.visual.preview, class: 'infographic'
+          - else
+            = link_to cont.visual.file.filename, cont.visual.url
+
+- content_for :body_end do
+  #blueimp-gallery-long.blueimp-gallery.blueimp-gallery-long.blueimp-gallery-controls.blueimp-popup{'data-toggle-controls-on-slide-click':false, 'carousel': true}
+    .slides
+    %a.close

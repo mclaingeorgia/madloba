@@ -76,6 +76,20 @@
           border-bottom: 1px solid $border;
           width: 100%;
         }
+        .nav-resources {
+          margin: 0 45px 0 0;
+          a {
+            padding: 13px 21px;
+            @include font(24, 'r', 26);
+            color: $text_white;
+            background-color: #009b72;
+            text-decoration: none;
+            opacity: .9;
+            &:hover {
+              opacity: 1;
+            }
+          }
+        }
         .nav-menu {
           font-size: 0;
           .nav-menu-item {
@@ -315,6 +329,9 @@
             padding: 0;
             border-bottom: 0;
             width: auto;
+          }
+          .nav-resources {
+            margin: 0 45px;
           }
           .nav-social {
             padding: 0 60px;

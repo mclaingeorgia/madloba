@@ -20,6 +20,7 @@
 # Ignore images uploaded in public folder
 /public/system
 /public/uploads
+/public/resource
 
 # Ignore the files that are created from their sample version
 /config/app_environment_variables.rb

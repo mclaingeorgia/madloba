@@ -7,6 +7,9 @@
           %span.helper= t('shared.toggle_navigation')
           .toggle
     #nav-toggle-target.nav-right
+      - if Resource.all.present?
+        .nav-resources
+          = link_to t('.resources'), resources_path, class: "#{if_path_match('root/resources', ' active')}"
       .nav-menu
         = link_to t('.about'), 'javascript:void(0);', class: "nav-menu-item border-right#{if_path_match('root/about', ' active')}", 'data-dialog-link': 'about'
         = link_to t('.faq'), faq_path, class: "nav-menu-item nav-menu-item-faq border-both border-skip-left#{if_path_match('root/faq', ' active')}"
@@ -68,6 +71,10 @@
                               = link_to t('admin.menu.services'), manage_services_path
                             %li
                               = link_to t('admin.menu.page_contents'), manage_page_contents_path
+                            %li
+                              = link_to t('admin.menu.resources'), manage_resources_path
+                            %li
+                              = link_to t('admin.menu.resource_items'), manage_resource_items_path
                         %li.sans
                           %span.subheader= t('shared.moderate')
                           %ul

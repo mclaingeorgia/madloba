@@ -1,0 +1,5 @@
+- title = t('admin.shared.edit_model', name: @model.human)
+- page_title title
+
+= render partial: 'shared/breadcrumbs', locals: { paths: [[t('admin.shared.manage_model', name: @model.human(2)), manage_resources_path], title] }
+= render partial: 'form', locals: { obj: [:manage, @item] }

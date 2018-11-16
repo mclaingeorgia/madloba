@@ -1,0 +1,7 @@
+- title = t('admin.shared.create_model', name: @model.human)
+- page_title title
+- redirect_default = true unless redirect_default == true || redirect_default == false
+- item = @item || item
+
+= render partial: 'shared/breadcrumbs', locals: { paths: [[t('admin.shared.manage_model', name: @model.human(2)), manage_resources_path], title] }
+= render partial: 'admin/resources/form', locals: { obj: [:manage, item], redirect_default: redirect_default, url: manage_resources_path }
