@@ -20,7 +20,7 @@
           - if m.id.to_s == @curr_menu[0]
             - active = true
           - if m.resource_items.present?
-            .expand{'data-toggle': active ? '+' : '-'}=active ? '-' : '+'
+            .expand{'class': active ? 'expanded' : ''}
           - else
             .expand
           - klass=''

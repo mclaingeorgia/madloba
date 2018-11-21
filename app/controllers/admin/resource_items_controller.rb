@@ -22,7 +22,7 @@ class Admin::ResourceItemsController < AdminController
     @item = @model.find(params[:id])
     authorize @item
 
-    Rails.logger.debug(strong_params)
+    # Rails.logger.debug(strong_params)
     if @item.update_attributes(strong_params)
       flash[:success] = t('app.messages.success_updated', obj: "#{@model.human} #{@item.title}")
       redirect_to manage_resource_items_path

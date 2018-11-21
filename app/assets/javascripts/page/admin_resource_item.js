@@ -19,12 +19,31 @@
 
       initTinymceLimited('textarea.tinymce-limited')
 
+      function toggleContentType($t, value) {
+        var $li = $t.closest('li')
+        $li.find('> .field').toggleClass('hidden')
+        $li.find('> .field > div.' + value).toggleClass('hidden')
+        $li.find('> div.' + (value == 'paragraph' ? 'visual' : 'paragraph')).remove()
+        $t.closest('.choose-content-type').remove()
+      }
       $(document).on('click', '.choose-content-type input', function() {
         var $t = $(this)
-        $t.closest('li').find('> .field').toggleClass('hidden')
-        $t.closest('li').find('> .field > div.' + this.value).toggleClass('hidden')
-        $t.closest('li').find('> div.' + (this.value == 'paragraph' ? 'visual' : 'paragraph')).remove()
-        $t.closest('.choose-content-type').remove()
+        var $li = $t.closest('li')
+        var $parent_li = $li.parent().closest('li')
+
+
+        var li_index = $li.attr('data-index')
+
+        // first trigger same value for other language
+        var $parent_ul = $parent_li.parent()
+        var pair_lang = $parent_li.attr('data-link') === 'ka' ? 'en' : 'ka'
+
+        $other_t = $parent_ul.find('> li[data-link="' + pair_lang + '"] ul li[data-index="' + li_index + '"] .choose-content-type input[value="' + this.value + '"]')
+
+        toggleContentType($other_t, this.value)
+        toggleContentType($t, this.value)
+
+
       })
 
       t.el.on('click', '> li .delete', function (event) {

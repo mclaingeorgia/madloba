@@ -36,7 +36,6 @@ function initTinymceLimited(target) {
     options['selector'] = target
   }
   else {
-    console.log(target)
     options['target'] = target
   }
   tinymce.init(options)

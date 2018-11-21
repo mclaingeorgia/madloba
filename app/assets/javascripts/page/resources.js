@@ -2,10 +2,7 @@
   $('.menu .expand').click(function() {
     var $t = $(this)
     $t.closest('li').find('ul').toggleClass('open')
-    var currText = $t.text()
-    var toggleText = $t.attr('data-toggle')
-    $t.text(toggleText)
-    $t.attr('data-toggle', currText)
+    $t.toggleClass('expanded')
   })
 
   function resizeIframes() {
