@@ -69,7 +69,7 @@ class Admin::ResourcesController < AdminController
     item = @model.find(params[:id])
     authorize item
 
-    if item.delete
+    if item.destroy
       flash[:success] =  t("app.messages.success_destroyed", obj: "#{@model.human} #{item.title}")
     else
       flash[:error] =  t('app.messages.fail_destroyed', obj: "#{@model.human} #{item.title}")
