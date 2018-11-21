@@ -15,7 +15,7 @@ main.resources {
         color: $text;
       }
       .menu-inner-link {
-        @include font(21, 'regular', 23);
+        @include font(18, 'regular', 24);
         color: #10141e;
       }
       .menu-link, .menu-inner-link {
@@ -125,7 +125,7 @@ main.resources {
         }
         .text {
           p {
-            @include font(23, 'r', 29);
+            @include font(18, 'r', 26);
             color: $text;
             margin-bottom: 28px;
           }
@@ -139,7 +139,7 @@ main.resources {
           }
         }
         a {
-          @include font(21, 'r', 23);
+          @include font(19, 'r', 26);
           color: $text;
           opacity: .7;
           &:hover {
@@ -179,7 +179,7 @@ main.resources {
           @include font(24, 'b', 26);
         }
         .menu-inner-link {
-          @include font(23, 'regular', 25);
+          // @include font(23, 'regular', 25);
         }
       }
       &.content {
@@ -215,12 +215,12 @@ main.resources {
           }
           .text {
             p {
-              @include font(25, 'r', 31);
+              // @include font(25, 'r', 31);
             }
           }
-          a {
-            @include font(23, 'r', 25);
-          }
+          // a {
+          //   @include font(23, 'r', 25);
+          // }
         }
       }
     }
