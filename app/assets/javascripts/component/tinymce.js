@@ -26,8 +26,9 @@ function initTinymceLimited(target) {
     statusbar: false,
     branding: false,
     // valid_elements: "p, a, b, i, ul, ol, li, dl",
-    plugins: [ 'autolink lists link anchor autoresize media' ],
-    toolbar: 'undo redo | insert | bold italic | link | numlist bullist',
+    plugins: [ 'autolink lists link anchor autoresize media paste' ], //  code
+    toolbar: 'undo redo | insert | bold italic | link | numlist bullist', //  | code
+    paste_as_text: true,
 
     allow_html_in_named_anchor: true,
     autoresize_max_height: 600

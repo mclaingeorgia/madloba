@@ -50,8 +50,33 @@ class Admin::ResourcesController < AdminController
     @item = @model.find(params[:id])
     authorize @item
 
+    params = strong_params
+    if params.has_key?(:resource_items_attributes)
+      resource_items_attributes = params[:resource_items_attributes].values()
+      params = params.except(:resource_items_attributes)
+      new_resource_items = []
+      resource_items_attributes.each {|item_params|
+        if item_params.has_key?('id')
+          item = ResourceItem.find(item_params['id'])
+          if item_params.has_key?('_destroy') && item_params['_destroy'] == "1"
+            item.destroy()
+          else
+            item.update_attributes(item_params.except('id'))
+          end
+        else
+          new_resource_items << item_params
+        end
+      }
+      if new_resource_items.present?
+        r_attrs = {}
+        new_resource_items.each_with_index{|m, m_i|
+          r_attrs[m_i.to_s] = m
+        }
+        params[:resource_items_attributes] = r_attrs
+      end
+    end
 
-    if @item.update_attributes(strong_params)
+    if @item.update_attributes(params)
       flash[:success] = t('app.messages.success_updated', obj: "#{@model.human} #{@item.title}")
       redirect_to manage_resources_path
     else

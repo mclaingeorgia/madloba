@@ -23,7 +23,7 @@
         var $li = $t.closest('li')
         $li.find('> .field').toggleClass('hidden')
         $li.find('> .field > div.' + value).toggleClass('hidden')
-        $li.find('> div.' + (value == 'paragraph' ? 'visual' : 'paragraph')).remove()
+        $li.find('> .field > div.' + (value == 'paragraph' ? 'visual' : 'paragraph')).remove()
         $t.closest('.choose-content-type').remove()
       }
       $(document).on('click', '.choose-content-type input', function() {

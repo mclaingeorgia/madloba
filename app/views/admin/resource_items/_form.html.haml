@@ -1,7 +1,7 @@
 - content_for :custom_stylesheet, 'page/admin_resource'
 - content_for :custom_javascript, 'page/admin_resource_item'
 .form-container{class: @form_container_class}
-  = simple_form_for obj, html: { class: @form_class } do |f|
+  = simple_form_for obj, html: { class: @form_class, multipart: true } do |f|
     = devise_error_messages!
     = render partial: 'shared/fields_localization', locals: { fields: { title: { input_html: { disabled: true } } } , form: f, active_locale: I18n.default_locale }
     %label.list-header= t('admin.resource_items.list')

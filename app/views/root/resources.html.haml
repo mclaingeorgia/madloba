@@ -49,7 +49,7 @@
       - if @content.content.present?
         .text=@content.content.html_safe
       - if @content.resource_items.present?
-        %ul
+        %ul.list
           - @content.resource_items.each_with_index do |item, item_i|
             %li
               = link_to item.title, resource_item_path(id: @content.id, subid: item.id)
@@ -75,7 +75,7 @@
             = link_to cont.visual.url, 'data-gallery': "#blueimp-gallery-long" do
               = image_tag cont.visual.preview, class: 'infographic'
           - else
-            = link_to cont.visual.file.filename, cont.visual.url
+            = link_to cont.visual.file.filename, cont.visual.url, class: 'pdf'
 
 - content_for :body_end do
   #blueimp-gallery-long.blueimp-gallery.blueimp-gallery-long.blueimp-gallery-controls.blueimp-popup{'data-toggle-controls-on-slide-click':false, 'carousel': true}
