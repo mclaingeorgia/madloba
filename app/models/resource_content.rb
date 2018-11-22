@@ -8,7 +8,7 @@ class ResourceContent < ActiveRecord::Base
   mount_uploader :visual_en, ResourceContentUploader
   mount_uploader :visual_ka, ResourceContentUploader
 
-    translates :content
+    translates :content, :fallbacks_for_empty_translations => true
     globalize_accessors :locales => [:en, :ka], :attributes => [:content]#, :content]
 
   # scopes
@@ -30,6 +30,10 @@ class ResourceContent < ActiveRecord::Base
     # end
 
     def visual()
-      self.send('visual_' + I18n.locale.to_s)
+      if I18n.locale == :ka
+        return self.visual_ka.present? ? self.visual_ka : self.visual_en
+      elsif I18n.locale == :en
+        return self.visual_en.present? ? self.visual_en : self.visual_ka
+      end
     end
 end

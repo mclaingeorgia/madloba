@@ -8,7 +8,7 @@ class Resource < ActiveRecord::Base
 
   # globalize
 
-    translates :title, :content
+    translates :title, :content, :fallbacks_for_empty_translations => true
     globalize_accessors :locales => [:en, :ka], :attributes => [:title, :content]
 
   # scopes
@@ -19,9 +19,10 @@ class Resource < ActiveRecord::Base
     end
 
   # validators
-    I18n.available_locales.each do |locale|
-      validates :"title_#{locale}", presence: true
-    end
+    validates :title_ka, presence: true
+    # I18n.available_locales.each do |locale|
+    #   validates :"title_#{locale}", presence: true
+    # end
 
   # helpers
 

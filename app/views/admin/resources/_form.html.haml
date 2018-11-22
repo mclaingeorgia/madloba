@@ -11,7 +11,7 @@
         = image_tag f.object.cover.thumb.url
     .field-wrapper
       = f.input :order, input_html: { step: 100 }
-    = render partial: 'shared/fields_localization', locals: { fields: { title: nil, content: { as: :text, input_html: { rows: 10, style: 'width: 100%', class: 'tinymce-limited' } },  } , form: f }
+    = render partial: 'shared/fields_localization', locals: { fields: { title: nil, content: { as: :text, input_html: { rows: 10, style: 'width: 100%', class: 'tinymce-limited' } },  } , form: f , active_locale: I18n.default_locale }
     %label.list-header= t('admin.resources.list')
     - locales = I18n.available_locales
     .fields-localization.wide
@@ -20,7 +20,7 @@
         %label=t('shared.fields_localization')
         .d.d2
         - locales.each_with_index do |locale, locale_i|
-          = link_to t("app.languages.#{locale}"), 'javascript:void(0);', class: "tab-link#{I18n.locale == locale ? ' active' : ''}", 'data-link': locale
+          = link_to t("app.languages.#{locale}"), 'javascript:void(0);', class: "tab-link#{locale == I18n.default_locale ? ' active' : ''}", 'data-link': locale
           - if locale_i != locales.length-1
             .d.d3
         .d.d4
@@ -45,7 +45,7 @@
                     = resource_item.input :"title_#{locale}", input_html: { id: nil }, wrapper_html: {class: 'fill'}, label: false, placeholder: ResourceItem.human_attribute_name(:title)
                   = link_to t('admin.shared.delete'), 'javascript:void(0);', 'data-index': resource_item.index, class: 'delete btn'
           - locales.each_with_index do |locale|
-            - is_current_locale = I18n.locale == locale
+            - is_current_locale = locale == I18n.default_locale
             %li{class: is_current_locale ? 'active' : nil, 'data-link': locale}
               %ul.sortable.resource-list
                 - lists[locale].each do |d|

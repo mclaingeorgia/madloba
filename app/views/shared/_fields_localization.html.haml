@@ -1,12 +1,13 @@
 - locales = I18n.available_locales
 - footnote ||= nil
+- active_locale ||=I18n.locale
 .fields-localization{{}.merge(defined?(container_options) ? container_options : {})}
   .tabs{'data-target': 'localization'}
     .d.d1
     %label=t('shared.fields_localization')
     .d.d2
     - locales.each_with_index do |locale, locale_i|
-      = link_to t("app.languages.#{locale}"), 'javascript:void(0);', class: "tab-link#{I18n.locale == locale ? ' active' : ''}", 'data-link': locale
+      = link_to t("app.languages.#{locale}"), 'javascript:void(0);', class: "tab-link#{active_locale == locale ? ' active' : ''}", 'data-link': locale
       - if locale_i != locales.length-1
         .d.d3
     .d.d4
@@ -18,7 +19,7 @@
         - field_options = field[1] if field[1].present?
         - required_locale = field_options.delete(:required_locale)
         - locales.each_with_index do |locale|
-          - is_current_locale = I18n.locale == locale
+          - is_current_locale = active_locale == locale
           %li{class: is_current_locale ? 'active' : nil, 'data-link': locale}
             = form.input :"#{field_name}_#{locale}", { label: t("activerecord.attributes.#{form.object.class.name.downcase}.#{field[0]}") }.merge(field_options.merge(is_current_locale && required_locale == true ? {required: true} : {}))
     - if footnote.present?
