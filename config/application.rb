@@ -6,6 +6,9 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# allow uploaders to use unicode chars in filenames
+CarrierWave::SanitizedFile.sanitize_regexp = /[^[:word:]\.\-\+]/
+
 module Madloba
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
