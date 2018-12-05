@@ -15,9 +15,9 @@ class ResourceContentUploader < CarrierWave::Uploader::Base
     "resource/content/#{mounted_as[-2,2]}/#{model.id}"
   end
 
-  def filename
-    "original.#{model.send(mounted_as).file.extension}" if original_filename
-  end
+  # def filename
+  #   "original.#{model.send(mounted_as).file.extension}" if original_filename
+  # end
 
   # Create different versions of your uploaded files:
   version :thumb, if: :is_image? do

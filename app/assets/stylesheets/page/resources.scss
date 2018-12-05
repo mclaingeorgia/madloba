@@ -129,6 +129,12 @@ main.resources {
             color: $text;
             margin-bottom: 28px;
           }
+          strong {
+            font-weight: bold;
+          }
+          em {
+            font-style: italic;
+          }
 
           li {
             margin-bottom: 18px;
@@ -167,6 +173,8 @@ main.resources {
           &.pdf {
             margin-bottom: 28px;
             padding: 0 20px;
+            display: list-item;
+            list-style: circle inside;
           }
         }
         iframe {
