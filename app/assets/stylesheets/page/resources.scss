@@ -91,11 +91,11 @@ main.resources {
       }
 
       h1 {
-        @include font(32, 'b', 34);
+        @include font(32, 'b', 40);
         color: $text;
       }
       h2 {
-        @include font(27, 'b', 29);
+        @include font(27, 'b', 35);
         color: $text;
       }
       .cover {
@@ -220,10 +220,10 @@ main.resources {
         z-index: 1;
         overflow-y: auto;
         h1 {
-          @include font(34, 'b', 36);
+          @include font(34, 'b', 42);
         }
         h2 {
-          @include font(29, 'b', 31);
+          @include font(29, 'b', 37);
         }
         .box {
           max-width: 600px;
