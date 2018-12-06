@@ -42,6 +42,7 @@
                           - if resource_content.object.send("visual_#{locale}").image?
                             = image_tag resource_content.object.send("visual_#{locale}").thumb.url
                           - else
+                            %label=resource_content.object.send("visual_#{locale}").file.filename
                             = link_to t('admin.shared.pdf'), resource_content.object.send("visual_#{locale}").url, class: 'btn'
                   = link_to t('admin.shared.delete'), 'javascript:void(0);', 'data-index': resource_content.index, class: 'delete btn'
           - locales.each_with_index do |locale|
