@@ -17,12 +17,16 @@ main.resources {
       .menu-inner-link {
         @include font(18, 'regular', 24);
         color: #10141e;
+        &:hover, &.active {
+          @include font(18, 'b', 24);
+        }
       }
       .menu-link, .menu-inner-link {
         opacity: .7;
         text-decoration: none;
         &:hover, &.active {
           opacity: 1;
+          color: #000;
         }
       }
       .group {
