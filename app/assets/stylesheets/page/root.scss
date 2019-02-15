@@ -7,6 +7,10 @@
 @import 'component/service';
 @import 'select2';
 
+
+$child: #ffca74;
+$adult: #d8d8d8;
+
 /****************************** main ******************************/
 
 main {
@@ -100,7 +104,71 @@ main {
             // width: 20%;
           }
         }
+      }
+    }
+    .filter-row1 {
+      margin: 0 14px;
+      max-width: 784px;
+      background-color: #eeeeee;
+      .search-input {
+        display: block;
+        width: 100%;
+        &:nth-child(1)  {
+          flex-grow: 2;
+          margin-right: 3px;
+          input[type="radio"]{
+            display: none;
+          }
+          label {
+            min-height: 44px;
+            display: inline-block !important;
+            @include font(20);
+            color: #373f51;
+            padding: 10px 15px;
+            font-weight: 600;
+            opacity: 0.5;
+            margin-top: -6px;
+            border-top: 6px solid $bg;
+            &.child{
+              background-color: $child;
+            }
+            &.adult{
+              background-color: $adult;
+              margin-left: -3px;
+            }
+            i {
+              display: inline-block;
+              width: 33px;
+              height: 35px;
+              min-width: 33px;
+              margin: 0 8px 0 0;
+              vertical-align: middle;
+              background-color: transparent;
+              background-repeat: no-repeat;
+              &.adult { background-image: url(svg('adults')); }
+              &.children { background-image: url(svg('children')); }
+            }
+          }
+          input[type="radio"]:checked + label{
+            opacity: 1;
+            &.child{
+              border-top-color: $child;
+            }
+            &.adult{
+              border-top-color: $adult;
+            }
+          }
+          // turn off styling of general radion buttons from app.css file
+          input[type="radio"] + label:before {
+            all: unset;
+          }
+          input[type="radio"]:checked + label:before {
+            all: unset;
+          }
+
+        }
         &:nth-child(2) {
+          flex-grow: 1;
           .select2-container--default {
             font-size: 0;
           }
@@ -505,6 +573,21 @@ main {
       overflow-y: initial;
       .search {
         padding: 30px 30px 20px;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        .search-input {
+          flex: 1;
+
+          &:nth-child(1)  {
+            input[type='submit'] {
+              border-radius: 0;
+            }
+          }
+        }
+      }
+      .filter-row1 {
+        margin: 0 30px;
         display: flex;
         flex-direction: row;
         align-items: flex-start;

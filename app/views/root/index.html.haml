@@ -3,7 +3,6 @@
 %section.content#filter
   .search
     .search-input
-      %label=t('.what')
       .search-group
         - if I18n.locale == :ka
           .en2ka
@@ -12,8 +11,17 @@
         - else
           %input{type: 'text', placeholder: t('.placeholder.what'), title: t('.placeholder.what'), 'data-filter': 'what', value: filter[:what] }
         %input{type: 'submit', value: t('shared.search')}
+  .filter-row1
     .search-input
-      %label= t('.where')
+      %input{id: "age-child", name: "age", type: "radio", value: "child"}
+      %label.child{for: "age-child"}
+        %i{class: 'children'}
+        = t('shared.filters.children')
+      %input{id: "age-adult", name: "age", type: "radio", value: "adult"}
+      %label.adult{for: "age-adult"}
+        %i{class: 'adult'}
+        = t('shared.filters.adults')
+    .search-input
       = collection_select :filter, :region, Region.all, :id, :name, { selected: filter[:where].present? ? filter[:where] : nil}, { id: 'region_filter', 'data-filter': 'where', 'data-placeholder': t('.placeholder.where'), 'title': t('.placeholder.where'), multiple: true, style: 'display: none;' }
   .filter
     %ul

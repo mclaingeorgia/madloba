@@ -181,6 +181,9 @@ en:
       report: Report a problem with this place
       ownership: Are you a service provider and this is your place? Take ownership of this place so you can manage the content.
       favorite: Add or remove this place from your favorites
+    filters:
+      children: Children (0-18)
+      adults: Adults 18+
   messages:
     succeed_to_process: "%{action} was successfully submitted"
     succeed_to_process_reject: "%{action} was successfully removed."
