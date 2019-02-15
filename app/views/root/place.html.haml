@@ -98,34 +98,34 @@
             .tags
               .header= t('.service_tags')
               = tags.map { |s| "<a href='#{root_path(what: s.name)}'>#{s.name}</a>" }.join(", ").html_safe
-        %li
-          .hr
-        %li
-          .contact
-            .header=t('.contact_place', provider: item.name)
-            .form-container.wide
-              %form{action: send_message_path(item.id), method: :post, id: 'invisible-recaptcha-form', class: 'simple_form light column'}
-                = hidden_field_tag :authenticity_token, form_authenticity_token
-                .fields-column
-                  .field-wrapper
-                    %label.field-label{for: 'message_sender'}
-                      =t('.your_name')
-                      %abbr{title: 'required'} *
-                    %input.field-input{type: 'text', name: 'message[sender]', id: 'message_sender'}
-                  .field-wrapper
-                    %label.field-label{for: 'message_email'}
-                      =t('.your_email')
-                      %abbr{title: 'required'} *
-                    %input.field-input{type: 'email', name: 'message[email]', id: 'message_email'}
-                .fields-column.fill
-                  .field-wrapper
-                    %label.field-label{for: 'message_text'}
-                      =t('.your_message')
-                      %abbr{title: 'required'} *
-                    %textarea.field-input{rows: 8, name: 'message[text]', id: 'message_text'}
-                .fields-column.bottom
-                  .actions
-                    = invisible_recaptcha_tags callback: 'submitInvisibleRecaptchaForm', text: t('.send'), badge: 'inline', hl: I18n.locale
+        / %li
+        /   .hr
+        / %li
+        /   .contact
+        /     .header=t('.contact_place', provider: item.name)
+        /     .form-container.wide
+        /       %form{action: send_message_path(item.id), method: :post, id: 'invisible-recaptcha-form', class: 'simple_form light column'}
+        /         = hidden_field_tag :authenticity_token, form_authenticity_token
+        /         .fields-column
+        /           .field-wrapper
+        /             %label.field-label{for: 'message_sender'}
+        /               =t('.your_name')
+        /               %abbr{title: 'required'} *
+        /             %input.field-input{type: 'text', name: 'message[sender]', id: 'message_sender'}
+        /           .field-wrapper
+        /             %label.field-label{for: 'message_email'}
+        /               =t('.your_email')
+        /               %abbr{title: 'required'} *
+        /             %input.field-input{type: 'email', name: 'message[email]', id: 'message_email'}
+        /         .fields-column.fill
+        /           .field-wrapper
+        /             %label.field-label{for: 'message_text'}
+        /               =t('.your_message')
+        /               %abbr{title: 'required'} *
+        /             %textarea.field-input{rows: 8, name: 'message[text]', id: 'message_text'}
+        /         .fields-column.bottom
+        /           .actions
+        /             = invisible_recaptcha_tags callback: 'submitInvisibleRecaptchaForm', text: t('.send'), badge: 'inline', hl: I18n.locale
         %li
           .hr
         %li
