@@ -1,5 +1,6 @@
 - title = t('admin.shared.manage_model', name: @model.human(2))
 - page_title title
+- roots = @items.select{|x| x.is_root?}
 = render partial: 'shared/breadcrumbs', locals: { paths: [title] }
 .table-view
   %table.datatable.datatable-table.table-responsive{width: '100%'}
@@ -7,16 +8,30 @@
       %tr
         %th.spacer{'data-orderable': 'false'}
         %th= @model.human_attribute_name(:name)
-        %th.fill= @model.human_attribute_name(:description)
+        %th= @model.human_attribute_name(:sub_services)
+        %th= @model.human_attribute_name(:for_children)
+        %th= @model.human_attribute_name(:for_adults)
         %th.actions{'data-orderable': 'false'}= t('admin.shared.actions')
     %tbody
-      - @items.each do |item|
+      - roots.each do |root|
         %tr
           %td
           %td
             .service.inline
-              %i{class: item.icon}
-            = item.name
-          %td= item.description
+              %i{class: root.icon}
+            = root.name
+          %td= link_to t('admin.shared.add_sub_service'), new_manage_service_path(parent_id: root.id), class: 'add btn'
+          %td= boolean_format(root.for_children)
+          %td= boolean_format(root.for_adults)
           %td.actions
-            = link_to t('admin.shared.edit'), edit_manage_service_path(item.id), class: 'edit'
+            = link_to t('admin.shared.edit'), edit_manage_service_path(root.id), class: 'edit'
+        - @items.select{|x| x.parent_id == root.id}.each do |item|
+          %tr
+            %td
+            %td
+            %td= item.name
+            %td= boolean_format(item.for_children)
+            %td= boolean_format(item.for_adults)
+            %td.actions
+              = link_to t('admin.shared.edit'), edit_manage_service_path(item.id), class: 'edit'
+              = link_to t('admin.shared.delete'), manage_service_path(item.id), method: :delete, class: 'delete', data: {confirm: t('admin.shared.confirm_delete_model', name: @model.human) }

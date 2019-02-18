@@ -1,0 +1,41 @@
+En Name,En Description,Ka Name,Ka Description,for children,for adult,En Parent
+Social Services,,სოციალური მომსახურებები,,TRUE,TRUE,
+Health Support  Services,,ჯანმრთელობის მხარდამჭრი მომსახურებები,,TRUE,TRUE,
+Educational Services,,საგანამანათლებლო მომსახურებები,,TRUE,TRUE,
+Legal Assisstance ,,იურიდიული მხარდაჭრა,,TRUE,TRUE,
+Recreation and Sport,,დასვენება და სპორტი,,TRUE,TRUE,
+Financial Support ,,ფინანსური დახმარება,,TRUE,TRUE,
+Employment Support Setvices,,დასაქმების მხარდამჭერი სერვისები,,TRUE,TRUE,
+Other,,სხვა,,TRUE,TRUE,
+Defining the Status of Disability,,შეზღუდული შესაძლებლობის სტატუსუს განსაზღვრა,,TRUE,TRUE,Social Services
+Early Development,,ადრეული განვითარება,,TRUE,FALSE,Social Services
+ABA  - Applied Behavior Analysis,,ქცევის გამოყენებითი ანალიზი,,TRUE,TRUE,Social Services
+Day Care Centers,,დღის ცენტრი,,TRUE,TRUE,Social Services
+Re / Habilitation ,,რე / აბილიტაცია,,TRUE,TRUE,Social Services
+Physical Rehabilitation Service,,ფიზიკური რეაბილიტაცია,,TRUE,TRUE,Social Services
+Home Based Care,,შინ მოვლა,,TRUE,TRUE,Social Services
+Personal Assistance Service,,პირადი ასისტენტი,,TRUE,TRUE,Social Services
+Crises Assistance  ,,კრიზისული დახმარება,,TRUE,TRUE,Social Services
+Small Group Homes,,მცირე საოჯახო ტიპის სახლები,,TRUE,TRUE,Social Services
+Foster Care,,მინდობით აღზრდა,,TRUE,TRUE,Social Services
+Shelters,,თავშესაფარი,,TRUE,TRUE,Social Services
+Community Service,,სათემო მომსახურება,,FALSE,TRUE,Social Services
+Blind Supporter Service,,უსინათლოთა მხარდაჭერა,,TRUE,TRUE,Social Services
+Deaf Services,,ყრუთა კომუნიკაციის მხარდაჭერა,,TRUE,TRUE,Social Services
+Assisstive Devices,"Cohlear Implant; Hearing Aids; White Sticks; Wheelchairs;  Prostetics and Ortetics; Crutches, Walkers",დამხმარე საშუალებები,"კოხლეარული იმპლანტი; სმენის აპარატები; უსინათლოთა ხელჯოხები; სავერძელ - ეტლები; პროტეზები და ორტეზები; ყავარჯნები, ხელჯოხები და გადასაადგილებელი ჩარჩოები",TRUE,TRUE,Social Services
+Mental Health ,,ფსიქიატრია,,TRUE,TRUE,Health Support  Services
+Subsidize of Medication Costs,,მედიკამენტების ღირებულების სუბსიდირება,,TRUE,TRUE,Health Support  Services
+Subsidize of Medical Costs,,სამედიცინო ხარჯის სუბსიდირება,,TRUE,TRUE,Health Support  Services
+Inegrated Classes ,,ინტეგრირებული კლასები,,TRUE,FALSE,Educational Services
+Special Schools ,,სპეციალიზირებული სკოლები,,TRUE,FALSE,Educational Services
+Preschool Settings with Integrated Groups,,სკოლამდელი აღზრდის დაწესებულებები ინტეგრირებული ჯგუფებით,,TRUE,FALSE,Educational Services
+"Sighn Language Courses 
+",,ჟესტური ენის კურსი,,TRUE,TRUE,Educational Services
+Brail Courses,,ბრაილის შემსწავლელი კურსი,,TRUE,TRUE,Educational Services
+Courses for Parents,,მშობელთა ტრენინგ კურსები,,TRUE,TRUE,Educational Services
+Sunday School,,საკვირაო სკოლა,,TRUE,TRUE,Educational Services
+Resort Services,,საკურორტო მომსახურება,,TRUE,TRUE,Recreation and Sport
+Sport Clubs,,სპორტული წრეები,,TRUE,TRUE,Recreation and Sport
+Financial Support,,ფულადი შემწეობა,,TRUE,TRUE,Financial Support
+Targeted Financial Assistance,,მიზნობრივი ფინანსური დახმარება,,TRUE,TRUE,Financial Support
+Supported Emplyment,,მხარდაჭერითი დასაქმება,,FALSE,TRUE,Employment Support Setvices

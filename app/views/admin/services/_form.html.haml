@@ -1,7 +1,17 @@
 .form-container{class: @form_container_class}
   = simple_form_for obj, html: { class: @form_class } do |f|
     = devise_error_messages!
+    - if @parent.present?
+      .fields-group
+        = f.input :parent_id, as: :hidden, input_html: {value: f.object.parent_id || @parent.id}
+        .field-wrapper.optional
+          %label{class: 'field-label optional'}
+            = "#{t('activerecord.attributes.service.parent')}:"
+          = @parent.name
     = render partial: 'shared/fields_localization', locals: { fields: { name: nil, description: { as: :text, input_html: { rows: 10, style: 'width: 100%' } } } , form: f }
+    .fields-group
+      = f.input :for_children, as: :radio_buttons
+      = f.input :for_adults, as: :radio_buttons
     .actions
       .action-group
         = f.submit t("app.common.reset"), type: :reset

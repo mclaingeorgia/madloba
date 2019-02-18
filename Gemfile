@@ -100,6 +100,8 @@ gem 'dotenv-rails'
 
 gem "recaptcha", require: "recaptcha/rails"
 
+# model record heirarchy
+gem 'ancestry', '~> 3.0', '>= 3.0.5'
 
 group :development, :test do
 

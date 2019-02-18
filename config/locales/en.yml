@@ -43,6 +43,10 @@ en:
         description: Service Description
         icon: Service Icon
         color: Service Color
+        for_adults: For Adults
+        for_children: For Children
+        parent: Parent Service
+        sub_services: Sub-Services
       page_content:
         title: Title
         content: Content
@@ -137,6 +141,7 @@ en:
       state_already_set: "%{obj} status already set."
       contact_send_success: Message successfully sent.
       contact_send_fail: Failed to send message.
+      service_parent_missing: The parent service record could not be found.
   shared:
     toggle_navigation: Show navigation
     user_profile: User Profile
@@ -160,6 +165,7 @@ en:
     view_all_service_places: See all places with this service
     locate_me: Locate Me on the Map
     add: Add
+    add_sub_service: Add Sub-Service
     upload_image: Upload Photo
     delete_image: Delete Photo
     pending: Pending

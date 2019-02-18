@@ -31,4 +31,12 @@ module AdminHelper
     end
     return lb
   end
+
+  def boolean_format(flag)
+    if flag == true
+      return "<div class='boolean-flag boolean-flag-true'>#{t('app.common._yes')}</div>".html_safe
+    else
+      return "<div class='boolean-flag boolean-flag-false'>#{t('app.common._no')}</div>".html_safe
+    end
+  end
 end

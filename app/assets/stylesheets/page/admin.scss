@@ -274,3 +274,12 @@ a.btn {
 }
 
 
+.boolean-flag{
+  font-weight: bold;
+  &.boolean-flag-true{
+    color: $link;
+  }
+  &.boolean-flag-false{
+    color: $control;
+  }
+}

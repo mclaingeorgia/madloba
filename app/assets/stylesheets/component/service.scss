@@ -21,13 +21,13 @@ ul.services {
     vertical-align: top;
     background-color: transparent;
     background-repeat: no-repeat;
-    &.adult { background-image: url(svg('services/adult')); }
-    &.children { background-image: url(svg('services/children')); }
-    &.education { background-image: url(svg('services/education')); }
+    &.educational { background-image: url(svg('services/educational')); }
+    &.employment { background-image: url(svg('services/employment')); }
+    &.financial { background-image: url(svg('services/financial')); }
     &.health { background-image: url(svg('services/health')); }
-    &.legal { background-image: url(svg('services/legal')); }
+    &.legal_assistance { background-image: url(svg('services/legal_assistance')); }
     &.other { background-image: url(svg('services/other')); }
-    &.rehab { background-image: url(svg('services/rehab')); }
+    &.recreation_sport { background-image: url(svg('services/recreation_sport')); }
     &.social { background-image: url(svg('services/social')); }
   }
   a {
