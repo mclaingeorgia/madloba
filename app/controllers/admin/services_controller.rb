@@ -6,7 +6,7 @@ class Admin::ServicesController < AdminController
 
   def index
     authorize @model
-    @items = @model.sorted
+    @items = @model.sorted.with_translations(I18n.locale)
   end
 
   def new

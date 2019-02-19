@@ -3,17 +3,17 @@ class RootController < ApplicationController
   # before_action :set_page_content, only: [:index, :faq, :privacy_policy, :terms_of_use]
 
   def index
-    index_prepaire
+    index_prepare
   end
 
   def about
     authorize :root
-    index_prepaire
+    index_prepare
   end
 
   def contact
     authorize :root
-    index_prepaire
+    index_prepare
   end
 
   def faq
@@ -181,7 +181,7 @@ class RootController < ApplicationController
     def place_ownership_dialog(place)
       render_to_string partial: 'place_ownership_dialog', locals: { place: place }
     end
-    def index_prepaire
+    def index_prepare
       authorize :root
       @class = 'loader'
 
@@ -218,9 +218,14 @@ class RootController < ApplicationController
         map: nil
       }.merge(pars)
 
+      ## new way
+      @services = Service.sorted.with_translations(I18n.locale)
+
+      ## old way - should be deleted
       services_clean = Service.sorted.pluck(:id, :name, :icon)
-      @services = services_clean
+      @services_old = services_clean
         .each_with_index.map{|m,i| m.push(i+1, (filter[:services].index(m[0]).nil? ? false : true)) }
+
 
       if filter[:favorite] && !user_signed_in?
         respond_to do |format|

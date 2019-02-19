@@ -5,6 +5,7 @@
 @import 'component/rating';
 @import 'component/rator';
 @import 'component/service';
+@import 'component/toggleable_list';
 @import 'select2';
 
 
@@ -238,6 +239,40 @@ main {
           }
           .select2-container .select2-search--inline .select2-search__field {
             width: 100% !important;
+          }
+        }
+      }
+    }
+    .filter-row2 {
+
+    }
+    .services {
+      margin: 0 14px;
+      max-width: 784px;
+      > ul.toggleable-list {
+        padding: 0;
+        > li {
+          padding: 0;
+          border-bottom: 1px solid #f38d68;
+          > a{
+            line-height: 55px;
+            font-size: 22px;
+            font-weight: 600;
+            > i{
+              margin: 17px 13px 0;
+            }
+            > span.name{
+              all: unset;
+              margin: 0 8px;
+            }
+          }
+          > ul{
+            margin-left: 84px;
+            > li{
+              line-height: 55px;
+              font-size: 18px;
+              font-weight: 400;
+            }
           }
         }
       }
@@ -600,6 +635,12 @@ main {
             }
           }
         }
+      }
+      .filter-row2{
+
+      }
+      .services{
+        margin: 0 30px;
       }
       .filter {
         padding:0 20px 0;
