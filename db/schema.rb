@@ -523,9 +523,11 @@ ActiveRecord::Schema.define(version: 20190218125356) do
     t.string   "ancestry"
     t.boolean  "for_children", default: true
     t.boolean  "for_adults",   default: true
+    t.integer  "sort",         default: 1
   end
 
   add_index "services", ["ancestry"], name: "index_services_on_ancestry", using: :btree
+  add_index "services", ["sort"], name: "index_services_on_sort", using: :btree
 
   create_table "setting_translations", force: :cascade do |t|
     t.integer  "setting_id",             null: false

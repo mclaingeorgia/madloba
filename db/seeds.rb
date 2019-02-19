@@ -445,6 +445,7 @@ services.each_with_index {|item, i|
       icon: item[4],
       for_children: item[5] == 'TRUE',
       for_adults: item[6] == 'TRUE',
+      sort: i+1
     )
 
     # if this is a child, assign the parent

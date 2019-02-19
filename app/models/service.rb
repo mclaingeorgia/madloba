@@ -15,7 +15,7 @@ class Service < ActiveRecord::Base
   # scopes
 
     def self.sorted
-      with_translations(I18n.locale).order(name: :asc)
+      with_translations(I18n.locale).order(sort: :asc, name: :asc)
     end
 
   # validators
