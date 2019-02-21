@@ -1,0 +1,15 @@
+- rating ||= 0
+.rating5-container{title: t('app.shared.rating', rating: rating), class: (rating == 0 ? '' : 'active')}
+  -(1..5).each do |i|
+    .rating5
+      %i.heart-dummy
+      - if i > rating && i - rating >= 1
+        - cls = ''
+        - width = 0
+      - elsif i > rating && i - rating < 1
+        - cls = 'active'
+        - width = rating.modulo(1).round(2)*100
+      - else
+        - cls = 'active'
+        - width = 100
+      %i.heart{class: cls, style: "width: #{width}%"}

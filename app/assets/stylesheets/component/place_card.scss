@@ -8,8 +8,8 @@
   .card-border {
     border: 1px solid $highlighted_bg;
     position: relative;
-    min-width: 294px;
-    max-width: 294px;
+    // min-width: 294px;
+    // max-width: 294px;
     // height: 100%;
     &:after {
       content: "";
@@ -44,8 +44,8 @@
   // }
   .card {
     padding: 9px;
-    min-width: 294px;
-    max-width: 294px;
+    // min-width: 294px;
+    // max-width: 294px;
 
     display: inline-block;
     position: relative;
@@ -54,8 +54,8 @@
       height: 100%;
     }
     .front {
-      display: flex;
-      flex-direction: column;
+      // display: flex;
+      // flex-direction: row;
     }
     .back {
       position: absolute;
@@ -79,15 +79,16 @@
     }
     .poster {
       position: relative;
-      padding-bottom: 12px;
+      display: inline-block;
+      vertical-align: top;
+      width: 242px;
       .image {
         width: 100%;
       }
-      .rating {
+      .rating5-container {
         position: absolute;
-        top: 50%;
-        right: 0;
-        transform: translateY(-50%);
+        bottom: 11px;
+        left: 8px;
       }
       .favoritor-container {
         position: absolute;
@@ -105,10 +106,12 @@
       }
     }
     .place-info {
-      display: flex;
-      flex-direction: column;
-      padding: 0 0 4px 1px;
-      flex: 1;
+      // display: flex;
+      // flex-direction: column;
+      // flex: 2;
+      display: inline-block;
+      width: 440px;
+      padding: 7px 25px;
       .name {
         @include font(18, 'sb');
         color: #000;
@@ -136,6 +139,7 @@
         color: $text;
         padding-top: 12px;
         padding-bottom: 17px;
+        margin: 0;
         .service {
           padding: 0;
         }
@@ -171,15 +175,15 @@
 
 @media (min-width: 1200px) {
   .place-card {
-    display: inline-block;
+    // display: inline-block;
     padding: 0 19px 50px;
     .card-border {
-      min-width: 327px;
-      max-width: 327px;
+      // min-width: 327px;
+      // max-width: 327px;
     }
     .card {
-      min-width: 327px;
-      max-width: 327px;
+      // min-width: 327px;
+      // max-width: 327px;
     }
   }
 }

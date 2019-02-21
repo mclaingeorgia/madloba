@@ -151,7 +151,7 @@ en:
     moderate: Moderate
     fields_localization: Fields to translate
     picked_as_favorite: Picked as favorite
-    overall_rating: Overall place rating %{rating}/5
+    overall_rating: "Overall place rating: %{rating}"
     overall_rating_js: Overall place rating
     rating_threshold: "/%{n}"
     rating: Rating

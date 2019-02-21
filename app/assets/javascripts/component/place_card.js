@@ -32,16 +32,11 @@
                 '<div class="poster">' +
                   '<a href="%path" title="%title"><img alt="%alt" class="image" src="%image"></a>' +
                   '%favorite' +
-                  '<div class="rating">' +
-                    '<div class="value" title="%overall_rating %rating/5">' +
-                      '<span>%rating</span>' +
-                      '/5' +
-                    '</div>' +
-                  '</div>' +
+                  '%ratings' +
                 '</div>' +
                 '<div class="place-info">' +
                   '<a class="name" href="%path"  title="%title">%name</a>' +
-                  '%provider_template' +
+                  // '%provider_template' +
                   '<div class="services">' +
                     '%services' +
                     '%ellipsis' +
@@ -64,17 +59,45 @@
         favorite_template = '<div class="favorite" title="' + gon.labels.picked_as_favorite + '"></div>'
       }
 
-      var provider_template = ''
-      if(place.name !== place.provider.name) {
-        provider_template = '<div class="provider">' +
-                              '<span>%by&nbsp;</span>' +
-                              '<a href="?what=%provider" title="%provider_title">%provider</a>' +
-                            '</div>'
-        provider_template = provider_template
-          .replace(/%by/g, gon.labels.by)
-          .replace(/%provider_title/g, gon.labels.view_all_provider_places)
-          .replace(/%provider/g, place.provider.name)
+      var rating_template = ''
+      if(place.rating && place.rating > 0){
+        rating_template += '<div class="rating5-container active" title="' + gon.labels.overall_rating + ': ' + place.rating + '">'
+        for(var i=1; i<6; i++){
+          rating_template += '<div class="rating5">'
+          rating_template += '<i class="heart-dummy"></i>'
+
+          cls = ''
+          width = 0
+          if (i > place.rating && i-place.rating >=1){
+            // do nothing
+          }else if (i > place.rating && i - place.rating < 1){
+            cls = 'active'
+            width = (place.rating - Math.floor(place.rating)).toFixed(2)*100
+          }else{
+            cls = 'active'
+            width = 100
+          }
+
+          rating_template += '<i class="heart ' + cls + '" style="width: ' + width + '%"></i>'
+
+          rating_template += '</div>'
+        }
+
+
+        rating_template += '</div>'
       }
+
+      // var provider_template = ''
+      // if(place.name !== place.provider.name) {
+      //   provider_template = '<div class="provider">' +
+      //                         '<span>%by&nbsp;</span>' +
+      //                         '<a href="?what=%provider" title="%provider_title">%provider</a>' +
+      //                       '</div>'
+      //   provider_template = provider_template
+      //     .replace(/%by/g, gon.labels.by)
+      //     .replace(/%provider_title/g, gon.labels.view_all_provider_places)
+      //     .replace(/%provider/g, place.provider.name)
+      // }
 
       var services_list = gon.labels.services
         .filter(function(f) {
@@ -119,10 +142,10 @@
         .replace(/%address_template/g, address_template)
         .replace(/%phone_template/g, phone_template)
         .replace(/%path/g, place.path)
-        .replace(/%provider_template/g, provider_template)
+        // .replace(/%provider_template/g, provider_template)
         .replace(/%image/g, place.image)
         .replace(/%alt/g, gon.labels.alt.replace('%alt', place.name))
-        .replace(/%rating/g, place.rating)
+        .replace(/%ratings/g, rating_template)
         .replace(/%region_id/g, region_id)
         .replace(/%overall_rating/g, gon.labels.overall_rating)
         .replace(/%favorite/g , favorite_template)

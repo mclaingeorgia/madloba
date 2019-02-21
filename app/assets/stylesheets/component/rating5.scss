@@ -1,0 +1,29 @@
+@import 'var';
+
+.rating5-container{
+  display: none;
+  &.active{
+    display: block;
+  }
+  .rating5{
+    display: inline-block;
+    position: relative;
+    i.heart-dummy{
+      display: inline-block;
+      width: 20px;
+      height: 17px;
+      background: background('heart');
+      background-position: -21px 0;
+    }
+    i.heart{
+      display: none;
+      position: absolute;
+      left: 0;
+      height: 17px;
+      background: background('heart');
+      &.active{
+        display:inline-block;
+      }
+    }
+  }
+}
