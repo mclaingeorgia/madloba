@@ -3,7 +3,7 @@
 (function() {
   var filter = {
     el: undefined,
-    names: ['what', 'where', 'services', 'rate', 'favorite'], // plus map
+    names: ['what', 'where', 'age', 'services', 'favorite'], // plus map
     data: {},
     els: {},
     result: [],
@@ -41,13 +41,6 @@
       value = pollution.components.services.get(t.els['services'])
       t.set_data('services', (value.length > 0 ? value : undefined))
 
-      // rate
-      value = pollution.components.rator.get(t.els['rate'])
-      if(value < 1 || value > 4) {
-        value = undefined
-      }
-      t.set_data('rate', value)
-
       // favorite
       value = pollution.components.favoritor.get(t.els['favorite'])
       // console.log('favorite value', value)
@@ -69,13 +62,6 @@
         case 'search':
           t.set_data('what', t.els['what'].val())
           t.set_data('where', t.els['where'].val())
-
-          break
-        case 'rate':
-          if(value < 1 || value > 4) {
-            value = undefined
-          }
-          t.set_data('rate', value)
 
           break
         case 'favorite':
@@ -222,10 +208,6 @@
 
       t.els['search'].click(function () {
         t.process('search')
-      })
-
-      pollution.components.rator.bind(t.els['rate'], function(v) {
-        t.process('rate', v)
       })
 
       pollution.components.favoritor.bind(t.els['favorite'], function(v) {

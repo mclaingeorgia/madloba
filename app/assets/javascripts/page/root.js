@@ -28,3 +28,45 @@ $(document).on('click', '[toggle-view]', function() {
 })
 
 
+// when an age filter is selected, show/hide the services that have/do not that age group
+// age filter is radio button so also provide way to turn off radio selection
+var current_age_selection;
+var age_value;
+var age_radios = $('input[name="age"]');
+for(var i = 0; i < age_radios.length; i++){
+  age_radios[i].onclick = function() {
+    record_current_age_filter(this);
+    update_service_visibility(this);
+  };
+}
+
+function record_current_age_filter(ths){
+  // deselect the item if necessary
+  if(current_age_selection == ths){
+    ths.checked = false;
+    current_age_selection = null;
+  } else {
+    current_age_selection = ths;
+    age_value = $(ths).val();
+  }
+}
+
+// update the service visibility
+// - if nothing is selected, then show all services
+function update_service_visibility(ths){
+  if (current_age_selection == null){
+    // show all
+    $('.services li').show();
+  }else{
+    // show only services that have this age match
+    $('.services li[data-' + age_value + '="true"]').show()
+    $('.services li[data-' + age_value + '="false"]').hide()
+  }
+}
+
+// initialize
+var age_initial_selection = $('input[name="age"]:checked').get(0)
+if (age_initial_selection){
+  record_current_age_filter(age_initial_selection);
+  update_service_visibility(age_initial_selection);
+}

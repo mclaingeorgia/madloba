@@ -13,11 +13,11 @@
         %input{type: 'submit', value: t('shared.search')}
   .filter-row1
     .search-input
-      %input{id: "age-child", name: "age", type: "radio", value: "child"}
+      %input{id: "age-child", name: "age", type: "radio", value: "children"}
       %label.child{for: "age-child"}
         %i{class: 'children'}
         = t('shared.filters.children')
-      %input{id: "age-adult", name: "age", type: "radio", value: "adult"}
+      %input{id: "age-adult", name: "age", type: "radio", value: "adults"}
       %label.adult{for: "age-adult"}
         %i{class: 'adult'}
         = t('shared.filters.adults')
@@ -61,7 +61,7 @@
   .services
     %ul.toggleable-list
       - @services.select{|x| x.is_root?}.each_with_index do |root_service, i|
-        %li.service{data: {chidren: root_service.for_children.to_s, adult: root_service.for_adults.to_s}}
+        %li.service{data: {children: root_service.for_children.to_s, adults: root_service.for_adults.to_s}}
           - services = @services.select{|x| x.parent_id == root_service.id}
           %a{name: "block-#{i+1}"}
             %i{class: root_service.icon}
@@ -71,7 +71,7 @@
           - if services.present?
             %ul.toggleable-list-text
               - services.each do |service|
-                %li{data: {chidren: service.for_children.to_s, adult: service.for_adults.to_s}}
+                %li{data: {children: service.for_children.to_s, adults: service.for_adults.to_s}}
                   = service.name
 
 
