@@ -362,7 +362,7 @@ en:
       cancel: Cancel
       apply: Apply
       rate: 'Rate:'
-      favorites: 'Favorites:'
+      favorites: 'Filter by Favorites:'
       rating: 'Rating:'
       result:
         one: Result

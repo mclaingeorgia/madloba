@@ -23,7 +23,10 @@
         = t('shared.filters.adults')
     .search-input
       = collection_select :filter, :region, Region.all, :id, :name, { selected: filter[:where].present? ? filter[:where] : nil}, { id: 'region_filter', 'data-filter': 'where', 'data-placeholder': t('.placeholder.where'), 'title': t('.placeholder.where'), multiple: true, style: 'display: none;' }
-  .filter
+  .filter-row2
+    .search-input
+      = render partial: 'shared/favoritor', locals: { is_filter: true, is_favorite: filter[:favorite], label: t('.favorites'), title: filter[:favorite] ? t('.alt.show_all') : t('.alt.show_favorite') }
+  .filter{style: 'display: none'}
     %ul
       %li.filter-prompt
         %label= t('.filters')
@@ -55,7 +58,6 @@
           = render partial: 'shared/rator', locals: { rate: filter[:rate], rator: {'data-filter': 'rate'}, label: t('.rating'), is_filter: true }
         .filter-favorite
           = render partial: 'shared/favoritor', locals: { is_filter: true, is_favorite: filter[:favorite], label: t('.favorites'), title: filter[:favorite] ? t('.alt.show_all') : t('.alt.show_favorite') }
-
   .services
     %ul.toggleable-list
       - @services.select{|x| x.is_root?}.each_with_index do |root_service, i|

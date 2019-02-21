@@ -362,7 +362,7 @@ ka:
       cancel: გაუქმება
       apply: ძიება
       rate: 'შეაფასე:'
-      favorites: ჩემი ფავორიტი
+      favorites: 'Filter by Favorites:'
       rating: 'შეფასება:'
       result:
         one: შედეგი
