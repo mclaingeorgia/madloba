@@ -12,7 +12,7 @@
 
 $child: #ffca74;
 $adult: #d8d8d8;
-
+$filter-bg: #eeeeee;
 /****************************** main ******************************/
 
 main {
@@ -111,7 +111,7 @@ main {
     .filter-row1 {
       margin: 0 14px;
       max-width: 784px;
-      background-color: #eeeeee;
+      background-color: $filter-bg;
       .search-input {
         display: block;
         width: 100%;
@@ -177,6 +177,7 @@ main {
           .select2-container--default .select2-selection--multiple {
             border: 0;
             border-radius: 0;
+            background-color: transparent;
 
             padding: 0;
             .select2-selection__rendered li {
@@ -184,14 +185,15 @@ main {
             }
             // padding: 11px 15px;
             input {
-              @include font;
-              color: $link;
+              @include font(22);
+              color: #6b6b6b;
               border-radius: 0;
               border-top-right-radius: 3px;
               border-bottom-right-radius: 3px;
               padding: 13px 15px 12px;
               width: 100%;
               min-height: 44px;
+              text-align: right;
             }
 
           }
@@ -209,7 +211,7 @@ main {
             }
             .select2-selection__choice {
               @include font;
-              color: $link;
+              color: #6b6b6b;
               background-color: transparent;
               border: 0;
               border-radius: 0;
@@ -245,7 +247,7 @@ main {
       }
     }
     .filter-row2 {
-      margin: 43px 14px 20px;
+      margin: 20px 14px 3px;
       max-width: 784px;
       @include font(18, 'r', 33);
       font-weight: 700;
@@ -517,7 +519,7 @@ main {
         }
       }
       .filter-row2{
-        margin: 43px 30px 20px;
+        margin: 20px 30px 3px;
       }
       .services{
         margin: 0 30px;
@@ -539,3 +541,13 @@ main {
   }
 }
 
+
+.select2-container--default.select2-container--open {
+  .select2-dropdown{
+    background-color: $filter-bg;
+  }
+  .select2-results__option--highlighted[aria-selected]{
+    background-color: $link;
+    color: white;
+  }
+}

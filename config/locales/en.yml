@@ -374,8 +374,8 @@ en:
       filter:
         by_map: Search as I move the map
       placeholder:
-        what: Type Place or Service Provider
-        where: Select Region(s)
+        what: Place or Service Provider
+        where: Regions
       title:
         keyboard: Select keyboard to use
       not_found: There is no data found with provided filters

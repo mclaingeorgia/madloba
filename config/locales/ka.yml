@@ -374,8 +374,8 @@ ka:
       filter:
         by_map: ძიების გაგრძელება რუკის მანიპულაციის პარალელურად
       placeholder:
-        what: ჩაწერეთ ადგილი ან სერვისის მიმწოდებელი
-        where: 'აირჩიეთ რეგიონ(ებ)ი '
+        what: Place or Service Provider
+        where: Regions
       title:
         keyboard: აირჩიეთ ენა
       not_found: აღნიშნული გაფილტვრის შედეგად ინფორმაცია ვერ იქნა მოძიებული
