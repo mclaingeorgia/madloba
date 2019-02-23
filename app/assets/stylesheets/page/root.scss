@@ -76,7 +76,7 @@ main {
               bottom: 1px;
               left: 0;
               padding: 16px 10px 0;
-              @include font(16, 'r');
+              @include font(16);
               color: $text;
               border-right: 1px solid $border2;
               cursor: pointer;
@@ -124,10 +124,9 @@ main {
           label {
             min-height: 44px;
             display: inline-block !important;
-            @include font(20);
+            @include font(20, 'sb');
             color: #373f51;
             padding: 10px 15px;
-            font-weight: 600;
             opacity: 0.5;
             margin-top: -6px;
             border-top: 6px solid $bg;
@@ -249,8 +248,7 @@ main {
     .filter-row2 {
       margin: 20px 14px 3px;
       max-width: 784px;
-      @include font(18, 'r', 33);
-      font-weight: 700;
+      @include font(18, 'sb', 33);
       .search-input {
         display: block;
         width: 100%;
@@ -278,9 +276,7 @@ main {
           padding: 0;
           border-bottom: 1px solid #f38d68;
           > a{
-            line-height: 55px;
-            font-size: 22px;
-            font-weight: 600;
+            @include font(22, 'sb', 55);
             > i{
               margin: 17px 13px 0;
             }
@@ -293,9 +289,7 @@ main {
             margin-left: 84px;
             padding-top: 0;
             > li{
-              line-height: 55px;
-              font-size: 18px;
-              font-weight: 400;
+              @include font(18, 'r', 55);
             }
           }
         }
