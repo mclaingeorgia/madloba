@@ -63,7 +63,7 @@
       - @services.select{|x| x.is_root?}.each_with_index do |root_service, i|
         %li.service{data: {children: root_service.for_children.to_s, adults: root_service.for_adults.to_s}}
           - services = @services.select{|x| x.parent_id == root_service.id}
-          %a{name: "block-#{i+1}"}
+          %a{name: "service-#{i+1}"}
             %i{class: root_service.icon}
             %span.name
               = root_service.name
