@@ -7,6 +7,7 @@
     data: {},
     els: {},
     result: [],
+    results: [],
     dynamic_map: false,
     first: false,
     map: [],
@@ -116,10 +117,10 @@
 
         // console.log( "success", data )
         // place_cards_builder(data.result)
-        t.render_result(data)
+        t.render_results(data)
       }
       else {
-        t.render_result({result: {}, result_count: 0})
+        t.render_results({results: []})
         // console.log( "fail message" )
       }
       pollution.components.loader.stop()
@@ -214,9 +215,9 @@
         t.process('favorite', v)
       })
 
-      pollution.components.services.bind(t.els['services'], function(v) {
-        t.process('services', v)
-      })
+      // pollution.components.services.bind(t.els['services'], function(v) {
+      //   t.process('services', v)
+      // })
       t.els['map'].change(function () {
         t.process('map', $(this).is(":checked"))
       })
@@ -232,43 +233,115 @@
         delete t.data[key]
       }
     },
-    render_result: function (data) {
-      var t = filter
-      var result = data.result
+    // render_result: function (data) {
+    //   var t = filter
+    //   var result = data.result
 
-      t.render_count(data.result_count)
+    //   t.render_count(data.result_count)
+
+    //   if(data.length === 0) {
+    //     t.els['result'].html('<div class="not-found">' + gon.labels.not_found + '</div>')
+    //     return
+    //   }
+
+    //   var places = []
+    //   gon.regions.forEach(function (region) {
+
+    //     if(typeof result[region[0]] !== 'undefined') {
+    //       var n = result[region[0]].length
+    //       t.els['result'].append('<div class="region collapsed" data-id="' + region[0] + '"><div class="region-name">' +
+    //           region[1] + '<span class="caret"></span><span class="region-count">' +
+    //           n + '&nbsp;' + gon.labels[n > 1 ? 'results' : 'result'] +
+    //           '</span></div></div>')
+    //         .appendTo()
+
+    //       result[region[0]].forEach(function (place) {
+    //         place.region_id = region[0]
+    //         places.push(place)
+    //         t.els['result'].append(pollution.components.place_card.builder(place, region[0])) // + (d.length === 2 ? d[1].html : ''))// '<div class="row">' ++ '</div>'
+    //       })
+    //     }
+    //   })
+
+    //   pollution.components.map.render_markers('places_map', places)
+    //   if(t.first) {
+    //     t.first = false
+    //     t.map_switch(true)
+    //   } else if (t.dynamic_map) {
+    //     t.map_move_end()
+    //   }
+    // },
+    render_results: function (data) {
+      var t = filter
+      results = data.results
+      var $services = $('.services > ul > li')
+      var service_count
+      var place_ids = []
 
       if(data.length === 0) {
         t.els['result'].html('<div class="not-found">' + gon.labels.not_found + '</div>')
         return
       }
 
-      var places = []
-      gon.regions.forEach(function (region) {
+      // get the places for each sub-service
+      $services.each(function (i, service){
 
-        if(typeof result[region[0]] !== 'undefined') {
-          var n = result[region[0]].length
-          t.els['result'].append('<div class="region collapsed" data-id="' + region[0] + '"><div class="region-name">' +
-              region[1] + '<span class="caret"></span><span class="region-count">' +
-              n + '&nbsp;' + gon.labels[n > 1 ? 'results' : 'result'] +
-              '</span></div></div>')
-            .appendTo()
+        service_count = 0
 
-          result[region[0]].forEach(function (place) {
-            place.region_id = region[0]
-            places.push(place)
-            t.els['result'].append(pollution.components.place_card.builder(place, region[0])) // + (d.length === 2 ? d[1].html : ''))// '<div class="row">' ++ '</div>'
+        // go through each subservice
+        $(service).find('ul > li').each(function (j, subservice){
+          place_ids.length = 0
+
+          // reset the place ids
+          $(subservice).attr('place-ids', null)
+
+          // see if this service has any places
+          results.forEach(function (place){
+            if (place.services && place.services.includes($(subservice).data('id'))){
+              place_ids.push(place.id)
+            }
           })
-        }
+
+          // save the place ids
+          $(subservice).attr('place-ids', place_ids)
+          // show the number next to service name
+          $(subservice).find('.service-count').empty().text('(' + place_ids.length + ')')
+
+          // update the overall service count
+          service_count += place_ids.length
+        })
+
+        // show the number next to service name
+        $(service).find('a .name .service-count').empty().text('(' + service_count + ')')
+
       })
 
-      pollution.components.map.render_markers('places_map', places)
-      if(t.first) {
-        t.first = false
-        t.map_switch(true)
-      } else if (t.dynamic_map) {
-        t.map_move_end()
-      }
+      // var places = []
+      // gon.regions.forEach(function (region) {
+
+      //   if(typeof result[region[0]] !== 'undefined') {
+      //     var n = result[region[0]].length
+      //     t.els['result'].append('<div class="region collapsed" data-id="' + region[0] + '"><div class="region-name">' +
+      //         region[1] + '<span class="caret"></span><span class="region-count">' +
+      //         n + '&nbsp;' + gon.labels[n > 1 ? 'results' : 'result'] +
+      //         '</span></div></div>')
+      //       .appendTo()
+
+      //     result[region[0]].forEach(function (place) {
+      //       place.region_id = region[0]
+      //       places.push(place)
+      //       t.els['result'].append(pollution.components.place_card.builder(place, region[0])) // + (d.length === 2 ? d[1].html : ''))// '<div class="row">' ++ '</div>'
+      //     })
+      //   }
+      // })
+
+      // pollution.components.map.render_markers('places_map', places)
+      // if(t.first) {
+      //   t.first = false
+      //   t.map_switch(true)
+      // } else if (t.dynamic_map) {
+      //   t.map_move_end()
+      // }
     },
     render_count: function (n) {
       var t = filter

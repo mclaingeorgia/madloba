@@ -29,16 +29,13 @@
           li.addClass('toggled')
           window.location.hash = name
         } else {
-          console.log('here')
           li.toggleClass('toggled')
           // if hash already exists,
           // remove it
           // else add it
           if (window.location.hash == '#' + name){
-            console.log('- removing hash')
             window.location.hash = ''
           }else{
-            console.log('- adding hash')
             tt.attr("name", "")
             window.location.hash = name
             tt.attr("name", name)

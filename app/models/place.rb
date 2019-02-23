@@ -146,7 +146,7 @@ class Place < ActiveRecord::Base
       value = self.class.where(:id=>id).select(:rating).first[:rating]
       self[:rating] = value
       r = rating.to_s.format_number
-      r == 0 ? '-' : r
+      r == 0 ? nil : r
     end
     def poster
       poster = self.assets.find_by(id: self.poster_id)
@@ -163,7 +163,9 @@ class Place < ActiveRecord::Base
   # filter
 
     def self.filter(filter, current_user)
-      places = only_active.only_published.with_translations(I18n.locale)
+      places = only_active.only_published
+                .with_translations(I18n.locale)
+                .includes(:place_services)
       sql = []
       pars = {}
       if filter[:what].present?
@@ -184,21 +186,25 @@ class Place < ActiveRecord::Base
         pars[:place_ids] = place_ids.uniq
       end
 
-      if filter[:where].present?
-        places = places.where(:region_id => filter[:where])
-      end
+      # if filter[:where].present?
+      #   places = places.where(:region_id => filter[:where])
+      # end
 
-      if filter[:services].present?
-        places = places.includes(:services).where(:services => { id: filter[:services] })
-      end
+      # if filter[:services].present?
+      #   places = places.includes(:services).where(:services => { id: filter[:services] })
+      # end
 
-      if filter[:rate].present?
-        places = places.where('places.rating > ?', filter[:rate])
-      end
+      # no longer used as filter
+      # if filter[:rate].present?
+      #   places = places.where('places.rating > ?', filter[:rate])
+      # end
 
       if filter[:favorite] && current_user.present?
-        place_ids = current_user.favorites.pluck(:place_id)
-        places = places.where(id: place_ids)
+        # place_ids = current_user.favorites.pluck(:place_id)
+        # places = places.where(id: place_ids)
+
+        # indicate which places are marked as this users favorites
+        places = places.includes(:favorite_places).where(favorite_places: {user_id: current_user.id})
       end
 
       places.where(sql.join(" OR "), pars).order(name: :asc)

@@ -196,12 +196,12 @@ class RootController < ApplicationController
       tmp = pars[:where]
       pars[:where] = (tmp.present? && tmp.kind_of?(Array) && tmp.length >= 1) ? tmp.map(&:to_i) : []
 
-      tmp = pars[:services]
-      pars[:services] = (tmp.present? && tmp.kind_of?(Array) && tmp.length >= 1) ? tmp.map(&:to_i) : []
+      # tmp = pars[:services]
+      # pars[:services] = (tmp.present? && tmp.kind_of?(Array) && tmp.length >= 1) ? tmp.map(&:to_i) : []
 
-      tmp = pars[:rate]
-      tmp = tmp.to_i if tmp.present? && tmp.is_number?
-      pars[:rate] = (tmp.present? && !(tmp > 0 && tmp < 5) ? 0 : tmp)
+      # tmp = pars[:rate]
+      # tmp = tmp.to_i if tmp.present? && tmp.is_number?
+      # pars[:rate] = (tmp.present? && !(tmp > 0 && tmp < 5) ? 0 : tmp)
 
       tmp = pars[:favorite]
       pars[:favorite] = false if tmp.present? && tmp != true && tmp != false
@@ -211,9 +211,9 @@ class RootController < ApplicationController
 
       filter = {
         what: nil,
-        where: nil,
-        services: nil, # []
-        rate: nil,
+        # where: nil,
+        # services: nil, # []
+        # rate: nil,
         favorite: nil,
         map: nil
       }.merge(pars)
@@ -222,9 +222,9 @@ class RootController < ApplicationController
       @services = Service.sorted.with_translations(I18n.locale)
 
       ## old way - should be deleted
-      services_clean = Service.sorted.pluck(:id, :name, :icon)
-      @services_old = services_clean
-        .each_with_index.map{|m,i| m.push(i+1, (filter[:services].index(m[0]).nil? ? false : true)) }
+      # services_clean = Service.sorted.pluck(:id, :name, :icon)
+      # @services_old = services_clean
+      #   .each_with_index.map{|m,i| m.push(i+1, (filter[:services].index(m[0]).nil? ? false : true)) }
 
 
       if filter[:favorite] && !user_signed_in?
@@ -249,7 +249,7 @@ class RootController < ApplicationController
         by: t('app.common.by'),
         picked_as_favorite: t('shared.picked_as_favorite'),
         overall_rating: t('shared.overall_rating_js'),
-        services: services_clean,
+        # services: services_clean,
         view_all_provider_places: t('shared.view_all_provider_places'),
         view_place_details: t('shared.view_place_details'),
         view_all_services: t('shared.view_all_services'),
@@ -258,29 +258,50 @@ class RootController < ApplicationController
       })
       gon.regions = Region.sorted.pluck(:id, :name, :latitude, :longitude)
 
-      result = {}
+      # old way
+      # result = {}
+      # places.each {|place|
+      #   region_id = place.region_id
+      #   result[region_id] = [] unless result[region_id].present?
+      #   result[region_id] << {
+      #     id: place.id,
+      #     name: place.name,
+      #     image: place.poster,
+      #     path: place_path(id: place.id),
+      #     rating: place.get_rating,
+      #     provider: {
+      #       name: place.provider.name
+      #       },
+      #     address: place.address_full,
+      #     phone: place.phone,
+      #     coordinates: [place.latitude, place.longitude],
+      #     services: place.services.ids
+      #   }
+      # }
+
+      results = []
       places.each {|place|
-        region_id = place.region_id
-        result[region_id] = [] unless result[region_id].present?
-        result[region_id] << {
+        results << {
           id: place.id,
           name: place.name,
           image: place.poster,
           path: place_path(id: place.id),
           rating: place.get_rating,
-          provider: {
-            name: place.provider.name
-            },
           address: place.address_full,
           phone: place.phone,
           coordinates: [place.latitude, place.longitude],
-          services: place.services.ids
+          services: place.place_services.pluck(:service_id),
+          favorite: place.favorite_places.present? ? true : false,
+          region_id: place.region_id,
+          for_children: place.for_children,
+          for_adults: place.for_adults
         }
       }
 
+
       respond_to do |format|
         format.html { render action: :index, locals: { filter: filter  } }
-        format.json { render json: { result: result, result_count: places.count() } }
+        format.json { render json: { results: results } }
       end
     end
     def locals(values)

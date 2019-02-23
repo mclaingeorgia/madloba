@@ -285,12 +285,20 @@ main {
               margin: 0 8px;
             }
           }
-          > ul{
+          > ul.sub-services{
             margin-left: 84px;
             padding-top: 0;
             > li{
               @include font(18, 'r', 55);
             }
+          }
+        }
+        li .service-count{
+          @include font(22, 'r', 55);
+          margin: 0 5px;
+          li .service-count{
+            @include font(18, 'r', 55);
+            margin: 0 5px;
           }
         }
       }

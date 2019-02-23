@@ -26,53 +26,23 @@
   .filter-row2
     .search-input
       = render partial: 'shared/favoritor', locals: { is_filter: true, is_favorite: filter[:favorite], label: t('.favorites'), title: filter[:favorite] ? t('.alt.show_all') : t('.alt.show_favorite') }
-  .filter{style: 'display: none'}
-    %ul
-      %li.filter-prompt
-        %label= t('.filters')
-        = image_tag(asset_path("svg/filter.svg"), alt: t('.alt.filter'), title: t('.alt.filter'))
-      %li.filter-service.collapsed{'data-filter': 'services'}
-        .inner-left-border
-        .toggle
-          %label= t('.services')
-          .filter-caret
-        - filtered_services = @services_old.select{|s| s[4] }
-        %ul.list{'data-order': filtered_services.map{|m| m[3]}}
-          - filtered_services.each do |service|
-            %li.service{'data-id': service[0], 'data-order': service[3]}
-              %i{class: service[2]}
-              %span= service[1]
-              .close
-        .input-group{'data-set-max-height': 'parent' }
-          %ul.services
-            - @services_old.each do |service|
-              %li.service{ class: (service[4] ? 'hidden' : nil), 'data-id': service[0], 'data-order': service[3] }
-                %i{ class: service[2] }
-                %span= service[1]
-          .button-group
-            %button.reset=t('.cancel')
-            %button.apply=t('.apply')
-        .inner-right-border
-      %li.filter-group
-        .filter-rator
-          = render partial: 'shared/rator', locals: { rate: filter[:rate], rator: {'data-filter': 'rate'}, label: t('.rating'), is_filter: true }
-        .filter-favorite
-          = render partial: 'shared/favoritor', locals: { is_filter: true, is_favorite: filter[:favorite], label: t('.favorites'), title: filter[:favorite] ? t('.alt.show_all') : t('.alt.show_favorite') }
   .services
     %ul.toggleable-list
       - @services.select{|x| x.is_root?}.each_with_index do |root_service, i|
-        %li.service{data: {children: root_service.for_children.to_s, adults: root_service.for_adults.to_s}}
+        %li.service{data: {id: root_service.id, children: root_service.for_children.to_s, adults: root_service.for_adults.to_s}}
           - services = @services.select{|x| x.parent_id == root_service.id}
           %a{name: "service-#{i+1}"}
             %i{class: root_service.icon}
             %span.name
               = root_service.name
+              %span.service-count
             %span.caret
           - if services.present?
-            %ul.toggleable-list-text
+            %ul.toggleable-list-text.sub-services
               - services.each do |service|
-                %li{data: {children: service.for_children.to_s, adults: service.for_adults.to_s}}
+                %li{data: {id: service.id, children: service.for_children.to_s, adults: service.for_adults.to_s}}
                   = service.name
+                  %span.service-count
 
 
   .info
