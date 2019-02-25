@@ -196,6 +196,9 @@ class RootController < ApplicationController
       tmp = pars[:where]
       pars[:where] = (tmp.present? && tmp.kind_of?(Array) && tmp.length >= 1) ? tmp.map(&:to_i) : []
 
+      tmp = pars[:age]
+      pars[:age] = (tmp.present? && ['children', 'adults'].include?(tmp)) ? tmp : nil
+
       # tmp = pars[:services]
       # pars[:services] = (tmp.present? && tmp.kind_of?(Array) && tmp.length >= 1) ? tmp.map(&:to_i) : []
 
@@ -211,7 +214,8 @@ class RootController < ApplicationController
 
       filter = {
         what: nil,
-        # where: nil,
+        where: nil,
+        age: nil,
         # services: nil, # []
         # rate: nil,
         favorite: nil,
@@ -298,7 +302,6 @@ class RootController < ApplicationController
         }
       }
 
-
       respond_to do |format|
         format.html { render action: :index, locals: { filter: filter  } }
         format.json { render json: { results: results } }
@@ -309,7 +312,7 @@ class RootController < ApplicationController
     end
 
     def index_params
-      params.permit(:what, :rate, :favorite, :locale, :_, where: [], services: [], map: [])
+      params.permit(:what, :rate, :favorite, :age, :locale, :_, where: [], services: [], map: [])
     end
 
     def place_params

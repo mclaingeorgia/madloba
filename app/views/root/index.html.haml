@@ -13,16 +13,16 @@
         %input{type: 'submit', value: t('shared.search')}
   .filter-row1
     .search-input
-      %input{id: "age-child", name: "age", type: "radio", value: "children"}
+      %input{id: "age-child", name: "age", type: "radio", value: "children", checked: filter[:age] == 'children', 'data-filter': 'age'}
       %label.child{for: "age-child"}
         %i{class: 'children'}
         = t('shared.filters.children')
-      %input{id: "age-adult", name: "age", type: "radio", value: "adults"}
+      %input{id: "age-adult", name: "age", type: "radio", value: "adults", checked: filter[:age] == 'adults', 'data-filter': 'age'}
       %label.adult{for: "age-adult"}
         %i{class: 'adult'}
         = t('shared.filters.adults')
     .search-input
-      = collection_select :filter, :region, Region.all, :id, :name, { selected: filter[:where].present? ? filter[:where] : nil}, { id: 'region_filter', 'data-filter': 'where', 'data-placeholder': t('.placeholder.where'), 'title': t('.placeholder.where'), multiple: true, style: 'display: none;' }
+      = collection_select :filter, :region, Region.all.with_translations(I18n.locale), :id, :name, { selected: filter[:where].present? ? filter[:where] : nil}, { id: 'region_filter', 'data-filter': 'where', 'data-placeholder': t('.placeholder.where'), 'title': t('.placeholder.where'), multiple: true, style: 'display: none;' }
   .filter-row2
     .search-input
       = render partial: 'shared/favoritor', locals: { is_filter: true, is_favorite: filter[:favorite], label: t('.favorites'), title: filter[:favorite] ? t('.alt.show_all') : t('.alt.show_favorite') }

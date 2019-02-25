@@ -3,10 +3,10 @@
 (function() {
   var filter = {
     el: undefined,
-    names: ['what', 'where', 'age', 'services', 'favorite'], // plus map
+    names: ['what', 'where', 'age', 'favorite'], // plus map
     data: {},
     els: {},
-    result: [],
+    // result: [],
     results: [],
     dynamic_map: false,
     first: false,
@@ -24,23 +24,29 @@
       t.els['count'] = t.el.find('.info .count')
       t.bind()
 
-      t.prepaire_data()
+      t.prepare_data()
       t.process_send()
       t.map_highlight_region(false)
 
       return t
     },
-    prepaire_data: function () {
+    prepare_data: function () {
       var t = filter
       var value
 
       // search
       t.set_data('what', t.els['what'].val())
+
+      // region
       t.set_data('where', t.els['where'].val())
 
+      // age
+      value = pollution.components.age.get(t.els['age'])
+      t.set_data('age', value)
+
       // services
-      value = pollution.components.services.get(t.els['services'])
-      t.set_data('services', (value.length > 0 ? value : undefined))
+      // value = pollution.components.services.get(t.els['services'])
+      // t.set_data('services', (value.length > 0 ? value : undefined))
 
       // favorite
       value = pollution.components.favoritor.get(t.els['favorite'])
@@ -62,28 +68,40 @@
       switch(type) {
         case 'search':
           t.set_data('what', t.els['what'].val())
+
+          break
+        case 'region':
           t.set_data('where', t.els['where'].val())
+
+          break
+        case 'age':
+          t.set_data('age', value)
 
           break
         case 'favorite':
           t.set_data('favorite', (value === true ? true : undefined))
 
           break
-        case 'services':
-          t.set_data('services', (value.length > 0 ? value : undefined))
+        // case 'services':
+        //   t.set_data('services', (value.length > 0 ? value : undefined))
 
-          break
+        //   break
         case 'map':
           var mp = pollution.elements['places_map']
           t.map_switch(value)
           break
       }
+
       // console.log('data to process', t.data)
-      var url = window.location.pathname + '?' + (jQuery.param(t.data)) + (t.map.length ? '&' + jQuery.param({map: t.map}) : '')
+      var url = window.location.pathname + '?' + (jQuery.param(t.data)) + (t.map.length ? '&' + jQuery.param({map: t.map}) : '') + window.location.hash
       window.history.pushState({ }, null, url)
 
-      if(type !== 'map') {
+      // if search text was submitted, reload the results data from ajax query
+      // else, just render the results that will filter the data
+      if (type === 'search'){
         t.process_send()
+      }else if(type !== 'map') {
+        t.render_results()
       }
     },
     process_send: function () {
@@ -103,27 +121,27 @@
         data: t.data,
         cache: false,
         success: function(json) {
-          t.result = json.result
-          t.process_callback('success', json)
+          t.results = json.results
+          t.process_callback('success')
         },
         error: function() {
+          t.results = []
           t.process_callback('error')
         }
       });
     },
-    process_callback: function (type, data) {
+    process_callback: function (type) {
       var t = filter
       if(type === 'success') {
 
         // console.log( "success", data )
         // place_cards_builder(data.result)
-        t.render_results(data)
+        t.render_results()
       }
       else {
-        t.render_results({results: []})
+        t.render_results()
         // console.log( "fail message" )
       }
-      pollution.components.loader.stop()
     },
     // private
     bind: function () {
@@ -196,19 +214,23 @@
        }
 
       t.els['what'].keydown(search_keydown)
-      t.els['where'].keydown(search_keydown)
+      // t.els['where'].keydown(search_keydown)
 
        $('#region_filter').select2({
         width: '100%',
         allowClear: true
       })
         .on('change', function (evt) {
-          t.process('search')
+          t.process('region')
           t.map_highlight_region()
         })
 
       t.els['search'].click(function () {
         t.process('search')
+      })
+
+      pollution.components.age.bind(t.els['age'], function(v) {
+        t.process('age', v)
       })
 
       pollution.components.favoritor.bind(t.els['favorite'], function(v) {
@@ -271,14 +293,53 @@
     //     t.map_move_end()
     //   }
     // },
-    render_results: function (data) {
+    filter_results: function () {
       var t = filter
-      results = data.results
+      var filtered_results = []
+
+      if (t.results.length > 0){
+        var where = t.els['where'].val()
+        var age = pollution.components.age.get(t.els['age'])
+        var favorite = pollution.components.favoritor.get(t.els['favorite']) === true ? true : undefined
+
+        if (where === '' && age === undefined && favorite === undefined ){
+          // no filter, show load all data
+          filtered_results = t.results
+        }else{
+          t.results.forEach(function (place){
+            var is_match = []
+            if (where !== null && where !== ''){
+              is_match.push(place.region_id !== null && where.includes(place.region_id.toString()))
+            }
+            if (age !== undefined){
+              is_match.push((age === 'children' && place.for_children === true) || (age === 'adults' && place.for_adults === true))
+            }
+            if (favorite !== undefined){
+              is_match.push(place.favorite === favorite)
+            }
+
+            // if is_match only has trues, then a match was found
+            if (!is_match.includes(false)){
+              filtered_results.push(place)
+            }
+          })
+        }
+      }
+
+      return filtered_results
+    },
+    render_results: function () {
+      var t = filter
       var $services = $('.services > ul > li')
       var service_count
       var place_ids = []
+      var age_filter_value = pollution.components.age.get(t.els['age'])
+      var filtered_results = t.filter_results()
 
-      if(data.length === 0) {
+      pollution.components.loader.start()
+
+      // show the results
+      if(filtered_results.length === 0) {
         t.els['result'].html('<div class="not-found">' + gon.labels.not_found + '</div>')
         return
       }
@@ -292,29 +353,34 @@
         $(service).find('ul > li').each(function (j, subservice){
           place_ids.length = 0
 
-          // reset the place ids
-          $(subservice).attr('place-ids', null)
+          // only continue if the subservice is visible for the age filter
+          if (age_filter_value === undefined || $(subservice).data(age_filter_value) === true){
+            // reset the place ids
+            $(subservice).attr('place-ids', null)
 
-          // see if this service has any places
-          results.forEach(function (place){
-            if (place.services && place.services.includes($(subservice).data('id'))){
-              place_ids.push(place.id)
-            }
-          })
+            // see if this service has any places
+            filtered_results.forEach(function (place){
+              if (place.services && place.services.includes($(subservice).data('id'))){
+                place_ids.push(place.id)
+              }
+            })
 
-          // save the place ids
-          $(subservice).attr('place-ids', place_ids)
-          // show the number next to service name
-          $(subservice).find('.service-count').empty().text('(' + place_ids.length + ')')
+            // save the place ids
+            $(subservice).attr('place-ids', place_ids)
+            // show the number next to service name
+            $(subservice).find('.service-count').empty().text('(' + place_ids.length + ')')
 
-          // update the overall service count
-          service_count += place_ids.length
+            // update the overall service count
+            service_count += place_ids.length
+          }
         })
 
         // show the number next to service name
         $(service).find('a .name .service-count').empty().text('(' + service_count + ')')
 
       })
+
+      pollution.components.loader.stop()
 
       // var places = []
       // gon.regions.forEach(function (region) {
