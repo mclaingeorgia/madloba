@@ -103,6 +103,7 @@
       if(pollution.elements.hasOwnProperty(id)) {
         var markerGroup = pollution.elements[id + '_marker_group']
         var popup_template = '<div class="header"><a href="%path">%name</a></div><ul class="contact"><li title="%address"><span class="icon address"></span>%address</li><li title="%phone"><span class="icon phone"></span>%phone</li></ul>'
+
         // console.log("-----------------------------",locations)
         locations.forEach(function(location) {
           // console.log(location.coordinates)

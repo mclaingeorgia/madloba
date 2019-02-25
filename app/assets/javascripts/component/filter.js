@@ -110,10 +110,6 @@
       pollution.components.loader.start()
       t.els['result'].html('')
       t.render_count(0)
-      // console.log(pollution.elements)
-      if(pollution.elements.hasOwnProperty('places_map_marker_group')) {
-        pollution.elements['places_map_marker_group'].clearLayers()
-      }
 
       $.ajax({
         dataType: "json",
@@ -338,6 +334,11 @@
 
       pollution.components.loader.start()
 
+      // clear the markers
+      if(pollution.elements.hasOwnProperty('places_map_marker_group')) {
+        pollution.elements['places_map_marker_group'].clearLayers()
+      }
+
       // show the results
       if(filtered_results.length === 0) {
         t.els['result'].html('<div class="not-found">' + gon.labels.not_found + '</div>')
@@ -380,34 +381,16 @@
 
       })
 
+      pollution.components.map.render_markers('places_map', filtered_results)
+      if(t.first) {
+        t.first = false
+        t.map_switch(true)
+      } else if (t.dynamic_map) {
+        t.map_move_end()
+      }
+
       pollution.components.loader.stop()
 
-      // var places = []
-      // gon.regions.forEach(function (region) {
-
-      //   if(typeof result[region[0]] !== 'undefined') {
-      //     var n = result[region[0]].length
-      //     t.els['result'].append('<div class="region collapsed" data-id="' + region[0] + '"><div class="region-name">' +
-      //         region[1] + '<span class="caret"></span><span class="region-count">' +
-      //         n + '&nbsp;' + gon.labels[n > 1 ? 'results' : 'result'] +
-      //         '</span></div></div>')
-      //       .appendTo()
-
-      //     result[region[0]].forEach(function (place) {
-      //       place.region_id = region[0]
-      //       places.push(place)
-      //       t.els['result'].append(pollution.components.place_card.builder(place, region[0])) // + (d.length === 2 ? d[1].html : ''))// '<div class="row">' ++ '</div>'
-      //     })
-      //   }
-      // })
-
-      // pollution.components.map.render_markers('places_map', places)
-      // if(t.first) {
-      //   t.first = false
-      //   t.map_switch(true)
-      // } else if (t.dynamic_map) {
-      //   t.map_move_end()
-      // }
     },
     render_count: function (n) {
       var t = filter
