@@ -40,24 +40,31 @@
           - if services.present?
             %ul.toggleable-list-text.sub-services
               - services.each do |service|
-                %li{data: {id: service.id, children: service.for_children.to_s, adults: service.for_adults.to_s}}
-                  = service.name
-                  %span.service-count
+                %li{class: 'sub-service', data: {id: service.id, children: service.for_children.to_s, adults: service.for_adults.to_s}}
+                  %span.name
+                    = service.name
+                    %span.service-count
 
+    .results-container
+      .results-service-name
+        %i
+        %span.caret
+        %span.name
+      .results
 
-  .info
-    %a.list-view.mobile-hidden{href: 'javascript:void(0);', 'toggle-view': :list}
-      = t('.list_view')
-      %i
-    %a.map-view{href: 'javascript:void(0);', 'toggle-view': :map}
-      = t('.map_view')
-      %i
-    .count
-      = 0
-      %span= t('.result', count: 1)
-  .result-container
-    %ul.result
+  .extra
+    .info
+      %a.list-view.mobile-hidden{href: 'javascript:void(0);', 'toggle-view': :list}
+        = t('.list_view')
+        %i
+      %a.map-view{href: 'javascript:void(0);', 'toggle-view': :map}
+        = t('.map_view')
+        %i
+      / .count
+      /   = 0
+      /   %span= t('.result', count: 1)
     = render partial: "shared/footer", locals: { with_links: true }
+
 %section.mapper.mobile-hidden
   .map-container
     #places_map.map

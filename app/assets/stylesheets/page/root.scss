@@ -270,8 +270,20 @@ main {
     .services {
       margin: 0 14px;
       max-width: 784px;
+      position: relative;
+      overflow-y: auto;
+      overflow-x: hidden;
       > ul.toggleable-list {
         padding: 0;
+        position: relative;
+        width: 100%;
+        top: 0;
+        left: 0;
+        transition: all .5s ease-in-out;
+        &.slide-out{
+          left: -1000px;
+          transition: all .5s ease-in-out;
+        }
         > li {
           padding: 0;
           border-bottom: 1px solid #f38d68;
@@ -290,6 +302,7 @@ main {
             padding-top: 0;
             > li{
               @include font(18, 'r', 55);
+              cursor: pointer;
             }
           }
         }
@@ -302,6 +315,125 @@ main {
           }
         }
       }
+      .results-container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 1000px;
+        opacity: 0;
+        transition: all .5s ease-in-out;
+        &.slide-in{
+          opacity: 1;
+          left: 0;
+          transition: all .5s ease-in-out;
+        }
+
+        &.loader {
+          overflow: hidden;
+        }
+        &.loader:before {
+          position: absolute;
+          content: "";
+          background-color: rgba(0,0,0,0.4);
+          z-index: 2;
+          width: 100%;
+          height: 100%;
+        }
+        &.loader:after {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          content: "";
+          background: background_gif('loader');
+          width: 32px;
+          height: 55px;
+          z-index: 3;
+        }
+        .results-service-name{
+          @include font(18, 'sb', 55);
+          cursor: pointer;
+          > i{
+            margin: 19px 13px 0;
+          }
+          > .caret {
+            display: inline-block;
+            width: 12px;
+            height: 8px;
+            background: background('arrows');
+            transform: rotate(90deg);
+            vertical-align: middle;
+          }
+          > span.name{
+            all: unset;
+            margin: 0 8px;
+            > .service-count{
+              @include font(18, 'r', 55);
+              margin: 0 5px;
+            }
+          }
+        }
+        .results {
+          // padding: 0 14px;
+          flex: 1;
+          // display: flex;
+          // flex-direction: row;
+          // flex-wrap: wrap;
+          max-width: 784px;
+          margin: 0 auto;
+          width: 100%;
+          .not-found {
+            @include font(16);
+            color: $text;
+          }
+          // .region-places {
+          //   }
+          .region {
+            border-top: 1px solid $control;
+            .region-name {
+              @include font(18, 'sb');
+              color: $link;
+              cursor: pointer;
+              padding: 16px 16px 18px;
+              .caret {
+                display: inline-block;
+                width: 12px;
+                height: 8px;
+                margin-left: 9px;
+                background: background('arrows');
+                background-position: -13px 0;
+              }
+              .region-count {
+                @include font(16);
+                color: $text;
+                float: right;
+              }
+            }
+
+            &.collapsed {
+              .region-name {
+                color: $text;
+              }
+              .caret {
+                background-position: 0 0;
+              }
+            }
+            &:first-child {
+              border-top: 0;
+            }
+          }
+          &.plain {
+            .region {
+              display: none;
+            }
+
+          }
+        }
+      }
+
     }
     .info {
       // padding: 16px 40px 14px;
@@ -312,6 +444,7 @@ main {
       text-align: right;
       display: flex;
       flex-direction: row;
+      flex: 1;
       .map-view {
         white-space: nowrap;
         @include font(16);
@@ -350,91 +483,6 @@ main {
       > * {
         padding: 16px 0 12px;
       }
-    }
-    .result-container {
-      overflow-y: auto;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      &.loader {
-        overflow: hidden;
-      }
-      &.loader:before {
-        position: absolute;
-        content: "";
-        background-color: rgba(0,0,0,0.4);
-        z-index: 2;
-        width: 100%;
-        height: 100%;
-      }
-      &.loader:after {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        content: "";
-        background: background_gif('loader');
-        width: 32px;
-        height: 55px;
-        z-index: 3;
-      }
-      .result {
-        padding: 0 14px;
-        flex: 1;
-        // display: flex;
-        // flex-direction: row;
-        // flex-wrap: wrap;
-        max-width: 784px;
-        margin: 0 auto;
-        width: 100%;
-        .not-found {
-          @include font(16);
-          color: $text;
-        }
-        // .region-places {
-        //   }
-        .region {
-          border-top: 1px solid $control;
-          .region-name {
-            @include font(18, 'sb');
-            color: $link;
-            cursor: pointer;
-            padding: 16px 16px 18px;
-            .caret {
-              display: inline-block;
-              width: 12px;
-              height: 8px;
-              margin-left: 9px;
-              background: background('arrows');
-              background-position: -13px 0;
-            }
-            .region-count {
-              @include font(16);
-              color: $text;
-              float: right;
-            }
-          }
-
-          &.collapsed {
-            .region-name {
-              color: $text;
-            }
-            .caret {
-              background-position: 0 0;
-            }
-          }
-          &:first-child {
-            border-top: 0;
-          }
-        }
-        &.plain {
-          .region {
-            display: none;
-          }
-
-        }
-      }
       footer {
         display: none;
       }
@@ -457,9 +505,11 @@ main {
       display: flex;
       flex-direction: column;
       border-right: 1px solid $border;
-      overflow-y: auto;
-      .result-container {
-        overflow-y: initial;
+      // overflow-y: auto;
+      // .results-container {
+      //   overflow-y: initial;
+      // }
+      .info{
         footer {
           display: inherit;
         }
@@ -525,6 +575,13 @@ main {
       }
       .services{
         margin: 0 30px;
+        // overflow-y: auto;
+        .results-container {
+          // overflow-y: auto;
+          .results {
+            // padding: 0 19px;
+          }
+        }
       }
       .info {
         padding: 0 40px 0;
@@ -533,13 +590,13 @@ main {
           padding: 16px 0 14px;
         }
       }
-      .result-container {
-        overflow-y: auto;
-        .result {
-          padding: 0 19px;
-        }
-      }
     }
+  }
+
+  .extra{
+    display: flex;
+    flex: 1;
+    flex-direction: column;
   }
 }
 

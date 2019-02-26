@@ -20,7 +20,7 @@
       })
       t.els['map'] = $('#by_map')
       t.els['search'] = t.el.find('.search input[type="submit"]')
-      t.els['result'] = t.el.find('.result')
+      t.els['results'] = t.el.find('.results')
       t.els['count'] = t.el.find('.info .count')
       t.bind()
 
@@ -108,8 +108,8 @@
       var t = filter
 
       pollution.components.loader.start()
-      t.els['result'].html('')
-      t.render_count(0)
+      t.els['results'].html('')
+      // t.render_count(0)
 
       $.ajax({
         dataType: "json",
@@ -241,6 +241,18 @@
       })
       pollution.elements['places_map'].on('moveend', function () { t.map_move_end() })
 
+      // when click on service show details if necessary
+      $('.services > ul > li').on('click', '> a > span.name', function(evt){
+        t.show_details(evt.target)
+      })
+      $('.services ul.sub-services > li.sub-service ').on('click', '> span.name', function(evt){
+        t.show_details(evt.target)
+      })
+
+      // when click on results service header, show service list
+      $('.results-container').on('click', '.results-service-name', function(evt){
+        t.hide_details()
+      })
     },
     set_data: function (key, value) {
       var t = filter
@@ -258,7 +270,7 @@
     //   t.render_count(data.result_count)
 
     //   if(data.length === 0) {
-    //     t.els['result'].html('<div class="not-found">' + gon.labels.not_found + '</div>')
+    //     t.els['results'].html('<div class="not-found">' + gon.labels.not_found + '</div>')
     //     return
     //   }
 
@@ -267,7 +279,7 @@
 
     //     if(typeof result[region[0]] !== 'undefined') {
     //       var n = result[region[0]].length
-    //       t.els['result'].append('<div class="region collapsed" data-id="' + region[0] + '"><div class="region-name">' +
+    //       t.els['results'].append('<div class="region collapsed" data-id="' + region[0] + '"><div class="region-name">' +
     //           region[1] + '<span class="caret"></span><span class="region-count">' +
     //           n + '&nbsp;' + gon.labels[n > 1 ? 'results' : 'result'] +
     //           '</span></div></div>')
@@ -276,7 +288,7 @@
     //       result[region[0]].forEach(function (place) {
     //         place.region_id = region[0]
     //         places.push(place)
-    //         t.els['result'].append(pollution.components.place_card.builder(place, region[0])) // + (d.length === 2 ? d[1].html : ''))// '<div class="row">' ++ '</div>'
+    //         t.els['results'].append(pollution.components.place_card.builder(place, region[0])) // + (d.length === 2 ? d[1].html : ''))// '<div class="row">' ++ '</div>'
     //       })
     //     }
     //   })
@@ -327,7 +339,7 @@
     render_results: function () {
       var t = filter
       var $services = $('.services > ul > li')
-      var service_count
+      var place_count
       var place_ids = []
       var age_filter_value = pollution.components.age.get(t.els['age'])
       var filtered_results = t.filter_results()
@@ -339,46 +351,28 @@
         pollution.elements['places_map_marker_group'].clearLayers()
       }
 
-      // show the results
-      if(filtered_results.length === 0) {
-        t.els['result'].html('<div class="not-found">' + gon.labels.not_found + '</div>')
-        return
-      }
-
       // get the places for each sub-service
       $services.each(function (i, service){
 
-        service_count = 0
+        place_count = 0
 
-        // go through each subservice
-        $(service).find('ul > li').each(function (j, subservice){
-          place_ids.length = 0
+        // if service has subservices, process them
+        // else just look for places assigned to the service
+        var subservices = $(service).find('ul > li')
+        if (subservices.length > 0){
 
-          // only continue if the subservice is visible for the age filter
-          if (age_filter_value === undefined || $(subservice).data(age_filter_value) === true){
-            // reset the place ids
-            $(subservice).attr('place-ids', null)
+          // go through each subservice
+          $(subservices).each(function (j, subservice){
+            place_count += t.render_service_results(subservice, filtered_results, age_filter_value)
+          })
 
-            // see if this service has any places
-            filtered_results.forEach(function (place){
-              if (place.services && place.services.includes($(subservice).data('id'))){
-                place_ids.push(place.id)
-              }
-            })
+          // show the number next to service name
+          $(service).find('a .name .service-count').empty().text('(' + place_count + ')')
 
-            // save the place ids
-            $(subservice).attr('place-ids', place_ids)
-            // show the number next to service name
-            $(subservice).find('.service-count').empty().text('(' + place_ids.length + ')')
-
-            // update the overall service count
-            service_count += place_ids.length
-          }
-        })
-
-        // show the number next to service name
-        $(service).find('a .name .service-count').empty().text('(' + service_count + ')')
-
+        }else{
+          // no subservices
+          t.render_service_results(service, filtered_results, age_filter_value)
+        }
       })
 
       pollution.components.map.render_markers('places_map', filtered_results)
@@ -392,15 +386,94 @@
       pollution.components.loader.stop()
 
     },
-    render_count: function (n) {
-      var t = filter
-      t.els['count'].html(n + '&nbsp;<span>' + gon.labels[n > 1 ? 'results' : 'result'] + '</span>')
+    render_service_results: function (service, filtered_results, age_filter_value) {
+      var service_id = $(service).data('id')
+      var place_ids = []
+      place_ids.length = 0
+
+      // only continue if the service is visible for the age filter
+      if (age_filter_value === undefined || $(service).data(age_filter_value) === true){
+        // reset the place ids
+        $(service).attr('place-ids', null)
+
+        // see if this service has any places
+        filtered_results.forEach(function (place){
+          if (place.service_ids && place.service_ids.includes(service_id)){
+            place_ids.push(place.id)
+          }
+        })
+
+        // save the place ids
+        $(service).attr('place-ids', place_ids)
+        // show the number next to service name
+        $(service).find('.service-count').empty().text('(' + place_ids.length + ')')
+      }
+      // return the number of places added
+      return place_ids.length
     },
+    hide_details: function () {
+      // hide the result details and show the services
+      var t = filter
+
+      $('.services > .results-container').removeClass('slide-in')
+      $('.services > ul').removeClass('slide-out')
+
+      // remove all existing results
+      $(t.els['results']).empty()
+    },
+    show_details: function (service_element) {
+      // if the service is visible and does not have a nested list, show the details
+      // - is visible if the li has .service with toggled class or has sub-service class
+      // - this will be true if a main service has no subservice or for a subservice
+      var t = filter
+      var $service = $(service_element).closest('li');
+      if ($service.find('ul > li').length === 0 && (
+          $service.hasClass('sub-service') ||
+          ($service.hasClass('service') && $service.hasClass('toggled'))
+        )){
+
+        // slide the services out and the results in
+        $('.services > ul').addClass('slide-out')
+        $('.services > .results-container').addClass('slide-in')
+
+        // add the header info
+        // - service icon
+        $('.results-service-name i').removeClass().addClass($service.closest('.service').find('a i').get(0).classList[0])
+        // - service name
+        $('.results-service-name .name').empty().html($service.find('.name').html())
+
+        // show each place listed in the service li tag
+        var place_ids = $service.attr('place-ids').split(',')
+
+        if ($service.attr('place-ids') !== '' && place_ids.length > 0){
+
+          // remove all existing results
+          $(t.els['results']).empty()
+
+          // go through the results and find these places
+          t.results.forEach(function (place){
+            if (place_ids.includes(place.id.toString())){
+              t.els['results'].append(pollution.components.place_card.builder(place, $service.data('id')))
+            }
+          })
+        }else{
+          // no results
+          t.els['results'].html('<div class="not-found">' + gon.labels.not_found + '</div>')
+        }
+      }else{
+        // slide the services in and the results out
+        t.hide_details()
+      }
+    },
+    // render_count: function (n) {
+    //   var t = filter
+    //   t.els['count'].html(n + '&nbsp;<span>' + gon.labels[n > 1 ? 'results' : 'result'] + '</span>')
+    // },
     map_move_end: function () {
       var t = filter
       if(!t.dynamic_map) { return }
       var mp = pollution.elements['places_map']
-      var $result_container = t.els['result'].parent()
+      var $result_container = t.els['results'].parent()
 
       $result_container.addClass('loader')
 
@@ -412,20 +485,20 @@
       window.history.pushState({ }, null, url)
 
       pollution.elements['places_map_marker_group'].eachLayer(function (layer) {
-        t.els['result'].find('.place-card[data-place-id="' + layer.options._place_id + '"]').toggleClass('hidden', !bounds.contains(layer.getLatLng()))
+        t.els['results'].find('.place-card[data-place-id="' + layer.options._place_id + '"]').toggleClass('hidden', !bounds.contains(layer.getLatLng()))
       });
-      t.render_count(t.els['result'].find('.place-card:not(.hidden)').length)
+      // t.render_count(t.els['results'].find('.place-card:not(.hidden)').length)
       setTimeout(function() { $result_container.removeClass('loader') }, 200)
     },
     map_switch: function (value) {
       var t = filter
       if(value === true) {
         t.dynamic_map = true
-        var $result_container = t.els['result'].parent()
+        var $result_container = t.els['results'].parent()
 
         $result_container.addClass('loader')
-        t.els['result'].addClass('plain')
-        t.els['result'].find('.region').addClass('collapsed')
+        t.els['results'].addClass('plain')
+        t.els['results'].find('.region').addClass('collapsed')
 
         t.map_move_end()
         $result_container.removeClass('loader')
@@ -433,9 +506,9 @@
       else {
         t.dynamic_map = false
         t.map = []
-        t.els['result'].removeClass('plain')
-        t.els['result'].find('.place-card').addClass('hidden')
-        t.render_count(t.els['result'].find('.place-card').length)
+        t.els['results'].removeClass('plain')
+        t.els['results'].find('.place-card').addClass('hidden')
+        // t.render_count(t.els['results'].find('.place-card').length)
       }
     },
     map_highlight_region: function (fly) {
@@ -458,20 +531,3 @@
   }
   pollution.components.filter = filter
 }())
-
-
-
-
-
-
-// # .records
-// #       - ln = results.length #recods.length
-// #       = ln
-// #       %span= t('.result', count: ln)
-// #   .place-cards
-// #     - results.in_groups_of(2).each do |place_group|
-// #       .row
-// #         - if place_group[0].present?
-// #           =
-// #           - if place_group[1].present?
-// #             = render partial: 'shared/place', locals: { place: place_group[1] }

@@ -22,10 +22,10 @@
         t.find('.back').addClass('hidden')
       })
     },
-    builder: function (place, region_id) {
+    builder: function (place, service_id) {
       // console.log(place)
       var template =
-        '<div class="place-card hidden" data-place-id="%id" data-region-id="%region_id">' +
+        '<div class="place-card" data-place-id="%id" data-service-id="%service_id">' +
           '<div class="card-border">' +
             '<div class="card">' +
               '<div class="front">' +
@@ -99,9 +99,9 @@
       //     .replace(/%provider/g, place.provider.name)
       // }
 
-      var services_list = gon.labels.services
-        .filter(function(f) {
-          return place.services.indexOf(f[0]) !== -1
+      var services_list = gon.labels.service_ids
+        .filter(function(id) {
+          return place.service_ids.indexOf(id) !== -1
         })
       // console.log(services_list)
       var front_template = services_list.slice(0,6).map(function(m) { return '<div class="service"><a href="?services[]=' + m[0] + '" title="' + m[1] + ' - ' + gon.labels.view_all_service_places + '"><i class="' + m[2] + '"></i></a></div>' }).join("")
@@ -146,7 +146,7 @@
         .replace(/%image/g, place.image)
         .replace(/%alt/g, gon.labels.alt.replace('%alt', place.name))
         .replace(/%ratings/g, rating_template)
-        .replace(/%region_id/g, region_id)
+        .replace(/%service_id/g, service_id)
         .replace(/%overall_rating/g, gon.labels.overall_rating)
         .replace(/%favorite/g , favorite_template)
         .replace(/%services/g, front_template)
