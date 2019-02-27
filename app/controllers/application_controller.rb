@@ -55,6 +55,7 @@ class ApplicationController < ActionController::Base
 
   def set_gon
     gon.pin_path = ActionController::Base.helpers.asset_path('svg/pin.svg')
+    gon.pin_highlight_path = ActionController::Base.helpers.asset_path('svg/pin_highlight.svg')
     gon.osm = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
     gon.osm_attribution = '<a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
 

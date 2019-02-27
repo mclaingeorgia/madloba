@@ -10,10 +10,29 @@
         t.find('.back').removeClass('hidden')
       })
 
+      $(document).on('mouseenter', '.place-card .card-border', function () {
+        // update map marker
+        var t = $(this)
+        var place_id = t.closest('.place-card').data('place-id')
+        $.each(pollution.elements.places_map_marker_group._layers, function (key, marker){
+          if (marker.place_id === place_id){
+            marker.setIcon(pollution.elements.pin_highlight)
+          }
+        })
+      })
+
       $(document).on('mouseleave', '.card-border', function () {
         var t = $(this)
         t.find('.front').removeClass('invisible')
         t.find('.back').addClass('hidden')
+
+        // reset map marker
+        var place_id = t.closest('.place-card').data('place-id')
+        $.each(pollution.elements.places_map_marker_group._layers, function (key, marker){
+          if (marker.place_id === place_id){
+            marker.setIcon(pollution.elements.pin)
+          }
+        })
       })
 
       $(document).on('click', '.card-border .close', function () {

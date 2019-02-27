@@ -382,8 +382,6 @@
       /// - this will also update the map markers
       if ($('.services li.service.toggled').length > 0){
         // if details is being show, reload it
-        console.log($(t.els['results']))
-        console.log($(t.els['results']).html().length > 0)
         if ($('.results-service-name').attr('service-id') !== undefined && $(t.els['results']).html().length > 0){
           t.show_details($('.services li[data-id="' + $('.results-service-name').attr('service-id') + '"]'))
         }
