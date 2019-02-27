@@ -243,10 +243,10 @@
 
       // when click on service show details if necessary
       $('.services > ul > li').on('click', '> a > span.name', function(evt){
-        t.show_details(evt.target)
+        t.show_details($(evt.target).closest('li'))
       })
       $('.services ul.sub-services > li.sub-service ').on('click', '> span.name', function(evt){
-        t.show_details(evt.target)
+        t.show_details($(evt.target).closest('li'))
       })
 
       // when click on results service header, show service list
@@ -346,15 +346,10 @@
 
       pollution.components.loader.start()
 
-      // clear the markers
-      if(pollution.elements.hasOwnProperty('places_map_marker_group')) {
-        pollution.elements['places_map_marker_group'].clearLayers()
-      }
-
       // get the places for each sub-service
       $services.each(function (i, service){
 
-        place_count = 0
+        place_ids.length = 0
 
         // if service has subservices, process them
         // else just look for places assigned to the service
@@ -363,11 +358,17 @@
 
           // go through each subservice
           $(subservices).each(function (j, subservice){
-            place_count += t.render_service_results(subservice, filtered_results, age_filter_value)
+            place_ids = place_ids.concat(t.render_service_results(subservice, filtered_results, age_filter_value))
           })
 
+          // get unique place ids
+          var uniq_place_ids = place_ids.filter(t.unique_array_values)
+
+          // save the place ids
+          $(service).attr('place-ids', uniq_place_ids)
+
           // show the number next to service name
-          $(service).find('a .name .service-count').empty().text('(' + place_count + ')')
+          $(service).find('a .name .service-count').empty().text('(' + place_ids.length + ')')
 
         }else{
           // no subservices
@@ -375,16 +376,14 @@
         }
       })
 
-      pollution.components.map.render_markers('places_map', filtered_results)
-      if(t.first) {
-        t.first = false
-        t.map_switch(true)
-      } else if (t.dynamic_map) {
-        t.map_move_end()
-      }
+      // show the map markers
+      t.show_map_markers(filtered_results)
 
       pollution.components.loader.stop()
 
+    },
+    unique_array_values: function (value, index, self){
+      return self.indexOf(value) === index
     },
     render_service_results: function (service, filtered_results, age_filter_value) {
       var service_id = $(service).data('id')
@@ -408,13 +407,53 @@
         // show the number next to service name
         $(service).find('.service-count').empty().text('(' + place_ids.length + ')')
       }
-      // return the number of places added
-      return place_ids.length
+      // return the places
+      return place_ids
     },
-    hide_details: function () {
-      // hide the result details and show the services
+    show_map_markers: function(places){
       var t = filter
 
+      // clear existing markers
+      if(pollution.elements.hasOwnProperty('places_map_marker_group')) {
+        pollution.elements['places_map_marker_group'].clearLayers()
+      }
+
+      pollution.components.map.render_markers('places_map', places)
+      if(t.first) {
+        t.first = false
+        t.map_switch(true)
+      } else if (t.dynamic_map) {
+        t.map_move_end()
+      }
+    },
+    hide_details: function () {
+      var t = filter
+      var $service = $('.services > ul > li.toggled')
+
+      // if the main service has sub-services,
+      // update the map to show all of the places in the service
+      // else, there are no sub-services so close the service item and show all places on the map
+
+      if ($service.find('ul > li').length === 0){
+        // no sub-services
+
+        // - close the service
+        $service.find('> a').trigger('click')
+
+        // - show all places on map
+        t.show_map_markers(t.filter_results())
+
+      }else{
+        // show sub-services on map
+
+        // get the service places
+        var places = t.get_service_places($service)
+
+        // show the map markers
+        t.show_map_markers(places)
+      }
+
+      // hide the result details and show the services
       $('.services > .results-container').removeClass('slide-in')
       $('.services > ul').removeClass('slide-out')
 
@@ -426,7 +465,8 @@
       // - is visible if the li has .service with toggled class or has sub-service class
       // - this will be true if a main service has no subservice or for a subservice
       var t = filter
-      var $service = $(service_element).closest('li');
+      var $service = $(service_element)
+
       if ($service.find('ul > li').length === 0 && (
           $service.hasClass('sub-service') ||
           ($service.hasClass('service') && $service.hasClass('toggled'))
@@ -442,28 +482,58 @@
         // - service name
         $('.results-service-name .name').empty().html($service.find('.name').html())
 
+        // remove all existing results
+        $(t.els['results']).empty()
+
+        // get the service places
+        var places = t.get_service_places($service)
+
         // show each place listed in the service li tag
-        var place_ids = $service.attr('place-ids').split(',')
-
-        if ($service.attr('place-ids') !== '' && place_ids.length > 0){
-
-          // remove all existing results
-          $(t.els['results']).empty()
-
-          // go through the results and find these places
-          t.results.forEach(function (place){
-            if (place_ids.includes(place.id.toString())){
-              t.els['results'].append(pollution.components.place_card.builder(place, $service.data('id')))
-            }
-          })
-        }else{
+        if (places.length === 0){
           // no results
           t.els['results'].html('<div class="not-found">' + gon.labels.not_found + '</div>')
+        }else{
+          places.forEach(function (place){
+            t.els['results'].append(pollution.components.place_card.builder(place, $service.data('id')))
+          })
         }
+
+        // show the map markers
+        t.show_map_markers(places)
+
+      }else if($service.find('ul > li').length > 0 &&
+                $service.hasClass('service') &&
+                $service.hasClass('toggled')){
+        // if this is a service with sub-services,
+        // update the map to show all places in this service
+
+        // get the service places
+        var places = t.get_service_places($service)
+
+        // show the map markers
+        t.show_map_markers(places)
       }else{
         // slide the services in and the results out
         t.hide_details()
       }
+    },
+    get_service_places: function (service){
+      var t = filter
+
+      var place_ids = $(service).attr('place-ids').split(',')
+      var places = []
+
+      if ($(service).attr('place-ids') !== '' && place_ids.length > 0){
+
+        // go through the results and find these places
+        t.results.forEach(function (place){
+          if (place_ids.includes(place.id.toString())){
+            places.push(place)
+          }
+        })
+      }
+
+      return places
     },
     // render_count: function (n) {
     //   var t = filter
