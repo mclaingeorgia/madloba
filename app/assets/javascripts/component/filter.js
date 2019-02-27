@@ -358,7 +358,7 @@
 
           // go through each subservice
           $(subservices).each(function (j, subservice){
-            place_ids = place_ids.concat(t.render_service_results(subservice, filtered_results, age_filter_value))
+            place_ids = place_ids.concat(t.set_service_place_ids(subservice, filtered_results, age_filter_value))
           })
 
           // get unique place ids
@@ -372,12 +372,25 @@
 
         }else{
           // no subservices
-          t.render_service_results(service, filtered_results, age_filter_value)
+          t.set_service_place_ids(service, filtered_results, age_filter_value)
         }
       })
 
-      // show the map markers
-      t.show_map_markers(filtered_results)
+      // if a li.service item has class of toggled,
+      // then the service is currently open
+      // so update the service details
+      /// - this will also update the map markers
+      if ($('.services li.service.toggled').length > 0){
+        // if details is being show, reload it
+        console.log($(t.els['results']))
+        console.log($(t.els['results']).html().length > 0)
+        if ($('.results-service-name').attr('service-id') !== undefined && $(t.els['results']).html().length > 0){
+          t.show_details($('.services li[data-id="' + $('.results-service-name').attr('service-id') + '"]'))
+        }
+      }else{
+        // show the map markers
+        t.show_map_markers(filtered_results)
+      }
 
       pollution.components.loader.stop()
 
@@ -385,7 +398,7 @@
     unique_array_values: function (value, index, self){
       return self.indexOf(value) === index
     },
-    render_service_results: function (service, filtered_results, age_filter_value) {
+    set_service_place_ids: function (service, filtered_results, age_filter_value) {
       var service_id = $(service).data('id')
       var place_ids = []
       place_ids.length = 0
@@ -477,10 +490,14 @@
         $('.services > .results-container').addClass('slide-in')
 
         // add the header info
+        var $results_service = $('.results-service-name')
+
+        // - service id
+        $results_service.attr('service-id', $service.data('id'))
         // - service icon
-        $('.results-service-name i').removeClass().addClass($service.closest('.service').find('a i').get(0).classList[0])
+        $results_service.find('i').removeClass().addClass($service.closest('.service').find('a i').get(0).classList[0])
         // - service name
-        $('.results-service-name .name').empty().html($service.find('.name').html())
+        $results_service.find('.name').empty().html($service.find('.name').html())
 
         // remove all existing results
         $(t.els['results']).empty()
