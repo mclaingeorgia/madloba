@@ -87,7 +87,7 @@
 
         //   break
         case 'map':
-          var mp = pollution.elements['places_map']
+          // var mp = pollution.elements['places_map']
           t.map_switch(value)
           break
       }
@@ -100,7 +100,8 @@
       // else, just render the results that will filter the data
       if (type === 'search'){
         t.process_send()
-      }else if(type !== 'map') {
+      // }else if(type !== 'map') {
+      }else{
         t.render_results()
       }
     },
@@ -263,59 +264,43 @@
         delete t.data[key]
       }
     },
-    // render_result: function (data) {
-    //   var t = filter
-    //   var result = data.result
-
-    //   t.render_count(data.result_count)
-
-    //   if(data.length === 0) {
-    //     t.els['results'].html('<div class="not-found">' + gon.labels.not_found + '</div>')
-    //     return
-    //   }
-
-    //   var places = []
-    //   gon.regions.forEach(function (region) {
-
-    //     if(typeof result[region[0]] !== 'undefined') {
-    //       var n = result[region[0]].length
-    //       t.els['results'].append('<div class="region collapsed" data-id="' + region[0] + '"><div class="region-name">' +
-    //           region[1] + '<span class="caret"></span><span class="region-count">' +
-    //           n + '&nbsp;' + gon.labels[n > 1 ? 'results' : 'result'] +
-    //           '</span></div></div>')
-    //         .appendTo()
-
-    //       result[region[0]].forEach(function (place) {
-    //         place.region_id = region[0]
-    //         places.push(place)
-    //         t.els['results'].append(pollution.components.place_card.builder(place, region[0])) // + (d.length === 2 ? d[1].html : ''))// '<div class="row">' ++ '</div>'
-    //       })
-    //     }
-    //   })
-
-    //   pollution.components.map.render_markers('places_map', places)
-    //   if(t.first) {
-    //     t.first = false
-    //     t.map_switch(true)
-    //   } else if (t.dynamic_map) {
-    //     t.map_move_end()
-    //   }
-    // },
     filter_results: function () {
       var t = filter
-      var filtered_results = []
+      // need to keep track of two different filtered results
+      // - all = apply all filters
+      // - map = apply all filters, except map
+      //   - this is because when using dynamic map filters,
+      //     all places need to be visible on the map
+      var filtered_results = {'all': [], 'map': []}
 
       if (t.results.length > 0){
         var where = t.els['where'].val()
         var age = pollution.components.age.get(t.els['age'])
         var favorite = pollution.components.favoritor.get(t.els['favorite']) === true ? true : undefined
 
-        if (where === '' && age === undefined && favorite === undefined ){
+        if (where === '' && age === undefined && favorite === undefined && t.dynamic_map === false){
           // no filter, show load all data
-          filtered_results = t.results
+          filtered_results.all = t.results
+          filtered_results.map = t.results
         }else{
+          var marker_place_ids = []
+          if (t.dynamic_map){
+            // get all markers in the bounding box
+            var mp = pollution.elements['places_map']
+            var bounds = mp.getBounds()
+            var tmp = [bounds._northEast.lat, bounds._northEast.lng, bounds._southWest.lat, bounds._southWest.lng]
+            t.map = tmp
+
+            pollution.elements['places_map_marker_group'].eachLayer(function (marker) {
+              if (bounds.contains(marker.getLatLng())){
+                marker_place_ids.push(marker.place_id)
+              }
+            });
+          }
+
           t.results.forEach(function (place){
             var is_match = []
+            var is_map_match = false
             if (where !== null && where !== ''){
               is_match.push(place.region_id !== null && where.includes(place.region_id.toString()))
             }
@@ -325,10 +310,29 @@
             if (favorite !== undefined){
               is_match.push(place.favorite === favorite)
             }
+            if (t.dynamic_map){
+              console.log('======')
+              console.log(place.id)
+              is_map_match = marker_place_ids.includes(place.id)
+              // for (var i = 0; i < marker_place_ids.length; i++){
+              //   console.log(markers[i].place_id)
+              //   if (place.id === markers[i].place_id){
+              //     console.log('- found match!')
+              //     is_map_match = true
+              //     break
+              //   }
+              // }
+            }else{
+              // not dynamic map filter, so all places should be shown
+              is_map_match = true
+            }
 
             // if is_match only has trues, then a match was found
             if (!is_match.includes(false)){
-              filtered_results.push(place)
+              filtered_results.map.push(place)
+              if (is_map_match){
+                filtered_results.all.push(place)
+              }
             }
           })
         }
@@ -339,8 +343,7 @@
     render_results: function () {
       var t = filter
       var $services = $('.services > ul > li')
-      var place_count
-      var place_ids = []
+      var place_ids = {'all': [], 'map': []}
       var age_filter_value = pollution.components.age.get(t.els['age'])
       var filtered_results = t.filter_results()
 
@@ -349,7 +352,8 @@
       // get the places for each sub-service
       $services.each(function (i, service){
 
-        place_ids.length = 0
+        place_ids.all.length = 0
+        place_ids.map.length = 0
 
         // if service has subservices, process them
         // else just look for places assigned to the service
@@ -358,17 +362,22 @@
 
           // go through each subservice
           $(subservices).each(function (j, subservice){
-            place_ids = place_ids.concat(t.set_service_place_ids(subservice, filtered_results, age_filter_value))
+            var tmp = t.set_service_place_ids(subservice, filtered_results, age_filter_value)
+            place_ids.all = place_ids.all.concat(tmp.all)
+            place_ids.map = place_ids.map.concat(tmp.map)
           })
 
           // get unique place ids
-          var uniq_place_ids = place_ids.filter(t.unique_array_values)
+          var uniq_place_ids = {'all': null, 'map': null}
+          uniq_place_ids.all = place_ids.all.filter(t.unique_array_values)
+          uniq_place_ids.map = place_ids.map.filter(t.unique_array_values)
 
           // save the place ids
-          $(service).attr('place-ids', uniq_place_ids)
+          $(service).attr('place-ids', uniq_place_ids.all)
+          $(service).attr('place-ids-map', uniq_place_ids.map)
 
           // show the number next to service name
-          $(service).find('a .name .service-count').empty().text('(' + place_ids.length + ')')
+          $(service).find('a .name .service-count').empty().text('(' + place_ids.all.length + ')')
 
         }else{
           // no subservices
@@ -387,10 +396,15 @@
         }
       }else{
         // show the map markers
-        t.show_map_markers(filtered_results)
+        t.show_map_markers(filtered_results.map)
       }
 
-      pollution.components.loader.stop()
+      // turn off loading indicator
+      setTimeout(function() {
+        pollution.components.loader.stop()
+        t.els['results'].parent().removeClass('loader')
+      }, 200)
+
 
     },
     unique_array_values: function (value, index, self){
@@ -398,25 +412,32 @@
     },
     set_service_place_ids: function (service, filtered_results, age_filter_value) {
       var service_id = $(service).data('id')
-      var place_ids = []
+      var place_ids = {'all': [], 'map': []}
       place_ids.length = 0
 
       // only continue if the service is visible for the age filter
       if (age_filter_value === undefined || $(service).data(age_filter_value) === true){
         // reset the place ids
         $(service).attr('place-ids', null)
+        $(service).attr('place-ids-map', null)
 
         // see if this service has any places
-        filtered_results.forEach(function (place){
+        filtered_results.all.forEach(function (place){
           if (place.service_ids && place.service_ids.includes(service_id)){
-            place_ids.push(place.id)
+            place_ids.all.push(place.id)
+          }
+        })
+        filtered_results.map.forEach(function (place){
+          if (place.service_ids && place.service_ids.includes(service_id)){
+            place_ids.map.push(place.id)
           }
         })
 
         // save the place ids
-        $(service).attr('place-ids', place_ids)
+        $(service).attr('place-ids', place_ids.all)
+        $(service).attr('place-ids-map', place_ids.map)
         // show the number next to service name
-        $(service).find('.service-count').empty().text('(' + place_ids.length + ')')
+        $(service).find('.service-count').empty().text('(' + place_ids.all.length + ')')
       }
       // return the places
       return place_ids
@@ -434,7 +455,7 @@
         t.first = false
         t.map_switch(true)
       } else if (t.dynamic_map) {
-        t.map_move_end()
+        // t.map_move_end()
       }
     },
     hide_details: function () {
@@ -452,7 +473,7 @@
         $service.find('> a').trigger('click')
 
         // - show all places on map
-        t.show_map_markers(t.filter_results())
+        t.show_map_markers(t.filter_results().map)
 
       }else{
         // show sub-services on map
@@ -461,7 +482,7 @@
         var places = t.get_service_places($service)
 
         // show the map markers
-        t.show_map_markers(places)
+        t.show_map_markers(places.map)
       }
 
       // hide the result details and show the services
@@ -504,17 +525,17 @@
         var places = t.get_service_places($service)
 
         // show each place listed in the service li tag
-        if (places.length === 0){
+        if (places.all.length === 0){
           // no results
           t.els['results'].html('<div class="not-found">' + gon.labels.not_found + '</div>')
         }else{
-          places.forEach(function (place){
+          places.all.forEach(function (place){
             t.els['results'].append(pollution.components.place_card.builder(place, $service.data('id')))
           })
         }
 
         // show the map markers
-        t.show_map_markers(places)
+        t.show_map_markers(places.map)
 
       }else if($service.find('ul > li').length > 0 &&
                 $service.hasClass('service') &&
@@ -526,7 +547,7 @@
         var places = t.get_service_places($service)
 
         // show the map markers
-        t.show_map_markers(places)
+        t.show_map_markers(places.map)
       }else{
         // slide the services in and the results out
         t.hide_details()
@@ -534,16 +555,18 @@
     },
     get_service_places: function (service){
       var t = filter
+      var places = {'all': [], 'map': []}
+      var place_ids = {'all': $(service).attr('place-ids').split(','), 'map': $(service).attr('place-ids-map').split(',')}
 
-      var place_ids = $(service).attr('place-ids').split(',')
-      var places = []
-
-      if ($(service).attr('place-ids') !== '' && place_ids.length > 0){
+      if ($(service).attr('place-ids') !== '' && place_ids.all.length > 0){
 
         // go through the results and find these places
         t.results.forEach(function (place){
-          if (place_ids.includes(place.id.toString())){
-            places.push(place)
+          if (place_ids.all.includes(place.id.toString())){
+            places.all.push(place)
+          }
+          if (place_ids.map.includes(place.id.toString())){
+            places.map.push(place)
           }
         })
       }
@@ -562,18 +585,21 @@
 
       $result_container.addClass('loader')
 
-      var bounds = mp.getBounds()
-      var tmp = [bounds._northEast.lat, bounds._northEast.lng, bounds._southWest.lat, bounds._southWest.lng]
-      t.map = tmp
-      var url = window.location.pathname + '?' + (jQuery.param(t.data) + (tmp.length ? '&' + jQuery.param({map: tmp}) : ''))
-      // console.log(url)
-      window.history.pushState({ }, null, url)
+      // var bounds = mp.getBounds()
+      // var tmp = [bounds._northEast.lat, bounds._northEast.lng, bounds._southWest.lat, bounds._southWest.lng]
+      // t.map = tmp
+      // var url = window.location.pathname + '?' + (jQuery.param(t.data) + (tmp.length ? '&' + jQuery.param({map: tmp}) : ''))
+      // // console.log(url)
+      // window.history.pushState({ }, null, url)
 
-      pollution.elements['places_map_marker_group'].eachLayer(function (layer) {
-        t.els['results'].find('.place-card[data-place-id="' + layer.options._place_id + '"]').toggleClass('hidden', !bounds.contains(layer.getLatLng()))
-      });
+      // pollution.elements['places_map_marker_group'].eachLayer(function (layer) {
+      //   t.els['results'].find('.place-card[data-place-id="' + layer.options.place_id + '"]').toggleClass('hidden', !bounds.contains(layer.getLatLng()))
+      // });
+
+      t.render_results();
+
       // t.render_count(t.els['results'].find('.place-card:not(.hidden)').length)
-      setTimeout(function() { $result_container.removeClass('loader') }, 200)
+      // setTimeout(function() { $result_container.removeClass('loader') }, 200)
     },
     map_switch: function (value) {
       var t = filter
@@ -583,16 +609,16 @@
 
         $result_container.addClass('loader')
         t.els['results'].addClass('plain')
-        t.els['results'].find('.region').addClass('collapsed')
+        // t.els['results'].find('.region').addClass('collapsed')
 
-        t.map_move_end()
-        $result_container.removeClass('loader')
+        t.render_results()
+        // $result_container.removeClass('loader')
       }
       else {
         t.dynamic_map = false
         t.map = []
         t.els['results'].removeClass('plain')
-        t.els['results'].find('.place-card').addClass('hidden')
+        // t.els['results'].find('.place-card').addClass('hidden')
         // t.render_count(t.els['results'].find('.place-card').length)
       }
     },

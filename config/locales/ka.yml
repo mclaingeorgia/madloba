@@ -372,7 +372,7 @@ ka:
         show_all: ყველას ნახვა
         show_favorite: ფავორიტი ადგილმდებარეობის ნახვა
       filter:
-        by_map: ძიების გაგრძელება რუკის მანიპულაციის პარალელურად
+        by_map: Filter as I move the map
       placeholder:
         what: Place or Service Provider
         where: Regions

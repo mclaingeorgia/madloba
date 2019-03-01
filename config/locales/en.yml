@@ -372,7 +372,7 @@ en:
         show_all: Show all
         show_favorite: Show favorite places
       filter:
-        by_map: Search as I move the map
+        by_map: Filter as I move the map
       placeholder:
         what: Place or Service Provider
         where: Regions
