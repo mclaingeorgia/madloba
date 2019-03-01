@@ -305,8 +305,9 @@ namespace :uploader_v2 do
     Provider.destroy_all
     Place.destroy_all
 
-    services = Service.with_translations(:ka)
-    other_service = services.find_by(name: 'სხვა სერვისები')
+    child_services = Service.with_translations(:ka).where.not(ancestry: nil)
+    # include services that do not have child services
+    child_services += Service.with_translations(:ka).where.not(id: Service.where.not(ancestry:nil).pluck(:ancestry).uniq).where(ancestry: nil)
 
     CSV.open(missing_dataset_path, 'w') do |csv|
       csv << ['id', 'city', 'address']
@@ -358,12 +359,11 @@ namespace :uploader_v2 do
 
         # puts "#{row_index} - #{region}" if region_id.nil?
 
-        place_services = row[4].split(';').map{|m| m.strip}.select{|f|
+        place_ages = row[4].split(';').map{|m| m.strip}.select{|f|
           f.index(/[a-z]/i).nil?
         }
-        place_services = place_services.map {|service|
-          services.find_by(name: service)
-        }.reject { |c| c.nil? }
+        place_children = place_ages.include?('სერვისები ბავშვებისათვის')
+        place_adults = place_ages.include?('ზრდასრულთა მომსახურება')
 
         city = row[13].squeeze(' ').strip
         c = cities.select{|s| s[:ka] == city }
@@ -406,7 +406,9 @@ namespace :uploader_v2 do
           name: place_name_ka,
           address: row[17],
           city: city,
-          services: place_services.present? ? place_services : [other_service],
+          for_children: place_children,
+          for_adults: place_adults,
+          services: child_services.sample(Random.new.rand(5)+1),
           published: true
         }
 
