@@ -18,7 +18,7 @@ If you want run Madloba on your local machine, follow these steps:
 
 1. Make sure you have these prerequisites installed:
   - [Git](https://github.com/etiennebaque/madloba/wiki/Install-Git-on-your-local-machine)
-  - [Ruby 2.3.3](https://github.com/etiennebaque/madloba/wiki/Install-Ruby-on-your-local-machine)
+  - [Ruby 2.3.5](https://github.com/etiennebaque/madloba/wiki/Install-Ruby-on-your-local-machine)
   - [Bundler](http://bundler.io/)
   - [Postgresql 9.6](http://www.postgresql.org/download/)
 
@@ -29,7 +29,7 @@ If you want run Madloba on your local machine, follow these steps:
     ```
 3. Database config: update the settings of your development database, by doing the following:
   - Make a copy of /config/app_environment_variables.rb.sample and name it /config/app_environment_variables.rb.
-  - In /config/app_environment_variables.rb, set your database credentials. 
+  - In /config/app_environment_variables.rb, set your database credentials.
 
 4. Once this is done, create your local database by running:
     ```
