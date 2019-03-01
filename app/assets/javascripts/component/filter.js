@@ -311,17 +311,7 @@
               is_match.push(place.favorite === favorite)
             }
             if (t.dynamic_map){
-              console.log('======')
-              console.log(place.id)
               is_map_match = marker_place_ids.includes(place.id)
-              // for (var i = 0; i < marker_place_ids.length; i++){
-              //   console.log(markers[i].place_id)
-              //   if (place.id === markers[i].place_id){
-              //     console.log('- found match!')
-              //     is_map_match = true
-              //     break
-              //   }
-              // }
             }else{
               // not dynamic map filter, so all places should be shown
               is_map_match = true

@@ -111,34 +111,35 @@
           // add place_id field so can find marker and highlight when hover over place in the sidebar
           mrk.place_id = location.id
           mrk.bindPopup(popup_template.replace(/%path/g, location.path).replace(/%name/g, location.name).replace(/%address/g, location.address).replace(/%phone/g, location.phone));
-          mrk.on('popupclose', function (event) {
-            $('.result').find('.place-card[data-place-id="' + location.id + '"]').removeClass('highlighted')
-
+          mrk.on('popupclose', function () {
             // change the icon
             this.setIcon(pollution.elements.pin)
+
+            // remove place highlight
+            $('.results-container.slide-in .place-card.highlighted').removeClass('highlighted')
           })
           if(device.desktop()) {
             mrk.on('click', function() {
               // change the icon
               this.setIcon(pollution.elements.pin_highlight)
 
-              // var $result = $('.result')
-              // var result = $result.get(0)
-              // var $place_card = $result.find('.place-card[data-place-id="' + location.id + '"]')
-              // var place_card = $place_card.get(0)
+              // if the details view is open, highlight this place
+              var $results = $('.results-container.slide-in')
+              if ($results.length > 0){
+                var results = $results.get(0)
+                var $place_card = $results.find('.place-card[data-place-id="' + location.id + '"]')
+                var place_card = $place_card.get(0)
 
-              // $result.find('.region[data-id="' + location.region_id + '"]').removeClass('collapsed')
-              // $result.find('.place-card[data-region-id="' +  location.region_id + '"]').removeClass('hidden')
-              // console.log($result.find('.region[data-id="' + location.region_id + '"]'))
-              // if(typeof place_card.scrollIntoView === 'function') {
-              //   place_card.scrollIntoView({block: "end", behavior: "smooth"});
-              // }
-              // else {
-              //   result.scrollTop = place_card.offsetTop - result.offsetTop
-              // }
-              // $place_card.addClass('highlighted')
+                if(typeof place_card.scrollIntoView === 'function') {
+                  place_card.scrollIntoView({block: "end", behavior: "smooth"});
+                }
+                else {
+                  results.scrollTop = place_card.offsetTop - results.offsetTop
+                }
+                $place_card.addClass('highlighted')
 
-              // $place_card.one(animationEvent, function(event) { console.log('transition end'); $place_card.removeClass('highlighted') })
+                $place_card.one(animationEvent, function(event) { console.log('transition end'); $place_card.removeClass('highlighted') })
+              }
             })
           }
         })
