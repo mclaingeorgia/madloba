@@ -301,6 +301,11 @@ main {
           > ul.sub-services{
             margin-left: 84px;
             padding-top: 0;
+            &.sub-service-columns{
+              columns: 2;
+              column-gap: 20px;
+              column-rule: 1px solid $border;
+            }
             > li{
               @include font(18, 'r', 55);
               cursor: pointer;
@@ -309,7 +314,7 @@ main {
                 @include font(14, 'l', 21);
                 margin-top: -15px;
                 white-space: normal;
-                max-width: 355px;
+                max-width: 300px;
               }
             }
           }

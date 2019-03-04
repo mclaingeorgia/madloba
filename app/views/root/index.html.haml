@@ -38,7 +38,7 @@
               %span.service-count
             %span.caret
           - if services.present?
-            %ul.toggleable-list-text.sub-services
+            %ul.toggleable-list-text.sub-services{class: (services.length > 7 ? 'sub-service-columns' : '') }
               - services.each do |service|
                 %li{class: 'sub-service', data: {id: service.id, children: service.for_children.to_s, adults: service.for_adults.to_s}}
                   %span.name
