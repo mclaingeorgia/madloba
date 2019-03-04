@@ -40,7 +40,7 @@ Madloba::Application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # Set to :debug to see everything in the log.
   config.log_level = :debug
@@ -68,23 +68,13 @@ Madloba::Application.configure do
 
   config.action_mailer.default_url_options = { host: "#{Rails.application.secrets.smtp_host}" }
   config.action_mailer.delivery_method = :smtp
-  # config.action_mailer.smtp_settings = {
-  #     address: "#{Rails.application.secrets.smtp_address}",
-  #     port: Rails.application.secrets.smtp_port,
-  #     user_name: "#{Rails.application.secrets.smtp_username}",
-  #     password: "#{Rails.application.secrets.smtp_password}",
-  #     authentication: "#{Rails.application.secrets.smtp_authentication}",
-  #     enable_starttls_auto: true
-  # }
-
   config.action_mailer.smtp_settings = {
-    :address              => "smtp.gmail.com",
-    :port                 => 587,
-    :domain               => 'www.jumpstart.ge',
-    :user_name            => ENV['APPLICATION_FEEDBACK_FROM_EMAIL'],
-    :password             => ENV['APPLICATION_FEEDBACK_FROM_PWD'],
-    :authentication       => 'plain',
-    :enable_starttls_auto => true
+    address: "#{Rails.application.secrets.smtp_address}",
+    port: Rails.application.secrets.smtp_port,
+    user_name: "#{Rails.application.secrets.smtp_username}",
+    password: "#{Rails.application.secrets.smtp_password}",
+    authentication: "#{Rails.application.secrets.smtp_authentication}",
+    enable_starttls_auto: true
   }
   config.active_record.raise_in_transactional_callbacks = true
 
@@ -117,6 +107,6 @@ config.middleware
            exception_recipients: [ENV['APPLICATION_FEEDBACK_TO_EMAIL']]
          }
 
-  config.asset_host = 'https://dev-sheaghe.jumpstart.ge'
+  config.asset_host = 'https://dev-sheaghe.forset.ge'
 
 end
