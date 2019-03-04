@@ -304,6 +304,13 @@ main {
             > li{
               @include font(18, 'r', 55);
               cursor: pointer;
+              span.description{
+                display:block;
+                @include font(14, 'l', 21);
+                margin-top: -15px;
+                white-space: normal;
+                max-width: 355px;
+              }
             }
           }
         }
