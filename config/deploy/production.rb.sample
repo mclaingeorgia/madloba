@@ -23,9 +23,27 @@ server 'your.server.ip.address', user: 'username', roles: %w{web app}
 # (eg: '/home/username/madloba/shared')
 set :shared_path, '/absolute/shared/folder/path'
 
+
 # --------------------------------------------------
+# nginx config
+set :nginx_server_name, 'sheaghe.ge'
+set :nginx_server_name_secondary, 'www.sheaghe.ge'
 
+set :nginx_use_ssl, true
+set :nginx_upload_local_cert, false
+set :nginx_ssl_cert_path, -> { "/etc/letsencrypt/live/#{fetch(:nginx_server_name)}/" }
+set :nginx_ssl_cert_key_path, -> { "/etc/letsencrypt/live/#{fetch(:nginx_server_name)}/" }
+set :nginx_ssl_cert, "fullchain.pem"
+set :nginx_ssl_cert_key, "privkey.pem"
 
+# --------------------------------------------------
+# unicorn config
+set :unicorn_workers, 1
+set :unicorn_use_tcp, true
+set :unicorn_tcp_listen_port, 8160
+set :unicorn_logrotate_enabled, true
+
+# --------------------------------------------------
 # you can set custom ssh options
 # it's possible to pass any option but you need to keep in mind that net/ssh understand limited list of options
 # you can see them in [net/ssh documentation](http://net-ssh.github.io/net-ssh/classes/Net/SSH.html#method-c-start)
@@ -47,3 +65,4 @@ set :shared_path, '/absolute/shared/folder/path'
 #     # password: 'please use keys'
 #   }
 # setting per server overrides global ssh_options
+

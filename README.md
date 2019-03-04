@@ -1,69 +1,75 @@
-# Madloba
+# Sheaghe
+Sheaghe is an app for MAC Georgia to show which disability services are available in the country of Georgia.
 
-[![Build Status](https://travis-ci.org/etiennebaque/madloba.svg?branch=master)](https://travis-ci.org/etiennebaque/madloba)
-[![Code Climate](https://codeclimate.com/github/etiennebaque/madloba/badges/gpa.svg)](https://codeclimate.com/github/etiennebaque/madloba)
+The app was original based off of the [Madloba app](https://github.com/etiennebaque/madloba), but has since been updated numerous times.
 
-Madloba (beta) is a free, open-source solution that connects people who have things to exchange.
+# Getting Started
 
-Each Madloba website uses a map that allows users to visualize at a glance what their neighbours have to give away or what they are looking for.
+## Prerequisites
+- Git
+- rbenv
+- Ruby 2.3.5
+- Bundler
+- Postgres 9
 
-More information on [madloba.org](http://madloba.org).
+## Installing
+- clone the repo
+- run `bundle install`
 
-### Deployment
+## Set Environment Variables
+Environment variables are used to set the database credentials, secret key, etc. A template can be found at `/config/app_environment_variables.rb.sample`. Create a copy and populate it as nedded at `/config/app_environment_variables.rb`.
 
-To deploy your Madloba instance, follow the steps in [the installation guide](https://github.com/etiennebaque/madloba/wiki/Madloba-installation-guide).
+NOTE - most keys that start with `MADLOBA` are no longer being used.
 
-### Development
-If you want run Madloba on your local machine, follow these steps:
+## Create database
+Run the following commands to setup and populate the database
+```
+bundle exec rake db:setup
+bundle exec rake uploader_v2:import_data
+```
 
-1. Make sure you have these prerequisites installed:
-  - [Git](https://github.com/etiennebaque/madloba/wiki/Install-Git-on-your-local-machine)
-  - [Ruby 2.3.5](https://github.com/etiennebaque/madloba/wiki/Install-Ruby-on-your-local-machine)
-  - [Bundler](http://bundler.io/)
-  - [Postgresql 9.6](http://www.postgresql.org/download/)
+## Run the app
 
-2. Run the following commands:
-    ```
-    $ git clone git@github.com:etiennebaque/madloba.git
-    $ cd madloba && bundle install
-    ```
-3. Database config: update the settings of your development database, by doing the following:
-  - Make a copy of /config/app_environment_variables.rb.sample and name it /config/app_environment_variables.rb.
-  - In /config/app_environment_variables.rb, set your database credentials.
+```
+rails s
+```
 
-4. Once this is done, create your local database by running:
-    ```
-    $ bundle exec rake db:setup
-    ```
-5. That's it, you’re good to go! Start your local server:
-    ```
-    $ rails s
-    ```
+# Deploying
+The application uses capistrano for deployment so the process of deployment is pretty painless. However, there are some important steps to know about.
 
-### Used gems
+## Setup server
+Before deploying, the server must be setup properly.
+- Git
+- rbenv
+- Ruby 2.3.5
+- [rbenv-vars](https://github.com/rbenv/rbenv-vars) - this is enter enviornment variable values into the app
+- Bundler
+- Postgres 9
+    - You will need to create a postgres user that will have access to the app database
+- Nginx
 
-This project uses the following main gems:
-- Devise (authentication)
-- Pundit (authorization)
-- Capistrano (deployment)
-- Delayed job (queue)
-- Carrierwave (file upload) and Carrierwave-backgrounder (file processing)
-- Fog (cloud storage on Amazon S3)
-- Dalli (cache)
-- RSpec and Factory girl (testing)
+## Setup deploy files
 
-### Demo
+There is a sample deploy file at `/config/deploy.rb.sample` - copy and populate it as necessary at `/config/deploy.rb`
 
-Feel free to give Madloba a try at [demo.madloba.org](http://demo.madloba.org). Instructions about this demo can be found [here](https://github.com/etiennebaque/madloba/wiki/Madloba-demo-instructions).
+In the `config/deploy` folder there is a sample environment deploy config file for production and staging. Copy the appropriate sample file and populate as needed at `/config/deploy/production.rb` or `/config/deploy/staging.rb`
 
-### Contribution
+## Initial setup
+Unfortunatley, since the app was copied from the Madloba app, there are some items that have to be done by hand. The following commands assume you are deploying to production. If you are not, simply replace 'production' with 'staging'.
+- `cap production setup` - this will do the following:
+    - create app directory
+    - create shared and shared/config directory
+    - install nginx config
+    - install unicorn config
+    - make unicorn start on server start
+    - setup logrotate
+- Manually create a few files on the server
+    - `shared/config/database.yml` - copy the content from the local repo at `/config/database.yml' for the appropiate environment
+    - `shared/config/secrets.yml` - copy the content from the local repo at `/config/secrets.yml' for the appropiate environment
+    - `shared/.rbenv-vars` - copy the content from the local repo at `/config/app_environment_variables.rb'; remove the ENV[] and just keep the variables names; database credentials are not need since they are in the database.yml file
+- `cap production unicorn:setup_app_config` - this will automatically copy the unicorn.rb file from `/config/deploy/templates/unicorn.rb.erb` to the server
 
-1. Fork the Madloba project.
-2. Create your feature branch: `git checkout -b my-new-feature`
-3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin my-new-feature`
-5. Submit a pull request.
-
-### License
-
-Madloba is an Open Source Software released under the [GNU Geneal Public License - V2](http://www.gnu.org/licenses/gpl-2.0.html).
+## Deploy
+```
+cap production deploy
+```
