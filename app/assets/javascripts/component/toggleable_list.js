@@ -24,6 +24,10 @@
         var tt = $(this)
         var name = tt.attr("name")
         var li = $(this).parent()
+        var lis = $(this).closest('ul').find('li')
+
+        // close all lis first
+        lis.removeClass('toggled')
 
         if(forceOpen) {
           li.addClass('toggled')
