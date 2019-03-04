@@ -613,13 +613,39 @@ main {
   }
 }
 
-
+// region drop down styling
 .select2-container--default.select2-container--open {
   .select2-dropdown{
     background-color: $filter-bg;
+    .select2-results__option{
+      @include font(22, 'r', 33);
+      &::before{
+        display: inline-block;
+        content: "";
+        width: 19px;
+        height: 19px;
+        min-width: 19px;
+        background: url(svg('checkbox')) no-repeat 0 top;
+        background-size: cover;
+        cursor: pointer;
+        margin-right: 7px;
+      }
+      &[aria-selected="true"]{
+        &::before{
+          background:url(svg('checkbox')) no-repeat -18px top;
+          background-size: cover;
+        }
+      }
+      &.select2-results__option--highlighted[aria-selected]{
+        background-color: $link;
+        color: white;
+        &::before{
+          background:url(svg('checkbox')) no-repeat -18px top;
+          background-size: cover;
+        }
+      }
+    }
   }
-  .select2-results__option--highlighted[aria-selected]{
-    background-color: $link;
-    color: white;
-  }
+
+
 }
