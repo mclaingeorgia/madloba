@@ -628,6 +628,17 @@ main {
           }
         }
       }
+
+      .extra{
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        margin: 0 30px;
+        footer{
+          display: inherit;
+          padding: 20px 0 0;
+        }
+      }
     }
     section.mapper {
       width: 100%;
@@ -693,17 +704,6 @@ main {
           padding: 16px 0 14px;
         }
       }
-    }
-  }
-
-  .extra{
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    margin: 0 30px;
-    footer{
-      display: inherit;
-      padding-top: 20px;
     }
   }
 }
