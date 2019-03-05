@@ -56,12 +56,12 @@
 
   .extra
     .info
-      %a.list-view.mobile-hidden{href: 'javascript:void(0);', 'toggle-view': :list}
-        = t('.list_view')
+      %a.hide-map.mobile-hidden{href: 'javascript:void(0);', 'toggle-view': :hide}
         %i
+        = t('.hide_map')
       %a.map-view{href: 'javascript:void(0);', 'toggle-view': :map}
-        = t('.map_view')
         %i
+        = t('.show_map')
       / .count
       /   = 0
       /   %span= t('.result', count: 1)

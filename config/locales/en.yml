@@ -380,7 +380,8 @@ en:
         keyboard: Select keyboard to use
       not_found: There is no data found with provided filters
       list_view: List View
-      map_view: Map View
+      show_map: View Map
+      hide_map: Hide Map
     place:
       contact_place: Contact %{provider}
       your_name: Your Name

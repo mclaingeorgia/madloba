@@ -380,7 +380,8 @@ ka:
         keyboard: აირჩიეთ ენა
       not_found: აღნიშნული გაფილტვრის შედეგად ინფორმაცია ვერ იქნა მოძიებული
       list_view: ჩამონათვალის ნახვა
-      map_view: რუკის ნახვა
+      map_view: View Map
+      hide_map: Hide Map
     place:
       contact_place: დაუკავშირდი %{provider}
       your_name: თქვენი სახელი
