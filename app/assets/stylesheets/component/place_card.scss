@@ -43,15 +43,17 @@
   //   }
   // }
   .card {
-    padding: 9px;
+    padding: 16px 13px;
     // min-width: 294px;
     // max-width: 294px;
 
     display: inline-block;
     position: relative;
     height: 100%;
+    width: 100%;
     .front, .back {
       height: 100%;
+      width: 100%;
     }
     .front {
       // display: flex;
@@ -81,14 +83,13 @@
       position: relative;
       display: inline-block;
       vertical-align: top;
-      width: 242px;
+      width: 33%;
       .image {
         width: 100%;
       }
       .rating5-container {
-        position: absolute;
-        bottom: 11px;
-        left: 8px;
+        position: relative;
+        margin-top: 14px;
       }
       .favoritor-container {
         position: absolute;
@@ -110,7 +111,7 @@
       // flex-direction: column;
       // flex: 2;
       display: inline-block;
-      width: 418px;
+      width: 66%;
       padding: 7px 25px;
       .name {
         @include font(18, 'sb');
@@ -216,6 +217,49 @@
   }
   .rator-container {
     margin-top: 12px;
+  }
+}
+
+@media (min-width: 701px) {
+  .place-card {
+    .card {
+      .poster {
+        .rating5-container {
+          position: absolute;
+          bottom: 11px;
+          left: 8px;
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}
+@media (min-width: 992px) {
+  .place-card {
+    .card {
+      .poster {
+        .rating5-container {
+          position: relative;
+          bottom: inherit;
+          left: inherit;
+          margin-top: 14px;
+        }
+      }
+    }
+  }
+}
+@media (min-width: 1150px) {
+  .place-card {
+    .card {
+      .poster {
+        .rating5-container {
+          position: absolute;
+          bottom: 11px;
+          left: 8px;
+          margin-top: 0;
+        }
+      }
+    }
   }
 }
 
