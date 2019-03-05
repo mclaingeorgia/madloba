@@ -94,15 +94,14 @@ main {
             @include font;
             color: $bg2;
             padding: 15px 30px;
-            background-color: $link;
             border-top-right-radius: 3px;
             border-bottom-right-radius: 3px;
             border: 0;
             height: 46px;
             cursor: pointer;
-            &:lang(en) {
-              height: 50px;
-            }
+            background: #fff url(svg('search')) no-repeat right;
+            background-position: right 15px center;
+            width: 51px;
             // margin-bottom: -1px;
             // width: 20%;
           }
@@ -536,6 +535,17 @@ main {
 @media (min-width: 450px) {
   main {
     section.content {
+      .search {
+        .search-input {
+          &:nth-child(1)  {
+            input[type='submit'] {
+              background: inherit;
+              background-color: $link;
+              width: inherit;
+            }
+          }
+        }
+      }
       .filter-row1 {
         .search-input {
           &:nth-child(1)  {
