@@ -301,11 +301,6 @@ main {
           > ul.sub-services{
             margin-left: 84px;
             padding-top: 0;
-            &.sub-service-columns{
-              columns: 2;
-              column-gap: 20px;
-              column-rule: 1px solid $border;
-            }
             > li{
               @include font(18, 'r', 55);
               cursor: pointer;
@@ -522,6 +517,13 @@ main {
       // .results-container {
       //   overflow-y: initial;
       // }
+      .services{
+        ul.sub-services.sub-service-columns{
+          columns: 2;
+          column-gap: 20px;
+          column-rule: 1px solid $border;
+        }
+      }
       .info{
         footer {
           display: inherit;
