@@ -736,8 +736,8 @@ main {
       .services{
         ul.sub-services.sub-service-columns{
           columns: 2;
-          column-gap: 20px;
-          column-rule: 1px solid $border;
+          // column-gap: 20px;
+          // column-rule: 1px solid $border;
         }
       }
     }
