@@ -57,8 +57,8 @@
                   '<a class="name" href="%path"  title="%title">%name</a>' +
                   // '%provider_template' +
                   '<div class="services">' +
-                    '%services' +
-                    '%ellipsis' +
+                    '%age' +
+                    // '%ellipsis' +
                   '</div>' +
                   '<ul class="contact">' +
                     '%address_template' +
@@ -66,7 +66,7 @@
                   '</ul>' +
                 '</div>' +
               '</div>' +
-              '%back' +
+              // '%back' +
             '</div>' +
           '</div>' +
         '</div>'
@@ -118,24 +118,35 @@
       //     .replace(/%provider/g, place.provider.name)
       // }
 
-      var services_list = gon.labels.service_ids
-        .filter(function(id) {
-          return place.service_ids.indexOf(id) !== -1
-        })
-      // console.log(services_list)
-      var front_template = services_list.slice(0,6).map(function(m) { return '<div class="service"><a href="?services[]=' + m[0] + '" title="' + m[1] + ' - ' + gon.labels.view_all_service_places + '"><i class="' + m[2] + '"></i></a></div>' }).join("")
-      // console.log(front_template)
-      var back_template = ''
-      var back_ellipsis_template = ''
-      if(services_list.length > 6) {
-        back_template = '<div class="back hidden"><div class="close"></div><ul class="services">' +
-          services_list.map(function(m) {
-            return '<li class="service"><a href="?services[]=' + m[0] + '" title="' + m[1] + ' - ' + gon.labels.view_all_service_places + '"><i class="' + m[2] + '"></i><span>' + m[1] + '</span></a></li>'
-          }).join("") +
-          '</ul></div>'
-        back_ellipsis_template = '<div class="ellipsis" title="' + gon.labels.view_all_services + '"></div>'
-      }
+      // var services_list = gon.labels.services
+      //   .filter(function(service) {
+      //     return place.service_ids.indexOf(service[0]) !== -1
+      //   })
+      // // console.log(services_list)
+      // var front_template = services_list.slice(0,6).map(function(m) { return '<div class="service"><a href="?services[]=' + m[0] + '" title="' + m[1] + ' - ' + gon.labels.view_all_service_places + '"><i class="' + m[2] + '"></i></a></div>' }).join("")
+      // // console.log(front_template)
+      // var back_template = ''
+      // var back_ellipsis_template = ''
+      // if(services_list.length > 6) {
+      //   back_template = '<div class="back hidden"><div class="close"></div><ul class="services">' +
+      //     services_list.map(function(m) {
+      //       return '<li class="service"><a href="?services[]=' + m[0] + '" title="' + m[1] + ' - ' + gon.labels.view_all_service_places + '"><i class="' + m[2] + '"></i><span>' + m[1] + '</span></a></li>'
+      //     }).join("") +
+      //     '</ul></div>'
+      //   back_ellipsis_template = '<div class="ellipsis" title="' + gon.labels.view_all_services + '"></div>'
+      // }
 
+      var age_template = ''
+      console.log(place)
+      if (place.for_children){
+        console.log(' adding childern')
+        age_template += '<div class="service"><i class="children" title="' + gon.labels.children + '"></i></div>'
+      }
+      if (place.for_adults){
+        console.log(' adding adults')
+        age_template += '<div class="service"><i class="adults" title="' + gon.labels.adults + '"></i></div>'
+      }
+      console.log(age_template)
 
       var address_template = ''
       if(place.address !== '') {
@@ -168,9 +179,10 @@
         .replace(/%service_id/g, service_id)
         .replace(/%overall_rating/g, gon.labels.overall_rating)
         .replace(/%favorite/g , favorite_template)
-        .replace(/%services/g, front_template)
-        .replace(/%back/g, back_template)
-        .replace(/%ellipsis/g, back_ellipsis_template)
+        // .replace(/%services/g, front_template)
+        // .replace(/%back/g, back_template)
+        // .replace(/%ellipsis/g, back_ellipsis_template)
+        .replace(/%age/g, age_template)
 
       return html
     }

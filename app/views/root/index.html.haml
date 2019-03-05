@@ -19,7 +19,7 @@
         = t('shared.filters.children')
       %input{id: "age-adult", name: "age", type: "radio", value: "adults", checked: filter[:age] == 'adults', 'data-filter': 'age'}
       %label.adult{for: "age-adult"}
-        %i{class: 'adult'}
+        %i{class: 'adults'}
         = t('shared.filters.adults')
     .search-input
       = collection_select :filter, :region, Region.all.with_translations(I18n.locale), :id, :name, { selected: filter[:where].present? ? filter[:where] : nil}, { id: 'region_filter', 'data-filter': 'where', 'data-placeholder': t('.placeholder.where'), 'title': t('.placeholder.where'), multiple: true, style: 'display: none;' }

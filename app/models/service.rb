@@ -26,4 +26,22 @@ class Service < ActiveRecord::Base
       validates :"name_#{locale}", presence: true
       # validates :"description_#{locale}", presence: true
     end
+
+
+  # methods
+
+    # if record has icon return it
+    # else if record is child, get parents icon
+    def parent_icon
+      i = nil
+
+      if self.ancestry.nil?
+        i = self.icon
+      elsif self.ancestry.present?
+        i = self.parent.icon
+      end
+
+      return i
+    end
+
 end

@@ -142,6 +142,25 @@
         margin: 0;
         .service {
           padding: 0;
+          display: inline-block;
+          i{
+            // display: inline-block;
+            margin: 0 8px 0 0;
+            &.adults {
+              width: 17px;
+              height: 20px;
+              min-width: 17px;
+              background: url(svg('adults')) no-repeat 0 top;
+              background-size: cover;
+            }
+            &.children {
+              width: 22px;
+              height: 20px;
+              min-width: 22px;
+              background: url(svg('children')) no-repeat 0 top;
+              background-size: cover;
+            }
+          }
         }
         // span {
         //   flex: 1;
@@ -165,6 +184,33 @@
       }
       .contact {
         justify-content: flex-end;
+        li a, li span{
+          @include font(15, 'r', 22);
+          color: #919191;
+        }
+        li i {
+          display: inline-block;
+          width: 12px;
+          height: 12px;
+          vertical-align: middle;
+          margin: 0;
+          &.address {
+            width: 17px;
+            height: 22px;
+            min-width: 17px;
+            background: url(svg('address')) no-repeat 0 top;
+            background-size: cover;
+            margin-right: 8px;
+          }
+          &.phone {
+            width: 13px;
+            height: 22px;
+            min-width: 13px;
+            background: url(svg('phone')) no-repeat 0 top;
+            background-size: cover;
+            margin-right: 12px;
+          }
+        }
       }
     }
   }
