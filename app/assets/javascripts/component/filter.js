@@ -220,6 +220,12 @@
         .on('change', function (evt) {
           t.process('region')
           t.map_highlight_region()
+          // use placeholder to show how many are selected
+          var placeholder = $(this).data('placeholder')
+          if ($(this).val() && $(this).val().length > 0){
+            placeholder += ' (' + $(this).val().length + ')'
+          }
+          $('.select2-search__field').attr('placeholder', placeholder)
         })
 
       t.els['search'].click(function () {
