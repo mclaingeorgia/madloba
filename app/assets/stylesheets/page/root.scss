@@ -36,7 +36,7 @@ main {
     // padding: 0 0 0 16px;
     .search {
       padding: 15px 14px 36px 14px;
-      max-width: 784px;
+      // max-width: 784px;
       // padding: 30px 30px 20px;
       // display: flex;
       // flex-direction: row;
@@ -111,13 +111,13 @@ main {
     }
     .filter-row1 {
       margin: 0 14px;
-      max-width: 784px;
+      // max-width: 784px;
       background-color: $filter-bg;
       .search-input {
         display: block;
         width: 100%;
         &:nth-child(1)  {
-          flex-grow: 2;
+          flex-grow: 1.5;
           margin-right: 3px;
           input[type="radio"]{
             display: none;
@@ -171,6 +171,7 @@ main {
         }
         &:nth-child(2) {
           flex-grow: 1;
+          border-left: 1px solid #d8d8d8;
           .select2-container--default {
             font-size: 0;
           }
@@ -197,8 +198,22 @@ main {
             }
 
           }
-          .select2-container .select2-search--inline .select2-search__field {
-            margin-top: 0;
+          .select2-container .select2-search--inline {
+            &:after{
+              display: inline-block;
+              content: "";
+              width: 24px;
+              height: 7px;
+              min-width: 24px;
+              background: url(svg('updownarrows')) no-repeat -19px top;
+              background-size: cover;
+              cursor: pointer;
+              margin-right: 14px;
+            }
+            .select2-search__field {
+              margin-top: 0;
+              width: calc(100% - 40px) !important; // account for the arrow
+            }
           }
           .select2-container--default .select2-selection--multiple {
             .select2-selection__choice__remove {
@@ -236,19 +251,16 @@ main {
             .select2-selection__rendered {
               white-space: normal;
               padding: 0;
-              border: 1px solid #e2e2e2;
+              // border: 1px solid #e2e2e2;
             }
 
-          }
-          .select2-container .select2-search--inline .select2-search__field {
-            width: 100% !important;
           }
         }
       }
     }
     .filter-row2 {
       margin: 20px 14px 3px;
-      max-width: 784px;
+      // max-width: 784px;
       @include font(18, 'sb', 33);
       .search-input {
         display: block;
@@ -270,7 +282,7 @@ main {
     }
     .services {
       margin: 0 14px;
-      max-width: 784px;
+      // max-width: 784px;
       position: relative;
       overflow-y: auto;
       overflow-x: hidden;
@@ -394,7 +406,7 @@ main {
           // display: flex;
           // flex-direction: row;
           // flex-wrap: wrap;
-          max-width: 784px;
+          // max-width: 784px;
           margin: 0 auto;
           width: 100%;
           .not-found {
@@ -515,6 +527,7 @@ main {
     flex-direction: row;
     section.content {
       display: flex;
+      flex: 1;
       flex-direction: column;
       border-right: 1px solid $border;
       // overflow-y: auto;
@@ -536,6 +549,8 @@ main {
     }
     section.mapper {
       width: 100%;
+      max-width: 915px;
+      flex: 1;
     }
     > footer {
       display: none;
@@ -616,6 +631,10 @@ main {
     display: flex;
     flex: 1;
     flex-direction: column;
+    margin: 0 30px;
+    footer{
+      padding-top: 20px;
+    }
   }
 }
 
