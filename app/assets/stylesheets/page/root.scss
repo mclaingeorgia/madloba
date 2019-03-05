@@ -185,7 +185,7 @@ main {
             }
             // padding: 11px 15px;
             input {
-              @include font(22);
+              @include font(20, 'sb');
               color: #6b6b6b;
               border-radius: 0;
               border-top-right-radius: 3px;
@@ -290,7 +290,7 @@ main {
           padding: 0;
           border-bottom: 1px solid #f38d68;
           > a{
-            @include font(22, 'sb', 55);
+            @include font(20, 'sb', 55);
             > i{
               margin: 17px 13px 0;
             }

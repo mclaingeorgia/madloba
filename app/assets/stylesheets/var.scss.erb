@@ -61,6 +61,9 @@
   }
   // $ka_size: $size - 2;
   // $ka_line_height: $line_height - 2;
+  @if ($line_height < $size){
+    $line_height: $size
+  }
   font: $size + px + '/' + $line_height + px $font_name;
   // &:lang(ka) {
   //   font: $ka_size + px + '/' + $ka_line_height + px $font_name;
