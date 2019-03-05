@@ -10,8 +10,9 @@
 @import 'select2';
 
 
-$child: #ffca74;
-$adult: #d8d8d8;
+// $child: #ffca74;
+// $adult: #d8d8d8;
+$age: #d8d8d8;
 $filter-bg: #eeeeee;
 /****************************** main ******************************/
 
@@ -131,10 +132,10 @@ main {
             margin-top: -6px;
             border-top: 6px solid $bg;
             &.child{
-              background-color: $child;
+              background-color: $age;
             }
             &.adult{
-              background-color: $adult;
+              background-color: $age;
               margin-left: -3px;
             }
             i {
@@ -150,13 +151,13 @@ main {
               &.children { background-image: url(svg('children')); }
             }
           }
-          input[type="radio"]:checked + label{
+          input[type="radio"] + label:hover, input[type="radio"]:checked + label{
             opacity: 1;
             &.child{
-              border-top-color: $child;
+              border-top-color: $age;
             }
             &.adult{
-              border-top-color: $adult;
+              border-top-color: $age;
             }
           }
           // turn off styling of general radion buttons from app.css file
