@@ -289,6 +289,9 @@ main {
         > li {
           padding: 0;
           border-bottom: 1px solid #f38d68;
+          &.toggled{
+            padding-bottom: 55px;
+          }
           > a{
             @include font(20, 'sb', 55);
             > i{
