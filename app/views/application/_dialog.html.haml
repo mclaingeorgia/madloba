@@ -17,17 +17,17 @@
       .boxes
         .box.info
           .name= t('.org')
-          .info-item
+          .info-item.address
             %p
               = image_tag(asset_path("svg/address.svg"), alt: t('.alt.address'), title: t('.alt.address'))
               %span= t('.address')
               = t('.address_content')
-          .info-item
+          .info-item.phone
             %p
               = image_tag(asset_path("svg/phone.svg"), alt: t('.alt.phone'), title: t('.alt.phone'))
               %span= t('.phone')
               = t('.phone_content')
-          .info-item
+          .info-item.email
             %p
               = image_tag(asset_path("svg/email.svg"), alt: t('.alt.email'), title: t('.alt.email'))
               %span= t('.email')

@@ -148,9 +148,9 @@
             // display: inline-block;
             margin: 0 8px 0 0;
             &.adults {
-              width: 17px;
+              width: 19px;
               height: 20px;
-              min-width: 17px;
+              min-width: 19px;
               background: url(svg('adults')) no-repeat 0 top;
               background-size: cover;
             }
@@ -209,7 +209,8 @@
             min-width: 13px;
             background: url(svg('phone')) no-repeat 0 top;
             background-size: cover;
-            margin-right: 12px;
+            margin-right: 10px;
+            margin-left: 2px;
           }
         }
       }
