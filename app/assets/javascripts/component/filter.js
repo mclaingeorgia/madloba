@@ -386,10 +386,7 @@
       // so update the service details
       /// - this will also update the map markers
       if ($('.services li.service.toggled').length > 0){
-        // if details is being show, reload it
-        if ($('.results-service-name').attr('service-id') !== undefined && $(t.els['results']).html().length > 0){
-          t.show_details($('.services li[data-id="' + $('.results-service-name').attr('service-id') + '"]'))
-        }
+        t.show_details($('.services li.service.toggled'))
       }else{
         // show the map markers
         t.show_map_markers(filtered_results.map)
@@ -449,7 +446,7 @@
       pollution.components.map.render_markers('places_map', places)
       if(t.first) {
         t.first = false
-        t.map_switch(true)
+        // t.map_switch(true)
       } else if (t.dynamic_map) {
         // t.map_move_end()
       }
