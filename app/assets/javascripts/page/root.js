@@ -35,15 +35,16 @@ $(document).on('click', '[toggle-place-map]', function() {
   var is_map_view = view === 'show'
   var $map_view = t.closest('.front').find('.map-view')
 
-  // if showing map and map does not exist,
-  // create it
-  if (is_map_view && $map_view.is(':empty')){
-    pollution.components.map.init($map_view.attr('id'), { zoom: 7, type: 'data' })
-  }
-
   t.siblings().removeClass('mobile-hidden')
   t.addClass('mobile-hidden')
   $map_view.toggleClass('mobile-hidden', !is_map_view)
+
+  // if showing map and map does not exist,
+  // create it
+  if (is_map_view && $map_view.is(':empty')){
+    pollution.components.map.init($map_view.attr('id'), { zoom: 16, type: 'data' })
+  }
+
 })
 
 
