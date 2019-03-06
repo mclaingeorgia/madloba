@@ -9,6 +9,7 @@
     },
     maps: {},
     init: function(id, options) { // id without #
+
       var t = map
       var $mp = $('#' + id)
       var lat
@@ -17,8 +18,8 @@
       options = $.extend({}, t.default_options, options)
       var type = options.type
       var coordinates = options.coordinates
-      if($mp.length) {
 
+      if($mp.length) {
         if(type === 'locator') {
           lat = +$("input[name$='[latitude]'").val()
           lon = +$("input[name$='[longitude]'").val()

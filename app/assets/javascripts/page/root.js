@@ -16,16 +16,34 @@ $(document).on('click', '.result .region-name', function() {
   $('.result').find('.place-card[data-region-id="' + p.attr('data-id') + '"]').toggleClass('hidden', p.hasClass('collapsed'))
 })
 
+// show/hide map on mobile under list of services
 $(document).on('click', '[toggle-view]', function() {
   var t = $(this)
   var view = t.attr('toggle-view')
-  var is_map_view = view === 'map'
+  var is_map_view = view === 'show'
 
   $('[toggle-view]').removeClass('mobile-hidden')
   t.addClass('mobile-hidden')
-  $('.result-container').toggleClass('mobile-hidden', is_map_view)
   $('.mapper').toggleClass('mobile-hidden', !is_map_view)
    pollution.elements.places_map.invalidateSize()
+})
+
+// show/hide map on mobile for a particular place
+$(document).on('click', '[toggle-place-map]', function() {
+  var t = $(this)
+  var view = t.attr('toggle-place-map')
+  var is_map_view = view === 'show'
+  var $map_view = t.closest('.front').find('.map-view')
+
+  // if showing map and map does not exist,
+  // create it
+  if (is_map_view && $map_view.is(':empty')){
+    pollution.components.map.init($map_view.attr('id'), { zoom: 7, type: 'data' })
+  }
+
+  t.siblings().removeClass('mobile-hidden')
+  t.addClass('mobile-hidden')
+  $map_view.toggleClass('mobile-hidden', !is_map_view)
 })
 
 

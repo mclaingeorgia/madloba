@@ -61,9 +61,21 @@
                     // '%ellipsis' +
                   '</div>' +
                   '<ul class="contact">' +
-                    '%address_template' +
                     '%phone_template' +
+                    '%address_template' +
+                    '<li class="map-toggle">' +
+                      '<a class="hide-map mobile-hidden" href="javascript:void(0);" toggle-place-map="hide">' +
+                        '<i></i>' +
+                        gon.labels.hide_map +
+                      '</a>' +
+                      '<a class="show-map" href="javascript:void(0);" toggle-place-map="show">' +
+                        '<i></i>' +
+                        gon.labels.show_map +
+                      '</a>' +
+                    '</li>' +
                   '</ul>' +
+                '</div>' +
+                '<div class="map-view mobile-hidden" %map_coordinates>' +
                 '</div>' +
               '</div>' +
               // '%back' +
@@ -137,16 +149,12 @@
       // }
 
       var age_template = ''
-      console.log(place)
       if (place.for_children){
-        console.log(' adding childern')
         age_template += '<div class="service"><i class="children" title="' + gon.labels.children + '"></i></div>'
       }
       if (place.for_adults){
-        console.log(' adding adults')
         age_template += '<div class="service"><i class="adults" title="' + gon.labels.adults + '"></i></div>'
       }
-      console.log(age_template)
 
       var address_template = ''
       if(place.address !== '') {
@@ -162,6 +170,16 @@
                             '<i class="phone"></i>' +
                             '<span>%phone</span>' +
                           '</li>').replace(/%phone/g, place.phone)
+      }
+
+      var map_coordinates_tempalte = ''
+      if (place.coordinates && place.coordinates.length === 2){
+        map_coordinates_tempalte = ('id="place_map_' +
+                                  place.id +
+                                  '" data-latitude="' +
+                                  place.coordinates[0] +
+                                  '" data-longitude="' +
+                                  place.coordinates[1] + '"')
       }
 
 
@@ -183,6 +201,7 @@
         // .replace(/%back/g, back_template)
         // .replace(/%ellipsis/g, back_ellipsis_template)
         .replace(/%age/g, age_template)
+        .replace(/%map_coordinates/g, map_coordinates_tempalte)
 
       return html
     }

@@ -258,7 +258,9 @@ class RootController < ApplicationController
         view_all_provider_places: t('shared.view_all_provider_places'),
         view_place_details: t('shared.view_place_details'),
         view_all_services: t('shared.view_all_services'),
-        view_all_service_places: t('shared.view_all_service_places')
+        view_all_service_places: t('shared.view_all_service_places'),
+        hide_map: t('root.index.hide_map'),
+        show_map: t('root.index.show_map')
 
       })
       gon.regions = Region.sorted.pluck(:id, :name, :latitude, :longitude)

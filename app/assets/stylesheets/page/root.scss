@@ -475,7 +475,7 @@ main {
       display: flex;
       flex-direction: row;
       flex: 1;
-      .map-view {
+      .show-map {
         white-space: nowrap;
         @include font(16, 'r', 19);
         color: $link;
@@ -653,7 +653,7 @@ main {
     }
 
     .info {
-      .list-view, .map-view {
+      .hide-map, .show-map {
         display: none !important;
       }
     }
