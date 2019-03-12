@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: place_rates
+#
+#  id         :integer          not null, primary key
+#  user_id    :integer          not null
+#  place_id   :integer          not null
+#  created_at :datetime
+#  updated_at :datetime
+#  value      :integer
+#
+
 class PlaceRate < ActiveRecord::Base
   belongs_to :user
   belongs_to :place

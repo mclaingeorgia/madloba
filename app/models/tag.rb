@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: tags
+#
+#  id           :integer          not null, primary key
+#  created_at   :datetime
+#  updated_at   :datetime
+#  processed    :integer          default(0)
+#  processed_by :integer
+#  user_id      :integer
+#  place_id     :integer
+#  name         :string
+#
+
 class Tag < ActiveRecord::Base
   # belongs_to :places
   belongs_to :place

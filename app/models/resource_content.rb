@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: resource_contents
+#
+#  id               :integer          not null, primary key
+#  resource_item_id :integer
+#  order            :integer
+#  visual_en        :string
+#  visual_ka        :string
+#  created_at       :datetime
+#  updated_at       :datetime
+#
+
 # resource item children
 class ResourceContent < ActiveRecord::Base
   include Nameable

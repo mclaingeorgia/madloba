@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: resources
+#
+#  id         :integer          not null, primary key
+#  cover      :string
+#  order      :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class Resource < ActiveRecord::Base
   include Nameable
 

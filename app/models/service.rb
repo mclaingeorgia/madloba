@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: services
+#
+#  id           :integer          not null, primary key
+#  icon         :string
+#  created_at   :datetime
+#  updated_at   :datetime
+#  ancestry     :string
+#  for_children :boolean          default(TRUE)
+#  for_adults   :boolean          default(TRUE)
+#  sort         :integer          default(1)
+#
+
 class Service < ActiveRecord::Base
   include Nameable
 

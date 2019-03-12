@@ -40,6 +40,9 @@ GEM
       public_suffix (~> 2.0, >= 2.0.2)
     ancestry (3.0.5)
       activerecord (>= 3.2.0)
+    annotate (2.7.4)
+      activerecord (>= 3.2, < 6.0)
+      rake (>= 10.4, < 13.0)
     arel (6.0.3)
     autoprefixer-rails (6.5.4)
       execjs
@@ -396,10 +399,11 @@ PLATFORMS
 
 DEPENDENCIES
   ancestry (~> 3.0, >= 3.0.5)
+  annotate (~> 2.7, >= 2.7.4)
   awesome_print
   bootstrap-growl-rails
   bootstrap-sass (~> 3.3.6)
-  bundler
+  bundler (~> 1.17, >= 1.17.3)
   capistrano (~> 3.4.0)
   capistrano-bundler (~> 1.1.2)
   capistrano-rails (~> 1.1.1)
@@ -460,4 +464,4 @@ DEPENDENCIES
   will_paginate (~> 3.1.0)
 
 BUNDLED WITH
-   1.17.1
+   1.17.3

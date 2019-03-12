@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: place_ownerships
+#
+#  id           :integer          not null, primary key
+#  place_id     :integer          not null
+#  user_id      :integer          not null
+#  processed    :integer          default(0)
+#  processed_by :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#  provider_id  :integer
+#
+
 class PlaceOwnership < ActiveRecord::Base
 
   belongs_to :user
@@ -49,11 +63,11 @@ class PlaceOwnership < ActiveRecord::Base
     #     response = {type: :success, text: :succeed_to_process, action: class_name, forward: { refresh: { type: 'ownership' } }}
     #     NotificationTrigger.add_admin_moderation(:admin_moderate_ownership, po.id)
     #   end
+    # end
 
-      po = PlaceOwnership.create!(user_id: user_id, place_id: place_id)
-      response = {type: :success, text: :succeed_to_process, action: class_name, forward: { refresh: { type: 'ownership' } }}
-      NotificationTrigger.add_admin_moderation(:admin_moderate_ownership, po.id)
-    end
+    po = PlaceOwnership.create!(user_id: user_id, place_id: place_id)
+    response = {type: :success, text: :succeed_to_process, action: class_name, forward: { refresh: { type: 'ownership' } }}
+    NotificationTrigger.add_admin_moderation(:admin_moderate_ownership, po.id)
 
   rescue Exception => e
      Rails.logger.debug("-------------------------------------------#{class_name}-#{e.inspect}") # only dev

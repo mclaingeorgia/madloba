@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: place_tags
+#
+#  place_id   :integer          not null
+#  tag_id     :integer          not null
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class PlaceTag < ActiveRecord::Base
   belongs_to :place
   belongs_to :tag

@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: place_reports
+#
+#  id           :integer          not null, primary key
+#  place_id     :integer          not null
+#  user_id      :integer          not null
+#  reason       :text
+#  processed    :integer          default(0)
+#  processed_by :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+
 class PlaceReport < ActiveRecord::Base
 
   # processed

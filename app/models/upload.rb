@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: uploads
+#
+#  id           :integer          not null, primary key
+#  user_id      :integer          not null
+#  place_id     :integer          not null
+#  asset_id     :integer          not null
+#  processed    :integer          default(0)
+#  processed_by :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#
+
 class Upload < ActiveRecord::Base
   belongs_to :place
   belongs_to :user

@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'bundler'
+gem 'bundler', '~> 1.17', '>= 1.17.3'
 gem 'rails', '4.2.7.1'
 gem 'rake', '< 11.0'
 
@@ -126,6 +126,11 @@ group :development, :test do
   gem 'haml-rails'
   gem 'pry-byebug'
   gem 'locales_export_import'
+end
+
+group :development do
+  # add comments at top of model files of which fields are in the model
+  gem 'annotate', '~> 2.7', '>= 2.7.4'
 end
 
 group :test do

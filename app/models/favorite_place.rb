@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: favorite_places
+#
+#  user_id    :integer          not null
+#  place_id   :integer          not null
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class FavoritePlace < ActiveRecord::Base
   belongs_to :user
   belongs_to :place

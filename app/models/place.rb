@@ -1,3 +1,25 @@
+# == Schema Information
+#
+# Table name: places
+#
+#  id           :integer          not null, primary key
+#  postal_code  :string
+#  latitude     :decimal(8, 5)
+#  longitude    :decimal(8, 5)
+#  rating       :decimal(, )      default(0.0)
+#  region_id    :integer
+#  created_at   :datetime
+#  updated_at   :datetime
+#  emails       :string           default([]), not null, is an Array
+#  phones       :string           default([]), not null, is an Array
+#  poster_id    :integer
+#  published    :boolean          default(FALSE)
+#  deleted      :integer          default(0)
+#  websites     :string           default([]), not null, is an Array
+#  for_children :boolean          default(TRUE)
+#  for_adults   :boolean          default(TRUE)
+#
+
 class Place < ActiveRecord::Base
   include ActiveModel::Validations
   include Nameable

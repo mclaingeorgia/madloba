@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: page_contents
+#
+#  id         :integer          not null, primary key
+#  name       :string
+#  created_at :datetime
+#  updated_at :datetime
+#
+
 class PageContent < ActiveRecord::Base
   include Nameable
 

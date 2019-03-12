@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: assets
+#
+#  id         :integer          not null, primary key
+#  created_at :datetime
+#  updated_at :datetime
+#  owner_id   :integer
+#  owner_type :integer
+#  image      :string
+#
+
 class Asset < ActiveRecord::Base
   belongs_to :place
 

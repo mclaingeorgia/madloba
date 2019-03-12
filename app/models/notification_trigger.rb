@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: notification_triggers
+#
+#  id                :integer          not null, primary key
+#  notification_type :integer
+#  related_id        :integer
+#  processed         :boolean          default(FALSE)
+#  created_at        :datetime
+#  updated_at        :datetime
+#
+
 class NotificationTrigger < ActiveRecord::Base
   # attr_accessible :notification_type, :identifier, :processed
   scope :pending, -> { where(processed: false) }

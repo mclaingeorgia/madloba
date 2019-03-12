@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: providers
+#
+#  id           :integer          not null, primary key
+#  created_at   :datetime
+#  updated_at   :datetime
+#  deleted      :boolean          default(FALSE)
+#  processed    :integer
+#  processed_by :integer
+#  created_by   :integer
+#
+
 class Provider < ActiveRecord::Base
   include Nameable
   include HumanTranslatable

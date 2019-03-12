@@ -1,3 +1,14 @@
+# == Schema Information
+#
+# Table name: resource_items
+#
+#  id          :integer          not null, primary key
+#  resource_id :integer
+#  order       :integer
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
 class ResourceItem < ActiveRecord::Base
   include Nameable
 
