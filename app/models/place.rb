@@ -10,15 +10,17 @@
 #  region_id       :integer
 #  created_at      :datetime
 #  updated_at      :datetime
-#  emails          :string           default([]), not null, is an Array
-#  phones          :string           default([]), not null, is an Array
 #  poster_id       :integer
 #  published       :boolean          default(FALSE)
 #  deleted         :integer          default(0)
-#  websites        :string           default([]), not null, is an Array
 #  for_children    :boolean          default(TRUE)
 #  for_adults      :boolean          default(TRUE)
 #  municipality_id :integer
+#  email           :string
+#  website         :string
+#  facebook        :string
+#  phone           :string
+#  phone2          :string
 #
 
 class Place < ActiveRecord::Base
@@ -28,8 +30,8 @@ class Place < ActiveRecord::Base
 
   # globalize
 
-    translates :name, :description, :city, :address
-    globalize_accessors :locales => [:en, :ka], :attributes => [ :name, :description, :city, :address]
+    translates :name, :director, :description, :city, :address
+    globalize_accessors :locales => [:en, :ka], :attributes => [ :name, :director, :description, :city, :address]
     globalize_validations([:name, :description])
   # associations
 
@@ -70,7 +72,7 @@ class Place < ActiveRecord::Base
   # callbacks
 
     after_commit :set_poster
-    before_validation :remove_blanks
+    # before_validation :remove_blanks
 
     def set_poster
       if self.poster_id.nil? && self.assets.count > 0
@@ -81,11 +83,11 @@ class Place < ActiveRecord::Base
       end
     end
 
-    def remove_blanks
-      emails.reject!(&:blank?)
-      phones.reject!(&:blank?)
-      websites.reject!(&:blank?)
-    end
+    # def remove_blanks
+    #   emails.reject!(&:blank?)
+    #   phones.reject!(&:blank?)
+    #   websites.reject!(&:blank?)
+    # end
 
   # scopes
     scope :only_deleted, -> { where.not(deleted: 0) }
@@ -112,17 +114,23 @@ class Place < ActiveRecord::Base
     # validates :provider_id, presence: true
     validates :services, :length => { :minimum => 1 }
 
-    validates :emails, array: { email: true }
-    validates :emails, :length => { :maximum => 3 }
-    validates :websites, :length => { :maximum => 3 }
-    validates :websites, array: { format: { with: URI::regexp } }
-    validates :phones, array: { numericality: { only_integer: true }, length: {is: 9} }
+    # validates :emails, array: { email: true }
+    # validates :emails, :length => { :maximum => 3 }
+    # validates :websites, :length => { :maximum => 3 }
+    # validates :websites, array: { format: { with: URI::regexp } }
+    # validates :phones, array: { numericality: { only_integer: true }, length: {is: 9} }
     validates :latitude, :longitude, numericality: true, presence: true
+    validates :email, email: true
+    validates :website, format: { with: URI::regexp }
+    validates :facebook, format: { with: URI::regexp }
+    validates :phone, numericality: { only_integer: true }, length: {is: 9}
+    validates :phone2, numericality: { only_integer: true }, length: {is: 9}
 
 
   # helpers
     def self.validation_order_list
-      [Place.globalize_attribute_names, :services, :emails, :phones, :websites, :tags, :published, :postal_code, :region, :municiaplity].flatten
+      # [Place.globalize_attribute_names, :services, :emails, :phones, :websites, :tags, :published, :postal_code, :region, :municiaplity].flatten
+      [Place.globalize_attribute_names, :services, :email, :phone, :website, :facebook, :tags, :published, :postal_code, :region, :municiaplity].flatten
     end
 
     def destroy_asset(id)
@@ -150,16 +158,16 @@ class Place < ActiveRecord::Base
     end
   # getters
     def phone
-      phones.join(", ")
+      self[:phone2].present? ? self[:phone] + ', ' + self[:phone2] : self[:phone]
     end
 
-    def email
-      emails.join(", ")
-    end
+    # def email
+    #   emails.join(", ")
+    # end
 
-    def website
-      websites.join(", ")
-    end
+    # def website
+    #   websites.join(", ")
+    # end
 
     def address_full
       f = [self.address, self.city]

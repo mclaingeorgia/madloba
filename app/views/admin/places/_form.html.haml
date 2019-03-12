@@ -4,7 +4,7 @@
     = f.input :redirect_default, as: :hidden, input_html: { value: redirect_default }
     .column-view
       .column
-        = render partial: 'shared/fields_localization', locals: { fields: { name: nil, description: { as: :text, input_html: { rows: 10, style: 'width: 100%' } }} , form: f }
+        = render partial: 'shared/fields_localization', locals: { fields: { name: nil, director: nil, description: { as: :text, input_html: { rows: 10, style: 'width: 100%' } }} , form: f }
         .indent
           .fields-collection
             %label.fields-collection-label= Place.human_attribute(:services, false)
@@ -15,9 +15,11 @@
                   = b.label class: 'field-label service' do
                     %i{ class: "#{b.object.icon}" }
                     %span= b.text
-          = f.input :emails, as: :array, input_html: { 'data-max': 3 }
-          = f.input :phones, as: :array, input_html: { 'data-max': 3 }
-          = f.input :websites, as: :array, input_html: { 'data-max': 3, placeholder: t('shared.url_placeholder') }
+          = f.input :phone, as: :string
+          = f.input :phone2, as: :string
+          = f.input :email, as: :string
+          = f.input :website, as: :string, input_html: { placeholder: t('shared.url_placeholder') }
+          = f.input :facebook, as: :string, input_html: { placeholder: t('shared.url_placeholder') }
           .field-wrapper.field-tag
             %label.field-label= Place.human_attribute(:tags)
             %select.field-input{placeholder: t('simple_form.placeholders.place.tags'), multiple: 'multiple', name: 'place[tags][]'}

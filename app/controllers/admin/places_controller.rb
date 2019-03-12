@@ -192,7 +192,7 @@ class Admin::PlacesController < AdminController
 
     def strong_params
       # permitted = @model.globalize_attribute_names + [:postal_code, :region_id, :latitude, :longitude, :poster_id, :published, :redirect_default, :provider_id, emails: [], websites: [], phones: [], service_ids: [],
-      permitted = @model.globalize_attribute_names + [:postal_code, :region_id, :municipality_id, :latitude, :longitude, :poster_id, :published, :redirect_default, emails: [], websites: [], phones: [], service_ids: [],
+      permitted = @model.globalize_attribute_names + [:postal_code, :region_id, :municipality_id, :latitude, :longitude, :poster_id, :published, :redirect_default, :email, :website, :facebook, :phone, :phone2, service_ids: [],
         assets_attributes: ["@original_filename", "@content_type", "@headers", "_destroy", "id", "image"], tags: [] ]
       params.require(:place).permit(*permitted)
     end

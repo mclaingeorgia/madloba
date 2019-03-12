@@ -66,11 +66,14 @@ en:
           <<: *provider_model
       place:
         name: Name
+        director: Director
         description: Description
         services: Which Rehabilitative services do you provide?
-        emails: Emails
-        phones: Phones
+        email: Email
+        phone: Phone
+        phone2: Phone 2
         website: Website
+        facebook: Facebook
         address: Address
         city: City
         postal_code: Postal Code

@@ -66,11 +66,14 @@ ka:
           <<: *provider_model
       place:
         name: სახელი
+        director: Director
         description: აღწერა
         services: რა ტიპის სარეაბილიტაციო მომსახურეობას ახორციელებთ?
-        emails: ელ.ფოსტა
-        phones: 'ტელეფონი:'
-        website: 'ვებ-გვერდი:'
+        email: Email
+        phone: Phone
+        phone2: Phone 2
+        website: Website
+        facebook: Facebook
         address: მისამართი
         city: ქალაქი
         postal_code: საფოსტო ინდექსი
