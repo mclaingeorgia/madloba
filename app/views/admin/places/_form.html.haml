@@ -29,15 +29,15 @@
                 %ul
                   = declined.map{|m| "<li>#{m.name}</li>" }.join("").html_safe
           = f.input :published
-          - possible_providers = Provider.only_active.for_user(current_user, @is_admin_profile_page)
+          -# possible_providers = Provider.only_active.for_user(current_user, @is_admin_profile_page)
           -# possible_providers = possible_providers.excluding(f.object.provider.id) if f.object.provider.present?
-          .field-wrapper
-            - if possible_providers.present?
-              %label.field-label= custom_label(t('admin.places.update_provider'), true)
-              = collection_select :place, :provider_id, possible_providers, :id, :name, { selected: f.object.provider.present? ? f.object.provider.id : @provider_id}, { class: 'field-input'}
-            -# else
-              %label.field-label= custom_label(t('admin.places.current_provider'))
-              %span.field-input= f.object.provider.name
+          / .field-wrapper
+          /   - if possible_providers.present?
+          /     %label.field-label= custom_label(t('admin.places.update_provider'), true)
+          /     = collection_select :place, :provider_id, possible_providers, :id, :name, { selected: f.object.provider.present? ? f.object.provider.id : @provider_id}, { class: 'field-input'}
+          /   -# else
+          /     %label.field-label= custom_label(t('admin.places.current_provider'))
+          /     %span.field-input= f.object.provider.name
       .column
         = render partial: 'shared/fields_localization', locals: { fields: { address: nil, city: nil} , form: f }
         .indent

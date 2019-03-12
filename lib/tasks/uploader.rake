@@ -302,7 +302,7 @@ namespace :uploader_v2 do
 
   desc 'Imports data from the cleaned CSV file'
   task import_data: :environment do
-    Provider.destroy_all
+    # Provider.destroy_all
     Place.destroy_all
 
     child_services = Service.with_translations(:ka).where.not(ancestry: nil)
@@ -319,30 +319,30 @@ namespace :uploader_v2 do
       provider_name_ka = clean_string_from_spaces(row[2])
       provider_name_en = clean_string_from_spaces(row[1])
 
-      if provider_name_ka.empty?
-        puts "Provider name can't be blank, line #{row_i}"
-        break
-      end
+      # if provider_name_ka.empty?
+      #   puts "Provider name can't be blank, line #{row_i}"
+      #   break
+      # end
 
-      provider_name_en = latinize(provider_name_ka) if provider_name_en.empty?
+      # provider_name_en = latinize(provider_name_ka) if provider_name_en.empty?
 
-      p = nil
-      is_new = false
-      Globalize.with_locale(:ka) do
-        p = Provider.find_by({name: provider_name_ka})
-        unless p.present?
-          p = Provider.new({name: provider_name_ka})
-          p.save(:validate => false)
-          is_new = true
-        end
+      # p = nil
+      # is_new = false
+      # Globalize.with_locale(:ka) do
+      #   p = Provider.find_by({name: provider_name_ka})
+      #   unless p.present?
+      #     p = Provider.new({name: provider_name_ka})
+      #     p.save(:validate => false)
+      #     is_new = true
+      #   end
 
-      end
+      # end
 
-      if is_new
-        Globalize.with_locale(:en) do
-          p.update_attribute(:name,  provider_name_en)
-        end
-      end
+      # if is_new
+      #   Globalize.with_locale(:en) do
+      #     p.update_attribute(:name,  provider_name_en)
+      #   end
+      # end
 
       # if p.new_record?
       #   puts row_index
@@ -419,7 +419,7 @@ namespace :uploader_v2 do
           # puts other_service.inspect
           # pl.services << other_service
           # puts pl.errors.inspect
-          p.places << pl
+          # p.places << pl
         end
 
 
@@ -428,7 +428,7 @@ namespace :uploader_v2 do
             pl.name = place_name_en
             pl.address = latinize(row[17])
             pl.city = city_en
-            pl.provider_id = p.id
+            # pl.provider_id = p.id
             pl.save(:validate => false)
           end
         end

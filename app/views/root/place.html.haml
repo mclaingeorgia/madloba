@@ -23,10 +23,10 @@
     .summary
       .name
         = item.name
-      - if item.name != item.provider.name
-        .provider-name
-          %span #{"by "}
-          %a{href: root_path(what: item.provider.name)}= item.provider.name
+      / - if item.name != item.provider.name
+      /   .provider-name
+      /     %span #{"by "}
+      /     %a{href: root_path(what: item.provider.name)}= item.provider.name
       %ul.services
         - view_all_service_places = t('shared.view_all_service_places')
         = item.services.sorted.map { |s| "<li class='service'><a href='#{root_path(services:[s.id])}' title='#{s.name} - #{view_all_service_places}'><i class='#{s.icon}'></i><span>#{s.name}</span></a></li>" }.join("").html_safe
@@ -65,7 +65,8 @@
           = render partial: "shared/rating", locals: { rating: item.get_rating, with_label: true }
         %li
           = render partial: 'shared/rator', locals: {rator: {'data-href-template': place_path(id: item.id, a: 'rate', v: '_v_'), 'data-xhr-redirected': 'rator', 'data-xhr-format': 'json', 'data-r': user_rate }}
-        - if user_guest? || user_user? || (user_provider? && !item.provider.users.include?(current_user))
+        / - if user_guest? || user_user? || (user_provider? && !item.provider.users.include?(current_user))
+        - if user_guest? || user_user?
           %li
             %a.report{'data-dialog-link': 'place_report', href:"javascript:void(0);", title: t('shared.title.report')}
               =t('.report')

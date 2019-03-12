@@ -374,7 +374,7 @@ ka:
       filter:
         by_map: Filter as I move the map
       placeholder:
-        what: Place or Service Provider
+        what: Place, address or city
         where: Regions
       title:
         keyboard: აირჩიეთ ენა

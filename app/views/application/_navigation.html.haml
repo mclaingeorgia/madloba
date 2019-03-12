@@ -44,16 +44,16 @@
                         = link_to t('admin.menu.rated_places'), manage_user_profile_path(page: 'rated-places')
                       %li
                         = link_to t('admin.menu.uploaded_photos'), manage_user_profile_path(page: 'uploaded-photos')
-                  - if current_user.at_least_provider?
-                    %li.sans
-                      %span.header= t('shared.provider_profile')
-                      %ul
-                        %li
-                          = link_to t('admin.menu.manage_providers'), manage_provider_profile_path(page: 'manage-providers')
-                        %li
-                          = link_to t('admin.menu.manage_places'), manage_provider_profile_path(page: 'manage-places')
-                        %li
-                          = link_to t('admin.menu.moderate_photos'), manage_provider_profile_path(page: 'moderate-photos')
+                  / - if current_user.at_least_provider?
+                  /   %li.sans
+                  /     %span.header= t('shared.provider_profile')
+                  /     %ul
+                  /       %li
+                  /         = link_to t('admin.menu.manage_providers'), manage_provider_profile_path(page: 'manage-providers')
+                  /       %li
+                  /         = link_to t('admin.menu.manage_places'), manage_provider_profile_path(page: 'manage-places')
+                  /       %li
+                  /         = link_to t('admin.menu.moderate_photos'), manage_provider_profile_path(page: 'moderate-photos')
                   - if current_user.admin?
                     %li.sans
                       %span.header= t('shared.admin_profile')
@@ -63,8 +63,8 @@
                           %ul
                             %li
                               = link_to t('admin.menu.users'), manage_users_path
-                            %li
-                              = link_to t('admin.menu.providers'), manage_providers_path
+                            / %li
+                            /   = link_to t('admin.menu.providers'), manage_providers_path
                             %li
                               = link_to t('admin.menu.places'), manage_places_path
                             %li
@@ -82,8 +82,8 @@
                               = link_to t('admin.menu.place_report'), manage_moderate_place_report_path
                             %li
                               = link_to t('admin.menu.place_ownership'), manage_moderate_place_ownership_path
-                            %li
-                              = link_to t('admin.menu.new_provider'), manage_moderate_new_provider_path
+                            / %li
+                            /   = link_to t('admin.menu.new_provider'), manage_moderate_new_provider_path
                             %li
                               = link_to t('admin.menu.place_tags'), manage_moderate_place_tag_path
                 %ul.last

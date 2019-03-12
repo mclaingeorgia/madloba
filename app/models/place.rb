@@ -15,8 +15,8 @@ class Place < ActiveRecord::Base
 
     # belongs_to :provider
 
-    has_one :provider_place
-    has_one :provider, through: :provider_place, source: :provider
+    # has_one :provider_place
+    # has_one :provider, through: :provider_place, source: :provider
 
 
     belongs_to :region#, required: true
@@ -40,7 +40,8 @@ class Place < ActiveRecord::Base
     has_many :uploads
 
 
-    attr_accessor :provider_id, :redirect_default
+    attr_accessor :redirect_default
+    # attr_accessor :provider_id, :redirect_default
 
   # callbacks
 
@@ -84,7 +85,7 @@ class Place < ActiveRecord::Base
   # validators
 
     validates :region_id, presence: true
-    validates :provider_id, presence: true
+    # validates :provider_id, presence: true
     validates :services, :length => { :minimum => 1 }
 
     validates :emails, array: { email: true }
@@ -178,12 +179,14 @@ class Place < ActiveRecord::Base
         sql << 'lower(place_translations.city) like :city'
         pars[:city] = "%#{filter[:what].downcase}%"
 
-        place_ids = Provider.only_active.with_translations(I18n.locale).where('lower(provider_translations.name) like ?', "%#{filter[:what].downcase}%").includes(:places).pluck('places.id')
-        place_ids += Tag.accepted.where('lower(name) like ?', "%#{filter[:what].downcase}%").includes(:places).pluck('places.id')
+        # place_ids = Provider.only_active.with_translations(I18n.locale).where('lower(provider_translations.name) like ?', "%#{filter[:what].downcase}%").includes(:places).pluck('places.id')
+        place_ids = Tag.accepted.where('lower(name) like ?', "%#{filter[:what].downcase}%").includes(:places).pluck('places.id')
 
-        sql << 'places.id in (:place_ids)'
+        if place_ids.present?
+          sql << 'places.id in (:place_ids)'
+          pars[:place_ids] = place_ids.uniq
+        end
 
-        pars[:place_ids] = place_ids.uniq
       end
 
       # if filter[:where].present?
@@ -210,15 +213,15 @@ class Place < ActiveRecord::Base
       places.where(sql.join(" OR "), pars).order(name: :asc)
     end
 
-    def self.autocomplete(q, user, related_id)
-      provider = Provider.find_by(id: related_id)
-      exclude_ids = []
-      exclude_ids = provider.places.pluck(:id) if provider.present?
-      if user.admin?
-        with_translations(I18n.locale).where('lower(place_translations.name) like ?', "%#{q.downcase}%").where.not(id: exclude_ids).pluck(:id, :name).map{|m| { id: m[0], text: m[1]} }
-      else
-        user.providers.includes(:places).with_translations(I18n.locale).where('lower(place_translations.name) like ?', "%#{q.downcase}%").where.not(id: exclude_ids).pluck(:id, :name).map{|m| { id: m[0], text: m[1]} }
-      end
-    end
+    # def self.autocomplete(q, user, related_id)
+    #   provider = Provider.find_by(id: related_id)
+    #   exclude_ids = []
+    #   exclude_ids = provider.places.pluck(:id) if provider.present?
+    #   if user.admin?
+    #     with_translations(I18n.locale).where('lower(place_translations.name) like ?', "%#{q.downcase}%").where.not(id: exclude_ids).pluck(:id, :name).map{|m| { id: m[0], text: m[1]} }
+    #   else
+    #     user.providers.includes(:places).with_translations(I18n.locale).where('lower(place_translations.name) like ?', "%#{q.downcase}%").where.not(id: exclude_ids).pluck(:id, :name).map{|m| { id: m[0], text: m[1]} }
+    #   end
+    # end
 
 end

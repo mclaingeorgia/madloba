@@ -23,14 +23,15 @@ class Admin::PlacesController < AdminController
 
     tags = pars[:tags].present? ? pars.delete(:tags) : []
 
-    if pars[:provider_id].present?
-      provider = Provider.find_by(id: pars[:provider_id])
-    end
+    # if pars[:provider_id].present?
+    #   provider = Provider.find_by(id: pars[:provider_id])
+    # end
 
     redirect_default = pars.delete(:redirect_default) == 'true'
-    redirect_path = redirect_default ?
-      manage_places_path :
-      manage_provider_profile_path(page: 'manage-places')
+    # redirect_path = redirect_default ?
+    #   manage_places_path :
+    #   manage_provider_profile_path(page: 'manage-places')
+    redirect_path = manage_places_path
 
     item = @model.new(pars)
     authorize item
@@ -41,19 +42,19 @@ class Admin::PlacesController < AdminController
       tag_ids = tags.present? ? Tag.process(current_user.id, item.id, tags) : []
       item.update_attributes({ tag_ids: tag_ids })
 
-      if provider.present?
-        provider.places << item
-      end
+      # if provider.present?
+      #   provider.places << item
+      # end
 
       flash[:success] = t('app.messages.success_updated', obj: @model)
       redirect_to redirect_path
     else
       flash[:error] = format_messages(item)
-      if redirect_default
+      # if redirect_default
         render action: "new"
-      else
-        render 'admin/provider_profile', locals: prepaire_provider_profile(true, :'manage-places', nil, :new, item)
-      end
+      # else
+      #   render 'admin/provider_profile', locals: prepaire_provider_profile(true, :'manage-places', nil, :new, item)
+      # end
     end
   end
 
@@ -76,25 +77,26 @@ class Admin::PlacesController < AdminController
     pars[:tag_ids] = tag_ids
     old_tag_ids = item.tags.active.pluck(:id) - tag_ids
 
-    if pars[:provider_id].present?
-      provider = Provider.find_by(id: pars[:provider_id])
-    end
+    # if pars[:provider_id].present?
+    #   provider = Provider.find_by(id: pars[:provider_id])
+    # end
 
 
     redirect_default = pars.delete(:redirect_default) == 'true'
-    redirect_path = redirect_default ?
-      manage_places_path :
-      manage_provider_profile_path(page: 'manage-places')
+    # redirect_path = redirect_default ?
+    #   manage_places_path :
+    #   manage_provider_profile_path(page: 'manage-places')
+    redirect_path = manage_places_path
 
     @item = item if redirect_default
     respond_to do |format|
       if item.update_attributes(pars)
         Tag.remove_pended(old_tag_ids) if old_tag_ids.present?
 
-        if provider.present?
-          item.provider.places.delete(item) if item.provider.present?
-          provider.places << item
-        end
+        # if provider.present?
+        #   item.provider.places.delete(item) if item.provider.present?
+        #   provider.places << item
+        # end
 
         flash[:success] = t('app.messages.success_updated', obj: "#{@model.human} #{item.name}")
         format.html { redirect_to redirect_path }
@@ -181,7 +183,7 @@ class Admin::PlacesController < AdminController
   def ownership
     authorize Place
     pars = ownership_params
-    forward = set_flash(PlaceOwnership.request_ownership(current_user, pars[:id], params[:provider_id], params[:provider_attributes]), false)
+    forward = set_flash(PlaceOwnership.request_ownership(current_user, pars[:id]), false)
     forward = {} unless forward.present?
     redirect_to :back
   end
@@ -189,7 +191,8 @@ class Admin::PlacesController < AdminController
   private
 
     def strong_params
-      permitted = @model.globalize_attribute_names + [:postal_code, :region_id, :latitude, :longitude, :poster_id, :published, :redirect_default, :provider_id, emails: [], websites: [], phones: [], service_ids: [],
+      # permitted = @model.globalize_attribute_names + [:postal_code, :region_id, :latitude, :longitude, :poster_id, :published, :redirect_default, :provider_id, emails: [], websites: [], phones: [], service_ids: [],
+      permitted = @model.globalize_attribute_names + [:postal_code, :region_id, :latitude, :longitude, :poster_id, :published, :redirect_default, emails: [], websites: [], phones: [], service_ids: [],
         assets_attributes: ["@original_filename", "@content_type", "@headers", "_destroy", "id", "image"], tags: [] ]
       params.require(:place).permit(*permitted)
     end
@@ -203,6 +206,7 @@ class Admin::PlacesController < AdminController
       params.permit(:id, :rate, :locale)
     end
     def ownership_params
-      params.permit(:id, :locale, :authenticity_token, :provider_id, provider_attributes: [*Provider.globalize_attribute_names])
+      # params.permit(:id, :locale, :authenticity_token, :provider_id, provider_attributes: [*Provider.globalize_attribute_names])
+      params.permit(:id, :locale, :authenticity_token)
     end
 end

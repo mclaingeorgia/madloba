@@ -255,7 +255,7 @@ class RootController < ApplicationController
         overall_rating: t('shared.overall_rating_js'),
         children: t('shared.filters.children'),
         adults: t('shared.filters.adults'),
-        view_all_provider_places: t('shared.view_all_provider_places'),
+        # view_all_provider_places: t('shared.view_all_provider_places'),
         view_place_details: t('shared.view_place_details'),
         view_all_services: t('shared.view_all_services'),
         view_all_service_places: t('shared.view_all_service_places'),
