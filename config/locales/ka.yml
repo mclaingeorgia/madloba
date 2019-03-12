@@ -75,6 +75,7 @@ ka:
         city: ქალაქი
         postal_code: საფოსტო ინდექსი
         region: რეგიონი
+        municipality: Municipality
         tags: კატეგორია
         provider: პროვაიდერი
       resource:

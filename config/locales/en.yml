@@ -75,6 +75,7 @@ en:
         city: City
         postal_code: Postal Code
         region: Region
+        municipality: Municipality
         tags: Tags
         provider: Provider
       resource:

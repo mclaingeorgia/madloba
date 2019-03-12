@@ -43,8 +43,11 @@
         .indent
           = f.input :postal_code
           .field-wrapper
+            %label.field-label= Place.human_attribute(:municipality)
+            = f.collection_select :municipality_id, Municipality.sorted, :id, :name, {}, { class: 'field-input' }
+          .field-wrapper
             %label.field-label= Place.human_attribute(:region)
-            = f.collection_select :region_id, Region.all, :id, :name, {}, { class: 'field-input' }
+            = f.collection_select :region_id, Region.sorted, :id, :name, {}, { class: 'field-input' }
           %a.map-locator{'data-map': 'locator_map'}= t("shared.locate_me")
           .locator.map-container
             #locator_map.map

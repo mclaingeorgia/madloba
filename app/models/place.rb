@@ -2,22 +2,23 @@
 #
 # Table name: places
 #
-#  id           :integer          not null, primary key
-#  postal_code  :string
-#  latitude     :decimal(8, 5)
-#  longitude    :decimal(8, 5)
-#  rating       :decimal(, )      default(0.0)
-#  region_id    :integer
-#  created_at   :datetime
-#  updated_at   :datetime
-#  emails       :string           default([]), not null, is an Array
-#  phones       :string           default([]), not null, is an Array
-#  poster_id    :integer
-#  published    :boolean          default(FALSE)
-#  deleted      :integer          default(0)
-#  websites     :string           default([]), not null, is an Array
-#  for_children :boolean          default(TRUE)
-#  for_adults   :boolean          default(TRUE)
+#  id              :integer          not null, primary key
+#  postal_code     :string
+#  latitude        :decimal(8, 5)
+#  longitude       :decimal(8, 5)
+#  rating          :decimal(, )      default(0.0)
+#  region_id       :integer
+#  created_at      :datetime
+#  updated_at      :datetime
+#  emails          :string           default([]), not null, is an Array
+#  phones          :string           default([]), not null, is an Array
+#  poster_id       :integer
+#  published       :boolean          default(FALSE)
+#  deleted         :integer          default(0)
+#  websites        :string           default([]), not null, is an Array
+#  for_children    :boolean          default(TRUE)
+#  for_adults      :boolean          default(TRUE)
+#  municipality_id :integer
 #
 
 class Place < ActiveRecord::Base
@@ -42,6 +43,7 @@ class Place < ActiveRecord::Base
 
 
     belongs_to :region#, required: true
+    belongs_to :municipality#, required: true
 
     has_many :favorite_places
     has_many :favoritors, through: :favorite_places, source: :user
@@ -106,7 +108,7 @@ class Place < ActiveRecord::Base
 
   # validators
 
-    validates :region_id, presence: true
+    validates :region_id, :municipality, presence: true
     # validates :provider_id, presence: true
     validates :services, :length => { :minimum => 1 }
 
@@ -120,7 +122,7 @@ class Place < ActiveRecord::Base
 
   # helpers
     def self.validation_order_list
-      [Place.globalize_attribute_names, :services, :emails, :phones, :websites, :tags, :published, :postal_code, :region].flatten
+      [Place.globalize_attribute_names, :services, :emails, :phones, :websites, :tags, :published, :postal_code, :region, :municiaplity].flatten
     end
 
     def destroy_asset(id)
@@ -161,6 +163,7 @@ class Place < ActiveRecord::Base
 
     def address_full
       f = [self.address, self.city]
+      f << self.municipality.name if self.municipality.present?
       f << self.region.name if self.region.present?
       f.reject(&:blank?).join(', ')
     end
