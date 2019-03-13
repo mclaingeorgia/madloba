@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190312133453) do
+ActiveRecord::Schema.define(version: 20190313113242) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,9 @@ ActiveRecord::Schema.define(version: 20190312133453) do
     t.integer  "owner_type"
     t.string   "image"
   end
+
+  add_index "assets", ["owner_id"], name: "index_assets_on_owner_id", using: :btree
+  add_index "assets", ["owner_type"], name: "index_assets_on_owner_type", using: :btree
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",         limit: 255
@@ -220,6 +223,9 @@ ActiveRecord::Schema.define(version: 20190312133453) do
     t.datetime "updated_at"
   end
 
+  add_index "notification_triggers", ["notification_type"], name: "index_notification_triggers_on_notification_type", using: :btree
+  add_index "notification_triggers", ["processed"], name: "index_notification_triggers_on_processed", using: :btree
+
   create_table "page_content_item_translations", force: :cascade do |t|
     t.integer  "page_content_item_id", null: false
     t.string   "locale",               null: false
@@ -238,6 +244,8 @@ ActiveRecord::Schema.define(version: 20190312133453) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "page_content_items", ["order"], name: "index_page_content_items_on_order", using: :btree
 
   create_table "page_content_translations", force: :cascade do |t|
     t.integer  "page_content_id", null: false
@@ -270,6 +278,9 @@ ActiveRecord::Schema.define(version: 20190312133453) do
     t.integer  "provider_id"
   end
 
+  add_index "place_ownerships", ["place_id"], name: "index_place_ownerships_on_place_id", using: :btree
+  add_index "place_ownerships", ["user_id"], name: "index_place_ownerships_on_user_id", using: :btree
+
   create_table "place_rates", force: :cascade do |t|
     t.integer  "user_id",    null: false
     t.integer  "place_id",   null: false
@@ -278,7 +289,7 @@ ActiveRecord::Schema.define(version: 20190312133453) do
     t.integer  "value"
   end
 
-  add_index "place_rates", ["user_id", "place_id"], name: "place_rates_unique", unique: true, using: :btree
+  add_index "place_rates", ["place_id", "user_id"], name: "index_place_rates_on_place_id_and_user_id", using: :btree
 
   create_table "place_reports", force: :cascade do |t|
     t.integer  "place_id",                 null: false
@@ -289,6 +300,9 @@ ActiveRecord::Schema.define(version: 20190312133453) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "place_reports", ["place_id", "user_id"], name: "index_place_reports_on_place_id_and_user_id", using: :btree
+  add_index "place_reports", ["processed"], name: "index_place_reports_on_processed", using: :btree
 
   create_table "place_services", id: false, force: :cascade do |t|
     t.integer  "place_id",   null: false
@@ -321,6 +335,7 @@ ActiveRecord::Schema.define(version: 20190312133453) do
   end
 
   add_index "place_translations", ["locale"], name: "index_place_translations_on_locale", using: :btree
+  add_index "place_translations", ["name"], name: "index_place_translations_on_name", using: :btree
   add_index "place_translations", ["place_id"], name: "index_place_translations_on_place_id", using: :btree
 
   create_table "places", force: :cascade do |t|
@@ -344,7 +359,9 @@ ActiveRecord::Schema.define(version: 20190312133453) do
     t.string   "phone2"
   end
 
+  add_index "places", ["deleted"], name: "index_places_on_deleted", using: :btree
   add_index "places", ["municipality_id"], name: "index_places_on_municipality_id", using: :btree
+  add_index "places", ["published"], name: "index_places_on_published", using: :btree
   add_index "places", ["region_id"], name: "index_places_on_region_id", using: :btree
 
   create_table "post_items", force: :cascade do |t|
@@ -462,6 +479,7 @@ ActiveRecord::Schema.define(version: 20190312133453) do
   end
 
   add_index "region_translations", ["locale"], name: "index_region_translations_on_locale", using: :btree
+  add_index "region_translations", ["name"], name: "index_region_translations_on_name", using: :btree
   add_index "region_translations", ["region_id"], name: "index_region_translations_on_region_id", using: :btree
 
   create_table "regions", force: :cascade do |t|
@@ -491,6 +509,9 @@ ActiveRecord::Schema.define(version: 20190312133453) do
     t.datetime "updated_at"
   end
 
+  add_index "resource_contents", ["order"], name: "index_resource_contents_on_order", using: :btree
+  add_index "resource_contents", ["resource_item_id"], name: "index_resource_contents_on_resource_item_id", using: :btree
+
   create_table "resource_item_translations", force: :cascade do |t|
     t.integer  "resource_item_id", null: false
     t.string   "locale",           null: false
@@ -508,6 +529,8 @@ ActiveRecord::Schema.define(version: 20190312133453) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "resource_items", ["order"], name: "index_resource_items_on_order", using: :btree
 
   create_table "resource_translations", force: :cascade do |t|
     t.integer  "resource_id", null: false
@@ -528,6 +551,8 @@ ActiveRecord::Schema.define(version: 20190312133453) do
     t.datetime "updated_at"
   end
 
+  add_index "resources", ["order"], name: "index_resources_on_order", using: :btree
+
   create_table "service_translations", force: :cascade do |t|
     t.integer  "service_id",  null: false
     t.string   "locale",      null: false
@@ -538,6 +563,7 @@ ActiveRecord::Schema.define(version: 20190312133453) do
   end
 
   add_index "service_translations", ["locale"], name: "index_service_translations_on_locale", using: :btree
+  add_index "service_translations", ["name"], name: "index_service_translations_on_name", using: :btree
   add_index "service_translations", ["service_id"], name: "index_service_translations_on_service_id", using: :btree
 
   create_table "services", force: :cascade do |t|
@@ -590,6 +616,10 @@ ActiveRecord::Schema.define(version: 20190312133453) do
     t.string   "name"
   end
 
+  add_index "tags", ["place_id"], name: "index_tags_on_place_id", using: :btree
+  add_index "tags", ["processed"], name: "index_tags_on_processed", using: :btree
+  add_index "tags", ["user_id"], name: "index_tags_on_user_id", using: :btree
+
   create_table "todos", force: :cascade do |t|
     t.string   "description"
     t.string   "condition"
@@ -608,6 +638,10 @@ ActiveRecord::Schema.define(version: 20190312133453) do
     t.datetime "updated_at"
   end
 
+  add_index "uploads", ["asset_id"], name: "index_uploads_on_asset_id", using: :btree
+  add_index "uploads", ["place_id"], name: "index_uploads_on_place_id", using: :btree
+  add_index "uploads", ["user_id"], name: "index_uploads_on_user_id", using: :btree
+
   create_table "user_translations", force: :cascade do |t|
     t.integer  "user_id",    null: false
     t.string   "locale",     null: false
@@ -617,6 +651,7 @@ ActiveRecord::Schema.define(version: 20190312133453) do
     t.string   "last_name"
   end
 
+  add_index "user_translations", ["first_name", "last_name"], name: "index_user_translations_on_first_name_and_last_name", using: :btree
   add_index "user_translations", ["locale"], name: "index_user_translations_on_locale", using: :btree
   add_index "user_translations", ["user_id"], name: "index_user_translations_on_user_id", using: :btree
 
