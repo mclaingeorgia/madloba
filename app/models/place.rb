@@ -157,7 +157,7 @@ class Place < ActiveRecord::Base
       host
     end
   # getters
-    def phone
+    def all_phones
       self[:phone2].present? ? self[:phone] + ', ' + self[:phone2] : self[:phone]
     end
 

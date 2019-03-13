@@ -545,16 +545,16 @@ if !Rails.env.production?
 end
 
 
-Provider.destroy_all
-providers = [
-  { name: { en: "Unknown Provider", ka: "Unknown Provider" }, description: { en: "Unknown Provider", ka: "Unknown Provider" } }
-]
+# Provider.destroy_all
+# providers = [
+#   { name: { en: "Unknown Provider", ka: "Unknown Provider" }, description: { en: "Unknown Provider", ka: "Unknown Provider" } }
+# ]
 
-providers.each {|item|
-  d = Provider.create()
-  I18n.available_locales.each { |locale|
-    Globalize.with_locale(locale) do
-      d.update_attributes(:name => item[:name][locale], :description => item[:description][locale])
-    end
-  }
-}
+# providers.each {|item|
+#   d = Provider.create()
+#   I18n.available_locales.each { |locale|
+#     Globalize.with_locale(locale) do
+#       d.update_attributes(:name => item[:name][locale], :description => item[:description][locale])
+#     end
+#   }
+# }

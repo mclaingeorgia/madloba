@@ -295,7 +295,7 @@ class RootController < ApplicationController
           path: place_path(id: place.id),
           rating: place.get_rating,
           address: place.address_full,
-          phone: place.phone,
+          phone: place.all_phones,
           coordinates: [place.latitude, place.longitude],
           service_ids: place.place_services.pluck(:service_id),
           favorite: current_user.present? && place.favorite_places.select{|x| x.user_id == current_user.id}.length > 0,
