@@ -81,6 +81,24 @@ en:
         municipality: Municipality
         tags: Tags
         provider: Provider
+        services: Services
+      place_service:
+        place: Place
+        service: Service
+        is_restricited_geographic_area: The service is provided to any person living in any geographical area?
+        geographic_area_municipalities: Only in the following municipalities
+        service_type: Service type
+        act_regulating_service: Name of the Administrative Act, Program, or Sub-program regulating the service
+        act_link: Link to the Act
+        description: Short description of the service
+        has_age_restriction: Available to all ages?
+        age_groups: Specific age groups
+        can_be_used_by: Service can be used by
+        diagnoses: Please list the diagnoses
+        service_activities: Types of activities provided within the service
+        service_specialists: Specialists involved in the service
+        need_finance: Person needs to co/finance the service?
+        get_involved_link: Please indicate the link for people to learn how to get involved in the service
       resource:
         title: Title
         content: Content
@@ -232,6 +250,8 @@ en:
       confirm_delete_model: "%{name} will be removed."
       confirm_restore_model: "%{name} will be restored."
       search_assign_placeholder: Find object (min 3 chars)
+      add_service: Add Service
+      add_service_for_place: "Add a Service - %{place}"
     providers:
       confirm_delete: Provider will be removed with all places bind to it.
       confirm_restore: Provider will be restored with all places bind to it.
@@ -248,6 +268,11 @@ en:
       list:
         provider: 'Provider:'
         manage_with_no_owners: Manage Places With No Owner
+      select_service:
+        intro: Please select services to add to the following place.
+        root_service: Select a Service Category
+        services: Select All Services That Apply
+        no_selection: Select a Service Category to see a list of Services
     place:
       index:
         title: Manage Places

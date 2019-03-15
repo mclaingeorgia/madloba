@@ -154,6 +154,15 @@
       }
     }
   }
+
+  table.places{
+    td.services{
+      li{
+        white-space: nowrap;
+        padding: 6px 0;
+      }
+    }
+  }
 }
 
 .column-view {

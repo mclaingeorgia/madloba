@@ -1,0 +1,67 @@
+@import 'var';
+
+body.places.select_service{
+  .page-content{
+    padding: 0 33px 40px 33px;
+
+    h2{
+      @include font(20, 'b');
+      color: #009b72;
+      margin: 20px 0 10px;
+    }
+
+    .intro{
+      color: #009b72;
+      @include font(17);
+      .place-name{
+        margin-left: 20px;
+        margin-bottom: 40px;
+        color: #373f51;
+      }
+    }
+
+    .root-services{
+      columns: 4 300px;
+      column-gap: 10px;
+
+      li{
+        border-radius: 5px;
+        border: 1px solid #dedede;
+        background-color: #ffffff;
+        padding: 24px;
+        text-align: center;
+        @include font(18, 'b');
+        color: #373f51;
+        margin-bottom: 10px;
+        &.active{
+          background-color: #ffca74;
+        }
+        &:hover{
+          background-color: #ffca74;
+          cursor: pointer;
+        }
+      }
+    }
+
+    .no-selection{
+      display: none;
+      &.active{
+        display: block;
+      }
+    }
+
+    .sub-services{
+      display: none;
+    }
+    .active-sub-services{
+      columns: 2 300px;
+      column-gap: 10px;
+      li{
+        margin-bottom: 26px;
+        cursor: pointer;
+        @include font(17, 'r');
+        color: #373f51;
+      }
+    }
+  }
+}

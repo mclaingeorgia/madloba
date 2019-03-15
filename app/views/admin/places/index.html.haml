@@ -2,16 +2,17 @@
 - page_title title
 = render partial: 'shared/breadcrumbs', locals: { paths: [title], buttons: [[t('admin.shared.add_model', name: @model.human ), new_manage_place_path, 'add']] }
 .table-view
-  %table.datatable.datatable-table.table-responsive{width: '100%'}
+  %table.datatable.datatable-table.table-responsive.places{width: '100%'}
     %thead
       %tr
         %th.spacer{'data-orderable': 'false'}
         %th= @model.human_attribute_name(:name)
-        %th.fill= @model.human_attribute_name(:address)
-        %th.fill= @model.human_attribute_name(:city)
-        %th.fill= @model.human_attribute_name(:region)
-        %th.fill= @model.human_attribute_name(:emails)
-        %th.fill= @model.human_attribute_name(:websites)
+        %th= @model.human_attribute_name(:address)
+        %th= @model.human_attribute_name(:city)
+        %th= @model.human_attribute_name(:region)
+        %th= @model.human_attribute_name(:services)
+        / %th= @model.human_attribute_name(:emails)
+        / %th= @model.human_attribute_name(:websites)
         %th.actions{'data-orderable': 'false'}= t('admin.shared.actions')
     %tbody
       - @items.each do |item|
@@ -21,11 +22,17 @@
           %td= item.address
           %td= item.city
           %td= item.region.present? ? item.region.name : ''
-          %td= item.email
-          %td
-            - if item.websites.present?
-              - item.websites.each do |website|
-                %a{href: website, target: :_blank }= item.get_domain(website)
+          %td.services
+            %ul
+              %li= link_to t('admin.shared.add_service'), manage_place_select_service_path(item), class: 'add btn'
+              - if item.place_services.present?
+                - item.place_services.each do |service|
+                  %li{class: 'service'}= link_to service.service.name, manage_place_input_service_path(item.id, service.service_id), class: 'btn small delete', title: t('admin.shared.edit')
+          / %td= item.email
+          / %td
+          /   - if item.all_websites.present?
+          /     - item.all_websites.each do |website|
+          /       %a{href: website, target: :_blank }= item.get_domain(website)
           %td.actions
             = link_to t('admin.shared.view'), place_path(item.id), class: 'view'
             = link_to t('admin.shared.edit'), edit_manage_place_path(item.id), class: 'edit'

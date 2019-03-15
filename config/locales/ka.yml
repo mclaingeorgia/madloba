@@ -81,6 +81,24 @@ ka:
         municipality: Municipality
         tags: კატეგორია
         provider: პროვაიდერი
+        services: Services
+      place_service:
+        place: Place
+        service: Service
+        is_restricited_geographic_area: The service is provided to any person living in any geographical area?
+        geographic_area_municipalities: Only in the following municipalities
+        service_type: Service type
+        act_regulating_service: Name of the Administrative Act, Program, or Sub-program regulating the service
+        act_link: Link to the Act
+        description: Short description of the service
+        has_age_restriction: Available to all ages?
+        age_groups: Specific age groups
+        can_be_used_by: Service can be used by
+        diagnoses: Please list the diagnoses
+        service_activities: Types of activities provided within the service
+        service_specialists: Specialists involved in the service
+        need_finance: Person needs to co/finance the service?
+        get_involved_link: Please indicate the link for people to learn how to get involved in the service
       resource:
         title: დასახელება
         content: კონტენტი
@@ -232,6 +250,7 @@ ka:
       confirm_delete_model: "%{name} იქნება წაშლილი."
       confirm_restore_model: "%{name} იქნება აღდგენილი."
       search_assign_placeholder: ინფორმაციის მოძიება
+      add_service: Add Service
     providers:
       confirm_delete: მოხდება პროვაიდერის და მასთან დაკავშირებული ყველა ადგილის წაშლა.
       confirm_restore: მოხდება პროვაიდერის და მასთან დაკავშირებული ყველა ადგილის აღდგენა.

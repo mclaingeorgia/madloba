@@ -1,0 +1,28 @@
+- content_for :custom_stylesheet, 'page/admin_place_select_service'
+- content_for :custom_javascript, 'page/admin_place_select_service'
+
+- item = @item || item
+- title = t('admin.shared.add_service_for_place', place: item.name)
+- page_title title
+= render partial: 'shared/breadcrumbs', locals: { paths: [[t('admin.shared.manage_model', name: @model.human(2)), manage_places_path], title] }
+
+.page-content
+  .intro
+    = t('.intro')
+    .place-name
+      =item.name
+      %br
+      =item.address_full
+
+  %h2= t('.root_service')
+  - services = @services.select{|x| x.root?}
+  %ul.root-services
+    - services.each do |service|
+      %li{data: {id: service.id}}= service.name
+
+  %h2= t('.services')
+  .no-selection.active= t('.no_selection')
+  %ul.active-sub-services
+  %ul.sub-services
+    - @services.each do |service|
+      %li{data: {id: service.id, 'parent-id': service.parent_id }}= service.name

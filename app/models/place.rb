@@ -161,6 +161,19 @@ class Place < ActiveRecord::Base
       self[:phone2].present? ? self[:phone] + ', ' + self[:phone2] : self[:phone]
     end
 
+    def all_websites
+      websites = []
+
+      if self.website.present?
+        websites << self.website
+      end
+      if self.facebook.present?
+        websites << self.facebook
+      end
+
+      return websites
+    end
+
     # def email
     #   emails.join(", ")
     # end

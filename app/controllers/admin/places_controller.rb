@@ -188,6 +188,21 @@ class Admin::PlacesController < AdminController
     redirect_to :back
   end
 
+  def select_service
+    @item = @model.find(params[:id])
+    authorize @item
+
+    @services = Service.sorted.with_translations(I18n.locale)
+  end
+
+  def input_service
+    @item = @model.find(params[:place_id])
+    authorize @item
+
+    authorize @model
+  end
+
+
   private
 
     def strong_params

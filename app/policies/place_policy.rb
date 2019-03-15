@@ -51,5 +51,14 @@ class PlacePolicy < ApplicationPolicy
   def ownership?
     user.at_least_provider?
   end
+
+  def select_service?
+    permitted
+  end
+
+  def input_service?
+    permitted
+  end
+
 end
 

@@ -11,7 +11,7 @@
 //= require jquery-ui/widgets/sortable
 
 $(document).ready(function(){
-  $('datatable').each(function(i,d) {
+  $('.datatable').each(function(i,d) {
     $d = $(d)
     $d.DataTable({
       language: {
@@ -19,6 +19,8 @@ $(document).ready(function(){
           searchPlaceholder: "Search",
           lengthMenu: "_MENU_ Records Per Page"
       },
+      bPaginate: false,
+      pageLength: 25,
       autoWidth: false,
       responsive: true,
       dom: $d.hasClass('simple') ? 'rt' : '<".datatable-filters"fl>rt<"datatable-pagination"p>',
