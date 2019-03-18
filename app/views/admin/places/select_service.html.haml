@@ -26,7 +26,9 @@
           - root_services.each do |service|
             .radio
               %input.field-input.radio_buttons.optional{type: "radio", value: service.id, name: "root_service", id: "root_service_#{service.id}", data: {id: service.id}}
-              %label.collection_radio_buttons{for: "root_service_#{service.id}"}= service.name
+              %label.collection_radio_buttons{for: "root_service_#{service.id}"}
+                %i{class: service.icon, alt: service.name, title: service.name}
+                = service.name
 
     .fields-collection.columns
       .fields-collection-wrapper

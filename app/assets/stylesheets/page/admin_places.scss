@@ -1,0 +1,20 @@
+body.places{
+  i {
+    display: inline-block;
+    width: 25px;
+    height: 19px;
+    min-width: 25px;
+    margin: 0;
+    vertical-align: middle;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    &.educational { background-image: url(svg('services/educational')); }
+    &.employment { background-image: url(svg('services/employment')); }
+    &.financial { background-image: url(svg('services/financial')); }
+    &.health { background-image: url(svg('services/health')); }
+    &.legal_assistance { background-image: url(svg('services/legal_assistance')); }
+    &.other { background-image: url(svg('services/other')); }
+    &.recreation_sport { background-image: url(svg('services/recreation_sport')); }
+    &.social { background-image: url(svg('services/social')); }
+  }
+}

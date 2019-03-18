@@ -34,5 +34,13 @@ class PlaceService < ActiveRecord::Base
     array_enum age_groups: {"0-6": 1, "7-18": 2, "18-65": 3, "65+": 4}
     enum can_be_used_by: {"anyone": 1, "diagnosis-with-status": 2, "diagnosis-without-status": 3}
 
+  # methods
 
+    def service_icon
+      self.service.root? ? self.service.icon : self.service.parent.icon
+    end
+
+    def root_service_name
+      self.service.root? ? self.service.name : self.service.parent.name
+    end
 end
