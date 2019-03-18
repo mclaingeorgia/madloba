@@ -53,11 +53,15 @@ class PlacePolicy < ApplicationPolicy
   end
 
   def select_service?
-    permitted
+    user.at_least_provider?
   end
 
   def input_service?
-    permitted
+    user.at_least_provider?
+  end
+
+  def destroy_service?
+    user.at_least_provider?
   end
 
 end

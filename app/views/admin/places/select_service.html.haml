@@ -4,7 +4,6 @@
 - item = @item || item
 - title = t('admin.shared.add_service_for_place', place: item.name)
 - page_title title
-- services = @services.select{|x| x.root?}
 
 = render partial: 'shared/breadcrumbs', locals: { paths: [[t('admin.shared.manage_model', name: @model.human(2)), manage_places_path], title] }
 
@@ -23,7 +22,8 @@
       .field-wrapper.radios.radio_buttons.optional
         %label.field-label.radio_buttons.optional= t('.root_service')
         .root-services
-          - services.each do |service|
+          - root_services = @services.select{|x| x.root?}
+          - root_services.each do |service|
             .radio
               %input.field-input.radio_buttons.optional{type: "radio", value: service.id, name: "root_service", id: "root_service_#{service.id}", data: {id: service.id}}
               %label.collection_radio_buttons{for: "root_service_#{service.id}"}= service.name

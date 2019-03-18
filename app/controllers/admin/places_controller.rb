@@ -201,12 +201,9 @@ class Admin::PlacesController < AdminController
         # save the selected services
         params[:services].each do |service_id|
           service = @services.select{|x| x.id.to_s == service_id}.first
-          logger.debug "======================"
           if service.present?
-          logger.debug "- service present"
             # if already exists, do nothing
             if @item.place_services.select{|x| x.service_id == service.id}.empty?
-              logger.debug "- place service does not exist, adding"
               @item.place_services.create(service_id: service.id)
             end
           else
@@ -215,8 +212,8 @@ class Admin::PlacesController < AdminController
         end
 
         # go to the input form
+        flash[:success] =  t('app.messages.success_created', obj: PlaceService.model_name.human)
         redirect_to manage_place_input_service_path(@item, params[:services].first)
-        flash[:error] =  t('app.messages.success_created', obj: PlaceService.model_name.human)
       else
         flash[:error] =  t('app.messages.missing_services')
       end
@@ -224,10 +221,31 @@ class Admin::PlacesController < AdminController
   end
 
   def input_service
+    @place = @model.find(params[:place_id])
+    authorize @place
+
+    @item = @place.place_services.where(service_id: params[:id]).first
+
+    @services = Service.sorted.with_translations(I18n.locale)
+
+
+    if request.patch?
+
+
+    end
+  end
+
+  def destroy_service
     @item = @model.find(params[:place_id])
     authorize @item
 
-    authorize @model
+    if @item.place_services.where(service_id: params[:id]).destroy_all
+      flash[:success] =  t("app.messages.success_destroyed", obj: "#{PlaceService.model_name.human} #{@item.name}")
+    else
+      flash[:error] =  t('app.messages.fail_destroyed', obj: "#{PlaceService.model_name.human} #{@item.name}")
+      flash[:error] = format_messages(item)
+    end
+    redirect_to manage_places_path
   end
 
 

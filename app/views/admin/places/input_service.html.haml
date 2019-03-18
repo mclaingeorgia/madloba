@@ -1,0 +1,23 @@
+- content_for :custom_stylesheet, 'page/admin_place_input_service'
+- content_for :custom_javascript, 'page/admin_place_input_service'
+
+- item = @item || item
+- place = @place || place
+- title = t('admin.shared.input_service_for_place', place: place.name)
+- page_title title
+
+= render partial: 'shared/breadcrumbs', locals: { paths: [[t('admin.shared.manage_model', name: @model.human(2)), manage_places_path], title] }
+
+.form-container{class: @form_container_class}
+  = simple_form_for [:manage, place, item], url: manage_place_input_service_path(place, item), html: { class: @form_class } do |f|
+    = devise_error_messages!
+
+    .intro
+      = t('.intro')
+      .place-name
+        =place.name
+        %br
+        =place.address_full
+      .service-name
+        =item.service.root? ? item.service.name : "#{item.service.parent.name} - #{item.service.name}"
+

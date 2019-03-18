@@ -249,8 +249,14 @@ a.btn {
   &.edit {
     background-color: $highlighted_bg;
   }
+  &.edit2 {
+    background-color: $control;
+  }
   &.delete {
     background-color: $control;
+  }
+  &.delete2 {
+    background-color: $text_gray;
   }
   &.publish {
     background-color: #3c81ca;

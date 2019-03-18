@@ -257,6 +257,7 @@ en:
       search_assign_placeholder: Find object (min 3 chars)
       add_service: Add Service
       add_service_for_place: "Add a Service - %{place}"
+      input_service_for_place: "Input Service Details - %{place}"
       next: Next
     providers:
       confirm_delete: Provider will be removed with all places bind to it.
