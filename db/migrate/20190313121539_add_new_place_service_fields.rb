@@ -1,5 +1,6 @@
 class AddNewPlaceServiceFields < ActiveRecord::Migration
   def change
+    add_column :place_services, :id, :primary_key
     add_column :place_services, :is_restricited_geographic_area, :boolean
     add_column :place_services, :geographic_area_municipalities, :integer, array: true, default: [], null: false
     add_column :place_services, :service_type, :integer, array: true, default: [], null: false

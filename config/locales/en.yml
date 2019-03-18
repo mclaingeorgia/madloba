@@ -18,6 +18,9 @@ en:
         other: Page Contents
       place_rates:
         one: rate class
+      place_service:
+        one: Service
+        other: Services
       page_content_item:
         one: List Item
         other: List Items
@@ -151,6 +154,7 @@ en:
       by: by
       save: Save
     messages:
+      success_created: "%{obj} was successfully created."
       success_updated: "%{obj} was successfully updated."
       fail_updated: "%{obj} failed to update."
       success_destroyed: "%{obj} was successfully deleted."
@@ -164,6 +168,7 @@ en:
       contact_send_success: Message successfully sent.
       contact_send_fail: Failed to send message.
       service_parent_missing: The parent service record could not be found.
+      missing_services: Services must be selected.
   shared:
     toggle_navigation: Show navigation
     user_profile: User Profile
@@ -252,6 +257,7 @@ en:
       search_assign_placeholder: Find object (min 3 chars)
       add_service: Add Service
       add_service_for_place: "Add a Service - %{place}"
+      next: Next
     providers:
       confirm_delete: Provider will be removed with all places bind to it.
       confirm_restore: Provider will be restored with all places bind to it.

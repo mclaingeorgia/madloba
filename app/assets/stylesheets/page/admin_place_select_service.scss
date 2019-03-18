@@ -1,13 +1,13 @@
 @import 'var';
 
 body.places.select_service{
-  .page-content{
-    padding: 0 33px 40px 33px;
+  form{
 
-    h2{
-      @include font(20, 'b');
-      color: #009b72;
-      margin: 20px 0 10px;
+    input[type="submit"]{
+      display: none;
+      &.active{
+        display: inline-block;
+      }
     }
 
     .intro{
@@ -20,47 +20,85 @@ body.places.select_service{
       }
     }
 
-    .root-services{
-      columns: 4 300px;
-      column-gap: 10px;
+    .fields-group.columns{
+      padding-left: 0;
+      padding-right: 0;
 
-      li{
-        border-radius: 5px;
-        border: 1px solid #dedede;
-        background-color: #ffffff;
-        padding: 24px;
-        text-align: center;
-        @include font(18, 'b');
-        color: #373f51;
-        margin-bottom: 10px;
-        &.active{
-          background-color: #ffca74;
-        }
-        &:hover{
-          background-color: #ffca74;
-          cursor: pointer;
-        }
-      }
-    }
-
-    .no-selection{
-      display: none;
-      &.active{
+      .field-wrapper{
         display: block;
+        max-width: inherit;
+        label.field-label{
+          @include font(20, 'b');
+          color: #009b72;
+          margin: 20px 0 10px;
+        }
+        .root-services{
+          columns: 4 300px;
+          column-gap: 10px;
+          .radio{
+            margin-bottom: 10px;
+            padding: 0;
+
+            input[type="radio"] + label{
+              display: block !important;
+              border-radius: 5px;
+              border: 1px solid #dedede;
+              background-color: #ffffff;
+              padding: 24px;
+              text-align: center;
+              @include font(18, 'b');
+              color: #373f51;
+              &:before{
+                all: unset;
+              }
+            }
+            input[type="radio"] + label:hover, input[type="radio"]:checked + label{
+              background-color: #ffca74;
+              &:before{
+                all: unset;
+              }
+            }
+          }
+        }
       }
     }
 
-    .sub-services{
-      display: none;
-    }
-    .active-sub-services{
-      columns: 2 300px;
-      column-gap: 10px;
-      li{
-        margin-bottom: 26px;
-        cursor: pointer;
-        @include font(17, 'r');
-        color: #373f51;
+    .fields-collection.columns{
+      padding: 20px 0;
+      display: block;
+
+      .fields-collection-wrapper{
+        display: block;
+        max-width: inherit !important;
+        width: inherit !important;
+        > label.field-label{
+          display: block;
+          @include font(20, 'b');
+          color: #009b72;
+          margin: 20px 0 20px;
+        }
+        .no-selection{
+          display: none;
+          &.active{
+            display: block;
+          }
+        }
+
+        .active-sub-services{
+          columns: 2 300px;
+          column-gap: 10px;
+          .field-wrapper{
+            margin-bottom: 26px;
+            @include font(17, 'r');
+            color: #373f51;
+            max-width: inherit;
+            padding-bottom: 0;
+          }
+        }
+
+        .sub-services{
+          display: none;
+        }
       }
     }
   }

@@ -304,7 +304,7 @@ ActiveRecord::Schema.define(version: 20190313121539) do
   add_index "place_reports", ["place_id", "user_id"], name: "index_place_reports_on_place_id_and_user_id", using: :btree
   add_index "place_reports", ["processed"], name: "index_place_reports_on_processed", using: :btree
 
-  create_table "place_services", id: false, force: :cascade do |t|
+  create_table "place_services", force: :cascade do |t|
     t.integer  "place_id",                                    null: false
     t.integer  "service_id",                                  null: false
     t.datetime "created_at"

@@ -64,6 +64,7 @@ Madloba::Application.routes.draw do
       put 'place/:id/rate/:rate', to: '/admin/places#rate', :as => :place_rate, :constraints => { rate: /(0|1|2|3|4|5)/ }
       post 'place/:id/ownership', to: '/admin/places#ownership', :as => :place_ownership
       get 'place/:id/select_service', to: '/admin/places#select_service', :as => :place_select_service
+      patch 'place/:id/select_service', to: '/admin/places#select_service'
       get 'place/:place_id/input_service/:id', to: '/admin/places#input_service', :as => :place_input_service
 
 
