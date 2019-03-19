@@ -1,3 +1,5 @@
+//= require select2
+
 (function() {
   var input_service = {
     els: {},
@@ -23,6 +25,16 @@
       t.toggle_acts()
       t.toggle_age_groups()
       t.toggle_diagnoses()
+
+      // make the geographic_area_municipalities a select2 list
+      $(document).ready(function() {
+        $('.select2').select2({
+          placeholder: gon.municipality_placeholder,
+          width: '100%',
+          multiple: true,
+          allowClear: true
+        });
+      });
 
       return t
     },
@@ -56,12 +68,10 @@
       })
     },
     toggle_municipalities: function(){
-      console.log('-----')
       var t = input_service
 
       // if value is no, than show municipalities
       var value = $(t.restricted_geo_area_selector + ':checked').val()
-      console.log(value)
       if (value === '0'){
         t.els['geographic_area_municipalities'].addClass('active')
       }else{

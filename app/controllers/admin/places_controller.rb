@@ -228,6 +228,7 @@ class Admin::PlacesController < AdminController
 
     @services = Service.sorted.with_translations(I18n.locale)
 
+    gon.municipality_placeholder = I18n.t('admin.shared.select_all')
 
     if request.patch?
 

@@ -267,6 +267,7 @@ ka:
       add_service_for_place: "Add a Service to %{place}"
       input_service_for_place: "%{place} Service Details for '%{service}'"
       next: Next
+      select_all: Select all that apply
     providers:
       confirm_delete: მოხდება პროვაიდერის და მასთან დაკავშირებული ყველა ადგილის წაშლა.
       confirm_restore: მოხდება პროვაიდერის და მასთან დაკავშირებული ყველა ადგილის აღდგენა.

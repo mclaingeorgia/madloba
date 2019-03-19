@@ -429,7 +429,7 @@ Service.destroy_all
 # 5 - for children
 # 6 - for adult
 # 7 - en parent
-services = CSV.read("#{Rails.root}/public/data/services.csv")
+services = CSV.read("#{Rails.root}/db/data/services.csv")
 created_records = []
 
 puts "ADDING SERVICES"
@@ -463,6 +463,19 @@ services.each_with_index {|item, i|
 
     created_records << d
   end
+}
+
+Municipality.destroy_all
+munis = CSV.read("#{Rails.root}/db/data/municipalities.csv")
+
+puts "ADDING MUNICIPALAITES"
+munis.each_with_index {|item, i|
+  puts "------------"
+  puts "- row #{i}"
+  d = Municipality.create(
+    name_ka: item[0],
+    name_en: item[1]
+  )
 }
 
 

@@ -12,7 +12,7 @@ class Municipality < ActiveRecord::Base
   # globalize
 
     translates :name
-    globalize_accessors :locales => [:en, :ka], :attributes => [ :namer]
+    globalize_accessors :locales => [:en, :ka], :attributes => [ :name]
 
   # associations
 

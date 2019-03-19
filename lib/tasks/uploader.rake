@@ -518,6 +518,12 @@ namespace :uploader_v3 do
         tmp = Region.with_translations(:ka).find_by(name: region)
         region_id = tmp.present? ? tmp.id : Region.find_by(name: 'თბილისი').id
 
+        municipality = row[13].strip.gsub(' -', '-').gsub('- ', '-')
+        muni_id = nil
+        tmp = Municipality.with_translations(:ka).find_by(name: municipality)
+        muni_id = tmp.present? ? tmp.id : nil
+
+
         # puts "#{row_index} - #{region}" if region_id.nil?
 
         place_ages = row[4].split(';').map{|m| m.strip}.select{|f|
@@ -586,6 +592,7 @@ namespace :uploader_v3 do
           latitude: row[15].to_f,
           longitude: row[16].to_f,
           region_id: region_id,
+          municipality_id: muni_id,
           name: place_name_ka,
           director: place_director_ka,
           address: row[17],

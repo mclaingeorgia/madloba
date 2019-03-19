@@ -35,7 +35,7 @@
 
         .field-wrapper.indent.geographic_area_municipalities
           %label.field-label= ps.human_attribute(:geographic_area_municipalities)
-          = f.collection_select :geographic_area_municipalities, Municipality.sorted, :id, :name, {}, { class: 'field-input' }
+          = f.collection_select :geographic_area_municipalities, Municipality.sorted, :id, :name, {}, { class: 'field-input select2', multiple: true }
 
       .fields-wrapper
         .fields-collection
