@@ -3,7 +3,7 @@
 
 - item = @item || item
 - place = @place || place
-- title = t('admin.shared.input_service_for_place', place: place.name)
+- title = t('admin.shared.input_service_for_place', place: place.name, service: item.service.name)
 - page_title title
 
 = render partial: 'shared/breadcrumbs', locals: { paths: [[t('admin.shared.manage_model', name: @model.human(2)), manage_places_path], title] }

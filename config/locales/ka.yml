@@ -18,6 +18,9 @@ ka:
         other: საინფორმაციო გვერდი
       place_rates:
         one: კატეგორიის შეფასება
+      place_service:
+        one: Service
+        other: Services
       page_content_item:
         one: მონაცემის დამატება
         other: მონაცემის დამატება
@@ -151,6 +154,7 @@ ka:
       by: მიერ
       save: შენახვა
     messages:
+      success_created: "%{obj} was successfully created."
       success_updated: "%{obj} წარმატებით განახლდა."
       fail_updated: "%{obj} ინფორმაციის განახლება ვერ მოხდა."
       success_destroyed: "%{obj} წარმატებით გაუქმდა."
@@ -164,6 +168,7 @@ ka:
       contact_send_success: შეტყობინება წარმატებით გაიგზავნა.
       contact_send_fail: შეტყობინების გაგზავნა ვერ მოხერხდა
       service_parent_missing: The parent service record could not be found.
+      missing_services: Services must be selected.
   shared:
     toggle_navigation: ნავიგაციის ჩვენება
     user_profile: მომხმარებლის პროფილი
@@ -251,6 +256,9 @@ ka:
       confirm_restore_model: "%{name} იქნება აღდგენილი."
       search_assign_placeholder: ინფორმაციის მოძიება
       add_service: Add Service
+      add_service_for_place: "Add a Service to %{place}"
+      input_service_for_place: "%{place} Service Details for '%{service}'"
+      next: Next
     providers:
       confirm_delete: მოხდება პროვაიდერის და მასთან დაკავშირებული ყველა ადგილის წაშლა.
       confirm_restore: მოხდება პროვაიდერის და მასთან დაკავშირებული ყველა ადგილის აღდგენა.
