@@ -1,0 +1,37 @@
+@import 'var';
+@import 'admin_places';
+
+body.places.input_service{
+  .form-container{
+    form{
+      .fields-wrapper{
+        border: 1px dashed #707070;
+        padding: 22px 74px;
+        margin-bottom: 50px;
+
+        .fields-collection{
+          display: block;
+          padding: 0;
+          &.indent{
+            margin-left: 44px;
+          }
+        }
+      }
+      .field-wrapper {
+        &.indent{
+          margin-left: 44px;
+        }
+        input, textarea, select{
+          width: 100%;
+        }
+      }
+
+      .geographic_area_municipalities, .acts, .age_groups, .diagnoses{
+        display: none !important;
+        &.active{
+          display: block !important;
+        }
+      }
+    }
+  }
+}

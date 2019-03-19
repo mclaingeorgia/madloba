@@ -15,13 +15,14 @@
     },
 
     bind: function () {
-      // click on root service
       var t = select_service
 
+      // click on root service
       $(t.els['root-services']).on('click', 'input[type="radio"]', function(evt){
         t.show_service_details($(evt.target))
       })
 
+      // click on sub service
       $(t.els['active-sub-services']).on('click', 'input[type="checkbox"]', function(evt){
         t.toggle_submit_button()
       })

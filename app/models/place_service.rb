@@ -23,6 +23,7 @@
 #
 
 class PlaceService < ActiveRecord::Base
+  include Nameable
   extend ArrayEnum
 
   # associations
@@ -30,9 +31,25 @@ class PlaceService < ActiveRecord::Base
     belongs_to :service
 
   # enums
-    array_enum service_types: {"municipal": 1, "state": 2, "private_org": 3}
-    array_enum age_groups: {"0-6": 1, "7-18": 2, "18-65": 3, "65+": 4}
-    enum can_be_used_by: {"anyone": 1, "diagnosis-with-status": 2, "diagnosis-without-status": 3}
+    SERVICE_TYPES = {"municipal": 1, "state": 2, "private_org": 3}
+    AGE_GROUPS = {"0-6": 1, "7-18": 2, "18-65": 3, "65+": 4}
+    array_enum service_types: SERVICE_TYPES
+    array_enum age_groups: AGE_GROUPS
+    enum can_be_used_by: {"anyone": 1, "diagnosis_with_status": 2, "diagnosis_without_status": 3}
+
+  # scopes
+
+    def self.service_types_for_list
+      I18n.t('activerecord.attributes.place_service.service_types').map{|k, v| [k,v]}
+    end
+
+    def self.age_groups_for_list
+      AGE_GROUPS.map{|k,v| [k, k]}
+    end
+
+    def self.can_be_used_by_for_list
+      I18n.t('activerecord.attributes.place_service.can_be_used_bies').map{|k, v| [k, v]}
+    end
 
   # methods
 
@@ -43,4 +60,5 @@ class PlaceService < ActiveRecord::Base
     def root_service_name
       self.service.root? ? self.service.name : self.service.parent.name
     end
+
 end

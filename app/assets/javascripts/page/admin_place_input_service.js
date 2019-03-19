@@ -1,0 +1,111 @@
+(function() {
+  var input_service = {
+    els: {},
+    restricted_geo_area_selector: 'input[name="place_service[is_restricited_geographic_area]"]',
+    service_type_selector: 'input[name="place_service[service_type][]"]',
+    age_restriction_selector: 'input[name="place_service[has_age_restriction]"]',
+    can_be_used_by_selector: 'input[name="place_service[can_be_used_by]"]',
+    init: function () {
+      var t = input_service
+      t.els['is_restricited_geographic_area'] = $(t.restricted_geo_area_selector)
+      t.els['geographic_area_municipalities'] = $('.geographic_area_municipalities')
+      t.els['service_type'] = $(t.service_type_selector)
+      t.els['acts'] = $('.acts')
+      t.els['age_restriction'] = $(t.age_restriction_selector)
+      t.els['age_groups'] = $('.age_groups')
+      t.els['can_be_used_by'] = $(t.can_be_used_by_selector)
+      t.els['diagnoses'] = $('.diagnoses')
+
+      t.bind()
+
+      // intialize the view of the form in case there are existing values
+      t.toggle_municipalities()
+      t.toggle_acts()
+      t.toggle_age_groups()
+      t.toggle_diagnoses()
+
+      return t
+    },
+
+    bind: function () {
+      var t = input_service
+
+      $(t.els['is_restricited_geographic_area']).on('click', function(evt){
+        t.toggle_municipalities()
+      })
+
+      $(t.els['service_type']).on('click', function(evt){
+        t.toggle_acts()
+      })
+
+      $(t.els['age_restriction']).on('click', function(evt){
+        t.toggle_age_groups()
+      })
+
+      $(t.els['can_be_used_by']).on('click', function(evt){
+        t.toggle_diagnoses()
+      })
+
+    },
+    reset_form_fields: function($container){
+      var $fields = $container.find(':input')
+      $fields.each(function(){
+        $(this).val('')
+            .prop('checked', false)
+            .prop('selected', false)
+      })
+    },
+    toggle_municipalities: function(){
+      console.log('-----')
+      var t = input_service
+
+      // if value is no, than show municipalities
+      var value = $(t.restricted_geo_area_selector + ':checked').val()
+      console.log(value)
+      if (value === '0'){
+        t.els['geographic_area_municipalities'].addClass('active')
+      }else{
+        t.els['geographic_area_municipalities'].removeClass('active')
+        t.reset_form_fields(t.els['geographic_area_municipalities'])
+      }
+    },
+    toggle_acts: function(){
+      var t = input_service
+
+      // if value is municipal or state, then show the acts section
+      var values = $(t.service_type_selector + ':checked').map(function() {return this.value;}).get();
+      if (values.includes('municipal') || values.includes('state')){
+        t.els['acts'].addClass('active')
+      }else{
+        t.els['acts'].removeClass('active')
+        t.reset_form_fields(t.els['acts'])
+      }
+    },
+    toggle_age_groups: function(){
+      var t = input_service
+
+      // if value is no, than show age groups
+      var value = $(t.age_restriction_selector + ':checked').val()
+      if (value === '0'){
+        t.els['age_groups'].addClass('active')
+      }else{
+        t.els['age_groups'].removeClass('active')
+        t.reset_form_fields(t.els['age_groups'])
+      }
+    },
+    toggle_diagnoses: function(){
+      var t = input_service
+
+      // if value is diagnosis_without_status, than show diagnoses
+      var value = $(t.can_be_used_by_selector + ':checked').val()
+      if (value === 'diagnosis_without_status'){
+        t.els['diagnoses'].addClass('active')
+      }else{
+        t.els['diagnoses'].removeClass('active')
+        t.reset_form_fields(t.els['diagnoses'])
+      }
+    }
+  }
+
+  input_service.init()
+}())

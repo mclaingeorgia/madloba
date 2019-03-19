@@ -88,19 +88,27 @@ ka:
       place_service:
         place: Place
         service: Service
-        is_restricited_geographic_area: The service is provided to any person living in any geographical area?
-        geographic_area_municipalities: Only in the following municipalities
+        is_restricited_geographic_area: The service is provided to any person living in any geographical area
+        geographic_area_municipalities: The service is provided to the person living in following municipalitie/s
         service_type: Service type
+        service_types:
+          municipal: Municipality
+          state: Organization established and implemented by a state program
+          private_org: Established and implemented by a private organization
         act_regulating_service: Name of the Administrative Act, Program, or Sub-program regulating the service
         act_link: Link to the Act
         description: Short description of the service
-        has_age_restriction: Available to all ages?
+        has_age_restriction: Available to all ages
         age_groups: Specific age groups
         can_be_used_by: Service can be used by
+        can_be_used_bies:
+          anyone: By any person
+          diagnosis_with_status: By any person having disability status and related diagnosis
+          diagnosis_without_status: Persons with specific diagnoses (with or withought disability status)
         diagnoses: Please list the diagnoses
         service_activities: Types of activities provided within the service
         service_specialists: Specialists involved in the service
-        need_finance: Person needs to co/finance the service?
+        need_finance: Person needs to co/finance the service
         get_involved_link: Please indicate the link for people to learn how to get involved in the service
       resource:
         title: დასახელება
