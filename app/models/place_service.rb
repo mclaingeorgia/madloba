@@ -41,6 +41,8 @@ class PlaceService < ActiveRecord::Base
 
     before_validation :remove_blanks
     before_save :remove_blanks
+    after_save :update_place_age_flags
+    after_destroy :update_place_age_flags
 
     def remove_blanks
       geographic_area_municipalities.reject!(&:blank?)
@@ -49,6 +51,14 @@ class PlaceService < ActiveRecord::Base
       diagnoses.reject!(&:blank?)
       service_activities.reject!(&:blank?)
       service_specialists.reject!(&:blank?)
+    end
+
+    # use the age_groups values to set the for_adults and for_children flags in the place object
+    # - 1 or 2 = children
+    # - 3 or 4 = adults
+    # - has_age_restriction = false then both
+    def update_place_age_flags
+      self.place.update_age_flags
     end
 
   # validators

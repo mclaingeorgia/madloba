@@ -32,7 +32,8 @@ class Place < ActiveRecord::Base
 
     translates :name, :director, :description, :city, :address
     globalize_accessors :locales => [:en, :ka], :attributes => [ :name, :director, :description, :city, :address]
-    globalize_validations([:name, :description])
+    globalize_validations([:name])
+    # globalize_validations([:name, :description])
   # associations
 
     has_many :assets, -> { where(owner_type: 1) }, {foreign_key: :owner_id, class_name: "Asset"}
@@ -120,11 +121,11 @@ class Place < ActiveRecord::Base
     # validates :websites, array: { format: { with: URI::regexp } }
     # validates :phones, array: { numericality: { only_integer: true }, length: {is: 9} }
     validates :latitude, :longitude, numericality: true, presence: true
-    validates :email, email: true
-    validates :website, format: { with: URI::regexp }
-    validates :facebook, format: { with: URI::regexp }
-    validates :phone, numericality: { only_integer: true }, length: {is: 9}
-    validates :phone2, numericality: { only_integer: true }, length: {is: 9}
+    validates :email, email: true, unless: Proc.new { |x| x.email.blank? }
+    validates :website, format: { with: URI::regexp }, unless: Proc.new { |x| x.website.blank? }
+    validates :facebook, format: { with: URI::regexp }, unless: Proc.new { |x| x.facebook.blank? }
+    validates :phone, numericality: { only_integer: true }, unless: Proc.new { |x| x.phone.blank? }
+    validates :phone2, numericality: { only_integer: true }, unless: Proc.new { |x| x.phone2.blank? }
 
 
   # helpers
@@ -205,6 +206,36 @@ class Place < ActiveRecord::Base
     end
     def get_poster
       self.assets.find_by(id: self.poster_id)
+    end
+
+  # set age flags
+    # this gets called whenever a service is updated
+    # look at all services that this place has and set flags appropriately
+    # - all service has_age_restriction = false then both
+    # - any service age groups have 1 or 2 => children true
+    # - any service age groups have 3 or 4 => adults true
+    def update_age_flags
+      services = self.place_services
+      if services.present?
+        # first check restriction flag
+        restrictions = services.pluck(:has_age_restriction).uniq.reject!(&:nil?)
+        age_groups = services.pluck(:age_groups).flatten.uniq.reject!(&:nil?)
+        if restrictions.length > 0
+          if restrictions.length == 1 && restrictions.first == false
+            self.for_children = true
+            self.for_adults = true
+          elsif age_groups.present?
+            self.for_children = (age_groups & [1,2]).any?
+            self.for_adults = (age_groups & [3,4]).any?
+          else
+            # if we are here then nothing is set yet so set all to false
+            self.for_children = false
+            self.for_adults = false
+          end
+
+          self.save
+        end
+      end
     end
 
   # filter
