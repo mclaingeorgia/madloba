@@ -6,7 +6,8 @@
 - title = t('admin.shared.input_service_for_place', place: place.name, service: item.service.name)
 - page_title title
 - ps = PlaceService
-- yes_no_for_list = [ [1, I18n.t('app.common._yes')], [0, I18n.t('app.common._no')] ]
+- yes_no_for_list = [ [true, I18n.t('app.common._yes')], [false, I18n.t('app.common._no')] ]
+- yes_no_reversed_for_list = [ [false, I18n.t('app.common._yes')], [true, I18n.t('app.common._no')] ]
 = render partial: 'shared/breadcrumbs', locals: { paths: [[t('admin.shared.manage_model', name: @model.human(2)), manage_places_path], title] }
 
 .form-container{class: @form_container_class}
@@ -23,77 +24,80 @@
         =item.service.root? ? item.service.name : "#{item.service.parent.name} - #{item.service.name}"
 
 
-      .fields-wrapper
-        .fields-collection
-          %label.fields-collection-label= ps.human_attribute(:is_restricited_geographic_area)
-          .fields-collection-wrapper
-            = f.collection_radio_buttons(:is_restricited_geographic_area, yes_no_for_list, :first, :second) do |b|
-              .field-wrapper
-                = b.radio_button class: 'field-input'
-                = b.label class: 'field-label service' do
-                  = b.text
+    .fields-wrapper
+      .fields-collection
+        %label.fields-collection-label= ps.human_attribute(:is_restricited_geographic_area, true, true)
+        .fields-collection-wrapper
+          = f.collection_radio_buttons(:is_restricited_geographic_area, yes_no_reversed_for_list, :first, :second) do |b|
+            .field-wrapper
+              = b.radio_button class: 'field-input'
+              = b.label class: 'field-label' do
+                = b.text
 
-        .field-wrapper.indent.geographic_area_municipalities
-          %label.field-label= ps.human_attribute(:geographic_area_municipalities)
-          = f.collection_select :geographic_area_municipalities, Municipality.sorted, :id, :name, {}, { class: 'field-input select2', multiple: true }
+      .field-wrapper.indent.geographic_area_municipalities
+        %label.field-label= ps.human_attribute(:geographic_area_municipalities, true, true)
+        = f.collection_select :geographic_area_municipalities, Municipality.sorted, :id, :name, {}, { class: 'field-input select2', multiple: true }
 
-      .fields-wrapper
-        .fields-collection
-          %label.fields-collection-label= ps.human_attribute(:service_type)
-          .fields-collection-wrapper
-            = f.collection_check_boxes(:service_type, ps.service_types_for_list, :first, :second) do |b|
-              .field-wrapper
-                = b.check_box class: 'field-input'
-                = b.label class: 'field-label service' do
-                  = b.text
+    .fields-wrapper
+      .fields-collection
+        %label.fields-collection-label= ps.human_attribute(:service_type, true, true)
+        .fields-collection-wrapper
+          = f.collection_check_boxes(:service_type, ps.service_types_for_list, :first, :second) do |b|
+            .field-wrapper
+              = b.check_box class: 'field-input'
+              = b.label class: 'field-label' do
+                = b.text
 
-      .fields-wrapper.acts
-        = f.input :act_regulating_service, as: :string
-        = f.input :act_link, as: :string
+    .fields-wrapper.acts
+      = f.input :act_regulating_service, as: :string
+      = f.input :act_link, as: :string
 
-      .fields-wrapper
-        = f.input :description, as: :text
+    .fields-wrapper
+      = f.input :description, as: :text
 
-      .fields-wrapper
-        .fields-collection
-          %label.fields-collection-label= ps.human_attribute(:has_age_restriction)
-          .fields-collection-wrapper
-            = f.collection_radio_buttons(:has_age_restriction, yes_no_for_list, :first, :second) do |b|
-              .field-wrapper
-                = b.radio_button class: 'field-input'
-                = b.label class: 'field-label service' do
-                  = b.text
-        .fields-collection.indent.age_groups
-          %label.fields-collection-label= ps.human_attribute(:age_groups)
-          .fields-collection-wrapper
-            = f.collection_check_boxes(:age_groups, ps.age_groups_for_list, :first, :second) do |b|
-              .field-wrapper
-                = b.check_box class: 'field-input'
-                = b.label class: 'field-label service' do
-                  = b.text
+    .fields-wrapper
+      .fields-collection
+        %label.fields-collection-label= ps.human_attribute(:has_age_restriction, true, true)
+        .fields-collection-wrapper
+          = f.collection_radio_buttons(:has_age_restriction, yes_no_reversed_for_list, :first, :second) do |b|
+            .field-wrapper
+              = b.radio_button class: 'field-input'
+              = b.label class: 'field-label' do
+                = b.text
+      .fields-collection.indent.age_groups
+        %label.fields-collection-label= ps.human_attribute(:age_groups, true, true)
+        .fields-collection-wrapper
+          = f.collection_check_boxes(:age_groups, ps.age_groups_for_list, :first, :second) do |b|
+            .field-wrapper
+              = b.check_box class: 'field-input'
+              = b.label class: 'field-label' do
+                = b.text
 
-      .fields-wrapper
-        .fields-collection
-          %label.fields-collection-label= ps.human_attribute(:can_be_used_by)
-          .fields-collection-wrapper
-            = f.collection_radio_buttons(:can_be_used_by, ps.can_be_used_by_for_list, :first, :second) do |b|
-              .field-wrapper
-                = b.radio_button class: 'field-input'
-                = b.label class: 'field-label service' do
-                  = b.text
-        = f.input :diagnoses, as: :array, wrapper_html: {class: 'indent diagnoses'}, input_html: {'data-max': 5}
+    .fields-wrapper
+      .fields-collection
+        %label.fields-collection-label= ps.human_attribute(:can_be_used_by, true, true)
+        .fields-collection-wrapper
+          = f.collection_radio_buttons(:can_be_used_by, ps.can_be_used_by_for_list, :first, :second) do |b|
+            .field-wrapper
+              = b.radio_button class: 'field-input'
+              = b.label class: 'field-label service' do
+                = b.text
+      = f.input :diagnoses, as: :array, wrapper_html: {class: 'indent diagnoses'}, input_html: {'data-max': 5}
 
-      .fields-wrapper
-        = f.input :service_activities, as: :array, input_html: {'data-max': 5}
-        = f.input :service_specialists, as: :array, input_html: {'data-max': 5}
+    .fields-wrapper
+      = f.input :service_activities, as: :array, input_html: {'data-max': 5}
+      = f.input :service_specialists, as: :array, input_html: {'data-max': 5}
 
-      .fields-wrapper
-        = f.input :get_involved_link, as: :string
-        .fields-collection
-          %label.fields-collection-label= ps.human_attribute(:need_finance)
-          .fields-collection-wrapper
-            = f.collection_radio_buttons(:need_finance, yes_no_for_list, :first, :second) do |b|
-              .field-wrapper
-                = b.radio_button class: 'field-input'
-                = b.label class: 'field-label service' do
-                  = b.text
+    .fields-wrapper
+      = f.input :get_involved_link, as: :string
+      .fields-collection
+        %label.fields-collection-label= ps.human_attribute(:need_finance)
+        .fields-collection-wrapper
+          = f.collection_radio_buttons(:need_finance, yes_no_for_list, :first, :second) do |b|
+            .field-wrapper
+              = b.radio_button class: 'field-input'
+              = b.label class: 'field-label service' do
+                = b.text
+    .actions
+      .action-group
+        = f.submit t("admin.shared.next")

@@ -43,19 +43,19 @@
       var t = input_service
 
       $(t.els['is_restricited_geographic_area']).on('click', function(evt){
-        t.toggle_municipalities()
+        t.toggle_municipalities(true)
       })
 
       $(t.els['service_type']).on('click', function(evt){
-        t.toggle_acts()
+        t.toggle_acts(true)
       })
 
       $(t.els['age_restriction']).on('click', function(evt){
-        t.toggle_age_groups()
+        t.toggle_age_groups(true)
       })
 
       $(t.els['can_be_used_by']).on('click', function(evt){
-        t.toggle_diagnoses()
+        t.toggle_diagnoses(true)
       })
 
     },
@@ -67,43 +67,49 @@
             .prop('selected', false)
       })
     },
-    toggle_municipalities: function(){
+    toggle_municipalities: function(reset_fields){
       var t = input_service
 
-      // if value is no, than show municipalities
+      // if value is true, than show municipalities
       var value = $(t.restricted_geo_area_selector + ':checked').val()
-      if (value === '0'){
+      if (value === 'true'){
         t.els['geographic_area_municipalities'].addClass('active')
       }else{
         t.els['geographic_area_municipalities'].removeClass('active')
-        t.reset_form_fields(t.els['geographic_area_municipalities'])
+        if (reset_fields){
+          t.reset_form_fields(t.els['geographic_area_municipalities'])
+        }
       }
     },
-    toggle_acts: function(){
+    toggle_acts: function(reset_fields){
       var t = input_service
 
       // if value is municipal or state, then show the acts section
       var values = $(t.service_type_selector + ':checked').map(function() {return this.value;}).get();
-      if (values.includes('municipal') || values.includes('state')){
+      if (values.includes('1') || values.includes('2')){
         t.els['acts'].addClass('active')
       }else{
         t.els['acts'].removeClass('active')
-        t.reset_form_fields(t.els['acts'])
+        if (reset_fields){
+          t.reset_form_fields(t.els['acts'])
+        }
       }
     },
-    toggle_age_groups: function(){
+    toggle_age_groups: function(reset_fields){
       var t = input_service
 
-      // if value is no, than show age groups
+      // if value is true, than show age groups
       var value = $(t.age_restriction_selector + ':checked').val()
-      if (value === '0'){
+      if (value === 'true'){
         t.els['age_groups'].addClass('active')
       }else{
         t.els['age_groups'].removeClass('active')
-        t.reset_form_fields(t.els['age_groups'])
+        if (reset_fields){
+          t.reset_form_fields(t.els['age_groups'])
+        }
       }
     },
-    toggle_diagnoses: function(){
+    toggle_diagnoses: function(reset_fields){
       var t = input_service
 
       // if value is diagnosis_without_status, than show diagnoses
@@ -112,7 +118,9 @@
         t.els['diagnoses'].addClass('active')
       }else{
         t.els['diagnoses'].removeClass('active')
-        t.reset_form_fields(t.els['diagnoses'])
+        if (reset_fields){
+          t.reset_form_fields(t.els['diagnoses'])
+        }
       }
     }
   }

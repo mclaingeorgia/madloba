@@ -103,9 +103,6 @@ gem "recaptcha", require: "recaptcha/rails"
 # model record heirarchy
 gem 'ancestry', '~> 3.0', '>= 3.0.5'
 
-# have an array of enum values
-gem 'array_enum', '~> 1.0', '>= 1.0.1'
-
 group :development, :test do
 
   # Mailcatcher

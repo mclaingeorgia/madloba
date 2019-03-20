@@ -32,8 +32,8 @@
                   %li{class: 'service'}
                     %i{class: service.service_icon, title: service.root_service_name, alt: service.root_service_name}
                     = service.service.name
-                    = link_to 'E', manage_place_input_service_path(item.id, service.service_id), class: 'btn small edit2', title: t('admin.shared.edit')
-                    = link_to 'D', manage_place_destroy_service_path(item.id, service.service_id), method: :delete, class: 'btn small delete2', title: t('admin.shared.delete'), data: {confirm: t('admin.shared.confirm_delete_model', name: ps_model_name) }
+                    = link_to 'E', manage_place_input_service_path(item.id, service.id), class: 'btn small edit2', title: t('admin.shared.edit')
+                    = link_to 'D', manage_place_destroy_service_path(item.id, service.id), method: :delete, class: 'btn small delete2', title: t('admin.shared.delete'), data: {confirm: t('admin.shared.confirm_delete_model', name: ps_model_name) }
           / %td= item.email
           / %td
           /   - if item.all_websites.present?

@@ -88,7 +88,7 @@ ka:
       place_service:
         place: Place
         service: Service
-        is_restricited_geographic_area: The service is provided to any person living in any geographical area
+        has_no_restricited_geographic_area: The service is provided to any person living in any geographical area
         geographic_area_municipalities: The service is provided to the person living in following municipalitie/s
         service_type: Service type
         service_types:
@@ -268,6 +268,7 @@ ka:
       input_service_for_place: "%{place} Service Details for '%{service}'"
       next: Next
       select_all: Select all that apply
+      is_required: must be provided
     providers:
       confirm_delete: მოხდება პროვაიდერის და მასთან დაკავშირებული ყველა ადგილის წაშლა.
       confirm_restore: მოხდება პროვაიდერის და მასთან დაკავშირებული ყველა ადგილის აღდგენა.

@@ -66,6 +66,7 @@ Madloba::Application.routes.draw do
       get 'place/:id/select_service', to: '/admin/places#select_service', :as => :place_select_service
       patch 'place/:id/select_service', to: '/admin/places#select_service'
       get 'place/:place_id/input_service/:id', to: '/admin/places#input_service', :as => :place_input_service
+      patch 'place/:place_id/input_service/:id', to: '/admin/places#input_service'
       delete 'place/:place_id/destroy_service/:id', to: '/admin/places#destroy_service', :as => :place_destroy_service
 
 
