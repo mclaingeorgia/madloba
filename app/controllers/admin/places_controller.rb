@@ -199,22 +199,33 @@ class Admin::PlacesController < AdminController
     if request.patch?
       # see if services have been selected
       if (pars[:root_service].present? && pars[:services].present?)
+        errors = false
+        service_ids = []
         # save the selected services
         pars[:services].each do |service_id|
           service = @services.select{|x| x.id.to_s == service_id}.first
           if service.present?
             # if already exists, do nothing
             if @item.place_services.select{|x| x.service_id == service.id}.empty?
-              @item.place_services.create(service_id: service.id)
+              service = @item.place_services.new(service_id: service.id)
+              if service.save(:validate => false)
+                service_ids << service.id
+              else
+                errors = true
+              end
             end
           else
 #TODO
           end
         end
 
-        # go to the input form
-        flash[:success] =  t('app.messages.success_created', obj: PlaceService.model_name.human)
-        redirect_to manage_place_input_service_path(@item, params[:services].first)
+        if !errors
+          # go to the input form
+          flash[:success] =  t('app.messages.success_created', obj: PlaceService.model_name.human)
+          redirect_to manage_place_input_service_path(@item, service_ids.first)
+        else
+          flash[:error] =  t('app.messages.missing_services')
+        end
       else
         flash[:error] =  t('app.messages.missing_services')
       end
