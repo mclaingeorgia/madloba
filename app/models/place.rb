@@ -111,9 +111,8 @@ class Place < ActiveRecord::Base
 
   # validators
 
-    validates :region_id, :municipality, presence: true
+    validates :name, :region_id, :municipality, presence: true
     # validates :provider_id, presence: true
-    validates :services, :length => { :minimum => 1 }
 
     # validates :emails, array: { email: true }
     # validates :emails, :length => { :maximum => 3 }
@@ -124,14 +123,15 @@ class Place < ActiveRecord::Base
     validates :email, email: true, unless: Proc.new { |x| x.email.blank? }
     validates :website, format: { with: URI::regexp }, unless: Proc.new { |x| x.website.blank? }
     validates :facebook, format: { with: URI::regexp }, unless: Proc.new { |x| x.facebook.blank? }
-    validates :phone, numericality: { only_integer: true }, unless: Proc.new { |x| x.phone.blank? }
-    validates :phone2, numericality: { only_integer: true }, unless: Proc.new { |x| x.phone2.blank? }
+    # validates :phone, numericality: { only_integer: true }, unless: Proc.new { |x| x.phone.blank? }
+    # validates :phone2, numericality: { only_integer: true }, unless: Proc.new { |x| x.phone2.blank? }
 
 
   # helpers
     def self.validation_order_list
       # [Place.globalize_attribute_names, :services, :emails, :phones, :websites, :tags, :published, :postal_code, :region, :municiaplity].flatten
-      [Place.globalize_attribute_names, :services, :email, :phone, :website, :facebook, :tags, :published, :postal_code, :region, :municiaplity].flatten
+      # [Place.globalize_attribute_names, :services, :email, :phone, :website, :facebook, :tags, :published, :postal_code, :region, :municiaplity].flatten
+      [:name, :director, :region, :municipality, :city, :address, :postal_code, :phone, :phone2, :email, :website, :facebook, :published]
     end
 
     def destroy_asset(id)

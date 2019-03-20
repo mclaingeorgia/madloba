@@ -1,55 +1,33 @@
+- p = Place
 .form-container{class: @form_container_class}
   = simple_form_for obj, url: url, html: { class: @form_class } do |f|
     = devise_error_messages!
     = f.input :redirect_default, as: :hidden, input_html: { value: redirect_default }
     .column-view
       .column
-        = render partial: 'shared/fields_localization', locals: { fields: { name: nil, director: nil, description: { as: :text, input_html: { rows: 10, style: 'width: 100%' } }} , form: f }
         .indent
-          .fields-collection
-            %label.fields-collection-label= Place.human_attribute(:services, false)
-            .fields-collection-wrapper
-              = f.collection_check_boxes(:service_ids, Service.all, :id, :name) do |b|
-                .field-wrapper
-                  = b.check_box class: 'field-input'
-                  = b.label class: 'field-label service' do
-                    %i{ class: "#{b.object.icon}" }
-                    %span= b.text
+          = f.input :name, as: :string
+          = f.input :director, as: :string
+
+          .field-wrapper
+            %label.field-label= p.human_attribute(:region, true, true)
+            = f.collection_select :region_id, Region.sorted, :id, :name, {include_blank: true}, { class: 'field-input' }
+          .field-wrapper
+            %label.field-label= p.human_attribute(:municipality, true, true)
+            = f.collection_select :municipality_id, Municipality.sorted, :id, :name, {include_blank: true}, { class: 'field-input' }
+          = f.input :city, as: :string
+          = f.input :address, as: :string
+          = f.input :postal_code
+
           = f.input :phone, as: :string
           = f.input :phone2, as: :string
           = f.input :email, as: :string
           = f.input :website, as: :string, input_html: { placeholder: t('shared.url_placeholder') }
           = f.input :facebook, as: :string, input_html: { placeholder: t('shared.url_placeholder') }
-          .field-wrapper.field-tag
-            %label.field-label= Place.human_attribute(:tags)
-            %select.field-input{placeholder: t('simple_form.placeholders.place.tags'), multiple: 'multiple', name: 'place[tags][]'}
-              =f.object.tags.active.map{|m| "<option selected='selected' data-state='#{m.processed}' class='#{m.processed_human}'>#{m.name}</option>" }.join("").html_safe
-            - declined = f.object.tags.declined
-            - if declined.present?
-              .decline-list
-                %label.field-label= t('admin.places.declined_tags')
-                %ul
-                  = declined.map{|m| "<li>#{m.name}</li>" }.join("").html_safe
+
           = f.input :published
-          -# possible_providers = Provider.only_active.for_user(current_user, @is_admin_profile_page)
-          -# possible_providers = possible_providers.excluding(f.object.provider.id) if f.object.provider.present?
-          / .field-wrapper
-          /   - if possible_providers.present?
-          /     %label.field-label= custom_label(t('admin.places.update_provider'), true)
-          /     = collection_select :place, :provider_id, possible_providers, :id, :name, { selected: f.object.provider.present? ? f.object.provider.id : @provider_id}, { class: 'field-input'}
-          /   -# else
-          /     %label.field-label= custom_label(t('admin.places.current_provider'))
-          /     %span.field-input= f.object.provider.name
       .column
-        = render partial: 'shared/fields_localization', locals: { fields: { address: nil, city: nil} , form: f }
         .indent
-          = f.input :postal_code
-          .field-wrapper
-            %label.field-label= Place.human_attribute(:municipality)
-            = f.collection_select :municipality_id, Municipality.sorted, :id, :name, {include_blank: true}, { class: 'field-input' }
-          .field-wrapper
-            %label.field-label= Place.human_attribute(:region)
-            = f.collection_select :region_id, Region.sorted, :id, :name, {include_blank: true}, { class: 'field-input' }
           %a.map-locator{'data-map': 'locator_map'}= t("shared.locate_me")
           .locator.map-container
             #locator_map.map
