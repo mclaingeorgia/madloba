@@ -45,7 +45,7 @@ body.places.select_service{
               border-radius: 5px;
               border: 1px solid #dedede;
               background-color: #ffffff;
-              padding: 24px;
+              padding: 18px;
               text-align: center;
               @include font(18, 'b');
               color: #373f51;
@@ -99,6 +99,24 @@ body.places.select_service{
 
         .sub-services{
           display: none;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 665px){
+  body.places.select_service{
+    form{
+      .fields-group.columns{
+        .field-wrapper{
+          .root-services{
+            .radio{
+              input[type="radio"] + label{
+                padding: 24px;
+              }
+            }
+          }
         }
       }
     }

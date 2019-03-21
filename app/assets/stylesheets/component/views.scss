@@ -168,7 +168,7 @@
 .column-view {
   display: flex;
   flex-direction: column;
-  padding: 0 70px 0;
+  padding: 0;
 }
 
 .grid-view {
@@ -313,5 +313,10 @@
 
     }
 
+  }
+}
+@media (min-width: 1200px) {
+  .column-view {
+    padding: 0 70px 0;
   }
 }

@@ -61,6 +61,16 @@
 
       t.toggle_submit_button()
 
+      // if the screen is small, scroll down so the user can see the sub-services
+// TODO - not currently working
+      // var w = $(document).width()
+      // var h = $(document).height()
+      // if ((w < 665 && h < 975) || (w > 665 && h < 740)){
+      //   $('main').animate({
+      //     scrollTop: $('#scrollto').offset().top
+      //   }, 1000);
+      // }
+
     }
   }
 

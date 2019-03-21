@@ -22,7 +22,7 @@ $(document).ready(function(){
       bPaginate: false,
       pageLength: 25,
       autoWidth: false,
-      responsive: true,
+      // responsive: true,
       dom: $d.hasClass('simple') ? 'rt' : '<".datatable-filters"fl>rt<"datatable-pagination"p>',
       "order": []
     })

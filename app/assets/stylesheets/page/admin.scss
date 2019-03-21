@@ -45,7 +45,7 @@ main {
     display: flex;
     flex-direction: row;
     .aside {
-      display: flex;
+      display: none;
       flex-direction: column;
       background-color: $text;
       // height: 100%;
@@ -268,11 +268,23 @@ a.btn {
 
 
 .indent {
-  padding: 0 27px;
+  padding: 0 13px;
 }
-
+@media (min-width: 1200px) {
+  .indent {
+    padding: 0 27px;
+  }
+}
 @media (min-width: 992px) {
+
+
+
   main {
+    &.admin_profile {
+      .aside {
+        display: flex;
+      }
+    }
     .panels {
       flex-direction: row;
       .panel {

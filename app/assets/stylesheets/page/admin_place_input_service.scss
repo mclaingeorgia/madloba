@@ -4,22 +4,39 @@
 body.places.input_service{
   .form-container{
     form{
+      input[type="radio"] + label{
+        white-space: normal;
+      }
       .fields-wrapper{
         border: 1px dashed #707070;
-        padding: 22px 74px;
-        margin-bottom: 50px;
+        padding: 10px 20px;
+        margin-bottom: 20px;
 
         .fields-collection{
           display: block;
           padding: 0;
           &.indent{
-            margin-left: 44px;
+            margin-left: 25px;
+          }
+          .fields-collection-wrapper{
+            width: 100% !important;
+          }
+          .fields-collection-label{
+            display: block;
+            margin-bottom: 10px;
+            width: 100%;
           }
         }
       }
+
       .field-wrapper {
         &.indent{
-          margin-left: 44px;
+          margin-left: 25px;
+          padding: 0;
+        }
+        .field-label.text{
+          display: block;
+          margin-bottom: 10px;
         }
         input, textarea, select{
           width: 100%;
@@ -30,6 +47,41 @@ body.places.input_service{
         display: none !important;
         &.active{
           display: block !important;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 992px){
+  body.places.input_service{
+    .form-container{
+      form{
+        input[type="radio"] + label{
+          white-space: nowrap;
+        }
+       .fields-wrapper{
+          padding: 22px 74px;
+          margin-bottom: 50px;
+
+          .fields-collection{
+            display: block;
+            padding: 0;
+            &.indent{
+              margin-left: 44px;
+            }
+            .fields-collection-wrapper{
+              width: initial;
+            }
+          }
+        }
+        .field-wrapper {
+          &.indent{
+            margin-left: 44px;
+          }
+          input, textarea, select{
+            width: 100%;
+          }
         }
       }
     }

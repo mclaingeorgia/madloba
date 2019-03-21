@@ -30,7 +30,7 @@
                 %i{class: service.icon, alt: service.name, title: service.name}
                 = service.name
 
-    .fields-collection.columns
+    .fields-collection.columns{id: 'scrollto'}
       .fields-collection-wrapper
         %label.field-label.radio_buttons.optional= t('.services')
         .no-selection.active= t('.no_selection')
@@ -40,6 +40,7 @@
             .field-wrapper{data: {id: service.id, 'parent-id': service.parent_id}}
               %input.field-input{type: "checkbox", value: service.id, name: "services[]", id: "services_#{service.id}"}
               %label.field-label{for: "services_#{service.id}"}= service.name
+
     .actions
       .action-group
         = f.submit t("admin.shared.next")
