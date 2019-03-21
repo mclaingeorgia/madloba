@@ -467,15 +467,16 @@
     display: inline-block;
     width: 309px;
     height: 206px;
-    background-color: rgba(0, 155, 114, .7);
+    background-color: $bg2;
     text-align: center;
     @include font;
-    color: $bg2;
+    color: #373f51;
     cursor: pointer;
+    border: 1px dashed #707070;
     img {
       display: block;
       margin: 0 auto;
-      padding: 56px 0 32px;
+      padding: 56px 0 16px;
     }
   }
   input {

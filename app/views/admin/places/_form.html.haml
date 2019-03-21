@@ -42,7 +42,7 @@
       =# f.object.assets.length
       .field-wrapper.field-file
         = f.label :assets do
-          %img{src: asset_path("svg/upload.svg") }
+          %img{src: asset_path("svg/camera.svg") }
           = t("shared.upload_image")
         = f.input :assets, as: :file, label: false, wrapper: false, input_html: { name: "place[assets_attributes][][image]", multiple: true, accept: 'image/png,image/gif,image/jpeg' }
 
