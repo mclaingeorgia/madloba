@@ -499,6 +499,10 @@ namespace :uploader_v3 do
     # include services that do not have child services
     child_services += Service.with_translations(:ka).where.not(id: Service.where.not(ancestry:nil).pluck(:ancestry).uniq).where(ancestry: nil)
 
+    municipalities = Municipality.all
+    short_rand_text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+    long_rand_text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Iaculis at erat pellentesque adipiscing.'
+
     CSV.open(missing_dataset_path, 'w') do |csv|
       csv << ['id', 'city', 'address']
     end
@@ -598,9 +602,8 @@ namespace :uploader_v3 do
           address: row[17],
           city: city,
           for_children: place_children,
-          for_adults: place_adults,
-          services: child_services.sample(Random.new.rand(5)+1),
-          published: true
+          for_adults: place_adults
+          # ,published: true
         }
 
         pl = nil
@@ -613,7 +616,6 @@ namespace :uploader_v3 do
           # p.places << pl
         end
 
-
         if !pl.new_record?
           Globalize.with_locale(:en) do
             pl.name = place_name_en
@@ -622,6 +624,48 @@ namespace :uploader_v3 do
             pl.city = city_en
             # pl.provider_id = p.id
             pl.save(:validate => false)
+          end
+
+          # assign random services with fake info
+          child_services.sample(Random.new.rand(5)+1).each do |service|
+            ps = pl.place_services.new
+            ps.service_id = service.id
+            ps.published = true
+
+            ps.service_type = [1,2,3].sample(Random.new.rand(2)+1)
+            if (ps.service_type & [1,2]).any?
+              ps.act_regulating_service = long_rand_text
+              ps.act_link = short_rand_text
+            end
+            ps.description = long_rand_text
+            ps.need_finance = [true, false].sample
+            ps.service_activities = [short_rand_text]
+            ps.service_specialists = [short_rand_text, short_rand_text]
+            ps.get_involved_link = short_rand_text
+
+            ps.can_be_used_by = [1,2,3].sample
+            if ps.can_be_used_by == 3
+              ps.diagnoses = [short_rand_text, long_rand_text]
+            end
+
+            ps.is_restricited_geographic_area = [true, false].sample
+            if ps.is_restricited_geographic_area
+              ps.geographic_area_municipalities = municipalities.pluck(:id).sample(Random.new.rand(3)+1)
+            end
+
+            ps.has_age_restriction = !(pl.for_adults && pl.for_children)
+            if ps.has_age_restriction
+              codes = []
+              if pl.for_children
+                codes << [1,2].sample(Random.new.rand(2)+1)
+              end
+              if pl.for_adults
+                codes << [3,4].sample(Random.new.rand(2)+1)
+              end
+              ps.age_groups = codes.flatten
+            end
+
+            ps.save(validate: false)
           end
         end
 

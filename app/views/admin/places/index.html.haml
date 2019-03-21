@@ -18,6 +18,7 @@
         %th.actions{'data-orderable': 'false'}= t('admin.shared.actions')
     %tbody
       - @items.each do |item|
+        - services = item.place_services.only_active
         %tr
           %td
           %td= item.name
@@ -27,8 +28,8 @@
           %td.services
             %ul
               %li= link_to t('admin.shared.add_service'), manage_place_select_service_path(item), class: 'add btn'
-              - if item.place_services.present?
-                - item.place_services.each do |service|
+              - if services.present?
+                - services.each do |service|
                   %li{class: 'service'}
                     %i{class: service.service_icon, title: service.root_service_name, alt: service.root_service_name}
                     = service.service.name
@@ -40,7 +41,7 @@
           /     - item.all_websites.each do |website|
           /       %a{href: website, target: :_blank }= item.get_domain(website)
           %td.actions
-            - if item.place_services.count > 0
+            - if services.count > 0
               = link_to t('admin.shared.view'), place_path(item.id), class: 'view'
             - else
               %a{class: 'view disabled', title: t('admin.shared.place_needs_services')}= t('admin.shared.view')

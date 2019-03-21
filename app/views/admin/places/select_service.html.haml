@@ -2,7 +2,7 @@
 - content_for :custom_javascript, 'page/admin_place_select_service'
 
 - item = @item || item
-- existing_service_ids = item.place_services.pluck(:service_id)
+- existing_service_ids = item.place_services.only_active.pluck(:service_id)
 - title = t('admin.shared.add_service_for_place', place: item.name)
 - page_title title
 

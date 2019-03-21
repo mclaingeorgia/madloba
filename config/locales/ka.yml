@@ -110,6 +110,7 @@ ka:
         service_specialists: Specialists involved in the service
         need_finance: Person needs to co/finance the service
         get_involved_link: Please indicate the link for people to learn how to get involved in the service
+        published: Show this service to the public
       resource:
         title: დასახელება
         content: კონტენტი
@@ -177,6 +178,7 @@ ka:
       contact_send_fail: შეტყობინების გაგზავნა ვერ მოხერხდა
       service_parent_missing: The parent service record could not be found.
       missing_services: Services must be selected.
+      record_not_found: "%{obj} could not be found."
   shared:
     toggle_navigation: ნავიგაციის ჩვენება
     user_profile: მომხმარებლის პროფილი

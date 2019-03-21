@@ -206,7 +206,16 @@ class Admin::PlacesController < AdminController
           service = @services.select{|x| x.id.to_s == service_id}.first
           if service.present?
             # if already exists, do nothing
-            if @item.place_services.select{|x| x.service_id == service.id}.empty?
+            # unless it is deleted then un-deleted it
+            # else if not exist, lets create it
+            existing_item = @item.place_services.select{|x| x.service_id == service.id}.first
+            if existing_item.present?
+              if existing_item.deleted == 1
+                existing_item.deleted = 0
+                existing_item.save
+                service_ids << existing_item.id
+              end
+            else
               service = @item.place_services.new(service_id: service.id)
               if service.save(:validate => false)
                 service_ids << service.id
@@ -233,17 +242,23 @@ class Admin::PlacesController < AdminController
   end
 
   def input_service
+    redirect_path = manage_places_path
+
     @place = @model.find(params[:place_id])
     authorize @place
 
-    @item = @place.place_services.where(id: params[:id]).first
+    @item = @place.place_services.only_active.where(id: params[:id]).first
+
+    if @item.nil?
+      flash[:error] =  t('app.messages.record_not_found', obj: PlaceService.model_name.human)
+      redirect_to redirect_path
+    end
 
     @services = Service.sorted.with_translations(I18n.locale)
 
     gon.municipality_placeholder = I18n.t('admin.shared.select_all')
 
     pars = input_service_params
-    redirect_path = manage_places_path
 
     if request.patch?
 
@@ -258,14 +273,14 @@ class Admin::PlacesController < AdminController
   end
 
   def destroy_service
-    @place = @model.find(params[:place_id])
-    @item = @place.place_services.where(id: params[:id]).first
-    authorize @place
+    place = @model.find(params[:place_id])
+    item = place.place_services.where(id: params[:id]).first
+    authorize place
 
-    if @item.destroy
-      flash[:success] =  t("app.messages.success_destroyed", obj: "#{PlaceService.model_name.human} #{@item.service.name}")
+    if item.update_attributes(deleted: 1)
+      flash[:success] =  t("app.messages.success_destroyed", obj: "#{PlaceService.model_name.human} #{item.service.name}")
     else
-      flash[:error] =  t('app.messages.fail_destroyed', obj: "#{PlaceService.model_name.human} #{@item.service.name}")
+      flash[:error] =  t('app.messages.fail_destroyed', obj: "#{PlaceService.model_name.human} #{item.service.name}")
       flash[:error] = format_messages(item)
     end
     redirect_to manage_places_path
@@ -301,6 +316,7 @@ class Admin::PlacesController < AdminController
         :is_restricited_geographic_area,
         :act_regulating_service, :act_link, :description,
         :has_age_restriction, :can_be_used_by, :need_finance, :get_involved_link,
+        :published,
         geographic_area_municipalities: [],
         service_type: [],
         age_groups: [],

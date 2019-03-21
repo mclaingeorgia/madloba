@@ -297,7 +297,7 @@ class RootController < ApplicationController
           address: place.address_full,
           phone: place.all_phones,
           coordinates: [place.latitude, place.longitude],
-          service_ids: place.place_services.pluck(:service_id),
+          service_ids: place.place_services.only_active.only_published.pluck(:service_id),
           favorite: current_user.present? && place.favorite_places.select{|x| x.user_id == current_user.id}.length > 0,
           region_id: place.region_id,
           for_children: place.for_children,

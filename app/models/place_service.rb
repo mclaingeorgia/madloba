@@ -92,11 +92,16 @@ class PlaceService < ActiveRecord::Base
       [:is_restricited_geographic_area, :geographic_area_municipalities,
         :service_type, :act_regulating_service, :act_link, :description,
         :has_age_restriction, :age_groups, :can_be_used_by, :diagnoses,
-        :service_activities, :service_specialists, :need_finance, :get_involved_link]
+        :service_activities, :service_specialists, :need_finance, :get_involved_link, :published]
     end
 
   # scopes
+    scope :only_deleted, -> { where.not(deleted: 0) }
+    scope :only_published, -> { where(published: true) }
+    scope :only_active, -> { where(deleted: 0) }
+    scope :sorted, -> { order(service_id: asc) }
 
+  # class methods
     def self.service_types_for_list
       SERVICE_TYPES.map{|k,v| [v, I18n.t("activerecord.attributes.place_service.service_types.#{k}")]}
     end

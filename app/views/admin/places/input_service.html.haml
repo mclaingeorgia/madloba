@@ -96,6 +96,17 @@
               = b.radio_button class: 'field-input'
               = b.label class: 'field-label service' do
                 = b.text
+
+    .fields-wrapper
+      .fields-collection
+        %label.fields-collection-label= ps.human_attribute(:published)
+        .fields-collection-wrapper
+          = f.collection_radio_buttons(:published, yes_no_for_list, :first, :second) do |b|
+            .field-wrapper
+              = b.radio_button class: 'field-input'
+              = b.label class: 'field-label service' do
+                = b.text
+
     .actions
       .action-group
         = f.submit t("admin.shared.next")

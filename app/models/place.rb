@@ -112,7 +112,7 @@ class Place < ActiveRecord::Base
 
   # validators
 
-    validates :name, :region_id, :municipality, presence: true
+    validates :name, :region_id, :municipality_id, presence: true
     # validates :provider_id, presence: true
 
     # validates :emails, array: { email: true }
@@ -216,7 +216,7 @@ class Place < ActiveRecord::Base
     # - any service age groups have 1 or 2 => children true
     # - any service age groups have 3 or 4 => adults true
     def update_age_flags
-      services = self.place_services
+      services = self.place_services.only_active.only_published
       if services.present?
         # first check restriction flag
         restrictions = services.pluck(:has_age_restriction).uniq.reject!(&:nil?)

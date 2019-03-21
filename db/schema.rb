@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190313121539) do
+ActiveRecord::Schema.define(version: 20190321185625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -305,24 +305,26 @@ ActiveRecord::Schema.define(version: 20190313121539) do
   add_index "place_reports", ["processed"], name: "index_place_reports_on_processed", using: :btree
 
   create_table "place_services", force: :cascade do |t|
-    t.integer  "place_id",                                    null: false
-    t.integer  "service_id",                                  null: false
+    t.integer  "place_id",                                       null: false
+    t.integer  "service_id",                                     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_restricited_geographic_area"
-    t.integer  "geographic_area_municipalities", default: [], null: false, array: true
-    t.integer  "service_type",                   default: [], null: false, array: true
+    t.integer  "geographic_area_municipalities", default: [],    null: false, array: true
+    t.integer  "service_type",                   default: [],    null: false, array: true
     t.string   "act_regulating_service"
     t.string   "act_link"
     t.text     "description"
     t.boolean  "has_age_restriction"
-    t.integer  "age_groups",                     default: [], null: false, array: true
+    t.integer  "age_groups",                     default: [],    null: false, array: true
     t.integer  "can_be_used_by"
-    t.string   "diagnoses",                      default: [], null: false, array: true
-    t.string   "service_activities",             default: [], null: false, array: true
-    t.string   "service_specialists",            default: [], null: false, array: true
+    t.string   "diagnoses",                      default: [],    null: false, array: true
+    t.string   "service_activities",             default: [],    null: false, array: true
+    t.string   "service_specialists",            default: [],    null: false, array: true
     t.boolean  "need_finance"
     t.string   "get_involved_link"
+    t.boolean  "published",                      default: false
+    t.integer  "deleted",                        default: 0
   end
 
   add_index "place_services", ["age_groups"], name: "index_place_services_on_age_groups", using: :btree
