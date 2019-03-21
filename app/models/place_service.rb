@@ -63,7 +63,7 @@ class PlaceService < ActiveRecord::Base
 
   # validators
 
-    validates :service_type, :description, :can_be_used_by, :service_activities, :service_specialists, presence: true
+    validates :service_type, :description, :can_be_used_by, presence: true
     validates :is_restricited_geographic_area, :has_age_restriction, inclusion: { in: [true, false] }
     validates :need_finance, inclusion: { in: [true, false, nil] }
     validate :optional_required_fields
