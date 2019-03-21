@@ -231,7 +231,7 @@ class Admin::PlacesController < AdminController
         if !errors
           # go to the input form
           flash[:success] =  t('app.messages.success_created', obj: PlaceService.model_name.human)
-          redirect_to manage_place_input_service_path(@item, service_ids.first)
+          redirect_to manage_place_input_service_path(@item, service_ids.first, ids: service_ids)
         else
           flash[:error] =  t('app.messages.missing_services')
         end
@@ -257,6 +257,7 @@ class Admin::PlacesController < AdminController
     @services = Service.sorted.with_translations(I18n.locale)
 
     gon.municipality_placeholder = I18n.t('admin.shared.select_all')
+    gon.confirm_leave_form = I18n.t('app.messages.confirm_leave_form')
 
     pars = input_service_params
 

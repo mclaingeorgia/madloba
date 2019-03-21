@@ -12,12 +12,13 @@
   = simple_form_for [:manage, item], url: manage_place_select_service_path(item), html: { class: @form_class } do |f|
     = devise_error_messages!
 
-    .intro
-      = t('.intro')
-      .place-name
-        =item.name
-        %br
-        =item.address_full
+    .fields-group.columns
+      .field-wrapper
+        %label.field-label= t('.place')
+        .place-name
+          =item.name
+          %br
+          =item.address_full
 
     .fields-group.columns
       .field-wrapper.radios.radio_buttons.optional

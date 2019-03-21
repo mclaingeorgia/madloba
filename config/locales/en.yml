@@ -179,6 +179,7 @@ en:
       service_parent_missing: The parent service record could not be found.
       missing_services: Services must be selected.
       record_not_found: "%{obj} could not be found."
+      confirm_leave_form: You have unsaved changes. Are you sure you want to leave without saving?
   shared:
     toggle_navigation: Show navigation
     user_profile: User Profile
@@ -288,12 +289,15 @@ en:
         provider: 'Provider:'
         manage_with_no_owners: Manage Places With No Owner
       select_service:
-        intro: Please select services to add to the following place.
+        place: Place
         root_service: Select a Service Category
         services: Select All Services That Apply
         no_selection: Select a Service Category to see a list of Services
       input_service:
-        intro: "Please enter details about the service '%{service}' for the following place."
+        place: Place
+        instructions: Please enter the details for this service below
+        service_link: Click to add details to this service
+        service_current: This is the service you are currently entering details for
       form:
         map_heading: Position Your Place On The Map
         map_help: Click on the map to place a marker for your place. Or you can click on the button below to use your current location.

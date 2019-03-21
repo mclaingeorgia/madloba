@@ -5,19 +5,55 @@ body.places.input_service{
   .form-container{
     form{
 
-      .intro{
-        color: #009b72;
-        @include font(17);
-        .place-name{
-          margin-left: 20px;
-          margin-bottom: 40px;
-          color: #373f51;
-        }
-      }
-
       input[type="radio"] + label{
         white-space: normal;
       }
+
+      .fields-group.columns{
+        padding-left: 0;
+        padding-right: 0;
+        padding-top: 0;
+
+        .field-wrapper{
+          display: block;
+          max-width: inherit;
+          label.field-label{
+            @include font(20, 'b');
+            color: #009b72;
+            margin: 20px 0 10px;
+          }
+        }
+      }
+
+      .instructions{
+        color: #009b72;
+        @include font(20);
+        margin: 40px 0 0;
+      }
+      .services{
+        columns: 4 300px;
+        column-gap: 10px;
+        li{
+          margin-bottom: 10px;
+          padding: 0;
+          border-radius: 5px;
+          border: 1px solid #dedede;
+          background-color: #ffffff;
+          padding: 18px;
+          text-align: center;
+          @include font(18, 'b');
+          color: #373f51;
+          cursor: pointer;
+          &.active{
+            cursor: default;
+          }
+          &.active, &:hover{
+            background-color: #ffca74;
+          }
+        }
+      }
+
+
       .fields-wrapper{
         border: 1px dashed #707070;
         padding: 10px 20px;
@@ -58,6 +94,20 @@ body.places.input_service{
         display: none !important;
         &.active{
           display: block !important;
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 665px){
+  body.places.input_service{
+    .form-container{
+      form{
+        .services{
+          li{
+            padding: 24px;
+          }
         }
       }
     }

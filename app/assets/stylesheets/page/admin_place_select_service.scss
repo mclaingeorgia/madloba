@@ -11,19 +11,10 @@ body.places.select_service{
       }
     }
 
-    .intro{
-      color: #009b72;
-      @include font(17);
-      .place-name{
-        margin-left: 20px;
-        margin-bottom: 40px;
-        color: #373f51;
-      }
-    }
-
     .fields-group.columns{
       padding-left: 0;
       padding-right: 0;
+      padding-top: 0;
 
       .field-wrapper{
         display: block;
@@ -65,7 +56,7 @@ body.places.select_service{
     }
 
     .fields-collection.columns{
-      padding: 20px 0;
+      padding: 0 0 20px 0;
       display: block;
 
       .fields-collection-wrapper{

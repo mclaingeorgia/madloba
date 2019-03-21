@@ -3,6 +3,7 @@
 (function() {
   var input_service = {
     els: {},
+    is_dirty: false,
     restricted_geo_area_selector: 'input[name="place_service[is_restricited_geographic_area]"]',
     service_type_selector: 'input[name="place_service[service_type][]"]',
     age_restriction_selector: 'input[name="place_service[has_age_restriction]"]',
@@ -17,6 +18,7 @@
       t.els['age_groups'] = $('.age_groups')
       t.els['can_be_used_by'] = $(t.can_be_used_by_selector)
       t.els['diagnoses'] = $('.diagnoses')
+      t.els['service_links'] = $('ul.services li')
 
       t.bind()
 
@@ -58,6 +60,16 @@
         t.toggle_diagnoses(true)
       })
 
+      // track when form changes are made
+      $(":input").change(function(){
+        t.is_dirty = true
+      });
+
+      $(t.els['service_links']).on('click', function(evt){
+        t.load_next_service($(evt.target))
+      })
+
+
     },
     reset_form_fields: function($container){
       var $fields = $container.find(':input')
@@ -66,6 +78,23 @@
             .prop('checked', false)
             .prop('selected', false)
       })
+    },
+    load_next_service($service_li){
+      var t = input_service
+      // if the active service was clicked on do nothing
+      // else, check if form is dirty
+
+      if (!($service_li).hasClass('active')){
+        var leave_page = true
+        if (t.is_dirty){
+          // confirm user wants to leave
+          leave_page = window.confirm(gon.confirm_leave_form)
+        }
+        if (leave_page){
+          var url = $service_li.closest('ul').data('link')
+          window.location.href = url.replace('%5Bitem_id%5D', $service_li.data('id'))
+        }
+      }
     },
     toggle_municipalities: function(reset_fields){
       var t = input_service

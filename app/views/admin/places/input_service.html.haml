@@ -14,13 +14,24 @@
   = simple_form_for [:manage, place, item], url: manage_place_input_service_path(place, item), html: { class: @form_class } do |f|
     = devise_error_messages!
 
-    .intro
-      = t('.intro', service: item.service.name)
-      .place-name
-        =place.name
-        %br
-        =place.address_full
-
+    .fields-group.columns
+      .field-wrapper
+        %label.field-label= t('.place')
+        %div
+          =place.name
+          %br
+          =place.address_full
+        %label.field-label= item.service.root? ? item.service.name : item.service.parent.name
+        %ul.services{data: {link: manage_place_input_service_path(place, '[item_id]', ids: params[:ids])}}
+          - session_services = []
+          - if params[:ids].present?
+            - session_services = place.place_services.where(id: params[:ids])
+          - else
+            - session_services << item
+          - session_services.each do |session_service|
+            %li{class: (session_service.id.to_s == params[:id] ? 'active' : ''), data: {id: session_service.id}, title: (session_service.id.to_s == params[:id] ? t('.service_current') : t('.service_link'))}
+              =session_service.service.name
+        .instructions= t('.instructions')
 
     .fields-wrapper
       .fields-collection
