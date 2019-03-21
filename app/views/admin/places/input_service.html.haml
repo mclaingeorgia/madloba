@@ -15,13 +15,11 @@
     = devise_error_messages!
 
     .intro
-      = t('.intro')
+      = t('.intro', service: item.service.name)
       .place-name
         =place.name
         %br
         =place.address_full
-      .service-name
-        =item.service.root? ? item.service.name : "#{item.service.parent.name} - #{item.service.name}"
 
 
     .fields-wrapper

@@ -290,6 +290,8 @@ en:
         root_service: Select a Service Category
         services: Select All Services That Apply
         no_selection: Select a Service Category to see a list of Services
+      input_service:
+        intro: "Please enter details about the service '%{service}' for the following place."
     place:
       index:
         title: Manage Places

@@ -4,6 +4,17 @@
 body.places.input_service{
   .form-container{
     form{
+
+      .intro{
+        color: #009b72;
+        @include font(17);
+        .place-name{
+          margin-left: 20px;
+          margin-bottom: 40px;
+          color: #373f51;
+        }
+      }
+
       input[type="radio"] + label{
         white-space: normal;
       }
