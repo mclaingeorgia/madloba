@@ -2,6 +2,7 @@
 - content_for :custom_javascript, 'page/admin_place_select_service'
 
 - item = @item || item
+- existing_service_ids = item.place_services.pluck(:service_id)
 - title = t('admin.shared.add_service_for_place', place: item.name)
 - page_title title
 
@@ -37,9 +38,10 @@
         .active-sub-services
         .sub-services
           - @services.each do |service|
-            .field-wrapper{data: {id: service.id, 'parent-id': service.parent_id}}
-              %input.field-input{type: "checkbox", value: service.id, name: "services[]", id: "services_#{service.id}"}
-              %label.field-label{for: "services_#{service.id}"}= service.name
+            - if existing_service_ids.empty? || !existing_service_ids.include?(service.id)
+              .field-wrapper{data: {id: service.id, 'parent-id': service.parent_id}}
+                %input.field-input{type: "checkbox", value: service.id, name: "services[]", id: "services_#{service.id}"}
+                %label.field-label{for: "services_#{service.id}"}= service.name
 
     .actions
       .action-group

@@ -88,6 +88,7 @@ body.places.select_service{
         .active-sub-services{
           columns: 2 300px;
           column-gap: 10px;
+          width: 100%;
           .field-wrapper{
             margin-bottom: 26px;
             @include font(17, 'r');
@@ -116,6 +117,20 @@ body.places.select_service{
                 padding: 24px;
               }
             }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1467px){
+  body.places.select_service{
+    form{
+      .fields-collection.columns{
+        .fields-collection-wrapper{
+          .active-sub-services{
+            width: 50%;
           }
         }
       }
