@@ -198,7 +198,6 @@ en:
     view_place_details: View place details
     view_all_services: View All Services
     view_all_service_places: See all places with this service
-    locate_me: Locate Me on the Map
     add: Add
     add_sub_service: Add Sub-Service
     upload_image: Upload Photo
@@ -269,6 +268,7 @@ en:
       next: Next
       select_all: Select all that apply
       is_required: must be provided
+      place_needs_services: You need to add services to the place before it is viewable to the public
     providers:
       confirm_delete: Provider will be removed with all places bind to it.
       confirm_restore: Provider will be restored with all places bind to it.
@@ -292,6 +292,10 @@ en:
         no_selection: Select a Service Category to see a list of Services
       input_service:
         intro: "Please enter details about the service '%{service}' for the following place."
+      form:
+        map_heading: Position Your Place On The Map
+        map_help: Click on the map to place a marker for your place. Or you can click on the button below to use your current location.
+        locate_me: Use My Current Location
     place:
       index:
         title: Manage Places

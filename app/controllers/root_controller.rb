@@ -84,7 +84,7 @@ class RootController < ApplicationController
     }
 
     place_id = pars[:id]
-    item = Place.only_active.only_published.find_by(id: place_id)
+    item = Place.only_active.with_services.find_by(id: place_id)
 
     if item.nil?
       redirect_to root_path, flash: { error:  t('errors.not_found', obj: Place) }

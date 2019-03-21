@@ -198,7 +198,6 @@ ka:
     view_place_details: ადგილის დეტალების ნახვა
     view_all_services: ყველა სერვისის ნახვა
     view_all_service_places: ყველა ადგილის ნახვა სადაც არის აღნიშნული სერვისი
-    locate_me: რუკაზე ჩემი ადგილმდებარეობის განთავსება
     add: დამატება
     add_sub_service: Add Sub-Service
     upload_image: სურათის დამატება
@@ -269,6 +268,7 @@ ka:
       next: Next
       select_all: Select all that apply
       is_required: must be provided
+      place_needs_services: You need to add services to the place before it is viewable to the public
     providers:
       confirm_delete: მოხდება პროვაიდერის და მასთან დაკავშირებული ყველა ადგილის წაშლა.
       confirm_restore: მოხდება პროვაიდერის და მასთან დაკავშირებული ყველა ადგილის აღდგენა.
@@ -292,6 +292,10 @@ ka:
         no_selection: Select a Service Category to see a list of Services
       input_service:
         intro: "Please enter details about the service '%{service}' for the following place."
+      form:
+        map_heading: Position Your Place On The Map
+        map_help: Click on the map to place a marker for your place. Or you can click on the button below to use your current location.
+        locate_me: Use My Current Location
     place:
       index:
         title: ადგილების მართვა

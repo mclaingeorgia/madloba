@@ -40,7 +40,10 @@
           /     - item.all_websites.each do |website|
           /       %a{href: website, target: :_blank }= item.get_domain(website)
           %td.actions
-            = link_to t('admin.shared.view'), place_path(item.id), class: 'view'
+            - if item.place_services.count > 0
+              = link_to t('admin.shared.view'), place_path(item.id), class: 'view'
+            - else
+              %a{class: 'view disabled', title: t('admin.shared.place_needs_services')}= t('admin.shared.view')
             = link_to t('admin.shared.edit'), edit_manage_place_path(item.id), class: 'edit'
             - if item.deleted != 0
               = link_to t('admin.shared.restore'), restore_manage_place_path(item.id), method: :patch, class: 'restore btn', data: {confirm: t('admin.shared.confirm_restore_model', name: @model.human) }

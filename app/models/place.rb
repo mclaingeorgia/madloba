@@ -92,7 +92,8 @@ class Place < ActiveRecord::Base
 
   # scopes
     scope :only_deleted, -> { where.not(deleted: 0) }
-    scope :only_published, -> { where(published: true) }
+    # scope :only_published, -> { where(published: true) }
+    scope :with_services, -> { includes(:place_services).where.not(place_services: {id: nil}) }
     scope :only_active, -> { where(deleted: 0) }
     scope :excluding, -> (id) { where.not(id: id) }
     scope :sorted, -> { with_translations(I18n.locale).order(name: :asc) }
@@ -131,7 +132,7 @@ class Place < ActiveRecord::Base
     def self.validation_order_list
       # [Place.globalize_attribute_names, :services, :emails, :phones, :websites, :tags, :published, :postal_code, :region, :municiaplity].flatten
       # [Place.globalize_attribute_names, :services, :email, :phone, :website, :facebook, :tags, :published, :postal_code, :region, :municiaplity].flatten
-      [:name, :director, :region, :municipality, :city, :address, :postal_code, :phone, :phone2, :email, :website, :facebook, :published]
+      [:name, :director, :region, :municipality, :city, :address, :postal_code, :phone, :phone2, :email, :website, :facebook]
     end
 
     def destroy_asset(id)
@@ -220,7 +221,7 @@ class Place < ActiveRecord::Base
         # first check restriction flag
         restrictions = services.pluck(:has_age_restriction).uniq.reject!(&:nil?)
         age_groups = services.pluck(:age_groups).flatten.uniq.reject!(&:nil?)
-        if restrictions.length > 0
+        if restrictions.present?
           if restrictions.length == 1 && restrictions.first == false
             self.for_children = true
             self.for_adults = true
@@ -241,7 +242,7 @@ class Place < ActiveRecord::Base
   # filter
 
     def self.filter(filter, current_user)
-      places = only_active.only_published
+      places = only_active.with_services
                 .with_translations(I18n.locale)
                 .includes(:place_services)
       sql = []

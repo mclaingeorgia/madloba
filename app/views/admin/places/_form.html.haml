@@ -25,10 +25,13 @@
           = f.input :website, as: :string, input_html: { placeholder: t('shared.url_placeholder') }
           = f.input :facebook, as: :string, input_html: { placeholder: t('shared.url_placeholder') }
 
-          = f.input :published
+          =# f.input :published
       .column
         .indent
-          %a.map-locator{'data-map': 'locator_map'}= t("shared.locate_me")
+          %div.map-help
+            %div.map-heading= t('.map_heading')
+            %div= t('.map_help')
+          %a.map-locator{'data-map': 'locator_map'}= t(".locate_me")
           .locator.map-container
             #locator_map.map
             .map-zoomer

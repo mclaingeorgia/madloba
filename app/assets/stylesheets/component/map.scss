@@ -90,6 +90,13 @@
   }
 }
 
+.map-help .map-heading{
+  display: block;
+  @include font(18, 'b', 18);
+  color: #373f51;
+  padding-bottom: 8px;
+  padding-left: 2px;
+}
 .map-locator {
   @include font;
   color: $bg;
