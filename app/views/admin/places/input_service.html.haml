@@ -22,15 +22,7 @@
           %br
           =place.address_full
         %label.field-label= item.service.root? ? item.service.name : item.service.parent.name
-        %ul.services{data: {link: manage_place_input_service_path(place, '[item_id]', ids: params[:ids])}}
-          - session_services = []
-          - if params[:ids].present?
-            - session_services = place.place_services.where(id: params[:ids])
-          - else
-            - session_services << item
-          - session_services.each do |session_service|
-            %li{class: (session_service.id.to_s == params[:id] ? 'active' : ''), data: {id: session_service.id}, title: (session_service.id.to_s == params[:id] ? t('.service_current') : t('.service_link'))}
-              =session_service.service.name
+        = render partial: 'admin/places/services_list', locals: {item: item, place: place}
         .instructions= t('.instructions')
 
     .fields-wrapper
@@ -120,4 +112,10 @@
 
     .actions
       .action-group
-        = f.submit t("admin.shared.next")
+        = f.submit t("admin.shared.save")
+
+      - if params[:ids].present?
+        = render partial: 'admin/places/services_list', locals: {item: item, place: place}
+      .add-service
+        =link_to t('.add_more_services'), manage_place_select_service_path(place), class: 'add btn', title: t('.add_more_services_title')
+        =link_to t('.place_list'), manage_places_path, class: 'btn publish', title: t('.place_list_title')

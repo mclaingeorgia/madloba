@@ -296,6 +296,11 @@ en:
       input_service:
         place: Place
         instructions: Please enter the details for this service below
+        add_more_services: Add More Services
+        add_more_services_title: Click here if you want to add more services to this place
+        place_list: All Places
+        place_list_title: Click here to go back to your list of places
+      services_list:
         service_link: Click to add details to this service
         service_current: This is the service you are currently entering details for
       form:
