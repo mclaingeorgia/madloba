@@ -19,6 +19,7 @@
       t.els['can_be_used_by'] = $(t.can_be_used_by_selector)
       t.els['diagnoses'] = $('.diagnoses')
       t.els['service_links'] = $('ul.services li')
+      t.els['form'] = $('form')
 
       t.bind()
 
@@ -69,7 +70,28 @@
         t.load_next_service($(evt.target))
       })
 
+      $(t.els['form']).on('submit', function(evt){
+        t.submit_form(evt, this)
+      })
 
+    },
+    submit_form: function(evt, ths){
+      var $form = $(ths)
+
+      evt.preventDefault()
+
+      $.ajax({
+        url: $form.attr('action'),
+        type: "POST",
+        data: $form.serializeArray(),
+        dataType: "json",
+        success:function(data){
+          // flash message will appear on the screen (via flash hook)
+        }
+      });
+
+      // prevent the page from submitting
+      return false
     },
     reset_form_fields: function($container){
       var $fields = $container.find(':input')

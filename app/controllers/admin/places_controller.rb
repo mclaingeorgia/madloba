@@ -262,14 +262,18 @@ class Admin::PlacesController < AdminController
     pars = input_service_params
 
     if request.patch?
-
-      if @item.update_attributes(pars[:place_service])
-
-        flash[:success] = t('app.messages.success_updated', obj: "#{PlaceService.model_name.human} #{@item.service.name}")
-        redirect_to redirect_path
-      else
-        flash[:error] = format_messages(@item)
+      respond_to do |format|
+        if @item.update_attributes(pars[:place_service])
+          format.html { redirect_to redirect_path, notice: t('app.messages.success_updated', obj: "#{PlaceService.model_name.human} #{@item.service.name}") }
+          format.json { render json: {item: @item, flash: {success: t('app.messages.success_updated', obj: "#{PlaceService.model_name.human} #{@item.service.name}")}} }
+        else
+          msg = format_messages(@item)
+          flash[:error] = msg
+          format.html {  }
+          format.json { render json: {errors: @item.errors, flash: {error: msg} }}
+        end
       end
+
     end
   end
 
