@@ -93,6 +93,7 @@ class Place < ActiveRecord::Base
   # scopes
     scope :only_deleted, -> { where.not(deleted: 0) }
     # scope :only_published, -> { where(published: true) }
+    scope :include_services, -> { includes(place_services: :service) }
     scope :with_services, -> { includes(:place_services).where.not(place_services: {id: nil}) }
     scope :only_active, -> { where(deleted: 0) }
     scope :excluding, -> (id) { where.not(id: id) }

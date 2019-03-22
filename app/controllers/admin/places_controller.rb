@@ -4,7 +4,7 @@ class Admin::PlacesController < AdminController
 
   def index
     authorize @model
-    @items = @model.sorted
+    @items = @model.sorted.with_translations(I18n.locale).include_services
   end
 
   def new
