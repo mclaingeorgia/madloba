@@ -275,6 +275,7 @@ ka:
       place_needs_services: You need to add services to the place before it is viewable to the public
       move_up: Move the item up the list
       move_down: Move the item down the list
+      position: Position
     providers:
       confirm_delete: მოხდება პროვაიდერის და მასთან დაკავშირებული ყველა ადგილის წაშლა.
       confirm_restore: მოხდება პროვაიდერის და მასთან დაკავშირებული ყველა ადგილის აღდგენა.
@@ -303,6 +304,7 @@ ka:
         add_more_services_title: Click here if you want to add more services to this place
         place_list: All Places
         place_list_title: Click here to go back to your list of places
+        services_instructions: Click a button below to add details to your other new services.
       services_list:
         service_link: Click to add details to this service
         service_current: This is the service you are currently entering details for

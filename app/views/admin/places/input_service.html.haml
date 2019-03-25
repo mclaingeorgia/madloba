@@ -115,7 +115,9 @@
         = f.submit t("admin.shared.save")
 
       - if params[:ids].present? && params[:ids].length > 1
-        = render partial: 'admin/places/services_list', locals: {item: item, place: place}
+        %div.services-list
+          %div.services-instructions= t('.services_instructions')
+          = render partial: 'admin/places/services_list', locals: {item: item, place: place}
       .add-service
         =link_to t('.add_more_services'), manage_place_select_service_path(place), class: 'add btn', title: t('.add_more_services_title')
         =link_to t('.place_list'), manage_places_path, class: 'btn publish', title: t('.place_list_title')

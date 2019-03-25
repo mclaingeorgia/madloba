@@ -8,6 +8,12 @@ body.places.input_service{
       input[type="radio"] + label{
         white-space: normal;
       }
+      .services-list{
+        text-align: center;
+      }
+      .services-instructions{
+        padding: 20px 0;
+      }
       .add-service{
         margin-top: 27px;
       }
