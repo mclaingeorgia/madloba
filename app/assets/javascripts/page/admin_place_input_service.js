@@ -66,6 +66,10 @@
         t.is_dirty = true
       });
 
+      $('a').on('click', function(evt){
+        t.check_if_dirty(evt)
+      })
+
       $(t.els['service_links']).on('click', function(evt){
         t.load_next_service($(evt.target))
       })
@@ -101,7 +105,20 @@
             .prop('selected', false)
       })
     },
-    load_next_service($service_li){
+    check_if_dirty: function(evt){
+      var t = input_service
+      // if the form is dirty, confirm that they want to leave
+
+      var leave_page = true
+      if (t.is_dirty){
+        // confirm user wants to leave
+        leave_page = window.confirm(gon.confirm_leave_form)
+      }
+      if (!leave_page){
+        evt.preventDefault()
+      }
+    },
+    load_next_service: function($service_li){
       var t = input_service
       // if the active service was clicked on do nothing
       // else, check if form is dirty

@@ -114,7 +114,7 @@
       .action-group
         = f.submit t("admin.shared.save")
 
-      - if params[:ids].present?
+      - if params[:ids].present? && params[:ids].length > 1
         = render partial: 'admin/places/services_list', locals: {item: item, place: place}
       .add-service
         =link_to t('.add_more_services'), manage_place_select_service_path(place), class: 'add btn', title: t('.add_more_services_title')
