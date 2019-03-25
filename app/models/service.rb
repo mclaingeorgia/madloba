@@ -48,15 +48,17 @@ class Service < ActiveRecord::Base
     # this record will not have a position so figure out the current last value and then
     # assign it to the new record
     def set_position
-      position = if self.ancestry.nil?
-        # this is a root service
-        Service.roots.pluck(:position).sort.last
-      else
-        # this is a sub-service
-        Service.where.(parent_id: self.parent_id).pluck(:position).sort.last
-      end
+      if position.nil?
+        position = if self.ancestry.nil?
+          # this is a root service
+          Service.roots.pluck(:position).sort.last
+        else
+          # this is a sub-service
+          Service.where.(parent_id: self.parent_id).pluck(:position).sort.last
+        end
 
-      self.position = position.nil? ? 1 : (position+1)
+        self.position = position.nil? ? 1 : (position+1)
+      end
     end
 
   # helpers
