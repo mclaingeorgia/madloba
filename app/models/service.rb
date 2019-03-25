@@ -9,12 +9,12 @@
 #  ancestry     :string
 #  for_children :boolean          default(TRUE)
 #  for_adults   :boolean          default(TRUE)
-#  sort         :integer          default(1)
+#  position     :integer          default(1)
 #
 
 class Service < ActiveRecord::Base
-  include Nameable
-
+    include Nameable
+    acts_as_list scope: [:ancestry]
     has_ancestry
 
   # globalize
@@ -29,7 +29,7 @@ class Service < ActiveRecord::Base
   # scopes
 
     def self.sorted
-      with_translations(I18n.locale).order(sort: :asc, name: :asc)
+      with_translations(I18n.locale).order(position: :asc, name: :asc)
     end
 
   # validators
@@ -41,6 +41,28 @@ class Service < ActiveRecord::Base
       # validates :"description_#{locale}", presence: true
     end
 
+  # callbacks
+
+    before_create :set_position
+
+    # this record will not have a position so figure out the current last value and then
+    # assign it to the new record
+    def set_position
+      position = if self.ancestry.nil?
+        # this is a root service
+        Service.roots.pluck(:position).sort.last
+      else
+        # this is a sub-service
+        Service.where.(parent_id: self.parent_id).pluck(:position).sort.last
+      end
+
+      self.position = position.nil? ? 1 : (position+1)
+    end
+
+  # helpers
+    def self.validation_order_list
+      [Service.globalize_attribute_names, :for_children, :for_adults, :position, :icon].flatten
+    end
 
   # methods
 

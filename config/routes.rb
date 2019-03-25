@@ -77,6 +77,8 @@ Madloba::Application.routes.draw do
       resources :resources
       resources :resource_items, only: [:index, :edit, :update]
       resources :services
+      post 'services/:id/move_up', to: '/admin/services#move_up', as: :service_move_up
+      post 'services/:id/move_down', to: '/admin/services#move_down', as: :service_move_down
 
       resources :uploads, only: [:create]
       put 'moderate/upload_state/:id/:state', to: '/admin/uploads#upload_state_update', :as => :update_moderate_upload_state, :constraints => { state: /(accept|decline)/ }

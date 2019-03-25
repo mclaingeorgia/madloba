@@ -50,6 +50,7 @@ en:
         for_children: For Children
         parent: Parent Service
         sub_services: Sub-Services
+        position: Position
       page_content:
         title: Title
         content: Content
@@ -272,6 +273,9 @@ en:
       select_all: Select all that apply
       is_required: must be provided
       place_needs_services: You need to add services to the place before it is viewable to the public
+      move_up: Move the item up the list
+      move_down: Move the item down the list
+      position: Position
     providers:
       confirm_delete: Provider will be removed with all places bind to it.
       confirm_restore: Provider will be restored with all places bind to it.

@@ -21,6 +21,8 @@
 #  service_specialists            :string           default([]), not null, is an Array
 #  need_finance                   :boolean
 #  get_involved_link              :string
+#  published                      :boolean          default(FALSE)
+#  deleted                        :integer          default(0)
 #
 
 class PlaceService < ActiveRecord::Base

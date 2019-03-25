@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190321185625) do
+ActiveRecord::Schema.define(version: 20190325084938) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -592,11 +592,11 @@ ActiveRecord::Schema.define(version: 20190321185625) do
     t.string   "ancestry"
     t.boolean  "for_children", default: true
     t.boolean  "for_adults",   default: true
-    t.integer  "sort",         default: 1
+    t.integer  "position",     default: 1
   end
 
   add_index "services", ["ancestry"], name: "index_services_on_ancestry", using: :btree
-  add_index "services", ["sort"], name: "index_services_on_sort", using: :btree
+  add_index "services", ["position"], name: "index_services_on_position", using: :btree
 
   create_table "setting_translations", force: :cascade do |t|
     t.integer  "setting_id",             null: false

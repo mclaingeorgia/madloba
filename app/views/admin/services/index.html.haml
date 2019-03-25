@@ -1,3 +1,6 @@
+- content_for :custom_stylesheet, 'page/admin_service_index'
+- content_for :custom_javascript, 'page/admin_service_index'
+
 - title = t('admin.shared.manage_model', name: @model.human(2))
 - page_title title
 - roots = @items.select{|x| x.is_root?}
@@ -14,8 +17,10 @@
         %th.actions{'data-orderable': 'false'}= t('admin.shared.actions')
     %tbody
       - roots.each do |root|
-        %tr
+        %tr.service-item{data: {id: root.id, group: root.id}}
           %td
+            = image_tag('svg/arrow-up.svg', class: "position up", alt: t('admin.shared.move_up'), title: t('admin.shared.move_up'))
+            = image_tag('svg/arrow-down.svg', class: "position down", alt: t('admin.shared.move_down'), title: t('admin.shared.move_down'))
           %td
             .service.inline
               %i{class: root.icon}
@@ -26,9 +31,11 @@
           %td.actions
             = link_to t('admin.shared.edit'), edit_manage_service_path(root.id), class: 'edit'
         - @items.select{|x| x.parent_id == root.id}.each do |item|
-          %tr
+          %tr.sub-service-item{data: {id: item.id, group: root.id}}
             %td
             %td
+              = image_tag('svg/arrow-up.svg', class: "position up", alt: t('admin.shared.move_up'), title: t('admin.shared.move_up'))
+              = image_tag('svg/arrow-down.svg', class: "position down", alt: t('admin.shared.move_down'), title: t('admin.shared.move_down'))
             %td= item.name
             %td= boolean_format(item.for_children)
             %td= boolean_format(item.for_adults)

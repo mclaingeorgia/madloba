@@ -103,6 +103,9 @@ gem "recaptcha", require: "recaptcha/rails"
 # model record heirarchy
 gem 'ancestry', '~> 3.0', '>= 3.0.5'
 
+# control order of lists
+gem 'acts_as_list', '~> 0.9.19'
+
 group :development, :test do
 
   # Mailcatcher

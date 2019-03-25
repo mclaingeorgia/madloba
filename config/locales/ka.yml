@@ -50,6 +50,7 @@ ka:
         for_children: For Children
         parent: Parent Service
         sub_services: Sub-Services
+        position: Position
       page_content:
         title: სათაური
         content: შინაარსი
@@ -272,6 +273,8 @@ ka:
       select_all: Select all that apply
       is_required: must be provided
       place_needs_services: You need to add services to the place before it is viewable to the public
+      move_up: Move the item up the list
+      move_down: Move the item down the list
     providers:
       confirm_delete: მოხდება პროვაიდერის და მასთან დაკავშირებული ყველა ადგილის წაშლა.
       confirm_restore: მოხდება პროვაიდერის და მასთან დაკავშირებული ყველა ადგილის აღდგენა.

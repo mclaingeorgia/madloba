@@ -7,6 +7,9 @@ class Admin::ServicesController < AdminController
   def index
     authorize @model
     @items = @model.sorted.with_translations(I18n.locale)
+
+    gon.move_up_url = manage_service_move_up_path('[id]')
+    gon.move_down_url = manage_service_move_down_path('[id]')
   end
 
   def new
@@ -58,6 +61,44 @@ class Admin::ServicesController < AdminController
     redirect_to :back
   end
 
+  def move_up
+    item = @model.find(params[:id])
+    authorize item
+
+    redirect_path = manage_services_path
+
+    respond_to do |format|
+      if item.move_higher
+        format.html { redirect_to redirect_path, notice: t('app.messages.success_updated', obj: t('admin.shared.position')) }
+        format.json { render json: {flash: {success: t('app.messages.success_updated', obj: t('admin.shared.position')) }} }
+      else
+        msg = format_messages(item)
+        flash[:error] = msg
+        format.html { redirect_to redirect_path, error: t('app.messages.fail_updated', obj: t('admin.shared.position')) }
+        format.json { render json: {flash: {error: msg} }}
+      end
+    end
+  end
+
+  def move_down
+    item = @model.find(params[:id])
+    authorize item
+
+    redirect_path = manage_services_path
+
+    respond_to do |format|
+      if item.move_lower
+        format.html { redirect_to redirect_path, notice: t('app.messages.success_updated', obj: t('admin.shared.position')) }
+        format.json { render json: {flash: {success: t('app.messages.success_updated', obj: t('admin.shared.position')) }} }
+      else
+        msg = format_messages(item)
+        flash[:error] = msg
+        format.html { redirect_to redirect_path, error: t('app.messages.fail_updated', obj: t('admin.shared.position')) }
+        format.json { render json: {flash: {error: msg} }}
+      end
+    end
+
+  end
 
   private
 

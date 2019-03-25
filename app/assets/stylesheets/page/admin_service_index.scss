@@ -1,0 +1,34 @@
+@import 'var';
+
+body.services.index{
+  table tbody tr{
+    td img.position{
+      height: 19px;
+      opacity: 0.4;
+      &:hover{
+        opacity: 1;
+        cursor: pointer
+      }
+    }
+
+    td:nth-child(1){
+      text-align: left;
+    }
+
+    &.sub-service-item{
+      td:nth-child(2){
+        text-align: right;
+      }
+    }
+    &.service-item:first-of-type{
+      img.position.up{
+        visibility: hidden;
+      }
+    }
+    &.service-item:last-of-type{
+      img.position.down{
+        visibility: hidden;
+      }
+    }
+  }
+}

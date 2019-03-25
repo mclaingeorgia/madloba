@@ -24,4 +24,12 @@ class ServicePolicy < ApplicationPolicy
     user.admin?
   end
 
+  def move_up?
+    user.admin?
+  end
+
+  def move_down?
+    user.admin?
+  end
+
 end
