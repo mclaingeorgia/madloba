@@ -204,7 +204,7 @@ en:
     view_all_service_places: See all places with this service
     add: Add
     add_sub_service: Add Sub-Service
-    upload_image: Upload Photo
+    upload_image: Upload Photos
     delete_image: Delete Photo
     pending: Pending
     accept: Accept
@@ -312,6 +312,7 @@ en:
         map_heading: Position Your Place On The Map
         map_help: Click on the map to place a marker for your place. Or you can click on the button below to use your current location.
         locate_me: Use My Current Location
+        poster_instructions: The green circle with a white checkmark indicates which image will be used for your place listing on the homepage. Click on an image to make it the new image for the homepage listing.
     place:
       index:
         title: Manage Places
