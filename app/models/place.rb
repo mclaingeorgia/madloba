@@ -39,6 +39,9 @@ class Place < ActiveRecord::Base
     has_many :assets, -> { where(owner_type: 1) }, {foreign_key: :owner_id, class_name: "Asset"}
     accepts_nested_attributes_for :assets, :allow_destroy => true
 
+    has_many :place_users
+    has_many :users, through: :place_users, source: :user
+
     # belongs_to :provider
 
     # has_one :provider_place
@@ -98,6 +101,9 @@ class Place < ActiveRecord::Base
     scope :only_active, -> { where(deleted: 0) }
     scope :excluding, -> (id) { where.not(id: id) }
     scope :sorted, -> { with_translations(I18n.locale).order(name: :asc) }
+    scope :for_user, -> (user, admin_scope = false) {
+      admin_scope ? all : joins(:users).where(users: { id: user.id})
+    }
 
     def assets_sorted
       poster_asset = self.get_poster()

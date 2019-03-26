@@ -56,6 +56,10 @@ class User < ActiveRecord::Base
     has_many :providers, -> { where('providers.deleted = false and (providers.processed is null or providers.processed = 1)') }, through: :provider_users
     accepts_nested_attributes_for :providers, :reject_if => :not_service_provider?
 
+    has_many :place_users
+    has_many :places, -> { where('places.deleted = false and (places.processed is null or places.processed = 1)') }, through: :place_users
+    accepts_nested_attributes_for :places, :reject_if => :not_service_provider?
+
     has_many :favorite_places
     has_many :favorites, through: :favorite_places, source: :place
 
