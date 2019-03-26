@@ -34,7 +34,6 @@
               = b.radio_button class: 'field-input'
               = b.label class: 'field-label' do
                 = b.text
-
       .field-wrapper.indent.geographic_area_municipalities
         %label.field-label= ps.human_attribute(:geographic_area_municipalities, true, true)
         = f.collection_select :geographic_area_municipalities, Municipality.sorted, :id, :name, {}, { class: 'field-input select2', multiple: true }
@@ -50,8 +49,8 @@
                 = b.text
 
     .fields-wrapper.acts
-      = f.input :act_regulating_service, as: :string
-      = f.input :act_link, as: :string
+      = f.input :act_regulating_service, as: :text
+      = f.input :act_link, as: :text
 
     .fields-wrapper
       = f.input :description, as: :text

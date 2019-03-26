@@ -18,6 +18,30 @@ body.places.input_service{
         margin-top: 27px;
       }
 
+      .select2-container {
+        .select2-selection--multiple .select2-selection__rendered li{
+          width: 100%;
+        }
+
+        .select2-search--inline {
+          &:after{
+            display: inline-block;
+            content: "";
+            width: 24px;
+            height: 7px;
+            min-width: 24px;
+            background: url(svg('updownarrows')) no-repeat -19px top;
+            background-size: cover;
+            cursor: pointer;
+            margin-right: 14px;
+          }
+          .select2-search__field {
+            margin-top: 0;
+            width: calc(100% - 40px) !important; // account for the arrow
+          }
+        }
+      }
+
       .fields-group.columns{
         padding-left: 0;
         padding-right: 0;
@@ -40,10 +64,12 @@ body.places.input_service{
         margin: 40px 0 0;
       }
       .services{
-        columns: 4 300px;
-        column-gap: 10px;
+        display: block;
+
         li{
-          margin-bottom: 10px;
+          display: block;
+          width: 100%;
+          margin: 0 5px 10px 0;
           padding: 0;
           border-radius: 5px;
           border: 1px solid #dedede;
@@ -82,6 +108,12 @@ body.places.input_service{
             margin-bottom: 10px;
             width: 100%;
           }
+          &.age_groups{
+            .field-wrapper{
+              display: inline-block;
+              margin-right: 10px;
+            }
+          }
         }
       }
 
@@ -115,7 +147,8 @@ body.places.input_service{
       form{
         .services{
           li{
-            padding: 24px;
+            display: inline-block;
+            width: calc(50% - 20px);
           }
         }
       }
@@ -157,3 +190,33 @@ body.places.input_service{
     }
   }
 }
+
+@media (min-width: 1235px){
+  body.places.input_service{
+    .form-container{
+      form{
+        .services{
+          li{
+            padding: 24px;
+            width: calc(33% - 20px);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1575px){
+  body.places.input_service{
+    .form-container{
+      form{
+        .services{
+          li{
+            width: calc(25% - 20px);
+          }
+        }
+      }
+    }
+  }
+}
+

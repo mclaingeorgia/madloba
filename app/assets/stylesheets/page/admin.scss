@@ -304,3 +304,8 @@ a.btn {
     color: $control;
   }
 }
+
+.select2-container--default.select2-container--open .select2-dropdown .select2-results__option.select2-results__option--highlighted[aria-selected]{
+  background-color: #009b72;
+  color: white;
+}

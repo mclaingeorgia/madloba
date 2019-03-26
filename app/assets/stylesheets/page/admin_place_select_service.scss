@@ -25,10 +25,8 @@ body.places.select_service{
           margin: 20px 0 10px;
         }
         .root-services{
-          columns: 4 300px;
-          column-gap: 10px;
           .radio{
-            margin-bottom: 10px;
+            margin: 0 5px 10px 0;
             padding: 0;
 
             input[type="radio"] + label{
@@ -104,6 +102,24 @@ body.places.select_service{
         .field-wrapper{
           .root-services{
             .radio{
+              width: calc(50% - 20px);
+              display: inline-block;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1235px){
+  body.places.select_service{
+    form{
+      .fields-group.columns{
+        .field-wrapper{
+          .root-services{
+            .radio{
+              width: calc(33% - 20px);
               input[type="radio"] + label{
                 padding: 24px;
               }
@@ -128,3 +144,19 @@ body.places.select_service{
     }
   }
 }
+@media (min-width: 1575px){
+  body.places.select_service{
+    form{
+      .fields-group.columns{
+        .field-wrapper{
+          .root-services{
+            .radio{
+              width: calc(25% - 20px);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+

@@ -169,3 +169,5 @@ $('[name="user[is_service_provider]"').change(function() {
   console.log('here', state)
 })
 
+
+$('select.field-input.select2').select2({})

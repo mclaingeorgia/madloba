@@ -11,10 +11,10 @@
 
           .field-wrapper
             %label.field-label= p.human_attribute(:region, true, true)
-            = f.collection_select :region_id, Region.sorted, :id, :name, {include_blank: true}, { class: 'field-input' }
+            = f.collection_select :region_id, Region.sorted, :id, :name, {include_blank: true}, { class: 'field-input select2' }
           .field-wrapper
             %label.field-label= p.human_attribute(:municipality, true, true)
-            = f.collection_select :municipality_id, Municipality.sorted, :id, :name, {include_blank: true}, { class: 'field-input' }
+            = f.collection_select :municipality_id, Municipality.sorted, :id, :name, {include_blank: true}, { class: 'field-input select2' }
           = f.input :city, as: :string
           = f.input :address, as: :string
           = f.input :postal_code
