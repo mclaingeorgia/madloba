@@ -11,6 +11,24 @@ body.places.select_service{
       }
     }
 
+    .actions .action-group button.show-root-services-selection{
+      display: none;
+      color: $text_gray;
+      background-color: transparent;
+      border: 1px solid $text_gray;
+    }
+
+    .service-selection-container{
+      &.for-mobile{
+        .root-services-selection{
+          display: inherit;
+        }
+        .sub-services-selection{
+          display: none;
+        }
+      }
+    }
+
     .fields-group.columns{
       padding-left: 0;
       padding-right: 0;
@@ -160,3 +178,30 @@ body.places.select_service{
   }
 }
 
+// @media (min-width: 665px) and (min-height: 975px), (max-width: 665px) and (min-height: 740px){
+//   body.places.select_service{
+//     form{
+//       .service-selection-container{
+//         position: relative;
+//         .root-services-selection{
+//           position: relative;
+//           opacity: 1;
+//           width: 100%;
+//           top: 0;
+//           left: 0;
+//           opacity: 1;
+//         }
+//         .sub-services-selection{
+//           position: relative;
+//           width: 100%;
+//           top: 0;
+//           left: 0;
+//           opacity: 1;
+//           .show-root-services-selection{
+//             display: none;
+//           }
+//         }
+//       }
+//     }
+//   }
+// }

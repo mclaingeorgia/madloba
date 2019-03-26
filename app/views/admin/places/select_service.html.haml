@@ -20,30 +20,32 @@
           %br
           =item.address_full
 
-    .fields-group.columns
-      .field-wrapper.radios.radio_buttons.optional
-        %label.field-label.radio_buttons.optional= t('.root_service')
-        .root-services
-          - root_services = @services.select{|x| x.root?}
-          - root_services.each do |service|
-            .radio
-              %input.field-input.radio_buttons.optional{type: "radio", value: service.id, name: "root_service", id: "root_service_#{service.id}", data: {id: service.id}}
-              %label.collection_radio_buttons{for: "root_service_#{service.id}"}
-                %i{class: service.icon, alt: service.name, title: service.name}
-                = service.name
+    .service-selection-container
+      .fields-group.columns.root-services-selection
+        .field-wrapper.radios.radio_buttons.optional
+          %label.field-label.radio_buttons.optional= t('.root_service')
+          .root-services
+            - root_services = @services.select{|x| x.root?}
+            - root_services.each do |service|
+              .radio
+                %input.field-input.radio_buttons.optional{type: "radio", value: service.id, name: "root_service", id: "root_service_#{service.id}", data: {id: service.id}}
+                %label.collection_radio_buttons{for: "root_service_#{service.id}"}
+                  %i{class: service.icon, alt: service.name, title: service.name}
+                  = service.name
 
-    .fields-collection.columns{id: 'scrollto'}
-      .fields-collection-wrapper
-        %label.field-label.radio_buttons.optional= t('.services')
-        .no-selection.active= t('.no_selection')
-        .active-sub-services
-        .sub-services
-          - @services.each do |service|
-            - if existing_service_ids.empty? || !existing_service_ids.include?(service.id)
-              .field-wrapper{data: {id: service.id, 'parent-id': service.parent_id}}
-                %input.field-input{type: "checkbox", value: service.id, name: "services[]", id: "services_#{service.id}"}
-                %label.field-label{for: "services_#{service.id}"}= service.name
+      .fields-collection.columns.sub-services-selection
+        .fields-collection-wrapper
+          %label.field-label.radio_buttons.optional= t('.services')
+          .no-selection.active= t('.no_selection')
+          .active-sub-services
+          .sub-services
+            - @services.each do |service|
+              - if existing_service_ids.empty? || !existing_service_ids.include?(service.id)
+                .field-wrapper{data: {id: service.id, 'parent-id': service.parent_id}}
+                  %input.field-input{type: "checkbox", value: service.id, name: "services[]", id: "services_#{service.id}"}
+                  %label.field-label{for: "services_#{service.id}"}= service.name
 
     .actions
       .action-group
         = f.submit t("admin.shared.next")
+        %button.show-root-services-selection{type: 'button'}= t('.view_root_services')

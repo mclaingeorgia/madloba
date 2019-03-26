@@ -297,6 +297,7 @@ en:
         root_service: Select a Service Category
         services: Select All Services That Apply
         no_selection: Select a Service Category to see a list of Services
+        view_root_services: Show Service Categories
       input_service:
         place: Place
         instructions: Please enter the details for this service below
