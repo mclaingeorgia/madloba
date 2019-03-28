@@ -1,0 +1,45 @@
+- if current_user.at_least_user?
+  %ul.first
+    - if current_user.admin?
+      %li.sans
+        %span.header= t('shared.admin_profile')
+        %ul
+          %li.sans
+            %span.subheader= t('shared.manage')
+            %ul
+              %li
+                = link_to t('admin.menu.users'), manage_users_path, class: controller_name?('users') ? 'current' : nil
+              %li
+                = link_to t('admin.menu.places'), manage_places_path, class: controller_name?('places') ? 'current' : nil
+              %li
+                = link_to t('admin.menu.services'), manage_services_path, class: controller_name?('services') ? 'current' : nil
+              %li
+                = link_to t('admin.menu.page_contents'), manage_page_contents_path, class: controller_name?('page_contents') ? 'current' : nil
+              %li
+                = link_to t('admin.menu.resources'), manage_resources_path, class: controller_name?('resources') ? 'current' : nil
+              %li
+                = link_to t('admin.menu.resource_items'), manage_resource_items_path, class: controller_name?('resource_items') ? 'current' : nil
+          %li.sans
+            %span.subheader= t('shared.moderate')
+            %ul
+              %li
+                = link_to t('admin.menu.place_report'), manage_moderate_place_report_path, class: action_name?('place_report') ? 'current' : nil
+              %li
+                = link_to t('admin.menu.place_ownership'), manage_moderate_place_ownership_path, class: action_name?('place_ownership') ? 'current' : nil
+              %li
+                = link_to t('admin.menu.place_tags'), manage_moderate_place_tag_path, class: action_name?('place_tag') ? 'current' : nil
+    %li.sans
+      %span.header= t('shared.user_profile')
+      %ul
+        - if current_user.provider?
+          %li
+            = link_to t('admin.menu.manage_places'), manage_provider_profile_path(page: 'manage-places'), class: action_name?('provider_profile') ? 'current' : nil
+        %li
+          = link_to t('admin.menu.manage_profile'), manage_user_profile_path(page: 'manage-profile'), class: action_name?('user_profile') && params[:page] == 'manage-profile' ? 'current' : nil
+        %li
+          = link_to t('admin.menu.favorite_places'), manage_user_profile_path(page: 'favorite-places'), class: action_name?('user_profile') && params[:page] == 'favorite-places' ? 'current' : nil
+        %li
+          = link_to t('admin.menu.rated_places'), manage_user_profile_path(page: 'rated-places'), class: action_name?('user_profile') && params[:page] == 'user_profile' ? 'current' : nil
+  %ul.last
+    %li.sans
+      = link_to t('.log_out'), destroy_user_session_path, :method => :delete

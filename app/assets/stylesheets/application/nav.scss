@@ -217,6 +217,7 @@
                 color: $text;
                 text-decoration: none;
                 white-space: nowrap;
+                display: block;
               }
               li {
                 display: block;
@@ -230,8 +231,9 @@
                 white-space: nowrap;
                 padding-bottom: 14px;
                 opacity: .8;
-                &:hover {
+                &:hover, &.current {
                   opacity: 1;
+                  color: $control;
                 }
                 &:after {
                   content: '';

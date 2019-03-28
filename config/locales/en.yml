@@ -183,9 +183,9 @@ en:
       confirm_leave_form: You have unsaved changes. Are you sure you want to leave without saving?
   shared:
     toggle_navigation: Show navigation
-    user_profile: User Profile
+    user_profile: Your Account
     provider_profile: Provider Profile
-    admin_profile: Admin Profile
+    admin_profile: Admin Section
     manage: Manage
     moderate: Moderate
     fields_localization: Fields to translate
@@ -332,12 +332,12 @@ en:
     moderate_photos:
       index: Moderate Photos
     menu:
-      manage_profile: Manage Profile
+      manage_profile: Profile
       favorite_places: Favorite Places
       rated_places: Rated Places
       uploaded_photos: Uploaded Photos
       manage_providers: Manage Providers
-      manage_places: Manage Places
+      manage_places: Places
       moderate_photos: Moderate Photos
       users: Users
       providers: Providers

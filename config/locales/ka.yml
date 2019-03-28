@@ -183,8 +183,8 @@ ka:
       confirm_leave_form: You have unsaved changes. Are you sure you want to leave without saving?
   shared:
     toggle_navigation: ნავიგაციის ჩვენება
-    user_profile: მომხმარებლის პროფილი
-    provider_profile: პროვაიდერის პროფილი
+    user_profile: Your Account
+    admin_profile: Admin Section
     admin_profile: ადმინისტრატორის პროფილი
     manage: მართვა
     moderate: მოდერაცია
@@ -332,12 +332,12 @@ ka:
     moderate_photos:
       index: ფოტოების მოდერაცია
     menu:
-      manage_profile: პროფილის რედაქტირება
+      manage_profile: Profile
       favorite_places: ფავორიტი ადგილები
       rated_places: შეფასებული ადგილები
       uploaded_photos: ატვირთული ფოტოები
       manage_providers: პროვაიდერების მართვა
-      manage_places: ადგილების მართვა
+      manage_places: Places
       moderate_photos: სურათის მოდერაცია
       users: მომხმარებელი
       providers: პროვაიდერები

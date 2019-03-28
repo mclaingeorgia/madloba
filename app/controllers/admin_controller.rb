@@ -42,8 +42,8 @@ class AdminController < ApplicationController
 
     def prepaire_user_profile(false_start, page, id, action, item)
       @is_admin = true
-      @is_admin_profile_page = false
-      @class = 'user_profile'
+      @is_admin_profile_page = true
+      @class << ' user_profile'
       @has_slideshow = true
 
       unless false_start
@@ -68,8 +68,8 @@ class AdminController < ApplicationController
     end
     def prepaire_provider_profile(false_start, page, id, action, item)
       @is_admin = true
-      @is_admin_profile_page = false
-      @class = 'provider_profile'
+      @is_admin_profile_page = true
+      @class << ' provider_profile'
       @has_slideshow = true
 
       providers = Provider.only_active.for_user(current_user).with_places

@@ -31,64 +31,8 @@
               .user-name #{current_user.name}
               .caret
             .user-menu{ 'data-set-max-height': true }
-              - if current_user.at_least_user?
-                %ul.first
-                  %li.sans
-                    %span.header= t('shared.user_profile')
-                    %ul
-                      %li
-                        = link_to t('admin.menu.manage_profile'), manage_user_profile_path(page: 'manage-profile')
-                      %li
-                        = link_to t('admin.menu.favorite_places'), manage_user_profile_path(page: 'favorite-places')
-                      %li
-                        = link_to t('admin.menu.rated_places'), manage_user_profile_path(page: 'rated-places')
-                      %li
-                        = link_to t('admin.menu.uploaded_photos'), manage_user_profile_path(page: 'uploaded-photos')
-                  / - if current_user.at_least_provider?
-                  /   %li.sans
-                  /     %span.header= t('shared.provider_profile')
-                  /     %ul
-                  /       %li
-                  /         = link_to t('admin.menu.manage_providers'), manage_provider_profile_path(page: 'manage-providers')
-                  /       %li
-                  /         = link_to t('admin.menu.manage_places'), manage_provider_profile_path(page: 'manage-places')
-                  /       %li
-                  /         = link_to t('admin.menu.moderate_photos'), manage_provider_profile_path(page: 'moderate-photos')
-                  - if current_user.admin?
-                    %li.sans
-                      %span.header= t('shared.admin_profile')
-                      %ul
-                        %li.sans
-                          %span.subheader= t('shared.manage')
-                          %ul
-                            %li
-                              = link_to t('admin.menu.users'), manage_users_path
-                            / %li
-                            /   = link_to t('admin.menu.providers'), manage_providers_path
-                            %li
-                              = link_to t('admin.menu.places'), manage_places_path
-                            %li
-                              = link_to t('admin.menu.services'), manage_services_path
-                            %li
-                              = link_to t('admin.menu.page_contents'), manage_page_contents_path
-                            %li
-                              = link_to t('admin.menu.resources'), manage_resources_path
-                            %li
-                              = link_to t('admin.menu.resource_items'), manage_resource_items_path
-                        %li.sans
-                          %span.subheader= t('shared.moderate')
-                          %ul
-                            %li
-                              = link_to t('admin.menu.place_report'), manage_moderate_place_report_path
-                            %li
-                              = link_to t('admin.menu.place_ownership'), manage_moderate_place_ownership_path
-                            / %li
-                            /   = link_to t('admin.menu.new_provider'), manage_moderate_new_provider_path
-                            %li
-                              = link_to t('admin.menu.place_tags'), manage_moderate_place_tag_path
-                %ul.last
-                  %li.sans
-                    = link_to t('.log_out'), destroy_user_session_path, :method => :delete
+              = render partial: "application/admin_menu"
+
       .nav-lang
         = link_to t('app.languages._en'), url_for(locale: :en), class: "#{I18n.locale == :en ? 'active' : ''}", lang: :en
         = link_to t('app.languages._ka'), url_for(locale: :ka), class: "#{I18n.locale == :ka ? 'active' : ''}", lang: :ka
