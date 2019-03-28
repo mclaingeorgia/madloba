@@ -28,10 +28,10 @@ class Admin::PlacesController < AdminController
     # end
 
     redirect_default = pars.delete(:redirect_default) == 'true'
-    # redirect_path = redirect_default ?
-    #   manage_places_path :
-    #   manage_provider_profile_path(page: 'manage-places')
-    redirect_path = manage_places_path
+    redirect_path = redirect_default ?
+      manage_places_path :
+      manage_provider_profile_path(page: 'manage-places')
+    # redirect_path = manage_places_path
 
     item = @model.new(pars)
     authorize item
@@ -39,6 +39,11 @@ class Admin::PlacesController < AdminController
     @item = item if redirect_default
 
     if item.save
+      # if the user is not an admin then assign them to the place
+      if !current_user.admin?
+        item.users << current_user
+      end
+
       tag_ids = tags.present? ? Tag.process(current_user.id, item.id, tags) : []
       item.update_attributes({ tag_ids: tag_ids })
 
@@ -50,11 +55,11 @@ class Admin::PlacesController < AdminController
       redirect_to redirect_path
     else
       flash[:error] = format_messages(item)
-      # if redirect_default
+      if redirect_default
         render action: "new"
-      # else
-      #   render 'admin/provider_profile', locals: prepaire_provider_profile(true, :'manage-places', nil, :new, item)
-      # end
+      else
+        render 'admin/provider_profile', locals: prepaire_provider_profile(true, :'manage-places', nil, :new, item)
+      end
     end
   end
 
@@ -83,10 +88,10 @@ class Admin::PlacesController < AdminController
 
 
     redirect_default = pars.delete(:redirect_default) == 'true'
-    # redirect_path = redirect_default ?
-    #   manage_places_path :
-    #   manage_provider_profile_path(page: 'manage-places')
-    redirect_path = manage_places_path
+    redirect_path = redirect_default ?
+      manage_places_path :
+      manage_provider_profile_path(page: 'manage-places')
+    # redirect_path = manage_places_path
 
     @item = item if redirect_default
     respond_to do |format|

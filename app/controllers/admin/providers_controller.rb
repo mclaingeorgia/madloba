@@ -16,7 +16,6 @@ class Admin::ProvidersController < AdminController
     pars = strong_params
     redirect_default = pars.delete(:redirect_default) == 'true'
     item = @model.new(pars)
-    item.users << current_user
     authorize item
 
     redirect_path = redirect_default ?
@@ -24,9 +23,10 @@ class Admin::ProvidersController < AdminController
       manage_provider_profile_path(page: 'manage-providers')
 
     @item = item if redirect_default
-    item.user << current_user
+    item.user = current_user
 
     if item.save
+      item.users << current_user
       flash[:success] = t('app.messages.success_updated', obj: @model)
       redirect_to redirect_path
     else
