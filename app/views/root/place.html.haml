@@ -23,10 +23,6 @@
     .summary
       .name
         = item.name
-      / - if item.name != item.provider.name
-      /   .provider-name
-      /     %span #{"by "}
-      /     %a{href: root_path(what: item.provider.name)}= item.provider.name
       %ul.services
         - view_all_service_places = t('shared.view_all_service_places')
         = item.services.sorted.map { |s| "<li class='service'><a href='#{root_path(services:[s.id])}' title='#{s.name} - #{view_all_service_places}'><i class='#{s.icon}'></i><span>#{s.name}</span></a></li>" }.join("").html_safe
@@ -134,21 +130,6 @@
             .header=t('.comments')
             .fb-comments{'data-numposts': 5, width: '992px'}
     %section.photos.slides
-      / - if user_signed_in?
-      /   .form-container
-      /     = simple_form_for [:manage, Upload.new(place_id: item.id)] do |f|
-      /       = hidden_field_tag :authenticity_token, form_authenticity_token
-      /       = f.input :place_id, as: :hidden
-      /       .field-wrapper.field-file
-      /         = f.label :image do
-      /           %img{src: asset_path("svg/upload.svg") }
-      /           = t("shared.upload_image")
-      /         = f.input :image, as: :file, label: false, wrapper: false, input_html: { name: "assets_attributes[][image]", multiple: true, onchange: "javascript:this.form.submit();", accept: 'image/png,image/gif,image/jpeg' }
-      / - else
-      /   .field-file
-      /     %label{href: new_user_session_path, 'data-xhr': 'sign_in'}
-      /       %img{src: asset_path("svg/upload.svg") }
-      /       = t("shared.upload_image")
       - item.assets_sorted.each do |asset|
         .photo
           = image_tag asset.image.url(:thumb), 'data-slide': asset.image.url(:normal)
