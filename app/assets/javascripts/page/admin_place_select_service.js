@@ -31,7 +31,7 @@
       })
 
       //
-      $('.actions').on('click', t.els['button'], function(evt){
+      $('.actions').on('click', 'button.show-root-services-selection', function(evt){
         t.show_categories()
       })
 

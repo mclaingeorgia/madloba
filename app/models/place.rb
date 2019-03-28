@@ -32,7 +32,7 @@ class Place < ActiveRecord::Base
 
     translates :name, :director, :description, :city, :address
     globalize_accessors :locales => [:en, :ka], :attributes => [ :name, :director, :description, :city, :address]
-    globalize_validations([:name])
+    # globalize_validations([:name])
     # globalize_validations([:name, :description])
   # associations
 

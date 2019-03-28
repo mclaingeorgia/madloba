@@ -1,20 +1,11 @@
 =# content_for :custom_javascript, 'page/admin'
-= page_title t("admin.menu.#{current_page.to_s.gsub('-','_')}")
-%section.content
-  .tabs{'data-target': 'global'}
-    %ul
-      - user_profile_pages.each do |page|
-        %li.tab-link{class: page == current_page ? 'active' : nil}
-          = link_to t("admin.menu.#{page.to_s.gsub('-','_')}"), manage_user_profile_path(page: page), 'data-link': page, 'aria-expanded': page == current_page
-  .tabs-content{'data-target': 'global'}
-    %ul
-      %li{class: current_page == :'manage-profile' ? 'active' : nil, 'data-link': 'manage-profile'}
-        = render template: "admin/users/edit", locals: { item: item, redirect_default: false }
-      %li{class: current_page == :'favorite-places' ? 'active' : nil, 'data-link': 'favorite-places'}
-        = render partial: 'admin/users/favorites', locals: { favorite_places: favorite_places }
-      %li{class: current_page == :'rated-places' ? 'active' : nil, 'data-link': 'rated-places'}
-        = render partial: 'admin/users/rates', locals: { rated_places: rated_places }
-      %li{class: current_page == :'uploaded-photos' ? 'active' : nil, 'data-link': 'uploaded-photos'}
-        = render partial: 'admin/users/photos', locals: { uploads_by_place: uploads_by_place }
+- title = t("admin.menu.#{current_page.to_s.gsub('-','_')}")
+= page_title title
+= render partial: 'shared/breadcrumbs', locals: { paths: [title] }
 
-    = render partial: "shared/footer"
+-if current_page == :'manage-profile'
+  = render template: "admin/users/edit", locals: { item: item, redirect_default: false }
+-elsif  current_page == :'favorite-places'
+  = render partial: 'admin/users/favorites', locals: { favorite_places: favorite_places }
+-elsif current_page == :'rated-places'
+  = render partial: 'admin/users/rates', locals: { rated_places: rated_places }

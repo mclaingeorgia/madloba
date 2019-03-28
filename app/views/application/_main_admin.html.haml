@@ -1,6 +1,7 @@
+- space = true
 %main{class: @class}
   - if @is_admin_profile_page
-    - space = false
+    / - space = false
     %section.aside
       = render partial: "application/admin_menu"
     %section.content{class: space ? 'space' : nil}

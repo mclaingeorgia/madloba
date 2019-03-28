@@ -12,7 +12,6 @@ class AdminController < ApplicationController
   def provider_profile
     authorize User
     page, id, action = get_sub_action(params[:page], params[:id], params[:edit], :provider_profile)
-    @provider_id = params[:provider_id].present? ? params[:provider_id] : nil
     locals(prepaire_provider_profile(false, page, id, action, nil))
   end
 
@@ -72,49 +71,27 @@ class AdminController < ApplicationController
       @class << ' provider_profile'
       @has_slideshow = true
 
-      providers = Provider.only_active.for_user(current_user).with_places
+      places = Place.only_active.for_user(current_user)
 
       unless false_start
         item = provider_profile_prepare_item(page, id, action)
       end
 
       @model = item.class
-      uploads_by_place = []
-      providers.sorted.each do |provider|
-        provider.places.sorted.each do |place|
-          uploads = place.uploads.sorted
-          uploads_by_place << [place.id, uploads] if uploads.present?
-        end
-      end
-      providers_without_owner = []
-      without_owner_uploads_by_place = []
-      if current_user.admin?
-        providers_without_owner = Provider.only_active.joins("LEFT OUTER JOIN provider_users ON providers.id = provider_users.provider_id").where(provider_users: {user_id: nil})
-        providers_without_owner.sorted.each do |provider|
-          provider.places.sorted.each do |place|
-            uploads = place.uploads.sorted
-            without_owner_uploads_by_place << [place.id, uploads] if uploads.present?
-          end
-        end
-      end
 
       gon.labels.merge!({
         # state_label: t('shared.labels.state'),
         accept: t('shared.accept'),
         accepted: t('shared.accepted'),
         decline: t('shared.decline'),
-        declined: t('shared.declined'),
-        upload_state_path: manage_update_moderate_upload_state_path(id: '_id_', state: 'accept').gsub('accept', '_state_')
+        declined: t('shared.declined')
       })
 
       {
         current_page: page,
         action: action,
         item: item,
-        providers: providers,
-        uploads_by_place: uploads_by_place,
-        providers_without_owner: providers_without_owner,
-        without_owner_uploads_by_place: without_owner_uploads_by_place
+        places: places
       }
     end
 
@@ -172,9 +149,9 @@ class AdminController < ApplicationController
 
     def get_provider_profile_page (page)
       options = [:'manage-providers', :'manage-places', :'moderate-photos']
-      page = options[0] if page.nil?
+      page = options[1] if page.nil?
       page = page.to_sym
 
-      options.index(page).present? ? page : options[0]
+      options.index(page).present? ? page : options[1]
     end
 end

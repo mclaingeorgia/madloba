@@ -1,25 +1,10 @@
 =# content_for :custom_javascript, 'page/admin'
-= page_title t("admin.#{current_page.to_s.gsub('-','_')}.#{action}")
-%section.content
-  .tabs{'data-target': 'global'}
-    %ul
-      - provider_profile_pages.each do |page|
-        %li.tab-link{class: page == current_page ? 'active' : nil}
-          = link_to t("admin.menu.#{page.to_s.gsub('-','_')}"), manage_provider_profile_path(page: page), 'data-link': page, 'aria-expanded': page == current_page
-  .tabs-content{'data-target': 'global'}
-    %ul
+-title = t("admin.#{current_page.to_s.gsub('-','_')}.#{action}")
+= page_title title
+= render partial: 'shared/breadcrumbs', locals: { paths: [title] }
 
-      %li{class: current_page == :'manage-providers' ? 'active' : nil, 'data-link': 'manage-providers'}
-        - if current_page == :'manage-providers' && (action == :new || action == :edit) # @edit_states[0]
-          = render template: "admin/providers/#{action}", locals: { item: item, redirect_default: false }
-        - else
-          = render partial: 'admin/providers/list', locals: { items: providers, without_owner_items: providers_without_owner }
-      %li{class: current_page == :'manage-places' ? 'active' : nil, 'data-link': 'manage-places'}
-        - if current_page == :'manage-places' && (action == :new || action == :edit)
-          = render template: "admin/places/#{action}", locals: { item: item, redirect_default: false }
-        - else
-          = render partial: 'admin/places/list', locals: { items: providers, without_owner_items: providers_without_owner }
-      %li{class: current_page == :'moderate-photos' ? 'active' : nil, 'data-link': 'moderate-photos'}
-        = render partial: 'admin/uploads/list', locals: { uploads_by_place: uploads_by_place, without_owner_uploads_by_place: without_owner_uploads_by_place }
-
-    = render partial: "shared/footer"
+- if current_page == :'manage-places'
+  - if current_page == :'manage-places' && (action == :new || action == :edit)
+    = render template: "admin/places/#{action}", locals: { item: item, redirect_default: false }
+  - else
+    = render partial: 'admin/places/list', locals: { items: places }

@@ -33,13 +33,13 @@
       %ul
         - if current_user.provider?
           %li
-            = link_to t('admin.menu.manage_places'), manage_provider_profile_path(page: 'manage-places'), class: action_name?('provider_profile') ? 'current' : nil
+            = link_to t('admin.menu.manage_places'), manage_places_path, class: controller_name?('places') ? 'current' : nil
         %li
           = link_to t('admin.menu.manage_profile'), manage_user_profile_path(page: 'manage-profile'), class: action_name?('user_profile') && params[:page] == 'manage-profile' ? 'current' : nil
         %li
           = link_to t('admin.menu.favorite_places'), manage_user_profile_path(page: 'favorite-places'), class: action_name?('user_profile') && params[:page] == 'favorite-places' ? 'current' : nil
         %li
-          = link_to t('admin.menu.rated_places'), manage_user_profile_path(page: 'rated-places'), class: action_name?('user_profile') && params[:page] == 'user_profile' ? 'current' : nil
+          = link_to t('admin.menu.rated_places'), manage_user_profile_path(page: 'rated-places'), class: action_name?('user_profile') && params[:page] == 'rated-places' ? 'current' : nil
   %ul.last
     %li.sans
       = link_to t('.log_out'), destroy_user_session_path, :method => :delete

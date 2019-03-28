@@ -5,6 +5,10 @@ class Admin::PlacesController < AdminController
   def index
     authorize @model
     @items = @model.sorted.with_translations(I18n.locale).include_services
+    if current_user.provider?
+      # only get places the user is assigned to and not deleted
+      @items = @items.for_user(current_user).only_active
+    end
   end
 
   def new
@@ -301,7 +305,7 @@ class Admin::PlacesController < AdminController
 
     def strong_params
       # permitted = @model.globalize_attribute_names + [:postal_code, :region_id, :latitude, :longitude, :poster_id, :published, :redirect_default, :provider_id, emails: [], websites: [], phones: [], service_ids: [],
-      permitted = @model.globalize_attribute_names + [:postal_code, :region_id, :municipality_id, :latitude, :longitude, :poster_id, :published, :redirect_default, :email, :website, :facebook, :phone, :phone2, service_ids: [],
+      permitted = @model.globalize_attribute_names + [:name, :director, :city, :address, :postal_code, :region_id, :municipality_id, :latitude, :longitude, :poster_id, :published, :redirect_default, :email, :website, :facebook, :phone, :phone2, service_ids: [],
         assets_attributes: ["@original_filename", "@content_type", "@headers", "_destroy", "id", "image"], tags: [] ]
       params.require(:place).permit(*permitted)
     end

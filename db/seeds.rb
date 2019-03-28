@@ -546,7 +546,7 @@ if !Rails.env.production?
     u = User.new({
       first_name: user.capitalize,
       last_name: 'Account',
-      email: "feedback#{user_i+1}@forset.ge",
+      email: "feedback#{user_i+1}@test.ge",
       password: 'password',
       confirmed_at: DateTime.now,
       role: user_i,

@@ -5,7 +5,7 @@ class PlacePolicy < ApplicationPolicy
   # end
 
   def index?
-    user.admin?
+    user.at_least_provider?
   end
 
   def new?
@@ -17,7 +17,7 @@ class PlacePolicy < ApplicationPolicy
   end
 
   def permitted
-    (user.provider? && record.provider.users.include?(user)) || user.admin?
+    (user.provider? && record.users.include?(user)) || user.admin?
   end
 
   def edit?
@@ -37,7 +37,7 @@ class PlacePolicy < ApplicationPolicy
   end
 
   def restore?
-    user.admin?
+    permitted
   end
 
   def favorite?
@@ -53,15 +53,15 @@ class PlacePolicy < ApplicationPolicy
   end
 
   def select_service?
-    user.at_least_provider?
+    permitted
   end
 
   def input_service?
-    user.at_least_provider?
+    permitted
   end
 
   def destroy_service?
-    user.at_least_provider?
+    permitted
   end
 
 end

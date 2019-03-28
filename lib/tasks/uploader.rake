@@ -502,6 +502,8 @@ namespace :uploader_v3 do
     municipalities = Municipality.all
     short_rand_text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
     long_rand_text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Iaculis at erat pellentesque adipiscing.'
+    user = User.find_by_email('feedback2@test.ge')
+    records_to_assign_user = 3
 
     CSV.open(missing_dataset_path, 'w') do |csv|
       csv << ['id', 'city', 'address']
@@ -624,6 +626,12 @@ namespace :uploader_v3 do
             pl.city = city_en
             # pl.provider_id = p.id
             pl.save(:validate => false)
+          end
+
+          # assign record to user if records are still needed
+          if records_to_assign_user > 0
+            pl.users << user
+            records_to_assign_user-=1
           end
 
           # assign random services with fake info
