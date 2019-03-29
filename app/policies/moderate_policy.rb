@@ -4,6 +4,10 @@ class ModeratePolicy < ApplicationPolicy
     user.admin?
   end
 
+  def place_service?
+    permitted
+  end
+
   def place_report?
     permitted
   end

@@ -1,0 +1,30 @@
+- content_for :custom_stylesheet, 'page/moderate'
+- ps = PlaceService
+= page_title t("admin.moderates.place_report.title")
+
+- if @items.present?
+  .table-view
+    %table.datatable.datatable-table.table-responsive.places{width: '100%'}
+      %thead
+        %tr
+          %th.spacer{'data-orderable': 'false'}
+          %th= ps.human_attribute_name(:place)
+          %th= ps.human_attribute_name(:service)
+          %th= ps.human_attribute_name(:has_content)
+          %th= ps.human_attribute_name(:created_at)
+          %th= ps.human_attribute_name(:updated_at)
+          %th.actions{'data-orderable': 'false'}= t('admin.shared.actions')
+      %tbody
+        - @items.each do |item|
+          %tr
+            %td
+            %td= item.place.name
+            %td= item.service.name
+            %td= boolean_format(item.description.present?)
+            %td= item.created_at.to_date
+            %td= item.updated_at.to_date
+            %td.actions
+              = link_to t('admin.shared.view'), place_path(item.place_id), class: 'view', target: :blank
+              = link_to t('admin.shared.edit'), manage_place_input_service_path(item.place_id, item.id), class: 'edit', target: :blank
+-else
+  .msg-no-data= t('app.messages.no_data', obj: @model.human)

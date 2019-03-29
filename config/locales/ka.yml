@@ -112,6 +112,9 @@ ka:
         need_finance: Person needs to co/finance the service
         get_involved_link: Please indicate the link for people to learn how to get involved in the service
         published: Show this service to the public
+        created_at: Date Created
+        updated_at: Date Last Updated
+        has_content: Service Content Has Been Entered?
       resource:
         title: დასახელება
         content: კონტენტი
@@ -347,6 +350,7 @@ ka:
       page_contents: გვერდის შინაარსი
       place_report: დარეპორტებული ადგილები
       place_ownership: მართვის უფლების მიცემა
+      place_service: Place Service
       new_provider: ახალი პროვაიდერი
       place_tags: ადგილის კატეგორია
       place_tag: ადგილის კატეგორია
@@ -359,6 +363,8 @@ ka:
       has_agreed_html: 'მე ვეთანხმები პირობებს &nbsp;%{link}!:'
       promote: 'შეეხმიანე ადმინისტრატორს!:'
     moderates:
+      place_service:
+        title: Moderate Place Services
       place_report:
         title: დარეპორტებული ადგილების მოდერაცია
         reported_by: 'რეპორტი მომზადებულია:'

@@ -83,6 +83,7 @@ Madloba::Application.routes.draw do
       resources :uploads, only: [:create]
       put 'moderate/upload_state/:id/:state', to: '/admin/uploads#upload_state_update', :as => :update_moderate_upload_state, :constraints => { state: /(accept|decline)/ }
 
+      get 'moderate/place_service', to: '/admin/moderates#place_service', :as => :moderate_place_service
 
       get 'moderate/place_report', to: '/admin/moderates#place_report', :as => :moderate_place_report
       put 'moderate/place_report/:id/:state', to: '/admin/moderates#place_report_update', :as => :update_moderate_place_report, :constraints => { state: /(accept|decline)/ }

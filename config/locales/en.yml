@@ -112,6 +112,9 @@ en:
         need_finance: Person needs to co/finance the service
         get_involved_link: Please indicate the link for people to learn how to get involved in the service
         published: Show this service to the public
+        created_at: Date Created
+        updated_at: Date Last Updated
+        has_content: Service Content Has Been Entered?
       resource:
         title: Title
         content: Content
@@ -347,6 +350,7 @@ en:
       page_contents: Page Contents
       place_report: Reported Places
       place_ownership: Place Ownership
+      place_service: Place Service
       new_provider: New Provider
       place_tags: Place Tags
       place_tag: Place Tags
@@ -359,6 +363,8 @@ en:
       has_agreed_html: 'I have accepted the&nbsp;%{link}!:'
       promote: 'Promote to Admin!:'
     moderates:
+      place_service:
+        title: Moderate Place Services
       place_report:
         title: Moderate Reported Places
         reported_by: 'Reported By:'

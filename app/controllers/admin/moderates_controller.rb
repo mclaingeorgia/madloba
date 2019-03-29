@@ -11,6 +11,14 @@ class Admin::ModeratesController < AdminController
   #      render :nothing => true, :status => 400
   #   end
   # end
+
+  def place_service
+    authorize :moderate
+
+    @items = PlaceService.sorted_date.only_active.includes(:place, :service)
+
+  end
+
   def place_report
     authorize :moderate
     @items = {pending: [], processed: []}.merge(PlaceReport.all.group_by {|b|

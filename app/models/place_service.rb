@@ -101,7 +101,8 @@ class PlaceService < ActiveRecord::Base
     scope :only_deleted, -> { where.not(deleted: 0) }
     scope :only_published, -> { where(published: true) }
     scope :only_active, -> { where(deleted: 0) }
-    scope :sorted, -> { order(service_id: asc) }
+    scope :sorted, -> { order(service_id: :asc) }
+    scope :sorted_date, -> { order(created_at: :desc) }
 
   # class methods
     def self.service_types_for_list

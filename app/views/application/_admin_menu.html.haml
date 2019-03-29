@@ -23,6 +23,8 @@
             %span.subheader= t('shared.moderate')
             %ul
               %li
+                = link_to t('admin.menu.place_service'), manage_moderate_place_service_path, class: action_name?('place_service') ? 'current' : nil
+              %li
                 = link_to t('admin.menu.place_report'), manage_moderate_place_report_path, class: action_name?('place_report') ? 'current' : nil
               %li
                 = link_to t('admin.menu.place_ownership'), manage_moderate_place_ownership_path, class: action_name?('place_ownership') ? 'current' : nil
