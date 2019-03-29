@@ -16,6 +16,9 @@ ka:
       page_content:
         one: საინფორმაციო გვერდი
         other: საინფორმაციო გვერდი
+      place_invitation:
+        one: Invitation
+        other: Invitations
       place_rates:
         one: კატეგორიის შეფასება
       place_service:
@@ -57,6 +60,7 @@ ka:
       user:
         first_name: სახელი
         last_name: გვარი
+        name: Name
         password: პაროლი
         username: მომხმარებლის სახელი
         email: ელ.ფოსტა
@@ -86,6 +90,13 @@ ka:
         tags: კატეგორია
         provider: პროვაიდერი
         services: Services
+      place_invitation:
+        place: Place
+        user: User
+        sent_by: Sent By
+        has_accepted: Has Accepted?
+        email: Email
+        created_at: Date Sent
       place_service:
         place: Place
         service: Service
@@ -115,6 +126,10 @@ ka:
         created_at: Date Created
         updated_at: Date Last Updated
         has_content: Service Content Has Been Entered?
+      place_user:
+        place: Place
+        user: User
+        created_at: Date Joined
       resource:
         title: დასახელება
         content: კონტენტი
@@ -185,6 +200,10 @@ ka:
       record_not_found: "%{obj} could not be found."
       confirm_leave_form: You have unsaved changes. Are you sure you want to leave without saving?
       no_data: You do not have any %{obj} records in the database.
+      success_accepted: "%{obj} was successfully accepted."
+      success_sent: "%{obj} was successfully sent."
+      success_removed: "%{obj} was successfully removed."
+      fail_removed: "%{obj} failed to remove."
   shared:
     toggle_navigation: ნავიგაციის ჩვენება
     user_profile: Your Account
@@ -273,6 +292,8 @@ ka:
       add_service: Add Service
       add_service_for_place: "Add a Service to %{place}"
       input_service_for_place: "%{place} Service Details for '%{service}'"
+      invitations_for_place: "Manage Access to %{place}"
+      manage_access: Manage Access
       next: Next
       select_all: Select all that apply
       is_required: must be provided
@@ -280,6 +301,8 @@ ka:
       move_up: Move the item up the list
       move_down: Move the item down the list
       position: Position
+      invite: Invite
+      revoke_access: Revoke Access
     providers:
       confirm_delete: მოხდება პროვაიდერის და მასთან დაკავშირებული ყველა ადგილის წაშლა.
       confirm_restore: მოხდება პროვაიდერის და მასთან დაკავშირებული ყველა ადგილის აღდგენა.
@@ -289,6 +312,9 @@ ka:
       list:
         manage: პროვაიდერების მართვა
         manage_with_no_owners: პროვაიდერების მართვა ვისაც არ ყავს მფლობელი
+    users:
+      pending_invitations:
+        place_invitation_help_text: If you have been invitated to manage a place in Sheaghe, the invitation will be listed below.
     places:
       current_provider: პროვაიდერი შეცვლილია
       update_provider: პროვაიდერის შეცვლა
@@ -318,6 +344,18 @@ ka:
         map_help: Click on the map to place a marker for your place. Or you can click on the button below to use your current location.
         locate_me: Use My Current Location
         poster_instructions: The green circle with a white checkmark indicates which image will be used for your place listing on the homepage. Click on an image to make it the new image for the homepage listing.
+      invitations:
+        invitation_help_text: Enter one or more emails of people you want to give access to manage your place. Separate emails by ','.
+        expired_help_text: Invitations automatically expire after %{num} days.
+        send_invitations: Send Invitations
+        pending_invitations: Pending Invitations
+        current_users: Current Users
+        expired_invitations: Expired Invitations
+        pending: Pending Invitation
+        user: Current User
+        expired: Expired Invitation
+        emails: Emails
+        emails_placeholder: Separate emails by ','
     place:
       index:
         title: ადგილების მართვა
@@ -339,6 +377,7 @@ ka:
       manage_profile: Profile
       favorite_places: ფავორიტი ადგილები
       rated_places: შეფასებული ადგილები
+      pending_invitations: Pending Invitations
       uploaded_photos: ატვირთული ფოტოები
       manage_providers: პროვაიდერების მართვა
       manage_places: Places
@@ -536,6 +575,13 @@ ka:
         user: მომხმარებელი
         photo: ფოტო
         place: ადგილი
+    place_invitation:
+      subject: Invitation to Manage %{place} on Sheaghe
+      hello: Hello,
+      intro1: 'You have been invited to manage the content for %{place}. '
+      intro2: 'To accept the invitation, click the link below. '
+      intro3: 'If you do noto want to accept the invitation, you do not have to do anything. The invitation will expire after %{num} days.'
+      accept: Accept Invitation
     contact:
       subject: მომხმარებლის წერილი
       hello: გამარჯობათ,

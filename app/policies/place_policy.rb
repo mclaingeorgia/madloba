@@ -64,5 +64,22 @@ class PlacePolicy < ApplicationPolicy
     permitted
   end
 
+  def invitations?
+    permitted
+  end
+
+  def accept_invitation?
+    user.at_least_user?
+  end
+
+  def destroy_invitation?
+    permitted
+  end
+
+  def destroy_user?
+    permitted
+  end
+
+
 end
 

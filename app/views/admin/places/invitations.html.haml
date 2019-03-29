@@ -1,0 +1,97 @@
+- content_for :custom_stylesheet, 'page/admin_places'
+- item = @item || item
+- title = t('admin.shared.invitations_for_place', place: item.name)
+- page_title title
+- path = manage_places_path
+- pi = PlaceInvitation
+- inv_model_name = pi.model_name.human
+- u_model_name = User.model_name.human
+- pu = PlaceUser
+= render partial: 'shared/breadcrumbs', locals: { paths: [[t('admin.shared.manage_model', name: @model.human(2)), path], title] }
+
+.invitation-container
+  .section.send-invitation
+    %h2= t('.send_invitations')
+    = simple_form_for [:manage, item], url: manage_place_invitations_path(item), html: { class: @form_class } do |f|
+      = devise_error_messages!
+      %div= t('.invitation_help_text')
+      %div
+        %label{for: "emails"}= "#{t('.emails')}:"
+        %input{type: "text", name: "emails", placeholder: t('.emails_placeholder')}
+        %input{type: "submit", name: "commit", value: t("admin.shared.invite")}
+
+
+  .section
+    %h2= t('.pending_invitations')
+    - pending = item.place_invitations.pending.sorted
+    -if pending.present?
+      .table-view
+        %table.datatable.datatable-table.table-responsive.places{width: '100%'}
+          %thead
+            %tr
+              %th.spacer{'data-orderable': 'false'}
+              %th= pi.human_attribute_name(:email)
+              %th= pi.human_attribute_name(:created_at)
+              %th= pi.human_attribute_name(:sent_by)
+              %th.actions{'data-orderable': 'false'}= t('admin.shared.actions')
+          %tbody
+            - pending.each do |pending_item|
+              %tr
+                %td
+                %td= pending_item.email
+                %td= pending_item.created_at.to_date
+                %td= pending_item.sent_by.name
+                %td.actions
+                  = link_to t('admin.shared.delete'), manage_place_destroy_invitation_path(item.id, pending_item.id), method: :delete, class: 'delete', data: {confirm: t('admin.shared.confirm_delete_model', name: inv_model_name) }
+    -else
+      .msg-no-data= t('app.messages.no_data', obj: t('.pending'))
+
+  .section
+    %h2= t('.current_users')
+    - users = item.place_users
+    -if users.present?
+      .table-view
+        %table.datatable.datatable-table.table-responsive.places{width: '100%'}
+          %thead
+            %tr
+              %th.spacer{'data-orderable': 'false'}
+              %th= pu.human_attribute_name(:user)
+              %th= pu.human_attribute_name(:created_at)
+              %th.actions{'data-orderable': 'false'}= t('admin.shared.actions')
+          %tbody
+            - users.each do |user|
+              %tr
+                %td
+                %td= user.user.name
+                %td= user.created_at.to_date
+                %td.actions
+                  - if user.user_id != current_user.id
+                    = link_to t('admin.shared.revoke_access'), manage_place_destroy_user_path(item.id, user.id), method: :delete, class: 'delete', data: {confirm: t('admin.shared.confirm_delete_model', name: u_model_name) }
+    -else
+      .msg-no-data= t('app.messages.no_data', obj: t('.user'))
+
+  .section.expired-invitations
+    %h2= t('.expired_invitations')
+    - expired = item.place_invitations.expired.sorted
+    -if expired.present?
+      .help-text= t('.expired_help_text', num: pi::DAYS_TO_EXPIRE)
+      .table-view
+        %table.datatable.datatable-table.table-responsive.places{width: '100%'}
+          %thead
+            %tr
+              %th.spacer{'data-orderable': 'false'}
+              %th= pi.human_attribute_name(:email)
+              %th= pi.human_attribute_name(:created_at)
+              %th= pi.human_attribute_name(:sent_by)
+              %th.actions{'data-orderable': 'false'}= t('admin.shared.actions')
+          %tbody
+            - expired.each do |expired_item|
+              %tr
+                %td
+                %td= expired_item.email
+                %td= expired_item.created_at.to_date
+                %td= expired_item.sent_by.name
+                %td.actions
+                  = link_to t('admin.shared.delete'), manage_place_destroy_invitation_path(item.id, expired_item.id), method: :delete, class: 'delete', data: {confirm: t('admin.shared.confirm_delete_model', name: inv_model_name) }
+    -else
+      .msg-no-data= t('app.messages.no_data', obj: t('.expired'))

@@ -18,7 +18,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     resource.save
     yield resource if block_given?
     if resource.persisted?
-      resource.providers.update_all(created_by: resource.id, processed: 0)
+      # resource.providers.update_all(created_by: resource.id, processed: 0)
       # created_by: current_user.id
       if resource.active_for_authentication?
         set_flash_message! :notice, :signed_up

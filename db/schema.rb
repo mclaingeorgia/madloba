@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190326133234) do
+ActiveRecord::Schema.define(version: 20190329121233) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -267,6 +267,24 @@ ActiveRecord::Schema.define(version: 20190326133234) do
   end
 
   add_index "page_contents", ["name"], name: "index_page_contents_on_name", using: :btree
+
+  create_table "place_invitations", force: :cascade do |t|
+    t.integer  "place_id"
+    t.string   "email"
+    t.boolean  "has_accepted", default: false
+    t.string   "token"
+    t.integer  "user_id"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "sent_by_id"
+  end
+
+  add_index "place_invitations", ["email"], name: "index_place_invitations_on_email", using: :btree
+  add_index "place_invitations", ["has_accepted"], name: "index_place_invitations_on_has_accepted", using: :btree
+  add_index "place_invitations", ["place_id"], name: "index_place_invitations_on_place_id", using: :btree
+  add_index "place_invitations", ["sent_by_id"], name: "index_place_invitations_on_sent_by_id", using: :btree
+  add_index "place_invitations", ["token"], name: "index_place_invitations_on_token", using: :btree
+  add_index "place_invitations", ["user_id"], name: "index_place_invitations_on_user_id", using: :btree
 
   create_table "place_ownerships", force: :cascade do |t|
     t.integer  "place_id",                 null: false
@@ -713,6 +731,9 @@ ActiveRecord::Schema.define(version: 20190326133234) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "place_invitations", "places"
+  add_foreign_key "place_invitations", "users"
+  add_foreign_key "place_invitations", "users", column: "sent_by_id"
   add_foreign_key "place_users", "places"
   add_foreign_key "place_users", "users"
 end

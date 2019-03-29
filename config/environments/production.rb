@@ -66,7 +66,8 @@ Madloba::Application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
-  config.action_mailer.default_url_options = { host: "#{Rails.application.secrets.smtp_host}", :protocol => 'https'  }
+  Rails.application.routes.default_url_options[:host] = Rails.application.secrets.smtp_host
+  Rails.application.routes.default_url_options[:protocol] = 'https'
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
       address: "#{Rails.application.secrets.smtp_address}",

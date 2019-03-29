@@ -9,3 +9,5 @@
   = render partial: 'admin/users/favorites', locals: { favorite_places: favorite_places }
 -elsif current_page == :'rated-places'
   = render partial: 'admin/users/rates', locals: { rated_places: rated_places }
+-elsif current_page == :'pending-invitations'
+  = render partial: 'admin/users/pending_invitations', locals: { invitations: invitations}

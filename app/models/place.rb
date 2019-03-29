@@ -36,11 +36,14 @@ class Place < ActiveRecord::Base
     # globalize_validations([:name, :description])
   # associations
 
-    has_many :assets, -> { where(owner_type: 1) }, {foreign_key: :owner_id, class_name: "Asset"}
+    has_many :assets, -> { where(owner_type: 1) }, {foreign_key: :owner_id, class_name: "Asset", dependent: :destroy}
     accepts_nested_attributes_for :assets, :allow_destroy => true
 
-    has_many :place_users
+    has_many :place_users, dependent: :destroy
     has_many :users, through: :place_users, source: :user
+
+    has_many :place_invitations, dependent: :destroy
+
 
     # belongs_to :provider
 
@@ -64,7 +67,7 @@ class Place < ActiveRecord::Base
     has_many :place_rates
     has_many :rates, through: :place_rates, source: :user
 
-    has_many :place_ownerships
+    has_many :place_ownerships, dependent: :destroy
     has_many :ownership_requests, through: :place_ownerships, source: :user
 
     has_many :uploads

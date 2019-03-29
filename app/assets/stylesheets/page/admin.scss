@@ -316,6 +316,14 @@ a.btn {
 }
 
 .msg-no-data{
-  margin: 20px 20px 80px;
+  margin: 20px;
   @include font(19, 'i');
+}
+
+h2{
+  @include font(21, 'b');
+}
+
+.help-text{
+  padding: 10px 20px;
 }

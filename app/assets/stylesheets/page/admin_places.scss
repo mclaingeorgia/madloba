@@ -1,3 +1,5 @@
+@import 'var';
+
 body.places{
   i {
     display: inline-block;
@@ -16,5 +18,28 @@ body.places{
     &.other { background-image: url(svg('services/other')); }
     &.recreation_sport { background-image: url(svg('services/recreation_sport')); }
     &.social { background-image: url(svg('services/social')); }
+  }
+
+  .invitation-container{
+    padding-left: 33px;
+    .section{
+      padding: 20px 0;
+      &.send-invitation{
+        input[type="submit"]{
+          background-color: #009b72;
+          color: #ffffff;
+          border: 1px solid transparent;
+          display: inline-block;
+          @include font(18, 'b');
+          padding: 6px 27px;
+        }
+        label{
+          @include font(19, 'b')
+        }
+        div{
+          padding: 10px 20px;
+        }
+      }
+    }
   }
 }

@@ -300,6 +300,75 @@ class Admin::PlacesController < AdminController
     redirect_to manage_places_path
   end
 
+  def invitations
+
+    @item = @model.find(params[:id])
+    authorize @item
+
+    if request.patch?
+      pars = invitation_email_params
+      emails = pars[:emails].split(',').map{|x| x.strip.chomp}
+      if emails.length >  0
+        emails.each do |email|
+          inv = @item.place_invitations.create(email: email, sent_by: current_user)
+          message = Message.new
+          message.to = email
+          message.subject = I18n.t('notification.place_invitation.subject', place: @item.name)
+          message.token = inv.token
+          ApplicationMailer.send_place_invitations(@item, message).deliver_now
+        end
+        flash[:success] =  t("app.messages.success_sent", obj: PlaceInvitation.model_name.human)
+      end
+    end
+  end
+
+  def accept_invitation
+
+    item = PlaceInvitation.pending.by_token(params[:token]).first
+
+    authorize @model
+
+    if item.present?
+      item.has_accepted = true
+      item.user = current_user
+      item.save
+      flash[:success] =  t("app.messages.success_accepted", obj: PlaceInvitation.model_name.human)
+    else
+      flash[:error] =  t("app.messages.record_not_found", obj: PlaceInvitation.model_name.human)
+    end
+
+    redirect_to manage_places_path
+  end
+
+  def destroy_invitation
+
+    place = @model.find(params[:place_id])
+    item = place.place_invitations.where(id: params[:id]).first
+    authorize place
+
+    if item.destroy
+      flash[:success] =  t("app.messages.success_destroyed", obj: "#{PlaceInvitation.model_name.human} #{item.email}")
+    else
+      flash[:error] =  t('app.messages.fail_destroyed', obj: "#{PlaceInvitation.model_name.human} #{item.email}")
+      flash[:error] = format_messages(item)
+    end
+    redirect_to manage_place_invitations_path(place)
+  end
+
+  def destroy_user
+
+    place = @model.find(params[:place_id])
+    item = place.place_users.where(id: params[:id]).first
+    authorize place
+
+    if item.destroy
+      flash[:success] =  t("app.messages.success_removed", obj: "#{User.model_name.human} #{item.user.name}")
+    else
+      flash[:error] =  t('app.messages.fail_removed', obj: "#{User.model_name.human} #{item.user.name}")
+      flash[:error] = format_messages(item)
+    end
+    redirect_to manage_place_invitations_path(place)
+  end
 
   private
 
@@ -338,5 +407,8 @@ class Admin::PlacesController < AdminController
         service_activities: [],
         service_specialists: []
        ])
+    end
+    def invitation_email_params
+      params.permit(:id, :emails)
     end
 end

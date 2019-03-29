@@ -1,0 +1,28 @@
+- pi = PlaceInvitation
+
+.help-text= t('.place_invitation_help_text')
+
+- if invitations.length > 0
+  - invitations.each do |invitation|
+    .table-view
+      %table.datatable.datatable-table.table-responsive.places{width: '100%'}
+        %thead
+          %tr
+            %th.spacer{'data-orderable': 'false'}
+            %th= pi.human_attribute_name(:place)
+            %th= pi.human_attribute_name(:email)
+            %th= pi.human_attribute_name(:created_at)
+            %th= pi.human_attribute_name(:sent_by)
+            %th.actions{'data-orderable': 'false'}= t('admin.shared.actions')
+        %tbody
+          - invitations.each do |invitation|
+            %tr
+              %td
+              %td= invitation.place.name
+              %td= invitation.email
+              %td= invitation.created_at.to_date
+              %td= invitation.sent_by.name
+              %td.actions
+                = link_to t('shared.accept'), manage_place_accept_invitation_path(invitation.token), class: 'edit'
+- else
+  .msg-no-data= t('app.messages.no_data', obj: t('admin.menu.pending_invitations'))

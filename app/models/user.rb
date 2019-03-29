@@ -57,7 +57,7 @@ class User < ActiveRecord::Base
     accepts_nested_attributes_for :providers, :reject_if => :not_service_provider?
 
     has_many :place_users
-    has_many :places, -> { where('places.deleted = false and (places.processed is null or places.processed = 1)') }, through: :place_users
+    has_many :places, -> { where('places.deleted = 0') }, through: :place_users
     accepts_nested_attributes_for :places, :reject_if => :not_service_provider?
 
     has_many :favorite_places
@@ -67,6 +67,8 @@ class User < ActiveRecord::Base
     has_many :rates, through: :place_rates, source: :place
 
     has_many :uploads
+
+    has_many :place_invitations
 
   # callbacks
 

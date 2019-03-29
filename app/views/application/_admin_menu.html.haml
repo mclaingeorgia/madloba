@@ -42,6 +42,8 @@
           = link_to t('admin.menu.favorite_places'), manage_user_profile_path(page: 'favorite-places'), class: action_name?('user_profile') && params[:page] == 'favorite-places' ? 'current' : nil
         %li
           = link_to t('admin.menu.rated_places'), manage_user_profile_path(page: 'rated-places'), class: action_name?('user_profile') && params[:page] == 'rated-places' ? 'current' : nil
+        %li
+          = link_to t('admin.menu.pending_invitations'), manage_user_profile_path(page: 'pending-invitations'), class: action_name?('user_profile') && params[:page] == 'pending-invitations' ? 'current' : nil
   %ul.last
     %li.sans
       = link_to t('.log_out'), destroy_user_session_path, :method => :delete

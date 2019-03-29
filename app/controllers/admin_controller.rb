@@ -62,7 +62,7 @@ class AdminController < ApplicationController
         item: item,
         favorite_places: current_user.favorites,
         rated_places: current_user.rates,
-        uploads_by_place: current_user.uploads.group_by(&:place_id)
+        invitations: PlaceInvitation.pending.by_email(current_user.email)
       }
     end
     def prepaire_provider_profile(false_start, page, id, action, item)
@@ -140,7 +140,7 @@ class AdminController < ApplicationController
     end
 
     def get_user_profile_page(page)
-      options = [:'manage-profile', :'favorite-places', :'rated-places', :'uploaded-photos']
+      options = [:'manage-profile', :'favorite-places', :'rated-places', :'uploaded-photos', :'pending-invitations']
       page = options[0] if page.nil?
       page = page.to_sym
 

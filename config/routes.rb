@@ -68,6 +68,11 @@ Madloba::Application.routes.draw do
       get 'place/:place_id/input_service/:id', to: '/admin/places#input_service', :as => :place_input_service
       patch 'place/:place_id/input_service/:id', to: '/admin/places#input_service'
       delete 'place/:place_id/destroy_service/:id', to: '/admin/places#destroy_service', :as => :place_destroy_service
+      get 'place/:id/invitations', to: '/admin/places#invitations', :as => :place_invitations
+      patch 'place/:id/invitations', to: '/admin/places#invitations'
+      get 'place/accept_invitation/:token', to: '/admin/places#accept_invitation', :as => :place_accept_invitation
+      delete 'place/:place_id/invitations/:id', to: '/admin/places#destroy_invitation', :as => :place_destroy_invitation
+      delete 'place/:place_id/user/:id', to: '/admin/places#destroy_user', :as => :place_destroy_user
 
 
       resources :users

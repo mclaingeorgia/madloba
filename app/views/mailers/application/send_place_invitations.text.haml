@@ -1,0 +1,22 @@
+- I18n.available_locales.each_with_index do |locale, locale_i|
+  - I18n.locale = locale
+
+  = t('notification.place_invitation.hello')
+  \
+  = t('notification.place_invitation.intro1', place: @place.name)
+  \
+  = t('notification.place_invitation.intro2')
+  \
+  = t('notification.place_invitation.intro3', num: PlaceInvitation::DAYS_TO_EXPIRE)
+  \
+  \
+  = "#{t('notification.place_invitation.accept')}: #{manage_place_accept_invitation_url(token: @message.token, locale: I18n.locale)}"
+  \
+  \
+  = '---'
+  = "#{t('app.common.name')} - #{t('app.common.slogan')}"
+
+  - if locale_i != I18n.available_locales.length - 1
+    /
+    = '**********************************************'
+    /

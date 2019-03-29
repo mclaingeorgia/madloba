@@ -13,4 +13,14 @@ class ApplicationMailer < ActionMailer::Base
       format.text { render 'mailers/application/send_contact_message' }
     end
   end
+
+  def send_place_invitations(place, message)
+    @message = message
+    @place = place
+    mail(:to => message.to, :subject => message.subject) do |format|
+      format.html { render 'mailers/application/send_place_invitations' }
+      format.text { render 'mailers/application/send_place_invitations' }
+    end
+  end
+
 end

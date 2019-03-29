@@ -16,7 +16,7 @@ Madloba::Application.configure do
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
-  config.action_mailer.default_url_options = { host: Rails.application.secrets.smtp_host }
+  Rails.application.routes.default_url_options[:host] = Rails.application.secrets.smtp_host
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
       address: Rails.application.secrets.smtp_address,
@@ -42,7 +42,7 @@ Madloba::Application.configure do
 
   Madloba::Application.config.middleware.use ExceptionNotification::Rack,
                                              :email => {
-                                                 :email_prefix => "[Madloba App error] ",
+                                                 :email_prefix => "[Sheaghe App error] ",
                                                  :sender_address => Rails.application.secrets.error_sender_email,
                                                  :exception_recipients => Rails.application.secrets.error_recipients_email,
                                                  :delivery_method => :smtp
