@@ -61,7 +61,7 @@ ka:
         username: მომხმარებლის სახელი
         email: ელ.ფოსტა
         password_confirmation: პაროლის დადასტურება
-        is_service_provider: გეგმავთ გახდეთ სერვისის პროვაიდერი?
+        is_service_provider: Do you want to publish your organization's services on Sheaghe
         roles:
           user: მომხმარებელი
           provider: პროვაიდერი
@@ -181,6 +181,7 @@ ka:
       missing_services: Services must be selected.
       record_not_found: "%{obj} could not be found."
       confirm_leave_form: You have unsaved changes. Are you sure you want to leave without saving?
+      no_data: There are no %{obj} records in the database.
   shared:
     toggle_navigation: ნავიგაციის ჩვენება
     user_profile: Your Account

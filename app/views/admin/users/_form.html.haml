@@ -12,8 +12,6 @@
     - if f.object.new_record? || f.object.user?
       .fields-group
         = f.input :is_service_provider, as: :radio_buttons
-        = f.simple_fields_for :providers do |provider|
-          = render partial: 'shared/fields_localization', locals: { fields: { name: nil, description: { as: :text, input_html: { rows: 10, style: 'width: 100%' } } } , form: provider, container_options: { style: f.object.is_service_provider ? nil : 'display:none;', id: 'user_providers' } }
     - if current_user.admin? && !f.object.admin?
       .fields-group
         = f.input :promote, as: :boolean, label: t("admin.user.promote"), checked_value: true, unchecked_value: false

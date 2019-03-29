@@ -1,19 +1,22 @@
 - title = t('admin.shared.manage_model', name: @model.human(2))
 - page_title title
 = render partial: 'shared/breadcrumbs', locals: { paths: [title] }
-.table-view
-  %table.datatable.datatable-table.table-responsive{width: '100%'}
-    %thead
-      %tr
-        %th.spacer{'data-orderable': 'false'}
-        %th= @model.human_attribute_name(:title)
-        %th.fill= @model.human_attribute_name(:content)
-        %th.actions{'data-orderable': 'false'}= t('admin.shared.actions')
-    %tbody
-      - @items.each do |item|
+- if @items.present?
+  .table-view
+    %table.datatable.datatable-table.table-responsive{width: '100%'}
+      %thead
         %tr
-          %td
-          %td.nowrap= item.title
-          %td= truncate(strip_tags(item.content), length: 600)
-          %td.actions
-            = link_to t('admin.shared.edit'), edit_manage_page_content_path(item.id), class: 'edit'
+          %th.spacer{'data-orderable': 'false'}
+          %th= @model.human_attribute_name(:title)
+          %th.fill= @model.human_attribute_name(:content)
+          %th.actions{'data-orderable': 'false'}= t('admin.shared.actions')
+      %tbody
+        - @items.each do |item|
+          %tr
+            %td
+            %td.nowrap= item.title
+            %td= truncate(strip_tags(item.content), length: 600)
+            %td.actions
+              = link_to t('admin.shared.edit'), edit_manage_page_content_path(item.id), class: 'edit'
+-else
+  .msg-no-data= t('app.messages.no_data', obj: @model.human)

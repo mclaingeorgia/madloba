@@ -1,23 +1,26 @@
 - title = t('admin.shared.manage_model', name: @model.human(2))
 - page_title title
 = render partial: 'shared/breadcrumbs', locals: { paths: [title], buttons: [[t('admin.shared.add_model', name: @model.human ), new_manage_provider_path, 'add']] }
-.table-view
-  %table.datatable.datatable-table.table-responsive{width: '100%'}
-    %thead
-      %tr
-        %th.spacer{'data-orderable': 'false'}
-        %th= @model.human_attribute_name(:name)
-        %th.fill= @model.human_attribute_name(:description)
-        %th.actions{'data-orderable': 'false'}= t('admin.shared.actions')
-    %tbody
-      - @items.each do |item|
+- if @items.present?
+  .table-view
+    %table.datatable.datatable-table.table-responsive{width: '100%'}
+      %thead
         %tr
-          %td
-          %td= item.name
-          %td= item.description
-          %td.actions
-            = link_to t('admin.shared.edit'), edit_manage_provider_path(item.id), class: 'edit'
-            - if item.deleted?
-              = link_to t('admin.shared.restore'), restore_manage_provider_path(item.id), method: :patch, class: 'restore btn', data: {confirm: t('admin.providers.confirm_restore') }
-            - else
-              = link_to t('admin.shared.delete'), manage_provider_path(item.id), method: :delete, class: 'delete', data: {confirm: t('admin.providers.confirm_delete') }
+          %th.spacer{'data-orderable': 'false'}
+          %th= @model.human_attribute_name(:name)
+          %th.fill= @model.human_attribute_name(:description)
+          %th.actions{'data-orderable': 'false'}= t('admin.shared.actions')
+      %tbody
+        - @items.each do |item|
+          %tr
+            %td
+            %td= item.name
+            %td= item.description
+            %td.actions
+              = link_to t('admin.shared.edit'), edit_manage_provider_path(item.id), class: 'edit'
+              - if item.deleted?
+                = link_to t('admin.shared.restore'), restore_manage_provider_path(item.id), method: :patch, class: 'restore btn', data: {confirm: t('admin.providers.confirm_restore') }
+              - else
+                = link_to t('admin.shared.delete'), manage_provider_path(item.id), method: :delete, class: 'delete', data: {confirm: t('admin.providers.confirm_delete') }
+-else
+  .msg-no-data= t('app.messages.no_data', obj: @model.human)

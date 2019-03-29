@@ -163,11 +163,5 @@ $('#user_has_agreed').change(function() {
   $('#new_user input[type="submit"]').attr('disabled', !state)
 })
 
-$('[name="user[is_service_provider]"').change(function() {
-  var state = $(this).val()
-  $('#user_providers').toggle(state)
-  console.log('here', state)
-})
-
 
 $('select.field-input.select2').select2({})

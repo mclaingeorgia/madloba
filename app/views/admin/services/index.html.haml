@@ -5,40 +5,43 @@
 - page_title title
 - roots = @items.select{|x| x.is_root?}
 = render partial: 'shared/breadcrumbs', locals: { paths: [title] }
-.table-view
-  %table.datatable.datatable-table.table-responsive{width: '100%'}
-    %thead
-      %tr
-        %th.spacer{'data-orderable': 'false'}
-        %th= @model.human_attribute_name(:name)
-        %th= @model.human_attribute_name(:sub_services)
-        %th= @model.human_attribute_name(:for_children)
-        %th= @model.human_attribute_name(:for_adults)
-        %th.actions{'data-orderable': 'false'}= t('admin.shared.actions')
-    %tbody
-      - roots.each do |root|
-        %tr.service-item{data: {id: root.id, group: root.id}}
-          %td
-            = image_tag('svg/arrow-up.svg', class: "position up", alt: t('admin.shared.move_up'), title: t('admin.shared.move_up'))
-            = image_tag('svg/arrow-down.svg', class: "position down", alt: t('admin.shared.move_down'), title: t('admin.shared.move_down'))
-          %td
-            .service.inline
-              %i{class: root.icon}
-            = root.name
-          %td= link_to t('admin.shared.add_sub_service'), new_manage_service_path(parent_id: root.id), class: 'add btn'
-          %td= boolean_format(root.for_children)
-          %td= boolean_format(root.for_adults)
-          %td.actions
-            = link_to t('admin.shared.edit'), edit_manage_service_path(root.id), class: 'edit'
-        - @items.select{|x| x.parent_id == root.id}.each do |item|
-          %tr.sub-service-item{data: {id: item.id, group: root.id}}
-            %td
+- if @items.present?
+  .table-view
+    %table.datatable.datatable-table.table-responsive{width: '100%'}
+      %thead
+        %tr
+          %th.spacer{'data-orderable': 'false'}
+          %th= @model.human_attribute_name(:name)
+          %th= @model.human_attribute_name(:sub_services)
+          %th= @model.human_attribute_name(:for_children)
+          %th= @model.human_attribute_name(:for_adults)
+          %th.actions{'data-orderable': 'false'}= t('admin.shared.actions')
+      %tbody
+        - roots.each do |root|
+          %tr.service-item{data: {id: root.id, group: root.id}}
             %td
               = image_tag('svg/arrow-up.svg', class: "position up", alt: t('admin.shared.move_up'), title: t('admin.shared.move_up'))
               = image_tag('svg/arrow-down.svg', class: "position down", alt: t('admin.shared.move_down'), title: t('admin.shared.move_down'))
-            %td= item.name
-            %td= boolean_format(item.for_children)
-            %td= boolean_format(item.for_adults)
+            %td
+              .service.inline
+                %i{class: root.icon}
+              = root.name
+            %td= link_to t('admin.shared.add_sub_service'), new_manage_service_path(parent_id: root.id), class: 'add btn'
+            %td= boolean_format(root.for_children)
+            %td= boolean_format(root.for_adults)
             %td.actions
-              = link_to t('admin.shared.edit'), edit_manage_service_path(item.id), class: 'edit'
-              = link_to t('admin.shared.delete'), manage_service_path(item.id), method: :delete, class: 'delete', data: {confirm: t('admin.shared.confirm_delete_model', name: @model.human) }
+              = link_to t('admin.shared.edit'), edit_manage_service_path(root.id), class: 'edit'
+          - @items.select{|x| x.parent_id == root.id}.each do |item|
+            %tr.sub-service-item{data: {id: item.id, group: root.id}}
+              %td
+              %td
+                = image_tag('svg/arrow-up.svg', class: "position up", alt: t('admin.shared.move_up'), title: t('admin.shared.move_up'))
+                = image_tag('svg/arrow-down.svg', class: "position down", alt: t('admin.shared.move_down'), title: t('admin.shared.move_down'))
+              %td= item.name
+              %td= boolean_format(item.for_children)
+              %td= boolean_format(item.for_adults)
+              %td.actions
+                = link_to t('admin.shared.edit'), edit_manage_service_path(item.id), class: 'edit'
+                = link_to t('admin.shared.delete'), manage_service_path(item.id), method: :delete, class: 'delete', data: {confirm: t('admin.shared.confirm_delete_model', name: @model.human) }
+-else
+  .msg-no-data= t('app.messages.no_data', obj: @model.human)

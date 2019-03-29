@@ -314,3 +314,8 @@ a.btn {
   background-color: #009b72;
   color: white;
 }
+
+.msg-no-data{
+  margin: 20px 20px 80px;
+  @include font(19, 'i');
+}

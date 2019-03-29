@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
     translates :first_name, :last_name
     globalize_accessors :locales => [:en, :ka], :attributes => [:first_name, :last_name]
 
-    globalize_validations([:first_name, :last_name])
+    # globalize_validations([:first_name, :last_name])
 
   # accessors
 
@@ -107,10 +107,9 @@ class User < ActiveRecord::Base
         .order('user_translations.first_name ASC, user_translations.last_name ASC')
     end
 
+    validates :first_name, :last_name, presence: true
     validates :is_service_provider, inclusion: [true, false]
     validates :has_agreed, inclusion: [true], on: :create
-
-    validate :check_providers_number, on: :create
 
   # helpers
 
@@ -168,18 +167,8 @@ class User < ActiveRecord::Base
   private
     # validators
 
-      def check_providers_number
-        if self.is_service_provider && !providers_count_valid?
-          errors.add(:providers, :not_filled, count: 1)
-        end
-      end
-
       def not_service_provider?
         !self.is_service_provider
-      end
-
-      def providers_count_valid?
-        providers.length >= PROVIDERS_COUNT_MIN
       end
 
 end

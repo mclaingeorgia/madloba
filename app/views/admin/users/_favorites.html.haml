@@ -3,4 +3,4 @@
     - favorite_places.each do |place|
       = render partial: 'shared/place', locals: { place: place, favoritor: true }
 - else
-  .no-data-found= t('shared.no_data_found')
+  .msg-no-data= t('app.messages.no_data', obj: t('admin.menu.favorite_places'))

@@ -140,9 +140,8 @@ class Admin::UsersController < AdminController
   private
 
     def strong_params
-      permitted = User.globalize_attribute_names + [:email, :role, :password, :password_confirmation, :current_password, :is_service_provider, :has_agreed, :redirect_default, :promote, providers_attributes: Provider.globalize_attribute_names ]
+      permitted = User.globalize_attribute_names + [:first_name, :last_name, :email, :role, :password, :password_confirmation, :current_password, :is_service_provider, :has_agreed, :redirect_default, :promote ]
       p = params.require(:user).permit(*permitted)
-      p["providers_attributes"].reject! { |attr| attr.empty? } if p["providers_attributes"].present?
       p
     end
 
