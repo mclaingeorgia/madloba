@@ -1,6 +1,8 @@
 - content_for :custom_stylesheet, 'page/moderate'
-= page_title t("admin.moderates.place_ownership.title")
 - active_page = 'pending'
+- title = t("admin.moderates.place_ownership.title")
+= page_title title
+= render partial: 'shared/breadcrumbs', locals: { paths: [title] }
 .tabs{'data-target': 'states'}
   %ul
     - ['pending', 'processed'].each do |page|

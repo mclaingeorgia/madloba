@@ -1,6 +1,8 @@
 - content_for :custom_stylesheet, 'page/moderate'
 - ps = PlaceService
-= page_title t("admin.moderates.place_report.title")
+- title = t("admin.moderates.place_service.title")
+= page_title title
+= render partial: 'shared/breadcrumbs', locals: { paths: [title] }
 
 - if @items.present?
   .table-view
