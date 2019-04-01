@@ -31,14 +31,14 @@
   }
   @font-face {
       font-family: "italic";
-      src: url(font_path('fonts/FiraGO-Regular.otf')) format("opentype");
-      font-style: italic;
+      src: url(font_path('fonts/FiraGO-Italic.otf')) format("opentype");
+      font-style: normal;
       font-weight: 200;
   }
   @font-face {
       font-family: "lightitalic";
-      src: url(font_path('fonts/FiraGO-Light.otf')) format("opentype");
-      font-style: italic;
+      src: url(font_path('fonts/FiraGO-LightItalic.otf')) format("opentype");
+      font-style: normal;
       font-weight: 200;
   }
   @font-face {
