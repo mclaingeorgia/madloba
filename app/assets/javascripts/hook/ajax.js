@@ -139,7 +139,7 @@
             var $rator = $('[data-place-id="' + options['place_id'] + '"] .rator')
             $place = $rator.closest('[data-place-id]')
             $rator.attr('data-r', to[0])
-            $place.find('.rating .value span').text(to[1])
+            $place.find('.rating .value span').text(to[1] === null ? '-' : to[1])
           }
         } else if (type === 'favorite') {
           var $favoritor = $('[data-place-id="' + options['place_id'] + '"] .favoritor')

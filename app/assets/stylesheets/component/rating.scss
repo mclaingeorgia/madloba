@@ -9,14 +9,14 @@
     display: inline-block;
     @include font(18);
     color: $text;
-    &:before {
-      display: inline-block;
-      content: "";
-      width: 20px;
-      height: 17px;
-      background: background('heart');
-      margin: 0 6px 0 4px;
-    }
+    // &:before {
+    //   display: inline-block;
+    //   content: "";
+    //   width: 20px;
+    //   height: 17px;
+    //   background: background('heart');
+    //   margin: 0 6px 0 4px;
+    // }
   }
   span {
     @include font(24, 'b');

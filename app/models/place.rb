@@ -100,7 +100,7 @@ class Place < ActiveRecord::Base
     scope :only_deleted, -> { where.not(deleted: 0) }
     # scope :only_published, -> { where(published: true) }
     scope :include_services, -> { includes(place_services: :service) }
-    scope :with_services, -> { includes(:place_services).where.not(place_services: {id: nil}) }
+    scope :with_services, -> { includes(:place_services).where(place_services: {published: true}) }
     scope :only_active, -> { where(deleted: 0) }
     scope :excluding, -> (id) { where.not(id: id) }
     scope :sorted, -> { with_translations(I18n.locale).order(name: :asc) }

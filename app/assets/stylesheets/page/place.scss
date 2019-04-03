@@ -24,21 +24,34 @@
       display: flex;
       flex-direction: column;
       .name {
-        @include font(26, 'sb', 28);
+        @include font(22, 'sb', 30);
         color: $text;
-        padding-bottom: 8px;
+        padding-bottom: 16px;
       }
-      .provider-name {
-        padding-bottom: 17px;
-        span {
-          @include font(16);
-          color: $text;
+      .director{
+        @include font(18);
+        margin-bottom: 20px;
+      }
+      ul.address{
+        @include font(18);
+        position: relative;
+        margin-bottom: 4px;
+        li{
+          margin-bottom: 9px;
         }
-        a {
-          @include font(26, 'sb', 28);
-          color: $text;
-          text-decoration: none;
-          display: inline;
+        &:after{
+          content: '';
+          display: block;
+          position: absolute;
+          width: 295px;
+          border-bottom: 1px solid $text;
+          padding-bottom: 4px;
+        }
+      }
+      .contact{
+        margin-top: 9px;
+        li{
+          @include font(18, 'r', 30);
         }
       }
     }
@@ -106,6 +119,17 @@
           }
           a {
              cursor: pointer;
+          }
+          &:nth-child(2){
+            flex: 2;
+            text-align: center;
+            & > div{
+              display: inline-block;
+              &:first-of-type{
+                border-right: solid 1px $text;
+                padding-right: 5px;
+              }
+            }
           }
         }
         .rating {
@@ -236,7 +260,7 @@
       flex-direction: row;
       .summary {
         width: 40%;
-        max-width: 300px;
+        max-width: 500px;
       }
       .place-map {
         .corner {

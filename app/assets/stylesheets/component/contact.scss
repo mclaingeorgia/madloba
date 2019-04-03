@@ -13,7 +13,9 @@ ul.contact {
       margin: 0 8px 0 0;
       &.address { background: background('address'); }
       &.phone { background: background('phone'); }
+      &.phone2 { background: background('phone2'); }
       &.website { background: background('website'); }
+      &.fb { background: background('fb'); }
     }
     a, span {
       @include font(16);
