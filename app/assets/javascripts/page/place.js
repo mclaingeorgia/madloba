@@ -27,3 +27,15 @@ $(document).on('click', '#place_report_send', function () {
     $('#place_report_reason').val('')
   }
 })
+
+// when click on tab, show the panel
+$(document).on('click', '.place-services .service-tabs .service-tab', function(){
+  var $tabs = $('.place-services .service-tabs .service-tab')
+  var $panels = $('.place-services .service-panels .service-panel')
+
+  $tabs.removeClass('active')
+  $panels.removeClass('active')
+
+  $(this).addClass('active')
+  $panels.filter('[data-service-id="' + $(this).data('service-id') + '"]').addClass('active')
+})

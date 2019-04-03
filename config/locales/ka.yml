@@ -235,7 +235,8 @@ ka:
     decline: უარყოფა
     declined: უარყოფილი
     processed: დასრულებული
-    no_data_found: მონაცემები არ მოიძებნა
+    no_data_found: There is no data on record at this time.
+    no_service_data_found: There is no service data on record at this time.
     all_done: შესაცვლელი არაფერია
     are_you_sure: დარწმუნებული ხართ?
     favorite: ჩემი ფავორიტი
@@ -251,6 +252,7 @@ ka:
     filters:
       children: Children (0-18)
       adults: Adults 18+
+    services: Services
   messages:
     succeed_to_process: "%{action} წარმატებით დასრულდა"
     succeed_to_process_reject: "%{action} წარმატებით გაუქმდა"
@@ -512,6 +514,28 @@ ka:
       share: გაზიარება
       service_tags: 'კატეგორია:'
       comments: კომენტარი
+      service:
+        description: Description
+        restricted_geographic_area:
+          'true': Service is available to residents of the following municipalities
+          'false': Service is available to any person living in any geographical area
+        municipality: Municipality
+        state: Central government
+        private_org: Private service (not supported by local or central government)
+        funded_service: funded service
+        age_restriction:
+          'true': The service is available to the following ages
+          'false': The service is available to all ages
+        can_be_used_by:
+          anyone: Service is available to all
+          diagnosis_with_status: Service is available to all with a disability status and related diagnosis
+          diagnosis_without_status: Service is available persons with the following specific diagnoses (with or withought disability status)
+        service_activities: The organization provides the following services / support
+        service_specialists: The following specialists are involved in provision of  service / support
+        need_finance:
+          'true': Co-financing may be required
+          'false': Co-financing is not required
+        get_involved_link: Click on the following link to learn how to get involved
     faq:
       title: ხშირად დასმული კითხვები
     place_ownership_dialog:

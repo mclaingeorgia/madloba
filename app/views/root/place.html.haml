@@ -71,7 +71,66 @@
             %label=t('.share')
             %a.facebook{target: '_blank', href: "https://www.facebook.com/sharer/sharer.php?u=#{current_url}", onclick: "javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" }
             %a.twitter{target: '_blank', href: "https://twitter.com/share?url=#{current_url}&text=#{item.name}#{item.description}", onclick: "javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;" }
-      %ul.info
+      .place-services
+        %h2= t('shared.services')
+        - place_services = item.place_services.sort_by{|x| x.service.name}
+        - if place_services.present?
+          .service-tabs
+            - place_services.each do |place_service|
+              .service-tab{data: {'service-id': place_service.service_id}}= place_service.service.name
+          .service-panels
+            - place_services.each do |place_service|
+              .service-panel{data: {'service-id': place_service.service_id}}
+                %h3= place_service.service.name
+                .block-column
+                  .block
+                    %h4= t('.service.description')
+                    = simple_format(place_service.description)
+                  .block
+                    %h4= t(".service.restricted_geographic_area.#{place_service.is_restricited_geographic_area}")
+                    - if place_service.is_restricited_geographic_area
+                      %ul
+                        - place_service.municipalities.each do |muni|
+                          %li= muni.name
+                    %hr
+                    %ul
+                      - if place_service.is_service_type_municipal?
+                        %li= "#{t('.service.municipality')} - #{t('.service.funded_service')}"
+                      - if place_service.is_service_type_state?
+                        %li= "#{t('.service.state')} - #{t('.service.funded_service')}"
+                      - if place_service.is_service_type_private_org?
+                        %li= t('.service.private_org')
+
+                .block-column
+                  .block
+                    %h4= t(".service.age_restriction.#{place_service.has_age_restriction}")
+                    - if place_service.has_age_restriction
+                      %ul
+                        - place_service.age_groups_formatted.each do |age|
+                          %li= age
+                    %h4= t(".service.can_be_used_by.#{place_service.can_be_used_by}")
+                    - if place_service.can_be_used_by_diagnosis_without_status? && place_service.diagnoses.present?
+                      %ul
+                        - place_service.diagnoses.each do |diagnosis|
+                          %li= diagnosis
+                    - if place_service.service_activities.present?
+                      %h4= t('.service.service_activities')
+                      %ul
+                        - place_service.service_activities.each do |activity|
+                          %li= activity
+                    - if place_service.service_specialists.present?
+                      %h4= t('.service.service_specialists')
+                      %ul
+                        - place_service.service_specialists.each do |specialist|
+                          %li= specialist
+                    - if !place_service.need_finance.nil?
+                      %h4= t(".service.need_finance.#{place_service.need_finance}")
+                    - if place_service.get_involved_link.present?
+                      %h4= t('.service.get_involved_link')
+                      =simple_format(place_service.get_involved_link)
+        - else
+          .no-data-found= t('shared.no_service_data_found')
+      %ul.info-old{style: 'display: none'}
         %li
           .description
             = @post_action

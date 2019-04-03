@@ -182,6 +182,81 @@
           }
         }
       }
+      .place-services{
+        padding: 0 91px;
+        h2{
+          @include font(22, 'b', 42);
+          text-align: center;
+          margin: 16px 0 6px;
+        }
+        .service-tabs{
+          text-align: center;
+          .service-tab{
+            display: inline-block;
+            margin-bottom: 10px;
+            margin-right: 5px;
+            width: calc(25% - 10px);
+            border-radius: 5px;
+            border: 1px solid #dedede;
+            background-color: #ffffff;
+            padding: 18px;
+            text-align: center;
+            @include font(18, 'b');
+            color: $text;
+            cursor: pointer;
+            &:hover, &.active{
+              background-color: #ffca74;
+            }
+          }
+        }
+        .service-panels{
+          .service-panel{
+            display: none;
+            &.active{
+              display:block;
+            }
+
+            h3{
+              @include font(18, 'b');
+              color: $text;
+              margin: 16px 0 6px;
+            }
+            .block-column{
+              display: inline-block;
+              width: calc(50% - 33px);
+              margin-right: 33px;
+              vertical-align: top;
+              &:last-of-type{
+                margin-right: 0;
+              }
+              .block{
+                border: 1px dashed #707070;
+                padding: 2px 64px 34px 54px;
+                margin-bottom: 32px;
+
+                h4{
+                  background-color: #e9e9e9;
+                  @include font(17, 'b', 25);
+                  color: $text;
+                  padding: 7px 54px 3px;
+                  margin: 17px -64px 17px -54px;
+                }
+                p, li{
+                  @include font(17, 'r', 25);
+                  color: $text;
+                }
+                ul{
+                  list-style: inside;
+                }
+                hr{
+                  border: 1px dashed #707070;
+                  margin: 17px -64px 37px -54px;
+                }
+              }
+            }
+          }
+        }
+      }
       .info {
         // padding: 35px 52px;
         padding: 19px 15px;

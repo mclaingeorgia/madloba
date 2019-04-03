@@ -127,4 +127,35 @@ class PlaceService < ActiveRecord::Base
       self.service.root? ? self.service.name : self.service.parent.name
     end
 
+    def municipalities
+      if is_restricited_geographic_area && geographic_area_municipalities.present?
+        Municipality.with_translations(I18n.locale).sorted.where(id: geographic_area_municipalities)
+      end
+    end
+
+    def is_service_type_municipal?
+      service_type.include?(SERVICE_TYPES[:municipal])
+    end
+
+    def is_service_type_state?
+      service_type.include?(SERVICE_TYPES[:state])
+    end
+
+    def is_service_type_private_org?
+      service_type.include?(SERVICE_TYPES[:private_org])
+    end
+
+    def age_groups_formatted
+      if has_age_restriction && age_groups.present?
+        ages = []
+        age_groups.sort.each do |age|
+          ages << AGE_GROUPS.keys[AGE_GROUPS.values.index(age)].to_s
+        end
+        return ages
+      end
+    end
+
+    def can_be_used_by_diagnosis_without_status?
+      can_be_used_by == 'diagnosis_without_status'
+    end
 end
