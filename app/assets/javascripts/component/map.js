@@ -64,6 +64,10 @@
             }
         }
 
+        if (options.scrollWheelZoom === false){
+          mp.scrollWheelZoom.disable()
+        }
+
         var map_container = $mp.parent()
 
         map_container.find('.map-zoomer .in').click(function(){
