@@ -50,7 +50,7 @@
 
         pollution.elements[id] = mp
 
-        L.tileLayer(gon.osm, { attribution: gon.osm_attribution })
+        L.tileLayer(gon.osm, { attribution: gon.osm_attribution, accessToken: gon.osm_accessToken, id: gon.osm_id })
           .addTo(mp)
 
         var markerGroup = L.layerGroup().addTo(mp)

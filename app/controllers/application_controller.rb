@@ -56,7 +56,10 @@ class ApplicationController < ActionController::Base
   def set_gon
     gon.pin_path = ActionController::Base.helpers.asset_path('svg/pin.svg')
     gon.pin_highlight_path = ActionController::Base.helpers.asset_path('svg/pin_highlight.svg')
-    gon.osm = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+    gon.osm = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}'
+    gon.osm_accessToken = 'pk.eyJ1IjoiY2h1bWJ1cmlkemUiLCJhIjoiSWVPV1k3TSJ9.W0UWrB5vpk4xz1Mq0L-xwg'
+    gon.osm_id = 'chumburidze/cju2n8kjs09iw1fr1ykloty2r'
+    # gon.osm = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
     gon.osm_attribution = '<a href="https://openstreetmap.org/copyright">OpenStreetMap</a>'
 
     gon.labels = {}
