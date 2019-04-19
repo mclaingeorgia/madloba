@@ -189,7 +189,7 @@
         .replace(/%title/g, gon.labels.view_place_details)
         .replace(/%address_template/g, address_template)
         .replace(/%phone_template/g, phone_template)
-        .replace(/%path/g, place.path)
+        .replace(/%path/g, place.path + '?service=' + service_id)
         // .replace(/%provider_template/g, provider_template)
         .replace(/%image/g, place.image)
         .replace(/%alt/g, gon.labels.alt.replace('%alt', place.name))

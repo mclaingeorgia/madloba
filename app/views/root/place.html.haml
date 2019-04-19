@@ -77,12 +77,12 @@
         - if place_services.present?
           .service-tabs
             - place_services.each do |place_service|
-              .service-tab{data: {'service-id': place_service.service_id}}= place_service.service.name
+              .service-tab{data: {'service-id': place_service.service_id}, class: (place_service.service_id.to_s == params[:service] ? 'active' : '')}= place_service.service.name
           .service-panels
             - place_services.each do |place_service|
               .service-panel
                 %h3= place_service.service.name
-                .service-content{data: {'service-id': place_service.service_id}}
+                .service-content{data: {'service-id': place_service.service_id}, style: (place_service.service_id.to_s == params[:service] ? 'display:block' : '')}
                   .block-column
                     .block
                       %h4= t('.service.description')
