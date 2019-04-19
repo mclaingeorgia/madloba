@@ -32,6 +32,9 @@
         @include font(18);
         margin-bottom: 20px;
       }
+      strong{
+        @include font(18, 'sb');
+      }
       ul.address{
         @include font(18);
         position: relative;

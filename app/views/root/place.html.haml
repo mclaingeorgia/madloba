@@ -25,12 +25,19 @@
         = item.name
       - if item.director.present?
         .director
+          %strong= t('shared.director') + ':'
           = item.director
       %ul.address
-        %li= item.municipality.name
-        %li= item.region.name
+        %li
+          %strong= t('shared.region') + ':'
+          = item.region.name
+        %li
+          %strong= t('shared.municipality') + ':'
+          = item.municipality.name
         - if item.city.present?
-          %li= item.city
+          %li
+            %strong= t('shared.city_village') + ':'
+            = item.city
       %ul.contact
         - if item.address.present?
           %li

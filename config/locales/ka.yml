@@ -253,6 +253,10 @@ ka:
       children: Children (0-18)
       adults: Adults 18+
     services: Services
+    director: Director
+    region: Region
+    municipality: Municipality
+    city_village: City / Village
   messages:
     succeed_to_process: "%{action} წარმატებით დასრულდა"
     succeed_to_process_reject: "%{action} წარმატებით გაუქმდა"
