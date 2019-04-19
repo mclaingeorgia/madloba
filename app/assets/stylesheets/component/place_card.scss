@@ -83,7 +83,7 @@
       position: relative;
       display: inline-block;
       vertical-align: top;
-      width: 33%;
+      width: 100%;
       .image {
         width: 100%;
       }
@@ -111,7 +111,7 @@
       // flex-direction: column;
       // flex: 2;
       display: inline-block;
-      width: 66%;
+      width: 100%;
       padding: 7px 25px;
       .name {
         @include font(18, 'sb');
@@ -258,6 +258,18 @@
   }
 }
 
+@media (min-width: 550px) {
+  .place-card {
+    .card {
+      .poster {
+        width: 33%;
+      }
+      .place-info{
+        width: 66%;
+      }
+    }
+  }
+}
 @media (min-width: 701px) {
   .place-card {
     .card {
@@ -317,5 +329,11 @@
         }
       }
     }
+  }
+}
+
+body.admin.user_profile{
+  .place-card {
+    max-width: 600px;
   }
 }

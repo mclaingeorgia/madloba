@@ -16,10 +16,6 @@
           = render partial: "shared/rating", locals: { rating: place.get_rating }
         .place-info
           = link_to place.name, place_path(place.id), class: 'name', title: t('shared.view_place_details')
-          - if place.name != place.provider.name
-            .provider
-              %span= t('app.common.by')
-              = link_to place.provider.name, root_path(what: place.provider.name), title: t('shared.view_all_provider_places')
           .services
             - ss[0,6].each do |s|
               .service
