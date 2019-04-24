@@ -45,6 +45,20 @@ class PlaceService < ActiveRecord::Base
     before_save :remove_blanks
     after_save :update_place_age_flags
     after_destroy :update_place_age_flags
+    after_update :queue_send_mail
+
+    def queue_send_mail
+      # record is initially created with no data
+      # so test if required fields have values
+      # - if so, new
+      # - else edit
+      if self.description_was.nil? && self.description_changed?
+        NotificationTrigger.add_admin_moderation(:admin_moderate_new_place_service, self.id)
+      else
+        NotificationTrigger.add_admin_moderation(:admin_moderate_edit_place_service, self.id)
+      end
+    end
+
 
     def remove_blanks
       geographic_area_municipalities.reject!(&:blank?)

@@ -78,6 +78,18 @@ class Place < ActiveRecord::Base
 
   # callbacks
 
+    after_create :queue_send_mail_new
+
+    def queue_send_mail_new
+      NotificationTrigger.add_admin_moderation(:admin_moderate_new_place, self.id)
+    end
+
+    after_update :queue_send_mail_edit
+
+    def queue_send_mail_edit
+      NotificationTrigger.add_admin_moderation(:admin_moderate_edit_place, self.id)
+    end
+
     after_commit :set_poster
     # before_validation :remove_blanks
 

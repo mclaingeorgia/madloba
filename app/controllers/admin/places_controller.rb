@@ -49,7 +49,10 @@ class Admin::PlacesController < AdminController
       end
 
       tag_ids = tags.present? ? Tag.process(current_user.id, item.id, tags) : []
-      item.update_attributes({ tag_ids: tag_ids })
+      if tag_ids.present?
+        item.tags << Tag.where(id: tag_ids)
+        # item.update_attributes({ tag_ids: tag_ids })
+      end
 
       # if provider.present?
       #   provider.places << item

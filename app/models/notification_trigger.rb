@@ -54,7 +54,11 @@ class NotificationTrigger < ActiveRecord::Base
           :moderator_new_provider_response => 7,
           :moderator_tag_response => 8,
           :moderator_photo_response => 9,
-          :provider_photo_upload => 10
+          :provider_photo_upload => 10,
+          :admin_moderate_new_place => 11,
+          :admin_moderate_edit_place => 12,
+          :admin_moderate_new_place_service => 13,
+          :admin_moderate_edit_place_service => 14
          }
 
   def self.add_admin_moderation(type, related_id)
@@ -64,8 +68,16 @@ class NotificationTrigger < ActiveRecord::Base
 
   def self.process_admin_moderations
     puts "--> Notification Triggers - process_admin_moderations"
-    moderation_types = { 1 => :admin_moderate_report, 2 => :admin_moderate_ownership, 3 => :admin_moderate_new_provider, 4 => :admin_moderate_tag }
-    short_moderation_types = { 1 => :report, 2 => :ownership, 3 => :new_provider, 4 => :tag }
+    moderation_types = {
+      1 => :admin_moderate_report, 2 => :admin_moderate_ownership, 3 => :admin_moderate_new_provider, 4 => :admin_moderate_tag,
+      11 => :admin_moderate_new_place, 12 => :admin_moderate_edit_place,
+      13 => :admin_moderate_new_place_service, 14 => :admin_moderate_edit_place_service
+     }
+    short_moderation_types = {
+      1 => :report, 2 => :ownership, 3 => :new_provider, 4 => :tag ,
+      11 => :new_place, 12 => :edit_place,
+      13 => :new_place_service, 14 => :edit_place_service
+    }
 
     triggers = NotificationTrigger.where(notification_type: moderation_types.keys).pending.pluck(:id, :notification_type)#.group_by{|g| g[1]}
 
