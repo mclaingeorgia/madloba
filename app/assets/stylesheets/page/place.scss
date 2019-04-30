@@ -233,15 +233,18 @@
 
             .service-content{
               display: none;
-              .block-column{
-                display: block;
-                width: 100%;
-                margin-right: 0;
-                vertical-align: top;
-                &:last-of-type{
-                  margin-right: 0;
-                }
+              columns: 372px 2;
+              column-gap: 30px;
+              // .block-column{
+              //   display: block;
+              //   width: 100%;
+              //   margin-right: 0;
+              //   vertical-align: top;
+              //   &:last-of-type{
+              //     margin-right: 0;
+              //   }
                 .block{
+                  break-inside: avoid;
                   border: 1px dashed #707070;
                   padding: 0 36px;
                   margin-bottom: 22px;
@@ -283,7 +286,7 @@
                     margin: 17px -64px 37px -54px;
                   }
                 }
-              }
+              // }
             }
           }
         }
@@ -422,11 +425,11 @@
           .service-panels{
             .service-panel{
               .service-content{
-                .block-column{
-                  display: inline-block;
-                  width: calc(50% - 33px);
-                  margin-right: 33px;
-                }
+                // .block-column{
+                //   display: inline-block;
+                //   width: calc(50% - 33px);
+                //   margin-right: 33px;
+                // }
               }
             }
           }
@@ -490,11 +493,11 @@
           .service-panels{
             .service-panel{
               .service-content{
-                .block-column{
-                  display: block;
-                  width: 100%;
-                  margin-right: 0;
-                }
+                // .block-column{
+                //   display: block;
+                //   width: 100%;
+                //   margin-right: 0;
+                // }
               }
             }
           }
@@ -529,11 +532,11 @@
           .service-panels{
             .service-panel{
               .service-content{
-                .block-column{
-                  display: inline-block;
-                  width: calc(50% - 33px);
-                  margin-right: 33px;
-                }
+                // .block-column{
+                //   display: inline-block;
+                //   width: calc(50% - 33px);
+                //   margin-right: 33px;
+                // }
               }
             }
           }
