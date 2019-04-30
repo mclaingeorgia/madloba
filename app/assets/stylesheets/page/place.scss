@@ -190,13 +190,12 @@
         padding: 0 15px;
         h2{
           @include font(22, 'b', 42);
-          text-align: center;
-          margin: 16px 0 6px;
+          text-align: left;
+          margin: 16px 0 6px 0;
         }
         .service-tabs{
           display: none;
-          text-align: center;
-          margin-bottom: 23px;
+          margin-bottom: 66px;
           .service-tab{
             display: inline-block;
             margin-bottom: 10px;
@@ -244,15 +243,22 @@
                 }
                 .block{
                   border: 1px dashed #707070;
-                  padding: 2px 64px 34px 54px;
-                  margin-bottom: 32px;
+                  padding: 0 36px;
+                  margin-bottom: 22px;
 
+                  &.has-content{
+                    padding-bottom: 27px;
+                    h4{
+                      margin-bottom: 17px;
+                      border-bottom: 1px dashed #707070;
+                    }
+                  }
                   h4{
-                    background-color: #e9e9e9;
+                    background-color: #fff;
                     @include font(17, 'b', 25);
                     color: $text;
-                    padding: 7px 54px 3px;
-                    margin: 17px -64px 17px -54px;
+                    padding: 20px 36px;
+                    margin: 0 -36px;
                   }
                   p, li{
                     @include font(17, 'r', 25);
@@ -260,6 +266,17 @@
                   }
                   ul{
                     list-style: inside;
+                    &.inline{
+                      li{
+                        display: inline-block;
+                        margin-right: 20px;
+                        &:before{
+                          content: "  \2022  ";
+                          font-size: 28px;
+                          vertical-align: middle;
+                        }
+                      }
+                    }
                   }
                   hr{
                     border: 1px dashed #707070;
@@ -358,6 +375,9 @@
       .details {
         .place-services{
           padding: 0 91px;
+          h2{
+            margin-left: 31.5%;
+          }
           .service-tabs{
             display: inherit;
             .service-tab{

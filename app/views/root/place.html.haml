@@ -91,16 +91,16 @@
                 %h3= place_service.service.name
                 .service-content{data: {'service-id': place_service.service_id}, style: (place_service.service_id.to_s == params[:service] ? 'display:block' : '')}
                   .block-column
-                    .block
+                    .block.has-content
                       %h4= t('.service.description')
                       = simple_format(place_service.description)
-                    .block
+                    .block.has-content
                       %h4= t(".service.restricted_geographic_area.#{place_service.is_restricited_geographic_area}")
                       - if place_service.is_restricited_geographic_area
                         %ul
                           - place_service.municipalities.each do |muni|
                             %li= muni.name
-                      %hr
+                    .block.has-content
                       %ul
                         - if place_service.is_service_type_municipal?
                           %li= t('.service.municipality')
@@ -110,32 +110,38 @@
                           %li= t('.service.private_org')
 
                   .block-column
-                    .block
+                    .block{class: place_service.has_age_restriction ? 'has-content' : ''}
                       %h4= t(".service.age_restriction.#{place_service.has_age_restriction}")
                       - if place_service.has_age_restriction
-                        %ul
+                        %ul.inline
                           - place_service.age_groups_formatted.each do |age|
                             %li= age
+
+                    .block{class: place_service.can_be_used_by_diagnosis_without_status? && place_service.diagnoses.present? ? 'has-content' : ''}
                       %h4= t(".service.can_be_used_by.#{place_service.can_be_used_by}")
                       - if place_service.can_be_used_by_diagnosis_without_status? && place_service.diagnoses.present?
                         %ul
                           - place_service.diagnoses.each do |diagnosis|
                             %li= diagnosis
-                      - if place_service.service_activities.present?
+                    - if place_service.service_activities.present?
+                      .block.has-content
                         %h4= t('.service.service_activities')
                         %ul
                           - place_service.service_activities.each do |activity|
                             %li= activity
-                      - if place_service.service_specialists.present?
+                    - if place_service.service_specialists.present?
+                      .block.has-content
                         %h4= t('.service.service_specialists')
                         %ul
                           - place_service.service_specialists.each do |specialist|
                             %li= specialist
-                      - if !place_service.need_finance.nil?
+                    - if !place_service.need_finance.nil?
+                      .block
                         %h4= t(".service.need_finance.#{place_service.need_finance}")
-                      - if place_service.get_involved_link.present?
+                    - if place_service.get_involved_link.present?
+                      .block.has-content
                         %h4= t('.service.get_involved_link')
-                        =simple_format(place_service.get_involved_link)
+                        =auto_link(simple_format(place_service.get_involved_link), link: :urls, :html => { :target => '_blank' })
         - else
           .no-data-found= t('shared.no_service_data_found')
       %ul.info-old{style: 'display: none'}
