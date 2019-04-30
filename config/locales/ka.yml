@@ -100,28 +100,28 @@ ka:
       place_service:
         place: Place
         service: Service
-        is_restricited_geographic_area: The service is provided to any person living in any geographical area
-        geographic_area_municipalities: The service is provided to the person living in following municipalitie/s
-        service_type: Service type
+        is_restricited_geographic_area: სერვისი მიეწოდება ნებისმიერ გეოგრაფიულ არეალში მცხოვრებ პირს
+        geographic_area_municipalities: სერვისი მიეწოდება შემდეგ მუნიციპალიტეტში / ებში მცხოვრებ პირის
+        service_type: სერვისის ტიპი
         service_types:
-          municipal: Municipality
-          state: Organization established and implemented by a state program
-          private_org: Established and implemented by a private organization
-        act_regulating_service: Name of the Administrative Act, Program, or Sub-program regulating the service
-        act_link: Link to the Act
-        description: Short description of the service
-        has_age_restriction: Available to all ages
-        age_groups: Specific age groups
-        can_be_used_by: Service can be used by
+          municipal: მომსახურების ფინანსური მხარდამჭერია მუნიციპალიტეტი
+          state: მომსახურების ფინანსური მხარდამჭერია ცენტრალური ხელისუფლება
+          private_org: მომსახურება კერძოა
+        act_regulating_service: ადმინისტრაციულ / სამართლებრივი აქტი და პროგრამის / ქვეპროგრამის სახელწოდება, რომლის საფუძველზეც მოქმედებს აღნიშნული სერვისი
+        act_link: ადმინისტრაციულ / სამართლებრივი აქტის ბმული
+        description: სერვისის მოკლე აღწერა
+        has_age_restriction: სერვისი განკუთვნილია ნებისმიერი ასაკის პირისთვის
+        age_groups: სერვისი განკუთვნილია შემდეგი ასაკობრივი ჯგუფისთვის
+        can_be_used_by: სერვისით სარგებლობა შეუძლია
         can_be_used_bies:
-          anyone: By any person
-          diagnosis_with_status: By any person having disability status and related diagnosis
-          diagnosis_without_status: Persons with specific diagnoses (with or withought disability status)
-        diagnoses: Please list the diagnoses
-        service_activities: Types of activities provided within the service
-        service_specialists: Specialists involved in the service
-        need_finance: Person needs to co/finance the service
-        get_involved_link: Please indicate the link for people to learn how to get involved in the service
+          anyone: ნებისმიერ პირს
+          diagnosis_with_status: შშმ პირებს ნებისმიერი დიაგნოზით
+          diagnosis_without_status: გარკვეული დიაგნოზის მქონე პირებს (შეზღუდული შესაძ₾ლებლობის სტატუსით ან მის გარეშე)
+        diagnoses: გთხოვთ დააზუსტოთ დიაგნოზები
+        service_activities: ორგანიზაცია უზრუნველყოფს შემდეგი სახის მომსახურებებს
+        service_specialists: სერვისის მიწოდებაში ჩართული არიან შემდეგი სპეციალისტები
+        need_finance: საჭიროა სერვისის თანადაფინანსება
+        get_involved_link: გთხოვთ მიუთითოთ ბმული, იმისათვის, რომ დაინტერესებულმა პირმა გაიგოს როგორ ჩაერთოს სერვისში
         published: Show this service to the public
         created_at: Date Created
         updated_at: Date Last Updated
@@ -519,27 +519,26 @@ ka:
       service_tags: 'კატეგორია:'
       comments: კომენტარი
       service:
-        description: Description
+        description: სერვისის მოკლე აღწერა
         restricted_geographic_area:
-          'true': Service is available to residents of the following municipalities
-          'false': Service is available to any person living in any geographical area
-        municipality: Municipality
-        state: Central government
-        private_org: Private service (not supported by local or central government)
-        funded_service: funded service
+          'true': სერვისი მიეწოდება შემდეგ მუნიციპალიტეტში / ებში მცხოვრებ პირის
+          'false': სერვისი მიეწოდება ნებისმიერ გეოგრაფიულ არეალში მცხოვრებ პირს
+        municipality: მომსახურების ფინანსური მხარდამჭერია მუნიციპალიტეტი
+        state: მომსახურების ფინანსური მხარდამჭერია ცენტრალური ხელისუფლება
+        private_org: მომსახურება კერძოა
         age_restriction:
-          'true': The service is available to the following ages
-          'false': The service is available to all ages
+          'true': სერვისი განკუთვნილია შემდეგი ასაკობრივი ჯგუფისთვის
+          'false': სერვისი განკუთვნილია ნებისმიერი ასაკის პირისთვის
         can_be_used_by:
           anyone: Service is available to all
           diagnosis_with_status: Service is available to all with a disability status and related diagnosis
           diagnosis_without_status: Service is available persons with the following specific diagnoses (with or withought disability status)
-        service_activities: The organization provides the following services / support
-        service_specialists: The following specialists are involved in provision of  service / support
+        service_activities: ორგანიზაცია უზრუნველყოფს შემდეგი სახის მომსახურებებს
+        service_specialists: სერვისის მიწოდებაში ჩართული არიან შემდეგი სპეციალისტები
         need_finance:
-          'true': Co-financing may be required
-          'false': Co-financing is not required
-        get_involved_link: Click on the following link to learn how to get involved
+          'true': თქვენ შეიძლება დაგჭირდეთ სერვისის თანადაფინანსება
+          'false': სერვისი სრულიად უფასოა
+        get_involved_link: იმისათვის, რომ გაიგოთ როგორ ჩაერთოთ სევსში დააჭირეთ ბმულს
     faq:
       title: ხშირად დასმული კითხვები
     place_ownership_dialog:

@@ -103,9 +103,9 @@
                       %hr
                       %ul
                         - if place_service.is_service_type_municipal?
-                          %li= "#{t('.service.municipality')} - #{t('.service.funded_service')}"
+                          %li= t('.service.municipality')
                         - if place_service.is_service_type_state?
-                          %li= "#{t('.service.state')} - #{t('.service.funded_service')}"
+                          %li= t('.service.state')
                         - if place_service.is_service_type_private_org?
                           %li= t('.service.private_org')
 

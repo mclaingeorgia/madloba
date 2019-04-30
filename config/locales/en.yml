@@ -100,28 +100,28 @@ en:
       place_service:
         place: Place
         service: Service
-        is_restricited_geographic_area: The service is provided to any person living in any geographical area
-        geographic_area_municipalities: The service is provided to the person living in following municipalitie/s
+        is_restricited_geographic_area: Service is available to persons in all regions of Georgia
+        geographic_area_municipalities: Service is available to persons living in the following municipalitie/s
         service_type: Service type
         service_types:
-          municipal: Municipality
-          state: Organization established and implemented by a state program
-          private_org: Established and implemented by a private organization
-        act_regulating_service: Name of the Administrative Act, Program, or Sub-program regulating the service
-        act_link: Link to the Act
+          municipal: Municipality - funded service
+          state: Central government - funded service
+          private_org: Private service (not supported by local or central government)
+        act_regulating_service: The name of the Administrative Act, Program / Sub-program, regulating the service
+        act_link: The Link to the Act
         description: Short description of the service
-        has_age_restriction: Available to all ages
-        age_groups: Specific age groups
+        has_age_restriction: Service is available to persons of all ages
+        age_groups: The service is available to the following ages
         can_be_used_by: Service can be used by
         can_be_used_bies:
           anyone: By any person
           diagnosis_with_status: By any person having disability status and related diagnosis
           diagnosis_without_status: Persons with specific diagnoses (with or withought disability status)
         diagnoses: Please list the diagnoses
-        service_activities: Types of activities provided within the service
-        service_specialists: Specialists involved in the service
-        need_finance: Person needs to co/finance the service
-        get_involved_link: Please indicate the link for people to learn how to get involved in the service
+        service_activities: Organization provides the following services / support
+        service_specialists: The following specialists are involved in provision of service / support
+        need_finance: Co-financing may be required
+        get_involved_link: Please indicate the link for people to learn how to get involved
         published: Show this service to the public
         created_at: Date Created
         updated_at: Date Last Updated
@@ -519,26 +519,25 @@ en:
       service_tags: 'Tags:'
       comments: Comments
       service:
-        description: Description
+        description: Short description of service
         restricted_geographic_area:
           'true': Service is available to residents of the following municipalities
-          'false': Service is available to any person living in any geographical area
-        municipality: Municipality
-        state: Central government
-        private_org: Private service (not supported by local or central government)
-        funded_service: funded service
+          'false': Service is available to persons in all regions of Georgia
+        municipality: The service is funded by Municipality
+        state: The service is Central government
+        private_org: The service is Private (not supported by local or central government)
         age_restriction:
           'true': The service is available to the following ages
-          'false': The service is available to all ages
+          'false': Service is available to persons of all ages
         can_be_used_by:
           anyone: Service is available to all
           diagnosis_with_status: Service is available to all with a disability status and related diagnosis
           diagnosis_without_status: Service is available persons with the following specific diagnoses (with or withought disability status)
-        service_activities: The organization provides the following services / support
+        service_activities: Organization provides the following services / support
         service_specialists: The following specialists are involved in provision of  service / support
         need_finance:
           'true': Co-financing may be required
-          'false': Co-financing is not required
+          'false': The service is free of cost
         get_involved_link: Click on the following link to learn how to get involved
     faq:
       title: FAQ
