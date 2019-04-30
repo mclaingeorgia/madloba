@@ -235,14 +235,7 @@
               display: none;
               columns: 372px 2;
               column-gap: 30px;
-              // .block-column{
-              //   display: block;
-              //   width: 100%;
-              //   margin-right: 0;
-              //   vertical-align: top;
-              //   &:last-of-type{
-              //     margin-right: 0;
-              //   }
+              margin: 15px 30px;
                 .block{
                   break-inside: avoid;
                   border: 1px dashed #707070;
@@ -392,6 +385,9 @@
               h3{
                 display: none;
               }
+              .service-content{
+                margin: 0;
+              }
             }
           }
         }
@@ -399,7 +395,6 @@
     }
   }
 }
-
 
 @media (min-width: 798px) {
   .content {
@@ -418,26 +413,6 @@
 }
 
 @media (min-width: 992px) {
-  .content {
-    .details-wrapper {
-      .details {
-        .place-services{
-          .service-panels{
-            .service-panel{
-              .service-content{
-                // .block-column{
-                //   display: inline-block;
-                //   width: calc(50% - 33px);
-                //   margin-right: 33px;
-                // }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
   .box.map-point {
     width: 45%;
     background: background('corner');
@@ -490,17 +465,6 @@
               width: calc(50% - 10px);
             }
           }
-          .service-panels{
-            .service-panel{
-              .service-content{
-                // .block-column{
-                //   display: block;
-                //   width: 100%;
-                //   margin-right: 0;
-                // }
-              }
-            }
-          }
         }
       }
       hr.photos-line{
@@ -519,28 +483,6 @@
       }
       .hidden-title {
         display: none;
-      }
-    }
-  }
-}
-
-@media (min-width: 1362px) {
-  .content {
-    .details-wrapper {
-      .details {
-        .place-services{
-          .service-panels{
-            .service-panel{
-              .service-content{
-                // .block-column{
-                //   display: inline-block;
-                //   width: calc(50% - 33px);
-                //   margin-right: 33px;
-                // }
-              }
-            }
-          }
-        }
       }
     }
   }
