@@ -283,6 +283,16 @@
             }
           }
         }
+
+        .comment{
+          h3{
+            margin: 16px 0 6px;
+            padding: 9px;
+            @include font(18, 'b');
+            color: $text;
+          }
+
+        }
       }
     }
     > .photos {

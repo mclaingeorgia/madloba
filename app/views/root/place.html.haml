@@ -140,53 +140,16 @@
                     .block.has-content
                       %h4= t('.service.get_involved_link')
                       =auto_link(simple_format(place_service.get_involved_link), link: :urls, :html => { :target => '_blank' })
+
+          %hr
+          .comment
+            %h3=t('.comments')
+            .fb-comments{'data-numposts': 5, width: '992px'}
+
         - else
           .no-data-found= t('shared.no_service_data_found')
-      %ul.info-old{style: 'display: none'}
-        %li
-          .description
-            = @post_action
-            = item.description
-        - tags = item.tags.accepted
-        - if tags.present?
-          %li
-            .tags
-              .header= t('.service_tags')
-              = tags.map { |s| "<a href='#{root_path(what: s.name)}'>#{s.name}</a>" }.join(", ").html_safe
-        / %li
-        /   .hr
-        / %li
-        /   .contact
-        /     .header=t('.contact_place', provider: item.name)
-        /     .form-container.wide
-        /       %form{action: send_message_path(item.id), method: :post, id: 'invisible-recaptcha-form', class: 'simple_form light column'}
-        /         = hidden_field_tag :authenticity_token, form_authenticity_token
-        /         .fields-column
-        /           .field-wrapper
-        /             %label.field-label{for: 'message_sender'}
-        /               =t('.your_name')
-        /               %abbr{title: 'required'} *
-        /             %input.field-input{type: 'text', name: 'message[sender]', id: 'message_sender'}
-        /           .field-wrapper
-        /             %label.field-label{for: 'message_email'}
-        /               =t('.your_email')
-        /               %abbr{title: 'required'} *
-        /             %input.field-input{type: 'email', name: 'message[email]', id: 'message_email'}
-        /         .fields-column.fill
-        /           .field-wrapper
-        /             %label.field-label{for: 'message_text'}
-        /               =t('.your_message')
-        /               %abbr{title: 'required'} *
-        /             %textarea.field-input{rows: 8, name: 'message[text]', id: 'message_text'}
-        /         .fields-column.bottom
-        /           .actions
-        /             = invisible_recaptcha_tags callback: 'submitInvisibleRecaptchaForm', text: t('.send'), badge: 'inline', hl: I18n.locale
-        %li
-          .hr
-        %li
-          .comment
-            .header=t('.comments')
-            .fb-comments{'data-numposts': 5, width: '992px'}
+
+
     %hr.photos-line
     %section.photos.slides
       - item.assets_sorted.each do |asset|
