@@ -523,6 +523,7 @@ en:
         restricted_geographic_area:
           'true': Service is available to residents of the following municipalities
           'false': Service is available to persons in all regions of Georgia
+        service_type: Service Type
         municipality: The service is funded by Municipality
         state: The service is Central government
         private_org: The service is Private (not supported by local or central government)

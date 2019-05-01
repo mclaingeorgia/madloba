@@ -100,6 +100,7 @@
                         - place_service.municipalities.each do |muni|
                           %li= muni.name
                   .block.has-content
+                    %h4= t('.service.service_type')
                     %ul
                       - if place_service.is_service_type_municipal?
                         %li= t('.service.municipality')
