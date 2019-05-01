@@ -79,6 +79,10 @@ body.places.input_service{
           @include font(18, 'b');
           color: #373f51;
           cursor: pointer;
+          vertical-align: top;
+          &:lang(ka){
+            height: 86px;
+          }
           &.active{
             cursor: default;
           }

@@ -20,7 +20,7 @@
           %th.actions{'data-orderable': 'false'}= t('admin.shared.actions')
       %tbody
         - @items.each do |item|
-          - services = item.place_services.only_active
+          - services = item.place_services.only_active.sort_by{|x| x.service.name}
           %tr
             %td
             %td= item.name

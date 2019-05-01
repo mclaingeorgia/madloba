@@ -209,6 +209,10 @@
             @include font(18, 'b');
             color: $text;
             cursor: pointer;
+            vertical-align: top;
+            &:lang(ka){
+              height: 86px;
+            }
             &:hover, &.active{
               background-color: #ffca74;
             }

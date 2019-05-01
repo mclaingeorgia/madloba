@@ -46,6 +46,7 @@ body.places.select_service{
           .radio{
             margin: 0 5px 10px 0;
             padding: 0;
+            vertical-align: top;
 
             input[type="radio"] + label{
               display: block !important;
@@ -58,6 +59,10 @@ body.places.select_service{
               color: #373f51;
               &:before{
                 all: unset;
+              }
+              &:lang(ka){
+                height: 86px;
+                white-space: inherit;
               }
             }
             input[type="radio"] + label:hover, input[type="radio"]:checked + label{
@@ -102,6 +107,9 @@ body.places.select_service{
             color: #373f51;
             max-width: inherit;
             padding-bottom: 0;
+            label.field-label{
+              @include font(17, 'r', 20)
+            }
           }
         }
 
