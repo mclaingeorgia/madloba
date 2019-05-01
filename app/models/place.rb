@@ -208,8 +208,8 @@ class Place < ActiveRecord::Base
 
     def address_full
       f = [self.address, self.city]
-      f << self.municipality.name if self.municipality.present? && self.municipality.name.downcase != self.city.downcase
-      f << self.region.name if self.region.present? && self.region.name.downcase != self.city.downcase && ((self.municipality.present? && self.region.name.downcase != self.municipality.name.downcase) || !self.municipality.present?)
+      f << self.municipality.name if self.municipality.present? && self.city.present? && self.municipality.name.downcase != self.city.downcase
+      f << self.region.name if self.region.present? && self.city.present? && self.region.name.downcase != self.city.downcase && ((self.municipality.present? && self.region.name.downcase != self.municipality.name.downcase) || !self.municipality.present?)
       f.reject(&:blank?).join(', ')
     end
 
