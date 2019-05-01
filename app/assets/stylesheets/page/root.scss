@@ -324,13 +324,17 @@ main {
             margin-left: 84px;
             padding-top: 0;
             > li{
-              @include font(18, 'r', 55);
+              @include font(18, 'r', 21);
               cursor: pointer;
+              white-space: normal;
+              break-inside: avoid;
+              span{
+                white-space: normal;
+              }
               span.description{
                 display:block;
                 @include font(14, 'l', 21);
                 margin-top: -15px;
-                white-space: normal;
                 max-width: 300px;
               }
             }
