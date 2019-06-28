@@ -1,0 +1,3 @@
+Untranslated String ID
+======================
+en.root.place.service.service_type

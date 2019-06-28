@@ -1,15 +1,16 @@
+---
 en:
   activerecord:
     models:
       user:
         one: User
         other: Users
-      provider: &provider_model
+      provider:
         one: Provider
         other: Providers
       place:
-        one: Place
-        other: Places
+        one: Organisation
+        other: Organisations
       service:
         one: Service
         other: Services
@@ -20,7 +21,7 @@ en:
         one: Invitation
         other: Invitations
       place_rates:
-        one: rate class
+        one: rate
       place_service:
         one: Service
         other: Services
@@ -28,23 +29,24 @@ en:
         one: List Item
         other: List Items
       tag:
-        declined: ' (Declined)'
+        declined: "(Declined)"
       resource:
         one: Resource
-        other: Resources
+        other: Topic
       resource_item:
-        one: Resource Item
-        other: Resource Items
+        one: Chapter
+        other: Chapters
       resource_content:
         one: Resource Content
         other: Resource Contents
     attributes:
-      provider: &provider
+      provider:
         name: Provider Name
         description: Provider Description
       providers:
-        <<: *provider
-      service: &service
+        name: Provider Name
+        description: Provider Description
+      service:
         name: Service Name
         description: Service Description
         icon: Service Icon
@@ -52,7 +54,7 @@ en:
         for_adults: For Adults
         for_children: For Children
         parent: Parent Service
-        sub_services: Sub-Services
+        sub_services: Services
         position: Position
       page_content:
         title: Title
@@ -65,18 +67,19 @@ en:
         username: Username
         email: Email
         password_confirmation: Password Confirmation
-        is_service_provider: Do you want to publish your organization's services on Sheaghe
+        is_service_provider: ublish your organization's services on Sheaghe
         roles:
           user: User
-          provider: Provider
+          provider: Organisation
           admin: Admin
         providers:
-          <<: *provider_model
+          one: Organisation
+          other: Organisations
       place:
         name: Name
         director: Director
         description: Description
-        services: Which Rehabilitative services do you provide?
+        services: Services
         email: Email
         phone: Phone
         phone2: Phone 2
@@ -89,25 +92,27 @@ en:
         municipality: Municipality
         tags: Tags
         provider: Provider
-        services: Services
       place_invitation:
-        place: Place
+        place: 'Organisation '
         user: User
         sent_by: Sent By
         has_accepted: Has Accepted?
         email: Email
         created_at: Date Sent
       place_service:
-        place: Place
+        place: Organisation
         service: Service
-        is_restricited_geographic_area: Service is available to persons in all regions of Georgia
-        geographic_area_municipalities: Service is available to persons living in the following municipalitie/s
+        is_restricited_geographic_area: Service is available to persons in all regions
+          of Georgia
+        geographic_area_municipalities: Service is available to persons living in
+          the following municipalitie/s
         service_type: Service type
         service_types:
           municipal: Municipality - funded service
           state: Central government - funded service
           private_org: Private service (not supported by local or central government)
-        act_regulating_service: The name of the Administrative Act, Program / Sub-program, regulating the service
+        act_regulating_service: The name of the Administrative Act, Program / Sub-program,
+          regulating the service
         act_link: The Link to the Act
         description: Short description of the service
         has_age_restriction: Service is available to persons of all ages
@@ -115,26 +120,29 @@ en:
         can_be_used_by: Service can be used by
         can_be_used_bies:
           anyone: By any person
-          diagnosis_with_status: By any person having disability status and related diagnosis
-          diagnosis_without_status: Persons with specific diagnoses (with or withought disability status)
+          diagnosis_with_status: By any person having disability status and related
+            diagnosis
+          diagnosis_without_status: Persons with specific diagnoses (with or withought
+            disability status)
         diagnoses: Please list the diagnoses
-        service_activities: Organization provides the following services / support
-        service_specialists: The following specialists are involved in provision of service / support
+        service_activities: 'Organization provides the following activities '
+        service_specialists: 'The following specialists are involved in service provision '
         need_finance: Co-financing may be required
-        get_involved_link: Please indicate the link for people to learn how to get involved
+        get_involved_link: Please indicate the link for people to learn how to get
+          involved
         published: Show this service to the public
         created_at: Date Created
         updated_at: Date Last Updated
         has_content: Service Content Has Been Entered?
       place_user:
-        place: Place
+        place: Organisation
         user: User
         created_at: Date Joined
       resource:
         title: Title
         content: Content
       resourceitem:
-        title: Resource Item Title
+        title: 'Chapter Titel '
     errors:
       models:
         user:
@@ -151,16 +159,21 @@ en:
   app:
     languages:
       en: English
-      ka: Georgian
+      ka: ქართული
       _en: English
       _ka: ქართული
     common:
       name: Sheaghe
       slogan: Discovering Services
-      description: You can use Sheaghe to search for any type of rehab service in Georgia. We have a whole database of service providers on the website; each of them registered according to their location, category of service and the types of service they provide.
+      description: |2-
+
+        Sheaghe is a unified database of organizations that provide services to persons with disabilities.
+        Using it you will be able to find information about any service registered in Georgia according to its geographical location and type of service.
       _yes: 'Yes'
       _no: 'No'
-      mac_alt: McLain Association for Children seeks to transform the lives of the most vulnerable around the world by providing them with the resources they need and by strengthening the systems and individuals that provide them care.
+      mac_alt: MAC seeks to transform the lives of the most vulnerable around the
+        world by providing them with the resources they need and by strengthening
+        the systems and individuals that provide them care.
       created_by: Created By
       forset_alt: 'Data Communication: Innovative. Effective. Simple.'
       privacy_policy: Privacy Policy
@@ -198,7 +211,8 @@ en:
       service_parent_missing: The parent service record could not be found.
       missing_services: Services must be selected.
       record_not_found: "%{obj} could not be found."
-      confirm_leave_form: You have unsaved changes. Are you sure you want to leave without saving?
+      confirm_leave_form: You have unsaved changes. Are you sure you want to leave
+        without saving?
       no_data: You do not have any %{obj} records in the database.
       success_accepted: "%{obj} was successfully accepted."
       success_sent: "%{obj} was successfully sent."
@@ -213,20 +227,20 @@ en:
     moderate: Moderate
     fields_localization: Fields to translate
     picked_as_favorite: Picked as favorite
-    overall_rating: "Overall place rating: %{rating}"
-    overall_rating_js: Overall place rating
+    overall_rating: " Rating: %{rating}"
+    overall_rating_js: " Rating"
     rating_threshold: "/%{n}"
-    rating: Rating
+    rating: " Rating"
     search: Search
     and_up: "& Up"
     rate: Give rating of %{n}
     rate_reset: Delete your rating
     view_all_provider_places: See all places from this service provider
-    view_place_details: View place details
+    view_place_details: View organisation details
     view_all_services: View All Services
-    view_all_service_places: See all places with this service
+    view_all_service_places: See all organizations with this service
     add: Add
-    add_sub_service: Add Sub-Service
+    add_sub_service: Add Service
     upload_image: Upload Photos
     delete_image: Delete Photo
     pending: Pending
@@ -246,9 +260,10 @@ en:
     labels:
       state: 'Status:'
     title:
-      report: Report a problem with this place
-      ownership: Are you a service provider and this is your place? Take ownership of this place so you can manage the content.
-      favorite: Add or remove this place from your favorites
+      report: 'Report a problem '
+      ownership: Are you a service provider and this is your organisation ? Take ownership
+        of this place so you can manage the content.
+      favorite: Add or remove this organisation from your favorites
     filters:
       children: Children (0-18)
       adults: Adults 18+
@@ -261,7 +276,7 @@ en:
     succeed_to_process: "%{action} was successfully submitted"
     succeed_to_process_reject: "%{action} was successfully removed."
     failed_to_process: Request for %{action} failed.
-    place_rate: Place rating
+    place_rate: " rating"
     favorite_place: Favorite
     place_ownership: Place ownership
     place_report: Place report
@@ -272,9 +287,11 @@ en:
       one: Photo uploaded and waiting to be processed
       other: "%{n} photos uploaded and waiting to be processed"
     uploader_failed: Error while uploading photos, please contact administration
-    assign_provider_to_success: "%{child} %{child_name} was assigned to the provider %{name} successfully"
+    assign_provider_to_success: "%{child} %{child_name} was assigned to the provider
+      %{name} successfully"
     assign_provider_to_failed: Failed to assign %{child} to provider
-    unassign_provider_to_success: "%{child} %{child_name} unassigned from provider %{name} successfully"
+    unassign_provider_to_success: "%{child} %{child_name} unassigned from provider
+      %{name} successfully"
     unassign_provider_to_failed: Failed to unassign %{child} from provider
     provider_role_required: This operation require user to be service provider.
   admin:
@@ -282,7 +299,7 @@ en:
       add: Add
       save: Save
       cancel: Cancel
-      reset: Reset
+      reset: ვიეწ
       edit: Edit
       delete: Delete
       actions: Actions
@@ -296,14 +313,15 @@ en:
       confirm_restore_model: "%{name} will be restored."
       search_assign_placeholder: Find object (min 3 chars)
       add_service: Add Service
-      add_service_for_place: "Add a Service to %{place}"
+      add_service_for_place: Add a Service to %{place}
       input_service_for_place: "%{place} Service Details for '%{service}'"
-      invitations_for_place: "Manage Access to %{place}"
+      invitations_for_place: Manage Access to %{place}
       manage_access: Manage Access
       next: Next
       select_all: Select all that apply
       is_required: must be provided
-      place_needs_services: You need to add services to the place before it is viewable to the public
+      place_needs_services: You need to add services to the organisation before it
+        is viewable to the public
       move_up: Move the item up the list
       move_down: Move the item down the list
       position: Position
@@ -320,7 +338,8 @@ en:
         manage_with_no_owners: Manage Providers With No Owner
     users:
       pending_invitations:
-        place_invitation_help_text: If you have been invitated to manage a place in Sheaghe, the invitation will be listed below.
+        place_invitation_help_text: If you have been invitated to manage  information
+          on Sheaghe, the invitation will be listed below.
     places:
       current_provider: Assigned provider
       update_provider: Assign provider
@@ -329,29 +348,36 @@ en:
         provider: 'Provider:'
         manage_with_no_owners: Manage Places With No Owner
       select_service:
-        place: Place
+        place: Organisation
         root_service: Select a Service Category
         services: Select All Services That Apply
         no_selection: Select a Service Category to see a list of Services
         view_root_services: Show Service Categories
       input_service:
-        place: Place
+        place: organisation
         instructions: Please enter the details for this service below
         add_more_services: Add More Services
-        add_more_services_title: Click here if you want to add more services to this place
-        place_list: All Places
-        place_list_title: Click here to go back to your list of places
-        services_instructions: Click a button below to add details to your other new services.
+        add_more_services_title: 'Click here if you want to add more services to the
+          organization '
+        place_list: All Organizations
+        place_list_title: Click here to go back to your list of organizations
+        services_instructions: Click a button below to add details to your other new
+          services.
       services_list:
         service_link: Click to add details to this service
         service_current: This is the service you are currently entering details for
       form:
         map_heading: Position Your Place On The Map
-        map_help: Click on the map to place a marker for your place. Or you can click on the button below to use your current location.
+        map_help: Click on the map to place a marker for your place. Or you can click
+          on the button below to use your current location.
         locate_me: Use My Current Location
-        poster_instructions: The green circle with a white checkmark indicates which image will be used for your place listing on the homepage. Click on an image to make it the new image for the homepage listing.
+        poster_instructions: The green circle with a white checkmark indicates which
+          image will be used for your place listing on the homepage. Click on an image
+          to make it the new image for the homepage listing.
       invitations:
-        invitation_help_text: Enter one or more emails of people you want to give access to manage your place. Separate emails by ','.
+        invitation_help_text: Enter one or more emails of people you want to give
+          access to manage information about your organisation. Separate emails by
+          ','.
         expired_help_text: Invitations automatically expire after %{num} days.
         send_invitations: Send Invitations
         pending_invitations: Pending Invitations
@@ -364,7 +390,7 @@ en:
         emails_placeholder: Separate emails by ','
     place:
       index:
-        title: Manage Places
+        title: Manage Organisations
       locate_me: Locate me on the map
     page_contents:
       list: List Items
@@ -374,33 +400,33 @@ en:
       edit: Edit Provider
       new: Create Provider
     manage_places:
-      index: Manage Places
-      edit: Edit Place
-      new: Create Place
+      index: Manage Organisations
+      edit: Edit Organisation
+      new: Register Organisation
     moderate_photos:
       index: Moderate Photos
     menu:
       manage_profile: Profile
-      favorite_places: Favorite Places
-      rated_places: Rated Places
+      favorite_places: Favorite Organisations
+      rated_places: Rated Organisation
       pending_invitations: Pending Invitations
       uploaded_photos: Uploaded Photos
       manage_providers: Manage Providers
-      manage_places: Places
+      manage_places: 'Organisation '
       moderate_photos: Moderate Photos
       users: Users
       providers: Providers
-      places: Places
+      places: Organisations
       services: Services
       page_contents: Page Contents
-      place_report: Reported Places
+      place_report: Reported Organisations
       place_ownership: Place Ownership
       place_service: Place Service
       new_provider: New Provider
       place_tags: Place Tags
-      place_tag: Place Tags
-      resources: Resources
-      resource_items: Resource Items
+      place_tag: Place Tag
+      resources: Topics
+      resource_items: Chapters
     user:
       email: Email
       password: Password
@@ -409,17 +435,17 @@ en:
       promote: 'Promote to Admin!:'
     moderates:
       place_service:
-        title: Moderate Place Services
+        title: Moderate Organisation's Services
       place_report:
-        title: Moderate Reported Places
+        title: Moderate Reported Organisations
         reported_by: 'Reported By:'
         reason: 'Reason:'
       place_ownership:
-        title: Moderate Place Ownership
+        title: Moderate Organization's Ownership
         linked_provider: 'Provider:'
         request_from: 'Request From:'
       place_tag:
-        title: Moderate Place Tag
+        title: Moderate Organization's Tag
         created_by: 'Created By:'
         tag: 'Tag:'
       new_provider:
@@ -430,20 +456,20 @@ en:
     uploads:
       list:
         uploaded_by: 'Uploaded By:'
-        manage_with_no_owners: Manage Place Photos With No Owner
+        manage_with_no_owners: Manage Organization's  Photos With No Owner
     resources:
-      new_item: New Resource Item
-      list: Resource Items
+      new_item: 'New Chapter '
+      list: Chapters
     resource_items:
       new_item: New Resource Content
-      list: Resource Items
+      list: Chapters
   application:
     dialog:
       partners: PARTNERS
       contact: CONTACT
-      org: McLain Association for Children
+      org: MAC Georgia
       address: 'Address:'
-      address_content: 'Kavsadze #3, Second Floor, Tbilisi Georgia'
+      address_content: 3 Kavsadze, Second Floor, Tbilisi, Georgia
       phone: 'Phone:'
       phone_content: 'Free Hotline: 0 800 900 902; Office #: 2197378'
       email: 'Email:'
@@ -523,7 +549,7 @@ en:
         restricted_geographic_area:
           'true': Service is available to residents of the following municipalities
           'false': Service is available to persons in all regions of Georgia
-        service_type: Service Type
+        service_type:
         municipality: The service is funded by Municipality
         state: The service is Central government
         private_org: The service is Private (not supported by local or central government)
@@ -532,10 +558,13 @@ en:
           'false': Service is available to persons of all ages
         can_be_used_by:
           anyone: Service is available to all
-          diagnosis_with_status: Service is available to all with a disability status and related diagnosis
-          diagnosis_without_status: Service is available persons with the following specific diagnoses (with or withought disability status)
-        service_activities: Organization provides the following services / support
-        service_specialists: The following specialists are involved in provision of  service / support
+          diagnosis_with_status: Service is available to all with a disability status
+            and related diagnosis
+          diagnosis_without_status: Service is available persons with the following
+            specific diagnoses (with or withought disability status)
+        service_activities: 'Organization provides the following activities '
+        service_specialists: The following specialists are involved in provision of
+          service / support
         need_finance:
           'true': Co-financing may be required
           'false': The service is free of cost
@@ -546,28 +575,40 @@ en:
       take_ownership_for: Take Ownership of "%{name}"
       existing_provider: Pick existing provider
       or_create: or create new
-      incase_existing_provider: "* If existing provider is picked, this text will be ignored."
+      incase_existing_provider: "* If existing provider is picked, this text will
+        be ignored."
       take_ownership: Take Ownership
   mailer:
     hello: Hello %{name}!
     hi: Hi %{name}
-    welcome: Welcome to %{name}! You will soon be able to search and find details for all rehabilitation services in Georgia.
-    account_created: 'An account has been created in your name. Please click on the following link to verify your email address and gain full access to all the features of %{name}:'
+    welcome: Welcome to %{name}! You will soon be able to search and find details
+      for all  services in Georgia.
+    account_created: 'An account has been created in your name. Please click on the
+      following link to verify your email address and gain full access to all the
+      features of %{name}:'
     confirm_account: Confirm my account
-    as_soon_as: As soon as you have been verified, you can log in in to your account anytime by clicking Sign In on the %{name} home page.
-    need_assistance: If you need assistance searching your required services or would like to contact us with any questions or feedback, please use the Contact Us page at http://
+    as_soon_as: As soon as you have been verified, you can log in in to your account
+      anytime by clicking Sign In on the %{name} home page.
+    need_assistance: If you need assistance searching your required services or would
+      like to contact us with any questions or feedback, please use the Contact Us
+      page at http://
     phone_number: 'Alternatively you may call this number:'
     thanks: Thank you for registering. We hope you enjoy using %{name}.
     thanks_short: Thanks!
-    register: 'To Register your services, all you have to do is log in to your account and follow these simple steps:'
+    register: 'To Register your Organisation/services, all you have to do is log in
+      to your account and follow these simple steps:'
     register_1: Click 'Register Services' button
-    register_2: Complete the application details. Note that you are able to register as many categories of service linked to your profile as you wish.
+    register_2: Complete the application details. Note that you are able to register
+      as many categories of service linked to your profile as you wish.
     register_3: Submit Registration
-    someone_requested: Someone has requested a link to change your password. You can do this through the link below.
+    someone_requested: Someone has requested a link to change your password. You can
+      do this through the link below.
     please_ignore: If you didn't request this, please ignore this email.
-    password_not_changing: Your password won't change until you access the link above and create a new one.
+    password_not_changing: Your password won't change until you access the link above
+      and create a new one.
     change_my_password: Change my password
-    account_locked: Your account has been locked due to an excessive number of unsuccessful sign in attempts.
+    account_locked: Your account has been locked due to an excessive number of unsuccessful
+      sign in attempts.
     link_unlock: Click the link below to unlock your account
     unlock_account: Unlock my account
   notification:
@@ -589,7 +630,7 @@ en:
       tag_type: "%{n} tag(s)"
       photo_type: "%{n} photos(s)"
       labels:
-        place: Place
+        place: Organisation
         reason: Reason
         state: Status
         provider: Provider
@@ -602,13 +643,14 @@ en:
       labels:
         user: User
         photo: Photo
-        place: Place
+        place: Organisation
     place_invitation:
       subject: Invitation to Manage %{place} on Sheaghe
       hello: Hello,
-      intro1: 'You have been invited to manage the content for %{place}. '
-      intro2: 'To accept the invitation, click the link below. '
-      intro3: 'If you do noto want to accept the invitation, you do not have to do anything. The invitation will expire after %{num} days.'
+      intro1: You have been invited to manage the content for %{place}.
+      intro2: To accept the invitation, click the link below.
+      intro3: If you do noto want to accept the invitation, you do not have to do
+        anything. The invitation will expire after %{num} days.
       accept: Accept Invitation
     contact:
       subject: Customer Message
@@ -629,7 +671,8 @@ en:
     404_sorry: Sorry, the requested page has not been found!
     500_sorry: Sorry, there's been a server error. Please try again later.
     faq_label: Frequently Asked Questions
-    have_questions_html: Have questions? Click here to view our %{link}. For further assistance, please contact 0 800 900 902.
+    have_questions_html: Have questions? Click here to view our %{link}. For further
+      assistance, please contact 0 800 900 902.
     ws_error: Sorry, a server error occurred. Please refresh this page.
     try_again: Something went wrong, try again later
   config:

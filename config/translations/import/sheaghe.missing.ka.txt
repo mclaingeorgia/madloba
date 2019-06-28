@@ -1,0 +1,3 @@
+Untranslated String ID
+======================
+ka.root.place.service.service_type

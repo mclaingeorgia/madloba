@@ -169,7 +169,7 @@ module ImportExportLocales
       # Create supported foreign languages collection
       @available_locales = I18n.available_locales.map{|x| x.to_s}
       # remove the base_locale
-      @available_locales.delete(@base_locale)
+      # @available_locales.delete(@base_locale)
 
       @foreign_languages = Dir[File.join(@import_folder, "*#{@prefix}*.csv")].map do |csv|
         m = csv.match(/\.([a-z]{2,2}-?[A-Z]{0,2})\.csv$/)
