@@ -46,4 +46,4 @@
           = link_to t('admin.menu.pending_invitations'), manage_user_profile_path(page: 'pending-invitations'), class: action_name?('user_profile') && params[:page] == 'pending-invitations' ? 'current' : nil
   %ul.last
     %li.sans
-      = link_to t('.log_out'), destroy_user_session_path, :method => :delete
+      = link_to t('application.navigation.log_out'), destroy_user_session_path, :method => :delete
