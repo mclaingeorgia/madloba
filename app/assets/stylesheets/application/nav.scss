@@ -79,8 +79,8 @@
         .nav-resources {
           margin: 0 45px 0 0;
           a {
-            padding: 13px 21px;
-            @include font(24, 'r', 26);
+            padding: 13px 15px;
+            @include font(18, 'r', 18);
             color: $text_white;
             background-color: #009b72;
             text-decoration: none;
@@ -96,12 +96,15 @@
             position: relative;
             display: inline-block;
             min-width: 80px;
-            padding: 6px 20px;
-            @include font;
+            padding: 3px 20px;
+            @include font(16, 'r', 16);
             color: $text;
             text-decoration: none;
             text-align: center;
             margin: 0;
+            &:lang(en){
+              padding: 3px 10px;
+            }
           }
           .border-both {
             border-left: 1px solid $control;
@@ -137,7 +140,7 @@
           a:hover {
             transform: scale(1.14);
           }
-          a:first-child {
+          a {
             margin-right: 10px;
           }
         }
@@ -147,7 +150,6 @@
             position: relative;
             text-align: center;
             // height: 100%;
-            padding-top: 27px;
             > a {
               display: inline-block;
               @include font(16);
@@ -333,14 +335,13 @@
             width: auto;
           }
           .nav-resources {
-            margin: 0 45px;
+            margin: 0 25px 0 45px;
           }
           .nav-social {
-            padding: 0 60px;
+            padding: 0 10px 0 20px;
 
           }
           .nav-user {
-            height: 100%;
             .guest {
               height: 100%;
               padding-right: 20px;
@@ -382,3 +383,27 @@
     }
   }
 
+@media (min-width: 1550px) {
+  nav {
+    .nav-container {
+      .nav-right {
+        .nav-resources {
+          margin: 0 45px;
+          a {
+            padding: 13px 21px;
+            @include font(24, 'r', 26);
+          }
+        }
+        .nav-social {
+          padding: 0 10px 0 20px;
+        }
+        .nav-menu {
+          .nav-menu-item {
+            padding: 6px 20px;
+            @include font;
+          }
+        }
+      }
+    }
+  }
+}
