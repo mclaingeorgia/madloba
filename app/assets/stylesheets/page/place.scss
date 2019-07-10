@@ -206,7 +206,7 @@
             background-color: #ffffff;
             padding: 9px;
             text-align: center;
-            @include font(18, 'b');
+            @include font(18, 'b', 22);
             color: $text;
             cursor: pointer;
             vertical-align: top;
@@ -385,9 +385,6 @@
       .details {
         .place-services{
           padding: 0 91px;
-          h2{
-            margin-left: 31.5%;
-          }
           .service-tabs{
             display: inherit;
             .service-tab{

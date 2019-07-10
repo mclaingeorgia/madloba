@@ -554,7 +554,10 @@ main {
         .search-input {
           &:nth-child(1)  {
             label {
-              @include font(20, 'sb');
+              @include font(16, 'sb');
+              &:lang(en){
+                @include font(20, 'sb');
+              }
               i {
                 width: 33px;
                 height: 35px;
