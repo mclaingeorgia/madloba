@@ -160,13 +160,13 @@ class PlaceService < ActiveRecord::Base
     end
 
     def age_groups_formatted
+      ages = []
       if has_age_restriction && age_groups.present?
-        ages = []
         age_groups.sort.each do |age|
           ages << AGE_GROUPS.keys[AGE_GROUPS.values.index(age)].to_s
         end
-        return ages
       end
+      return ages
     end
 
     def can_be_used_by_diagnosis_without_status?

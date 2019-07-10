@@ -102,7 +102,7 @@
                   .block.has-content
                     %h4= t('.service.description')
                     = simple_format(place_service.description)
-                  .block.has-content
+                  .block{class: (place_service.is_restricited_geographic_area ? 'has-content': '')}
                     %h4= t(".service.restricted_geographic_area.#{place_service.is_restricited_geographic_area}")
                     - if place_service.is_restricited_geographic_area
                       %ul
@@ -118,11 +118,12 @@
                       - if place_service.is_service_type_private_org?
                         %li= t('.service.private_org')
 
-                  .block{class: place_service.has_age_restriction ? 'has-content' : ''}
+                  - age_groups_formatted = place_service.age_groups_formatted
+                  .block{class: age_groups_formatted.present? ? 'has-content' : ''}
                     %h4= t(".service.age_restriction.#{place_service.has_age_restriction}")
-                    - if place_service.has_age_restriction
+                    - if age_groups_formatted.present?
                       %ul.inline
-                        - place_service.age_groups_formatted.each do |age|
+                        - age_groups_formatted.each do |age|
                           %li= age
 
                   .block{class: place_service.can_be_used_by_diagnosis_without_status? && place_service.diagnoses.present? ? 'has-content' : ''}
