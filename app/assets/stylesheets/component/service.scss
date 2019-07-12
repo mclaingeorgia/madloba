@@ -34,7 +34,7 @@ ul.services {
     text-decoration: none;
   }
   span {
-    @include font;
+    @include font(18, 'r', 23);
     color: $text;
     white-space: nowrap;
     text-overflow: clip;

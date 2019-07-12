@@ -324,10 +324,11 @@ main {
             margin-left: 84px;
             padding-top: 0;
             > li{
-              @include font(18, 'r', 21);
+              @include font(18, 'r', 23);
               cursor: pointer;
               white-space: normal;
               break-inside: avoid;
+              margin-bottom: 30px;
               span{
                 white-space: normal;
               }
@@ -341,10 +342,10 @@ main {
           }
         }
         li .service-count{
-          @include font(22, 'r', 55);
+          @include font(22, 'r', 23);
           margin: 0 5px;
           li .service-count{
-            @include font(18, 'r', 55);
+            @include font(18, 'r', 23);
             margin: 0 5px;
           }
         }
