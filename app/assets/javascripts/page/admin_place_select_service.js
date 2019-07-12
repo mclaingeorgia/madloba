@@ -7,6 +7,7 @@
       t.els['sub-services'] = $('body.places.select_service .sub-services')
       t.els['active-sub-services'] = $('body.places.select_service .active-sub-services')
       t.els['no-selection'] = $('body.places.select_service .no-selection')
+      t.els['all-in-use'] = $('body.places.select_service .all-sub-services-in-use')
       t.els['submit'] = $('body.places.select_service input[type="submit"]')
       t.els['service-container'] = $('body.places.select_service .service-selection-container')
       t.els['button'] = $('body.places.select_service button.show-root-services-selection')
@@ -76,19 +77,29 @@
       // clear any previous sub-service selection
       t.els['active-sub-services'].empty()
 
-      // show the sub-services for this service
+      // turn off any messages that were showing before
       t.els['no-selection'].removeClass('active')
+      t.els['all-in-use'].removeClass('active')
 
+      // show the sub-services for this service
       var $fields = t.els['sub-services'].find('.field-wrapper[data-parent-id="' + $root_service_input.data('id') + '"]')
       if ($fields.length === 0){
-        // this item has not sub-services so get the service itself
+        // this item has no sub-services so get the service itself
         $fields = t.els['sub-services'].find('.field-wrapper[data-id="' + $root_service_input.data('id') + '"]')
-        select_by_default = true
+        if ($fields.length === 0){
+          // all sub-services have been used so tell user this
+          t.els['all-in-use'].addClass('active')
+        }else{
+          // the service has no sub-services so use the service
+          select_by_default = true
+        }
       }
 
-      $fields.clone().appendTo(t.els['active-sub-services'])
-      if (select_by_default){
-        t.els['active-sub-services'].find('input[type="checkbox"]').prop('checked', true)
+      if ($fields.length > 0){
+        $fields.clone().appendTo(t.els['active-sub-services'])
+        if (select_by_default){
+          t.els['active-sub-services'].find('input[type="checkbox"]').prop('checked', true)
+        }
       }
 
       t.toggle_submit_button()

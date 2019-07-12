@@ -90,7 +90,7 @@ body.places.select_service{
           color: #009b72;
           margin: 20px 0 20px;
         }
-        .no-selection{
+        .no-selection, .all-sub-services-in-use{
           display: none;
           &.active{
             display: block;

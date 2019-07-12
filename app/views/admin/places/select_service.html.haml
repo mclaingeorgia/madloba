@@ -37,10 +37,11 @@
         .fields-collection-wrapper
           %label.field-label.radio_buttons.optional= t('.services')
           .no-selection.active= t('.no_selection')
+          .all-sub-services-in-use= t('.all_sub_services_in_use')
           .active-sub-services
           .sub-services
             - @services.each do |service|
-              - if existing_service_ids.empty? || !existing_service_ids.include?(service.id)
+              - if existing_service_ids.empty? || (!existing_service_ids.include?(service.id) && ((service.is_root? && service.is_childless?) || service.has_parent?))
                 .field-wrapper{data: {id: service.id, 'parent-id': service.parent_id}}
                   %input.field-input{type: "checkbox", value: service.id, name: "services[]", id: "services_#{service.id}"}
                   %label.field-label{for: "services_#{service.id}"}= service.name

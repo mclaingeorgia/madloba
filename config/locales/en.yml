@@ -352,6 +352,7 @@ en:
         root_service: Select a Service Category
         services: Select All Services That Apply
         no_selection: Select a Service Category to see a list of Services
+        all_sub_services_in_use: All services in this category have already been added to this organisation
         view_root_services: Show Service Categories
       input_service:
         place: organisation

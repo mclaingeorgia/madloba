@@ -350,6 +350,7 @@ ka:
         root_service: აირჩიე მომსახურების ტიპი
         services: აირჩიე მომსახურება / ები, რომელსაც აწვდი
         no_selection: 'აირჩიე მომსახურების ტიპი, რომ ნახო  მასში შემავალი ჩამონათვალი '
+        all_sub_services_in_use: All services in this category have already been added to this organisation
         view_root_services: აჩვენე მომსახურების ტიპები
       input_service:
         place: ორგანიზაცია
