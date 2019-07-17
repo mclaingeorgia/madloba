@@ -107,8 +107,18 @@ body.places.select_service{
             color: #373f51;
             max-width: inherit;
             padding-bottom: 0;
+
+            /* hack to make text not wrap between columns in chrome */
+            overflow: hidden;
+            -webkit-column-break-inside: avoid;
+            page-break-inside: avoid;
+            break-inside: avoid;
+            break-inside: avoid-column;
+
             label.field-label{
-              @include font(17, 'r', 20)
+              @include font(17, 'r', 20);
+              /* hack to make text not wrap between columns in chrome */
+              overflow: hidden;
             }
           }
         }
