@@ -29,11 +29,11 @@
           = item.director
       %ul.address
         - if item.city.present?
-          - if item.city == item.region.name && item.city == item.municipality.name
+          - if item.region.present? && item.municipality.present? && item.city == item.region.name && item.city == item.municipality.name
             %li
               %strong= t('shared.city_village') + ':'
               = item.city
-          -elsif item.city == item.municipality.name
+          -elsif item.municipality.present? && item.city == item.municipality.name
             %li
               %strong= t('shared.region') + ':'
               = item.region.name
@@ -43,10 +43,10 @@
         - else
           %li
             %strong= t('shared.region') + ':'
-            = item.region.name
+            = item.region.name if item.region.present?
           %li
             %strong= t('shared.municipality') + ':'
-            = item.municipality.name
+            = item.municipality.name if item.municipality.present?
       %ul.contact
         - if item.address.present?
           %li
