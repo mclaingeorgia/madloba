@@ -25,12 +25,15 @@ body.places{
     .section{
       padding: 20px 0;
       &.send-invitation{
+        input[type="text"]{
+          @include font(19);
+        }
         input[type="submit"]{
           background-color: #009b72;
           color: #ffffff;
           border: 1px solid transparent;
           display: inline-block;
-          @include font(18, 'b');
+          @include font(19, 'sb');
           padding: 6px 27px;
         }
         label{

@@ -192,9 +192,12 @@
             }
             .box.info {
               width: 55%;
-              padding: 95px 0 0 56px;
+              padding: 35px 10px 0 35px;
+              &:lang(en){
+                padding-top: 45px;
+              }
               .name {
-                padding: 0 0 33px;
+                padding: 0 0 20px;
               }
               .info-item {
                 padding: 4px 0;
