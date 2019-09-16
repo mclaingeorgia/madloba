@@ -209,13 +209,13 @@
             color: $text;
             cursor: pointer;
             vertical-align: top;
-            padding: 9px;
-            &:lang(ka){
-              height: 86px;
-              padding: 31px 9px;
-              &.with-wrapping-text{
-                padding: 9px;
-              }
+            height: 86px;
+            padding: 31px 9px;
+            &.two-lines-text{
+              padding: 21px 9px;
+            }
+            &.three-lines-text{
+              padding: 9px 9px;
             }
             &:hover, &.active{
               background-color: #ffca74;
@@ -419,12 +419,12 @@
         .place-services{
           .service-tabs{
             .service-tab{
-              padding: 18px;
-              &:lang(ka){
-                padding: 31px 18px;
-                &.with-wrapping-text{
-                  padding: 18px;
-                }
+              padding: 31px 18px;
+              &.two-lines-text{
+                padding: 18px 18px;
+              }
+              &.three-lines-text{
+                padding: 9px 18px;
               }
             }
           }

@@ -7,24 +7,33 @@ function test_for_service_block_text_wrap(containers){
   console.log('called!')
   if (containers.length > 0){
     console.log('- has ' + containers.length + ' containers')
-    var text, weight, size, family, width;
+    var text, weight, size, family, width, num_lines;
     for(var i=0; i<containers.length;i++){
       console.log(i)
-      text = $(containers[i]).text().trim();
-      weight = $(containers[i]).css('font-weight');
-      size = $(containers[i]).css('font-size');
-      family = $(containers[i]).css('font-family');
-      width = $(containers[i]).width()
-      // console.log('- text = ' + text)
-      // console.log('- font = ' + [weight, size, family].join(' '))
-      // console.log('- container width = ' + width)
-      // console.log('- text width = ' + getTextWidth(text, [weight, size, family].join(' ')))
-      if (getTextWidth(text, [weight, size, family].join(' ')) > width){
-        // found text that is wrapping - apply css class to this container
-        console.log('- long text, applying class!')
-        $(containers[i]).addClass('with-wrapping-text');
-      }else{
-        $(containers[i]).removeClass('with-wrapping-text');
+      text = $(containers[i]).text().trim()
+      weight = $(containers[i]).css('font-weight')
+      size = $(containers[i]).css('font-size')
+      family = $(containers[i]).css('font-family')
+      width = Math.floor($(containers[i]).width())
+      num_lines = Math.floor(getTextWidth(text, [weight, size, family].join(' ')) / width) + 1
+      console.log('- text = ' + text)
+      console.log('- font = ' + [weight, size, family].join(' '))
+      console.log('- container width = ' + width)
+      console.log('- text width = ' + getTextWidth(text, [weight, size, family].join(' ')))
+      console.log('- num lines = ' + num_lines)
+
+      // clear all existing classes
+      $(containers[i]).removeClass('two-lines-text');
+      $(containers[i]).removeClass('three-lines-text');
+
+      if (num_lines === 2){
+        // found text that is wrapping onto 2 lines - apply css class to this container
+        console.log('>>> long text, applying class!')
+        $(containers[i]).addClass('two-lines-text');
+      }else if (num_lines === 3){
+        // found text that is wrapping onto 3 lines - apply css class to this container
+        console.log('>>> long text, applying class!')
+        $(containers[i]).addClass('three-lines-text');
       }
 
     }

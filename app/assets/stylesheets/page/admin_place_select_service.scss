@@ -53,20 +53,20 @@ body.places.select_service{
               border-radius: 5px;
               border: 1px solid #dedede;
               background-color: #ffffff;
-              padding: 18px;
               text-align: center;
               @include font(18, 'b', 22);
               color: #373f51;
+              height: 86px;
+              padding: 31px 18px;
+              white-space: inherit;
+              &.two-lines-text{
+                padding: 18px 18px;
+              }
+              &.three-lines-text{
+                padding: 9px 18px;
+              }
               &:before{
                 all: unset;
-              }
-              &:lang(ka){
-                height: 86px;
-                white-space: inherit;
-                padding: 31px 18px;
-                &.with-wrapping-text{
-                  padding: 18px;
-                }
               }
             }
             input[type="radio"] + label:hover, input[type="radio"]:checked + label{
@@ -161,12 +161,12 @@ body.places.select_service{
             .radio{
               width: calc(33% - 20px);
               input[type="radio"] + label{
-                padding: 24px;
-                &:lang(ka){
-                  padding: 31px 24px;
-                  &.with-wrapping-text{
-                    padding: 24px;
-                  }
+                padding: 31px 24px;
+                &.two-lines-text{
+                  padding: 18px 18px;
+                }
+                &.three-lines-text{
+                  padding: 9px 18px;
                 }
               }
             }

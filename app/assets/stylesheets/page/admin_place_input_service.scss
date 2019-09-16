@@ -79,12 +79,13 @@ body.places.input_service{
           color: #373f51;
           cursor: pointer;
           vertical-align: top;
-          &:lang(ka){
-            height: 86px;
-            padding: 31px 18px;
-            &.with-wrapping-text{
-              padding: 18px;
-            }
+          height: 86px;
+          padding: 31px 18px;
+          &.two-lines-text{
+            padding: 18px 18px;
+          }
+          &.three-lines-text{
+            padding: 9px 18px;
           }
           &.active{
             cursor: default;
@@ -204,11 +205,13 @@ body.places.input_service{
       form{
         .services{
           li{
-            padding: 24px;
             width: calc(33% - 20px);
             padding: 31px 24px;
-            &.with-wrapping-text{
-              padding: 24px;
+            &.two-lines-text{
+              padding: 18px 18px;
+            }
+            &.three-lines-text{
+              padding: 9px 18px;
             }
           }
         }
