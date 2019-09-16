@@ -123,4 +123,14 @@
   }
 
   select_service.init()
+
+  // if service tabs have wrapped text, adjust them so text is vertically centered
+  test_for_service_block_text_wrap($('body.places.select_service form .fields-group.columns .field-wrapper .root-services .radio input[type="radio"] + label'))
+
+  // when resize, check the text wrap again
+  $(window).resize(function(evt){
+    test_for_service_block_text_wrap($('body.places.select_service form .fields-group.columns .field-wrapper .root-services .radio input[type="radio"] + label'))
+  })
+
 }())
+

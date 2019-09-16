@@ -55,7 +55,7 @@ body.places.select_service{
               background-color: #ffffff;
               padding: 18px;
               text-align: center;
-              @include font(18, 'b');
+              @include font(18, 'b', 22);
               color: #373f51;
               &:before{
                 all: unset;
@@ -63,6 +63,10 @@ body.places.select_service{
               &:lang(ka){
                 height: 86px;
                 white-space: inherit;
+                padding: 31px 18px;
+                &.with-wrapping-text{
+                  padding: 18px;
+                }
               }
             }
             input[type="radio"] + label:hover, input[type="radio"]:checked + label{
@@ -158,6 +162,12 @@ body.places.select_service{
               width: calc(33% - 20px);
               input[type="radio"] + label{
                 padding: 24px;
+                &:lang(ka){
+                  padding: 31px 24px;
+                  &.with-wrapping-text{
+                    padding: 24px;
+                  }
+                }
               }
             }
           }

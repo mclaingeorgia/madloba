@@ -70,18 +70,21 @@ body.places.input_service{
           display: block;
           width: 100%;
           margin: 0 5px 10px 0;
-          padding: 0;
           border-radius: 5px;
           border: 1px solid #dedede;
           background-color: #ffffff;
           padding: 18px;
           text-align: center;
-          @include font(18, 'b');
+          @include font(18, 'b', 22);
           color: #373f51;
           cursor: pointer;
           vertical-align: top;
           &:lang(ka){
             height: 86px;
+            padding: 31px 18px;
+            &.with-wrapping-text{
+              padding: 18px;
+            }
           }
           &.active{
             cursor: default;
@@ -203,6 +206,10 @@ body.places.input_service{
           li{
             padding: 24px;
             width: calc(33% - 20px);
+            padding: 31px 24px;
+            &.with-wrapping-text{
+              padding: 24px;
+            }
           }
         }
       }

@@ -3,6 +3,7 @@
 //= require hook/click
 //= require hook/keydown
 //= require hook/resize
+//= require component/service_block_text_wrap
 
 var pollution = {
   hooks: {

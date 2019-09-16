@@ -204,14 +204,18 @@
             border-radius: 5px;
             border: 1px solid #dedede;
             background-color: #ffffff;
-            padding: 9px;
             text-align: center;
             @include font(18, 'b', 22);
             color: $text;
             cursor: pointer;
             vertical-align: top;
+            padding: 9px;
             &:lang(ka){
               height: 86px;
+              padding: 31px 9px;
+              &.with-wrapping-text{
+                padding: 9px;
+              }
             }
             &:hover, &.active{
               background-color: #ffca74;
@@ -416,6 +420,12 @@
           .service-tabs{
             .service-tab{
               padding: 18px;
+              &:lang(ka){
+                padding: 31px 18px;
+                &.with-wrapping-text{
+                  padding: 18px;
+                }
+              }
             }
           }
         }
