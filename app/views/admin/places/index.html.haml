@@ -11,7 +11,7 @@
         %tr
           %th.spacer{'data-orderable': 'false'}
           %th= @model.human_attribute_name(:name)
-          %th= @model.human_attribute_name(:address)
+          / %th= @model.human_attribute_name(:address)
           / %th= @model.human_attribute_name(:city)
           / %th= @model.human_attribute_name(:region)
           %th= @model.human_attribute_name(:services)
@@ -23,8 +23,11 @@
           - services = item.place_services.only_active.sort_by{|x| x.service.name}
           %tr
             %td
-            %td= item.name
-            %td= item.address_full
+            %td
+              = item.name
+              %br
+              =item.address_full
+            / %td= item.address_full
             / %td= item.city
             / %td= item.region.present? ? item.region.name : ''
             %td.services
