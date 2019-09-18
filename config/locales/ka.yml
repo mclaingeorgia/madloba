@@ -157,9 +157,9 @@ ka:
         tags: ჩაწერეთ კატეგორიის დასახელება და დააჭირეთ "enter" -ს
   app:
     languages:
-      en: ინგლისური
+      en: English
       ka: ქართული
-      _en: 'ინგლისური '
+      _en: English
       _ka: ქართული
     common:
       name: შეაღე
