@@ -54,23 +54,23 @@ class Place < ActiveRecord::Base
     belongs_to :region#, required: true
     belongs_to :municipality#, required: true
 
-    has_many :favorite_places
+    has_many :favorite_places, dependent: :destroy
     has_many :favoritors, through: :favorite_places, source: :user
 
-    has_many :place_services
+    has_many :place_services, dependent: :destroy
     has_many :services, through: :place_services, source: :service
 
 
-    has_many :place_tags
+    has_many :place_tags, dependent: :destroy
     has_many :tags, through: :place_tags, source: :tag
 
-    has_many :place_rates
+    has_many :place_rates, dependent: :destroy
     has_many :rates, through: :place_rates, source: :user
 
     has_many :place_ownerships, dependent: :destroy
     has_many :ownership_requests, through: :place_ownerships, source: :user
 
-    has_many :uploads
+    has_many :uploads, dependent: :destroy
 
 
     attr_accessor :redirect_default

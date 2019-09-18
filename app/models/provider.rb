@@ -27,10 +27,10 @@ class Provider < ActiveRecord::Base
 
   # associations
     belongs_to :user, foreign_key: "created_by"
-    has_many :provider_users
+    has_many :provider_users#, dependent: :destroy
     has_many :users, through: :provider_users, source: :user
 
-    has_many :provider_places
+    has_many :provider_places#, dependent: :destroy
     has_many :places, -> { where( 'places.deleted': false) }, through: :provider_places, source: :place
 
   # callbacks
