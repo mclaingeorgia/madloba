@@ -159,7 +159,7 @@ en:
   app:
     languages:
       en: English
-      ka: ქართული
+      ka: Georgian
       _en: English
       _ka: ქართული
     common:
@@ -213,7 +213,7 @@ en:
       record_not_found: "%{obj} could not be found."
       confirm_leave_form: You have unsaved changes. Are you sure you want to leave
         without saving?
-      no_data: You do not have any %{obj} records in the database.
+      no_data: There are no %{obj} records in the system at this time.
       success_accepted: "%{obj} was successfully accepted."
       success_sent: "%{obj} was successfully sent."
       success_removed: "%{obj} was successfully removed."
@@ -352,7 +352,7 @@ en:
         root_service: Select a Service Category
         services: Select All Services That Apply
         no_selection: Select a Service Category to see a list of Services
-        all_sub_services_in_use: All services in this category have already been added to this organisation
+        all_sub_services_in_use:
         view_root_services: Show Service Categories
       input_service:
         place: organisation

@@ -1,4 +1,3 @@
 Untranslated String ID
 ======================
-en.admin.places.select_service.all_sub_services_in_use
 en.root.place.service.service_type

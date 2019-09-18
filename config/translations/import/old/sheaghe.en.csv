@@ -161,7 +161,7 @@ Using it you will be able to find information about any service registered in Ge
 ,en.app.messages.missing_services,Services must be selected.,Services must be selected.,,
 ,en.app.messages.record_not_found,%{obj} could not be found.,%{obj} could not be found.,,
 ,en.app.messages.confirm_leave_form,You have unsaved changes. Are you sure you want to leave without saving?,You have unsaved changes. Are you sure you want to leave without saving?,,
-,en.app.messages.no_data,There are no %{obj} records in the system at this time.,There are no %{obj} records in the system at this time.,,
+,en.app.messages.no_data,You do not have any %{obj} records in the database.,You do not have any %{obj} records in the database.,,
 ,en.app.messages.success_accepted,%{obj} was successfully accepted.,%{obj} was successfully accepted.,,
 ,en.app.messages.success_sent,%{obj} was successfully sent.,%{obj} was successfully sent.,,
 ,en.app.messages.success_removed,%{obj} was successfully removed.,%{obj} was successfully removed.,,
