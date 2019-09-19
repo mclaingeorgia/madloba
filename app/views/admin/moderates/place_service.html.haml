@@ -29,4 +29,4 @@
               = link_to t('admin.shared.view'), place_path(item.place_id), class: 'view', target: :blank
               = link_to t('admin.shared.edit'), manage_place_input_service_path(item.place_id, item.id), class: 'edit', target: :blank
 -else
-  .msg-no-data= t('app.messages.no_data', obj: @model.human)
+  .msg-no-data= t('app.messages.no_data', obj: PlaceService.human)
