@@ -102,7 +102,15 @@ class User < ActiveRecord::Base
       self.role = :admin if self.promote == 'true' && !self.admin?
     end
   #scopes
-    default_scope { where.not(email: 'application@sheaghe.ge').where(deleted: false) }
+    default_scope { exclude_app_user.active }
+
+    def self.exclude_app_user
+      where.not(email: 'application@sheaghe.ge')
+    end
+
+    def self.active
+      where(deleted: false)
+    end
 
     def self.sorted
       joins(sanitize_sql_array(['LEFT JOIN "user_translations" ON "users"."id" = "user_translations"."user_id" AND "user_translations"."locale" = ?', I18n.locale]))
