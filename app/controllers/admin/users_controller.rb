@@ -6,7 +6,7 @@ class Admin::UsersController < AdminController
 
   def index
     authorize @model
-    @items = @model.sorted
+    @items = @model.unscoped.exclude_app_user.sorted
   end
 
   def new
