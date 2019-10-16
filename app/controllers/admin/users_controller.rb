@@ -125,7 +125,7 @@ class Admin::UsersController < AdminController
   end
 
   def restore
-    item = @model.find(params[:id])
+    item = @model.unscoped.exclude_app_user.find(params[:id])
     authorize item
 
     if item.update_attributes(deleted: false)
