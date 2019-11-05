@@ -11,7 +11,7 @@
 
           .field-wrapper
             %label.field-label= p.human_attribute(:region, true, true)
-            = f.collection_select :region_id, Region.sorted, :id, :name, {include_blank: true}, { class: 'field-input select2' }
+            = f.select :region_id, options_for_select(Region.sorted.map {|r| [r.name, r.id, {'data-lat' => r.latitude, 'data-lon' => r.longitude }]}, f.object.region_id), {include_blank: true}, { class: 'field-input select2' }
           .field-wrapper
             %label.field-label= p.human_attribute(:municipality, true, true)
             = f.collection_select :municipality_id, Municipality.sorted, :id, :name, {include_blank: true}, { class: 'field-input select2' }

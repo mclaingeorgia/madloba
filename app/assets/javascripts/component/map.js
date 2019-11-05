@@ -86,6 +86,10 @@
           mp.on('click', function(e) {
             locate(e.latlng)
           });
+          $('#place_region_id').on('change', function(){
+            var $selected_option = $(this).find('option:selected')
+            mp.flyTo([$selected_option.data('lat'), $selected_option.data('lon')], 10)
+          })
           $('.map-locator').click(function () {
             mp.locate({setView: true, maxZoom: 16});
           })
