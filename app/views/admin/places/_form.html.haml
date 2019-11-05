@@ -57,10 +57,11 @@
         - assets.delete_if {|x| x.id == picked.id }
         - assets.unshift(picked)
       - assets.each do |asset|
-        .field-wrapper.field-asset{'data-asset-id': asset.id, class: asset.id == f.object.poster_id ? 'picked' : nil }
+        .field-wrapper.field-asset{'data-asset-id': asset.id, class: f.object.id.present? && asset.id == f.object.poster_id ? 'picked' : nil }
           = image_tag asset.image.thumb.url
-          .field-input
-            = link_to t("shared.delete_image"), destroy_asset_manage_place_path(f.object.id, place: { assets_attributes: { id: asset.id, "_destroy" => true }}), remote: true, method: :put, 'data-type': 'json', data: { confirm: t('shared.are_you_sure') }
+          - if f.object.id.present?
+            .field-input
+              = link_to t("shared.delete_image"), destroy_asset_manage_place_path(f.object.id, place: { assets_attributes: { id: asset.id, "_destroy" => true }}), remote: true, method: :put, 'data-type': 'json', data: { confirm: t('shared.are_you_sure') }
       - if f.object.id.present?
         .poster_instructions= t('.poster_instructions')
     .actions
