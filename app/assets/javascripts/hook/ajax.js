@@ -44,6 +44,11 @@
         }
         if(json.hasOwnProperty('remove_asset')) {
           $('[data-asset-id="' + json.remove_asset + '"]').remove()
+
+          // if the poster id field exists, see if need to reset the value
+          if ($('#place_poster_id').length > 0 && $('#place_poster_id').val() === json.remove_asset){
+            $('#place_poster_id').val(null)
+          }
         }
         // if(json.hasOwnProperty('remove_place')) {
         //   $('[data-place-id="' + json.remove_place + '"]').remove()
