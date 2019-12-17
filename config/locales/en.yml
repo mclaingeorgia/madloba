@@ -159,7 +159,7 @@ en:
   app:
     languages:
       en: English
-      ka: ქართული
+      ka: Georgian
       _en: English
       _ka: ქართული
     common:
@@ -544,13 +544,13 @@ en:
       take_ownership_underway: Ownership Under Consideration
       share: Share
       service_tags: 'Tags:'
-      comments: Comments
+      comments: 'Write to service provider '
       service:
         description: Short description of service
         restricted_geographic_area:
           'true': Service is available to residents of the following municipalities
           'false': Service is available to persons in all regions of Georgia
-        service_type:
+        service_type: Service Type
         municipality: The service is funded by Municipality
         state: The service is Central government
         private_org: The service is Private (not supported by local or central government)

@@ -67,7 +67,7 @@ ka:
         username: მომხმარებლის სახელი
         email: ელ.ფოსტა
         password_confirmation: პაროლის დადასტურება
-        is_service_provider: გსურთ სერვისის გასაჯაროება?
+        is_service_provider: გსურთ მომსახურების რეგისტრაცია?
         roles:
           user: მომხმარებელი
           provider: ორგანიზაცია
@@ -212,9 +212,7 @@ ka:
       record_not_found: "%{obj} ვერ მოიძებნა"
       confirm_leave_form: 'ზოგიერთი ცვლილება არ არის დამახსოვრებული. გსურთ გამოსვლა
         ინფორმაციის დამახსოვრების გარეშე? '
-      no_data: |2-
-
-        მოცემულ ეტაპზე, სისტემაში ჩანაწერები %{obj} ის  შესახებ არ მოიპოვება
+      no_data: "\nმოცემულ ეტაპზე ჩანაწერები %{obj}ს  შესახებ არ  იძებნება "
       success_accepted: "%{obj} წარმატებით იქნა მიღებული."
       success_sent: "%{obj} წარმატებით გაიგზავნა."
       success_removed: "%{obj} წარმატებით გაუქმდა."
@@ -304,15 +302,15 @@ ka:
       actions: მოქმედება
       assign: განაწილება
       view: ნახვა
-      add_model: დამატება %{name}
-      edit_model: რედაქტირება %{name}
-      manage_model: მართვა %{name}
+      add_model: "%{name}ს  დამატება"
+      edit_model: "%{name}ს რედაქტირება"
+      manage_model: "%{name}ს მართვა"
       create_model: შექმნა %{name}
       confirm_delete_model: "%{name} წაიშლება."
       confirm_restore_model: "%{name} აღდგება."
       search_assign_placeholder: 'ინფორმაციის მოძიება (მინ. 3 მახასიათებელი)  '
       add_service: მომსახურების დამატება
-      add_service_for_place: მომსახურების დამატება  %{place} - სთვის
+      add_service_for_place: მომსახურების დამატება  %{place}სთვის
       input_service_for_place: "%{place}-ს ინფორმაცია '%{service}'-ზე"
       invitations_for_place: "%{place} - ზე წვდომა "
       manage_access: წვდომა
@@ -350,7 +348,7 @@ ka:
       select_service:
         place: ორგანიზაცია
         root_service: აირჩიე მომსახურების ტიპი
-        services: აირჩიე მომსახურება / ები, რომელსაც აწვდი
+        services: აირჩიე მომსახურება/მომსახურებები, რომელსაც აწვდი
         no_selection: 'აირჩიე მომსახურების ტიპი, რომ ნახო  მასში შემავალი ჩამონათვალი '
         all_sub_services_in_use:
         view_root_services: აჩვენე მომსახურების ტიპები
@@ -546,13 +544,13 @@ ka:
       take_ownership_underway: 'მონაცემების მართვის უფლება განხილვის პროცესშია '
       share: გაზიარება
       service_tags: 'კატეგორია:'
-      comments: კომენტარი
+      comments: 'მიწერე მომსახურების მიმწოდებელ ორგანიზაციას '
       service:
         description: მომსახურების მოკლე აღწერა
         restricted_geographic_area:
           'true': მომსახურება მიეწოდება შემდეგ მუნიციპალიტეტში / ებში მცხოვრებ პირს
           'false': მომსახურება მიეწოდება ნებისმიერ გეოგრაფიულ არეალში მცხოვრებ პირს
-        service_type:
+        service_type: სერვისები
         municipality: მომსახურების ფინანსური მხარდამჭერია მუნიციპალიტეტი
         state: მომსახურების ფინანსური მხარდამჭერია ცენტრალური ხელისუფლება
         private_org: მომსახურება კერძოა
