@@ -134,7 +134,7 @@ class Place < ActiveRecord::Base
 
   # validators
 
-    validates :name, :region_id, :municipality_id, presence: true
+    validates :name, :region_id, :municipality_id, :city, :address, presence: true
     # validates :provider_id, presence: true
 
     # validates :emails, array: { email: true }
