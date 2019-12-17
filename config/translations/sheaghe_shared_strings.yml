@@ -7,29 +7,27 @@
 - - en.activerecord.models.user.other
   - en.admin.menu.users
 - - en.activerecord.models.provider.one
-  - en.activerecord.attributes.user.roles.provider
-  - en.activerecord.attributes.user.providers.one
   - en.activerecord.attributes.place.provider
   - en.notification.moderator_response.labels.provider
 - - en.activerecord.models.provider.other
-  - en.activerecord.attributes.user.providers.other
   - en.admin.menu.providers
 - - en.activerecord.models.place.one
-  - en.activerecord.attributes.place_invitation.place
+  - en.activerecord.attributes.user.roles.provider
+  - en.activerecord.attributes.user.providers.one
   - en.activerecord.attributes.place_service.place
   - en.activerecord.attributes.place_user.place
   - en.admin.places.select_service.place
-  - en.admin.places.input_service.place
   - en.notification.moderator_response.labels.place
   - en.notification.photo_upload.labels.place
 - - en.activerecord.models.place.other
-  - en.admin.menu.manage_places
+  - en.activerecord.attributes.user.providers.other
   - en.admin.menu.places
 - - en.activerecord.models.service.one
   - en.activerecord.models.place_service.one
   - en.activerecord.attributes.place_service.service
 - - en.activerecord.models.service.other
   - en.activerecord.models.place_service.other
+  - en.activerecord.attributes.service.sub_services
   - en.activerecord.attributes.place.services
   - en.shared.services
   - en.admin.menu.services
@@ -37,8 +35,6 @@
   - en.admin.menu.page_contents
 - - en.activerecord.models.page_content_item.other
   - en.admin.page_contents.list
-- - en.activerecord.models.resource.other
-  - en.admin.menu.resources
 - - en.activerecord.models.resource_item.other
   - en.admin.menu.resource_items
   - en.admin.resources.list
@@ -71,6 +67,8 @@
   - en.shared.region
 - - en.activerecord.attributes.place.municipality
   - en.shared.municipality
+- - en.activerecord.attributes.place_invitation.place
+  - en.admin.menu.manage_places
 - - en.activerecord.attributes.place_service.is_restricited_geographic_area
   - en.root.place.service.restricted_geographic_area.false
 - - en.activerecord.attributes.place_service.has_age_restriction
@@ -98,10 +96,12 @@
   - en.admin.shared.save
 - - en.app.messages.accepted
   - en.app.messages.success_accepted
-- - en.shared.rating
-  - en.root.place.rating
+- - en.shared.overall_rating_js
+  - en.shared.rating
 - - en.shared.add
   - en.admin.shared.add
+- - en.shared.add_sub_service
+  - en.admin.shared.add_service
 - - en.shared.favorite
   - en.messages.favorite_place
 - - en.admin.providers.list.manage
@@ -115,8 +115,6 @@
   - en.admin.manage_places.index
 - - en.admin.moderate_photos.index
   - en.admin.menu.moderate_photos
-- - en.admin.menu.place_tags
-  - en.admin.menu.place_tag
 - - en.admin.moderates.place_tag.created_by
   - en.admin.moderates.new_provider.created_by
 - - en.application.dialog.contact
