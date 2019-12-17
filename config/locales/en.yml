@@ -299,7 +299,7 @@ en:
       add: Add
       save: Save
       cancel: Cancel
-      reset: ვიეწ
+      reset: Reset
       edit: Edit
       delete: Delete
       actions: Actions
@@ -327,6 +327,7 @@ en:
       position: Position
       invite: Invite
       revoke_access: Revoke Access
+      restore: Restore
     providers:
       confirm_delete: Provider will be removed with all places bind to it.
       confirm_restore: Provider will be restored with all places bind to it.

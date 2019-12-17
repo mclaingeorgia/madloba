@@ -53,9 +53,10 @@
 
       - picked = nil
       - if f.object.poster_id.present?
-        - picked = f.object.assets.find(f.object.poster_id)
-        - assets.delete_if {|x| x.id == picked.id }
-        - assets.unshift(picked)
+        - picked = assets.select{|x| x.id == f.object.poster_id}.first
+        - if picked.present?
+          - assets.delete_if {|x| x.id == picked.id }
+          - assets.unshift(picked)
       - assets.each do |asset|
         .field-wrapper.field-asset{'data-asset-id': asset.id, class: f.object.id.present? && asset.id == f.object.poster_id ? 'picked' : nil }
           = image_tag asset.image.thumb.url

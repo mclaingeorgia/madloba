@@ -324,6 +324,7 @@ ka:
       position: პოზიცია
       invite: მოწვევა
       revoke_access: წვდომის გაუქმება
+      restore: აღდგენა
     providers:
       confirm_delete: მოხდება მომსახურების მიმწოდებლის და მასთან დაკავშირებული ყველა
         ადგილის წაშლა.
