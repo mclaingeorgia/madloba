@@ -82,11 +82,11 @@
               = b.radio_button class: 'field-input'
               = b.label class: 'field-label service' do
                 = b.text
-      = f.input :diagnoses, as: :array, wrapper_html: {class: 'indent diagnoses'}, input_html: {'data-max': 5}
+      = f.input :diagnoses, as: :array, wrapper_html: {class: 'indent diagnoses'}, input_html: {'data-max': 10}
 
     .fields-wrapper
-      = f.input :service_activities, as: :array, input_html: {'data-max': 5}
-      = f.input :service_specialists, as: :array, input_html: {'data-max': 5}
+      = f.input :service_activities, as: :array, input_html: {'data-max': 10}
+      = f.input :service_specialists, as: :array, input_html: {'data-max': 10}
 
     .fields-wrapper
       = f.input :get_involved_link, as: :string
