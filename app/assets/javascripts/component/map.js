@@ -90,6 +90,10 @@
             var $selected_option = $(this).find('option:selected')
             mp.flyTo([$selected_option.data('lat'), $selected_option.data('lon')], 10)
           })
+          $('#place_municipality_id').on('change', function(){
+            var $selected_option = $(this).find('option:selected')
+            mp.flyTo([$selected_option.data('lat'), $selected_option.data('lon')], 12)
+          })
           $('.map-locator').click(function () {
             mp.locate({setView: true, maxZoom: 16});
           })

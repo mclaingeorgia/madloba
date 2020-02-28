@@ -14,7 +14,7 @@
             = f.select :region_id, options_for_select(Region.sorted.map {|r| [r.name, r.id, {'data-lat' => r.latitude, 'data-lon' => r.longitude }]}, f.object.region_id), {include_blank: true}, { class: 'field-input select2' }
           .field-wrapper
             %label.field-label= p.human_attribute(:municipality, true, true)
-            = f.collection_select :municipality_id, Municipality.sorted, :id, :name, {include_blank: true}, { class: 'field-input select2' }
+            = f.select :municipality_id, options_for_select(Municipality.sorted.map {|m| [m.name, m.id, {'data-lat' => m.latitude, 'data-lon' => m.longitude }]}, f.object.municipality_id), {include_blank: true}, { class: 'field-input select2' }
           = f.input :city, as: :string
           = f.input :address, as: :string
           = f.input :postal_code
