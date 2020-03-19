@@ -39,6 +39,6 @@ class Admin::PageContentsController < AdminController
   private
 
     def strong_params
-      params.require(:page_content).permit(*@model.globalize_attribute_names, page_content_items_attributes: [:id, :order, *PageContentItem.globalize_attribute_names])
+      params.require(:page_content).permit(*@model.globalize_attribute_names, page_content_items_attributes: [:id, :order, "_destroy", *PageContentItem.globalize_attribute_names])
     end
 end
