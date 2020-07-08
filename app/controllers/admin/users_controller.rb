@@ -115,7 +115,7 @@ class Admin::UsersController < AdminController
     item = @model.find(params[:id])
     authorize item
 
-    if item.update_attributes(deleted: true)
+    if item.update_attribute(:deleted, true)
       flash[:success] =  t("app.messages.success_destroyed", obj: "#{@model.human} #{item.name}")
     else
       flash[:error] =  t('app.messages.fail_destroyed', obj: "#{@model.human} #{item.name}")
@@ -128,7 +128,7 @@ class Admin::UsersController < AdminController
     item = @model.unscoped.exclude_app_user.find(params[:id])
     authorize item
 
-    if item.update_attributes(deleted: false)
+    if item.update_attribute(:deleted, false)
       flash[:success] =  t("app.messages.success_restored", obj: "#{@model.human} #{item.name}")
     else
       flash[:error] =  t('app.messages.fail_restored', obj: "#{@model.human} #{item.name}")

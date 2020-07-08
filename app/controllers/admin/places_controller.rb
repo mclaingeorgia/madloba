@@ -147,7 +147,7 @@ class Admin::PlacesController < AdminController
     item = @model.find(params[:id])
     authorize item
 
-    if item.update_attributes(deleted: 1)
+    if item.update_attribute(:deleted, 1)
       flash[:success] =  t("app.messages.success_destroyed", obj: "#{@model.human} #{item.name}")
     else
       flash[:error] =  t('app.messages.fail_destroyed', obj: "#{@model.human} #{item.name}")
@@ -161,7 +161,7 @@ class Admin::PlacesController < AdminController
     item = @model.find(params[:id])
     authorize item
 
-    if item.update_attributes(deleted: 0)
+    if item.update_attribute(:deleted, 0)
       flash[:success] =  t("app.messages.success_restored", obj: "#{@model.human} #{item.name}")
     else
       flash[:error] =  t('app.messages.fail_restored', obj: "#{@model.human} #{item.name}")
@@ -294,7 +294,7 @@ class Admin::PlacesController < AdminController
     item = place.place_services.where(id: params[:id]).first
     authorize place
 
-    if item.update_attributes(deleted: 1)
+    if item.update_attribute(:deleted, 1)
       flash[:success] =  t("app.messages.success_destroyed", obj: "#{PlaceService.model_name.human} #{item.service.name}")
     else
       flash[:error] =  t('app.messages.fail_destroyed', obj: "#{PlaceService.model_name.human} #{item.service.name}")
