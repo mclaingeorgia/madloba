@@ -28,4 +28,15 @@ class NotificationMailer < ActionMailer::Base
     end
   end
 
+  def place_change(place, message)
+    @message = message
+    @place = place
+    mail(:to => message.to, :subject => message.subject) do |format|
+      format.html { render 'mailers/notification/place_change' }
+      format.text { render 'mailers/notification/place_change' }
+    end
+  end
+
+
+
 end

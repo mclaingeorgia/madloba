@@ -1,0 +1,61 @@
+- I18n.available_locales.each_with_index do |locale, locale_i|
+  - I18n.locale = locale
+
+
+  .intro= @message.message
+
+
+  %ul
+    %li
+      = @place.name
+    - if @place.director.present?
+      %li
+        = t('shared.director') + ':'
+        = @place.director
+    - if @place.city.present?
+      - if @place.region.present? && @place.municipality.present? && @place.city == @place.region.name && @place.city == @place.municipality.name
+        %li
+          = t('shared.city_village') + ':'
+          = @place.city
+      -elsif @place.municipality.present? && @place.city == @place.municipality.name
+        %li
+          = t('shared.region') + ':'
+          = @place.region.name
+        %li
+          = t('shared.city_village') + ':'
+          = @place.city
+      -else
+        %li
+          = t('shared.region') + ':'
+          = @place.region.name if @place.region.present?
+        %li
+          = t('shared.municipality') + ':'
+          = @place.municipality.name if @place.municipality.present?
+        %li
+          = t('shared.city_village') + ':'
+          = @place.city
+    - else
+      %li
+        = t('shared.region') + ':'
+        = @place.region.name if @place.region.present?
+      %li
+        = t('shared.municipality') + ':'
+        = @place.municipality.name if @place.municipality.present?
+    - if @place.address.present?
+      %li
+        = @place.address
+    - if @place.all_phones.present?
+      %li
+        = @place.all_phones
+
+    - if @place.deleted == 0
+      %li
+        = link_to place_url(id: @place.id, locale: I18n.locale), place_url(id: @place.id, locale: I18n.locale)
+        %br
+        = "(#{t('notification.place.link_info')})"
+
+
+  %br
+  %br
+  - if locale_i != I18n.available_locales.length - 1
+    %hr

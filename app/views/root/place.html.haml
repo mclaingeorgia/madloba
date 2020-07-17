@@ -40,6 +40,16 @@
             %li
               %strong= t('shared.city_village') + ':'
               = item.city
+          - else
+            %li
+              %strong= t('shared.region') + ':'
+              = item.region.name if item.region.present?
+            %li
+              %strong= t('shared.municipality') + ':'
+              = item.municipality.name if item.municipality.present?
+            %li
+              %strong= t('shared.city_village') + ':'
+              = item.city
         - else
           %li
             %strong= t('shared.region') + ':'

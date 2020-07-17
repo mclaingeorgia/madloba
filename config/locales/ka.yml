@@ -664,6 +664,20 @@ ka:
         improper_email: ელ.ფოსტა არ არის სწორი
         text_missing: შეტყობინების ველი ცარიელია
         skynet_detected: Oops
+    place:
+      link_info: The link will not work if the Organization has not added any services yet.
+      new:
+        subject: "Organization was Added: %{place}"
+        intro: "The following organization was just added:"
+      edit:
+        subject: "Organization was Edited: %{place}"
+        intro: "The following organization was just edited:"
+      delete:
+        subject: "Organization was Deleted: %{place}"
+        intro: "The following organization was just deleted:"
+      restore:
+        subject: "Organization was Restored: %{place}"
+        intro: "The following organization was just restored:"
   errors:
     oops: Oops!
     not_found: 404 გვერდი არ მოიძებნა

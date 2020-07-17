@@ -58,6 +58,8 @@ class Admin::PlacesController < AdminController
       #   provider.places << item
       # end
 
+      send_place_change_notification(item, 'new')
+
       flash[:success] = t('app.messages.success_updated', obj: @model)
       redirect_to redirect_path
     else
@@ -110,6 +112,8 @@ class Admin::PlacesController < AdminController
         #   provider.places << item
         # end
 
+        send_place_change_notification(item, 'edit')
+
         flash[:success] = t('app.messages.success_updated', obj: "#{@model.human} #{item.name}")
         format.html { redirect_to redirect_path }
         format.json { render json: { flash: flash.to_hash, remove_asset: pars[:assets_attributes][:id] } }
@@ -149,6 +153,9 @@ class Admin::PlacesController < AdminController
 
     if item.update_attribute(:deleted, 1)
       flash[:success] =  t("app.messages.success_destroyed", obj: "#{@model.human} #{item.name}")
+
+      send_place_change_notification(item, 'delete')
+
     else
       flash[:error] =  t('app.messages.fail_destroyed', obj: "#{@model.human} #{item.name}")
       flash[:error] = format_messages(item)
@@ -163,6 +170,9 @@ class Admin::PlacesController < AdminController
 
     if item.update_attribute(:deleted, 0)
       flash[:success] =  t("app.messages.success_restored", obj: "#{@model.human} #{item.name}")
+
+      send_place_change_notification(item, 'restore')
+
     else
       flash[:error] =  t('app.messages.fail_restored', obj: "#{@model.human} #{item.name}")
     end
@@ -413,5 +423,13 @@ class Admin::PlacesController < AdminController
     end
     def invitation_email_params
       params.permit(:id, :emails)
+    end
+
+    def send_place_change_notification(place, action)
+      message = Message.new
+      message.to = Rails.application.secrets.notification_email
+      message.subject = "#{I18n.t("notification.place.#{action}.subject", locale: :en, place: place.name)}"
+      message.message = "#{I18n.t("notification.place.#{action}.intro", locale: :en)}"
+      NotificationMailer.place_change(place, message).deliver_now
     end
 end
