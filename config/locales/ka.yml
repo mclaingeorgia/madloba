@@ -667,17 +667,17 @@ ka:
     place:
       link_info: The link will not work if the Organization has not added any services yet.
       new:
-        subject: "Organization was Added: %{place}"
-        intro: "The following organization was just added:"
+        subject: "მოხდა ორგანიზაციის დამატება: %{place}"
+        intro: "მოხდა აღნიშნული ორგანიზაციის დამატება:"
       edit:
-        subject: "Organization was Edited: %{place}"
-        intro: "The following organization was just edited:"
+        subject: "მოხდა ორგანიზაციის ცვლილება: %{place}"
+        intro: "მოხდა აღნიშნული ორგანიზაციის ცვლილება:"
       delete:
-        subject: "Organization was Deleted: %{place}"
-        intro: "The following organization was just deleted:"
+        subject: "მოხდა ორგანიზაციის გაუქმება: %{place}"
+        intro: "მოხდა აღნიშნული ორგანიზაციის გაუქმება:"
       restore:
-        subject: "Organization was Restored: %{place}"
-        intro: "The following organization was just restored:"
+        subject: "მოხდა ორგანიზაციის აღდგენა: %{place}"
+        intro: "მოხდა აღნიშნული ორგანიზაციის აღდგენა:"
   errors:
     oops: Oops!
     not_found: 404 გვერდი არ მოიძებნა
