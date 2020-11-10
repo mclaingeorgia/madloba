@@ -176,7 +176,7 @@ class Place < ActiveRecord::Base
       host = nil
       require 'uri'
       url = 'http://' + url unless url.match(/^(https{0,1}:\/\/)/)
-      host = URI.parse(url).host.gsub(/^www\./, '')
+      host = URI.parse(URI.encode(url)).host.gsub(/^www\./, '')
     ensure
       host
     end
