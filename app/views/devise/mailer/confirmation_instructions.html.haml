@@ -2,7 +2,9 @@
 %p= t('mailer.visiting', name: @site_name).html_safe
 %p= t('mailer.welcome')
 %p= t('mailer.account_created', name: @site_name).html_safe
-%p= link_to t('mailer.confirm_account'), confirmation_url(@resource, confirmation_token: @token, locale: I18n.locale)
+%p
+  = "#{t('mailer.confirm_account')}: "
+  = link_to confirmation_url(@resource, confirmation_token: @token, locale: I18n.locale), confirmation_url(@resource, confirmation_token: @token, locale: I18n.locale)
 %p
   = t('mailer.need_assistance')
 %p= t('mailer.thanks', name: @site_name).html_safe

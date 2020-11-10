@@ -1,0 +1,7 @@
+= t('mailer.hello', name:  @resource.email)
+\
+= t('mailer.account_locked')
+\
+= t('mailer.link_unlock')
+\
+="#{t('mailer.unlock_account')}: #{unlock_url(@resource, unlock_token: @token)}"

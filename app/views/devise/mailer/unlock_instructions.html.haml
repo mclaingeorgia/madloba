@@ -3,4 +3,6 @@
 %p
   = t('mailer.link_unlock')
   \:
-%p= link_to t('mailer.unlock_account'), unlock_url(@resource, unlock_token: @token)
+%p
+  ="#{t('mailer.unlock_account')}: "
+  = link_to unlock_url(@resource, unlock_token: @token), unlock_url(@resource, unlock_token: @token)
